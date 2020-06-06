@@ -93,8 +93,13 @@ void loadBodyMedia(Texture& bodySpriteSheetTexture) {
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
-        bodySpriteSheetTexture.loadFromFile( "../Images/Clothing/PlateArmor.png", key);
-        bodySpriteSheetTexture.addSprite(0, 0, 32, 32);
+        bodySpriteSheetTexture.loadFromFile( "../Images/Clothing/CommonClothing.png", key);
+        bodySpriteSheetTexture.addSprite(0, 0, 25, 43);
+        bodySpriteSheetTexture.addSprite(25, 0, 25, 43);
+        bodySpriteSheetTexture.addSprite(50, 0, 25, 43);
+        bodySpriteSheetTexture.addSprite(75, 0, 25, 43);
+        bodySpriteSheetTexture.addSprite(100, 0, 25, 43);
+        bodySpriteSheetTexture.addSprite(125, 0, 25, 43);
     } catch (SDLException& e) {
         throw SDLException("Failed to load sprite sheet texture!\n");
     }
@@ -127,6 +132,8 @@ int main(int argc, char* args[]) {
         //Event handler
         SDL_Event e;
 
+        int i = 0;
+
         //While application is running
         while( !quit )
         {
@@ -145,7 +152,31 @@ int main(int argc, char* args[]) {
             SDL_RenderClear( gRenderer );
 
             //Render top left sprite
-            headSpriteSheetTexture.render( 21, 0, 0, 3 );
+            headSpriteSheetTexture.render( 12, 9, 0, SCALE);
+
+            switch (i) {
+                case 0:
+                    bodySpriteSheetTexture.render( 0, 35,0, SCALE );
+                    break;
+                case 4:
+                    bodySpriteSheetTexture.render( 0, 35,1, SCALE );
+                    break;
+                case 8:
+                    bodySpriteSheetTexture.render( 0, 35,2, SCALE );
+                    break;
+                case 12:
+                    bodySpriteSheetTexture.render( 0, 35,3, SCALE );
+                    break;
+                case 16:
+                    bodySpriteSheetTexture.render( 0, 35,4, SCALE );
+                    break;
+                case 20:
+                    bodySpriteSheetTexture.render( 0, 35,5, SCALE );
+            }
+
+            ++i;
+
+            if (i == 24) i = 0;
 
             //Render top right sprite
             headSpriteSheetTexture.render( SCREEN_WIDTH -
@@ -162,9 +193,6 @@ int main(int argc, char* args[]) {
             headSpriteSheetTexture.getSpriteDimensions(3).width*SCALE,
             SCREEN_HEIGHT - headSpriteSheetTexture.getSpriteDimensions(3).width*SCALE,
             3, SCALE );
-
-            //Render clothes
-            bodySpriteSheetTexture.render( 0, 35,0, SCALE );
 
             //Update screen
             SDL_RenderPresent( gRenderer );
