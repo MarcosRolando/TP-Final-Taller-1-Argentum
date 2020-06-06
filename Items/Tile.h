@@ -5,15 +5,16 @@
 #ifndef ARGENTUM_TILE_H
 #define ARGENTUM_TILE_H
 
-
-#include "Item.h"
 #include <memory>
+#include "Item.h"
+#include "FloorType.h"
 
 class Tile {
 private:
     std::unique_ptr<Item> item;
     std::unique_ptr<Entity> entity;
     bool isOccupable;
+    FloorType floor;
 public:
 
 };
