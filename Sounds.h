@@ -12,17 +12,16 @@
 
 class Sounds {
 private:
-    Mix_Music *gMusic = NULL;
-    Mix_Chunk *gScratch = NULL;
-    Mix_Chunk *gHigh = NULL;
-    Mix_Chunk *gMedium = NULL;
-    Mix_Chunk *gLow = NULL;
+    Mix_Music *Music = NULL;
+    Mix_Chunk *attack = NULL;
+    Mix_Chunk *explotion = NULL;
+    //Ver si agregamos mas sonidos, por ejemplo "punch" para cuando ataca sin
+    // tener equipada un arma
+    //Ver si es mejor meter todos los sonidos en un vector
 public:
     Sounds();
-    void playScratchSound();
-    void playHighSound();
-    void playMediumSound();
-    void playLowSound();
+    void playAttackSound();
+    void playExplotionSound();
     void playMusic();
     void pauseMusic();
     void stopMusic();
@@ -31,6 +30,9 @@ public:
 private:
     void _init();
     void _loadSounds();
+    void _loadSoundFile(Mix_Chunk **sound, const char *path);
+
+    void _loadMusicFile(Mix_Music **music, const char *path);
 };
 
 

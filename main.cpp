@@ -1,28 +1,22 @@
 #include "Sounds.h"
 
-int main( int argc, char* args[] )
+int main( int argc, char* args[] )//Para probar la carga y reproduccion de
+// sonidos
 {
     try {
         Sounds sounds;
-
         char soundToPlay;
         do {
             std::cout << "Que sonido queres papa" << std::endl;
             std::cin >> soundToPlay;
             switch (soundToPlay) {
-                case 'h':
-                    sounds.playHighSound();
+                case 'e':
+                    sounds.playExplotionSound();
+                    break;
+                case 'a':
+                    sounds.playAttackSound();
                     break;
                 case 'm':
-                    sounds.playMediumSound();
-                    break;
-                case 'l':
-                    sounds.playLowSound();
-                    break;
-                case 's':
-                    sounds.playScratchSound();
-                    break;
-                case 'M':
                     sounds.playMusic();
                     break;
                 case 'p':
