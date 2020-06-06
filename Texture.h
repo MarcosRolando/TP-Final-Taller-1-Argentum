@@ -13,6 +13,12 @@
 #include "SDLException.h"
 #include <string>
 
+struct ColorKey_t {
+    unsigned int red;
+    unsigned int green;
+    unsigned int blue;
+};
+
 class Texture {
 private:
     SDL_Renderer& renderer; /*El renderer es uno solo asociado a la ventana (que tambien es una sola)*/
@@ -28,7 +34,7 @@ public:
     ~Texture();
 
     //Loads image at specified path
-    void loadFromFile(const std::string& path);
+    void loadFromFile(const std::string& path, ColorKey_t key);
 
     //Deallocates texture
     void free();

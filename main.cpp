@@ -5,7 +5,6 @@ and may not be redistributed without written permission.*/
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
-#include <string>
 #include "SDLException.h"
 #include <iostream>
 #include "Texture.h"
@@ -82,7 +81,8 @@ void init()
 void loadMedia(Texture& gSpriteSheetTexture) {
 	try {
         //Load sprite sheet texture
-        gSpriteSheetTexture.loadFromFile( "../Images/Heads/HumanHead.png");
+        ColorKey_t key = {0, 0, 0};
+        gSpriteSheetTexture.loadFromFile( "../Images/Heads/HumanHead.png", key);
 
         //Set top left sprite
         gSpriteClips[ 0 ].x = 0;

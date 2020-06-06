@@ -16,12 +16,12 @@ Texture::~Texture() {
     free();
 }
 
-void Texture::loadFromFile(const std::string& path) {
+void Texture::loadFromFile(const std::string& path, ColorKey_t key) {
     //Get rid of preexisting texture
     free();
 
     //The final texture
-    SDL_Texture* newTexture = nullptr;
+    SDL_Texture* newTexture;
 
     //Load image at specified path
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
@@ -31,7 +31,7 @@ void Texture::loadFromFile(const std::string& path) {
     } else {
         //Color key image
         SDL_SetColorKey(loadedSurface, SDL_TRUE,
-                        SDL_MapRGB(loadedSurface->format, 0, 0, 0));
+                        SDL_MapRGB(loadedSurface->format, key.red, key.green, key.blue));
                                 /*Con esto aclaras que pixel hacer transparente*/
 
         //Create texture from surface pixels
