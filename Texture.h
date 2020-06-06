@@ -44,7 +44,8 @@ public:
     //Loads image at specified path
     void loadFromFile(const std::string& path, ColorKey_t key);
 
-    void addSprite(int x, int y, int width, int height); /*Especifica una dimension (un clip) que representa un sprite de la textura*/
+    /*Especifica una dimension (un clip) que representa un sprite de la textura*/
+    void addSprite(int x, int y, int width, int height);
 
     //Deallocates texture
     void free();
