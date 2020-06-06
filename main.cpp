@@ -93,18 +93,15 @@ void loadBodyMedia(Texture& bodySpriteSheetTexture) {
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
-        headSpriteSheetTexture.loadFromFile( "../Images/Heads/HumanHead.png", key);
-        headSpriteSheetTexture.addSprite(0, 0, 17, 15);
-        headSpriteSheetTexture.addSprite(17, 0, 17, 15);
-        headSpriteSheetTexture.addSprite(34, 0, 17, 15);
-        headSpriteSheetTexture.addSprite(51, 0, 17, 15);
+        bodySpriteSheetTexture.loadFromFile( "../Images/Clothing/PlateArmor.png", key);
+        bodySpriteSheetTexture.addSprite(0, 0, 32, 32);
     } catch (SDLException& e) {
         throw SDLException("Failed to load sprite sheet texture!\n");
     }
 }
 
 void close() {
-	//Destroy window	
+	//Destroy window
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
 	gWindow = nullptr;
@@ -148,7 +145,7 @@ int main(int argc, char* args[]) {
             SDL_RenderClear( gRenderer );
 
             //Render top left sprite
-            headSpriteSheetTexture.render( 0, 0, 0, SCALE );
+            headSpriteSheetTexture.render( 21, 0, 0, 3 );
 
             //Render top right sprite
             headSpriteSheetTexture.render( SCREEN_WIDTH -
@@ -165,6 +162,9 @@ int main(int argc, char* args[]) {
             headSpriteSheetTexture.getSpriteDimensions(3).width*SCALE,
             SCREEN_HEIGHT - headSpriteSheetTexture.getSpriteDimensions(3).width*SCALE,
             3, SCALE );
+
+            //Render clothes
+            bodySpriteSheetTexture.render( 0, 35,0, SCALE );
 
             //Update screen
             SDL_RenderPresent( gRenderer );
