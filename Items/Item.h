@@ -8,7 +8,7 @@
 //Clase interfaz de la que heredan todos los items
 class Item {
 public:
-    virtual void use() = 0;
+    virtual void use(Player& player) = 0;
 };
 
 

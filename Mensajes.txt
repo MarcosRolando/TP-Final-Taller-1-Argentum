@@ -1,0 +1,11 @@
+Agus
+- Agregue Player& como parametro de use para que el item sepa como modificar al
+jugador (pocion suma vida, arma se equipa en lugar de arma, etc)
+-
+
+
+Ivi
+
+
+
+Marcos

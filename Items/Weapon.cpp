@@ -14,9 +14,6 @@ Weapon::Weapon(unsigned int minDamage, unsigned int maxDamage) {
 }
 
 
-//VER QUE HACER CON EL DESTRUCTOR PORQUE SE VA A USAR EL DEFAULT
-
-
 unsigned int Weapon::getDamage() {
     srand(clock());
     //Devuelve un numero aleatorio entre minDamage y maxDamage (incluidos)
