@@ -20,22 +20,25 @@ void Sounds::_init() {
     }
 }
 
+//Carga el sonido con el archivo en path
 void Sounds::_loadSoundFile(Mix_Chunk** sound, const char* path){
-    *sound = Mix_LoadWAV(path);//Carga el sonido con el archivo en path
+    *sound = Mix_LoadWAV(path);
     if(*sound == NULL ){
         throw SDLException("Failed to load sound effect! SDL_mixer "
                            "Error: %s\n",Mix_GetError() );
     }
 }
 
+//Carga la musica con el archivo en path
 void Sounds::_loadMusicFile(Mix_Music** music, const char* path){
-    *music = Mix_LoadMUS(path);//Carga la musica con el archivo en path
+    *music = Mix_LoadMUS(path);
     if(*music == NULL ) {
         throw SDLException("Failed to load beat music! SDL_mixer Error: "
                            "%s\n", Mix_GetError());
     }
 }
 
+/* Carga todos los sonidos */
 void Sounds::_loadSounds() {
     _loadMusicFile(&Music, "../Sounds/hkost.wav");
     _loadSoundFile(&attack, "../Sounds/sword.wav");
