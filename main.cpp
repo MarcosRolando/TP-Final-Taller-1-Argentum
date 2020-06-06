@@ -8,42 +8,13 @@ and may not be redistributed without written permission.*/
 #include <string>
 #include "SDLException.h"
 #include <iostream>
+#include "Texture.h"
+
+#define SCALE 3
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
-
-//Texture wrapper class
-class LTexture
-{
-	public:
-		//Initializes variables
-		LTexture();
-
-		//Deallocates memory
-		~LTexture();
-
-		//Loads image at specified path
-		bool loadFromFile( std::string path );
-
-		//Deallocates texture
-		void free();
-
-		//Renders texture at given point
-		void render( int x, int y, SDL_Rect* clip = NULL );
-
-		//Gets image dimensions
-		int getWidth();
-		int getHeight();
-
-	private:
-		//The actual hardware texture
-		SDL_Texture* mTexture;
-
-		//Image dimensions
-		int mWidth;
-		int mHeight;
-};
 
 //Starts up SDL and creates window
 void init();
@@ -55,108 +26,13 @@ void loadMedia();
 void close();
 
 //The window we'll be rendering to
-SDL_Window* gWindow = NULL;
+SDL_Window* gWindow = nullptr;
 
 //The window renderer
-SDL_Renderer* gRenderer = NULL;
+SDL_Renderer* gRenderer = nullptr;
 
 //Scene sprites
 SDL_Rect gSpriteClips[ 4 ];
-LTexture gSpriteSheetTexture;
-
-
-LTexture::LTexture()
-{
-	//Initialize
-	mTexture = NULL;
-	mWidth = 0;
-	mHeight = 0;
-}
-
-LTexture::~LTexture()
-{
-	//Deallocate
-	free();
-}
-
-bool LTexture::loadFromFile( std::string path )
-{
-	//Get rid of preexisting texture
-	free();
-
-	//The final texture
-	SDL_Texture* newTexture = NULL;
-
-	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-	if( loadedSurface == NULL )
-	{
-	    throw SDLException("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
-	}
-	else
-	{
-		//Color key image
-		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
-
-		//Create texture from surface pixels
-        newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
-		if( newTexture == NULL )
-		{
-            throw SDLException("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
-		}
-		else
-		{
-			//Get image dimensions
-			mWidth = loadedSurface->w;
-			mHeight = loadedSurface->h;
-		}
-
-		//Get rid of old loaded surface
-		SDL_FreeSurface( loadedSurface );
-	}
-
-	//Return success
-	mTexture = newTexture;
-	return mTexture != NULL;
-}
-
-void LTexture::free()
-{
-	//Free texture if it exists
-	if( mTexture != NULL )
-	{
-		SDL_DestroyTexture( mTexture );
-		mTexture = NULL;
-		mWidth = 0;
-		mHeight = 0;
-	}
-}
-
-void LTexture::render( int x, int y, SDL_Rect* clip )
-{
-	//Set rendering space and render to screen
-	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
-
-	//Set clip rendering dimensions
-	if( clip != NULL )
-	{
-		renderQuad.w = clip->w;
-		renderQuad.h = clip->h;
-	}
-
-	//Render to screen
-	SDL_RenderCopy( gRenderer, mTexture, clip, &renderQuad );
-}
-
-int LTexture::getWidth()
-{
-	return mWidth;
-}
-
-int LTexture::getHeight()
-{
-	return mHeight;
-}
 
 void init()
 {
@@ -203,63 +79,58 @@ void init()
 	}
 }
 
-void loadMedia()
-{
-	//Load sprite sheet texture
-	if( !gSpriteSheetTexture.loadFromFile( "../Images/Heads/HumanHead.png" ) )
-	{
+void loadMedia(Texture& gSpriteSheetTexture) {
+	try {
+        //Load sprite sheet texture
+        gSpriteSheetTexture.loadFromFile( "../Images/Heads/HumanHead.png");
+
+        //Set top left sprite
+        gSpriteClips[ 0 ].x = 0;
+        gSpriteClips[ 0 ].y = 0;
+        gSpriteClips[ 0 ].w = 17;
+        gSpriteClips[ 0 ].h = 15;
+
+        //Set top right sprite
+        gSpriteClips[ 1 ].x = 17;
+        gSpriteClips[ 1 ].y = 0;
+        gSpriteClips[ 1 ].w = 17;
+        gSpriteClips[ 1 ].h = 15;
+
+        //Set bottom left sprite
+        gSpriteClips[ 2 ].x = 34;
+        gSpriteClips[ 2 ].y = 0;
+        gSpriteClips[ 2 ].w = 17;
+        gSpriteClips[ 2 ].h = 15;
+
+        //Set bottom right sprite
+        gSpriteClips[ 3 ].x = 51;
+        gSpriteClips[ 3 ].y = 0;
+        gSpriteClips[ 3 ].w = 17;
+        gSpriteClips[ 3 ].h = 15;
+	} catch (SDLException& e) {
         throw SDLException("Failed to load sprite sheet texture!\n");
-	}
-	else
-	{
-		//Set top left sprite
-		gSpriteClips[ 0 ].x = 0;
-		gSpriteClips[ 0 ].y = 0;
-		gSpriteClips[ 0 ].w = 17;
-		gSpriteClips[ 0 ].h = 15;
-
-		//Set top right sprite
-		gSpriteClips[ 1 ].x = 17;
-		gSpriteClips[ 1 ].y = 0;
-		gSpriteClips[ 1 ].w = 17;
-		gSpriteClips[ 1 ].h = 15;
-		
-		//Set bottom left sprite
-		gSpriteClips[ 2 ].x = 34;
-		gSpriteClips[ 2 ].y = 0;
-		gSpriteClips[ 2 ].w = 17;
-		gSpriteClips[ 2 ].h = 15;
-
-		//Set bottom right sprite
-		gSpriteClips[ 3 ].x = 51;
-		gSpriteClips[ 3 ].y = 0;
-		gSpriteClips[ 3 ].w = 17;
-		gSpriteClips[ 3 ].h = 15;
 	}
 }
 
-void close()
-{
-	//Free loaded images
-	gSpriteSheetTexture.free();
-
+void close() {
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
-	gWindow = NULL;
-	gRenderer = NULL;
+	gWindow = nullptr;
+	gRenderer = nullptr;
 
 	//Quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
 }
 
-int main( int argc, char* args[] )
-{
+int main(int argc, char* args[]) {
+
 	//Start up SDL and create window
 	try {
         init();
-        loadMedia();
+        Texture gSpriteSheetTexture(*gRenderer);
+        loadMedia(gSpriteSheetTexture);
         //Main loop flag
         bool quit = false;
 
@@ -284,16 +155,16 @@ int main( int argc, char* args[] )
             SDL_RenderClear( gRenderer );
 
             //Render top left sprite
-            gSpriteSheetTexture.render( 0, 0, &gSpriteClips[ 0 ] );
+            gSpriteSheetTexture.render( 0, 0, &gSpriteClips[ 0 ], SCALE );
 
             //Render top right sprite
-            gSpriteSheetTexture.render( SCREEN_WIDTH - gSpriteClips[ 1 ].w, 0, &gSpriteClips[ 1 ] );
+            gSpriteSheetTexture.render( SCREEN_WIDTH - gSpriteClips[ 1 ].w*SCALE, 0, &gSpriteClips[ 1 ], SCALE );
 
             //Render bottom left sprite
-            gSpriteSheetTexture.render( 0, SCREEN_HEIGHT - gSpriteClips[ 2 ].h, &gSpriteClips[ 2 ] );
+            gSpriteSheetTexture.render( 0, SCREEN_HEIGHT - gSpriteClips[ 2 ].h*SCALE, &gSpriteClips[ 2 ], SCALE );
 
             //Render bottom right sprite
-            gSpriteSheetTexture.render( SCREEN_WIDTH - gSpriteClips[ 3 ].w, SCREEN_HEIGHT - gSpriteClips[ 3 ].h, &gSpriteClips[ 3 ] );
+            gSpriteSheetTexture.render( SCREEN_WIDTH - gSpriteClips[ 3 ].w*SCALE, SCREEN_HEIGHT - gSpriteClips[ 3 ].h*SCALE, &gSpriteClips[ 3 ], SCALE );
 
             //Update screen
             SDL_RenderPresent( gRenderer );
