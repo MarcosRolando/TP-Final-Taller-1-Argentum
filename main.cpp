@@ -284,7 +284,7 @@ int main( int argc, char* args[] )
             SDL_RenderClear( gRenderer );
 
             //Render top left sprite
-            gSpriteSheetTexture.render( 0, 0, &gSpriteClips[ 0 ]);
+            gSpriteSheetTexture.render( 0, 0, &gSpriteClips[ 0 ] );
 
             //Render top right sprite
             gSpriteSheetTexture.render( SCREEN_WIDTH - gSpriteClips[ 1 ].w, 0, &gSpriteClips[ 1 ] );
