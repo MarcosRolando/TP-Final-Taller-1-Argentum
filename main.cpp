@@ -30,8 +30,6 @@ SDL_Window* gWindow = nullptr;
 //The window renderer
 SDL_Renderer* gRenderer = nullptr;
 
-
-
 void init()
 {
 	//Initialize SDL
@@ -77,18 +75,32 @@ void init()
 	}
 }
 
-void loadMedia(Texture& gSpriteSheetTexture) {
+void loadHeadMedia(Texture& headSpriteSheetTexture) {
 	try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
-        gSpriteSheetTexture.loadFromFile( "../Images/Heads/HumanHead.png", key);
-        gSpriteSheetTexture.addSprite(0, 0, 17, 15);
-        gSpriteSheetTexture.addSprite(17, 0, 17, 15);
-        gSpriteSheetTexture.addSprite(34, 0, 17, 15);
-        gSpriteSheetTexture.addSprite(51, 0, 17, 15);
+        headSpriteSheetTexture.loadFromFile( "../Images/Heads/HumanHead.png", key);
+        headSpriteSheetTexture.addSprite(0, 0, 17, 15);
+        headSpriteSheetTexture.addSprite(17, 0, 17, 15);
+        headSpriteSheetTexture.addSprite(34, 0, 17, 15);
+        headSpriteSheetTexture.addSprite(51, 0, 17, 15);
 	} catch (SDLException& e) {
         throw SDLException("Failed to load sprite sheet texture!\n");
 	}
+}
+
+void loadBodyMedia(Texture& bodySpriteSheetTexture) {
+    try {
+        //Load sprite sheet texture
+        ColorKey_t key = {0, 0, 0};
+        headSpriteSheetTexture.loadFromFile( "../Images/Heads/HumanHead.png", key);
+        headSpriteSheetTexture.addSprite(0, 0, 17, 15);
+        headSpriteSheetTexture.addSprite(17, 0, 17, 15);
+        headSpriteSheetTexture.addSprite(34, 0, 17, 15);
+        headSpriteSheetTexture.addSprite(51, 0, 17, 15);
+    } catch (SDLException& e) {
+        throw SDLException("Failed to load sprite sheet texture!\n");
+    }
 }
 
 void close() {
@@ -108,8 +120,10 @@ int main(int argc, char* args[]) {
 	//Start up SDL and create window
 	try {
         init();
-        Texture gSpriteSheetTexture(*gRenderer);
-        loadMedia(gSpriteSheetTexture);
+        Texture headSpriteSheetTexture(*gRenderer);
+        Texture bodySpriteSheetTexture(*gRenderer);
+        loadHeadMedia(headSpriteSheetTexture);
+        loadBodyMedia(bodySpriteSheetTexture);
         //Main loop flag
         bool quit = false;
 
@@ -134,22 +148,22 @@ int main(int argc, char* args[]) {
             SDL_RenderClear( gRenderer );
 
             //Render top left sprite
-            gSpriteSheetTexture.render( 0, 0, 0, SCALE );
+            headSpriteSheetTexture.render( 0, 0, 0, SCALE );
 
             //Render top right sprite
-            gSpriteSheetTexture.render( SCREEN_WIDTH -
-                                gSpriteSheetTexture.getSpriteDimensions(1).width*SCALE,
+            headSpriteSheetTexture.render( SCREEN_WIDTH -
+                                headSpriteSheetTexture.getSpriteDimensions(1).width*SCALE,
                                 0, 1, SCALE );
 
             //Render bottom left sprite
-            gSpriteSheetTexture.render( 0, SCREEN_HEIGHT -
-                        gSpriteSheetTexture.getSpriteDimensions(2).height*SCALE,
+            headSpriteSheetTexture.render( 0, SCREEN_HEIGHT -
+                        headSpriteSheetTexture.getSpriteDimensions(2).height*SCALE,
                                                         2, SCALE );
 
             //Render bottom right sprite
-            gSpriteSheetTexture.render( SCREEN_WIDTH -
-            gSpriteSheetTexture.getSpriteDimensions(3).width*SCALE,
-            SCREEN_HEIGHT - gSpriteSheetTexture.getSpriteDimensions(3).width*SCALE,
+            headSpriteSheetTexture.render( SCREEN_WIDTH -
+            headSpriteSheetTexture.getSpriteDimensions(3).width*SCALE,
+            SCREEN_HEIGHT - headSpriteSheetTexture.getSpriteDimensions(3).width*SCALE,
             3, SCALE );
 
             //Update screen
