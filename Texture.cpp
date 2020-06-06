@@ -63,18 +63,17 @@ void Texture::free() {
     }
 }
 
-void Texture::render(int x, int y, SDL_Rect* clip, int scale) {
+void Texture::render(int x, int y, int spritePosition, int scale) {
     //Set rendering space and render to screen
     SDL_Rect renderQuad = {x, y, mWidth, mHeight};
+    SDL_Rect& clip = gSpriteClips.at(spritePosition);
 
     //Set clip rendering dimensions
-    if (clip != nullptr) {
-        renderQuad.w = clip->w*scale;
-        renderQuad.h = clip->h*scale;
-    }
+    renderQuad.w = clip.w*scale;
+    renderQuad.h = clip.h*scale;
 
     //Render to screen
-    SDL_RenderCopy(&renderer, mTexture, clip, &renderQuad);
+    SDL_RenderCopy(&renderer, mTexture, &clip, &renderQuad);
 }
 
 int Texture::getWidth() const {
@@ -83,4 +82,14 @@ int Texture::getWidth() const {
 
 int Texture::getHeight() const {
     return mHeight;
+}
+
+void Texture::addSprite(int x, int y, int width, int height) {
+    gSpriteClips.push_back({x, y, width, height});
+}
+
+SpriteDimensions_t Texture::getSpriteDimensions(int spritePosition) {
+    SDL_Rect& sprite = gSpriteClips.at(spritePosition);
+    SpriteDimensions_t dimensions = {sprite.w, sprite.h};
+    return dimensions;
 }

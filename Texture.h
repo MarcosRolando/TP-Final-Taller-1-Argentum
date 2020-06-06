@@ -12,11 +12,17 @@
 #include <SDL_image.h>
 #include "SDLException.h"
 #include <string>
+#include <vector>
 
 struct ColorKey_t {
     unsigned int red;
     unsigned int green;
     unsigned int blue;
+};
+
+struct SpriteDimensions_t {
+    int width;
+    int height;
 };
 
 class Texture {
@@ -25,6 +31,8 @@ private:
     //Image dimensions
     int mWidth;
     int mHeight;
+    //Scene sprites
+    std::vector<SDL_Rect> gSpriteClips;
 
 public:
     //Initializes variables
@@ -36,11 +44,16 @@ public:
     //Loads image at specified path
     void loadFromFile(const std::string& path, ColorKey_t key);
 
+    void addSprite(int x, int y, int width, int height); /*Especifica una dimension (un clip) que representa un sprite de la textura*/
+
     //Deallocates texture
     void free();
 
     //Renders texture at given point
-    void render( int x, int y, SDL_Rect* clip = nullptr, int scale = 1);
+    void render( int x, int y, int spritePosition, int scale = 1);
+
+    /*Retorna las dimensiones de alto y ancho del sprite*/
+    SpriteDimensions_t getSpriteDimensions(int spritePosition);
 
     //Gets image dimensions
     int getWidth() const;

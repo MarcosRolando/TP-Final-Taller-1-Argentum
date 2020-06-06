@@ -30,8 +30,7 @@ SDL_Window* gWindow = nullptr;
 //The window renderer
 SDL_Renderer* gRenderer = nullptr;
 
-//Scene sprites
-SDL_Rect gSpriteClips[ 4 ];
+
 
 void init()
 {
@@ -83,30 +82,10 @@ void loadMedia(Texture& gSpriteSheetTexture) {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
         gSpriteSheetTexture.loadFromFile( "../Images/Heads/HumanHead.png", key);
-
-        //Set top left sprite
-        gSpriteClips[ 0 ].x = 0;
-        gSpriteClips[ 0 ].y = 0;
-        gSpriteClips[ 0 ].w = 17;
-        gSpriteClips[ 0 ].h = 15;
-
-        //Set top right sprite
-        gSpriteClips[ 1 ].x = 17;
-        gSpriteClips[ 1 ].y = 0;
-        gSpriteClips[ 1 ].w = 17;
-        gSpriteClips[ 1 ].h = 15;
-
-        //Set bottom left sprite
-        gSpriteClips[ 2 ].x = 34;
-        gSpriteClips[ 2 ].y = 0;
-        gSpriteClips[ 2 ].w = 17;
-        gSpriteClips[ 2 ].h = 15;
-
-        //Set bottom right sprite
-        gSpriteClips[ 3 ].x = 51;
-        gSpriteClips[ 3 ].y = 0;
-        gSpriteClips[ 3 ].w = 17;
-        gSpriteClips[ 3 ].h = 15;
+        gSpriteSheetTexture.addSprite(0, 0, 17, 15);
+        gSpriteSheetTexture.addSprite(17, 0, 17, 15);
+        gSpriteSheetTexture.addSprite(34, 0, 17, 15);
+        gSpriteSheetTexture.addSprite(51, 0, 17, 15);
 	} catch (SDLException& e) {
         throw SDLException("Failed to load sprite sheet texture!\n");
 	}
@@ -155,16 +134,23 @@ int main(int argc, char* args[]) {
             SDL_RenderClear( gRenderer );
 
             //Render top left sprite
-            gSpriteSheetTexture.render( 0, 0, &gSpriteClips[ 0 ], SCALE );
+            gSpriteSheetTexture.render( 0, 0, 0, SCALE );
 
             //Render top right sprite
-            gSpriteSheetTexture.render( SCREEN_WIDTH - gSpriteClips[ 1 ].w*SCALE, 0, &gSpriteClips[ 1 ], SCALE );
+            gSpriteSheetTexture.render( SCREEN_WIDTH -
+                                gSpriteSheetTexture.getSpriteDimensions(1).width*SCALE,
+                                0, 1, SCALE );
 
             //Render bottom left sprite
-            gSpriteSheetTexture.render( 0, SCREEN_HEIGHT - gSpriteClips[ 2 ].h*SCALE, &gSpriteClips[ 2 ], SCALE );
+            gSpriteSheetTexture.render( 0, SCREEN_HEIGHT -
+                        gSpriteSheetTexture.getSpriteDimensions(2).height*SCALE,
+                                                        2, SCALE );
 
             //Render bottom right sprite
-            gSpriteSheetTexture.render( SCREEN_WIDTH - gSpriteClips[ 3 ].w*SCALE, SCREEN_HEIGHT - gSpriteClips[ 3 ].h*SCALE, &gSpriteClips[ 3 ], SCALE );
+            gSpriteSheetTexture.render( SCREEN_WIDTH -
+            gSpriteSheetTexture.getSpriteDimensions(3).width*SCALE,
+            SCREEN_HEIGHT - gSpriteSheetTexture.getSpriteDimensions(3).width*SCALE,
+            3, SCALE );
 
             //Update screen
             SDL_RenderPresent( gRenderer );
