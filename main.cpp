@@ -93,13 +93,40 @@ void loadBodyMedia(Texture& bodySpriteSheetTexture) {
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
-        bodySpriteSheetTexture.loadFromFile( "../Images/Clothing/CommonClothing.png", key);
-        bodySpriteSheetTexture.addSprite(0, 0, 25, 43);
-        bodySpriteSheetTexture.addSprite(25, 0, 25, 43);
-        bodySpriteSheetTexture.addSprite(50, 0, 25, 43);
-        bodySpriteSheetTexture.addSprite(75, 0, 25, 43);
-        bodySpriteSheetTexture.addSprite(100, 0, 25, 43);
-        bodySpriteSheetTexture.addSprite(125, 0, 25, 43);
+        bodySpriteSheetTexture.loadFromFile( "../Images/Clothing/LeatherArmor.png", key);
+
+        /*Front*/
+        bodySpriteSheetTexture.addSprite(0, 0, 25, 45);
+        bodySpriteSheetTexture.addSprite(25, 0, 25, 45);
+        bodySpriteSheetTexture.addSprite(50, 0, 25, 45);
+        bodySpriteSheetTexture.addSprite(75, 0, 25, 45);
+        bodySpriteSheetTexture.addSprite(100, 0, 25, 45);
+        bodySpriteSheetTexture.addSprite(125, 0, 25, 45);
+
+        /*Back*/
+        bodySpriteSheetTexture.addSprite(0, 45, 25, 45);
+        bodySpriteSheetTexture.addSprite(25, 45, 25, 45);
+        bodySpriteSheetTexture.addSprite(50, 45, 25, 45);
+        bodySpriteSheetTexture.addSprite(75, 45, 25, 45);
+        bodySpriteSheetTexture.addSprite(100, 45, 25, 45);
+        bodySpriteSheetTexture.addSprite(125, 45, 25, 45);
+
+        /*Left*/
+        bodySpriteSheetTexture.addSprite(0, 90, 25, 45);
+        bodySpriteSheetTexture.addSprite(25, 90, 25, 45);
+        bodySpriteSheetTexture.addSprite(50, 90, 25, 45);
+        bodySpriteSheetTexture.addSprite(75, 90, 25, 45);
+        bodySpriteSheetTexture.addSprite(100, 90, 25, 45);
+        bodySpriteSheetTexture.addSprite(100, 90, 25, 45); /*lo cargo 2 veces para simplificar la cuenta*/
+
+        /*Rigth*/
+        bodySpriteSheetTexture.addSprite(0, 135, 25, 45);
+        bodySpriteSheetTexture.addSprite(25, 135, 25, 45);
+        bodySpriteSheetTexture.addSprite(50, 135, 25, 45);
+        bodySpriteSheetTexture.addSprite(75, 135, 25, 45);
+        bodySpriteSheetTexture.addSprite(100, 135, 25, 45);
+        bodySpriteSheetTexture.addSprite(100, 135, 25, 45); /*lo cargo 2 veces para simplificar la cuenta*/
+
     } catch (SDLException& e) {
         throw SDLException("Failed to load sprite sheet texture!\n");
     }
@@ -151,48 +178,31 @@ int main(int argc, char* args[]) {
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 
-            //Render top left sprite
+            //Render front sprite
             headSpriteSheetTexture.render( 12, 9, 0, SCALE);
 
-            switch (i) {
-                case 0:
-                    bodySpriteSheetTexture.render( 0, 35,0, SCALE );
-                    break;
-                case 4:
-                    bodySpriteSheetTexture.render( 0, 35,1, SCALE );
-                    break;
-                case 8:
-                    bodySpriteSheetTexture.render( 0, 35,2, SCALE );
-                    break;
-                case 12:
-                    bodySpriteSheetTexture.render( 0, 35,3, SCALE );
-                    break;
-                case 16:
-                    bodySpriteSheetTexture.render( 0, 35,4, SCALE );
-                    break;
-                case 20:
-                    bodySpriteSheetTexture.render( 0, 35,5, SCALE );
-            }
+            bodySpriteSheetTexture.render( 0, 35,i/2000 + 0, SCALE );
+
+            //Render rigth sprite
+            headSpriteSheetTexture.render( SCREEN_WIDTH - 65, 9, 1, SCALE );
+
+            bodySpriteSheetTexture.render( SCREEN_WIDTH - 78, 34, i/2000 + 18, SCALE );
+
+            //Render left sprite
+            headSpriteSheetTexture.render( 12, SCREEN_HEIGHT - 160, 2, SCALE);
+
+            bodySpriteSheetTexture.render( 4, SCREEN_HEIGHT - 160 + 26, i/2000 + 12, SCALE );
+
+            //Render back sprite
+            headSpriteSheetTexture.render( SCREEN_WIDTH - 65,
+            SCREEN_HEIGHT - 160,
+            3, SCALE );
+
+            bodySpriteSheetTexture.render( SCREEN_WIDTH - 65 - 12, SCREEN_HEIGHT - 160 + 26, i/2000 + 6, SCALE );
 
             ++i;
 
-            if (i == 24) i = 0;
-
-            //Render top right sprite
-            headSpriteSheetTexture.render( SCREEN_WIDTH -
-                                headSpriteSheetTexture.getSpriteDimensions(1).width*SCALE,
-                                0, 1, SCALE );
-
-            //Render bottom left sprite
-            headSpriteSheetTexture.render( 0, SCREEN_HEIGHT -
-                        headSpriteSheetTexture.getSpriteDimensions(2).height*SCALE,
-                                                        2, SCALE );
-
-            //Render bottom right sprite
-            headSpriteSheetTexture.render( SCREEN_WIDTH -
-            headSpriteSheetTexture.getSpriteDimensions(3).width*SCALE,
-            SCREEN_HEIGHT - headSpriteSheetTexture.getSpriteDimensions(3).width*SCALE,
-            3, SCALE );
+            if (i/2000 >= 6) i = 0;
 
             //Update screen
             SDL_RenderPresent( gRenderer );
