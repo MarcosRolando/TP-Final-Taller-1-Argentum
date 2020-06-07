@@ -101,7 +101,7 @@ int main(int argc, char* args[]) {
         //Event handler
         SDL_Event e;
 
-        //int i = 0;
+        int i = 0;
 
         //While application is running
         while( !quit )
@@ -120,8 +120,9 @@ int main(int argc, char* args[]) {
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 
-            player.renderStaticFront(10, 30);
-
+            player.renderBack(10, 30, i/2000);
+            ++i;
+            if (i / 2000 >= 6) i = 0;
 
 /*
             //Render front sprite

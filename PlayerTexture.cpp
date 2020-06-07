@@ -44,13 +44,14 @@ void PlayerTexture::setHeadImage(std::string& headImage) {
     }
 }
 
-void PlayerTexture::_addBodySprites(int y) {
+void PlayerTexture::_addBodySprites(int y, bool lateralSide) {
     body.addSprite(0, y, 25, 45);
     body.addSprite(25, y, 25, 45);
     body.addSprite(50, y, 25, 45);
     body.addSprite(75, y, 25, 45);
     body.addSprite(100, y, 25, 45);
-    body.addSprite(125, y, 25, 45);
+    if (lateralSide) body.addSprite(100, y, 25, 45);
+    else body.addSprite(125, y, 25, 45);
 }
 
 void PlayerTexture::setBodyImage(std::string& bodyImage) {
@@ -59,13 +60,13 @@ void PlayerTexture::setBodyImage(std::string& bodyImage) {
         ColorKey_t key = {0, 0, 0};
         body.loadFromFile( bodyImage, key);
         /*Front*/
-        _addBodySprites(0);
+        _addBodySprites(0, false);
         /*Back*/
-        _addBodySprites(45);
+        _addBodySprites(45, false);
         /*Left*/
-        _addBodySprites(90);
+        _addBodySprites(90, true);
         /*Rigth*/
-        _addBodySprites(135);
+        _addBodySprites(135, true);
     } catch (SDLException& e) {
         throw SDLException("Failed to load sprite sheet texture!\n");
     }
@@ -91,31 +92,35 @@ void PlayerTexture::setWeaponImage(std::string&& weaponImage) {
     setWeaponImage(weaponImage);
 }
 
-void PlayerTexture::renderStaticFront(int x, int y) {
+void PlayerTexture::renderFront(int x, int y, int bodyFrame) {
+    if (bodyFrame < 0 || bodyFrame > 5) throw SDLException("I dont have that character frame!");
     _renderHead(x + 12, y - 26, 0);
     //_renderHelmet(x, y); todo
-    _renderBody(x, y, 0);
+    _renderBody(x, y, bodyFrame);
     //_renderWeapon(); todo
 }
 
-void PlayerTexture::renderStaticBack(int x, int y) {
+void PlayerTexture::renderBack(int x, int y, int bodyFrame) {
+    if (bodyFrame < 0 || bodyFrame > 5) throw SDLException("I dont have that character frame!");
     _renderHead(x + 12, y - 26, 3);
     //_renderHelmet(x, y); todo
-    _renderBody(x, y, 6);
+    _renderBody(x, y, bodyFrame + 6);
     //_renderWeapon(); todo
 }
 
-void PlayerTexture::renderStaticRight(int x, int y) {
+void PlayerTexture::renderRight(int x, int y, int bodyFrame) {
+    if (bodyFrame < 0 || bodyFrame > 5) throw SDLException("I dont have that character frame!");
     _renderHead(x + 13, y - 26, 1);
     //_renderHelmet(x, y); todo
-    _renderBody(x, y, 18);
+    _renderBody(x, y, bodyFrame + 18);
     //_renderWeapon(); todo
 }
 
-void PlayerTexture::renderStaticLeft(int x, int y) {
+void PlayerTexture::renderLeft(int x, int y, int bodyFrame) {
+    if (bodyFrame < 0 || bodyFrame > 5) throw SDLException("I dont have that character frame!");
     _renderHead(x + 8, y - 26, 2);
     //_renderHelmet(x, y); todo
-    _renderBody(x, y, 12);
+    _renderBody(x, y, bodyFrame + 12);
     //_renderWeapon(); todo
 }
 

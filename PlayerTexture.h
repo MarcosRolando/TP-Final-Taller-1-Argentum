@@ -35,13 +35,13 @@ public:
     void setBodyImage(std::string&& bodyImage);
     void setWeaponImage(std::string&& weaponImage);
 
-    void renderStaticFront(int x, int y);
-    void renderStaticBack(int x, int y);
-    void renderStaticRight(int x, int y);
-    void renderStaticLeft(int x, int y);
+    void renderFront(int x, int y, int bodyFrame);
+    void renderBack(int x, int y, int bodyFrame);
+    void renderRight(int x, int y, int bodyFrame);
+    void renderLeft(int x, int y, int bodyFrame);
 
 private:
-    void _addBodySprites(int y);
+    void _addBodySprites(int y, bool lateralSide);
     void _renderHead(int x, int y, int spritePosition);
     void _renderHelmet(int x, int y);
     void _renderBody(int x, int y, int spritePosition);
