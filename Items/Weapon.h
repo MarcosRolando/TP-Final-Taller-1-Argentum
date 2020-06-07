@@ -20,7 +20,7 @@ public:
 
     //Devuelve el danio que haria el arma por sí sola, es un numero aleatorio
     //entre el danio minimo y el maximo
-    unsigned int getDamage();
+    unsigned int getDamage() const;
 
 
 };

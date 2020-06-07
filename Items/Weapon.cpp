@@ -14,7 +14,7 @@ Weapon::Weapon(unsigned int minDamage, unsigned int maxDamage) {
 }
 
 
-unsigned int Weapon::getDamage() {
+unsigned int Weapon::getDamage() const{
     srand(clock());
     //Devuelve un numero aleatorio entre minDamage y maxDamage (incluidos)
     return (rand() % (maxDamage - minDamage + 1)) + minDamage;
