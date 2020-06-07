@@ -7,8 +7,6 @@
 
 #include "Texture.h"
 
-const int TILE_WIDTH = 80;
-const int TILE_HEIGHT = 80;
 
 class Tile {
 private:

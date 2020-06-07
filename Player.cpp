@@ -3,12 +3,9 @@
 //
 
 #include "Player.h"
+#include "GameConstants.h"
 
 const int PLAYER_SPEED = 640;
-
-//The dimensions of the level
-const int LEVEL_WIDTH = 1280;
-const int LEVEL_HEIGHT = 960;
 
 Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, EquipmentImages& images) :
         pTexture(renderer, images), camera(camera) {
@@ -23,8 +20,8 @@ Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, Equip
 void Player::move(float timeStep) {
     float offset = PLAYER_SPEED*timeStep;
     if (moveDirection != STILL) {
-        if ( (movedOffset + offset) >= 160) {
-            offset = 160 - movedOffset;
+        if ( (movedOffset + offset) >= TILE_WIDTH*2/*tileScale*/) {
+            offset = TILE_WIDTH*2 - movedOffset;
         }
         movedOffset += offset;
         ++currentFrame;
@@ -46,9 +43,8 @@ void Player::move(float timeStep) {
             //do nothing
             break;
     }
-
-    for (int i = 0; i < 6; ++i) {
-        if (movedOffset < (27.66 * (i+1)) && movedOffset < 160) {
+    for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
+        if (movedOffset < ((float)TILE_WIDTH*2/6 * (float)(i+1)) && movedOffset < TILE_WIDTH*2) {
             currentFrame = i;
             break;
         }

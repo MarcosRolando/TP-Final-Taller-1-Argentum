@@ -5,10 +5,7 @@
 #include "Map.h"
 #include <fstream>
 #include "SDLException.h"
-
-//The dimensions of the level
-const int LEVEL_WIDTH = 1280;
-const int LEVEL_HEIGHT = 960;
+#include "GameConstants.h"
 
 Map::Map(SDL_Renderer& renderer, SDL_Rect& camera) : camera(camera) {
     this->camera = camera;
