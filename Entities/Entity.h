@@ -13,7 +13,7 @@ private:
     Coordinate_t currentPosition;
 
 public:
-    //void attacked(const Player&);
+    virtual void attacked(unsigned int damage) = 0;
 };
 
 
