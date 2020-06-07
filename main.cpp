@@ -39,6 +39,8 @@ int main( int argc, char* args[] )//Para probar la carga y reproduccion de
 #include "SDLException.h"
 #include "Texture.h"
 #include "Font.h"
+#include "Window.h"
+#include "Renderer.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 1280;
@@ -51,10 +53,10 @@ void init();
 void close();
 
 //The window we'll be rendering to
-SDL_Window* gWindow = nullptr;
+//SDL_Window* gWindow = nullptr;
 
 //The window renderer
-SDL_Renderer* gRenderer = nullptr;
+//SDL_Renderer* gRenderer = nullptr;
 
 
 void init()
@@ -73,7 +75,7 @@ void init()
         }
 
         //Create window
-        gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+        /*gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
         if( gWindow == NULL )
         {
             throw SDLException("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -91,28 +93,31 @@ void init()
                 //Initialize renderer color
                 SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             }
-        }
+        }*/
     }
 }
 void close()
 {
     //Destroy window
-    SDL_DestroyRenderer( gRenderer );
-    SDL_DestroyWindow( gWindow );
-    gWindow = NULL;
-    gRenderer = NULL;
+    //SDL_DestroyRenderer( gRenderer );
+    //SDL_DestroyWindow( gWindow );
+    //gWindow = NULL;
+    //gRenderer = NULL;
 
     //Quit SDL subsystems
-    IMG_Quit();
+    //IMG_Quit();
     SDL_Quit();
 }
 
 int main( int argc, char* args[] ){
 
     try {
-        init();//Esto es lo de crear la ventana y el renderer, va a ir a
-        // la clase SDL gral
-        Texture textTexture(*gRenderer);
+        init();//inicializa los "subsistemas de sdl"
+        Window window;
+        Renderer renderer(window.getWindow());
+
+
+        Texture textTexture(*renderer.getRenderer());
         Font textFont("../font.ttf", 32);
         SDL_Color textColor = { 0xFF, 0xFF, 0xFF };
         std::string texto;
@@ -137,8 +142,9 @@ int main( int argc, char* args[] ){
             }
 
             //Clear screen
-            SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0x00 );
-            SDL_RenderClear( gRenderer );
+            SDL_SetRenderDrawColor( renderer.getRenderer(), 0x00, 0x00, 0x00,
+                    0x00 );
+            SDL_RenderClear( renderer.getRenderer() );
 
             textTexture.loadFromRenderedText(texto, textColor,textFont.getFont
             ());
@@ -147,7 +153,7 @@ int main( int argc, char* args[] ){
             textTexture.render( 0, 0 );
 
             //Update screen
-            SDL_RenderPresent( gRenderer );
+            SDL_RenderPresent( renderer.getRenderer() );
         }
     } catch (SDLException& e) {
         std::cout << e.what() << std::endl;

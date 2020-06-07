@@ -7,14 +7,19 @@
 
 #include <SDL.h>
 
+#include "SDLException.h"
+
 class Window {
 private:
     SDL_Window* window;
+    int width;
+    int height;
 
 public:
     Window();
+    SDL_Window* getWindow();
     ~Window();
-
+    //Agregar los events
 };
 
 
