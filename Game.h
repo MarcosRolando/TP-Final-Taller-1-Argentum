@@ -7,7 +7,7 @@
 
 
 class Game {
-
+    Map map;
 };
 
 

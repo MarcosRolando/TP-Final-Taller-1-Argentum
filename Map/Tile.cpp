@@ -3,6 +3,8 @@
 //
 
 #include "Tile.h"
+
+#include <memory>
 #include "FloorType.h"
 
 Tile::Tile(FloorType floor): item(nullptr), entity(nullptr){
@@ -31,15 +33,16 @@ void Tile::removeEntity() {
     isOccupable = true;
 }
 
-bool Tile::addItem(Item *received_item) {
-    if (!item) {
-        return false;
-    }
-    item.reset(received_item);
-    return true;
+void Tile::addItem(Item *received_item) {
+    items.emplace_back(received_item);
 }
 
-void Tile::removeItem() {
-    item.reset(nullptr);
+std::shared_ptr<Item> Tile::removeItem() {
+    if (items.empty()) {
+        return nullptr;
+    }
+    std::shared_ptr<Item> return_item = items.front();
+    items.pop_front();
+    return return_item;
 }
 

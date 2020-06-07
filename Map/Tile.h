@@ -6,13 +6,14 @@
 #define ARGENTUM_TILE_H
 
 #include <memory>
+#include <list>
 #include "../Items/Item.h"
 #include "FloorType.h"
 #include "../Entities/Entity.h"
 
 class Tile {
 private:
-    std::unique_ptr<Item> item;
+    std::list<std::shared_ptr<Item>> items;
     std::unique_ptr<Entity> entity;
     bool isOccupable;
     FloorType floor;
@@ -33,13 +34,12 @@ public:
     //independientemente del tile
     void removeEntity();
 
-    //Intenta agregar el item al tile, destruyendo el item almacenado
-    //previamente
-    bool addItem(Item *received_item);
+    //Intenta agregar el item al tile, sumandolo a los items ya guardados
+    void addItem(Item *received_item);
 
-    //Elimina el item guardado, habilita la ocupacion del tile por otro
-    //item
-    void removeItem();
+    //Elimina uno de los items que se encuentran en el tile y lo retorna}
+    //Si no hay ningun item retorna nullptr
+    std::shared_ptr<Item> removeItem();
 };
 
 
