@@ -4,10 +4,10 @@
 
 #include "Player.h"
 
-const int PLAYER_SPEED = 10;
+const int PLAYER_SPEED = 1;
 
-Player::Player(SDL_Renderer& renderer, int x, int y, EquipmentImages& images) :
-        pTexture(renderer, images) {
+Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, int x, int y, EquipmentImages& images) :
+        pTexture(renderer, images), camera(camera) {
 
     ySpeed = 0;
     xSpeed = 0;
@@ -21,7 +21,7 @@ void Player::move() {
 }
 
 void Player::render() {
-    pTexture.renderFront(xPosition, yPosition, 0);
+    pTexture.renderFront(xPosition - camera.x, yPosition - camera.y, 0);
 }
 
 void Player::handleEvent(SDL_Event& e) {
@@ -44,4 +44,28 @@ void Player::handleEvent(SDL_Event& e) {
             case SDLK_RIGHT: xSpeed -= PLAYER_SPEED; break;
         }
     }
+}
+
+void Player::setCamera() {
+    //Center the camera over the player
+    camera.x = (xPosition + 25 / 2 ) - 1280 / 2;
+    camera.y = (yPosition + 45 / 2 ) - 720 / 2;
+
+    //Keep the camera in bounds
+    if (camera.x < 0) {
+        camera.x = 0;
+    }
+    if (camera.y < 0) {
+        camera.y = 0;
+    }
+    /*
+    if (camera.x > LEVEL_WIDTH - camera.w) {
+        camera.x = LEVEL_WIDTH - camera.w;
+    }
+     */
+    /*
+    if (camera.y > LEVEL_HEIGHT - camera.h) {
+        camera.y = LEVEL_HEIGHT - camera.h;
+    }
+    */
 }

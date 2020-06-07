@@ -10,8 +10,6 @@ and may not be redistributed without written permission.*/
 #include "Player.h"
 #include "Map.h"
 
-#define SCALE 3
-
 //Screen dimension constants
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -89,7 +87,6 @@ void close() {
 }
 
 int main(int argc, char* args[]) {
-
 	//Start up SDL and create window
 	try {
         init();
@@ -97,7 +94,7 @@ int main(int argc, char* args[]) {
         SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
         EquipmentImages pEquipment = {"", "../Images/Heads/ElfHead.png",
                 "../Images/Clothing/CommonClothing.png", ""};
-        Player player(*gRenderer, 30, 30,pEquipment);
+        Player player(*gRenderer, camera, 30, 30,pEquipment);
         Map map(*gRenderer, camera);
         //Main loop flag
         bool quit = false;
@@ -122,6 +119,7 @@ int main(int argc, char* args[]) {
             }
 
             player.move();
+            player.setCamera();
 
             //Clear screen
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );

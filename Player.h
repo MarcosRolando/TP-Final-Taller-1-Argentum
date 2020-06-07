@@ -10,19 +10,22 @@
 class Player {
 private:
     PlayerTexture pTexture;
+    SDL_Rect& camera;
     int xSpeed;
     int ySpeed;
     int xPosition;
     int yPosition;
 
 public:
-    Player(SDL_Renderer& renderer, int x, int y, EquipmentImages& images);
+    Player(SDL_Renderer& renderer, SDL_Rect& camera, int x, int y, EquipmentImages& images);
 
     void move();
 
     void handleEvent(SDL_Event& e);
 
     void render();
+
+    void setCamera();
 };
 
 

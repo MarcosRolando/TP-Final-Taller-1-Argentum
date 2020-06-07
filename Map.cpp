@@ -10,7 +10,7 @@
 const int LEVEL_WIDTH = 1280;
 const int LEVEL_HEIGHT = 960;
 
-Map::Map(SDL_Renderer& renderer, SDL_Rect camera) {
+Map::Map(SDL_Renderer& renderer, SDL_Rect& camera) : camera(camera) {
     this->camera = camera;
     _loadTilesTextures(renderer);
     _setTiles();
