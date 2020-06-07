@@ -7,7 +7,7 @@
 
 //Struct auxiliar para facilitar el paso de coordenadas, debido a esto no
 //tiene ningun comportamiento y sus atributos son publicos
-typedef struct Coordinate{
+struct Coordinate{
     unsigned int position_i;
     unsigned int position_j;
 }Coordinate_t;
