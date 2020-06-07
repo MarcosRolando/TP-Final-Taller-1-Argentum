@@ -84,5 +84,7 @@ void Map::_setTiles() {
 }
 
 void Map::render() {
-
+    for (auto & tile : tiles) {
+        tile.render(camera);
+    }
 }

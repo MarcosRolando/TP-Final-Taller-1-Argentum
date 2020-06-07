@@ -123,33 +123,7 @@ int main(int argc, char* args[]) {
             player.renderLeft(10, 30, i/2000);
             ++i;
             if (i / 2000 >= 6) i = 0;
-/*
-            //Render front sprite
-            headSpriteSheetTexture.render( 12, 9, 0, SCALE);
 
-            bodySpriteSheetTexture.render( 0, 35, i/2000 + 0, SCALE );
-
-            //Render rigth sprite
-            headSpriteSheetTexture.render( SCREEN_WIDTH - 65, 9, 1, SCALE );
-
-            bodySpriteSheetTexture.render( SCREEN_WIDTH - 78, 34, i/2000 + 18, SCALE );
-
-            //Render left sprite
-            headSpriteSheetTexture.render( 12, SCREEN_HEIGHT - 160, 2, SCALE);
-
-            bodySpriteSheetTexture.render( 4, SCREEN_HEIGHT - 160 + 26, i/2000 + 12, SCALE );
-
-            //Render back sprite
-            headSpriteSheetTexture.render( SCREEN_WIDTH - 65,
-            SCREEN_HEIGHT - 160,
-            3, SCALE );
-
-            bodySpriteSheetTexture.render( SCREEN_WIDTH - 65 - 12, SCREEN_HEIGHT - 160 + 26, i/2000 + 6, SCALE );
-
-            ++i;
-
-            if (i/2000 >= 6) i = 0;
-*/
             //Update screen
             SDL_RenderPresent( gRenderer );
         }
