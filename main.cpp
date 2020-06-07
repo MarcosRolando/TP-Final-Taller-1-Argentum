@@ -93,7 +93,7 @@ void loadBodyMedia(Texture& bodySpriteSheetTexture) {
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
-        bodySpriteSheetTexture.loadFromFile( "../Images/Clothing/LeatherArmor.png", key);
+        bodySpriteSheetTexture.loadFromFile( "../Images/Clothing/PlateArmor.png", key);
 
         /*Front*/
         bodySpriteSheetTexture.addSprite(0, 0, 25, 45);
