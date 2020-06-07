@@ -7,7 +7,7 @@ and may not be redistributed without written permission.*/
 #include <stdio.h>
 #include "SDLException.h"
 #include <iostream>
-#include "Texture.h"
+#include "PlayerTexture.h"
 
 #define SCALE 3
 
@@ -75,63 +75,6 @@ void init()
 	}
 }
 
-void loadHeadMedia(Texture& headSpriteSheetTexture) {
-	try {
-        //Load sprite sheet texture
-        ColorKey_t key = {0, 0, 0};
-        headSpriteSheetTexture.loadFromFile( "../Images/Heads/HumanHead.png", key);
-        headSpriteSheetTexture.addSprite(0, 0, 17, 15);
-        headSpriteSheetTexture.addSprite(17, 0, 17, 15);
-        headSpriteSheetTexture.addSprite(34, 0, 17, 15);
-        headSpriteSheetTexture.addSprite(51, 0, 17, 15);
-	} catch (SDLException& e) {
-        throw SDLException("Failed to load sprite sheet texture!\n");
-	}
-}
-
-void loadBodyMedia(Texture& bodySpriteSheetTexture) {
-    try {
-        //Load sprite sheet texture
-        ColorKey_t key = {0, 0, 0};
-        bodySpriteSheetTexture.loadFromFile( "../Images/Clothing/PlateArmor.png", key);
-
-        /*Front*/
-        bodySpriteSheetTexture.addSprite(0, 0, 25, 45);
-        bodySpriteSheetTexture.addSprite(25, 0, 25, 45);
-        bodySpriteSheetTexture.addSprite(50, 0, 25, 45);
-        bodySpriteSheetTexture.addSprite(75, 0, 25, 45);
-        bodySpriteSheetTexture.addSprite(100, 0, 25, 45);
-        bodySpriteSheetTexture.addSprite(125, 0, 25, 45);
-
-        /*Back*/
-        bodySpriteSheetTexture.addSprite(0, 45, 25, 45);
-        bodySpriteSheetTexture.addSprite(25, 45, 25, 45);
-        bodySpriteSheetTexture.addSprite(50, 45, 25, 45);
-        bodySpriteSheetTexture.addSprite(75, 45, 25, 45);
-        bodySpriteSheetTexture.addSprite(100, 45, 25, 45);
-        bodySpriteSheetTexture.addSprite(125, 45, 25, 45);
-
-        /*Left*/
-        bodySpriteSheetTexture.addSprite(0, 90, 25, 45);
-        bodySpriteSheetTexture.addSprite(25, 90, 25, 45);
-        bodySpriteSheetTexture.addSprite(50, 90, 25, 45);
-        bodySpriteSheetTexture.addSprite(75, 90, 25, 45);
-        bodySpriteSheetTexture.addSprite(100, 90, 25, 45);
-        bodySpriteSheetTexture.addSprite(100, 90, 25, 45); /*lo cargo 2 veces para simplificar la cuenta*/
-
-        /*Rigth*/
-        bodySpriteSheetTexture.addSprite(0, 135, 25, 45);
-        bodySpriteSheetTexture.addSprite(25, 135, 25, 45);
-        bodySpriteSheetTexture.addSprite(50, 135, 25, 45);
-        bodySpriteSheetTexture.addSprite(75, 135, 25, 45);
-        bodySpriteSheetTexture.addSprite(100, 135, 25, 45);
-        bodySpriteSheetTexture.addSprite(100, 135, 25, 45); /*lo cargo 2 veces para simplificar la cuenta*/
-
-    } catch (SDLException& e) {
-        throw SDLException("Failed to load sprite sheet texture!\n");
-    }
-}
-
 void close() {
 	//Destroy window
 	SDL_DestroyRenderer( gRenderer );
@@ -149,10 +92,9 @@ int main(int argc, char* args[]) {
 	//Start up SDL and create window
 	try {
         init();
-        Texture headSpriteSheetTexture(*gRenderer);
-        Texture bodySpriteSheetTexture(*gRenderer);
-        loadHeadMedia(headSpriteSheetTexture);
-        loadBodyMedia(bodySpriteSheetTexture);
+        PlayerTexture player (*gRenderer);
+        player.setHeadImage("../Images/Heads/HumanHead.png");
+        player.setBodyImage("../Images/Clothing/PlateArmor.png");
         //Main loop flag
         bool quit = false;
 
@@ -181,7 +123,7 @@ int main(int argc, char* args[]) {
             //Render front sprite
             headSpriteSheetTexture.render( 12, 9, 0, SCALE);
 
-            bodySpriteSheetTexture.render( 0, 35,i/2000 + 0, SCALE );
+            bodySpriteSheetTexture.render( 0, 35, i/2000 + 0, SCALE );
 
             //Render rigth sprite
             headSpriteSheetTexture.render( SCREEN_WIDTH - 65, 9, 1, SCALE );
