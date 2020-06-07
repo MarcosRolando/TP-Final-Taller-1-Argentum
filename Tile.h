@@ -7,6 +7,9 @@
 
 #include "Texture.h"
 
+const int TILE_WIDTH = 80;
+const int TILE_HEIGHT = 80;
+
 class Tile {
 private:
     //The attributes of the tile
@@ -30,7 +33,6 @@ public:
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);
-    void _setTextureClip();
 };
 
 

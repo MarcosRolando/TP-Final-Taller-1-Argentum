@@ -4,23 +4,26 @@
 
 #include "Tile.h"
 
-const int TILE_WIDTH = 80;
-const int TILE_HEIGHT = 80;
+//The different tile sprites
+const int TILE_RED = 0;
+const int TILE_GREEN = 1;
+const int TILE_BLUE = 2;
+const int TILE_CENTER = 3;
+const int TILE_TOP = 4;
+const int TILE_TOPRIGHT = 5;
+const int TILE_RIGHT = 6;
+const int TILE_BOTTOMRIGHT = 7;
+const int TILE_BOTTOM = 8;
+const int TILE_BOTTOMLEFT = 9;
+const int TILE_LEFT = 10;
+const int TILE_TOPLEFT = 11;
 
 Tile::Tile(int x, int y, int tileType, Texture& texture)
             : tileTexture(texture) {
     box = {x, y, TILE_WIDTH, TILE_HEIGHT};
     //Get the tile type
     type = tileType;
-    _setTextureClip();
 }
-
-void Tile::_setTextureClip() {
-    switch () {
-
-    }
-}
-
 
 bool Tile::_checkCollision(SDL_Rect a, SDL_Rect b) {
     //The sides of the rectangles
