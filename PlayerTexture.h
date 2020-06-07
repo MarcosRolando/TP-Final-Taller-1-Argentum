@@ -8,6 +8,13 @@
 #include "Texture.h"
 #include "SDLException.h"
 
+struct EquipmentImages {
+    std::string helmetImage;
+    std::string headImage;
+    std::string bodyImage;
+    std::string weaponImage;
+};
+
 class PlayerTexture {
 private:
     Texture helmet;
@@ -16,11 +23,7 @@ private:
     Texture weapon;
 
 public:
-    PlayerTexture(SDL_Renderer& renderer, std::string& helmetImage, std::string& headImage,
-                std::string& bodyImage, std::string& weaponImage);
-
-    PlayerTexture(SDL_Renderer& renderer, std::string&& helmetImage, std::string&& headImage,
-                  std::string&& bodyImage, std::string&& weaponImage);
+    PlayerTexture(SDL_Renderer& renderer, EquipmentImages& images);
 
     explicit PlayerTexture(SDL_Renderer& renderer) : helmet(renderer), head(renderer),
                     body(renderer), weapon(renderer) {};

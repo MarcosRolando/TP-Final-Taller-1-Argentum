@@ -95,9 +95,9 @@ int main(int argc, char* args[]) {
         init();
         //Level camera
         SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-        Player player(*gRenderer, 30, 30,
-                "", "../Images/Heads/ElfHead.png",
-                "../Images/Clothing/CommonClothing.png", "");
+        EquipmentImages pEquipment = {"", "../Images/Heads/ElfHead.png",
+                "../Images/Clothing/CommonClothing.png", ""};
+        Player player(*gRenderer, 30, 30,pEquipment);
         Map map(*gRenderer, camera);
         //Main loop flag
         bool quit = false;
@@ -118,7 +118,10 @@ int main(int argc, char* args[]) {
                 {
                     quit = true;
                 }
+                player.handleEvent(e);
             }
+
+            player.move();
 
             //Clear screen
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );

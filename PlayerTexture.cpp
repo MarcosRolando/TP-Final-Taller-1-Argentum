@@ -5,22 +5,14 @@
 #include "PlayerTexture.h"
 const int SCALE = 3; /*Factor de escala de la imagen*/
 
-PlayerTexture::PlayerTexture(SDL_Renderer &renderer, std::string &helmetImage,
-                             std::string &headImage, std::string &bodyImage,
-                             std::string& weaponImage) : PlayerTexture(renderer) {
+PlayerTexture::PlayerTexture(SDL_Renderer &renderer, EquipmentImages& images)
+                                                : PlayerTexture(renderer) {
 
-    setHelmetImage(helmetImage);
-    setHeadImage(headImage);
-    setBodyImage(bodyImage);
-    setWeaponImage(weaponImage);
+    setHelmetImage(images.helmetImage);
+    setHeadImage(images.headImage);
+    setBodyImage(images.bodyImage);
+    setWeaponImage(images.weaponImage);
 }
-
-
-PlayerTexture::PlayerTexture(SDL_Renderer &renderer, std::string&& helmetImage,
-                             std::string&& headImage, std::string&& bodyImage,
-                             std::string&& weaponImage) :
-                             PlayerTexture(renderer, helmetImage, headImage,
-                                     bodyImage, weaponImage) {}
 
 void PlayerTexture::setHelmetImage(std::string& helmetImage) {
     //todo

@@ -6,9 +6,8 @@
 
 const int PLAYER_SPEED = 10;
 
-Player::Player(SDL_Renderer& renderer, int x, int y, std::string& helmetImage,
-        std::string& headImage, std::string& bodyImage, std::string& weaponImage) :
-        pTexture(renderer, helmetImage, headImage, bodyImage, weaponImage) {
+Player::Player(SDL_Renderer& renderer, int x, int y, EquipmentImages& images) :
+        pTexture(renderer, images) {
 
     ySpeed = 0;
     xSpeed = 0;

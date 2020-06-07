@@ -16,12 +16,7 @@ private:
     int yPosition;
 
 public:
-    Player(SDL_Renderer& renderer, int x, int y, std::string& helmetImage, std::string& headImage,
-           std::string& bodyImage, std::string& weaponImage);
-
-    Player(SDL_Renderer& renderer, int x, int y, std::string&& helmetImage, std::string&& headImage,
-           std::string&& bodyImage, std::string&& weaponImage) : Player(renderer, x, y,
-                   helmetImage, headImage, bodyImage, weaponImage){}
+    Player(SDL_Renderer& renderer, int x, int y, EquipmentImages& images);
 
     void move();
 
