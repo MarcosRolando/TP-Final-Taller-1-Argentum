@@ -34,7 +34,7 @@ void PlayerTexture::setHeadImage(std::string& headImage) {
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
-        head.loadFromFile( headImage, key);
+        head.loadFromFile(headImage, key);
         head.addSprite(0, 0, 17, 15);
         head.addSprite(17, 0, 17, 15);
         head.addSprite(34, 0, 17, 15);
