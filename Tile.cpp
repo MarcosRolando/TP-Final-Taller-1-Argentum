@@ -21,7 +21,7 @@ const int TILE_TOPLEFT = 11;
 Tile::Tile(int x, int y, int scale, int tileType, Texture& texture)
             : tileTexture(texture) {
     this->scale = scale;
-    box = {x*scale, y*scale, TILE_WIDTH, TILE_HEIGHT}; /*Editando x e y puedo cambiar el tamanio de los bloques*/
+    box = {x*scale, y*scale, TILE_WIDTH*scale, TILE_HEIGHT*scale}; /*Editando x e y puedo cambiar el tamanio de los bloques*/
     //Get the tile type
     type = tileType;
 }
