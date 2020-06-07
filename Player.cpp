@@ -4,13 +4,13 @@
 
 #include "Player.h"
 
-const int PLAYER_SPEED = 1;
+const int PLAYER_SPEED = 640;
 
 //The dimensions of the level
 const int LEVEL_WIDTH = 1280;
 const int LEVEL_HEIGHT = 960;
 
-Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, int x, int y, EquipmentImages& images) :
+Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, EquipmentImages& images) :
         pTexture(renderer, images), camera(camera) {
 
     ySpeed = 0;
@@ -19,13 +19,13 @@ Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, int x, int y, Equipment
     yPosition = y;
 }
 
-void Player::move() {
-    xPosition += xSpeed;
-    yPosition += ySpeed;
+void Player::move(float timeStep) {
+    xPosition += xSpeed*timeStep;
+    yPosition += ySpeed*timeStep;
 }
 
 void Player::render() {
-    pTexture.renderFront(xPosition - camera.x, yPosition - camera.y, 0);
+    pTexture.renderFront((int)(xPosition) - camera.x, (int)(yPosition) - camera.y, 0);
 }
 
 void Player::handleEvent(SDL_Event& e) {
@@ -52,8 +52,8 @@ void Player::handleEvent(SDL_Event& e) {
 
 void Player::setCamera() {
     //Center the camera over the player
-    camera.x = (xPosition + 25 / 2 ) - 1280 / 2;
-    camera.y = (yPosition + 45 / 2 ) - 720 / 2;
+    camera.x = ((int)xPosition + 25 / 2 ) - 1280 / 2;
+    camera.y = ((int)yPosition + 45 / 2 ) - 720 / 2;
 
     //Keep the camera in bounds
     if (camera.x < 0) {
@@ -62,7 +62,7 @@ void Player::setCamera() {
     if (camera.y < 0) {
         camera.y = 0;
     }
-    if (camera.x > LEVEL_WIDTH*2 - camera.w) {
+    if (camera.x > LEVEL_WIDTH*2 - camera.w) { /*El *2 es por la escala de los tiles, ARREGLAR QUE NO SEA TAN CACA*/
         camera.x = LEVEL_WIDTH*2 - camera.w;
     }
     if (camera.y > LEVEL_HEIGHT*2 - camera.h) {

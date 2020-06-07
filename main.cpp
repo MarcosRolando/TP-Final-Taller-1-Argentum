@@ -100,10 +100,11 @@ int main(int argc, char* args[]) {
         //Main loop flag
         bool quit = false;
 
+        //Keeps track of time between steps
+        Timer stepTimer;
+
         //Event handler
         SDL_Event e;
-
-        //int i = 0;
 
         //While application is running
         while( !quit )
@@ -118,9 +119,15 @@ int main(int argc, char* args[]) {
                 }
                 player.handleEvent(e);
             }
-            usleep(500); /*para que legolas no se vaya a la mierda*/
-            player.move();
+
+            //Calculate time step
+            float timeStep = stepTimer.getTicks() / 1000.f;
+
+            player.move(timeStep);
             player.setCamera();
+
+            //Restart step timer
+            stepTimer.start();
 
             //Clear screen
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -128,11 +135,6 @@ int main(int argc, char* args[]) {
 
             map.render();
             player.render();
-            /*
-            player.renderFront(10, 30, i/2000);
-            ++i;
-            if (i / 2000 >= 6) i = 0;
-            */
 
             //Update screen
             SDL_RenderPresent( gRenderer );

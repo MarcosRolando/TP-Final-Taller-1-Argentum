@@ -6,20 +6,21 @@
 #define ARGENTUM_PLAYER_H
 
 #include "PlayerTexture.h"
+#include "Timer.h"
 
 class Player {
 private:
     PlayerTexture pTexture;
     SDL_Rect& camera;
-    int xSpeed;
-    int ySpeed;
-    int xPosition;
-    int yPosition;
+    float xSpeed;
+    float ySpeed;
+    float xPosition;
+    float yPosition;
 
 public:
-    Player(SDL_Renderer& renderer, SDL_Rect& camera, int x, int y, EquipmentImages& images);
+    Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, EquipmentImages& images);
 
-    void move();
+    void move(float timeStep);
 
     void handleEvent(SDL_Event& e);
 
