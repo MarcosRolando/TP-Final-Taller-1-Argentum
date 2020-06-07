@@ -3,3 +3,11 @@
 //
 
 #include "Tile.h"
+
+bool Tile::addEntity(Item *item) {
+    if (isOccupable) {
+        this->item = item;
+        return true;
+    }
+    return false;
+}

@@ -16,7 +16,7 @@ private:
     bool isOccupable;
     FloorType floor;
 public:
-
+    bool addEntity(Item* item);
 };
 
 
