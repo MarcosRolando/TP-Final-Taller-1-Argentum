@@ -18,6 +18,7 @@ Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, Equip
     ySpeed = 0;
     xSpeed = 0;
     */
+    movedOffset = 0;
     currentFrame = 0;
     moveDirection = STILL;
     xPosition = x;
@@ -28,18 +29,34 @@ void Player::move(float timeStep) {
     float offset = PLAYER_SPEED*timeStep;
     switch (moveDirection) {
         case UP:
+            if ( (movedOffset + offset) >= 160) {
+                offset = 160 - movedOffset;
+            }
+            movedOffset += offset;
             yPosition -= offset;
             currentFrame++;
             break;
         case DOWN:
+            if ( (movedOffset + offset) >= 160) {
+                offset = 160 - movedOffset;
+            }
+            movedOffset += offset;
             yPosition += offset;
             currentFrame++;
             break;
         case RIGHT:
+            if ( (movedOffset + offset) >= 160) {
+                offset = 160 - movedOffset;
+            }
+            movedOffset += offset;
             xPosition += offset;
             currentFrame++;
             break;
         case LEFT:
+            if ( (movedOffset + offset) >= 160) {
+                offset = 160 - movedOffset;
+            }
+            movedOffset += offset;
             xPosition -= offset;
             currentFrame++;
             break;
@@ -47,9 +64,10 @@ void Player::move(float timeStep) {
             //do nothing
             break;
     }
-    if ((currentFrame / FRAME_ANIMATION) >= 5) {
+    if (movedOffset >= 160) {
         currentFrame = 0;
         moveDirection = STILL;
+        movedOffset = 0;
     }
     /*
     xPosition += xSpeed*timeStep;

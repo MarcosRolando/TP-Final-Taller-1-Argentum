@@ -24,6 +24,7 @@ private:
     float xSpeed;
     float ySpeed;
      */
+    float movedOffset;
     int currentFrame;
     Direction moveDirection;
     float xPosition;
