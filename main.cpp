@@ -8,6 +8,7 @@ and may not be redistributed without written permission.*/
 #include "SDLException.h"
 #include <iostream>
 #include "PlayerTexture.h"
+#include "Map.h"
 
 #define SCALE 3
 
@@ -92,16 +93,19 @@ int main(int argc, char* args[]) {
 	//Start up SDL and create window
 	try {
         init();
+        //Level camera
+        SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
         PlayerTexture player (*gRenderer);
         player.setHeadImage("../Images/Heads/ElfHead.png");
         player.setBodyImage("../Images/Clothing/CommonClothing.png");
+        Map map(*gRenderer, camera);
         //Main loop flag
         bool quit = false;
 
         //Event handler
         SDL_Event e;
 
-        int i = 0;
+        //int i = 0;
 
         //While application is running
         while( !quit )
@@ -120,9 +124,13 @@ int main(int argc, char* args[]) {
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 
-            player.renderLeft(10, 30, i/2000);
+            map.render();
+            player.renderFront(10, 30, 0);
+            /*
+            player.renderFront(10, 30, i/2000);
             ++i;
             if (i / 2000 >= 6) i = 0;
+            */
 
             //Update screen
             SDL_RenderPresent( gRenderer );
