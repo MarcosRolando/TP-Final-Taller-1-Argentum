@@ -10,7 +10,7 @@ Sounds::Sounds() {
 }
 
 void Sounds::_init() {
-    if( SDL_Init(SDL_INIT_AUDIO ) < 0 ) {
+    if( SDL_Init(SDL_INIT_AUDIO ) < 0 ) {//Esto iria en una clase SDL general
         throw SDLException("SDL could not initialize! SDL Error: %s\n",
                 SDL_GetError() );
     }
@@ -77,8 +77,7 @@ Sounds::~Sounds() {
     Mix_FreeChunk(explotion);
     Mix_FreeMusic(Music);
 
-    //Cierra las cosas de SDL, esto probablemente haya que hacerlo en la clase
-    //que maneje los graficos/sonidos
+    //Cierra el mixer
     Mix_Quit();
-    SDL_Quit();
+    SDL_Quit();//Esto iria en la clase SDL general
 }
