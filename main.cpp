@@ -9,6 +9,7 @@ and may not be redistributed without written permission.*/
 #include <iostream>
 #include "Player.h"
 #include "Map.h"
+#include <unistd.h>
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 1280;
@@ -117,7 +118,7 @@ int main(int argc, char* args[]) {
                 }
                 player.handleEvent(e);
             }
-
+            usleep(500); /*para que legolas no se vaya a la mierda*/
             player.move();
             player.setCamera();
 
