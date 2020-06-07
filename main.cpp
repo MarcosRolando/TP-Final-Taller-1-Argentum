@@ -7,7 +7,7 @@ and may not be redistributed without written permission.*/
 #include <stdio.h>
 #include "SDLException.h"
 #include <iostream>
-#include "PlayerTexture.h"
+#include "Player.h"
 #include "Map.h"
 
 #define SCALE 3
@@ -95,9 +95,9 @@ int main(int argc, char* args[]) {
         init();
         //Level camera
         SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-        PlayerTexture player (*gRenderer);
-        player.setHeadImage("../Images/Heads/ElfHead.png");
-        player.setBodyImage("../Images/Clothing/CommonClothing.png");
+        Player player(*gRenderer, 30, 30,
+                "", "../Images/Heads/ElfHead.png",
+                "../Images/Clothing/CommonClothing.png", "");
         Map map(*gRenderer, camera);
         //Main loop flag
         bool quit = false;
@@ -125,7 +125,7 @@ int main(int argc, char* args[]) {
             SDL_RenderClear( gRenderer );
 
             map.render();
-            player.renderFront(10, 30, 0);
+            player.render();
             /*
             player.renderFront(10, 30, i/2000);
             ++i;

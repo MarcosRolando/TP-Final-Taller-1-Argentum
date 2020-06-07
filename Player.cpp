@@ -16,21 +16,13 @@ Player::Player(SDL_Renderer& renderer, int x, int y, std::string& helmetImage,
     yPosition = y;
 }
 
-void Player::move(Direction direction) {
-    switch (direction) {
-        case UP:
-            ySpeed += PLAYER_SPEED;
-            break;
-        case DOWN:
-            ySpeed += PLAYER_SPEED;
-            break;
-        case LEFT:
+void Player::move() {
+    xPosition += xSpeed;
+    yPosition += ySpeed;
+}
 
-            break;
-        case RIGHT:
-
-            break;
-    }
+void Player::render() {
+    pTexture.renderFront(xPosition, yPosition, 0);
 }
 
 void Player::handleEvent(SDL_Event& e) {

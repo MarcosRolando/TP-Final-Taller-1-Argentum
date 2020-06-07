@@ -7,13 +7,6 @@
 
 #include "PlayerTexture.h"
 
-enum Direction {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-};
-
 class Player {
 private:
     PlayerTexture pTexture;
@@ -30,9 +23,11 @@ public:
            std::string&& bodyImage, std::string&& weaponImage) : Player(renderer, x, y,
                    helmetImage, headImage, bodyImage, weaponImage){}
 
-    void move(Direction direction);
+    void move();
 
     void handleEvent(SDL_Event& e);
+
+    void render();
 };
 
 

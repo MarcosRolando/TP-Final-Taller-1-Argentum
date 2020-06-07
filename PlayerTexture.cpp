@@ -10,21 +10,17 @@ PlayerTexture::PlayerTexture(SDL_Renderer &renderer, std::string &helmetImage,
                              std::string& weaponImage) : PlayerTexture(renderer) {
 
     setHelmetImage(helmetImage);
-    setHeadImage(helmetImage);
-    setBodyImage(helmetImage);
-    setWeaponImage(helmetImage);
+    setHeadImage(headImage);
+    setBodyImage(bodyImage);
+    setWeaponImage(weaponImage);
 }
 
 
 PlayerTexture::PlayerTexture(SDL_Renderer &renderer, std::string&& helmetImage,
                              std::string&& headImage, std::string&& bodyImage,
-                             std::string&& weaponImage) : PlayerTexture(renderer) {
-
-    setHelmetImage(helmetImage);
-    setHeadImage(helmetImage);
-    setBodyImage(helmetImage);
-    setWeaponImage(helmetImage);
-}
+                             std::string&& weaponImage) :
+                             PlayerTexture(renderer, helmetImage, headImage,
+                                     bodyImage, weaponImage) {}
 
 void PlayerTexture::setHelmetImage(std::string& helmetImage) {
     //todo
