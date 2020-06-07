@@ -17,10 +17,11 @@ private:
     Texture& tileTexture;
     //The tile type
     int type;
+    int scale;
 
 public:
     //Initializes position and type
-    Tile(int x, int y, int tileType, Texture& texture);
+    Tile(int x, int y, int scale, int tileType, Texture& texture);
 
     //Shows the tile
     void render(SDL_Rect& camera);

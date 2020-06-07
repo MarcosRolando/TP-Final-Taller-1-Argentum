@@ -18,9 +18,10 @@ const int TILE_BOTTOMLEFT = 9;
 const int TILE_LEFT = 10;
 const int TILE_TOPLEFT = 11;
 
-Tile::Tile(int x, int y, int tileType, Texture& texture)
+Tile::Tile(int x, int y, int scale, int tileType, Texture& texture)
             : tileTexture(texture) {
-    box = {x, y, TILE_WIDTH, TILE_HEIGHT};
+    this->scale = scale;
+    box = {x*scale, y*scale, TILE_WIDTH, TILE_HEIGHT};
     //Get the tile type
     type = tileType;
 }
@@ -58,7 +59,7 @@ void Tile::render(SDL_Rect& camera) {
     //If the tile is on screen
     if (_checkCollision(camera, box)) {
         //Show the tile
-        tileTexture.render(box.x - camera.x, box.y - camera.y, type);
+        tileTexture.render(box.x - camera.x, box.y - camera.y, type, scale);
     }
 }
 
