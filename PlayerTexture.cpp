@@ -45,9 +45,9 @@ void PlayerTexture::setHeadImage(std::string& headImage) {
 }
 
 void PlayerTexture::_addBodySprites(int y, bool lateralSide) {
-    body.addSprite(0, y, 25, 45);
+    body.addSprite(0, y, 24, 45); /*hasta 24 porque sino en la plate armor hay un poco de la otra imagen*/
     body.addSprite(25, y, 25, 45);
-    body.addSprite(50, y, 25, 45);
+    body.addSprite(51, y, 24, 45); /*pongo 51 porque sino se veia un poco del pie de otro en algunas ropas*/
     body.addSprite(75, y, 25, 45);
     body.addSprite(100, y, 25, 45);
     if (lateralSide) body.addSprite(100, y, 25, 45);

@@ -93,7 +93,7 @@ int main(int argc, char* args[]) {
 	try {
         init();
         PlayerTexture player (*gRenderer);
-        player.setHeadImage("../Images/Heads/DwarfHead.png");
+        player.setHeadImage("../Images/Heads/ElfHead.png");
         player.setBodyImage("../Images/Clothing/CommonClothing.png");
         //Main loop flag
         bool quit = false;
@@ -120,10 +120,9 @@ int main(int argc, char* args[]) {
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 
-            player.renderBack(10, 30, i/2000);
+            player.renderLeft(10, 30, i/2000);
             ++i;
             if (i / 2000 >= 6) i = 0;
-
 /*
             //Render front sprite
             headSpriteSheetTexture.render( 12, 9, 0, SCALE);
