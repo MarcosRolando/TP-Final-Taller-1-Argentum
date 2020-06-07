@@ -28,6 +28,8 @@ struct SpriteDimensions_t {
 class Texture {
 private:
     SDL_Renderer& renderer; /*El renderer es uno solo asociado a la ventana (que tambien es una sola)*/
+    //The actual hardware texture
+    SDL_Texture* mTexture;
     //Image dimensions
     int mWidth;
     int mHeight;
@@ -59,10 +61,6 @@ public:
     //Gets image dimensions
     int getWidth() const;
     int getHeight() const;
-
-private:
-    //The actual hardware texture
-    SDL_Texture* mTexture;
 };
 
 

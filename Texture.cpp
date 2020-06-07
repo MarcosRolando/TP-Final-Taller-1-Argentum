@@ -39,8 +39,7 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key) {
         if (newTexture == nullptr) {
             throw SDLException("Unable to create texture from %s! "
                                "SDL Error: %s\n", path.c_str(), SDL_GetError());
-        }
-        else {
+        } else {
             //Get image dimensions
             mWidth = loadedSurface->w;
             mHeight = loadedSurface->h;
