@@ -6,6 +6,10 @@
 
 const int PLAYER_SPEED = 1;
 
+//The dimensions of the level
+const int LEVEL_WIDTH = 1280;
+const int LEVEL_HEIGHT = 960;
+
 Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, int x, int y, EquipmentImages& images) :
         pTexture(renderer, images), camera(camera) {
 
@@ -50,7 +54,7 @@ void Player::setCamera() {
     //Center the camera over the player
     camera.x = (xPosition + 25 / 2 ) - 1280 / 2;
     camera.y = (yPosition + 45 / 2 ) - 720 / 2;
-
+/*
     //Keep the camera in bounds
     if (camera.x < 0) {
         camera.x = 0;
@@ -58,12 +62,9 @@ void Player::setCamera() {
     if (camera.y < 0) {
         camera.y = 0;
     }
-    /*
     if (camera.x > LEVEL_WIDTH - camera.w) {
         camera.x = LEVEL_WIDTH - camera.w;
     }
-     */
-    /*
     if (camera.y > LEVEL_HEIGHT - camera.h) {
         camera.y = LEVEL_HEIGHT - camera.h;
     }
