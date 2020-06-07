@@ -15,7 +15,11 @@ private:
     std::unique_ptr<Entity> entity;
     bool isOccupable;
     FloorType floor;
+
 public:
+    //Inicializa el tile, dependiendo tel tipo de piso que reciba seteara el
+    //tile como ocupable o no ocupable
+    Tile(FloorType floor);
     bool addEntity(Item* item);
 };
 
