@@ -4,7 +4,7 @@ project(Argentum)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-add_executable(argentum main.cpp Items/Item.h Items/Weapon.cpp Items/Weapon.h Items/Gold.cpp Items/Gold.h Map/Tile.cpp Map/Tile.h Map/FloorType.h Entities/Entity.cpp Entities/Entity.h Map/Coordinate.h Entities/Monster.cpp Entities/Monster.h)
+add_executable(argentum main.cpp Items/Item.h Items/Weapon.cpp Items/Weapon.h Items/Gold.cpp Items/Gold.h Map/Tile.cpp Map/Tile.h Map/FloorType.h Entities/Entity.cpp Entities/Entity.h Map/Coordinate.h Entities/Monster.cpp Entities/Monster.h Game.cpp Game.h)
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
                                                             -O0 -ggdb -DDEBUG -fno-inline)
