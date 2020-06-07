@@ -107,29 +107,22 @@ SpriteDimensions_t Texture::getSpriteDimensions(int spritePosition) {
 }
 
 void Texture::loadFromRenderedText( std::string textureText, SDL_Color
-textColor, TTF_Font* font )
-{
+textColor, TTF_Font* font ) {
     //Get rid of preexisting texture
     free();
 
     //Render text surface
-    SDL_Surface* textSurface = TTF_RenderText_Solid( font, textureText.c_str
-    (), textColor );
-    if( textSurface == NULL )
-    {
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str
+    (), textColor);
+    if( textSurface == NULL ) {
         throw SDLException("Unable to render text surface! SDL_ttf Error:"
                            " %s\n", TTF_GetError());
-    }
-    else
-    {
+    } else {
         //Create texture from surface pixels
         mTexture = SDL_CreateTextureFromSurface( &renderer, textSurface );
-        if( mTexture == NULL )
-        {
+        if( mTexture == NULL ) {
             throw SDLException("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
-        }
-        else
-        {
+        } else {
             //Get image dimensions
             mWidth = textSurface->w;
             mHeight = textSurface->h;

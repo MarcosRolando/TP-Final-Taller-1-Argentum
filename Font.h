@@ -13,7 +13,7 @@ class Font {
 private:
     TTF_Font *font;
 public:
-    Font();
+    Font(std::string path, int fontSize);
     TTF_Font* getFont();
     ~Font();
 };

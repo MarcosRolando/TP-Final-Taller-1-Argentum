@@ -113,10 +113,8 @@ int main( int argc, char* args[] ){
         init();//Esto es lo de crear la ventana y el renderer, va a ir a
         // la clase SDL gral
         Texture textTexture(*gRenderer);
-        Font textFont;
+        Font textFont("../font.ttf", 32);
         SDL_Color textColor = { 0xFF, 0xFF, 0xFF };
-        //textTexture.loadFromRenderedText("hola", textColor,textFont.getFont
-        // ());
         std::string texto;
         std::cin >> texto;
 
@@ -141,6 +139,7 @@ int main( int argc, char* args[] ){
             //Clear screen
             SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0x00 );
             SDL_RenderClear( gRenderer );
+
             textTexture.loadFromRenderedText(texto, textColor,textFont.getFont
             ());
 

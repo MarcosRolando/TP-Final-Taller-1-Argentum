@@ -64,9 +64,10 @@ public:
     int getWidth() const;
     int getHeight() const;
 
+    /* Crea una textura con el texto, color y font que recibe */
     void loadFromRenderedText(std::string textureText, SDL_Color textColor,
                               TTF_Font *font);
-
+    /* Renderiza textura en la posicion (x,y) */
     void render(int x, int y);
 };
 
