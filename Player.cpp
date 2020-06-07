@@ -46,22 +46,17 @@ void Player::move(float timeStep) {
             //do nothing
             break;
     }
-    if (movedOffset == 160) {
-        currentFrame = 0;
-        moveDirection = STILL;
-        movedOffset = 0;
-    } else if (movedOffset < 27.66) {
-        currentFrame = 0;
-    } else if (movedOffset < 53.33) {
-        currentFrame = 1;
-    } else if (movedOffset < 80.f) {
-        currentFrame = 2;
-    } else if (movedOffset < 107.66) {
-        currentFrame = 3;
-    } else if (movedOffset < 135.32) {
-        currentFrame = 4;
-    } else if (movedOffset < 162.98) {
-        currentFrame = 5;
+
+    for (int i = 0; i < 6; ++i) {
+        if (movedOffset < (27.66 * (i+1)) && movedOffset < 160) {
+            currentFrame = i;
+            break;
+        }
+        if (i == 5) {
+            currentFrame = 0;
+            moveDirection = STILL;
+            movedOffset = 0;
+        }
     }
 }
 
