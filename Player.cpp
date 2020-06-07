@@ -5,7 +5,6 @@
 #include "Player.h"
 
 const int PLAYER_SPEED = 640;
-const int FRAME_ANIMATION = 675;
 
 //The dimensions of the level
 const int LEVEL_WIDTH = 1280;
@@ -51,6 +50,18 @@ void Player::move(float timeStep) {
         currentFrame = 0;
         moveDirection = STILL;
         movedOffset = 0;
+    } else if (movedOffset < 27.66) {
+        currentFrame = 0;
+    } else if (movedOffset < 53.33) {
+        currentFrame = 1;
+    } else if (movedOffset < 80.f) {
+        currentFrame = 2;
+    } else if (movedOffset < 107.66) {
+        currentFrame = 3;
+    } else if (movedOffset < 135.32) {
+        currentFrame = 4;
+    } else if (movedOffset < 162.98) {
+        currentFrame = 5;
     }
 }
 
@@ -58,19 +69,19 @@ void Player::render() {
     switch (moveDirection) {
         case UP:
             pTexture.renderBack((int)(xPosition) - camera.x,
-                    (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
+                    (int)(yPosition) - camera.y, currentFrame);
             break;
         case DOWN:
             pTexture.renderFront((int)(xPosition) - camera.x,
-                    (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
+                    (int)(yPosition) - camera.y, currentFrame);
             break;
         case RIGHT:
             pTexture.renderRight((int)(xPosition) - camera.x,
-                    (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
+                    (int)(yPosition) - camera.y, currentFrame);
             break;
         case LEFT:
             pTexture.renderLeft((int)(xPosition) - camera.x,
-                    (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
+                    (int)(yPosition) - camera.y, currentFrame);
             break;
         case STILL:
             pTexture.renderFront((int)(xPosition) - camera.x,
