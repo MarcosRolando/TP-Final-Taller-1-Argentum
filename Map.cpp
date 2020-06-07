@@ -26,7 +26,7 @@ void Map::_setTiles() {
     int x = 0, y = 0;
 
     //Open the map
-    std::ifstream mapFile( "lazy.map" );
+    std::ifstream mapFile( "../lazy.map" );
 
     //If the map couldn't be loaded
     if (mapFile.fail()) {
