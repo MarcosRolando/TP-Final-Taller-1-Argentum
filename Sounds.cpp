@@ -6,15 +6,16 @@
 Sounds::Sounds() {
     _init();
     _loadSounds();
+    Mix_VolumeMusic(32);//Le bajo un poco el volumen a la musica
 }
 
 void Sounds::_init() {
-    if( SDL_Init( SDL_INIT_AUDIO ) < 0 ) {
+    if( SDL_Init(SDL_INIT_AUDIO ) < 0 ) {
         throw SDLException("SDL could not initialize! SDL Error: %s\n",
                 SDL_GetError() );
     }
-    if( Mix_OpenAudio( FREQUENCY, MIX_DEFAULT_FORMAT, 2,
-                                                CHUNKSIZE ) < 0 ){
+    if( Mix_OpenAudio(FREQUENCY, MIX_DEFAULT_FORMAT, 2,
+                                                CHUNKSIZE) < 0 ){
         throw SDLException("SDL_mixer could not initialize!"
                            " SDL_mixer Error: %s\n", Mix_GetError());
     }
