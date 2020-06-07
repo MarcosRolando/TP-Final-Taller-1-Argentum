@@ -93,8 +93,8 @@ int main(int argc, char* args[]) {
 	try {
         init();
         PlayerTexture player (*gRenderer);
-        player.setHeadImage("../Images/Heads/HumanHead.png");
-        player.setBodyImage("../Images/Clothing/PlateArmor.png");
+        player.setHeadImage("../Images/Heads/DwarfHead.png");
+        player.setBodyImage("../Images/Clothing/CommonClothing.png");
         //Main loop flag
         bool quit = false;
 
@@ -120,7 +120,7 @@ int main(int argc, char* args[]) {
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 
-            player.renderStaticRight(10, 30);
+            player.renderStaticFront(10, 30);
 
 
 /*
