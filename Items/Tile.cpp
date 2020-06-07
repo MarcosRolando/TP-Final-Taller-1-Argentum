@@ -26,6 +26,11 @@ bool Tile::addEntity(Entity *received_entity) {
     return false;
 }
 
+void Tile::removeEntity() {
+    entity.reset(nullptr);
+    isOccupable = true;
+}
+
 bool Tile::addItem(Item *received_item) {
     if (!item) {
         return false;
@@ -33,3 +38,8 @@ bool Tile::addItem(Item *received_item) {
     item.reset(received_item);
     return true;
 }
+
+void Tile::removeItem() {
+    item.reset(nullptr);
+}
+
