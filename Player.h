@@ -20,10 +20,6 @@ class Player {
 private:
     PlayerTexture pTexture;
     SDL_Rect& camera;
-    /*
-    float xSpeed;
-    float ySpeed;
-     */
     float movedOffset;
     int currentFrame;
     Direction moveDirection;

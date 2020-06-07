@@ -14,10 +14,6 @@ const int LEVEL_HEIGHT = 960;
 Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, EquipmentImages& images) :
         pTexture(renderer, images), camera(camera) {
 
-    /*
-    ySpeed = 0;
-    xSpeed = 0;
-    */
     movedOffset = 0;
     currentFrame = 0;
     moveDirection = STILL;
@@ -27,76 +23,64 @@ Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, Equip
 
 void Player::move(float timeStep) {
     float offset = PLAYER_SPEED*timeStep;
+    if (moveDirection != STILL) {
+        if ( (movedOffset + offset) >= 160) {
+            offset = 160 - movedOffset;
+        }
+        movedOffset += offset;
+        ++currentFrame;
+    }
     switch (moveDirection) {
         case UP:
-            if ( (movedOffset + offset) >= 160) {
-                offset = 160 - movedOffset;
-            }
-            movedOffset += offset;
             yPosition -= offset;
-            currentFrame++;
             break;
         case DOWN:
-            if ( (movedOffset + offset) >= 160) {
-                offset = 160 - movedOffset;
-            }
-            movedOffset += offset;
             yPosition += offset;
-            currentFrame++;
             break;
         case RIGHT:
-            if ( (movedOffset + offset) >= 160) {
-                offset = 160 - movedOffset;
-            }
-            movedOffset += offset;
             xPosition += offset;
-            currentFrame++;
             break;
         case LEFT:
-            if ( (movedOffset + offset) >= 160) {
-                offset = 160 - movedOffset;
-            }
-            movedOffset += offset;
             xPosition -= offset;
-            currentFrame++;
             break;
         case STILL:
             //do nothing
             break;
     }
-    if (movedOffset >= 160) {
+    if (movedOffset == 160) {
         currentFrame = 0;
         moveDirection = STILL;
         movedOffset = 0;
     }
-    /*
-    xPosition += xSpeed*timeStep;
-    yPosition += ySpeed*timeStep;
-     */
 }
 
 void Player::render() {
     switch (moveDirection) {
         case UP:
-            pTexture.renderBack((int)(xPosition) - camera.x, (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
+            pTexture.renderBack((int)(xPosition) - camera.x,
+                    (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
             break;
         case DOWN:
-            pTexture.renderFront((int)(xPosition) - camera.x, (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
+            pTexture.renderFront((int)(xPosition) - camera.x,
+                    (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
             break;
         case RIGHT:
-            pTexture.renderRight((int)(xPosition) - camera.x, (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
+            pTexture.renderRight((int)(xPosition) - camera.x,
+                    (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
             break;
         case LEFT:
-            pTexture.renderLeft((int)(xPosition) - camera.x, (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
+            pTexture.renderLeft((int)(xPosition) - camera.x,
+                    (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
             break;
         case STILL:
-            pTexture.renderFront((int)(xPosition) - camera.x, (int)(yPosition) - camera.y, 0);
+            pTexture.renderFront((int)(xPosition) - camera.x,
+                    (int)(yPosition) - camera.y, 0);
             break;
     }
 }
 
 void Player::handleEvent(SDL_Event& e) {
-    if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
+    if (e.type == SDL_KEYDOWN && e.key.repeat == 0 && moveDirection == STILL) {
         switch (e.key.keysym.sym) {
             case SDLK_UP: moveDirection = UP; break;
             case SDLK_DOWN: moveDirection = DOWN; break;
@@ -104,27 +88,6 @@ void Player::handleEvent(SDL_Event& e) {
             case SDLK_RIGHT: moveDirection = RIGHT; break;
         }
     }
-    /*
-    if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
-        //Adjust the velocity
-        switch(e.key.keysym.sym) {
-            case SDLK_UP: ySpeed -= PLAYER_SPEED; break;
-            case SDLK_DOWN: ySpeed += PLAYER_SPEED; break;
-            case SDLK_LEFT: xSpeed -= PLAYER_SPEED; break;
-            case SDLK_RIGHT: xSpeed += PLAYER_SPEED; break;
-        }
-    }
-        //If a key was released
-    else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
-        //Adjust the velocity
-        switch(e.key.keysym.sym) {
-            case SDLK_UP: ySpeed += PLAYER_SPEED; break;
-            case SDLK_DOWN: ySpeed -= PLAYER_SPEED; break;
-            case SDLK_LEFT: xSpeed += PLAYER_SPEED; break;
-            case SDLK_RIGHT: xSpeed -= PLAYER_SPEED; break;
-        }
-    }
-    */
 }
 
 void Player::setCamera() {
