@@ -5,6 +5,7 @@
 #include "Player.h"
 
 const int PLAYER_SPEED = 640;
+const int FRAME_ANIMATION = 675;
 
 //The dimensions of the level
 const int LEVEL_WIDTH = 1280;
@@ -13,22 +14,79 @@ const int LEVEL_HEIGHT = 960;
 Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, EquipmentImages& images) :
         pTexture(renderer, images), camera(camera) {
 
+    /*
     ySpeed = 0;
     xSpeed = 0;
+    */
+    currentFrame = 0;
+    moveDirection = STILL;
     xPosition = x;
     yPosition = y;
 }
 
 void Player::move(float timeStep) {
+    float offset = PLAYER_SPEED*timeStep;
+    switch (moveDirection) {
+        case UP:
+            yPosition -= offset;
+            currentFrame++;
+            break;
+        case DOWN:
+            yPosition += offset;
+            currentFrame++;
+            break;
+        case RIGHT:
+            xPosition += offset;
+            currentFrame++;
+            break;
+        case LEFT:
+            xPosition -= offset;
+            currentFrame++;
+            break;
+        case STILL:
+            //do nothing
+            break;
+    }
+    if ((currentFrame / FRAME_ANIMATION) >= 5) {
+        currentFrame = 0;
+        moveDirection = STILL;
+    }
+    /*
     xPosition += xSpeed*timeStep;
     yPosition += ySpeed*timeStep;
+     */
 }
 
 void Player::render() {
-    pTexture.renderFront((int)(xPosition) - camera.x, (int)(yPosition) - camera.y, 0);
+    switch (moveDirection) {
+        case UP:
+            pTexture.renderBack((int)(xPosition) - camera.x, (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
+            break;
+        case DOWN:
+            pTexture.renderFront((int)(xPosition) - camera.x, (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
+            break;
+        case RIGHT:
+            pTexture.renderRight((int)(xPosition) - camera.x, (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
+            break;
+        case LEFT:
+            pTexture.renderLeft((int)(xPosition) - camera.x, (int)(yPosition) - camera.y, currentFrame/FRAME_ANIMATION);
+            break;
+        case STILL:
+            pTexture.renderFront((int)(xPosition) - camera.x, (int)(yPosition) - camera.y, 0);
+            break;
+    }
 }
 
 void Player::handleEvent(SDL_Event& e) {
+    if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
+        switch (e.key.keysym.sym) {
+            case SDLK_UP: moveDirection = UP; break;
+            case SDLK_DOWN: moveDirection = DOWN; break;
+            case SDLK_LEFT: moveDirection = LEFT; break;
+            case SDLK_RIGHT: moveDirection = RIGHT; break;
+        }
+    }
+    /*
     if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
         //Adjust the velocity
         switch(e.key.keysym.sym) {
@@ -48,6 +106,7 @@ void Player::handleEvent(SDL_Event& e) {
             case SDLK_RIGHT: xSpeed -= PLAYER_SPEED; break;
         }
     }
+    */
 }
 
 void Player::setCamera() {

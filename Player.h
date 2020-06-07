@@ -8,12 +8,24 @@
 #include "PlayerTexture.h"
 #include "Timer.h"
 
+enum Direction {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+    STILL
+};
+
 class Player {
 private:
     PlayerTexture pTexture;
     SDL_Rect& camera;
+    /*
     float xSpeed;
     float ySpeed;
+     */
+    int currentFrame;
+    Direction moveDirection;
     float xPosition;
     float yPosition;
 

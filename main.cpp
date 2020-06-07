@@ -95,7 +95,7 @@ int main(int argc, char* args[]) {
         SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
         EquipmentImages pEquipment = {"", "../Images/Heads/ElfHead.png",
                 "../Images/Clothing/CommonClothing.png", ""};
-        Player player(*gRenderer, camera, 30, 30,pEquipment);
+        Player player(*gRenderer, camera, 40, 26,pEquipment);
         Map map(*gRenderer, camera);
         //Main loop flag
         bool quit = false;
