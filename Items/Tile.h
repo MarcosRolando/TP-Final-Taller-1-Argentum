@@ -20,7 +20,14 @@ public:
     //Inicializa el tile, dependiendo tel tipo de piso que reciba seteara el
     //tile como ocupable o no ocupable
     Tile(FloorType floor);
-    bool addEntity(Item* item);
+
+    //Intenta agregar el entity a la tile, destruyendo la entity almacenada
+    //previamente
+    bool addEntity(Entity *received_entity);
+
+    //Intenta agregar el item al tile, destruyendo el item almacenado
+    //previamente
+    bool addItem(Item *received_item);
 };
 
 

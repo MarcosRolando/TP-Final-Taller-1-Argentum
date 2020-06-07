@@ -17,11 +17,19 @@ Tile::Tile(FloorType floor): item(nullptr), entity(nullptr){
     }
 }
 
-bool Tile::addEntity(Item* received_item) {
+bool Tile::addEntity(Entity *received_entity) {
     if (isOccupable) {
-        //this->item.release();
-        this->item.reset(received_item);
+        this->entity.reset(received_entity);
+        isOccupable = false;
         return true;
     }
     return false;
+}
+
+bool Tile::addItem(Item *received_item) {
+    if (!item) {
+        return false;
+    }
+    item.reset(received_item);
+    return true;
 }
