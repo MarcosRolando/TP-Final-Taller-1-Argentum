@@ -6,7 +6,7 @@
 #define ARGENTUM_TILE_H
 
 #include <memory>
-#include "Item.h"
+#include "../Items/Item.h"
 #include "FloorType.h"
 
 class Tile {
