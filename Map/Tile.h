@@ -8,6 +8,7 @@
 #include <memory>
 #include "../Items/Item.h"
 #include "FloorType.h"
+#include "../NPCs/Entity.h"
 
 class Tile {
 private:
