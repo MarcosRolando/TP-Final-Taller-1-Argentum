@@ -91,23 +91,44 @@ void PlayerTexture::setWeaponImage(std::string&& weaponImage) {
     setWeaponImage(weaponImage);
 }
 
-void PlayerTexture::render(int x, int y) {
-    _renderHead(x + 12, y + 9);
-    _renderHelmet(x, y);
-    _renderBody();
-    _renderWeapon();
+void PlayerTexture::renderStaticFront(int x, int y) {
+    _renderHead(x + 12, y - 26, 0);
+    //_renderHelmet(x, y); todo
+    _renderBody(x, y, 0);
+    //_renderWeapon(); todo
 }
 
-void PlayerTexture::_renderHead(int x, int y) {
-    head.render( x, y, 0, SCALE);
+void PlayerTexture::renderStaticBack(int x, int y) {
+    _renderHead(x + 12, y - 26, 3);
+    //_renderHelmet(x, y); todo
+    _renderBody(x, y, 6);
+    //_renderWeapon(); todo
+}
+
+void PlayerTexture::renderStaticRight(int x, int y) {
+    _renderHead(x + 13, y - 26, 1);
+    //_renderHelmet(x, y); todo
+    _renderBody(x, y, 18);
+    //_renderWeapon(); todo
+}
+
+void PlayerTexture::renderStaticLeft(int x, int y) {
+    _renderHead(x + 8, y - 26, 2);
+    //_renderHelmet(x, y); todo
+    _renderBody(x, y, 12);
+    //_renderWeapon(); todo
+}
+
+void PlayerTexture::_renderHead(int x, int y, int spritePosition) {
+    head.render( x, y, spritePosition, SCALE);
 }
 
 void PlayerTexture::_renderHelmet(int x, int y) {
 
 }
 
-void PlayerTexture::_renderBody(int x, int y) {
-    head.render(x, y, 0, SCALE);
+void PlayerTexture::_renderBody(int x, int y, int spritePosition) {
+    head.render(x, y, spritePosition, SCALE);
 }
 
 void PlayerTexture::_renderWeapon(int x, int y) {

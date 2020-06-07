@@ -101,7 +101,7 @@ int main(int argc, char* args[]) {
         //Event handler
         SDL_Event e;
 
-        int i = 0;
+        //int i = 0;
 
         //While application is running
         while( !quit )
@@ -119,7 +119,7 @@ int main(int argc, char* args[]) {
             //Clear screen
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
-
+/*
             //Render front sprite
             headSpriteSheetTexture.render( 12, 9, 0, SCALE);
 
@@ -145,7 +145,7 @@ int main(int argc, char* args[]) {
             ++i;
 
             if (i/2000 >= 6) i = 0;
-
+*/
             //Update screen
             SDL_RenderPresent( gRenderer );
         }
