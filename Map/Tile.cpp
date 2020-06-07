@@ -7,7 +7,7 @@
 #include <memory>
 #include "FloorType.h"
 
-Tile::Tile(FloorType floor): item(nullptr), entity(nullptr){
+Tile::Tile(FloorType floor): entity(nullptr){
     this->floor = floor;
     switch (floor) {
         case FLOOR_TYPE_TREE:
