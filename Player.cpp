@@ -54,7 +54,7 @@ void Player::setCamera() {
     //Center the camera over the player
     camera.x = (xPosition + 25 / 2 ) - 1280 / 2;
     camera.y = (yPosition + 45 / 2 ) - 720 / 2;
-/*
+
     //Keep the camera in bounds
     if (camera.x < 0) {
         camera.x = 0;
@@ -62,11 +62,10 @@ void Player::setCamera() {
     if (camera.y < 0) {
         camera.y = 0;
     }
-    if (camera.x > LEVEL_WIDTH - camera.w) {
-        camera.x = LEVEL_WIDTH - camera.w;
+    if (camera.x > LEVEL_WIDTH*2 - camera.w) {
+        camera.x = LEVEL_WIDTH*2 - camera.w;
     }
-    if (camera.y > LEVEL_HEIGHT - camera.h) {
-        camera.y = LEVEL_HEIGHT - camera.h;
+    if (camera.y > LEVEL_HEIGHT*2 - camera.h) {
+        camera.y = LEVEL_HEIGHT*2 - camera.h;
     }
-    */
 }
