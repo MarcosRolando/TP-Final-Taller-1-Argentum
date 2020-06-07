@@ -119,6 +119,10 @@ int main(int argc, char* args[]) {
             //Clear screen
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
+
+            player.renderStaticRight(10, 30);
+
+
 /*
             //Render front sprite
             headSpriteSheetTexture.render( 12, 9, 0, SCALE);

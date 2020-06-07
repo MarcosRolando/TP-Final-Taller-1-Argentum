@@ -128,7 +128,7 @@ void PlayerTexture::_renderHelmet(int x, int y) {
 }
 
 void PlayerTexture::_renderBody(int x, int y, int spritePosition) {
-    head.render(x, y, spritePosition, SCALE);
+    body.render(x, y, spritePosition, SCALE);
 }
 
 void PlayerTexture::_renderWeapon(int x, int y) {
