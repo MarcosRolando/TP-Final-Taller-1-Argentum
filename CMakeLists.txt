@@ -4,6 +4,9 @@ project(Argentum)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
+find_package(jsoncpp)
+include_directories(${jsoncpp_INCLUDE_DIRS})
+
 add_executable(argentum main.cpp SDLException.cpp SDLException.h Sounds.cpp Sounds.h Texture.cpp Texture.h Font.cpp Font.h Window.cpp Window.h Renderer.cpp Renderer.h)
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
@@ -12,3 +15,4 @@ target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -ped
 target_link_options(argentum PRIVATE -lm -pthread)
 
 target_link_libraries(argentum ${SDL2_LIBRARIES} SDL2_image SDL2_ttf SDL2_mixer)
+target_link_libraries(argentum jsoncpp ${Boost_LIBRARIES} )

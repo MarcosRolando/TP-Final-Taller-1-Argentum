@@ -1,0 +1,126 @@
+{
+  "Race" : [
+    {
+      "Name" : "Human",
+      "Life" : 7,
+      "Mana" : 3,
+      "Constitution" : 5,
+      "Strength" : 5,
+      "Intelligence" : 5,
+      "Agility" : 5,
+      "Meditation" : 3
+    },
+    {
+      "Name" : "Elf",
+      "Life" : 3,
+      "Mana" : 8,
+      "Constitution" : 3,
+      "Strength" : 3,
+      "Intelligence" : 9,
+      "Agility" : 8,
+      "Meditation" : 7
+    },
+    {
+      "Name" : "Dwarf",
+      "Life" : 8,
+      "Mana" : 2,
+      "Constitution" : 8,
+      "Strength" : 9,
+      "Intelligence" : 5,
+      "Agility" : 3,
+      "Meditation" : 2
+    },
+    {
+      "Name" : "Gnome",
+      "Life" : 5,
+      "Mana" : 5,
+      "Constitution" : 7,
+      "Strength" : 4,
+      "Intelligence" : 8,
+      "Agility" : 2,
+      "Meditation" : 5
+    }
+  ],
+  "Class" : [
+    {
+      "Name" : "Mage",
+      "Life" : 5,
+      "Mana" : 10,
+      "Constitution" : 3,
+      "Strength" : 2,
+      "Intelligence" : 9,
+      "Agility" : 3,
+      "Meditation" : 8
+    },
+    {
+      "Name" : "Cleric",
+      "Life" : 7,
+      "Mana" : 7,
+      "Constitution" : 6,
+      "Strength" : 6,
+      "Intelligence" : 8,
+      "Agility" : 5,
+      "Meditation" : 5
+    },
+    {
+      "Name" : "Paladin",
+      "Life" : 8,
+      "Mana" : 6,
+      "Constitution" : 8,
+      "Strength" : 7,
+      "Intelligence" : 5,
+      "Agility" : 7,
+      "Meditation" : 5
+    },
+    {
+      "Name" : "Warrior",
+      "Life" : 9,
+      "Mana" : 0,
+      "Constitution" : 8,
+      "Strength" : 8,
+      "Intelligence" : 3,
+      "Agility" : 7,
+      "Meditation" : 5
+    }
+  ],
+
+  "Monster" : [
+    {
+      "Name" : "Skeleton",
+      "Damage" : 5,
+      "VisionRange" : 5
+    },
+    {
+      "Name" : "Zombie",
+      "Damage" : 7,
+      "VisionRange" : 3
+    },
+    {
+      "Name" : "Spider",
+      "Damage" : 2,
+      "VisionRange" : 8
+    },
+    {
+      "Name" : "Goblin",
+      "Damage" : 5,
+      "VisionRange" : 5
+    }
+  ],
+
+  "GoldDrop" : {
+    "MinRange" : 0,
+    "MaxRange" : 0.2
+  },
+
+  "MaxGoldFactor" : 100,
+  "MaxGoldLevelModifier" : 1.1,
+  "NextLevelFactor" : 1000,
+  "NextLevelModifier" : 1.8,
+  "MinDamageModifier" : 10, //esto se suma a la dif de nivel para calc xp ganado por un ataque
+  "MinKillXPModifier" : 0,
+  "MaxKillXPModifier" : 0.1,
+  "CritAttackProb" : 0.1,
+  "DodgeProb" : 0.1,
+  "NewbieLevel" : 12, //nivel hasta el cual se considera newbie
+  "MaxLevelDif" : 10, //Si la diferencia de nivel es mayor a 10 no podes atacar
+}

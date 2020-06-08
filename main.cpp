@@ -1,42 +1,4 @@
-//#include "Sounds.h"
-
-/*
-int main( int argc, char* args[] )//Para probar la carga y reproduccion de
-// sonidos
-{
-    try {
-        Sounds sounds;
-        char soundToPlay;
-        do {
-            std::cout << "Que sonido queres papa" << std::endl;
-            std::cin >> soundToPlay;
-            switch (soundToPlay) {
-                case 'e':
-                    sounds.playExplotionSound();
-                    break;
-                case 'a':
-                    sounds.playAttackSound();
-                    break;
-                case 'm':
-                    sounds.playMusic();
-                    break;
-                case 'p':
-                    sounds.pauseMusic();
-                    break;
-                default:
-                    soundToPlay = 'q';
-            }
-        } while (soundToPlay != 'q');
-        sounds.stopMusic();
-    } catch (std::exception& e) {
-        std::cout << e.what() << std::endl;
-    }
-
-	return 0;
-}
-*/
-
-#include "SDLException.h"
+/*#include "SDLException.h"
 #include "Texture.h"
 #include "Font.h"
 #include "Window.h"
@@ -75,7 +37,7 @@ void init()
         }
 
         //Create window
-        /*gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+        *//*gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
         if( gWindow == NULL )
         {
             throw SDLException("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -93,7 +55,7 @@ void init()
                 //Initialize renderer color
                 SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             }
-        }*/
+        }*//*
     }
 }
 void close()
@@ -161,5 +123,33 @@ int main( int argc, char* args[] ){
 
     close();
     return 0;
-}
+}*/
 
+#include <iostream>
+#include <fstream>
+#include <jsoncpp/json/json.h>
+#include <jsoncpp/json/value.h>
+
+
+int main() {
+    std::ifstream ifs("../config.json");
+    Json::Reader reader;
+    Json::Value obj;
+    reader.parse(ifs, obj); // reader can also read strings
+
+    /*std::cout << "Book: " << obj["book"].asString() << std::endl;
+    std::cout << "Year: " << obj["year"].asUInt() << std::endl;
+    const Json::Value& characters = obj["characters"]; // array of characters
+    for (const auto & character : characters){
+        std::cout << "    name: " << character["name"].asString();
+        std::cout << " chapter: " << character["chapter"].asUInt();
+        std::cout << std::endl;
+    }*/
+    const Json::Value& races = obj["Race"];
+    for (const auto & race : races) {
+        if (race["Name"].asString() == "Human")
+            std::cout << "Human life " << race["Life"].asString();
+    }
+
+
+}
