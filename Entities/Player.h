@@ -29,6 +29,8 @@ public:
     //por el juego
     void move(Direction direction);
 
+
+    //IMPLEMENTAR
     void attack(Coordinate target);
 };
 

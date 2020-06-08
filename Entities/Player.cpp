@@ -34,8 +34,6 @@ void Player::move(Direction direction) {
 }
 
 void Player::attack(Coordinate target) {
-    if () {
-
-    }
+    //IMPLEMENTAR
 }
 
