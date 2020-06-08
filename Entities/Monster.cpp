@@ -4,6 +4,7 @@
 
 #include "Monster.h"
 
+//VER SI HACE FALTA QUE RETORNE EL DAÑO QUE VA A HACER
 unsigned int Monster::attack() {
     return damage;
 }
