@@ -9,6 +9,7 @@
 #include <vector>
 #include <memory>
 #include "../Items/Item.h"
+#include "Player.h"
 
 class Inventory {
 private:
