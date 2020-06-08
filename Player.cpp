@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "GameConstants.h"
 
-const int PLAYER_SPEED = 200;
+const int PLAYER_SPEED = 400;
 
 Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, EquipmentImages& images) :
         pTexture(renderer, images), camera(camera) {
