@@ -6,8 +6,14 @@
 #define ARGENTUM_GAME_H
 
 
+#include "Map/Map.h"
+
 class Game {
+private:
     Map map;
+public:
+    unsigned int attackTile(unsigned int damage, unsigned int level,
+                            Coordinate coordinate);
 };
 
 

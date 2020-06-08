@@ -13,7 +13,7 @@ private:
     Coordinate_t currentPosition;
 
 public:
-    virtual unsigned int attacked(unsigned int damage) = 0;
+    virtual unsigned int attacked(unsigned int damage, unsigned int level) = 0;
 };
 
 

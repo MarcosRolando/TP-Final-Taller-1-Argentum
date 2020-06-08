@@ -44,7 +44,7 @@ public:
     //Ataca la entidad que se encuentre guardada en el mapa
     //Retorna la cantidad de daño que recibio la entidad atacada, si no hay
     //una entidad retorna 0
-    unsigned int attacked(unsigned int damage);
+    unsigned int attacked(unsigned int damage, unsigned int level);
 };
 
 

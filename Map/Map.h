@@ -16,7 +16,8 @@ private:
 public:
     //Ataca la tile y retorna cuanto danio le hizo al entity guardado, si no
     //hay un etity revuelve 0
-    unsigned int attackTile(unsigned int damage, Coordinate coordinate);
+    unsigned int attackTile(unsigned int damage, unsigned int level,
+                            Coordinate coordinate);
 };
 
 
