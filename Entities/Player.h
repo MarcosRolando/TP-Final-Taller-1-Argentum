@@ -28,11 +28,6 @@ public:
     //Modifica la posicion almacenada por el jugador, para que luego sea actualizada
     //por el juego
     void move(Direction direction);
-
-    //Le asigna al jugador la posicion recibida
-    void setPosition(Coordinate coordinate);
-
-    Coordinate getPosition();
 };
 
 

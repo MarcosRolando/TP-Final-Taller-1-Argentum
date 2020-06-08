@@ -8,3 +8,12 @@ Entity::Entity(Coordinate initialPosition) {
     currentPosition.iPosition = initialPosition.iPosition;
     currentPosition.jPosition = initialPosition.jPosition;
 }
+
+
+void Entity::setPosition(Coordinate coordinate) {
+    currentPosition = coordinate;
+}
+
+Coordinate Entity::getPosition() {
+    return currentPosition;
+}

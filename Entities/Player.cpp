@@ -28,10 +28,3 @@ void Player::move(Direction direction) {
             break;
     }
 }
-void Player::setPosition(Coordinate coordinate) {
-    currentPosition = coordinate;
-}
-
-Coordinate Player::getPosition() {
-    return currentPosition;
-}

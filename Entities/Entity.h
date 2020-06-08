@@ -15,6 +15,14 @@ protected:
 public:
     explicit Entity(Coordinate initialPosition);
     virtual unsigned int attacked(unsigned int damage, unsigned int level) = 0;
+
+    //Estas funciones deberian ser llamadas solo por game
+
+    //Le asigna al jugador la posicion recibida
+    void setPosition(Coordinate coordinate);
+
+    //Retorna la posicion en la que quiere estar el jugador
+    Coordinate getPosition();
 };
 
 
