@@ -12,11 +12,14 @@ Player::Player(unsigned int _maxHealth, unsigned int _maxMana): inventory((*this
 
 }
 
-void Player::move(Direction direction) {
+void Player::movea(Direction direction) {
+    /*
     switch (direction) {
         case DIRECTION_UP:
             currentPosition.iPosition;
             break;
         case DIRECTION_DOWN:
     }
+    */
+
 }

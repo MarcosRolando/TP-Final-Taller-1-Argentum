@@ -5,6 +5,8 @@
 #ifndef ARGENTUM_ITEM_H
 #define ARGENTUM_ITEM_H
 
+#include "../Entities/Player.h"
+
 //Clase interfaz de la que heredan todos los items
 class Item {
 public:
