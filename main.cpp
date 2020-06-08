@@ -97,7 +97,7 @@ int main(int argc, char* args[]) {
         EquipmentImages pEquipment = {"../Images/Clothing/Hood.png",
                                       "../Images/Heads/ElfHead.png",
                 "../Images/Clothing/CommonClothing.png",
-                "../Images/Clothing/TurtleShield.png", "../Images/Items/WarHammer.png"};
+                "../Images/Clothing/TurtleShield.png", "../Images/Items/CompoundBow.png"};
         Player player(*gRenderer, camera, 40, 26,pEquipment);
         Map map(*gRenderer, camera);
         //Main loop flag

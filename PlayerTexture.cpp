@@ -139,7 +139,7 @@ void PlayerTexture::renderFront(int x, int y, int frame) {
 void PlayerTexture::renderBack(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
     _renderHead(x + 12, y - 26, 3);
-    _renderWeapon(x + 5, y, frame + 6);
+    _renderWeapon(x + 5, y - 10, frame + 6);
     _renderShield(x - 5, y - 15, frame + 6);
     _renderBody(x, y, frame + 6);
     _renderHelmet(x + 12, y - 30, 3);
@@ -151,13 +151,13 @@ void PlayerTexture::renderRight(int x, int y, int frame) {
     _renderShield(x, y, frame + 18);
     _renderBody(x, y, frame + 18);
     _renderHelmet(x + 13, y - 30, 1);
-    _renderWeapon(x, y, frame + 18);
+    _renderWeapon(x, y - 10, frame + 18);
 }
 
 void PlayerTexture::renderLeft(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
     _renderHead(x + 8, y - 26, 2);
-    _renderWeapon(x - 4, y, frame + 12);
+    _renderWeapon(x - 4, y - 10, frame + 12);
     _renderBody(x, y, frame + 12);
     _renderHelmet(x + 7, y - 30, 2);
     _renderShield(x + 10, y, frame + 12);
