@@ -64,13 +64,13 @@ void PlayerTexture::_addShieldSprites(int y, bool lateralSide) {
 }
 
 void PlayerTexture::_addWeaponSprites(int y, bool lateralSide) {
-    weapon.addSprite(0, y, 24, 35);
-    weapon.addSprite(25, y, 25, 35);
-    weapon.addSprite(51, y, 23, 35);
-    weapon.addSprite(76, y, 24, 35);
-    weapon.addSprite(101, y, 24, 35);
-    if (lateralSide) weapon.addSprite(101, y, 24, 35);
-    else weapon.addSprite(126, y, 25, 35);
+    weapon.addSprite(0, y, 24, 45);
+    weapon.addSprite(25, y, 25, 45);
+    weapon.addSprite(51, y - 1, 23, 45);
+    weapon.addSprite(76, y - 1, 24, 45);
+    weapon.addSprite(101, y - 1, 24, 45);
+    if (lateralSide) weapon.addSprite(101, y, 24, 45);
+    else weapon.addSprite(126, y, 25, 45);
 }
 
 void PlayerTexture::setBodyImage(std::string& bodyImage) {
@@ -139,10 +139,10 @@ void PlayerTexture::renderFront(int x, int y, int frame) {
 void PlayerTexture::renderBack(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
     _renderHead(x + 12, y - 26, 3);
+    _renderWeapon(x + 5, y, frame + 6);
+    _renderShield(x - 5, y - 15, frame + 6);
     _renderBody(x, y, frame + 6);
     _renderHelmet(x + 12, y - 30, 3);
-    _renderShield(x - 5, y - 15, frame + 6);
-    _renderWeapon(x + 5, y, frame + 6);
 }
 
 void PlayerTexture::renderRight(int x, int y, int frame) {
