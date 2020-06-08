@@ -8,7 +8,7 @@
 
 #include "Inventory.h"
 
-class Player {
+class Player: public Entity {
 private:
     Inventory inventory;
     unsigned int currentMana;
@@ -18,7 +18,14 @@ private:
     Weapon equippedWeapon;
 public:
     Player(unsigned int maxHealth, unsigned int maxMana);
+
+    //Modifica la posicion almacenada por el jugador, para que luego sea actualizada
+    //por el juego
+    void move(Direction direction);
 };
 
+enum Direction{
+    DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT. DIRECTION_RIGHT
+};
 
 #endif //ARGENTUM_PLAYER_H

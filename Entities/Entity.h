@@ -9,11 +9,13 @@
 #include "../Map/Coordinate.h"
 
 class Entity {
-private:
+protected:
     Coordinate currentPosition;
 
 public:
+    explicit Entity(Coordinate initialPosition);
     virtual unsigned int attacked(unsigned int damage, unsigned int level) = 0;
 };
+
 
 #endif //ARGENTUM_ENTITY_H

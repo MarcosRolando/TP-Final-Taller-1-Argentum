@@ -8,8 +8,8 @@
 //Struct auxiliar para facilitar el paso de coordenadas, debido a esto no
 //tiene ningun comportamiento y sus atributos son publicos
 struct Coordinate{
-    unsigned int position_i;
-    unsigned int position_j;
+    unsigned int iPosition;
+    unsigned int jPosition;
 };
 
 #endif //ARGENTUM_COORDINATE_H
