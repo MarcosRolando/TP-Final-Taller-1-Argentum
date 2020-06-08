@@ -24,34 +24,35 @@ void NPC::_updatePosition() {
             offset = TILE_WIDTH*2 - movedOffset;
         }
         movedOffset += offset;
-        ++currentFrame;
-    }
-    switch (moveDirection) {
-        case UP:
-            yPosition -= offset;
-            break;
-        case DOWN:
-            yPosition += offset;
-            break;
-        case RIGHT:
-            xPosition += offset;
-            break;
-        case LEFT:
-            xPosition -= offset;
-            break;
-        case STILL:
-            //do nothing
-            break;
-    }
-    for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
-        if (movedOffset < ((float)TILE_WIDTH*2/6 * (float)(i+1)) && movedOffset < TILE_WIDTH*2) {
-            currentFrame = i;
-            break;
+        switch (moveDirection) {
+            case UP:
+                yPosition -= offset;
+                break;
+            case DOWN:
+                yPosition += offset;
+                break;
+            case RIGHT:
+                xPosition += offset;
+                break;
+            case LEFT:
+                xPosition -= offset;
+                break;
+            case STILL:
+                //do nothing
+                break;
         }
-        if (i == 5) {
-            currentFrame = 0;
-            moveDirection = STILL;
-            movedOffset = 0;
+    }
+    if (moveDirection != STILL) {
+        for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
+            if (movedOffset < ((float)TILE_WIDTH*2/6 * (float)(i+1))) {
+                currentFrame = i;
+                break;
+            }
+            if (i == 5) {
+                currentFrame = 0;
+                moveDirection = STILL;
+                movedOffset = 0;
+            }
         }
     }
 }
