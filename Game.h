@@ -12,7 +12,7 @@ class Game {
 private:
     Map map;
 public:
-    unsigned int attackTile(unsigned int damage, unsigned int level,
+    unsigned int attackPosition(unsigned int damage, unsigned int level,
                             Coordinate coordinate);
 };
 

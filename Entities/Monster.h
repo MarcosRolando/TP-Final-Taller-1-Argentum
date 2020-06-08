@@ -15,14 +15,21 @@ private:
     unsigned int damage;
     unsigned int rangeOfVision;
     Game& game;
+    const Map& map;
 public:
-    Monster(Game& _game, unsigned int _health, unsigned int _rangeOfVision);
+    Monster(Game& _game, const Map& map, unsigned int _health, unsigned int _rangeOfVision);
 
     //Retorna el daño que el monstruo intenta realizar
+    //VER SI ESTE RETORNO ES NECESARIO
     unsigned int attack();
 
+    void move();
+
     //Daña el monstruo, retorna la cantidad de danio recibido
-    unsigned int attacked(unsigned int damage);
+    //Recibe level por un tema de herencia y logica del juego, esto igualmente
+    //hace que el ataque sea extendible, podria aplicarse la logica del fair
+    //play tambien a los monstruos
+    unsigned int attacked(unsigned int damage, unsigned int level);
 
     //Retorna true si el monstruo esta muerto, false si esta vivo
     bool isDead();
