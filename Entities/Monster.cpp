@@ -19,3 +19,9 @@ unsigned int Monster::attacked(unsigned int _damage) {
 bool Monster::isDead() {
     return health == 0;
 }
+
+Monster::Monster(Game &_game, unsigned int _health,
+                 unsigned int _rangeOfVision): game(_game){
+    health = _health;
+    rangeOfVision = _rangeOfVision;
+}
