@@ -18,9 +18,11 @@ class Player: public Entity {
 private:
     Inventory inventory;
     unsigned int currentMana;
-    unsigned int maxMana;
+    //unsigned int maxMana;
     unsigned int currentHealth;
-    unsigned int maxHealth;
+    //unsigned int maxHealth;
+    unsigned int level;
+    unsigned int experience;
     Weapon equippedWeapon;
 public:
     Player(unsigned int maxHealth, unsigned int maxMana);
