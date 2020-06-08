@@ -10,6 +10,6 @@
 struct Coordinate{
     unsigned int position_i;
     unsigned int position_j;
-}Coordinate_t;
+};
 
 #endif //ARGENTUM_COORDINATE_H

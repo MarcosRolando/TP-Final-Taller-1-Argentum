@@ -46,3 +46,10 @@ std::shared_ptr<Item> Tile::removeItem() {
     return return_item;
 }
 
+unsigned int Tile::attacked(unsigned int damage) {
+    if (!entity) {
+        return 0;
+    }
+    return entity->attacked(damage);
+}
+

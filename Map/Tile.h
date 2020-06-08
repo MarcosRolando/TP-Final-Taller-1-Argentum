@@ -40,6 +40,11 @@ public:
     //Elimina uno de los items que se encuentran en el tile y lo retorna}
     //Si no hay ningun item retorna nullptr
     std::shared_ptr<Item> removeItem();
+
+    //Ataca la entidad que se encuentre guardada en el mapa
+    //Retorna la cantidad de daño que recibio la entidad atacada, si no hay
+    //una entidad retorna 0
+    unsigned int attacked(unsigned int damage);
 };
 
 
