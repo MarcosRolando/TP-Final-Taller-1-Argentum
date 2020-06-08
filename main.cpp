@@ -4,10 +4,10 @@ and may not be redistributed without written permission.*/
 //Using SDL, SDL_image, standard math, and strings
 #include <SDL.h>
 #include <SDL_image.h>
-#include <stdio.h>
 #include "SDLException.h"
 #include <iostream>
 #include "Player.h"
+#include "NPC.h"
 #include "Map.h"
 #include <unistd.h>
 
@@ -99,12 +99,10 @@ int main(int argc, char* args[]) {
                 "../Images/Clothing/CommonClothing.png",
                 "../Images/Clothing/TurtleShield.png", "../Images/Items/CompoundBow.png"};
         Player player(*gRenderer, camera, 40, 30,pEquipment);
+        NPC monster(*gRenderer, camera, 40, 30, "../Images/Monsters/Skeleton.png");
         Map map(*gRenderer, camera);
         //Main loop flag
         bool quit = false;
-
-        //Keeps track of time between steps
-        Timer stepTimer;
 
         //Event handler
         SDL_Event e;
@@ -123,21 +121,13 @@ int main(int argc, char* args[]) {
                 player.handleEvent(e);
             }
 
-            //Calculate time step
-            float timeStep = stepTimer.getTicks() / 1000.f;
-
-            player.move(timeStep);
-            player.setCamera();
-
-            //Restart step timer
-            stepTimer.start();
-
             //Clear screen
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 
             map.render();
-            player.render();
+            //player.render();
+            monster.render();
 
             //Update screen
             SDL_RenderPresent( gRenderer );

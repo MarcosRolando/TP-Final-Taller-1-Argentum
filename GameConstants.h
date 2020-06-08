@@ -13,4 +13,7 @@ const int LEVEL_HEIGHT = 960;
 const int TILE_WIDTH = 80;
 const int TILE_HEIGHT = 80;
 
+//La velocidad de las animaciones
+const int SPEED = 400;
+
 #endif //ARGENTUM_GAMECONSTANTS_H

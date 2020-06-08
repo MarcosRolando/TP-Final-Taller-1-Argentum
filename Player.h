@@ -7,18 +7,12 @@
 
 #include "PlayerTexture.h"
 #include "Timer.h"
-
-enum Direction {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT,
-    STILL
-};
+#include "Direction.h"
 
 class Player {
 private:
     PlayerTexture pTexture;
+    Timer moveTime;
     SDL_Rect& camera;
     float movedOffset;
     int currentFrame;
@@ -27,15 +21,16 @@ private:
     float yPosition;
 
 public:
-    Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, EquipmentImages& images);
-
-    void move(float timeStep);
+    Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y,
+            EquipmentImages& images);
 
     void handleEvent(SDL_Event& e);
 
     void render();
 
-    void setCamera();
+private:
+    void _updatePosition();
+    void _updateCamera();
 };
 
 

@@ -5,8 +5,6 @@
 #include "Player.h"
 #include "GameConstants.h"
 
-const int PLAYER_SPEED = 400;
-
 Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, EquipmentImages& images) :
         pTexture(renderer, images), camera(camera) {
 
@@ -17,8 +15,10 @@ Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, Equip
     yPosition = y;
 }
 
-void Player::move(float timeStep) {
-    float offset = PLAYER_SPEED*timeStep;
+void Player::_updatePosition() {
+    //Calculate time step
+    float timeStep = moveTime.getTicks() / 1000.f;
+    float offset = SPEED*timeStep;
     if (moveDirection != STILL) {
         if ( (movedOffset + offset) >= TILE_WIDTH*2/*tileScale*/) {
             offset = TILE_WIDTH*2 - movedOffset;
@@ -57,6 +57,9 @@ void Player::move(float timeStep) {
 }
 
 void Player::render() {
+    _updatePosition();
+    _updateCamera();
+    moveTime.start(); //reseteo
     switch (moveDirection) {
         case UP:
             pTexture.renderBack((int)(xPosition) - camera.x,
@@ -92,7 +95,7 @@ void Player::handleEvent(SDL_Event& e) {
     }
 }
 
-void Player::setCamera() {
+void Player::_updateCamera() {
     //Center the camera over the player
     camera.x = ((int)xPosition + 25 / 2 ) - 1280 / 2;
     camera.y = ((int)yPosition + 45 / 2 ) - 720 / 2;
