@@ -36,19 +36,20 @@ public:
     void setShieldImage(std::string& shieldImage);
     void setWeaponImage(std::string& weaponImage);
 
-    void renderFront(int x, int y, int bodyFrame);
-    void renderBack(int x, int y, int bodyFrame);
-    void renderRight(int x, int y, int bodyFrame);
-    void renderLeft(int x, int y, int bodyFrame);
+    void renderFront(int x, int y, int frame);
+    void renderBack(int x, int y, int frame);
+    void renderRight(int x, int y, int frame);
+    void renderLeft(int x, int y, int frame);
 
 private:
     void _addBodySprites(int y, bool lateralSide);
     void _addShieldSprites(int y, bool lateralSide);
+    void _addWeaponSprites(int y, bool lateralSide);
     void _renderHead(int x, int y, int spritePosition);
     void _renderHelmet(int x, int y, int spritePosition);
     void _renderBody(int x, int y, int spritePosition);
     void _renderShield(int x, int y, int spritePosition);
-    void _renderWeapon(int x, int y);
+    void _renderWeapon(int x, int y, int spritePosition);
 };
 
 
