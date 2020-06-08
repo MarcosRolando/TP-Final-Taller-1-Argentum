@@ -40,7 +40,7 @@ void init()
 	else
 	{
 		//Set texture filtering to linear
-		if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
+		if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "0" ) )
 		{
 			printf( "Warning: Linear texture filtering not enabled!" );
 		}
@@ -94,10 +94,10 @@ int main(int argc, char* args[]) {
         init();
         //Level camera
         SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-        EquipmentImages pEquipment = {"../Images/Clothing/Hood.png",
+        EquipmentImages pEquipment = {"",
                                       "../Images/Heads/ElfHead.png",
-                "../Images/Clothing/CommonClothing.png",
-                "../Images/Clothing/TurtleShield.png", "../Images/Items/CompoundBow.png"};
+                "../Images/Clothing/PlateArmor.png",
+                "../Images/Clothing/TurtleShield.png", "../Images/Items/LongSword.png"};
         Player player(*gRenderer, camera, 40, 30,pEquipment);
         NPC monster(*gRenderer, camera, 40, 30, "../Images/Monsters/Skeleton.png");
         Map map(*gRenderer, camera);
@@ -126,8 +126,8 @@ int main(int argc, char* args[]) {
             SDL_RenderClear( gRenderer );
 
             map.render();
-            //player.render();
-            monster.render();
+            player.render();
+            //monster.render();
 
             //Update screen
             SDL_RenderPresent( gRenderer );
