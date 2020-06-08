@@ -11,6 +11,7 @@ PlayerTexture::PlayerTexture(SDL_Renderer &renderer, EquipmentImages& images)
     if (!images.helmetImage.empty()) setHelmetImage(images.helmetImage);
     setHeadImage(images.headImage);
     setBodyImage(images.bodyImage);
+    if (!images.shieldImage.empty()) setShieldImage(images.shieldImage);
     setWeaponImage(images.weaponImage);
 }
 
@@ -52,11 +53,21 @@ void PlayerTexture::_addBodySprites(int y, bool lateralSide) {
     else body.addSprite(125, y, 25, 45);
 }
 
+void PlayerTexture::_addShieldSprites(int y, bool lateralSide) {
+    shield.addSprite(5, y, 21, 35);
+    shield.addSprite(30, y, 21, 35);
+    shield.addSprite(55, y, 21, 35);
+    shield.addSprite(80, y, 21, 35);
+    shield.addSprite(105, y, 21, 35);
+    if (lateralSide) shield.addSprite(105, y, 21, 35);
+    else shield.addSprite(130, y, 21, 35);
+}
+
 void PlayerTexture::setBodyImage(std::string& bodyImage) {
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
-        body.loadFromFile( bodyImage, key);
+        body.loadFromFile(bodyImage, key);
         /*Front*/
         _addBodySprites(0, false);
         /*Back*/
@@ -65,6 +76,24 @@ void PlayerTexture::setBodyImage(std::string& bodyImage) {
         _addBodySprites(90, true);
         /*Rigth*/
         _addBodySprites(135, true);
+    } catch (SDLException& e) {
+        throw SDLException("Failed to load sprite sheet texture!\n");
+    }
+}
+
+void PlayerTexture::setShieldImage(std::string& shieldImage) {
+    try {
+        //Load sprite sheet texture
+        ColorKey_t key = {0, 0, 0};
+        shield.loadFromFile(shieldImage, key);
+        /*Front*/
+        _addShieldSprites(0, false);
+        /*Back*/
+        _addShieldSprites(45, false);
+        /*Left*/
+        _addShieldSprites(90, true);
+        /*Rigth*/
+        _addShieldSprites(135, true);
     } catch (SDLException& e) {
         throw SDLException("Failed to load sprite sheet texture!\n");
     }
@@ -79,6 +108,7 @@ void PlayerTexture::renderFront(int x, int y, int bodyFrame) {
     _renderHead(x + 12, y - 26, 0);
     _renderBody(x, y, bodyFrame);
     _renderHelmet(x + 12, y - 30, 0);
+    _renderShield(x + 25, y, bodyFrame);
     //_renderWeapon(); todo
 }
 
@@ -87,6 +117,7 @@ void PlayerTexture::renderBack(int x, int y, int bodyFrame) {
     _renderHead(x + 12, y - 26, 3);
     _renderBody(x, y, bodyFrame + 6);
     _renderHelmet(x + 12, y - 30, 3);
+    _renderShield(x, y, bodyFrame + 6);
     //_renderWeapon(); todo
 }
 
@@ -95,6 +126,7 @@ void PlayerTexture::renderRight(int x, int y, int bodyFrame) {
     _renderHead(x + 13, y - 26, 1);
     _renderBody(x, y, bodyFrame + 18);
     _renderHelmet(x + 13, y - 30, 1);
+    _renderShield(x + 12, y, bodyFrame + 18);
     //_renderWeapon(); todo
 }
 
@@ -103,6 +135,7 @@ void PlayerTexture::renderLeft(int x, int y, int bodyFrame) {
     _renderHead(x + 8, y - 26, 2);
     _renderBody(x, y, bodyFrame + 12);
     _renderHelmet(x + 7, y - 30, 2);
+    _renderShield(x + 10, y, bodyFrame + 12);
     //_renderWeapon(); todo
 }
 
@@ -116,6 +149,9 @@ void PlayerTexture::_renderHelmet(int x, int y, int spritePosition) {
 
 void PlayerTexture::_renderBody(int x, int y, int spritePosition) {
     body.render(x, y, spritePosition, SCALE);
+}
+void PlayerTexture::_renderShield(int x, int y, int spritePosition) {
+    if (shield.loadedTexture()) shield.render(x, y, spritePosition, SCALE);
 }
 
 void PlayerTexture::_renderWeapon(int x, int y) {
