@@ -126,30 +126,10 @@ int main( int argc, char* args[] ){
 }*/
 
 #include <iostream>
-#include <fstream>
-#include <jsoncpp/json/json.h>
-#include <jsoncpp/json/value.h>
-
+#include "FileReader.h"
 
 int main() {
-    std::ifstream ifs("../config.json");
-    Json::Reader reader;
-    Json::Value obj;
-    reader.parse(ifs, obj); // reader can also read strings
-
-    /*std::cout << "Book: " << obj["book"].asString() << std::endl;
-    std::cout << "Year: " << obj["year"].asUInt() << std::endl;
-    const Json::Value& characters = obj["characters"]; // array of characters
-    for (const auto & character : characters){
-        std::cout << "    name: " << character["name"].asString();
-        std::cout << " chapter: " << character["chapter"].asUInt();
-        std::cout << std::endl;
-    }*/
-    const Json::Value& races = obj["Race"];
-    for (const auto & race : races) {
-        if (race["Name"].asString() == "Human")
-            std::cout << "Human life " << race["Life"].asString();
-    }
-
-
+    FileReader fileReader;
+    std::cout << fileReader.getNewbieLevel();
+    return 0;
 }
