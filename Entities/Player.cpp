@@ -4,6 +4,10 @@
 
 #include "Player.h"
 
+
+
+////////////////////////////////////PUBLIC///////////////////////////////
+
 Player::Player(unsigned int _maxHealth, unsigned int _maxMana): inventory((*this)) {
     maxHealth = _maxHealth;
     currentHealth = _maxHealth;
@@ -28,3 +32,10 @@ void Player::move(Direction direction) {
             break;
     }
 }
+
+void Player::attack(Coordinate target) {
+    if () {
+
+    }
+}
+

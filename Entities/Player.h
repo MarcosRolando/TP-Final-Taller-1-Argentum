@@ -28,6 +28,8 @@ public:
     //Modifica la posicion almacenada por el jugador, para que luego sea actualizada
     //por el juego
     void move(Direction direction);
+
+    void attack(Coordinate target);
 };
 
 
