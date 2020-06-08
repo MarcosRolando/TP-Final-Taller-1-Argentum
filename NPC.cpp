@@ -20,10 +20,12 @@ void NPC::_updatePosition() {
     float timeStep = moveTime.getTicks() / 1000.f;
     float offset = SPEED*timeStep;
     if (moveDirection != STILL) {
-        if ( (movedOffset + offset) >= TILE_WIDTH*2/*tileScale*/) {
-            offset = TILE_WIDTH*2 - movedOffset;
+        if ( (movedOffset + offset) >= (float)(TILE_WIDTH*2)/*tileScale*/) {
+            offset = 160.f - movedOffset; /*TILE_WIDTH*2 es 160*/
+            movedOffset = 160.f;
+        } else {
+            movedOffset += offset;
         }
-        movedOffset += offset;
         switch (moveDirection) {
             case UP:
                 yPosition -= offset;
@@ -42,16 +44,15 @@ void NPC::_updatePosition() {
                 break;
         }
     }
-    if (moveDirection != STILL) {
+    if (movedOffset >= 160.f) {
+        currentFrame = 0;
+        moveDirection = STILL;
+        movedOffset = 0;
+    } else {
         for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
             if (movedOffset < ((float)TILE_WIDTH*2/6 * (float)(i+1))) {
                 currentFrame = i;
                 break;
-            }
-            if (i == 5) {
-                currentFrame = 0;
-                moveDirection = STILL;
-                movedOffset = 0;
             }
         }
     }
