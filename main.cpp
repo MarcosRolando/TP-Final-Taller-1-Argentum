@@ -97,7 +97,7 @@ int main(int argc, char* args[]) {
         EquipmentImages pEquipment = {"",
                                       "../Images/Heads/DwarfHead.png",
                 "../Images/Clothing/CommonClothing.png",
-                "../Images/Clothing/IronShield.png", "../Images/Items/LinkedStaff.png"};
+                "../Images/Clothing/TurtleShield.png", "../Images/Items/LinkedStaff.png"};
         Player player(*gRenderer, camera, 40, 30,pEquipment);
         NPC monster(*gRenderer, camera, 200, 30, "../Images/Monsters/Skeleton.png");
         Map map(*gRenderer, camera);
