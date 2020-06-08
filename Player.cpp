@@ -84,17 +84,6 @@ void Player::render() {
     }
 }
 
-void Player::handleEvent(SDL_Event& e) {
-    if (e.type == SDL_KEYDOWN && e.key.repeat == 0 && moveDirection == STILL) {
-        switch (e.key.keysym.sym) {
-            case SDLK_UP: moveDirection = UP; break;
-            case SDLK_DOWN: moveDirection = DOWN; break;
-            case SDLK_LEFT: moveDirection = LEFT; break;
-            case SDLK_RIGHT: moveDirection = RIGHT; break;
-        }
-    }
-}
-
 void Player::_updateCamera() {
     //Center the camera over the player
     camera.x = ((int)xPosition + 25 / 2 ) - 1280 / 2;
@@ -113,4 +102,8 @@ void Player::_updateCamera() {
     if (camera.y > LEVEL_HEIGHT*2 - camera.h) {
         camera.y = LEVEL_HEIGHT*2 - camera.h;
     }
+}
+
+void Player::move(Direction direction) {
+    if (moveDirection == STILL) moveDirection = direction;
 }

@@ -14,7 +14,10 @@ NPC::NPC(SDL_Renderer &renderer, SDL_Rect &camera, float x, float y,
         xPosition = x;
         yPosition = y;
 }
-void NPC::move(float timeStep) {
+
+void NPC::_updatePosition() {
+    //Calculate time step
+    float timeStep = moveTime.getTicks() / 1000.f;
     float offset = SPEED*timeStep;
     if (moveDirection != STILL) {
         if ( (movedOffset + offset) >= TILE_WIDTH*2/*tileScale*/) {
@@ -54,6 +57,8 @@ void NPC::move(float timeStep) {
 }
 
 void NPC::render() {
+    _updatePosition();
+    moveTime.start(); //reseteo
     switch (moveDirection) {
         case UP:
             npcTexture.renderBack((int)(xPosition) - camera.x,
@@ -77,4 +82,9 @@ void NPC::render() {
             break;
     }
 }
+
+void NPC::move(Direction direction) {
+    if (moveDirection == STILL) moveDirection = direction;
+}
+
 

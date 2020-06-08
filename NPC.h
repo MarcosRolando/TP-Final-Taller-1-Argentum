@@ -6,11 +6,13 @@
 #define ARGENTUM_NPC_H
 
 #include "NPCTexture.h"
+#include "Timer.h"
 #include "Direction.h"
 
 class NPC {
 private:
     NPCTexture npcTexture;
+    Timer moveTime;
     SDL_Rect& camera;
     float movedOffset;
     int currentFrame;
@@ -21,9 +23,11 @@ private:
 public:
     NPC(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y,
                                                         std::string image);
-    void move(float timeStep);
-
+    void move(Direction direction);
     void render();
+
+private:
+    void _updatePosition();
 };
 
 

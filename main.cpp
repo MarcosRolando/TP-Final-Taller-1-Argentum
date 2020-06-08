@@ -95,11 +95,11 @@ int main(int argc, char* args[]) {
         //Level camera
         SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
         EquipmentImages pEquipment = {"",
-                                      "../Images/Heads/ElfHead.png",
-                "../Images/Clothing/PlateArmor.png",
-                "../Images/Clothing/TurtleShield.png", "../Images/Items/LongSword.png"};
+                                      "../Images/Heads/DwarfHead.png",
+                "../Images/Clothing/CommonClothing.png",
+                "../Images/Clothing/IronShield.png", "../Images/Items/LinkedStaff.png"};
         Player player(*gRenderer, camera, 40, 30,pEquipment);
-        NPC monster(*gRenderer, camera, 40, 30, "../Images/Monsters/Skeleton.png");
+        NPC monster(*gRenderer, camera, 200, 30, "../Images/Monsters/Skeleton.png");
         Map map(*gRenderer, camera);
         //Main loop flag
         bool quit = false;
@@ -118,7 +118,14 @@ int main(int argc, char* args[]) {
                 {
                     quit = true;
                 }
-                player.handleEvent(e);
+                if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
+                    switch (e.key.keysym.sym) {
+                        case SDLK_UP: player.move(UP); monster.move(UP); break;
+                        case SDLK_DOWN: player.move(DOWN); monster.move(DOWN); break;
+                        case SDLK_LEFT: player.move(LEFT); monster.move(LEFT); break;
+                        case SDLK_RIGHT: player.move(RIGHT); monster.move(RIGHT); break;
+                    }
+                }
             }
 
             //Clear screen
@@ -127,7 +134,7 @@ int main(int argc, char* args[]) {
 
             map.render();
             player.render();
-            //monster.render();
+            monster.render();
 
             //Update screen
             SDL_RenderPresent( gRenderer );

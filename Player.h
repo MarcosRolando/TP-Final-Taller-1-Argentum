@@ -23,9 +23,7 @@ private:
 public:
     Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y,
             EquipmentImages& images);
-
-    void handleEvent(SDL_Event& e);
-
+    void move(Direction direction);
     void render();
 
 private:
