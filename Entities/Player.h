@@ -7,6 +7,12 @@
 
 
 #include "Inventory.h"
+#include "Entity.h"
+
+enum Direction{
+    DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT
+};
+
 
 class Player: public Entity {
 private:
@@ -21,11 +27,13 @@ public:
 
     //Modifica la posicion almacenada por el jugador, para que luego sea actualizada
     //por el juego
-    void movea(Direction direction);
+    void move(Direction direction);
+
+    //Le asigna al jugador la posicion recibida
+    void setPosition(Coordinate coordinate);
+
+    Coordinate getPosition();
 };
 
-enum Direction{
-    DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT. DIRECTION_RIGHT
-};
 
 #endif //ARGENTUM_PLAYER_H
