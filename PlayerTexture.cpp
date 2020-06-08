@@ -15,7 +15,17 @@ PlayerTexture::PlayerTexture(SDL_Renderer &renderer, EquipmentImages& images)
 }
 
 void PlayerTexture::setHelmetImage(std::string& helmetImage) {
-    //todo
+    try {
+        //Load sprite sheet texture
+        ColorKey_t key = {0, 0, 0};
+        helmet.loadFromFile(helmetImage, key);
+        helmet.addSprite(0, 0, 17, 17);
+        helmet.addSprite(17, 0, 17, 17);
+        helmet.addSprite(34, 0, 17, 17);
+        helmet.addSprite(51, 0, 17, 17);
+    } catch (SDLException& e) {
+        throw SDLException("Failed to load sprite sheet texture!\n");
+    }
 }
 
 void PlayerTexture::setHeadImage(std::string& headImage) {
@@ -83,41 +93,41 @@ void PlayerTexture::setWeaponImage(std::string&& weaponImage) {
 void PlayerTexture::renderFront(int x, int y, int bodyFrame) {
     if (bodyFrame < 0 || bodyFrame > 5) throw SDLException("I dont have that character frame!");
     _renderHead(x + 12, y - 26, 0);
-    //_renderHelmet(x, y); todo
     _renderBody(x, y, bodyFrame);
+    _renderHelmet(x + 12, y - 30, 0);
     //_renderWeapon(); todo
 }
 
 void PlayerTexture::renderBack(int x, int y, int bodyFrame) {
     if (bodyFrame < 0 || bodyFrame > 5) throw SDLException("I dont have that character frame!");
     _renderHead(x + 12, y - 26, 3);
-    //_renderHelmet(x, y); todo
     _renderBody(x, y, bodyFrame + 6);
+    _renderHelmet(x + 14, y - 30, 3);
     //_renderWeapon(); todo
 }
 
 void PlayerTexture::renderRight(int x, int y, int bodyFrame) {
     if (bodyFrame < 0 || bodyFrame > 5) throw SDLException("I dont have that character frame!");
     _renderHead(x + 13, y - 26, 1);
-    //_renderHelmet(x, y); todo
     _renderBody(x, y, bodyFrame + 18);
+    _renderHelmet(x + 13, y - 30, 1);
     //_renderWeapon(); todo
 }
 
 void PlayerTexture::renderLeft(int x, int y, int bodyFrame) {
     if (bodyFrame < 0 || bodyFrame > 5) throw SDLException("I dont have that character frame!");
     _renderHead(x + 8, y - 26, 2);
-    //_renderHelmet(x, y); todo
     _renderBody(x, y, bodyFrame + 12);
+    _renderHelmet(x + 6, y - 30, 2);
     //_renderWeapon(); todo
 }
 
 void PlayerTexture::_renderHead(int x, int y, int spritePosition) {
-    head.render( x, y, spritePosition, SCALE);
+    head.render(x, y, spritePosition, SCALE);
 }
 
-void PlayerTexture::_renderHelmet(int x, int y) {
-
+void PlayerTexture::_renderHelmet(int x, int y, int spritePosition) {
+    helmet.render(x, y, spritePosition, SCALE);
 }
 
 void PlayerTexture::_renderBody(int x, int y, int spritePosition) {

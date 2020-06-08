@@ -46,7 +46,7 @@ public:
 private:
     void _addBodySprites(int y, bool lateralSide);
     void _renderHead(int x, int y, int spritePosition);
-    void _renderHelmet(int x, int y);
+    void _renderHelmet(int x, int y, int spritePosition);
     void _renderBody(int x, int y, int spritePosition);
     void _renderWeapon(int x, int y);
 };
