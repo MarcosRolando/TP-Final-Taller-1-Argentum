@@ -58,6 +58,9 @@ public:
     /*Retorna las dimensiones de alto y ancho del sprite*/
     SpriteDimensions_t getSpriteDimensions(int spritePosition);
 
+    /*Retorna true si tiene cargada una textura*/
+    bool loadedTexture();
+
     //Gets image dimensions
     int getWidth() const;
     int getHeight() const;

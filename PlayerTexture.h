@@ -33,11 +33,6 @@ public:
     void setBodyImage(std::string& bodyImage);
     void setWeaponImage(std::string& weaponImage);
 
-    void setHelmetImage(std::string&& helmetImage);
-    void setHeadImage(std::string&& headImage);
-    void setBodyImage(std::string&& bodyImage);
-    void setWeaponImage(std::string&& weaponImage);
-
     void renderFront(int x, int y, int bodyFrame);
     void renderBack(int x, int y, int bodyFrame);
     void renderRight(int x, int y, int bodyFrame);

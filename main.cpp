@@ -94,7 +94,7 @@ int main(int argc, char* args[]) {
         init();
         //Level camera
         SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-        EquipmentImages pEquipment = {"../Images/Clothing/Hood.png",
+        EquipmentImages pEquipment = {"",
                                       "../Images/Heads/HumanHead.png",
                 "../Images/Clothing/BlueTunic.png", ""};
         Player player(*gRenderer, camera, 40, 26,pEquipment);

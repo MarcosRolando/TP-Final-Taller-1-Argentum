@@ -8,7 +8,7 @@ const int SCALE = 3; /*Factor de escala de la imagen*/
 PlayerTexture::PlayerTexture(SDL_Renderer &renderer, EquipmentImages& images)
                                                 : PlayerTexture(renderer) {
 
-    setHelmetImage(images.helmetImage);
+    if (!images.helmetImage.empty()) setHelmetImage(images.helmetImage);
     setHeadImage(images.headImage);
     setBodyImage(images.bodyImage);
     setWeaponImage(images.weaponImage);
@@ -74,22 +74,6 @@ void PlayerTexture::setWeaponImage(std::string& weaponImage) {
     //todo
 }
 
-void PlayerTexture::setHelmetImage(std::string&& helmetImage) {
-    setHelmetImage(helmetImage);
-}
-
-void PlayerTexture::setHeadImage(std::string&& headImage) {
-    setHeadImage(headImage);
-}
-
-void PlayerTexture::setBodyImage(std::string&& bodyImage) {
-    setBodyImage(bodyImage);
-}
-
-void PlayerTexture::setWeaponImage(std::string&& weaponImage) {
-    setWeaponImage(weaponImage);
-}
-
 void PlayerTexture::renderFront(int x, int y, int bodyFrame) {
     if (bodyFrame < 0 || bodyFrame > 5) throw SDLException("I dont have that character frame!");
     _renderHead(x + 12, y - 26, 0);
@@ -127,7 +111,7 @@ void PlayerTexture::_renderHead(int x, int y, int spritePosition) {
 }
 
 void PlayerTexture::_renderHelmet(int x, int y, int spritePosition) {
-    helmet.render(x, y, spritePosition, SCALE);
+    if (helmet.loadedTexture()) helmet.render(x, y, spritePosition, SCALE);
 }
 
 void PlayerTexture::_renderBody(int x, int y, int spritePosition) {

@@ -92,3 +92,7 @@ SpriteDimensions_t Texture::getSpriteDimensions(int spritePosition) {
     SpriteDimensions_t dimensions = {sprite.w, sprite.h};
     return dimensions;
 }
+
+bool Texture::loadedTexture() {
+    return (mTexture != nullptr);
+}
