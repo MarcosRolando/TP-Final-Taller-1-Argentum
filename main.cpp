@@ -98,7 +98,7 @@ int main(int argc, char* args[]) {
                                       "../Images/Heads/ElfHead.png",
                 "../Images/Clothing/CommonClothing.png",
                 "../Images/Clothing/TurtleShield.png", "../Images/Items/CompoundBow.png"};
-        Player player(*gRenderer, camera, 40, 26,pEquipment);
+        Player player(*gRenderer, camera, 40, 30,pEquipment);
         Map map(*gRenderer, camera);
         //Main loop flag
         bool quit = false;
