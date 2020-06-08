@@ -8,11 +8,12 @@ unsigned int Monster::attack() {
     return damage;
 }
 
-void Monster::attacked(unsigned int _damage) {
+unsigned int Monster::attacked(unsigned int _damage) {
     health -= _damage;
     if (health < 0) {
         health = 0;
     }
+    return damage;
 }
 
 bool Monster::isDead() {

@@ -19,7 +19,7 @@ public:
     unsigned int attack();
 
     //Daña el monstruo
-    void attacked(unsigned int damage);
+    unsigned int attacked(unsigned int damage);
 
     //Retorna true si el monstruo esta muerto, false si esta vivo
     bool isDead();
