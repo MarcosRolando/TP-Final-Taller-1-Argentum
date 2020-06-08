@@ -94,10 +94,10 @@ int main(int argc, char* args[]) {
         init();
         //Level camera
         SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-        EquipmentImages pEquipment = {"../Images/Clothing/IronHelmet.png",
-                                      "../Images/Heads/GnomeHead.png",
-                "../Images/Clothing/BlueTunic.png",
-                "../Images/Clothing/TurtleShield.png", "../Images/Items/AshRod.png"};
+        EquipmentImages pEquipment = {"../Images/Clothing/Hood.png",
+                                      "../Images/Heads/ElfHead.png",
+                "../Images/Clothing/CommonClothing.png",
+                "../Images/Clothing/TurtleShield.png", "../Images/Items/WarHammer.png"};
         Player player(*gRenderer, camera, 40, 26,pEquipment);
         Map map(*gRenderer, camera);
         //Main loop flag

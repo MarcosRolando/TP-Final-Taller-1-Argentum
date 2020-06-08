@@ -67,7 +67,7 @@ void PlayerTexture::_addWeaponSprites(int y, bool lateralSide) {
     weapon.addSprite(0, y, 24, 45);
     weapon.addSprite(25, y, 25, 45);
     weapon.addSprite(51, y - 1, 23, 45);
-    weapon.addSprite(76, y - 1, 24, 45);
+    weapon.addSprite(76, y - 1, 23, 45);
     weapon.addSprite(101, y - 1, 24, 45);
     if (lateralSide) weapon.addSprite(101, y, 24, 45);
     else weapon.addSprite(126, y, 25, 45);
@@ -151,7 +151,7 @@ void PlayerTexture::renderRight(int x, int y, int frame) {
     _renderShield(x, y, frame + 18);
     _renderBody(x, y, frame + 18);
     _renderHelmet(x + 13, y - 30, 1);
-    _renderWeapon(x - 4, y, frame + 18);
+    _renderWeapon(x, y, frame + 18);
 }
 
 void PlayerTexture::renderLeft(int x, int y, int frame) {
