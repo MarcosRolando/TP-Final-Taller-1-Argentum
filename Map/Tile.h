@@ -5,7 +5,7 @@
 #ifndef ARGENTUM_TILE_H
 #define ARGENTUM_TILE_H
 
-#include "Texture.h"
+#include "../Texture/Texture.h"
 
 
 class Tile {

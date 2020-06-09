@@ -6,9 +6,9 @@ and may not be redistributed without written permission.*/
 #include <SDL_image.h>
 #include "SDLException.h"
 #include <iostream>
-#include "Player.h"
-#include "NPC.h"
-#include "Map.h"
+#include "Character/Player.h"
+#include "Character/NPC.h"
+#include "Map/Map.h"
 #include <unistd.h>
 
 //Screen dimension constants
@@ -120,10 +120,14 @@ int main(int argc, char* args[]) {
                 }
                 if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
                     switch (e.key.keysym.sym) {
-                        case SDLK_UP: player.move(UP); monster.move(UP); break;
-                        case SDLK_DOWN: player.move(DOWN); monster.move(DOWN); break;
-                        case SDLK_LEFT: player.move(LEFT); monster.move(LEFT); break;
-                        case SDLK_RIGHT: player.move(RIGHT); monster.move(RIGHT); break;
+                        case SDLK_UP: player.move(UP); break;
+                        case SDLK_DOWN: player.move(DOWN); break;
+                        case SDLK_LEFT: player.move(LEFT); break;
+                        case SDLK_RIGHT: player.move(RIGHT); break;
+                        case SDLK_w: monster.move(UP); break;
+                        case SDLK_s: monster.move(DOWN); break;
+                        case SDLK_a: monster.move(LEFT); break;
+                        case SDLK_d: monster.move(RIGHT); break;
                     }
                 }
             }

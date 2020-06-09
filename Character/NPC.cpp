@@ -3,7 +3,7 @@
 //
 
 #include "NPC.h"
-#include "GameConstants.h"
+#include "../GameConstants.h"
 
 NPC::NPC(SDL_Renderer &renderer, SDL_Rect &camera, float x, float y,
          std::string image) : npcTexture(renderer, image), camera(camera) {

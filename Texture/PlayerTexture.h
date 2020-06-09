@@ -6,7 +6,7 @@
 #define ARGENTUM_PLAYERTEXTURE_H
 
 #include "Texture.h"
-#include "SDLException.h"
+#include "../SDLException.h"
 
 struct EquipmentImages {
     std::string helmetImage;

@@ -3,7 +3,7 @@
 //
 
 #include "Tile.h"
-#include "GameConstants.h"
+#include "../GameConstants.h"
 
 //The different tile sprites
 const int TILE_RED = 0;

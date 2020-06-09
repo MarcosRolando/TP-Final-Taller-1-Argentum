@@ -4,8 +4,8 @@
 
 #include "Map.h"
 #include <fstream>
-#include "SDLException.h"
-#include "GameConstants.h"
+#include "../SDLException.h"
+#include "../GameConstants.h"
 
 Map::Map(SDL_Renderer& renderer, SDL_Rect& camera) : camera(camera) {
     this->camera = camera;

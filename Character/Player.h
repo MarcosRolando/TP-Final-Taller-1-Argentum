@@ -5,9 +5,9 @@
 #ifndef ARGENTUM_PLAYER_H
 #define ARGENTUM_PLAYER_H
 
-#include "PlayerTexture.h"
-#include "Timer.h"
-#include "Direction.h"
+#include "../Texture/PlayerTexture.h"
+#include "../Timer.h"
+#include "../Direction.h"
 
 class Player {
 private:

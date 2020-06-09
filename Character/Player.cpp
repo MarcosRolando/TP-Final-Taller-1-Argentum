@@ -3,7 +3,7 @@
 //
 
 #include "Player.h"
-#include "GameConstants.h"
+#include "../GameConstants.h"
 
 Player::Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y, EquipmentImages& images) :
         pTexture(renderer, images), camera(camera) {

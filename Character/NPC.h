@@ -5,9 +5,9 @@
 #ifndef ARGENTUM_NPC_H
 #define ARGENTUM_NPC_H
 
-#include "NPCTexture.h"
-#include "Timer.h"
-#include "Direction.h"
+#include "../Texture/NPCTexture.h"
+#include "../Timer.h"
+#include "../Direction.h"
 
 class NPC {
 private:

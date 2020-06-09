@@ -10,7 +10,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include "SDLException.h"
+#include "../SDLException.h"
 #include <string>
 #include <vector>
 

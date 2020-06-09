@@ -6,7 +6,7 @@
 #define ARGENTUM_NPCTEXTURE_H
 
 #include "Texture.h"
-#include "SDLException.h"
+#include "../SDLException.h"
 
 class NPCTexture {
 private:
