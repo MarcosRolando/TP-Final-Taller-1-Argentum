@@ -53,3 +53,10 @@ unsigned int Tile::attacked(unsigned int damage, unsigned int level) {
     return entity->attacked(damage, level);
 }
 
+bool Tile::hasMonsterTarget() {
+    if (entity) {
+        return entity->isMonsterTarget();
+    }
+    return false;
+}
+
