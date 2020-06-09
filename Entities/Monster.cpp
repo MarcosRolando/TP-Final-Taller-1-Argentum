@@ -47,6 +47,3 @@ Monster::Monster(Game &_game, const Map& _map, unsigned int _health,
     rangeOfVision = _rangeOfVision;
 }
 
-bool Monster::isMonsterTarget() {
-    return false;
-}

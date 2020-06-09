@@ -17,3 +17,7 @@ void Entity::setPosition(Coordinate coordinate) {
 Coordinate Entity::getPosition() {
     return currentPosition;
 }
+
+bool Entity::isMonsterTarget() {
+    return false;
+}

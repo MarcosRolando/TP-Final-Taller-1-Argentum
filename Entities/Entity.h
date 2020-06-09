@@ -18,7 +18,7 @@ public:
     //Implementa el comportamiento realizado al ser atacado
     virtual unsigned int attacked(unsigned int damage, unsigned int level) = 0;
 
-    virtual bool isMonsterTarget() = 0;
+    virtual bool isMonsterTarget();
 
     //Le asigna al jugador la posicion recibida
     void setPosition(Coordinate coordinate);
