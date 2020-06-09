@@ -18,6 +18,9 @@ public:
     //Implementa el comportamiento realizado al ser atacado
     virtual unsigned int attacked(unsigned int damage, unsigned int level) = 0;
 
+    //Indica si el Entity va a ser atacado por un monstruo, por default retorna
+    //false, las clases que hereden deben reimplementarla si son consideradas
+    //targets
     virtual bool isMonsterTarget();
 
     //Le asigna al jugador la posicion recibida
