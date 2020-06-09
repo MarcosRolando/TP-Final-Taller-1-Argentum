@@ -119,20 +119,23 @@
     }
   ],
 
-  "GoldDrop" : {
+  "GoldModifiers" : {
     "MinRange" : 0,
-    "MaxRange" : 0.2
+    "MaxRange" : 0.2,
+    "MaxSafeGoldFactor" : 100,
+    "MaxGoldLevelModifier" : 1.1
   },
 
-  "PlayerVision" : 5,
+  "XPModifiers" : {
+    "NextLevelFactor" : 1000,
+    "NextLevelModifier" : 1.8,
+    "MinKillXPModifier" : 0,
+    "MaxKillXPModifier" : 0.1,
+    "AttackXPModifier" : 10 //esto se suma a la dif de nivel para calc xp ganado por un ataque
+  },
+
+  "PlayerVisionRange" : 5,
   "InventorySize" : 10,
-  "MaxGoldFactor" : 100,
-  "MaxGoldLevelModifier" : 1.1,
-  "NextLevelFactor" : 1000,
-  "NextLevelModifier" : 1.8,
-  "MinDamageModifier" : 10, //esto se suma a la dif de nivel para calc xp ganado por un ataque
-  "MinKillXPModifier" : 0,
-  "MaxKillXPModifier" : 0.1,
   "CritAttackProb" : 0.1,
   "DodgeProb" : 0.1,
   "NewbieLevel" : 12, //nivel hasta el cual se considera newbie

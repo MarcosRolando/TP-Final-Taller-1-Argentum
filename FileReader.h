@@ -24,10 +24,11 @@ private:
     std::ifstream file;
 
 public:
-    FileReader(std::string path);
-    void getClassModifiers(Modifiers& modifiers, std::string type);
-    void getRaceModifiers(Modifiers& modifiers, std::string type);
-    void getMonsterStats(MonsterStats& monsterStats, std::string type);
+    FileReader(const std::string& path);
+
+    void getClassModifiers(Modifiers& modifiers, const std::string& type);
+    void getRaceModifiers(Modifiers& modifiers, const std::string& type);
+    void getMonsterStats(MonsterStats& monsterStats, const std::string& type);
 
     void getGoldModifiers(GoldModifiers& goldModifiers);
     void getXPModifiers(XPModifiers& xpModifiers);
@@ -39,7 +40,13 @@ public:
     unsigned int getmaxLevelDif();
 
     unsigned int getInventorySize();
+    unsigned int getPlayerVisionRange();
+
     ~FileReader();
+
+private:
+    void _getModifiers(Modifiers &modifier, Json::Value& currModifier);
+    void _getStats(MonsterStats &stats, Json::Value &currStat);
 };
 
 

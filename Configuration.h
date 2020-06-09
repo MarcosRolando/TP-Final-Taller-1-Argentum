@@ -71,6 +71,7 @@ private:
     unsigned int maxLevelDif;
 
     unsigned int inventorySize;
+    unsigned int playerVisionRange;
 
 public:
     Configuration(Configuration const&) = delete;
@@ -78,33 +79,33 @@ public:
 
     static Configuration& getInstance();
 
-    Modifiers getMageModifiers();
-    Modifiers getClericModifiers();
-    Modifiers getPaladinModifiers();
-    Modifiers getWarriorModifiers();
+    Modifiers configMageModifiers();
+    Modifiers configClericModifiers();
+    Modifiers configPaladinModifiers();
+    Modifiers configWarriorModifiers();
 
-    Modifiers getHumanModifiers();
-    Modifiers getElfModifiers();
-    Modifiers getDwarfModifiers();
-    Modifiers getGnomeModifiers();
+    Modifiers configHumanModifiers();
+    Modifiers configElfModifiers();
+    Modifiers configDwarfModifiers();
+    Modifiers configGnomeModifiers();
 
-    MonsterStats getSkeletonStats();
-    MonsterStats getSpiderStats();
-    MonsterStats getZombieStats();
-    MonsterStats getGoblinStats();
+    MonsterStats configSkeletonStats();
+    MonsterStats configSpiderStats();
+    MonsterStats configZombieStats();
+    MonsterStats configGoblinStats();
 
-    GoldModifiers getGoldModifiers();
-    XPModifiers getXPModifiers();
+    GoldModifiers configGoldModifiers();
+    XPModifiers configXPModifiers();
 
-    float getCriticalAttackChance();
-    float getDodgeChance();
-    unsigned int getNewbieLevel();
-    unsigned int getMaxLevelDif();
+    float configCriticalAttackChance();
+    float configDodgeChance();
+    unsigned int configNewbieLevel();
+    unsigned int configMaxLevelDif();
+    unsigned int configInventorySize();
+    unsigned int configPlayerVisionRange();
 
 private:
     Configuration();
-
-
 };
 
 

@@ -4,7 +4,7 @@
 
 #include "FileReader.h"
 
-FileReader::FileReader(std::string path) {
+FileReader::FileReader(const std::string& path) {
     file.open(path);
     reader.parse(file, obj);
 }
@@ -13,57 +13,49 @@ FileReader::~FileReader() {
     file.close();
 }
 
-void FileReader::getClassModifiers(Modifiers& modifier, std::string type) {
+void FileReader::getClassModifiers(Modifiers& modifier, const std::string& type) {
     Json::Value& classModifiers = obj["Class"];
     for (auto & classModifier : classModifiers) {
        if (classModifier["Name"].asString() == type){
-           modifier.health = classModifier["Health"].asUInt();
-           modifier.mana = classModifier["Mana"].asUInt();
-           modifier.constitution = classModifier["Constitution"].asUInt();
-           modifier.intelligence = classModifier["Intelligence"].asUInt();
-           modifier.agility = classModifier["Agility"].asUInt();
-           modifier.strength = classModifiers["Strength"].asUInt();
-           modifier.meditationRate = classModifiers["MeditationRate"].asUInt();
+           _getModifiers(modifier, classModifier);
        }
     }
 }
 
-void FileReader::getRaceModifiers(Modifiers& modifier, std::string type) {
-    Json::Value& classModifiers = obj["Race"];
-    for (auto & classModifier : classModifiers) {//Meter el for en una
-        // funcion aparte xq es lo mismo para race y class
-        if (classModifier["Name"].asString() == type){
-            modifier.health = classModifier["Health"].asUInt();
-            modifier.mana = classModifier["Mana"].asUInt();
-            modifier.constitution = classModifier["Constitution"].asUInt();
-            modifier.intelligence = classModifier["Intelligence"].asUInt();
-            modifier.agility = classModifier["Agility"].asUInt();
-            modifier.strength = classModifiers["Strength"].asUInt();
-            modifier.meditationRate = classModifiers["MeditationRate"].asUInt();
+void FileReader::getRaceModifiers(Modifiers& modifier, const std::string& type) {
+    Json::Value& raceModifiers = obj["Race"];
+    for (auto & raceModifier : raceModifiers) {
+        if (raceModifier["Name"].asString() == type){
+            _getModifiers(modifier, raceModifier);
         }
     }
 }
 
-void FileReader::getMonsterStats(MonsterStats& stats, std::string type) {
+void FileReader::getMonsterStats(MonsterStats& stats, const std::string& type) {
     Json::Value& monsterStats = obj["Monster"];
-    for (auto & monsterStat : monsterStats) {//Meter el for en una
-        // funcion aparte xq es lo mismo para race y class
+    for (auto & monsterStat : monsterStats) {
         if (monsterStat["Name"].asString() == type){
-            stats.health = monsterStat["Health"].asUInt();
-            stats.damage = monsterStat["Damage"].asUInt();
-            stats.rangeOfVision = monsterStat["VisionRange"].asUInt();
-            stats.maxLevel = monsterStat["LevelMin"].asUInt();
-            stats.minLevel = monsterStat["LevelMax"].asUInt();
+            _getStats(stats, monsterStat);
         }
     }
 }
 
 void FileReader::getGoldModifiers(GoldModifiers &goldModifiers) {
-
+    Json::Value& modifiers = obj["GoldModifiers"];
+    goldModifiers.safeGoldFactor = modifiers["MaxSafeGoldFactor"].asUInt();
+    goldModifiers.safeGoldLevelModifier = modifiers["MaxGoldLevelModifier"]
+            .asFloat();
+    goldModifiers.goldDropFactorMin = modifiers["MinRange"].asFloat();
+    goldModifiers.goldDropFactorMax = modifiers["MaxRange"].asFloat();
 }
 
 void FileReader::getXPModifiers(XPModifiers &xpModifiers) {
-
+    Json::Value& modifiers = obj["XPModifiers"];
+    xpModifiers.attackXPModifier = modifiers["AttackXPModifier"].asUInt();
+    xpModifiers.killXPMinModifier = modifiers["MinKillXPModifier"].asFloat();
+    xpModifiers.killXPMaxModifier = modifiers["MaxKillXPModifier"].asFloat();
+    xpModifiers.nextLevelModifier = modifiers["NextLevelModifier"].asFloat();
+    xpModifiers.nextLevelFactor = modifiers["NextLevelFactor"].asUInt();
 }
 
 float FileReader::getCritAttackChance() {
@@ -86,3 +78,24 @@ unsigned int FileReader::getInventorySize() {
     return obj["InventorySize"].asUInt();
 }
 
+unsigned int FileReader::getPlayerVisionRange() {
+    return obj["PlayerVisionRange"].asUInt();
+}
+
+void FileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
+    modifier.health = currModifier["Health"].asUInt();
+    modifier.mana = currModifier["Mana"].asUInt();
+    modifier.constitution = currModifier["Constitution"].asUInt();
+    modifier.intelligence = currModifier["Intelligence"].asUInt();
+    modifier.agility = currModifier["Agility"].asUInt();
+    modifier.strength = currModifier["Strength"].asUInt();
+    modifier.meditationRate = currModifier["MeditationRate"].asUInt();
+}
+
+void FileReader::_getStats(MonsterStats& stats, Json::Value& currStat){
+    stats.health = currStat["Health"].asUInt();
+    stats.damage = currStat["Damage"].asUInt();
+    stats.rangeOfVision = currStat["VisionRange"].asUInt();
+    stats.maxLevel = currStat["LevelMin"].asUInt();
+    stats.minLevel = currStat["LevelMax"].asUInt();
+}

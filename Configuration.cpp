@@ -37,80 +37,85 @@ Configuration::Configuration() {
     maxLevelDif =  fileReader.getmaxLevelDif();
 
     inventorySize = fileReader.getInventorySize();
+    playerVisionRange = fileReader.getPlayerVisionRange();
 }
 
-Modifiers Configuration::getMageModifiers(){
+Modifiers Configuration::configMageModifiers(){
     return mageModifiers;
 }
 
-Modifiers Configuration::getClericModifiers(){
+Modifiers Configuration::configClericModifiers(){
     return clericModifiers;
 }
 
-Modifiers Configuration::getPaladinModifiers(){
+Modifiers Configuration::configPaladinModifiers(){
     return paladinModifiers;
 }
 
-Modifiers Configuration::getWarriorModifiers(){
+Modifiers Configuration::configWarriorModifiers(){
     return warriorModifiers;
 }
 
-Modifiers Configuration::getHumanModifiers(){
+Modifiers Configuration::configHumanModifiers(){
     return humanModifiers;
 }
 
-Modifiers Configuration::getElfModifiers(){
+Modifiers Configuration::configElfModifiers(){
     return elfModifiers;
 }
 
-Modifiers Configuration::getDwarfModifiers(){
+Modifiers Configuration::configDwarfModifiers(){
     return dwarfModifiers;
 }
 
-Modifiers Configuration::getGnomeModifiers(){
+Modifiers Configuration::configGnomeModifiers(){
     return gnomeModifiers;
 }
 
-MonsterStats Configuration::getSkeletonStats(){
+MonsterStats Configuration::configSkeletonStats(){
     return skeletonStats;
 }
 
-MonsterStats Configuration::getSpiderStats(){
+MonsterStats Configuration::configSpiderStats(){
     return spiderStats;
 }
 
-MonsterStats Configuration::getZombieStats(){
+MonsterStats Configuration::configZombieStats(){
     return zombieStats;
 }
 
-MonsterStats Configuration::getGoblinStats(){
+MonsterStats Configuration::configGoblinStats(){
     return goblinStats;
 }
 
-GoldModifiers Configuration::getGoldModifiers(){
+GoldModifiers Configuration::configGoldModifiers(){
     return goldModifiers;
 }
 
-XPModifiers Configuration::getXPModifiers(){
+XPModifiers Configuration::configXPModifiers(){
     return xpModifiers;
 }
 
-float Configuration::getCriticalAttackChance(){
+float Configuration::configCriticalAttackChance(){
     return criticalAttackChance;
 }
 
-float Configuration::getDodgeChance(){
+float Configuration::configDodgeChance(){
     return dodgeChance;
 }
 
-unsigned int Configuration::getNewbieLevel(){
+unsigned int Configuration::configNewbieLevel(){
     return newbieLevel;
 }
 
-unsigned int Configuration::getMaxLevelDif(){
+unsigned int Configuration::configMaxLevelDif(){
     return maxLevelDif;
 }
 
-unsigned int Configuration::getInventorySize(){
+unsigned int Configuration::configInventorySize(){
     return inventorySize;
+}
+
+unsigned int Configuration::configPlayerVisionRange() {
+    return playerVisionRange;
 }

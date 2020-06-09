@@ -3,7 +3,11 @@
 #include "Configuration.h"
 
 int main() {
-    Configuration::getInstance().getClericModifiers();
+    std::cout <<"crit"<< Configuration::getInstance()
+    .configCriticalAttackChance();
+    std::cout <<"crit"<< Configuration::getInstance().configDodgeChance();
+    std::cout <<"crit"<< Configuration::getInstance().configInventorySize();
+    std::cout <<"crit"<< Configuration::getInstance().configPlayerVisionRange();
 
     return 0;
 }
