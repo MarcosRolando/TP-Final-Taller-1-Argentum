@@ -27,6 +27,9 @@ Configuration::Configuration() {
     fileReader.getMonsterStats(goblinStats, "Goblin");
     fileReader.getMonsterStats(spiderStats, "Spider");
 
+    fileReader.getGoldModifiers(goldModifiers);
+    fileReader.getXPModifiers(xpModifiers);
+
     criticalAttackChance = fileReader.getCritAttackChance();
     dodgeChance = fileReader.getDodgeChance();
 
@@ -36,22 +39,78 @@ Configuration::Configuration() {
     inventorySize = fileReader.getInventorySize();
 }
 
-unsigned int Configuration::getMageHealth() const {
-    return mageModifiers.health;
-}
-unsigned int Configuration::getMageMana() const {
-    return mageModifiers.mana;
-}
-unsigned int Configuration::getMageConstitution() const {
-    return mageModifiers.constitution;
-}
-unsigned int Configuration::getMageAgility() const {
-    return mageModifiers.agility;
-}
-unsigned int Configuration::getMageIntelligence() const {
-    return mageModifiers.intelligence;
-}
-unsigned int Configuration::getMageMeditationRate() const {
-    return mageModifiers.meditationRate;
+Modifiers Configuration::getMageModifiers(){
+    return mageModifiers;
 }
 
+Modifiers Configuration::getClericModifiers(){
+    return clericModifiers;
+}
+
+Modifiers Configuration::getPaladinModifiers(){
+    return paladinModifiers;
+}
+
+Modifiers Configuration::getWarriorModifiers(){
+    return warriorModifiers;
+}
+
+Modifiers Configuration::getHumanModifiers(){
+    return humanModifiers;
+}
+
+Modifiers Configuration::getElfModifiers(){
+    return elfModifiers;
+}
+
+Modifiers Configuration::getDwarfModifiers(){
+    return dwarfModifiers;
+}
+
+Modifiers Configuration::getGnomeModifiers(){
+    return gnomeModifiers;
+}
+
+MonsterStats Configuration::getSkeletonStats(){
+    return skeletonStats;
+}
+
+MonsterStats Configuration::getSpiderStats(){
+    return spiderStats;
+}
+
+MonsterStats Configuration::getZombieStats(){
+    return zombieStats;
+}
+
+MonsterStats Configuration::getGoblinStats(){
+    return goblinStats;
+}
+
+GoldModifiers Configuration::getGoldModifiers(){
+    return goldModifiers;
+}
+
+XPModifiers Configuration::getXPModifiers(){
+    return xpModifiers;
+}
+
+float Configuration::getCriticalAttackChance(){
+    return criticalAttackChance;
+}
+
+float Configuration::getDodgeChance(){
+    return dodgeChance;
+}
+
+unsigned int Configuration::getNewbieLevel(){
+    return newbieLevel;
+}
+
+unsigned int Configuration::getMaxLevelDif(){
+    return maxLevelDif;
+}
+
+unsigned int Configuration::getInventorySize(){
+    return inventorySize;
+}

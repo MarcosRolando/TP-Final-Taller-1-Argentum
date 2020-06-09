@@ -15,6 +15,7 @@ struct Modifiers {
     unsigned int constitution;
     unsigned int intelligence;
     unsigned int agility;
+    unsigned int strength;
     unsigned int meditationRate;
 };
 
@@ -72,21 +73,34 @@ private:
     unsigned int inventorySize;
 
 public:
-
-    Configuration(Configuration const&);
-    void operator=(Configuration const&);
+    Configuration(Configuration const&) = delete;
+    void operator=(Configuration const&) = delete;
 
     static Configuration& getInstance();
-    unsigned int getMageHealth() const;
-    unsigned int getMageMana() const;
 
-    unsigned int getMageConstitution() const;
+    Modifiers getMageModifiers();
+    Modifiers getClericModifiers();
+    Modifiers getPaladinModifiers();
+    Modifiers getWarriorModifiers();
 
-    unsigned int getMageAgility() const;
+    Modifiers getHumanModifiers();
+    Modifiers getElfModifiers();
+    Modifiers getDwarfModifiers();
+    Modifiers getGnomeModifiers();
 
-    unsigned int getMageIntelligence() const;
+    MonsterStats getSkeletonStats();
+    MonsterStats getSpiderStats();
+    MonsterStats getZombieStats();
+    MonsterStats getGoblinStats();
 
-    unsigned int getMageMeditationRate() const;
+    GoldModifiers getGoldModifiers();
+    XPModifiers getXPModifiers();
+
+    float getCriticalAttackChance();
+    float getDodgeChance();
+    unsigned int getNewbieLevel();
+    unsigned int getMaxLevelDif();
+
 private:
     Configuration();
 

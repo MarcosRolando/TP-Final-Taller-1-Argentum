@@ -22,6 +22,8 @@ void FileReader::getClassModifiers(Modifiers& modifier, std::string type) {
            modifier.constitution = classModifier["Constitution"].asUInt();
            modifier.intelligence = classModifier["Intelligence"].asUInt();
            modifier.agility = classModifier["Agility"].asUInt();
+           modifier.strength = classModifiers["Strength"].asUInt();
+           modifier.meditationRate = classModifiers["MeditationRate"].asUInt();
        }
     }
 }
@@ -36,6 +38,8 @@ void FileReader::getRaceModifiers(Modifiers& modifier, std::string type) {
             modifier.constitution = classModifier["Constitution"].asUInt();
             modifier.intelligence = classModifier["Intelligence"].asUInt();
             modifier.agility = classModifier["Agility"].asUInt();
+            modifier.strength = classModifiers["Strength"].asUInt();
+            modifier.meditationRate = classModifiers["MeditationRate"].asUInt();
         }
     }
 }
@@ -81,3 +85,4 @@ unsigned int FileReader::getmaxLevelDif() {
 unsigned int FileReader::getInventorySize() {
     return obj["InventorySize"].asUInt();
 }
+
