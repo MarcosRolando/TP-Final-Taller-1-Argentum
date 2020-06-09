@@ -54,3 +54,13 @@ void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordina
         }
     }
 }
+
+Coordinate
+Map::getNextPosition(Coordinate currentPosition, Coordinate desiredPosition) {
+    Coordinate aux;
+    bool foundTarget = false;
+    while (!foundTarget) {
+
+    }
+    return ;
+}

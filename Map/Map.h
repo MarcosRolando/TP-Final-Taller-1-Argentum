@@ -15,7 +15,7 @@ private:
 
 private:
     Coordinate _getValidCoordinate(Coordinate coordinate);
-    void _buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topRight, Coordinate& bottomLeft)
+    void _buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topRight, Coordinate& bottomLeft);
 public:
     //Ataca la tile y retorna cuanto danio le hizo al entity guardado, si no
     //hay un etity revuelve 0
@@ -25,6 +25,10 @@ public:
     //Almacena en el vector la cantidad de targets de un monstruo en un cuadrado centrado en
     //center de lado 2*range+1
     void getTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets);
+
+    //Retorna la posicion a la que se debera mover quien la llame para seguir el camino
+    //mas corto hacia desiredPosition
+    Coordinate getNextPosition(Coordinate currentPosition, Coordinate desiredPosition);
 };
 
 
