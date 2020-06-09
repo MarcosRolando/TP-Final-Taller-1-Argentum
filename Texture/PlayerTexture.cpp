@@ -3,7 +3,7 @@
 //
 
 #include "PlayerTexture.h"
-const int SCALE = 3; /*Factor de escala de la imagen*/
+const int SCALE = 2; /*Factor de escala de la imagen*/
 
 PlayerTexture::PlayerTexture(SDL_Renderer &renderer, EquipmentImages& images)
                                                 : PlayerTexture(renderer) {
@@ -129,37 +129,37 @@ void PlayerTexture::setWeaponImage(std::string& weaponImage) {
 
 void PlayerTexture::renderFront(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
-    _renderHead(x + 12, y - 26, 0);
+    _renderHead(x + 8, y - 15, 0);
     _renderBody(x, y, frame);
-    _renderHelmet(x + 12, y - 30, 0);
+    _renderHelmet(x + 8, y - 19, 0);
     _renderShield(x + 15, y, frame);
     _renderWeapon(x, y - 10, frame);
 }
 
 void PlayerTexture::renderBack(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
-    _renderHead(x + 12, y - 26, 3);
+    _renderHead(x + 8, y - 15, 3);
     _renderWeapon(x + 5, y - 10, frame + 6);
     _renderShield(x, y - 15, frame + 6);
     _renderBody(x, y, frame + 6);
-    _renderHelmet(x + 12, y - 30, 3);
+    _renderHelmet(x + 8, y - 19, 3);
 }
 
 void PlayerTexture::renderRight(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
-    _renderHead(x + 13, y - 26, 1);
+    _renderHead(x + 9, y - 15, 1);
     _renderShield(x + 3, y, frame + 18);
     _renderBody(x, y, frame + 18);
-    _renderHelmet(x + 13, y - 30, 1);
+    _renderHelmet(x + 8, y - 19, 1);
     _renderWeapon(x, y - 10, frame + 18);
 }
 
 void PlayerTexture::renderLeft(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
-    _renderHead(x + 8, y - 26, 2);
+    _renderHead(x + 6, y - 15, 2);
     _renderWeapon(x - 4, y - 10, frame + 12);
     _renderBody(x, y, frame + 12);
-    _renderHelmet(x + 7, y - 30, 2);
+    _renderHelmet(x + 6, y - 19, 2);
     _renderShield(x + 10, y, frame + 12);
 }
 

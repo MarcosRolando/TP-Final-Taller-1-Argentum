@@ -94,12 +94,12 @@ int main(int argc, char* args[]) {
         init();
         //Level camera
         SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-        EquipmentImages pEquipment = {"",
-                                      "../Images/Heads/DwarfHead.png",
+        EquipmentImages pEquipment = {"../Images/Clothing/Hood.png",
+                                      "../Images/Heads/ElfHead.png",
                 "../Images/Clothing/CommonClothing.png",
-                "../Images/Clothing/TurtleShield.png", "../Images/Items/LinkedStaff.png"};
+                "../Images/Clothing/TurtleShield.png", "../Images/Items/CompoundBow.png"};
         Player player(*gRenderer, camera, 40, 30,pEquipment);
-        NPC monster(*gRenderer, camera, 200, 30, "../Images/Monsters/Skeleton.png");
+        NPC monster(*gRenderer, camera, 168, 30, "../Images/Monsters/Skeleton.png");
         Map map(*gRenderer, camera);
         //Main loop flag
         bool quit = false;

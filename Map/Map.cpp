@@ -4,8 +4,10 @@
 
 #include "Map.h"
 #include <fstream>
-#include "../SDLException.h"
 #include "../GameConstants.h"
+
+const int TOTAL_TILES = 192;
+const int TOTAL_TILE_SPRITES = 12;
 
 Map::Map(SDL_Renderer& renderer, SDL_Rect& camera) : camera(camera) {
     this->camera = camera;
@@ -15,9 +17,11 @@ Map::Map(SDL_Renderer& renderer, SDL_Rect& camera) : camera(camera) {
 
 void Map::_loadTilesTextures(SDL_Renderer& renderer) {
     textures.emplace_back(new Texture(renderer));
-    textures.back()->loadFromFile("../Images/Map/Grass.png", {0, 0xFF, 0xFF});
+    textures.back()->loadFromFile("../Images/Map/Grass.png");
     textures.emplace_back(new Texture(renderer));
-    textures.back()->loadFromFile("../Images/Map/Rock.png", {0, 0xFF, 0xFF});
+    textures.back()->loadFromFile("../Images/Map/Rock.png");
+    textures.emplace_back(new Texture(renderer));
+    textures.back()->loadFromFile("../Images/Map/Wood.png");
 }
 
 void Map::_setTiles() {
@@ -47,7 +51,7 @@ void Map::_setTiles() {
 
             //If the number is a valid tile number
             if (( tileType >= 0 ) && ( tileType < TOTAL_TILE_SPRITES )) {
-                tiles.emplace_back(x, y, 2, i % 2, *textures[i % 2]);
+                tiles.emplace_back(x, y, i % 3, *textures[i % 3]);
             } else {
                 throw SDLException("Error loading map: Invalid tile type at %d!\n", i);
             }
@@ -65,8 +69,9 @@ void Map::_setTiles() {
         }
     }
 
-    textures[0]->addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT); /*RED*/
-    textures[1]->addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT); /*RED*/
+    textures[0]->addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT);
+    textures[1]->addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT);
+    textures[2]->addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT);
 
     //Close the file
     mapFile.close();

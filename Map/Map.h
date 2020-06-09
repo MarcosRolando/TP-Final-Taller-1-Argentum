@@ -12,9 +12,6 @@
 #include <vector>
 #include <memory>
 
-const int TOTAL_TILES = 192;
-const int TOTAL_TILE_SPRITES = 12;
-
 class Map {
 private:
     std::vector<Tile> tiles;

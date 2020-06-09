@@ -5,24 +5,9 @@
 #include "Tile.h"
 #include "../GameConstants.h"
 
-//The different tile sprites
-const int TILE_RED = 0;
-const int TILE_GREEN = 1;
-const int TILE_BLUE = 2;
-const int TILE_CENTER = 3;
-const int TILE_TOP = 4;
-const int TILE_TOPRIGHT = 5;
-const int TILE_RIGHT = 6;
-const int TILE_BOTTOMRIGHT = 7;
-const int TILE_BOTTOM = 8;
-const int TILE_BOTTOMLEFT = 9;
-const int TILE_LEFT = 10;
-const int TILE_TOPLEFT = 11;
-
-Tile::Tile(int x, int y, int scale, int tileType, Texture& texture)
+Tile::Tile(int x, int y, int tileType, Texture& texture)
             : tileTexture(texture) {
-    this->scale = scale;
-    box = {x*scale, y*scale, TILE_WIDTH*scale, TILE_HEIGHT*scale}; /*Editando x e y puedo cambiar el tamanio de los bloques*/
+    box = {x, y, TILE_WIDTH, TILE_HEIGHT};
     //Get the tile type
     type = tileType;
 }
@@ -60,7 +45,7 @@ void Tile::render(SDL_Rect& camera) {
     //If the tile is on screen
     if (_checkCollision(camera, box)) {
         //Show the tile
-        tileTexture.render(box.x - camera.x, box.y - camera.y, 0, scale);
+        tileTexture.render(box.x - camera.x, box.y - camera.y, 0);
     }
 }
 

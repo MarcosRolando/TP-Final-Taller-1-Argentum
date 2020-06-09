@@ -6,12 +6,12 @@
 #define ARGENTUM_GAMECONSTANTS_H
 
 //The dimensions of the level
-const int LEVEL_WIDTH = 1280;
-const int LEVEL_HEIGHT = 960;
+const int LEVEL_WIDTH = 1536;
+const int LEVEL_HEIGHT = 2048;
 
 //The dimensions of the tiles
-const int TILE_WIDTH = 80;
-const int TILE_HEIGHT = 80;
+const int TILE_WIDTH = 128;
+const int TILE_HEIGHT = 128;
 
 //La velocidad de las animaciones
 const int SPEED = 400;

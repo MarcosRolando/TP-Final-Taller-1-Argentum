@@ -20,9 +20,9 @@ void Player::_updatePosition() {
     float timeStep = moveTime.getTicks() / 1000.f;
     float offset = SPEED*timeStep;
     if (moveDirection != STILL) {
-        if ( (movedOffset + offset) >= (float)(TILE_WIDTH*2)/*tileScale*/) {
-            offset = 160.f - movedOffset; /*TILE_WIDTH*2 es 160*/
-            movedOffset = 160.f;
+        if ( (movedOffset + offset) >= (float)TILE_WIDTH) {
+            offset = 128.f - movedOffset; /*TILE_WIDTH*2 es 160*/
+            movedOffset = 128.f;
         } else {
             movedOffset += offset;
         }
@@ -44,7 +44,7 @@ void Player::_updatePosition() {
                 break;
         }
     }
-    if (movedOffset >= 160.f) {
+    if (movedOffset >= 128.f) {
         currentFrame = 0;
         moveDirection = STILL;
         movedOffset = 0;
@@ -98,11 +98,11 @@ void Player::_updateCamera() {
     if (camera.y < 0) {
         camera.y = 0;
     }
-    if (camera.x > LEVEL_WIDTH*2 - camera.w) { /*El *2 es por la escala de los tiles, ARREGLAR QUE NO SEA TAN CACA*/
-        camera.x = LEVEL_WIDTH*2 - camera.w;
+    if (camera.x > LEVEL_WIDTH - camera.w) {
+        camera.x = LEVEL_WIDTH - camera.w;
     }
-    if (camera.y > LEVEL_HEIGHT*2 - camera.h) {
-        camera.y = LEVEL_HEIGHT*2 - camera.h;
+    if (camera.y > LEVEL_HEIGHT - camera.h) {
+        camera.y = LEVEL_HEIGHT - camera.h;
     }
 }
 

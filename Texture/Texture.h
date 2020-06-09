@@ -15,9 +15,9 @@
 #include <vector>
 
 struct ColorKey_t {
-    unsigned int red;
-    unsigned int green;
-    unsigned int blue;
+    int red;
+    int green;
+    int blue;
 };
 
 struct SpriteDimensions_t {
@@ -44,7 +44,7 @@ public:
     ~Texture();
 
     //Loads image at specified path
-    void loadFromFile(const std::string& path, ColorKey_t key);
+    void loadFromFile(const std::string& path, ColorKey_t key = {-1, -1, -1});
 
     /*Especifica una dimension (un clip) que representa un sprite de la textura*/
     void addSprite(int x, int y, int width, int height);

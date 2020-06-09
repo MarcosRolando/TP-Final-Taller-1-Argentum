@@ -30,9 +30,11 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key) {
                                                 path.c_str(), IMG_GetError() );
     } else {
         //Color key image
-        SDL_SetColorKey(loadedSurface, SDL_TRUE,
-                        SDL_MapRGB(loadedSurface->format, key.red, key.green, key.blue));
-                                /*Con esto aclaras que pixel hacer transparente*/
+        if (key.red > -1 && key.green > -1 && key.blue > -1) {
+            SDL_SetColorKey(loadedSurface, SDL_TRUE,
+                            SDL_MapRGB(loadedSurface->format, key.red, key.green, key.blue));
+            /*Con esto aclaras que pixel hacer transparente*/
+        }
 
         //Create texture from surface pixels
         newTexture = SDL_CreateTextureFromSurface(&renderer, loadedSurface);
