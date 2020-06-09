@@ -18,10 +18,6 @@ Map::Map(SDL_Renderer& renderer, SDL_Rect& camera) : camera(camera) {
 void Map::_loadTilesTextures(SDL_Renderer& renderer) {
     textures.emplace_back(new Texture(renderer));
     textures.back()->loadFromFile("../Images/Map/Grass.png");
-    textures.emplace_back(new Texture(renderer));
-    textures.back()->loadFromFile("../Images/Map/Rock.png");
-    textures.emplace_back(new Texture(renderer));
-    textures.back()->loadFromFile("../Images/Map/Wood.png");
 }
 
 void Map::_setTiles() {
@@ -51,7 +47,7 @@ void Map::_setTiles() {
 
             //If the number is a valid tile number
             if (( tileType >= 0 ) && ( tileType < TOTAL_TILE_SPRITES )) {
-                tiles.emplace_back(x, y, i % 3, *textures[i % 3]);
+                tiles.emplace_back(x, y, i % 4, *textures[0]);
             } else {
                 throw SDLException("Error loading map: Invalid tile type at %d!\n", i);
             }
@@ -70,8 +66,9 @@ void Map::_setTiles() {
     }
 
     textures[0]->addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT);
-    textures[1]->addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT);
-    textures[2]->addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT);
+    textures[0]->addSprite(TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
+    textures[0]->addSprite(2*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
+    textures[0]->addSprite(3*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
 
     //Close the file
     mapFile.close();
