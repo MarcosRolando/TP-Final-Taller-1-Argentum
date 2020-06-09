@@ -14,8 +14,10 @@ private:
     int health;
     unsigned int damage;
     unsigned int rangeOfVision;
-    Game& game;
+    //Guarda el mapa para ver sus alrededores, el juego lo guarda para poder
+    //modificarlo
     const Map& map;
+    Game& game;
 public:
     Monster(Game& _game, const Map& map, unsigned int _health, unsigned int _rangeOfVision);
 
