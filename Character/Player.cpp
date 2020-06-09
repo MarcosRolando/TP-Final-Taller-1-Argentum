@@ -50,7 +50,7 @@ void Player::_updatePosition() {
         movedOffset = 0;
     } else {
         for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
-            if (movedOffset < ((float)TILE_WIDTH*2/6 * (float)(i+1))) {
+            if (movedOffset < ((float)TILE_WIDTH/6 * (float)(i+1))) {
                 currentFrame = i;
                 break;
             }
