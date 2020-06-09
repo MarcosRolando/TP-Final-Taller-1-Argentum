@@ -30,10 +30,15 @@ std::shared_ptr<Item> Inventory::removeItem(unsigned int itemPosition) {
 }
 
 void Inventory::useItem(unsigned int itemPosition) {
+    InventoryPlace inventoryPlace;
     if (items[itemPosition]) {
-        items[itemPosition]->use(player);
+        inventoryPlace = items[itemPosition]->use(player);
+
     }
-    items[itemPosition] = std::move(itemBuffer);
+}
+
+void Inventory::equipHead(std::shared_ptr<Item> item) {
+
 }
 
 /*

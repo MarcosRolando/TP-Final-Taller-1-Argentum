@@ -7,7 +7,7 @@
 
 #include "../Entities/Player.h"
 
-enum InventoryPLace{
+enum InventoryPlace{
     INVENTORY_PLACE_NONE, INVENTORY_PLACE_HEAD, INVENTORY_PLACE_CHEST, INVENTORY_PLACE_WEAPON,
     INVENTORY_PLACE_SHIELD
 };
@@ -19,6 +19,7 @@ class Item {
 public:
     //use debe retornar el lugar en el que debera equiparse el item una vez usado desde
     //un inventario, si debe ser descartado entonces se tiene que retornar INVENTORY_PLACE_NONE
+    //Esta funcion retorna en cierta forma el tipo de item que es
     virtual InventoryPlace use(Player& player) = 0;
 };
 
