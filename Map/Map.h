@@ -10,6 +10,7 @@
 
 #include "Tile.h"
 #include <vector>
+#include <memory>
 
 const int TOTAL_TILES = 192;
 const int TOTAL_TILE_SPRITES = 12;
@@ -17,7 +18,7 @@ const int TOTAL_TILE_SPRITES = 12;
 class Map {
 private:
     std::vector<Tile> tiles;
-    std::vector<Texture> textures;
+    std::vector<std::unique_ptr<Texture>> textures;
     SDL_Rect& camera;
 
 public:

@@ -14,8 +14,10 @@ Map::Map(SDL_Renderer& renderer, SDL_Rect& camera) : camera(camera) {
 }
 
 void Map::_loadTilesTextures(SDL_Renderer& renderer) {
-    textures.emplace_back(renderer);
-    textures.back().loadFromFile("../Images/Map/tiles.png", {0, 0xFF, 0xFF});
+    textures.emplace_back(new Texture(renderer));
+    textures.back()->loadFromFile("../Images/Map/Grass.png", {0, 0xFF, 0xFF});
+    textures.emplace_back(new Texture(renderer));
+    textures.back()->loadFromFile("../Images/Map/Rock.png", {0, 0xFF, 0xFF});
 }
 
 void Map::_setTiles() {
@@ -45,7 +47,7 @@ void Map::_setTiles() {
 
             //If the number is a valid tile number
             if (( tileType >= 0 ) && ( tileType < TOTAL_TILE_SPRITES )) {
-                tiles.emplace_back(x, y, 2, tileType, textures.back());
+                tiles.emplace_back(x, y, 2, i % 2, *textures[i % 2]);
             } else {
                 throw SDLException("Error loading map: Invalid tile type at %d!\n", i);
             }
@@ -63,18 +65,8 @@ void Map::_setTiles() {
         }
     }
 
-    textures.back().addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT); /*RED*/
-    textures.back().addSprite(0, 80, TILE_WIDTH, TILE_HEIGHT); /*GREEN*/
-    textures.back().addSprite(0, 160, TILE_WIDTH, TILE_HEIGHT); /*BLUE*/
-    textures.back().addSprite(160,80, TILE_WIDTH, TILE_HEIGHT); /*CENTER*/
-    textures.back().addSprite(160, 0, TILE_WIDTH, TILE_HEIGHT); /*TOP*/
-    textures.back().addSprite(240, 0, TILE_WIDTH, TILE_HEIGHT); /*TOPRIGHT*/
-    textures.back().addSprite(240, 80, TILE_WIDTH, TILE_HEIGHT); /*RIGTH*/
-    textures.back().addSprite(240, 160, TILE_WIDTH, TILE_HEIGHT); /*BOTTOMRIGHT*/
-    textures.back().addSprite(160, 160, TILE_WIDTH, TILE_HEIGHT); /*BOTTOM*/
-    textures.back().addSprite(80, 160, TILE_WIDTH, TILE_HEIGHT); /*BOTTOMLEFT*/
-    textures.back().addSprite(80, 80, TILE_WIDTH, TILE_HEIGHT); /*LEFT*/
-    textures.back().addSprite(80, 0, TILE_WIDTH, TILE_HEIGHT); /*TOPLEFT*/
+    textures[0]->addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT); /*RED*/
+    textures[1]->addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT); /*RED*/
 
     //Close the file
     mapFile.close();

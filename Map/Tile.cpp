@@ -60,7 +60,7 @@ void Tile::render(SDL_Rect& camera) {
     //If the tile is on screen
     if (_checkCollision(camera, box)) {
         //Show the tile
-        tileTexture.render(box.x - camera.x, box.y - camera.y, type, scale);
+        tileTexture.render(box.x - camera.x, box.y - camera.y, 0, scale);
     }
 }
 
