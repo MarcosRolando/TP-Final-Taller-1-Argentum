@@ -14,12 +14,15 @@ protected:
 
 public:
     explicit Entity(Coordinate initialPosition);
+
+    //Implementa el comportamiento realizado al ser atacado
     virtual unsigned int attacked(unsigned int damage, unsigned int level) = 0;
 
-    //Estas funciones deberian ser llamadas solo por game
+    virtual bool isMonsterTarget() = 0;
 
     //Le asigna al jugador la posicion recibida
     void setPosition(Coordinate coordinate);
+
 
     //Retorna la posicion en la que quiere estar el jugador
     Coordinate getPosition();

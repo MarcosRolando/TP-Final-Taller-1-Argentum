@@ -25,6 +25,8 @@ public:
 
     void move();
 
+    bool isMonsterTarget() override;
+
     //Daña el monstruo, retorna la cantidad de danio recibido
     //Recibe level por un tema de herencia y logica del juego, esto igualmente
     //hace que el ataque sea extendible, podria aplicarse la logica del fair

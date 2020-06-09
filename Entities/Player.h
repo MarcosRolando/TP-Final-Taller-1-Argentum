@@ -32,6 +32,8 @@ public:
     void move(Direction direction);
 
 
+    bool isMonsterTarget() override;
+
     //IMPLEMENTAR
     void attack(Coordinate target);
 };

@@ -37,3 +37,7 @@ void Player::attack(Coordinate target) {
     //IMPLEMENTAR
 }
 
+bool Player::isMonsterTarget() {
+    return true;
+}
+
