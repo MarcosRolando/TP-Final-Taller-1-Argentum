@@ -5,10 +5,10 @@
 #ifndef ARGENTUM_NPCTEXTURE_H
 #define ARGENTUM_NPCTEXTURE_H
 
-#include "Texture.h"
+#include "EntityTexture.h"
 #include "../SDLException.h"
 
-class NPCTexture {
+class NPCTexture : public EntityTexture {
 private:
     Texture body;
 
@@ -19,14 +19,13 @@ public:
 
     void setImage(std::string& image);
 
-    void renderFront(int x, int y, int frame);
-    void renderBack(int x, int y, int frame);
-    void renderRight(int x, int y, int frame);
-    void renderLeft(int x, int y, int frame);
+    void renderFront(int x, int y, int frame) override;
+    void renderBack(int x, int y, int frame) override;
+    void renderRight(int x, int y, int frame) override;
+    void renderLeft(int x, int y, int frame) override;
 
 private:
     void _addSprites(int y, bool lateralSide);
-    void _render(int x, int y, int spritePosition);
 };
 
 

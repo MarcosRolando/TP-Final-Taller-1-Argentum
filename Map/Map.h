@@ -10,12 +10,11 @@
 
 #include "Tile.h"
 #include <vector>
-#include <memory>
 
 class Map {
 private:
     std::vector<Tile> tiles;
-    std::vector<std::unique_ptr<Texture>> textures;
+    std::vector<Texture> textures;
     SDL_Rect& camera;
 
 public:

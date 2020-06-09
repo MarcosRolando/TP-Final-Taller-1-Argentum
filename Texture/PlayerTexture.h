@@ -5,7 +5,8 @@
 #ifndef ARGENTUM_PLAYERTEXTURE_H
 #define ARGENTUM_PLAYERTEXTURE_H
 
-#include "Texture.h"
+
+#include "EntityTexture.h"
 #include "../SDLException.h"
 
 struct EquipmentImages {
@@ -16,7 +17,7 @@ struct EquipmentImages {
     std::string weaponImage;
 };
 
-class PlayerTexture {
+class PlayerTexture : public EntityTexture {
 private:
     Texture helmet;
     Texture head;
@@ -36,20 +37,15 @@ public:
     void setShieldImage(std::string& shieldImage);
     void setWeaponImage(std::string& weaponImage);
 
-    void renderFront(int x, int y, int frame);
-    void renderBack(int x, int y, int frame);
-    void renderRight(int x, int y, int frame);
-    void renderLeft(int x, int y, int frame);
+    void renderFront(int x, int y, int frame) override;
+    void renderBack(int x, int y, int frame) override;
+    void renderRight(int x, int y, int frame) override;
+    void renderLeft(int x, int y, int frame) override;
 
 private:
     void _addBodySprites(int y, bool lateralSide);
     void _addShieldSprites(int y, bool lateralSide);
     void _addWeaponSprites(int y, bool lateralSide);
-    void _renderHead(int x, int y, int spritePosition);
-    void _renderHelmet(int x, int y, int spritePosition);
-    void _renderBody(int x, int y, int spritePosition);
-    void _renderShield(int x, int y, int spritePosition);
-    void _renderWeapon(int x, int y, int spritePosition);
 };
 
 

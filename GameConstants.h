@@ -5,6 +5,10 @@
 #ifndef ARGENTUM_GAMECONSTANTS_H
 #define ARGENTUM_GAMECONSTANTS_H
 
+//Screen dimension constants
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 720;
+
 //The dimensions of the level
 const int LEVEL_WIDTH = 1536;
 const int LEVEL_HEIGHT = 2048;

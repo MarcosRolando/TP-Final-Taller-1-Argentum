@@ -3,7 +3,6 @@
 //
 
 #include "NPCTexture.h"
-const int SCALE = 2; /*Factor de escala de la imagen*/
 
 NPCTexture::NPCTexture(SDL_Renderer &renderer, std::string &image) :
                                                         NPCTexture(renderer){
@@ -40,24 +39,20 @@ void NPCTexture::setImage(std::string& image) {
 
 void NPCTexture::renderFront(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
-    _render(x + 4, y - 20, frame);
+    EntityTexture::render(body, x + 4, y - 20, frame);
 }
 
 void NPCTexture::renderBack(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
-    _render(x + 4, y - 20, frame + 6);
+    EntityTexture::render(body, x + 4, y - 20, frame + 6);
 }
 
 void NPCTexture::renderRight(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
-    _render(x + 4, y - 20, frame + 18);
+    EntityTexture::render(body, x + 4, y - 20, frame + 18);
 }
 
 void NPCTexture::renderLeft(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
-    _render(x + 4, y - 20, frame + 12);
-}
-
-void NPCTexture::_render(int x, int y, int spritePosition) {
-    body.render(x, y, spritePosition, SCALE);
+    EntityTexture::render(body, x + 4, y - 20, frame + 12);
 }

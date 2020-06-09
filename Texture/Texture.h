@@ -43,6 +43,10 @@ public:
     //Deallocates memory
     ~Texture();
 
+    Texture(const Texture&) = delete;
+
+    Texture(Texture&& other) noexcept;
+
     //Loads image at specified path
     void loadFromFile(const std::string& path, ColorKey_t key = {-1, -1, -1});
 

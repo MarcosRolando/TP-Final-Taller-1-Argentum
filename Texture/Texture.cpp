@@ -98,3 +98,13 @@ SpriteDimensions_t Texture::getSpriteDimensions(int spritePosition) {
 bool Texture::loadedTexture() {
     return (mTexture != nullptr);
 }
+
+Texture::Texture(Texture&& other) noexcept : renderer(other.renderer){
+    mWidth = other.mWidth;
+    mHeight = other.mHeight;
+    other.mWidth = 0;
+    other.mHeight = 0;
+    mTexture = other.mTexture;
+    other.mTexture = nullptr;
+    gSpriteClips = std::move(other.gSpriteClips);
+}

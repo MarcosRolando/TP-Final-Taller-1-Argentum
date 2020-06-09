@@ -10,10 +10,7 @@ and may not be redistributed without written permission.*/
 #include "Character/NPC.h"
 #include "Map/Map.h"
 #include <unistd.h>
-
-//Screen dimension constants
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 720;
+#include "GameConstants.h"
 
 //Starts up SDL and creates window
 void init();

@@ -3,7 +3,6 @@
 //
 
 #include "PlayerTexture.h"
-const int SCALE = 2; /*Factor de escala de la imagen*/
 
 PlayerTexture::PlayerTexture(SDL_Renderer &renderer, EquipmentImages& images)
                                                 : PlayerTexture(renderer) {
@@ -129,57 +128,37 @@ void PlayerTexture::setWeaponImage(std::string& weaponImage) {
 
 void PlayerTexture::renderFront(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
-    _renderHead(x + 8, y - 15, 0);
-    _renderBody(x, y, frame);
-    _renderHelmet(x + 8, y - 19, 0);
-    _renderShield(x + 15, y, frame);
-    _renderWeapon(x, y - 10, frame);
+    EntityTexture::render(head, x + 8, y - 15, 0);
+    EntityTexture::render(body, x, y, frame);
+    EntityTexture::render(helmet, x + 8, y - 19, 0);
+    EntityTexture::render(shield, x + 15, y, frame);
+    EntityTexture::render(weapon, x, y - 10, frame);
 }
 
 void PlayerTexture::renderBack(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
-    _renderHead(x + 8, y - 15, 3);
-    _renderWeapon(x + 5, y - 10, frame + 6);
-    _renderShield(x, y - 15, frame + 6);
-    _renderBody(x, y, frame + 6);
-    _renderHelmet(x + 8, y - 19, 3);
+    EntityTexture::render(head, x + 8, y - 15, 3);
+    EntityTexture::render(weapon, x + 5, y - 10, frame + 6);
+    EntityTexture::render(shield, x, y - 15, frame + 6);
+    EntityTexture::render(body, x, y, frame + 6);
+    EntityTexture::render(helmet, x + 8, y - 19, 3);
 }
 
 void PlayerTexture::renderRight(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
-    _renderHead(x + 9, y - 15, 1);
-    _renderShield(x + 3, y, frame + 18);
-    _renderBody(x, y, frame + 18);
-    _renderHelmet(x + 8, y - 19, 1);
-    _renderWeapon(x, y - 10, frame + 18);
+    EntityTexture::render(head, x + 9, y - 15, 1);
+    EntityTexture::render(shield, x + 3, y, frame + 18);
+    EntityTexture::render(body, x, y, frame + 18);
+    EntityTexture::render(helmet, x + 8, y - 19, 1);
+    EntityTexture::render(weapon, x, y - 10, frame + 18);
 }
 
 void PlayerTexture::renderLeft(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
-    _renderHead(x + 6, y - 15, 2);
-    _renderWeapon(x - 4, y - 10, frame + 12);
-    _renderBody(x, y, frame + 12);
-    _renderHelmet(x + 6, y - 19, 2);
-    _renderShield(x + 10, y, frame + 12);
-}
-
-void PlayerTexture::_renderHead(int x, int y, int spritePosition) {
-    head.render(x, y, spritePosition, SCALE);
-}
-
-void PlayerTexture::_renderHelmet(int x, int y, int spritePosition) {
-    if (helmet.loadedTexture()) helmet.render(x, y, spritePosition, SCALE);
-}
-
-void PlayerTexture::_renderBody(int x, int y, int spritePosition) {
-    body.render(x, y, spritePosition, SCALE);
-}
-
-void PlayerTexture::_renderShield(int x, int y, int spritePosition) {
-    if (shield.loadedTexture()) shield.render(x, y, spritePosition, SCALE);
-}
-
-void PlayerTexture::_renderWeapon(int x, int y, int spritePosition) {
-    if (weapon.loadedTexture()) weapon.render(x, y, spritePosition, SCALE);
+    EntityTexture::render(head, x + 6, y - 15, 2);
+    EntityTexture::render(weapon, x - 4, y - 10, frame + 12);
+    EntityTexture::render(body, x, y, frame + 12);
+    EntityTexture::render(helmet, x + 6, y - 19, 2);
+    EntityTexture::render(shield, x + 10, y, frame + 12);
 }
 

@@ -5,30 +5,17 @@
 #ifndef ARGENTUM_PLAYER_H
 #define ARGENTUM_PLAYER_H
 
+#include "Entity.h"
 #include "../Texture/PlayerTexture.h"
-#include "../Timer.h"
-#include "../Direction.h"
 
-class Player {
+class Player : public Entity {
 private:
     PlayerTexture pTexture;
-    Timer moveTime;
-    SDL_Rect& camera;
-    float movedOffset;
-    int currentFrame;
-    Direction moveDirection;
-    float xPosition;
-    float yPosition;
 
 public:
     Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y,
-            EquipmentImages& images);
-    void move(Direction direction);
-    void render();
-
-private:
-    void _updatePosition();
-    void _updateCamera();
+                                                    EquipmentImages& images);
+    void render() override;
 };
 
 
