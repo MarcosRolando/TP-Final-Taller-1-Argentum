@@ -128,8 +128,17 @@ int main( int argc, char* args[] ){
 #include <iostream>
 #include "FileReader.h"
 
+#include "Configuration.h"
+
 int main() {
-    FileReader fileReader;
-    std::cout << fileReader.getNewbieLevel();
+    Configuration& config = Configuration::getInstance();
+    std::cout << "Mage health" << config.getMageHealth() << std::endl;
+    std::cout << "Mage mana" << config.getMageMana() << std::endl;
+    std::cout << "Mage const" << config.getMageConstitution() << std::endl;
+    std::cout << "Mage agility" << config.getMageAgility() << std::endl;
+    std::cout << "Mage intelligence" << config.getMageIntelligence() <<
+    std::endl;
+    std::cout << "Mage meditationRate" << config.getMageMeditationRate() << std::endl;
+
     return 0;
 }

@@ -6,8 +6,15 @@
 #define ARGENTUM_FILEREADER_H
 
 #include <fstream>
+#include <vector>
 
 #include "jsoncpp/json/json.h"
+#include "Configuration.h"
+
+struct Modifiers;
+struct MonsterStats;
+struct GoldModifiers;
+struct XPModifiers;
 
 
 class FileReader {
@@ -17,10 +24,22 @@ private:
     std::ifstream file;
 
 public:
-    FileReader();
-    ~FileReader();
+    FileReader(std::string path);
+    void getClassModifiers(Modifiers& modifiers, std::string type);
+    void getRaceModifiers(Modifiers& modifiers, std::string type);
+    void getMonsterStats(MonsterStats& monsterStats, std::string type);
 
-    Json::Value getNewbieLevel();
+    void getGoldModifiers(GoldModifiers& goldModifiers);
+    void getXPModifiers(XPModifiers& xpModifiers);
+
+    float getCritAttackChance();
+    float getDodgeChance();
+
+    unsigned int getNewbieLevel();
+    unsigned int getmaxLevelDif();
+
+    unsigned int getInventorySize();
+    ~FileReader();
 };
 
 

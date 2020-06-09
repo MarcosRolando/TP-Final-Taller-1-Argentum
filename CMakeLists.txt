@@ -7,7 +7,7 @@ include_directories(${SDL2_INCLUDE_DIRS})
 find_package(jsoncpp)
 include_directories(${jsoncpp_INCLUDE_DIRS})
 
-add_executable(argentum main.cpp SDLException.cpp SDLException.h Sounds.cpp Sounds.h Texture.cpp Texture.h Font.cpp Font.h Window.cpp Window.h Renderer.cpp Renderer.h FileReader.cpp FileReader.h)
+add_executable(argentum main.cpp SDLException.cpp SDLException.h Sounds.cpp Sounds.h Texture.cpp Texture.h Font.cpp Font.h Window.cpp Window.h Renderer.cpp Renderer.h FileReader.cpp FileReader.h Configuration.cpp Configuration.h)
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
                                                             -O0 -ggdb -DDEBUG -fno-inline)
