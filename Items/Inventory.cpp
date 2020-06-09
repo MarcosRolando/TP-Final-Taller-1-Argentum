@@ -33,6 +33,7 @@ void Inventory::useItem(unsigned int itemPosition) {
     if (items[itemPosition]) {
         items[itemPosition]->use(player);
     }
+    items[itemPosition] = std::move(itemBuffer);
 }
 
 /*

@@ -6,7 +6,7 @@
 #define ARGENTUM_PLAYER_H
 
 
-#include "Inventory.h"
+#include "../Items/Inventory.h"
 #include "Entity.h"
 
 enum Direction{

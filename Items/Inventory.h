@@ -8,14 +8,18 @@
 
 #include <vector>
 #include <memory>
-#include "../Items/Item.h"
-#include "Player.h"
+#include "Item.h"
+#include "../Entities/Player.h"
 
 class Inventory {
 private:
     Player& player;
     unsigned int storedItemsAmmount;
     std::vector<std::shared_ptr<Item>> items;
+
+    //Este atributo es un atributo auxiliar que sirve para ayudar a sacar un item del
+    //vector de items porque un item no puede eliminarse a si mismo
+    std::shared_ptr<Item> itemBuffer;
 public:
     Inventory(Player& player);
 
