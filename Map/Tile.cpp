@@ -19,6 +19,13 @@ Tile::Tile(FloorType floor): entity(nullptr){
     }
 }
 
+
+Tile::Tile(Tile &&other) noexcept {
+    std::unique_ptr<Entity> aux = std::move(other.entity);
+    other.entity = std::move(this->entity);
+    this->entity = std::move(aux);
+}
+
 bool Tile::addEntity(Entity *received_entity) {
     if (isOccupable) {
         this->entity.reset(received_entity);
@@ -59,4 +66,5 @@ bool Tile::hasMonsterTarget() {
     }
     return false;
 }
+
 

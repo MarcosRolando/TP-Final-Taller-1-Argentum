@@ -21,7 +21,10 @@ private:
 public:
     //Inicializa el tile, dependiendo tel tipo de piso que reciba seteara el
     //tile como ocupable o no ocupable
-    Tile(FloorType floor);
+    explicit Tile(FloorType floor);
+
+    //Constructor por movimiento, intercambia las entities de las tiles
+    Tile(Tile&& other) noexcept;
 
     //Intenta agregar el entity a la tile, destruyendo la entity almacenada
     //previamente
