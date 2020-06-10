@@ -27,6 +27,8 @@
 #define SIMPLE_BOW_PATH "../Images/Items/SimpleBow.png"
 #define WAR_HAMMER_PATH "../Images/Items/WarHammer.png"
 #define GRASS_PATH "../Images/Map/Grass.png"
+#define SAND_PATH "../Images/Map/Sand.png"
+#define STONE_PATH "../Images/Map/Stone.png"
 #define SKELETON_PATH "../Images/Monsters/Skeleton.png"
 #define GOBLIN_PATH "../Images/Monsters/Goblin.png"
 #define ZOMBIE_PATH "../Images/Monsters/Zombie.png"
@@ -75,7 +77,9 @@ void TextureRepository::_loadWeapons() {
 }
 
 void TextureRepository::_loadTiles() {
-    _setTileImage(Grass, GRASS_PATH);
+    _setTileImage(Grass, GRASS_PATH, false);
+    _setTileImage(Sand, SAND_PATH, true);
+    _setTileImage(Stone, STONE_PATH, true);
 }
 
 void TextureRepository::_loadNPCS() {
@@ -89,14 +93,13 @@ void TextureRepository::_loadNPCS() {
     _setNPCImage(Guard, GUARD_PATH, 28, 52);
 }
 
-void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileImage) {
+void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileImage, bool individualTile) {
     try {
         //Load sprite sheet texture
-        ColorKey_t key = {0, 0, 0};
         textures.emplace(textureID, renderer);
         Texture& texture = textures.at(textureID);
-        texture.loadFromFile(tileImage, key);
-        _addTileSprites(texture, 0);
+        texture.loadFromFile(tileImage);
+        _addTileSprites(texture, 0, individualTile);
     } catch (SDLException& e) {
         throw SDLException("Failed to load sprite sheet texture!\n");
     }
@@ -254,11 +257,13 @@ void TextureRepository::_addShieldSprites(Texture& texture, int y, bool lateralS
     else texture.addSprite(126, y, 25, 35);
 }
 
-void TextureRepository::_addTileSprites(Texture& texture, int y) {
+void TextureRepository::_addTileSprites(Texture& texture, int y, bool individualTile) {
     texture.addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT);
-    texture.addSprite(TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
-    texture.addSprite(2*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
-    texture.addSprite(3*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
+    if (!individualTile) {
+        texture.addSprite(TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
+        texture.addSprite(2*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
+        texture.addSprite(3*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
+    }
 }
 
 Texture& TextureRepository::getTexture(TextureID texture) {

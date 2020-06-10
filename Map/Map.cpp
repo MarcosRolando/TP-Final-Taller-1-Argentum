@@ -41,7 +41,7 @@ void Map::_setTiles() {
 
             //If the number is a valid tile number
             if (( tileType >= 0 ) && ( tileType < TOTAL_TILE_SPRITES )) {
-                tiles.emplace_back(x, y, i % 4, textureRepo.getTexture(Grass));
+                tiles.emplace_back(x, y, 0, textureRepo.getTexture(Stone));
             } else {
                 throw SDLException("Error loading map: Invalid tile type at %d!\n", i);
             }

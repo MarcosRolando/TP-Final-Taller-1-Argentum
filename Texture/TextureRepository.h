@@ -32,6 +32,8 @@ enum TextureID {
     SimpleBow,
     WarHammer,
     Grass,
+    Sand,
+    Stone,
     Skeleton,
     Goblin,
     Zombie,
@@ -61,14 +63,14 @@ private:
     void _setBodyImage(TextureID texture, std::string&& bodyImage);
     void _setShieldImage(TextureID textureID, std::string&& shieldImage);
     void _setWeaponImage(TextureID textureID, std::string&& weaponImage);
-    void _setTileImage(TextureID textureID, std::string&& tileImage);
+    void _setTileImage(TextureID textureID, std::string&& tileImage, bool individualTile);
     static void _addBodySprites(Texture& texture, int y, bool lateralSide);
     static void _addWeaponSprites(Texture& texture, int y, bool lateralSide);
     void _setHeadImage(TextureID textureID, std::string&& headImage);
     void _setHelmetImage(TextureID textureID, std::string&& helmetImage);
     static void _addShieldSprites(Texture& texture, int y, bool lateralSide);
     static void _addNPCSprites(Texture& texture, int y, bool lateralSide, int width, int height);
-    static void _addTileSprites(Texture& texture, int y);
+    static void _addTileSprites(Texture& texture, int y, bool individualTile);
 };
 
 

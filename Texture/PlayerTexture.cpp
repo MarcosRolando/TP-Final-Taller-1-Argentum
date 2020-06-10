@@ -32,7 +32,7 @@ void PlayerTexture::renderFront(int x, int y, int frame) {
 void PlayerTexture::renderBack(int x, int y, int frame) {
     if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
     EntityTexture::render(head, x + 8, y - 15, 3);
-    EntityTexture::render(weapon, x + 5, y - 10, frame + 6);
+    EntityTexture::render(weapon, x + 3, y - 10, frame + 6);
     EntityTexture::render(shield, x, y - 15, frame + 6);
     EntityTexture::render(body, x, y, frame + 6);
     if (&textureRepo.getTexture(MagicHat) == helmet) { /*There was no other option*/
