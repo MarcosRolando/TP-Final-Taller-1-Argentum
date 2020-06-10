@@ -37,12 +37,6 @@ public:
     //Usa el item en la posicion indicada, si no hay un item en la posicion no
     //hace nada
     void useItem(Player& player, unsigned int itemPosition);
-
-    /*
-    //Retorna el tamanio del inventario
-    unsigned int getSize();
-    */
-
 };
 
 

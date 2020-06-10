@@ -53,9 +53,7 @@ std::shared_ptr<Item> Inventory::removeItem(unsigned int itemPosition) {
 }
 
 void Inventory::useItem(Player& player, unsigned int itemPosition) {
-    //EquipmentPlace equipmentPlace;
     if (items[itemPosition]) {
-        //equipmentPlace = items[itemPosition]->use(player);
         manageItemPlacement(items[itemPosition]->use(player), itemPosition);
     }
 }
