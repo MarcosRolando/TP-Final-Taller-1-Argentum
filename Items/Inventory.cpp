@@ -15,11 +15,10 @@ void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int 
     //No deberia pasar porque se recibe el equipmentPlace, pero chequea que el
     //casteo no haya fallado
     clothingPtrAux = std::dynamic_pointer_cast<Clothing>(items[itemPosition]);
-    if (!clothingPtrAux) {
-        return;
+    if (clothingPtrAux) {
+        items[itemPosition] = std::move(equipment[equipmentPlace]);
+        equipment[equipmentPlace] = std::move(clothingPtrAux);
     }
-    items[itemPosition] = std::move(equipment[equipmentPlace]);
-    equipment[equipmentPlace] = std::move(clothingPtrAux);
 }
 
 
