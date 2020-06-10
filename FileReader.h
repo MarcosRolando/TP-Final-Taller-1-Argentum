@@ -6,15 +6,17 @@
 #define ARGENTUM_FILEREADER_H
 
 #include <fstream>
-#include <vector>
-
 #include "jsoncpp/json/json.h"
 #include "Configuration.h"
+#include <unordered_map>
 
 struct Modifiers;
 struct MonsterStats;
+struct WeaponStats;
+struct ClothingStats;
 struct GoldModifiers;
 struct XPModifiers;
+
 
 
 class FileReader {
@@ -26,26 +28,33 @@ private:
 public:
     FileReader(const std::string& path);
 
-    void getClassModifiers(std::vector<Modifiers>& mods);
-    void getRaceModifiers(std::vector<Modifiers>& mods);
-    void getMonsterStats(std::vector<MonsterStats>& stats);
+    void loadClassModifiers(std::vector<Modifiers>& mods);
+    void loadRaceModifiers(std::vector<Modifiers>& mods);
+    void loadMonsterStats(std::vector<MonsterStats>& stats);
 
-    void getGoldModifiers(GoldModifiers& goldModifiers);
-    void getXPModifiers(XPModifiers& xpModifiers);
+    void loadWeaponStats(std::vector<WeaponStats>& stats);
+    void loadClothingStats(std::vector<ClothingStats>& stats);
 
-    float getCritAttackChance();
-    float getDodgeChance();
+    void loadGoldModifiers(GoldModifiers& goldModifiers);
+    void loadXPModifiers(XPModifiers& xpModifiers);
 
-    unsigned int getNewbieLevel();
-    unsigned int getmaxLevelDif();
+    float loadCritAttackChance();
+    float loadDodgeChance();
 
-    unsigned int getPlayerVisionRange();
+    unsigned int loadNewbieLevel();
+    unsigned int loadmaxLevelDif();
+
+    unsigned int loadPlayerVisionRange();
 
     ~FileReader();
 
 private:
     void _getModifiers(Modifiers &modifier, Json::Value& currModifier);
-    void _getStats(MonsterStats &stats, Json::Value &currStat);
+    void _getMonsterStats(MonsterStats &stats, Json::Value &currMonster);
+
+    void _getWeaponStats(WeaponStats &stats, Json::Value currWeapon);
+
+    void _getClothingStats(ClothingStats &stats, Json::Value currClothing);
 };
 
 

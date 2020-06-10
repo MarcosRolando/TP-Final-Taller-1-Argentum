@@ -121,7 +121,7 @@
 
   "Weapon" : [
     {
-      "Type" : "Sword",
+      "Type" : "LongSword",
       "MinDmg" : 2,
       "MaxDmg" : 5,
       "Range" : 1,
@@ -135,7 +135,7 @@
       "ManaConsumption" : 0
     },
     {
-      "Type" : "Hammer",
+      "Type" : "WarHammer",
       "MinDmg" : 1,
       "MaxDmg" : 9,
       "Range" : 1,
@@ -163,13 +163,6 @@
       "ManaConsumption" : 30
     },
     {
-      "Type" : "GnarledStaff", //Baculo nudoso
-      "MinDmg" : 4,
-      "MaxDmg" : 8,
-      "Range" : 5,
-      "ManaConsumption" : 15
-    },
-    {
       "Type" : "SimpleBow",
       "MinDmg" : 1,
       "MaxDmg" : 4,
@@ -186,6 +179,11 @@
   ],
 
   "Clothing" : [
+    {
+      "Type": "CommonClothing",
+      "MinDefense": 0,
+      "MaxDefense": 1
+    },
     {
       "Type": "LeatherArmor",
       "MinDefense": 2,

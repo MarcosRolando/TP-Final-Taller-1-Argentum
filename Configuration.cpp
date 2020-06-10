@@ -4,20 +4,17 @@
 
 #include "Configuration.h"
 
-#define HUMAN 0
-#define ELF 1
-#define DWARF 2
-#define GNOME 3
+enum Races {HUMAN, ELF, DWARF, GNOME};
 
-#define MAGE 0
-#define CLERIC 1
-#define PALADIN 2
-#define WARRIOR 3
+enum Classes {MAGE, CLERIC, PALADIN, WARRIOR};
 
-#define SKELETON 0
-#define ZOMBIE 1
-#define SPIDER 2
-#define GOBLIN 3
+enum Monsters {SKELETON, ZOMBIE, SPIDER, GOBLIN};
+
+enum Weapon {LONGSWORD, AXE, WARHAMMER, ASH_ROD, ELVEN_FLUTE, LINKED_STAFF,
+        SIMPLE_BOW, COMPOUND_BOW};
+
+enum Clothing {COMMON_CLOTHING, LEATHER_ARMOR, PLATE_ARMOR, BLUE_TUNIC, HOOD,
+        IRON_HELMET, TURTLE_SHIELD, IRON_SHIELD, MAGIC_HAT};
 
 Configuration &Configuration::getInstance() {
     static Configuration instance;
@@ -27,74 +24,146 @@ Configuration &Configuration::getInstance() {
 Configuration::Configuration() {
     FileReader fileReader("../config.json");
 
-    fileReader.getClassModifiers(classModifiers);
-    fileReader.getRaceModifiers(raceModifiers);
-    fileReader.getMonsterStats(monsterStats);
+    fileReader.loadClassModifiers(classModifiers);
+    fileReader.loadRaceModifiers(raceModifiers);
+    fileReader.loadMonsterStats(monsterStats);
 
-    fileReader.getGoldModifiers(goldModifiers);
-    fileReader.getXPModifiers(xpModifiers);
+    fileReader.loadWeaponStats(weaponStats);
+    fileReader.loadClothingStats(clothingStats);
 
-    criticalAttackChance = fileReader.getCritAttackChance();
-    dodgeChance = fileReader.getDodgeChance();
+    fileReader.loadGoldModifiers(goldModifiers);
+    fileReader.loadXPModifiers(xpModifiers);
 
-    newbieLevel = fileReader.getNewbieLevel();
-    maxLevelDif =  fileReader.getmaxLevelDif();
-    playerVisionRange = fileReader.getPlayerVisionRange();
+    criticalAttackChance = fileReader.loadCritAttackChance();
+    dodgeChance = fileReader.loadDodgeChance();
+
+    newbieLevel = fileReader.loadNewbieLevel();
+    maxLevelDif = fileReader.loadmaxLevelDif();
+    playerVisionRange = fileReader.loadPlayerVisionRange();
 }
 
-Modifiers Configuration::configMageModifiers(){
+Modifiers Configuration::configMageModifiers() const{
     return classModifiers[MAGE];
 }
 
-Modifiers Configuration::configClericModifiers(){
+Modifiers Configuration::configClericModifiers() const{
     return classModifiers[CLERIC];
 }
 
-Modifiers Configuration::configPaladinModifiers(){
+Modifiers Configuration::configPaladinModifiers() const{
     return classModifiers[PALADIN];
 }
 
-Modifiers Configuration::configWarriorModifiers(){
+Modifiers Configuration::configWarriorModifiers() const{
     return classModifiers[WARRIOR];
 }
 
-Modifiers Configuration::configHumanModifiers(){
+Modifiers Configuration::configHumanModifiers() const{
     return raceModifiers[HUMAN];
 }
 
-Modifiers Configuration::configElfModifiers(){
+Modifiers Configuration::configElfModifiers() const{
     return raceModifiers[ELF];
 }
 
-Modifiers Configuration::configDwarfModifiers(){
+Modifiers Configuration::configDwarfModifiers() const{
     return raceModifiers[DWARF];
 }
 
-Modifiers Configuration::configGnomeModifiers(){
+Modifiers Configuration::configGnomeModifiers() const{
     return raceModifiers[GNOME];
 }
 
-MonsterStats Configuration::configSkeletonStats(){
+MonsterStats Configuration::configSkeletonStats() const{
     return monsterStats[SKELETON];
 }
 
-MonsterStats Configuration::configZombieStats(){
+MonsterStats Configuration::configZombieStats() const{
     return monsterStats[ZOMBIE];
 }
 
-MonsterStats Configuration::configSpiderStats(){
+MonsterStats Configuration::configSpiderStats() const{
     return monsterStats[SPIDER];
 }
 
-MonsterStats Configuration::configGoblinStats(){
+MonsterStats Configuration::configGoblinStats() const{
     return monsterStats[GOBLIN];
 }
 
-GoldModifiers Configuration::configGoldModifiers(){
+WeaponStats Configuration::configLongSwordStats() const{
+    return weaponStats[LONGSWORD];
+}
+
+WeaponStats Configuration::configAxeStats() const{
+    return weaponStats[AXE];
+}
+
+WeaponStats Configuration::configWarhammerStats() const{
+    return weaponStats[WARHAMMER];
+}
+
+WeaponStats Configuration::configAshRodStats() const{
+    return weaponStats[ASH_ROD];
+}
+
+WeaponStats Configuration::configElvenFluteStats() const{
+    return weaponStats[ELVEN_FLUTE];
+}
+
+WeaponStats Configuration::configLinkedStaffStats() const{
+    return weaponStats[LINKED_STAFF];
+}
+
+WeaponStats Configuration::configSimpleBowStats() const{
+    return weaponStats[SIMPLE_BOW];
+}
+
+WeaponStats Configuration::configCompoundBowStats() const{
+    return weaponStats[COMPOUND_BOW];
+}
+
+ClothingStats Configuration::configCommonClothingStats() const{
+    return clothingStats[COMMON_CLOTHING];
+}
+
+ClothingStats Configuration::configLeatherArmorStats() const{
+    return clothingStats[LEATHER_ARMOR];
+}
+
+ClothingStats Configuration::configPlateArmorStats() const{
+    return clothingStats[PLATE_ARMOR];
+}
+
+ClothingStats Configuration::configBlueTunicStats() const{
+    return clothingStats[BLUE_TUNIC];
+}
+
+ClothingStats Configuration::configHoodStats() const{
+    return clothingStats[HOOD];
+}
+
+ClothingStats Configuration::configIronHelmetStats() const{
+    return clothingStats[IRON_HELMET];
+}
+
+ClothingStats Configuration::configTurtleShieldStats() const{
+    return clothingStats[TURTLE_SHIELD];
+}
+
+ClothingStats Configuration::configIronShieldStats() const{
+    return clothingStats[IRON_SHIELD];
+}
+
+ClothingStats Configuration::configMagicHatStats() const{
+    return clothingStats[MAGIC_HAT];
+}
+
+
+GoldModifiers Configuration::configGoldModifiers() const{
     return goldModifiers;
 }
 
-XPModifiers Configuration::configXPModifiers(){
+XPModifiers Configuration::configXPModifiers() const{
     return xpModifiers;
 }
 
@@ -117,3 +186,5 @@ unsigned int Configuration::configMaxLevelDif() const{
 unsigned int Configuration::configPlayerVisionRange() const {
     return playerVisionRange;
 }
+
+

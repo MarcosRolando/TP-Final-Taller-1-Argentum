@@ -26,7 +26,7 @@ struct WeaponStats {
     unsigned int range;
 };
 
-struct ArmorStats {
+struct ClothingStats {
     unsigned int minDefense;
     unsigned int maxDefense;
 };
@@ -62,6 +62,9 @@ private:
     std::vector<Modifiers> classModifiers;
     std::vector<MonsterStats> monsterStats;
 
+    std::vector<WeaponStats> weaponStats;
+    std::vector<ClothingStats> clothingStats;
+
     GoldModifiers goldModifiers;
 
     XPModifiers xpModifiers;
@@ -80,23 +83,42 @@ public:
 
     static Configuration& getInstance();
 
-    Modifiers configMageModifiers();
-    Modifiers configClericModifiers();
-    Modifiers configPaladinModifiers();
-    Modifiers configWarriorModifiers();
+    Modifiers configMageModifiers() const;
+    Modifiers configClericModifiers() const;
+    Modifiers configPaladinModifiers() const;
+    Modifiers configWarriorModifiers() const;
 
-    Modifiers configHumanModifiers();
-    Modifiers configElfModifiers();
-    Modifiers configDwarfModifiers();
-    Modifiers configGnomeModifiers();
+    Modifiers configHumanModifiers() const;
+    Modifiers configElfModifiers() const;
+    Modifiers configDwarfModifiers() const;
+    Modifiers configGnomeModifiers() const;
 
-    MonsterStats configSkeletonStats();
-    MonsterStats configSpiderStats();
-    MonsterStats configZombieStats();
-    MonsterStats configGoblinStats();
+    MonsterStats configSkeletonStats() const;
+    MonsterStats configSpiderStats() const;
+    MonsterStats configZombieStats() const;
+    MonsterStats configGoblinStats() const;
 
-    GoldModifiers configGoldModifiers();
-    XPModifiers configXPModifiers();
+    WeaponStats configLongSwordStats() const;
+    WeaponStats configAxeStats() const;
+    WeaponStats configWarhammerStats() const;
+    WeaponStats configAshRodStats() const;
+    WeaponStats configElvenFluteStats() const;
+    WeaponStats configLinkedStaffStats() const;
+    WeaponStats configSimpleBowStats() const;
+    WeaponStats configCompoundBowStats() const;
+
+    ClothingStats configCommonClothingStats() const;
+    ClothingStats configLeatherArmorStats() const;
+    ClothingStats configPlateArmorStats() const;
+    ClothingStats configBlueTunicStats() const;
+    ClothingStats configHoodStats() const;
+    ClothingStats configIronHelmetStats() const;
+    ClothingStats configTurtleShieldStats() const;
+    ClothingStats configIronShieldStats() const;
+    ClothingStats configMagicHatStats() const;
+
+    GoldModifiers configGoldModifiers() const;
+    XPModifiers configXPModifiers() const;
 
     float configCriticalAttackChance() const;
     float configDodgeChance() const;
@@ -106,6 +128,8 @@ public:
 
 private:
     Configuration();
+
+
 };
 
 
