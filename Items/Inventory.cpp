@@ -4,36 +4,30 @@
 
 #include "Inventory.h"
 
-//////////////////////////////PUBLIC/////////////////////////////
+//////////////////////////////PRIVATE/////////////////////////////
 
-
+//Mueve el item al lugar de equipamiendo indicado si es que tiene uno
 void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition) {
     std::shared_ptr<Item> auxItem;
     if (equipmentPlace == EQUIPMENT_PLACE_NONE) {
-
+        return;
     }
-    /*
-    switch (equipmentPlace) {
-        case EQUIPMENT_PLACE_CHEST:
-            auxItem = ;
-            break;
-        case EQUIPMENT_PLACE_HEAD:
-            break;
-        case EQUIPMENT_PLACE_SHIELD:
-            break;
-        case EQUIPMENT_PLACE_WEAPON:
-            break;
-    }
-    */
+    auxItem = std::move(equipment[equipmentPlace]);
 
+    //ANTES DE HACER ESTO HAY QUE HACER UN DYNAMIC CAST
+    equipment[equipmentPlace] = std::move(items[itemPosition]);
+
+
+    items[itemPosition] = std::move(auxItem);
 }
 
 
 //////////////////////////////PUBLIC/////////////////////////////
 
 //CAMBIAR EL 10 POR EL VALOR GUARDADO EN CONFIG
-Inventory::Inventory(Player& _player): player(_player), items(10, nullptr){
+Inventory::Inventory(/*Player& _player*/): /*player(_player), */items(10, nullptr){
     storedItemsAmmount = 0;
+
 }
 
 
@@ -58,11 +52,11 @@ std::shared_ptr<Item> Inventory::removeItem(unsigned int itemPosition) {
     return aux;
 }
 
-void Inventory::useItem(unsigned int itemPosition) {
-    EquipmentPlace equipmentPlace;
+void Inventory::useItem(Player& player, unsigned int itemPosition) {
+    //EquipmentPlace equipmentPlace;
     if (items[itemPosition]) {
-        equipmentPlace = items[itemPosition]->use(player);
-
+        //equipmentPlace = items[itemPosition]->use(player);
+        manageItemPlacement(items[itemPosition]->use(player), itemPosition);
     }
 }
 
