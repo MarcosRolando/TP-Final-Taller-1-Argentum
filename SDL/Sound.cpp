@@ -12,14 +12,12 @@ Sound::Sound(std::string path) {
     }
 }
 
-/*void Sound::loadFromFile(std::string path){
-
-}*/
+Mix_Chunk *Sound::getSound() {
+    return sound;
+}
 
 Sound::~Sound() {
     Mix_FreeChunk(sound);
 }
 
-Mix_Chunk *Sound::getSound() {
-    return sound;
-}
+

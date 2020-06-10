@@ -16,11 +16,9 @@ class Sound {
 private:
     Mix_Chunk* sound;
 public:
-    Sound(std::string path);
+    explicit Sound(std::string path);
     Mix_Chunk* getSound();
     ~Sound();
-
-    //void loadFromFile(std::string path);
 };
 
 

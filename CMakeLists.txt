@@ -9,8 +9,8 @@ include_directories(${jsoncpp_INCLUDE_DIRS})
 
 add_executable(argentum main.cpp SDL/SDLException.cpp SDL/SDLException.h SDL/SoundRepository.cpp SDL/SoundRepository.h SDL/Texture.cpp SDL/Texture.h SDL/Font.cpp SDL/Font.h SDL/Window.cpp SDL/Window.h SDL/Renderer.cpp SDL/Renderer.h FileReader.cpp FileReader.h Configuration.cpp Configuration.h SDL/Sound.cpp SDL/Sound.h)
 
-target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
-                                                            -O0 -ggdb -DDEBUG -fno-inline)
+target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic
+        -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -ljsoncpp)
 
 target_link_options(argentum PRIVATE -lm -pthread)
 
