@@ -35,8 +35,6 @@ Configuration::Configuration() {
 
     newbieLevel = fileReader.getNewbieLevel();
     maxLevelDif =  fileReader.getmaxLevelDif();
-
-    inventorySize = fileReader.getInventorySize();
     playerVisionRange = fileReader.getPlayerVisionRange();
 }
 
@@ -110,10 +108,6 @@ unsigned int Configuration::configNewbieLevel(){
 
 unsigned int Configuration::configMaxLevelDif(){
     return maxLevelDif;
-}
-
-unsigned int Configuration::configInventorySize(){
-    return inventorySize;
 }
 
 unsigned int Configuration::configPlayerVisionRange() {

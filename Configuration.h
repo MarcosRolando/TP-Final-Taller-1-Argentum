@@ -19,6 +19,18 @@ struct Modifiers {
     unsigned int meditationRate;
 };
 
+struct WeaponStats {
+    unsigned int minDmg;
+    unsigned int maxDmg;
+    unsigned int manaConsumption;
+    unsigned int range;
+};
+
+struct ArmorStats {
+    unsigned int minDefense;
+    unsigned int maxDefense;
+};
+
 struct MonsterStats {
     int health;
     unsigned int damage;
@@ -26,6 +38,7 @@ struct MonsterStats {
     unsigned int minLevel;
     unsigned int maxLevel;
 };
+
 
 struct GoldModifiers {
     float goldDropFactorMin;
@@ -70,7 +83,6 @@ private:
     unsigned int newbieLevel;
     unsigned int maxLevelDif;
 
-    unsigned int inventorySize;
     unsigned int playerVisionRange;
 
 public:
@@ -101,7 +113,6 @@ public:
     float configDodgeChance();
     unsigned int configNewbieLevel();
     unsigned int configMaxLevelDif();
-    unsigned int configInventorySize();
     unsigned int configPlayerVisionRange();
 
 private:

@@ -119,6 +119,115 @@
     }
   ],
 
+  "Weapon" : [
+    {
+      "Type" : "Sword",
+      "MinDmg" : 2,
+      "MaxDmg" : 5,
+      "Range" : 1,
+      "ManaConsumption" : 0
+    },
+    {
+      "Type" : "Axe",
+      "MinDmg" : 4,
+      "MaxDmg" : 5,
+      "Range" : 1,
+      "ManaConsumption" : 0
+    },
+    {
+      "Type" : "Hammer",
+      "MinDmg" : 1,
+      "MaxDmg" : 9,
+      "Range" : 1,
+      "ManaConsumption" : 0
+    },
+    {
+      "Type" : "AshRod", //vara de fresno
+      "MinDmg" : 2,
+      "MaxDmg" : 4,
+      "Range" : 5,
+      "ManaConsumption" : 5
+    },
+    {
+      "Type" : "ElvenFlute",
+      "MinDmg" : 0,
+      "MaxDmg" : 0,
+      "Range" : 5,
+      "ManaConsumption" : 100
+    },
+    {
+      "Type" : "LinkedStaff", //Baculo engarzado
+      "MinDmg" : 8,
+      "MaxDmg" : 20,
+      "Range" : 5,
+      "ManaConsumption" : 30
+    },
+    {
+      "Type" : "GnarledStaff", //Baculo nudoso
+      "MinDmg" : 4,
+      "MaxDmg" : 8,
+      "Range" : 5,
+      "ManaConsumption" : 15
+    },
+    {
+      "Type" : "SimpleBow",
+      "MinDmg" : 1,
+      "MaxDmg" : 4,
+      "Range" : 10,
+      "ManaConsumption" : 0
+    },
+    {
+      "Type" : "CompundBow",
+      "MinDmg" : 4,
+      "MaxDmg" : 16,
+      "Range" : 10,
+      "ManaConsumption" : 0
+    }
+  ],
+
+  "Clothing" : [
+    {
+      "Type": "LeatherArmor",
+      "MinDefense": 2,
+      "MaxDefense": 6
+    },
+    {
+      "Type": "PlateArmor",
+      "MinDefense": 15,
+      "MaxDefense": 30
+    },
+    {
+      "Type": "BlueTunic",
+      "MinDefense": 6,
+      "MaxDefense": 10
+    },
+    {
+      "Type": "Hood",
+      "MinDefense": 1,
+      "MaxDefense": 4
+    },
+    {
+      "Type": "IronHelmet",
+      "MinDefense":4,
+      "MaxDefense": 8
+    },
+    {
+      "Type": "TurtleShield",
+      "MinDefense": 1,
+      "MaxDefense": 2
+    },
+    {
+      "Type": "IronShield",
+      "MinDefense": 1,
+      "MaxDefense": 4
+    },
+    {
+      "Type": "MagicHat",
+      "MinDefense": 4,
+      "MaxDefense": 12
+    }
+  ],
+
   "GoldModifiers" : {
     "MinRange" : 0,
     "MaxRange" : 0.2,
@@ -135,9 +244,10 @@
   },
 
   "PlayerVisionRange" : 5,
-  "InventorySize" : 10,
   "CritAttackProb" : 0.1,
   "DodgeProb" : 0.1,
   "NewbieLevel" : 12, //nivel hasta el cual se considera newbie
   "MaxLevelDif" : 10, //Si la diferencia de nivel es mayor a 10 no podes atacar
+
+
 }

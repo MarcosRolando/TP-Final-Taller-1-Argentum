@@ -74,10 +74,6 @@ unsigned int FileReader::getmaxLevelDif() {
     return obj["MaxLevelDif"].asUInt();
 }
 
-unsigned int FileReader::getInventorySize() {
-    return obj["InventorySize"].asUInt();
-}
-
 unsigned int FileReader::getPlayerVisionRange() {
     return obj["PlayerVisionRange"].asUInt();
 }

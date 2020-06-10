@@ -39,7 +39,6 @@ public:
     unsigned int getNewbieLevel();
     unsigned int getmaxLevelDif();
 
-    unsigned int getInventorySize();
     unsigned int getPlayerVisionRange();
 
     ~FileReader();
