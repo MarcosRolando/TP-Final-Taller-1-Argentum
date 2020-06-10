@@ -8,9 +8,8 @@
 #include <unordered_map>
 #include "Texture.h"
 
-const int TOTAL_TEXTURES = 23;
-
 enum TextureID {
+    NOTHING, /*Lo uso para el equipo del Player*/
     BlueTunic,
     CommonClothing,
     Hood,
@@ -39,19 +38,30 @@ enum TextureID {
 class TextureRepository {
 private:
     std::unordered_map<TextureID, Texture> textures;
+    SDL_Renderer& renderer;
 
 public:
     explicit TextureRepository(SDL_Renderer& renderer);
+    Texture& getTexture(TextureID texture);
 
 private:
-    void _loadClothing(SDL_Renderer& renderer);
-    void _loadHeads(SDL_Renderer& renderer);
-    void _loadItems(SDL_Renderer& renderer);
-    void _loadTiles(SDL_Renderer& renderer);
-    void _loadMonsters(SDL_Renderer& renderer);
-    void _setBodyImage(SDL_Renderer& renderer, TextureID texture, std::string&& bodyImage);
+    void _loadClothing();
+    void _loadHeads();
+    void _loadWeapons();
+    void _loadTiles();
+    void _loadNPCS();
+    void _setNPCImage(TextureID textureID, std::string&& npcImage);
+    void _setBodyImage(TextureID texture, std::string&& bodyImage);
+    void _setShieldImage(TextureID textureID, std::string&& shieldImage);
+    void _setWeaponImage(TextureID textureID, std::string&& weaponImage);
+    void _setTileImage(TextureID textureID, std::string&& tileImage);
     static void _addBodySprites(Texture& texture, int y, bool lateralSide);
-    void _setHeadImage(SDL_Renderer& renderer, TextureID textureID, std::string&& headImage);
+    static void _addWeaponSprites(Texture& texture, int y, bool lateralSide);
+    void _setHeadImage(TextureID textureID, std::string&& headImage);
+    void _setHelmetImage(TextureID textureID, std::string&& helmetImage);
+    static void _addShieldSprites(Texture& texture, int y, bool lateralSide);
+    static void _addNPCSprites(Texture& texture, int y, bool lateralSide);
+    static void _addTileSprites(Texture& texture, int y);
 };
 
 

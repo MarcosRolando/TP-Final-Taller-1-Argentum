@@ -3,6 +3,8 @@
 //
 
 #include "TextureRepository.h"
+#include "../GameConstants.h"
+
 #define BLUE_TUNIC_PATH "../Images/Clothing/BlueTunic.png"
 #define COMMON_CLOTHING_PATH "../Images/Clothing/CommonClothing.png"
 #define HOOD_PATH "../Images/Clothing/Hood.png"
@@ -27,63 +29,96 @@
 #define GRASS_PATH "../Images/Map/Grass.png"
 #define SKELETON_PATH "../Images/Monsters/Skeleton.png"
 
-TextureRepository::TextureRepository(SDL_Renderer& renderer) {
-    _loadClothing(renderer);
-    _loadHeads(renderer);
-    _loadItems(renderer);
-    _loadTiles(renderer);
-    _loadMonsters(renderer);
+TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
+    _loadClothing();
+    _loadHeads();
+    _loadWeapons();
+    _loadTiles();
+    _loadNPCS();
 }
 
-void TextureRepository::_loadClothing(SDL_Renderer& renderer) {
-    _setBodyImage(renderer, BlueTunic, BLUE_TUNIC_PATH);
-    _setBodyImage(renderer, CommonClothing, BLUE_TUNIC_PATH);
-    _setBodyImage(renderer, Hood, BLUE_TUNIC_PATH);
-    _setBodyImage(renderer, IronHelmet, BLUE_TUNIC_PATH);
-    _setBodyImage(renderer, IronShield, BLUE_TUNIC_PATH);
-    _setBodyImage(renderer, LeatherArmor, BLUE_TUNIC_PATH);
-    _setBodyImage(renderer, MagicHat, BLUE_TUNIC_PATH);
-    _setBodyImage(renderer, PlateArmor, BLUE_TUNIC_PATH);
-    _setBodyImage(renderer, TurtleShield, BLUE_TUNIC_PATH);
+void TextureRepository::_loadClothing() {
+    _setBodyImage(BlueTunic, BLUE_TUNIC_PATH);
+    _setBodyImage(CommonClothing, COMMON_CLOTHING_PATH);
+    _setShieldImage(IronShield, IRON_SHIELD_PATH);
+    _setBodyImage(LeatherArmor, LEATHER_ARMOR_PATH);
+    _setBodyImage(PlateArmor, PLATE_ARMOR_PATH);
+    _setShieldImage(TurtleShield, TURTLE_SHIELD_PATH);
+    _setHelmetImage(Hood, HOOD_PATH);
+    _setHelmetImage(IronHelmet, IRON_HELMET_PATH);
+    _setHelmetImage(MagicHat, MAGIC_HAT_PATH);
 }
 
-void TextureRepository::_loadHeads(SDL_Renderer& renderer) {
-    _setHeadImage(renderer, DwarfHead, DWARF_HEAD_PATH);
-    _setHeadImage(renderer, ElfHead, ELF_HEAD_PATH);
-    _setHeadImage(renderer, GnomeHead, GNOME_HEAD_PATH);
-    _setHeadImage(renderer, HumanHead, HUMAN_HEAD_PATH);
+void TextureRepository::_loadHeads() {
+    _setHeadImage(DwarfHead, DWARF_HEAD_PATH);
+    _setHeadImage(ElfHead, ELF_HEAD_PATH);
+    _setHeadImage(GnomeHead, GNOME_HEAD_PATH);
+    _setHeadImage(HumanHead, HUMAN_HEAD_PATH);
 }
 
-void TextureRepository::_loadItems(SDL_Renderer& renderer) {
-    textures.emplace(AshRod, renderer);
-    textures.emplace(Axe, renderer);
-    textures.emplace(CompoundBow, renderer);
-    textures.emplace(ElvenFlute, renderer);
-    textures.emplace(LinkedStaff, renderer);
-    textures.emplace(LongSword, renderer);
-    textures.emplace(SimpleBow, renderer);
-    textures.emplace(WarHammer, renderer);
-    textures.at(AshRod).loadFromFile(ASH_ROD_PATH);
-    textures.at(Axe).loadFromFile(AXE_PATH);
-    textures.at(CompoundBow).loadFromFile(COMPOUND_BOW_PATH);
-    textures.at(ElvenFlute).loadFromFile(ELVEN_FLUTE_PATH);
-    textures.at(LinkedStaff).loadFromFile(LINKED_STAFF_PATH);
-    textures.at(LongSword).loadFromFile(LONG_SWORD_PATH);
-    textures.at(SimpleBow).loadFromFile(SIMPLE_BOW_PATH);
-    textures.at(WarHammer).loadFromFile(WAR_HAMMER_PATH);
+void TextureRepository::_loadWeapons() {
+    _setWeaponImage(AshRod, ASH_ROD_PATH);
+    _setWeaponImage(Axe, AXE_PATH);
+    _setWeaponImage(CompoundBow, COMPOUND_BOW_PATH);
+    _setWeaponImage(ElvenFlute, ELVEN_FLUTE_PATH);
+    _setWeaponImage(LinkedStaff, LINKED_STAFF_PATH);
+    _setWeaponImage(LongSword, LONG_SWORD_PATH);
+    _setWeaponImage(SimpleBow, SIMPLE_BOW_PATH);
+    _setWeaponImage(WarHammer, WAR_HAMMER_PATH);
 }
 
-void TextureRepository::_loadTiles(SDL_Renderer& renderer) {
-    textures.emplace(Grass, renderer);
-    textures.at(Grass).loadFromFile(GRASS_PATH);
+void TextureRepository::_loadTiles() {
+    _setTileImage(Grass, GRASS_PATH);
 }
 
-void TextureRepository::_loadMonsters(SDL_Renderer &renderer) {
-    textures.emplace(Skeleton, renderer);
-    textures.at(Skeleton).loadFromFile(SKELETON_PATH);
+void TextureRepository::_loadNPCS() {
+    _setNPCImage(Skeleton, SKELETON_PATH);
 }
 
-void TextureRepository::_setBodyImage(SDL_Renderer& renderer, TextureID textureID, std::string&& bodyImage) {
+void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileImage) {
+    try {
+        //Load sprite sheet texture
+        ColorKey_t key = {0, 0, 0};
+        textures.emplace(textureID, renderer);
+        Texture& texture = textures.at(textureID);
+        texture.loadFromFile(tileImage, key);
+        _addNPCSprites(texture, 0, false);
+    } catch (SDLException& e) {
+        throw SDLException("Failed to load sprite sheet texture!\n");
+    }
+}
+
+void TextureRepository::_setNPCImage(TextureID textureID, std::string&& npcImage) {
+    try {
+        //Load sprite sheet texture
+        ColorKey_t key = {0, 0, 0};
+        textures.emplace(textureID, renderer);
+        Texture& texture = textures.at(textureID);
+        texture.loadFromFile(npcImage, key);
+        /*Front*/
+        _addNPCSprites(texture, 0, false);
+        /*Back*/
+        _addNPCSprites(texture, 52, false);
+        /*Left*/
+        _addNPCSprites(texture, 104, true);
+        /*Rigth*/
+        _addNPCSprites(texture, 156, true);
+    } catch (SDLException& e) {
+        throw SDLException("Failed to load sprite sheet texture!\n");
+    }
+}
+
+void TextureRepository::_addNPCSprites(Texture& texture, int y, bool lateralSide) {
+    texture.addSprite(0, y, 24, 52);
+    texture.addSprite(25, y, 25, 52);
+    texture.addSprite(51, y, 24, 52);
+    texture.addSprite(75, y, 25, 52);
+    texture.addSprite(100, y, 25, 52);
+    if (lateralSide) texture.addSprite(100, y, 25, 52);
+    else texture.addSprite(125, y, 25, 52);
+}
+
+void TextureRepository::_setBodyImage(TextureID textureID, std::string&& bodyImage) {
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
@@ -103,6 +138,36 @@ void TextureRepository::_setBodyImage(SDL_Renderer& renderer, TextureID textureI
     }
 }
 
+void TextureRepository::_setWeaponImage(TextureID textureID, std::string&& weaponImage) {
+    try {
+        //Load sprite sheet texture
+        ColorKey_t key = {0, 0, 0};
+        textures.emplace(textureID, renderer);
+        Texture& texture = textures.at(textureID);
+        texture.loadFromFile(weaponImage, key);
+        /*Front*/
+        _addWeaponSprites(texture, 0, false);
+        /*Back*/
+        _addWeaponSprites(texture, 45, false);
+        /*Left*/
+        _addWeaponSprites(texture, 90, true);
+        /*Rigth*/
+        _addWeaponSprites(texture, 135, true);
+    } catch (SDLException& e) {
+        throw SDLException("Failed to load sprite sheet texture!\n");
+    }
+}
+
+void TextureRepository::_addWeaponSprites(Texture& texture, int y, bool lateralSide) {
+    texture.addSprite(0, y, 24, 45);
+    texture.addSprite(25, y, 25, 45);
+    texture.addSprite(51, y - 1, 23, 45);
+    texture.addSprite(76, y - 1, 23, 45);
+    texture.addSprite(101, y - 1, 24, 45);
+    if (lateralSide) texture.addSprite(101, y, 24, 45);
+    else texture.addSprite(126, y, 25, 45);
+}
+
 void TextureRepository::_addBodySprites(Texture& texture, int y, bool lateralSide) {
     texture.addSprite(0, y, 24, 45); /*hasta 24 porque sino en la plate armor hay un poco de la otra imagen*/
     texture.addSprite(25, y, 25, 45);
@@ -113,7 +178,7 @@ void TextureRepository::_addBodySprites(Texture& texture, int y, bool lateralSid
     else texture.addSprite(125, y, 25, 45);
 }
 
-void TextureRepository::_setHeadImage(SDL_Renderer& renderer, TextureID textureID, std::string&& headImage) {
+void TextureRepository::_setHeadImage(TextureID textureID, std::string&& headImage) {
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
@@ -127,4 +192,62 @@ void TextureRepository::_setHeadImage(SDL_Renderer& renderer, TextureID textureI
     } catch (SDLException& e) {
         throw SDLException("Failed to load sprite sheet texture!\n");
     }
+}
+
+void TextureRepository::_setHelmetImage(TextureID textureID, std::string&& helmetImage) {
+    try {
+        //Load sprite sheet texture
+        ColorKey_t key = {0, 0, 0};
+        textures.emplace(textureID, renderer);
+        Texture& texture = textures.at(textureID);
+        texture.loadFromFile(helmetImage, key);
+        texture.addSprite(0, 0, 17, 17);
+        texture.addSprite(17, 0, 17, 17);
+        texture.addSprite(34, 0, 17, 17);
+        texture.addSprite(51, 0, 17, 17);
+    } catch (SDLException& e) {
+        throw SDLException("Failed to load sprite sheet texture!\n");
+    }
+}
+
+void TextureRepository::_setShieldImage(TextureID textureID, std::string&& shieldImage) {
+    try {
+        //Load sprite sheet texture
+        ColorKey_t key = {0, 0, 0};
+        textures.emplace(textureID, renderer);
+        Texture& texture = textures.at(textureID);
+        texture.loadFromFile(shieldImage, key);
+        texture.loadFromFile(shieldImage, key);
+        /*Front*/
+        _addShieldSprites(texture, 0, false);
+        /*Back*/
+        _addShieldSprites(texture, 45, false);
+        /*Left*/
+        _addShieldSprites(texture, 90, true);
+        /*Rigth*/
+        _addShieldSprites(texture, 135, true);
+    } catch (SDLException& e) {
+        throw SDLException("Failed to load sprite sheet texture!\n");
+    }
+}
+
+void TextureRepository::_addShieldSprites(Texture& texture, int y, bool lateralSide) {
+    texture.addSprite(0, y, 25, 35);
+    texture.addSprite(26, y, 25, 35);
+    texture.addSprite(51, y, 24, 35);
+    texture.addSprite(76, y, 25, 35);
+    texture.addSprite(101, y, 24, 35);
+    if (lateralSide) texture.addSprite(101, y, 24, 35);
+    else texture.addSprite(126, y, 25, 35);
+}
+
+void TextureRepository::_addTileSprites(Texture& texture, int y) {
+    texture.addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT);
+    texture.addSprite(TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
+    texture.addSprite(2*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
+    texture.addSprite(3*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
+}
+
+Texture& TextureRepository::getTexture(TextureID texture) {
+    return textures.at(texture);
 }

@@ -15,7 +15,7 @@ public:
     virtual void renderBack(int x, int y, int frame) = 0;
     virtual void renderRight(int x, int y, int frame) = 0;
     virtual void renderLeft(int x, int y, int frame) = 0;
-    static void render(Texture& texture, int x, int y, int spritePosition);
+    static void render(Texture* texture, int x, int y, int spritePosition);
 };
 
 

@@ -11,13 +11,7 @@ const int TOTAL_TILE_SPRITES = 12;
 
 Map::Map(SDL_Renderer& renderer, SDL_Rect& camera) : camera(camera) {
     this->camera = camera;
-    _loadTilesTextures(renderer);
     _setTiles();
-}
-
-void Map::_loadTilesTextures(SDL_Renderer& renderer) {
-    textures.emplace_back(renderer);
-    textures.back().loadFromFile("../Images/Map/Grass.png");
 }
 
 void Map::_setTiles() {
@@ -64,11 +58,6 @@ void Map::_setTiles() {
             }
         }
     }
-
-    textures[0].addSprite(0, 0, TILE_WIDTH, TILE_HEIGHT);
-    textures[0].addSprite(TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
-    textures[0].addSprite(2*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
-    textures[0].addSprite(3*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
 
     //Close the file
     mapFile.close();

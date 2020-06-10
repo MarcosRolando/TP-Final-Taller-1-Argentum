@@ -7,25 +7,20 @@
 
 #include "EntityTexture.h"
 #include "../SDLException.h"
+#include "TextureRepository.h"
 
 class NPCTexture : public EntityTexture {
 private:
-    Texture body;
+    TextureRepository& textureRepo;
+    Texture* body;
 
 public:
-    NPCTexture(SDL_Renderer& renderer, std::string& image);
-
-    explicit NPCTexture(SDL_Renderer& renderer) : body(renderer) {}
-
-    void setImage(std::string& image);
+    explicit NPCTexture(TextureRepository& repo, TextureID texture);
 
     void renderFront(int x, int y, int frame) override;
     void renderBack(int x, int y, int frame) override;
     void renderRight(int x, int y, int frame) override;
     void renderLeft(int x, int y, int frame) override;
-
-private:
-    void _addSprites(int y, bool lateralSide);
 };
 
 

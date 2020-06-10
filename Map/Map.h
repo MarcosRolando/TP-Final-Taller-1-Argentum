@@ -23,7 +23,6 @@ public:
 
 private:
     void _setTiles();
-    void _loadTilesTextures(SDL_Renderer& renderer);
 };
 
 
