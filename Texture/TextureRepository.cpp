@@ -31,6 +31,7 @@
 #define GOBLIN_PATH "../Images/Monsters/Goblin.png"
 #define ZOMBIE_PATH "../Images/Monsters/Zombie.png"
 #define SPIDER_PATH "../Images/Monsters/Spider.png"
+#define PRIEST_PATH "../Images/Citizens/Priest.png"
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
     _loadClothing();
@@ -79,6 +80,7 @@ void TextureRepository::_loadNPCS() {
     _setNPCImage(Goblin, GOBLIN_PATH, 24, 31);
     _setNPCImage(Zombie, ZOMBIE_PATH, 25, 45);
     _setNPCImage(Spider, SPIDER_PATH, 34, 34);
+    _setNPCImage(Priest, PRIEST_PATH, 25, 45);
 }
 
 void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileImage) {

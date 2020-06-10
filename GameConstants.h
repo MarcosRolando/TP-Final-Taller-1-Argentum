@@ -13,6 +13,9 @@ const int DEFAULT_SCREEN_HEIGHT = 720;
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 
+const float X_SCALE = (float)SCREEN_WIDTH/(float)DEFAULT_SCREEN_WIDTH;
+const float Y_SCALE = (float)SCREEN_HEIGHT/(float)DEFAULT_SCREEN_HEIGHT;
+
 //The dimensions of the level
 const int LEVEL_WIDTH = 1536;
 const int LEVEL_HEIGHT = 2048;
