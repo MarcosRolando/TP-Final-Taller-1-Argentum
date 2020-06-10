@@ -15,7 +15,7 @@ private:
     SDL_Rect& camera;
     float movedOffset;
     int currentFrame;
-    Direction moveDirection;
+    Direction moveDirection, lastDirection;
     float xPosition, width;
     float yPosition, height;
 
@@ -29,6 +29,7 @@ public:
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);
+    void _renderLastDirection(EntityTexture& eTexture);
 };
 
 

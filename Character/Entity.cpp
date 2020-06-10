@@ -9,6 +9,7 @@ Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
     movedOffset = 0;
     currentFrame = 0;
     moveDirection = STILL;
+    lastDirection = STILL;
     xPosition = x;
     yPosition = y;
     width = (float)TILE_WIDTH/2;
@@ -45,6 +46,7 @@ void Entity::updatePosition(float timeStep) {
     }
     if (movedOffset >= TILE_WIDTH) {
         currentFrame = 0;
+        lastDirection = moveDirection;
         moveDirection = STILL;
         movedOffset = 0;
     } else {
@@ -105,11 +107,33 @@ void Entity::render(EntityTexture& eTexture) {
                                     (int)(yPosition) - camera.y, currentFrame);
                 break;
             case STILL:
-                eTexture.renderFront((int)(xPosition) - camera.x,
-                                     (int)(yPosition) - camera.y, 0);
-                break;
+                _renderLastDirection(eTexture);
         }
     };
+}
+
+void Entity::_renderLastDirection(EntityTexture& eTexture) {
+    switch (lastDirection) {
+        case UP:
+            eTexture.renderBack((int)(xPosition) - camera.x,
+                                (int)(yPosition) - camera.y, 0);
+            break;
+        case DOWN:
+            eTexture.renderFront((int)(xPosition) - camera.x,
+                                 (int)(yPosition) - camera.y, 0);
+            break;
+        case RIGHT:
+            eTexture.renderRight((int)(xPosition) - camera.x,
+                                 (int)(yPosition) - camera.y, 0);
+            break;
+        case LEFT:
+            eTexture.renderLeft((int)(xPosition) - camera.x,
+                                (int)(yPosition) - camera.y, 0);
+            break;
+        case STILL:
+            eTexture.renderFront((int)(xPosition) - camera.x,
+                                 (int)(yPosition) - camera.y, 0);
+    }
 }
 
 void Entity::updateCamera() {
