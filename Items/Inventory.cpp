@@ -9,12 +9,17 @@
 //Mueve el item al lugar de equipamiendo indicado si es que tiene uno
 void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition) {
     std::shared_ptr<Item> auxItem;
+    std::shared_ptr<Clothing> clothingPtr;
     if (equipmentPlace == EQUIPMENT_PLACE_NONE) {
         return;
     }
     auxItem = std::move(equipment[equipmentPlace]);
 
     //ANTES DE HACER ESTO HAY QUE HACER UN DYNAMIC CAST
+    //equipment[equipmentPlace] = std::move(items[itemPosition]);
+
+    //HAY QUE VER DONDE SE CATCHEA bad_cast, AUNQUE NUNCA SE VA A TIRAR PORQUE
+    //EL ITEM DICE QUIEN ES CUANDO SE USA
     equipment[equipmentPlace] = std::move(items[itemPosition]);
 
 

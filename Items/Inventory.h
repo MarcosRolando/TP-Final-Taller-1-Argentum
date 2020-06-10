@@ -11,13 +11,14 @@
 #include <unordered_map>
 #include "Item.h"
 #include "../Entities/Player.h"
+#include "Defense/Clothing.h"
+
 
 class Inventory {
 private:
-    //Player& player;
     unsigned int storedItemsAmmount;
     std::vector<std::shared_ptr<Item>> items;
-    std::unordered_map<EquipmentPlace, shared_ptr<Item>> equipment;
+    std::unordered_map<EquipmentPlace, shared_ptr<Clothing>> equipment;
 private:
     void manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);
 
