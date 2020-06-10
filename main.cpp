@@ -136,6 +136,7 @@ int main(int argc, char* args[]) {
             monster.render();
 
             //Update screen
+            SDL_RenderSetScale(gRenderer, X_SCALE, Y_SCALE);
             SDL_RenderPresent( gRenderer );
         }
 	} catch (SDLException& e) {
