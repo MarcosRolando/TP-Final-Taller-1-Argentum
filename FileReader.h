@@ -26,9 +26,9 @@ private:
 public:
     FileReader(const std::string& path);
 
-    void getClassModifiers(Modifiers& modifiers, const std::string& type);
-    void getRaceModifiers(Modifiers& modifiers, const std::string& type);
-    void getMonsterStats(MonsterStats& monsterStats, const std::string& type);
+    void getClassModifiers(std::vector<Modifiers>& mods);
+    void getRaceModifiers(std::vector<Modifiers>& mods);
+    void getMonsterStats(std::vector<MonsterStats>& stats);
 
     void getGoldModifiers(GoldModifiers& goldModifiers);
     void getXPModifiers(XPModifiers& xpModifiers);

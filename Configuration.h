@@ -58,20 +58,9 @@ struct XPModifiers {
 class Configuration {
 
 private:
-    Modifiers humanModifiers;
-    Modifiers elfModifiers;
-    Modifiers dwarfModifiers;
-    Modifiers gnomeModifiers;
-
-    Modifiers mageModifiers;
-    Modifiers clericModifiers;
-    Modifiers paladinModifiers;
-    Modifiers warriorModifiers;
-
-    MonsterStats zombieStats;
-    MonsterStats skeletonStats;
-    MonsterStats goblinStats;
-    MonsterStats spiderStats;
+    std::vector<Modifiers> raceModifiers;
+    std::vector<Modifiers> classModifiers;
+    std::vector<MonsterStats> monsterStats;
 
     GoldModifiers goldModifiers;
 
@@ -109,11 +98,11 @@ public:
     GoldModifiers configGoldModifiers();
     XPModifiers configXPModifiers();
 
-    float configCriticalAttackChance();
-    float configDodgeChance();
-    unsigned int configNewbieLevel();
-    unsigned int configMaxLevelDif();
-    unsigned int configPlayerVisionRange();
+    float configCriticalAttackChance() const;
+    float configDodgeChance() const;
+    unsigned int configNewbieLevel() const;
+    unsigned int configMaxLevelDif() const;
+    unsigned int configPlayerVisionRange() const;
 
 private:
     Configuration();

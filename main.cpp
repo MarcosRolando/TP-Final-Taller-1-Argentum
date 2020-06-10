@@ -3,11 +3,14 @@
 #include "Configuration.h"
 
 int main() {
-    std::cout <<"crit"<< Configuration::getInstance()
-    .configCriticalAttackChance();
-    std::cout <<"dodge"<< Configuration::getInstance().configDodgeChance();
-    std::cout <<"range"<< Configuration::getInstance()
-    .configPlayerVisionRange();
+    std::cout <<"skeleton dmg"<< Configuration::getInstance()
+    .configSkeletonStats().damage;
+    std::cout <<"zombie dmg"<< Configuration::getInstance()
+    .configZombieStats().damage;
+    std::cout <<"spider dmg"<< Configuration::getInstance()
+    .configSpiderStats().damage;
+    std::cout <<"goblin dmg"<< Configuration::getInstance()
+    .configGoblinStats().damage;
 
     return 0;
 }

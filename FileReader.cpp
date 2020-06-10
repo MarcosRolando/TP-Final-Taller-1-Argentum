@@ -13,30 +13,30 @@ FileReader::~FileReader() {
     file.close();
 }
 
-void FileReader::getClassModifiers(Modifiers& modifier, const std::string& type) {
+void FileReader::getClassModifiers(std::vector<Modifiers> &mods) {
     Json::Value& classModifiers = obj["Class"];
+    Modifiers currMods;
     for (auto & classModifier : classModifiers) {
-       if (classModifier["Name"].asString() == type){
-           _getModifiers(modifier, classModifier);
-       }
+       _getModifiers(currMods, classModifier);
+       mods.push_back(currMods);
     }
 }
 
-void FileReader::getRaceModifiers(Modifiers& modifier, const std::string& type) {
+void FileReader::getRaceModifiers(std::vector<Modifiers> &mods) {
     Json::Value& raceModifiers = obj["Race"];
+    Modifiers currMods;
     for (auto & raceModifier : raceModifiers) {
-        if (raceModifier["Name"].asString() == type){
-            _getModifiers(modifier, raceModifier);
-        }
+        _getModifiers(currMods, raceModifier);
+        mods.push_back(currMods);
     }
 }
 
-void FileReader::getMonsterStats(MonsterStats& stats, const std::string& type) {
+void FileReader::getMonsterStats(std::vector<MonsterStats>& stats) {
     Json::Value& monsterStats = obj["Monster"];
+    MonsterStats currStats;
     for (auto & monsterStat : monsterStats) {
-        if (monsterStat["Name"].asString() == type){
-            _getStats(stats, monsterStat);
-        }
+        _getStats(currStats, monsterStat);
+        stats.push_back(currStats);
     }
 }
 
