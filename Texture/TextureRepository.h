@@ -33,7 +33,9 @@ enum TextureID {
     WarHammer,
     Grass,
     Skeleton,
-    Goblin
+    Goblin,
+    Zombie,
+    Spider
 };
 
 class TextureRepository {

@@ -22,6 +22,6 @@ const int TILE_WIDTH = 128;
 const int TILE_HEIGHT = 128;
 
 //La velocidad de las animaciones
-const int SPEED = 50;
+const int SPEED = 400;
 
 #endif //ARGENTUM_GAMECONSTANTS_H
