@@ -35,3 +35,7 @@ unsigned int Weapon::getDamage(Coordinate attackPosition, Coordinate attackedPos
     return (rand() % (maxDamage - minDamage + 1)) + minDamage;
 }
 
+EquipmentPlace Weapon::use(Player &player) {
+    return EQUIPMENT_PLACE_WEAPON;
+}
+

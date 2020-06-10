@@ -4,10 +4,36 @@
 
 #include "Inventory.h"
 
+//////////////////////////////PUBLIC/////////////////////////////
+
+
+void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition) {
+    std::shared_ptr<Item> auxItem;
+    /*
+    switch (equipmentPlace) {
+        case EQUIPMENT_PLACE_CHEST:
+            auxItem = ;
+            break;
+        case EQUIPMENT_PLACE_HEAD:
+            break;
+        case EQUIPMENT_PLACE_SHIELD:
+            break;
+        case EQUIPMENT_PLACE_WEAPON:
+            break;
+    }
+    */
+
+}
+
+
+//////////////////////////////PUBLIC/////////////////////////////
+
 //CAMBIAR EL 10 POR EL VALOR GUARDADO EN CONFIG
 Inventory::Inventory(Player& _player): player(_player), items(10, nullptr){
     storedItemsAmmount = 0;
 }
+
+
 
 bool Inventory::addItem(std::shared_ptr<Item> &&item) {
     if ((storedItemsAmmount == items.size()) || !item) {
@@ -30,16 +56,13 @@ std::shared_ptr<Item> Inventory::removeItem(unsigned int itemPosition) {
 }
 
 void Inventory::useItem(unsigned int itemPosition) {
-    InventoryPlace inventoryPlace;
+    EquipmentPlace equipmentPlace;
     if (items[itemPosition]) {
-        inventoryPlace = items[itemPosition]->use(player);
+        equipmentPlace = items[itemPosition]->use(player);
 
     }
 }
 
-void Inventory::equipHead(std::shared_ptr<Item> item) {
-
-}
 
 /*
 unsigned int Inventory::getSize() {

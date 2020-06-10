@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <memory>
+#include <unordered_map>
 #include "Item.h"
 #include "../Entities/Player.h"
 
@@ -16,10 +17,10 @@ private:
     Player& player;
     unsigned int storedItemsAmmount;
     std::vector<std::shared_ptr<Item>> items;
+    std::unordered_map equipment<EquipmentPlace, shared_ptr<Item>>;
+private:
+    void manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);
 
-    //Este atributo es un atributo auxiliar que sirve para ayudar a sacar un item del
-    //vector de items porque un item no puede eliminarse a si mismo
-    std::shared_ptr<Item> itemBuffer;
 public:
     Inventory(Player& player);
 
@@ -40,6 +41,7 @@ public:
     //Retorna el tamanio del inventario
     unsigned int getSize();
     */
+
 };
 
 
