@@ -15,9 +15,8 @@ Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
     height = (float)TILE_HEIGHT/2 + 15;
 }
 
-void Entity::updatePosition() {
+void Entity::updatePosition(float timeStep) {
     //Calculate time step
-    float timeStep = moveTime.getTicks() / 1000.f;
     float offset = SPEED*timeStep;
     if (moveDirection != STILL) {
         if ( (movedOffset + offset) >= (float)TILE_WIDTH) {
@@ -87,7 +86,6 @@ bool Entity::_checkCollision(SDL_Rect a, SDL_Rect b) {
 }
 
 void Entity::render(EntityTexture& eTexture) {
-    moveTime.start(); //reseteo
     if (_checkCollision(camera, {(int)xPosition, (int)yPosition, (int)width, (int)height})) {
         switch (moveDirection) {
             case UP:

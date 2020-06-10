@@ -11,12 +11,9 @@ and may not be redistributed without written permission.*/
 #include "Map/Map.h"
 #include <unistd.h>
 #include "GameConstants.h"
-
+#include "Timer.h"
 //Starts up SDL and creates window
 void init();
-
-//Loads media
-void loadMedia();
 
 //Frees media and shuts down SDL
 void close();
@@ -90,6 +87,7 @@ int main(int argc, char* args[]) {
 	try {
         init();
         //Level camera
+        Timer moveTime;
         TextureRepository repo(*gRenderer);
         SDL_Rect camera = { 0, 0, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT };
         PlayerEquipment pEquipment = {Hood, ElfHead, CommonClothing, IronShield, LongSword};
@@ -131,13 +129,21 @@ int main(int argc, char* args[]) {
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 
-            map.render();
-            player.render();
-            monster.render();
+            float timeElapsed = 0;
+            while (timeElapsed < 33.33) {
+                map.render();
+                float timeStep = moveTime.getTicks();
+                timeElapsed += timeStep; /*milisegundos desde start*/
+                timeStep = timeStep / 1000.f;
+                player.render(timeStep);
+                monster.render(timeStep);
+                moveTime.start();
 
-            //Update screen
-            SDL_RenderSetLogicalSize(gRenderer, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
-            SDL_RenderPresent( gRenderer );
+                //Update screen
+                SDL_RenderSetLogicalSize(gRenderer, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
+                SDL_RenderPresent(gRenderer);
+            }
+
         }
 	} catch (SDLException& e) {
 	    std::cout << e.what() << std::endl;

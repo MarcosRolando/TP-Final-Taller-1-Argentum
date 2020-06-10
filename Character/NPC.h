@@ -15,7 +15,7 @@ private:
 public:
     NPC(TextureRepository& repo, SDL_Rect& camera, float x, float y,
                                                         TextureID texture);
-    void render() override;
+    void render(float timeStep) override;
 };
 
 

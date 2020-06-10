@@ -6,14 +6,12 @@
 #define ARGENTUM_ENTITY_H
 
 #include "../Texture/EntityTexture.h"
-#include "../Timer.h"
 #include "../Direction.h"
 
 /*Clase Abstracta*/
 
 class Entity {
 private:
-    Timer moveTime;
     SDL_Rect& camera;
     float movedOffset;
     int currentFrame;
@@ -25,8 +23,8 @@ public:
     Entity(SDL_Rect& camera, float x, float y);
     void move(Direction direction);
     void render(EntityTexture& eTexture);
-    virtual void render() = 0;
-    void updatePosition();
+    virtual void render(float timeStep) = 0;
+    void updatePosition(float stepTime);
     void updateCamera();
 
 private:
