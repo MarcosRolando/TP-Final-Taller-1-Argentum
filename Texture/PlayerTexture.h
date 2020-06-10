@@ -10,7 +10,7 @@
 #include "../SDLException.h"
 #include "TextureRepository.h"
 
-struct EquipmentImages {
+struct PlayerEquipment {
     TextureID helmet;
     TextureID head;
     TextureID body;
@@ -28,7 +28,7 @@ private:
     Texture* weapon;
 
 public:
-    PlayerTexture(TextureRepository& repo, EquipmentImages equipment);
+    PlayerTexture(TextureRepository& repo, PlayerEquipment equipment);
 
     void renderFront(int x, int y, int frame) override;
     void renderBack(int x, int y, int frame) override;

@@ -5,8 +5,8 @@
 #include "NPC.h"
 #include "../GameConstants.h"
 
-NPC::NPC(SDL_Renderer &renderer, SDL_Rect &camera, float x, float y,
-         std::string image) : Entity(camera, x, y), npcTexture(renderer, image) {}
+NPC::NPC(TextureRepository& repo, SDL_Rect &camera, float x, float y,
+         TextureID texture) : Entity(camera, x, y), npcTexture(repo, texture) {}
 
 void NPC::render() {
     Entity::updatePosition();

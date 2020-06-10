@@ -9,7 +9,7 @@
 #include "Texture.h"
 
 enum TextureID {
-    NOTHING, /*Lo uso para el equipo del Player*/
+    Nothing, /*Lo uso para el equipo del Player*/
     BlueTunic,
     CommonClothing,
     Hood,

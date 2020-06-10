@@ -9,7 +9,7 @@
 const int TOTAL_TILES = 192;
 const int TOTAL_TILE_SPRITES = 12;
 
-Map::Map(SDL_Renderer& renderer, SDL_Rect& camera) : camera(camera) {
+Map::Map(TextureRepository& repo, SDL_Rect& camera) : textureRepo(repo), camera(camera) {
     this->camera = camera;
     _setTiles();
 }
@@ -41,7 +41,7 @@ void Map::_setTiles() {
 
             //If the number is a valid tile number
             if (( tileType >= 0 ) && ( tileType < TOTAL_TILE_SPRITES )) {
-                tiles.emplace_back(x, y, i % 4, textures[0]);
+                tiles.emplace_back(x, y, i % 4, textureRepo.getTexture(Grass));
             } else {
                 throw SDLException("Error loading map: Invalid tile type at %d!\n", i);
             }

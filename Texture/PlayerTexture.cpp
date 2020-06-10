@@ -4,15 +4,15 @@
 
 #include "PlayerTexture.h"
 
-PlayerTexture::PlayerTexture(TextureRepository& repo, EquipmentImages equipment)
+PlayerTexture::PlayerTexture(TextureRepository& repo, PlayerEquipment equipment)
                                 : textureRepo(repo) {
-    if (equipment.helmet != NOTHING) helmet = &textureRepo.getTexture(equipment.helmet);
+    if (equipment.helmet != Nothing) helmet = &textureRepo.getTexture(equipment.helmet);
     else helmet = nullptr;
     head = &textureRepo.getTexture(equipment.head);
     body = &textureRepo.getTexture(equipment.body);
-    if (equipment.shield != NOTHING) shield = &textureRepo.getTexture(equipment.shield);
+    if (equipment.shield != Nothing) shield = &textureRepo.getTexture(equipment.shield);
     else shield = nullptr;
-    if (equipment.weapon != NOTHING) weapon = &textureRepo.getTexture(equipment.weapon);
+    if (equipment.weapon != Nothing) weapon = &textureRepo.getTexture(equipment.weapon);
     else weapon = nullptr;
 }
 

@@ -13,8 +13,8 @@ private:
     NPCTexture npcTexture;
 
 public:
-    NPC(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y,
-                                                        std::string image);
+    NPC(TextureRepository& repo, SDL_Rect& camera, float x, float y,
+                                                        TextureID texture);
     void render() override;
 };
 

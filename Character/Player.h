@@ -13,8 +13,8 @@ private:
     PlayerTexture pTexture;
 
 public:
-    Player(SDL_Renderer& renderer, SDL_Rect& camera, float x, float y,
-                                                    EquipmentImages& images);
+    Player(TextureRepository& repo, SDL_Rect& camera, float x, float y,
+                                                    PlayerEquipment& images);
     void render() override;
 };
 

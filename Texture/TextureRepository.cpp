@@ -82,7 +82,7 @@ void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileIma
         textures.emplace(textureID, renderer);
         Texture& texture = textures.at(textureID);
         texture.loadFromFile(tileImage, key);
-        _addNPCSprites(texture, 0, false);
+        _addTileSprites(texture, 0);
     } catch (SDLException& e) {
         throw SDLException("Failed to load sprite sheet texture!\n");
     }
@@ -216,7 +216,6 @@ void TextureRepository::_setShieldImage(TextureID textureID, std::string&& shiel
         ColorKey_t key = {0, 0, 0};
         textures.emplace(textureID, renderer);
         Texture& texture = textures.at(textureID);
-        texture.loadFromFile(shieldImage, key);
         texture.loadFromFile(shieldImage, key);
         /*Front*/
         _addShieldSprites(texture, 0, false);

@@ -90,14 +90,12 @@ int main(int argc, char* args[]) {
 	try {
         init();
         //Level camera
+        TextureRepository repo(*gRenderer);
         SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-        EquipmentImages pEquipment = {"../Images/Clothing/Hood.png",
-                                      "../Images/Heads/ElfHead.png",
-                "../Images/Clothing/CommonClothing.png",
-                "../Images/Clothing/TurtleShield.png", "../Images/Items/CompoundBow.png"};
-        Player player(*gRenderer, camera, 40, 30,pEquipment);
-        NPC monster(*gRenderer, camera, 168, 30, "../Images/Monsters/Skeleton.png");
-        Map map(*gRenderer, camera);
+        PlayerEquipment pEquipment = {Hood, ElfHead, CommonClothing, CompoundBow, Nothing};
+        Player player(repo, camera, 40, 30,pEquipment);
+        NPC monster(repo, camera, 168, 30, Skeleton);
+        Map map(repo, camera);
         //Main loop flag
         bool quit = false;
 
