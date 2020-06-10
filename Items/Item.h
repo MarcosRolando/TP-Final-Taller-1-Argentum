@@ -20,7 +20,7 @@ public:
     //use debe retornar el lugar en el que debera equiparse el item una vez usado desde
     //un inventario, si debe ser descartado entonces se tiene que retornar INVENTORY_PLACE_NONE
     //Esta funcion retorna en cierta forma el tipo de item que es
-    virtual EquipmentPlace use(Player& player) = 0;
+    virtual EquipmentPlace use(Player& player);
 };
 
 

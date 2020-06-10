@@ -9,6 +9,9 @@
 
 void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition) {
     std::shared_ptr<Item> auxItem;
+    if (equipmentPlace == EQUIPMENT_PLACE_NONE) {
+
+    }
     /*
     switch (equipmentPlace) {
         case EQUIPMENT_PLACE_CHEST:
