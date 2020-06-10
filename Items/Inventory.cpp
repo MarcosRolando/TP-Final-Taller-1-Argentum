@@ -8,22 +8,18 @@
 
 //Mueve el item al lugar de equipamiendo indicado si es que tiene uno
 void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition) {
-    std::shared_ptr<Item> auxItem;
-    std::shared_ptr<Clothing> clothingPtr;
+    std::shared_ptr<Clothing> clothingPtrAux;
     if (equipmentPlace == EQUIPMENT_PLACE_NONE) {
         return;
     }
-    auxItem = std::move(equipment[equipmentPlace]);
-
-    //ANTES DE HACER ESTO HAY QUE HACER UN DYNAMIC CAST
-    //equipment[equipmentPlace] = std::move(items[itemPosition]);
-
-    //HAY QUE VER DONDE SE CATCHEA bad_cast, AUNQUE NUNCA SE VA A TIRAR PORQUE
-    //EL ITEM DICE QUIEN ES CUANDO SE USA
-    equipment[equipmentPlace] = std::move(items[itemPosition]);
-
-
-    items[itemPosition] = std::move(auxItem);
+    //No deberia pasar porque se recibe el equipmentPlace, pero chequea que el
+    //casteo no haya fallado
+    clothingPtrAux = std::dynamic_pointer_cast<Clothing>(items[itemPosition]);
+    if (!clothingPtrAux) {
+        return;
+    }
+    items[itemPosition] = std::move(equipment[equipmentPlace]);
+    equipment[equipmentPlace] = std::move(clothingPtrAux);
 }
 
 
@@ -64,10 +60,3 @@ void Inventory::useItem(Player& player, unsigned int itemPosition) {
         manageItemPlacement(items[itemPosition]->use(player), itemPosition);
     }
 }
-
-
-/*
-unsigned int Inventory::getSize() {
-    return items.size();
-}
-*/
