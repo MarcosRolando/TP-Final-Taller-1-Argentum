@@ -8,6 +8,8 @@
 #include <unordered_map>
 #include "Texture.h"
 
+const int TOTAL_TEXTURES = 23;
+
 enum TextureID {
     BlueTunic,
     CommonClothing,
@@ -29,7 +31,9 @@ enum TextureID {
     LinkedStaff,
     LongSword,
     SimpleBow,
-    WarHammer
+    WarHammer,
+    Grass,
+    Skeleton
 };
 
 class TextureRepository {
@@ -41,6 +45,13 @@ public:
 
 private:
     void _loadClothing(SDL_Renderer& renderer);
+    void _loadHeads(SDL_Renderer& renderer);
+    void _loadItems(SDL_Renderer& renderer);
+    void _loadTiles(SDL_Renderer& renderer);
+    void _loadMonsters(SDL_Renderer& renderer);
+    void _setBodyImage(SDL_Renderer& renderer, TextureID texture, std::string&& bodyImage);
+    static void _addBodySprites(Texture& texture, int y, bool lateralSide);
+    void _setHeadImage(SDL_Renderer& renderer, TextureID textureID, std::string&& headImage);
 };
 
 
