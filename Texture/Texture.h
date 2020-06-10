@@ -14,15 +14,11 @@
 #include <string>
 #include <vector>
 
+
 struct ColorKey_t {
     int red;
     int green;
     int blue;
-};
-
-struct SpriteDimensions_t {
-    int width;
-    int height;
 };
 
 class Texture {
@@ -58,16 +54,6 @@ public:
 
     //Renders texture at given point
     void render( int x, int y, int spritePosition, int scale = 1);
-
-    /*Retorna las dimensiones de alto y ancho del sprite*/
-    SpriteDimensions_t getSpriteDimensions(int spritePosition);
-
-    /*Retorna true si tiene cargada una textura*/
-    bool loadedTexture();
-
-    //Gets image dimensions
-    int getWidth() const;
-    int getHeight() const;
 };
 
 

@@ -90,7 +90,7 @@ int main(int argc, char* args[]) {
         Timer moveTime;
         TextureRepository repo(*gRenderer);
         SDL_Rect camera = { 0, 0, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT };
-        PlayerEquipment pEquipment = {Hood, ElfHead, CommonClothing, IronShield, LongSword};
+        PlayerEquipment pEquipment = {MagicHat, ElfHead, BlueTunic, Nothing, LinkedStaff};
         Player player(repo, camera, 40, 30,pEquipment);
         NPC monster(repo, camera, 168, 30, Skeleton);
         Map map(repo, camera);
@@ -130,7 +130,7 @@ int main(int argc, char* args[]) {
             SDL_RenderClear( gRenderer );
 
             float timeElapsed = 0;
-            while (timeElapsed < 33.33) {
+            while (timeElapsed < 16.66) {
                 map.render();
                 float timeStep = moveTime.getTicks();
                 timeElapsed += timeStep; /*milisegundos desde start*/
@@ -143,7 +143,6 @@ int main(int argc, char* args[]) {
                 SDL_RenderSetLogicalSize(gRenderer, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
                 SDL_RenderPresent(gRenderer);
             }
-
         }
 	} catch (SDLException& e) {
 	    std::cout << e.what() << std::endl;

@@ -77,27 +77,10 @@ void Texture::render(int x, int y, int spritePosition, int scale) {
     SDL_RenderCopy(&renderer, mTexture, &clip, &renderQuad);
 }
 
-int Texture::getWidth() const {
-    return mWidth;
-}
-
-int Texture::getHeight() const {
-    return mHeight;
-}
-
 void Texture::addSprite(int x, int y, int width, int height) {
     gSpriteClips.push_back({x, y, width, height});
 }
 
-SpriteDimensions_t Texture::getSpriteDimensions(int spritePosition) {
-    SDL_Rect& sprite = gSpriteClips.at(spritePosition);
-    SpriteDimensions_t dimensions = {sprite.w, sprite.h};
-    return dimensions;
-}
-
-bool Texture::loadedTexture() {
-    return (mTexture != nullptr);
-}
 
 Texture::Texture(Texture&& other) noexcept : renderer(other.renderer){
     mWidth = other.mWidth;
