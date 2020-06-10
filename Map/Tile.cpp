@@ -18,7 +18,6 @@ bool Tile::_checkCollision(SDL_Rect a, SDL_Rect b) {
     int rightA, rightB;
     int topA, topB;
     int bottomA, bottomB;
-
     //Calculate the sides of rect A
     leftA = a.x;
     rightA = a.x + a.w;

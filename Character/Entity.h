@@ -18,8 +18,8 @@ private:
     float movedOffset;
     int currentFrame;
     Direction moveDirection;
-    float xPosition;
-    float yPosition;
+    float xPosition, width;
+    float yPosition, height;
 
 public:
     Entity(SDL_Rect& camera, float x, float y);
@@ -28,6 +28,9 @@ public:
     virtual void render() = 0;
     void updatePosition();
     void updateCamera();
+
+private:
+    static bool _checkCollision(SDL_Rect a, SDL_Rect b);
 };
 
 

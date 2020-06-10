@@ -91,7 +91,7 @@ int main(int argc, char* args[]) {
         init();
         //Level camera
         TextureRepository repo(*gRenderer);
-        SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+        SDL_Rect camera = { 0, 0, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT };
         PlayerEquipment pEquipment = {Hood, ElfHead, CommonClothing, IronShield, CompoundBow};
         Player player(repo, camera, 40, 30,pEquipment);
         NPC monster(repo, camera, 168, 30, Skeleton);
@@ -136,7 +136,7 @@ int main(int argc, char* args[]) {
             monster.render();
 
             //Update screen
-            SDL_RenderSetScale(gRenderer, X_SCALE, Y_SCALE);
+            SDL_RenderSetLogicalSize(gRenderer, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
             SDL_RenderPresent( gRenderer );
         }
 	} catch (SDLException& e) {

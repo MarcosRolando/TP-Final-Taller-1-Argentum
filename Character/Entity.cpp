@@ -6,12 +6,13 @@
 #include "../GameConstants.h"
 
 Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
-
     movedOffset = 0;
     currentFrame = 0;
     moveDirection = STILL;
     xPosition = x;
     yPosition = y;
+    width = (float)TILE_WIDTH/2;
+    height = (float)TILE_HEIGHT/2 + 15;
 }
 
 void Entity::updatePosition() {
@@ -57,30 +58,60 @@ void Entity::updatePosition() {
     }
 }
 
+bool Entity::_checkCollision(SDL_Rect a, SDL_Rect b) {
+    //The sides of the rectangles
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+    //Calculate the sides of rect A
+    leftA = a.x;
+    rightA = a.x + a.w;
+    topA = a.y;
+    bottomA = a.y + a.h;
+
+    //Calculate the sides of rect B
+    leftB = b.x;
+    rightB = b.x + b.w;
+    topB = b.y;
+    bottomB = b.y + b.h;
+
+    //If any of the sides from A are outside of B
+    if(bottomA <= topB) return false;
+    if(topA >= bottomB) return false;
+    if(rightA <= leftB) return false;
+    if(leftA >= rightB) return false;
+
+    //If none of the sides from A are outside B
+    return true;
+}
+
 void Entity::render(EntityTexture& eTexture) {
     moveTime.start(); //reseteo
-    switch (moveDirection) {
-        case UP:
-            eTexture.renderBack((int)(xPosition) - camera.x,
-                                  (int)(yPosition) - camera.y, currentFrame);
-            break;
-        case DOWN:
-            eTexture.renderFront((int)(xPosition) - camera.x,
-                                   (int)(yPosition) - camera.y, currentFrame);
-            break;
-        case RIGHT:
-            eTexture.renderRight((int)(xPosition) - camera.x,
-                                   (int)(yPosition) - camera.y, currentFrame);
-            break;
-        case LEFT:
-            eTexture.renderLeft((int)(xPosition) - camera.x,
-                                  (int)(yPosition) - camera.y, currentFrame);
-            break;
-        case STILL:
-            eTexture.renderFront((int)(xPosition) - camera.x,
-                                   (int)(yPosition) - camera.y, 0);
-            break;
-    }
+    if (_checkCollision(camera, {(int)xPosition, (int)yPosition, (int)width, (int)height})) {
+        switch (moveDirection) {
+            case UP:
+                eTexture.renderBack((int)(xPosition) - camera.x,
+                                    (int)(yPosition) - camera.y, currentFrame);
+                break;
+            case DOWN:
+                eTexture.renderFront((int)(xPosition) - camera.x,
+                                     (int)(yPosition) - camera.y, currentFrame);
+                break;
+            case RIGHT:
+                eTexture.renderRight((int)(xPosition) - camera.x,
+                                     (int)(yPosition) - camera.y, currentFrame);
+                break;
+            case LEFT:
+                eTexture.renderLeft((int)(xPosition) - camera.x,
+                                    (int)(yPosition) - camera.y, currentFrame);
+                break;
+            case STILL:
+                eTexture.renderFront((int)(xPosition) - camera.x,
+                                     (int)(yPosition) - camera.y, 0);
+                break;
+        }
+    };
 }
 
 void Entity::updateCamera() {
