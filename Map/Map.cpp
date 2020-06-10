@@ -2,11 +2,18 @@
 // Created by agustin on 7/6/20.
 //
 
+#include <queue>
 #include "Map.h"
 
+//////////////////////////////PRIVATE/////////////////////////////
 
 
-void Map::_buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topRight, Coordinate& bottomLeft) {
+
+int Map::_inverseCoordinateDistance(const PrivatePointAndDistance p) {
+    return -p.distance;
+}
+
+void Map::_buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topRight, Coordinate& bottomLeft) const {
     Coordinate aux;
     aux.iPosition = center.iPosition - range;
     aux.jPosition = center.jPosition - range;
@@ -16,7 +23,7 @@ void Map::_buildSearchRegion(Coordinate center, unsigned int range, Coordinate& 
     bottomLeft = _getValidCoordinate(aux);
 }
 
-Coordinate Map::_getValidCoordinate(Coordinate coordinate) {
+Coordinate Map::_getValidCoordinate(Coordinate coordinate) const {
     if (coordinate.jPosition >= tiles[0].size()) {
         coordinate.jPosition = tiles[0].size() - 1;
     } else if (coordinate.jPosition < 0) {
@@ -31,7 +38,7 @@ Coordinate Map::_getValidCoordinate(Coordinate coordinate) {
 }
 
 
-
+//////////////////////////////PUBLIC/////////////////////////////
 
 
 unsigned int Map::attackTile(unsigned int damage, unsigned int level,
@@ -39,7 +46,7 @@ unsigned int Map::attackTile(unsigned int damage, unsigned int level,
     return tiles[coordinate.iPosition][coordinate.jPosition].attacked(damage, level);
 }
 
-void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) {
+void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const {
     Coordinate topRight;
     Coordinate bottomLeft;
     Coordinate aux;
@@ -55,12 +62,10 @@ void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordina
     }
 }
 
-Coordinate
-Map::getNextPosition(Coordinate currentPosition, Coordinate desiredPosition) {
-    Coordinate aux;
-    bool foundTarget = false;
-    while (!foundTarget) {
+void Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const {
+    std::priority_queue<Coordinate> nodes(&_inverseCoordinateDistance);
+    nodes.push(currentPosition);
+    while (!nodes.empty()) {
 
     }
-    return ;
 }

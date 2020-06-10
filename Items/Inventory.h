@@ -18,12 +18,12 @@ class Inventory {
 private:
     unsigned int storedItemsAmmount;
     std::vector<std::shared_ptr<Item>> items;
-    std::unordered_map<EquipmentPlace, shared_ptr<Clothing>> equipment;
+    std::unordered_map<EquipmentPlace, std::shared_ptr<Clothing>> equipment;
 private:
     void manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);
 
 public:
-    Inventory(/*Player& player*/);
+    Inventory();
 
     //Adquiere el shared pointer recibido y lo guarda si hay espacio y retorna
     //true. Si no hay espacio o item es null no adquiere el puntero y retorna false

@@ -60,7 +60,7 @@ unsigned int Tile::attacked(unsigned int damage, unsigned int level) {
     return entity->attacked(damage, level);
 }
 
-bool Tile::hasMonsterTarget() {
+bool Tile::hasMonsterTarget() const {
     if (entity) {
         return entity->isMonsterTarget();
     }

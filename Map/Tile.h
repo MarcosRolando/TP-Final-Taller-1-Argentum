@@ -50,7 +50,7 @@ public:
     unsigned int attacked(unsigned int damage, unsigned int level);
 
     //Retorna true si almacena un entity que es un target de un monster
-    bool hasMonsterTarget();
+    bool hasMonsterTarget() const;
 };
 
 
