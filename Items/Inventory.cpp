@@ -4,6 +4,10 @@
 
 #include "Inventory.h"
 
+
+#define INVENTORY_SIZE 10
+
+
 //////////////////////////////PRIVATE/////////////////////////////
 
 //Mueve el item al lugar de equipamiendo indicado si es que tiene uno
@@ -25,7 +29,7 @@ void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int 
 //////////////////////////////PUBLIC/////////////////////////////
 
 //CAMBIAR EL 10 POR EL VALOR GUARDADO EN CONFIG
-Inventory::Inventory(/*Player& _player*/): /*player(_player), */items(10, nullptr){
+Inventory::Inventory(/*Player& _player*/): /*player(_player), */items(INVENTORY_SIZE, nullptr){
     storedItemsAmmount = 0;
 
 }
