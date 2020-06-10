@@ -73,8 +73,8 @@ void TextureRepository::_loadTiles() {
 }
 
 void TextureRepository::_loadNPCS() {
-    _setNPCImage(Skeleton, SKELETON_PATH);
-    _setNPCImage(Goblin, GOBLIN_PATH);
+    _setNPCImage(Skeleton, SKELETON_PATH, 25, 52);
+    _setNPCImage(Goblin, GOBLIN_PATH, 24, 31);
 }
 
 void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileImage) {
@@ -90,7 +90,7 @@ void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileIma
     }
 }
 
-void TextureRepository::_setNPCImage(TextureID textureID, std::string&& npcImage) {
+void TextureRepository::_setNPCImage(TextureID textureID, std::string&& npcImage, int width, int height) {
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
@@ -98,26 +98,26 @@ void TextureRepository::_setNPCImage(TextureID textureID, std::string&& npcImage
         Texture& texture = textures.at(textureID);
         texture.loadFromFile(npcImage, key);
         /*Front*/
-        _addNPCSprites(texture, 0, false);
+        _addNPCSprites(texture, 0, false, width, height);
         /*Back*/
-        _addNPCSprites(texture, 52, false);
+        _addNPCSprites(texture, height, false, width, height);
         /*Left*/
-        _addNPCSprites(texture, 104, true);
+        _addNPCSprites(texture, 2*height, true, width, height);
         /*Rigth*/
-        _addNPCSprites(texture, 156, true);
+        _addNPCSprites(texture, 3*height, true, width, height);
     } catch (SDLException& e) {
         throw SDLException("Failed to load sprite sheet texture!\n");
     }
 }
 
-void TextureRepository::_addNPCSprites(Texture& texture, int y, bool lateralSide) {
-    texture.addSprite(0, y, 24, 52);
-    texture.addSprite(25, y, 25, 52);
-    texture.addSprite(51, y, 24, 52);
-    texture.addSprite(75, y, 25, 52);
-    texture.addSprite(100, y, 25, 52);
-    if (lateralSide) texture.addSprite(100, y, 25, 52);
-    else texture.addSprite(125, y, 25, 52);
+void TextureRepository::_addNPCSprites(Texture& texture, int y, bool lateralSide, int width, int height) {
+    texture.addSprite(0, y, width, height);
+    texture.addSprite(width, y, width, height);
+    texture.addSprite(2*width, y, width, height);
+    texture.addSprite(3*width, y, width, height);
+    texture.addSprite(4*width, y, width, height);
+    if (lateralSide) texture.addSprite(4*width, y, width, height);
+    else texture.addSprite(5*width, y, width, height);
 }
 
 void TextureRepository::_setBodyImage(TextureID textureID, std::string&& bodyImage) {

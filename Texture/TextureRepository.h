@@ -51,7 +51,7 @@ private:
     void _loadWeapons();
     void _loadTiles();
     void _loadNPCS();
-    void _setNPCImage(TextureID textureID, std::string&& npcImage);
+    void _setNPCImage(TextureID textureID, std::string&& npcImage, int width, int height);
     void _setBodyImage(TextureID texture, std::string&& bodyImage);
     void _setShieldImage(TextureID textureID, std::string&& shieldImage);
     void _setWeaponImage(TextureID textureID, std::string&& weaponImage);
@@ -61,7 +61,7 @@ private:
     void _setHeadImage(TextureID textureID, std::string&& headImage);
     void _setHelmetImage(TextureID textureID, std::string&& helmetImage);
     static void _addShieldSprites(Texture& texture, int y, bool lateralSide);
-    static void _addNPCSprites(Texture& texture, int y, bool lateralSide);
+    static void _addNPCSprites(Texture& texture, int y, bool lateralSide, int width, int height);
     static void _addTileSprites(Texture& texture, int y);
 };
 
