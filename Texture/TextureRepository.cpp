@@ -32,6 +32,9 @@
 #define ZOMBIE_PATH "../Images/Monsters/Zombie.png"
 #define SPIDER_PATH "../Images/Monsters/Spider.png"
 #define PRIEST_PATH "../Images/Citizens/Priest.png"
+#define TRADER_PATH "../Images/Citizens/Trader.png"
+#define BANKER_PATH "../Images/Citizens/Banker.png"
+#define GUARD_PATH "../Images/Citizens/Guard.png"
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
     _loadClothing();
@@ -81,6 +84,9 @@ void TextureRepository::_loadNPCS() {
     _setNPCImage(Zombie, ZOMBIE_PATH, 25, 45);
     _setNPCImage(Spider, SPIDER_PATH, 34, 34);
     _setNPCImage(Priest, PRIEST_PATH, 25, 45);
+    _setNPCImage(Trader, TRADER_PATH, 24, 48);
+    _setNPCImage(Banker, BANKER_PATH, 25, 45);
+    _setNPCImage(Guard, GUARD_PATH, 28, 52);
 }
 
 void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileImage) {

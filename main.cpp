@@ -92,7 +92,7 @@ int main(int argc, char* args[]) {
         SDL_Rect camera = { 0, 0, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT };
         PlayerEquipment pEquipment = {MagicHat, ElfHead, BlueTunic, IronShield, LinkedStaff};
         Player player(repo, camera, 40, 30,pEquipment);
-        NPC monster(repo, camera, 168, 30, Priest);
+        NPC monster(repo, camera, 168, 30, Guard);
         Map map(repo, camera);
         //Main loop flag
         bool quit = false;

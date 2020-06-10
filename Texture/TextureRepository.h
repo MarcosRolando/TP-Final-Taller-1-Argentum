@@ -36,7 +36,10 @@ enum TextureID {
     Goblin,
     Zombie,
     Spider,
-    Priest
+    Priest,
+    Trader,
+    Banker,
+    Guard
 };
 
 class TextureRepository {
