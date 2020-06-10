@@ -1,15 +1,15 @@
-#include "Sounds.h"
+#include "SoundRepository.h"
 
 #define FREQUENCY 44100
 #define CHUNKSIZE 2048
 
-Sounds::Sounds() {
+SoundRepository::SoundRepository() {
     _init();
     _loadSounds();
-    Mix_VolumeMusic(32);//Le bajo un poco el volumen a la musica
+    //Mix_VolumeMusic(32);
 }
 
-void Sounds::_init() {
+void SoundRepository::_init() {
     if( SDL_Init(SDL_INIT_AUDIO ) < 0 ) {//Esto iria en una clase SDL general
         throw SDLException("SDL could not initialize! SDL Error: %s\n",
                 SDL_GetError() );
@@ -22,7 +22,7 @@ void Sounds::_init() {
 }
 
 //Carga el sonido con el archivo en path
-void Sounds::_loadSoundFile(Mix_Chunk** sound, const char* path){
+/*void SoundRepository::_loadSoundFile(Mix_Chunk** sound, const char* path){
     *sound = Mix_LoadWAV(path);
     if(*sound == NULL ){
         throw SDLException("Failed to load sound effect! SDL_mixer "
@@ -31,51 +31,57 @@ void Sounds::_loadSoundFile(Mix_Chunk** sound, const char* path){
 }
 
 //Carga la musica con el archivo en path
-void Sounds::_loadMusicFile(Mix_Music** music, const char* path){
+void SoundRepository::_loadMusicFile(Mix_Music** music, const char* path){
     *music = Mix_LoadMUS(path);
     if(*music == NULL ) {
         throw SDLException("Failed to load beat music! SDL_mixer Error: "
                            "%s\n", Mix_GetError());
     }
-}
+}*/
 
 /* Carga todos los sonidos */
-void Sounds::_loadSounds() {
-    _loadMusicFile(&Music, "../Sounds/hkost.wav");
-    _loadSoundFile(&attack, "../Sounds/sword.wav");
-    _loadSoundFile(&explotion, "../Sounds/meguminExplotion.wav");
+/*void SoundRepository::_loadSounds() {
+    _loadMusicFile(&Music, "../SoundRepository/hkost.wav");
+    _loadSoundFile(&attack, "../SoundRepository/attack.wav");
+    _loadSoundFile(&explotion, "../SoundRepository/meguminExplotion.wav");
+}*/
+
+void SoundRepository::_loadSounds(){
+    sounds.emplace(Explotion, "../Sounds/explotion.wav");
+    sounds.emplace(Attack,"../Sounds/attack.wav");
 }
 
-void Sounds::playAttackSound() {
-    Mix_PlayChannel(-1, attack, 0 );
+void SoundRepository::playAttackSound() {
+    Mix_PlayChannel(-1, sounds.at(Attack).getSound(), 0 );
 }
 
-void Sounds::playExplotionSound() {
-    Mix_PlayChannel(-1, explotion, 0 );
+void SoundRepository::playExplotionSound() {
+    Mix_PlayChannel(-1, sounds.at(Explotion).getSound(), 0 );
 }
 
 
-void Sounds::playMusic() {
+/*void SoundRepository::playMusic() {
     if( Mix_PlayingMusic() == 0 ) {//Empieza musica si no habia
         Mix_PlayMusic(Music, -1);
     } else if (Mix_PausedMusic() == 1) {//Resume musica si estaba en pausa
         Mix_ResumeMusic();
     }
-}
+}*/
 
-void Sounds::pauseMusic() {
+/*void SoundRepository::pauseMusic() {
     Mix_PauseMusic();
 }
 
-void Sounds::stopMusic(){
+void SoundRepository::stopMusic(){
     Mix_HaltMusic();
-}
+}*/
 
-Sounds::~Sounds() {
+SoundRepository::~SoundRepository() {
     //Libera los sonidos
-    Mix_FreeChunk(attack);
+    /*Mix_FreeChunk(attack);
     Mix_FreeChunk(explotion);
-    Mix_FreeMusic(Music);
+    Mix_FreeMusic(Music);*/
+
 
     //Cierra el mixer
     Mix_Quit();
