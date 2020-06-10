@@ -92,7 +92,7 @@ int main(int argc, char* args[]) {
         //Level camera
         TextureRepository repo(*gRenderer);
         SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-        PlayerEquipment pEquipment = {Hood, ElfHead, CommonClothing, CompoundBow, Nothing};
+        PlayerEquipment pEquipment = {Hood, ElfHead, CommonClothing, IronShield, CompoundBow};
         Player player(repo, camera, 40, 30,pEquipment);
         NPC monster(repo, camera, 168, 30, Skeleton);
         Map map(repo, camera);

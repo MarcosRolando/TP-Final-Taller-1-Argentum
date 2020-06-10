@@ -3,7 +3,6 @@
 //
 
 #include "Player.h"
-#include "../GameConstants.h"
 
 Player::Player(TextureRepository& repo, SDL_Rect& camera, float x, float y, PlayerEquipment& images) :
         Entity(camera, x, y), pTexture(repo, images) {}
