@@ -28,8 +28,7 @@ void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int 
 
 //////////////////////////////PUBLIC/////////////////////////////
 
-//CAMBIAR EL 10 POR EL VALOR GUARDADO EN CONFIG
-Inventory::Inventory(/*Player& _player*/): /*player(_player), */items(INVENTORY_SIZE, nullptr){
+Inventory::Inventory(): items(INVENTORY_SIZE, nullptr){
     storedItemsAmmount = 0;
 
 }
