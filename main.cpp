@@ -125,12 +125,11 @@ int main(int argc, char* args[]) {
                 }
             }
 
-            //Clear screen
-            SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-            SDL_RenderClear( gRenderer );
-
             float timeElapsed = 0;
             while (timeElapsed < 50) {
+                //Clear screen
+                SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+                SDL_RenderClear( gRenderer );
                 map.renderGround();
                 float timeStep = moveTime.getTicks();
                 timeElapsed += timeStep; /*milisegundos desde start*/
