@@ -6,7 +6,7 @@
 #include "../GameConstants.h"
 
 Structure::Structure(int x, int y, Texture *sTexture) : sTexture(sTexture) {
-    box = {x - 35, y + 15, TILE_WIDTH, TILE_HEIGHT};
+    box = {x, y, TILE_WIDTH, TILE_HEIGHT};
 }
 
 bool Structure::_checkCollision(SDL_Rect a, SDL_Rect b) {

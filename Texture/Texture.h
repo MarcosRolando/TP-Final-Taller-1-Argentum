@@ -29,12 +29,14 @@ private:
     //Image dimensions
     int mWidth;
     int mHeight;
+    int xOffset;
+    int yOffset;
     //Scene sprites
     std::vector<SDL_Rect> gSpriteClips;
 
 public:
     //Initializes variables
-    explicit Texture(SDL_Renderer& renderer);
+    Texture(SDL_Renderer& renderer, int xOff = 0, int yOff = 0);
 
     //Deallocates memory
     ~Texture();

@@ -4,11 +4,13 @@
 
 #include "Texture.h"
 
-Texture::Texture(SDL_Renderer& renderer) : renderer(renderer) {
+Texture::Texture(SDL_Renderer& renderer, int xOff, int yOff) : renderer(renderer) {
     //Initialize
     mTexture = nullptr;
     mWidth = 0;
     mHeight = 0;
+    xOffset = xOff;
+    yOffset = yOff;
 }
 
 Texture::~Texture() {
@@ -66,7 +68,7 @@ void Texture::free() {
 
 void Texture::render(int x, int y, int spritePosition, int scale) {
     //Set rendering space and render to screen
-    SDL_Rect renderQuad = {x, y, mWidth, mHeight};
+    SDL_Rect renderQuad = {x + xOffset, y + yOffset, mWidth, mHeight};
     SDL_Rect& clip = gSpriteClips.at(spritePosition);
 
     //Set clip rendering dimensions
@@ -87,6 +89,10 @@ Texture::Texture(Texture&& other) noexcept : renderer(other.renderer){
     mHeight = other.mHeight;
     other.mWidth = 0;
     other.mHeight = 0;
+    xOffset = other.xOffset;
+    yOffset = other.yOffset;
+    other.xOffset = 0;
+    other.yOffset = 0;
     mTexture = other.mTexture;
     other.mTexture = nullptr;
     gSpriteClips = std::move(other.gSpriteClips);

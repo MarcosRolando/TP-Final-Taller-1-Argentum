@@ -42,7 +42,9 @@ enum TextureID {
     Trader,
     Banker,
     Guard,
-    Tree
+    Tree,
+    LongTree,
+    Bush
 };
 
 class TextureRepository {
@@ -61,16 +63,20 @@ private:
     void _loadTiles();
     void _loadStructures();
     void _loadNPCS();
-    void _setStructureImage(TextureID textureID, std::string&& structureImage, int width, int height);
+
+    void _setStructureImage(TextureID textureID, std::string&& structureImage,
+                    int width, int height, int xOffset = 0, int yOffset = 0);
     void _setNPCImage(TextureID textureID, std::string&& npcImage, int width, int height);
     void _setBodyImage(TextureID texture, std::string&& bodyImage);
     void _setShieldImage(TextureID textureID, std::string&& shieldImage);
     void _setWeaponImage(TextureID textureID, std::string&& weaponImage);
     void _setTileImage(TextureID textureID, std::string&& tileImage, bool individualTile);
+    void _setHeadImage(TextureID textureID, std::string&& headImage);
+    void _setHelmetImage(TextureID textureID, std::string&& helmetImage,
+                         int xOffset = 0, int yOffset = 0);
+
     static void _addBodySprites(Texture& texture, int y, bool lateralSide);
     static void _addWeaponSprites(Texture& texture, int y, bool lateralSide);
-    void _setHeadImage(TextureID textureID, std::string&& headImage);
-    void _setHelmetImage(TextureID textureID, std::string&& helmetImage);
     static void _addShieldSprites(Texture& texture, int y, bool lateralSide);
     static void _addNPCSprites(Texture& texture, int y, bool lateralSide, int width, int height);
     static void _addTileSprites(Texture& texture, int y, bool individualTile);
