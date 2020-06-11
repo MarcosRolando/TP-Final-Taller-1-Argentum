@@ -34,7 +34,7 @@ void init()
 	else
 	{
 		//Set texture filtering to linear
-		if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "0" ) )
+		if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "MipmapLinearNearest" ) )
 		{
 			printf( "Warning: Linear texture filtering not enabled!" );
 		}
