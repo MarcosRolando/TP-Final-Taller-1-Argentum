@@ -103,3 +103,10 @@ std::shared_ptr<Item> Map::removeItem(Coordinate position) {
     }
     return tiles[position.iPosition][position.jPosition].removeItem();
 }
+
+void Map::removeEntity(Coordinate position) {
+    if (!_isCoordinateValid(position)) {
+        throw (std::invalid_argument("Out of bounds coordinate"));
+    }
+    tiles[position.iPosition][position.jPosition].removeEntity()
+}

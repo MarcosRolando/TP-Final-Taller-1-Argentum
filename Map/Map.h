@@ -44,9 +44,12 @@ public:
     bool addEntity(Coordinate position, std::unique_ptr<Entity>&& entity);
 
     //Toma el primer item almacenado en el tile que se encuentra en la coordenada
-    //pasada, si esta es invalida se tira una exception de invalid_argument
+    //pasada, lo elimina de la tile y lo retorna, si la coordenada es invalida se
+    //tira una exception de invalid_argument
     //Si el tile no tiene items retorna un shared_ptr que almacena nullptr
     std::shared_ptr<Item> removeItem(Coordinate position);
+
+    void removeEntity(Coordinate position);
 };
 
 
