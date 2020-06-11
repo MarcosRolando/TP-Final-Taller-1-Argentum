@@ -7,6 +7,19 @@
 #include <memory>
 #include "FloorType.h"
 
+////////////////////////////////////////PRIVATE////////////////////////////////////////
+
+void Tile::_doMove(Tile &&other) noexcept {
+    std::unique_ptr<Entity> aux = std::move(other.entity);
+    other.entity = std::move(this->entity);
+    this->entity = std::move(aux);
+}
+
+
+////////////////////////////////////////PUBLIC////////////////////////////////////////
+
+
+
 Tile::Tile(FloorType floor): entity(nullptr){
     this->floor = floor;
     switch (floor) {
@@ -21,10 +34,14 @@ Tile::Tile(FloorType floor): entity(nullptr){
 
 
 Tile::Tile(Tile &&other) noexcept {
-    std::unique_ptr<Entity> aux = std::move(other.entity);
-    other.entity = std::move(this->entity);
-    this->entity = std::move(aux);
+    _doMove(std::move(other));
 }
+
+void Tile::operator=(Tile &&other) noexcept{
+    _doMove(std::move(other));
+}
+
+
 
 //bool Tile::addEntity(Entity *received_entity) {
 bool Tile::addEntity(std::unique_ptr<Entity>&& received_entity) {
@@ -70,5 +87,4 @@ bool Tile::hasMonsterTarget() const {
     }
     return false;
 }
-
 

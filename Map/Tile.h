@@ -17,14 +17,19 @@ private:
     std::list<std::shared_ptr<Item>> items;
     bool isOccupable;
     FloorType floor;
-
+private:
+    void _doMove(Tile&& other) noexcept;
 public:
     //Inicializa el tile, dependiendo tel tipo de piso que reciba seteara el
     //tile como ocupable o no ocupable
     explicit Tile(FloorType floor);
 
     //Constructor por movimiento, intercambia las entities de las tiles
+    //El tile se queda con la entity de other, y other con la del tile que
+    //llama a la funcion
     Tile(Tile&& other) noexcept;
+
+    void operator=(Tile&& other) noexcept;
 
     //Intenta agregar la entity al tile
     //Si la posicion es ocupable entonces se apropia
