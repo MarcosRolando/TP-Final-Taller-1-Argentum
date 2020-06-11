@@ -97,3 +97,9 @@ bool Map::addEntity(Coordinate position, std::unique_ptr<Entity> &&entity) {
     return tiles[position.iPosition][position.jPosition].addEntity(std::move(entity));
 }
 
+std::shared_ptr<Item> Map::removeItem(Coordinate position) {
+    if (!_isCoordinateValid(position)) {
+        throw (std::invalid_argument("Out of bounds coordinate"));
+    }
+    return tiles[position.iPosition][position.jPosition].removeItem();
+}
