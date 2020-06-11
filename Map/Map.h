@@ -49,6 +49,8 @@ public:
     //Si el tile no tiene items retorna un shared_ptr que almacena nullptr
     std::shared_ptr<Item> removeItem(Coordinate position);
 
+    //Elimina la entity almacenada en la coordenada, liberando sus recursos y permitiendo
+    //el almacenamiento de otra entity, si la coordenada es invalida tira invalid_argument
     void removeEntity(Coordinate position);
 };
 
