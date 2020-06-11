@@ -26,8 +26,10 @@ public:
     //Constructor por movimiento, intercambia las entities de las tiles
     Tile(Tile&& other) noexcept;
 
-    //Intenta agregar el entity a la tile, destruyendo la entity almacenada
-    //previamente
+    //Intenta agregar la entity al tile
+    //Si la posicion es ocupable entonces se apropia
+    //del puntero y retorna true, sino no se apropia de de el y retorna false
+
     //bool addEntity(Entity *received_entity);
     bool addEntity(std::unique_ptr<Entity>&& received_entity);
 
@@ -39,6 +41,7 @@ public:
     void removeEntity();
 
     //Intenta agregar el item al tile, sumandolo a los items ya guardados
+
     //void addItem(Item *received_item);
     void addItem(std::shared_ptr<Item>&& received_item);
 

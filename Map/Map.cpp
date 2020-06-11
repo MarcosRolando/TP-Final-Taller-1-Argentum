@@ -87,6 +87,13 @@ void Map::addItem(Coordinate position, std::shared_ptr<Item> &&item) {
     if (!_isCoordinateValid(position)) {
         throw (std::invalid_argument("Out of bounds coordinate"));
     }
+    tiles[position.iPosition][position.jPosition].addItem(std::move(item));
+}
 
+bool Map::addEntity(Coordinate position, std::unique_ptr<Entity> &&entity) {
+    if (!_isCoordinateValid(position)) {
+        throw (std::invalid_argument("Out of bounds coordinate"));
+    }
+    return tiles[position.iPosition][position.jPosition].addEntity(std::move(entity));
 }
 
