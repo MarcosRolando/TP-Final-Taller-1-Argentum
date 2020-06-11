@@ -9,6 +9,7 @@
 
 ////////////////////////////////////////PRIVATE////////////////////////////////////////
 
+//Funcion auxiliar para hacer la construccion y asignacion por movimiento
 void Tile::_doMove(Tile &&other) noexcept {
     std::unique_ptr<Entity> aux = std::move(other.entity);
     other.entity = std::move(this->entity);
