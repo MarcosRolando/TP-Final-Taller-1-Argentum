@@ -29,7 +29,7 @@ public:
     //llama a la funcion
     Tile(Tile&& other) noexcept;
 
-    void operator=(Tile&& other) noexcept;
+    Tile& operator=(Tile&& other) noexcept;
 
     //Intenta agregar la entity al tile
     //Si la posicion es ocupable entonces se apropia

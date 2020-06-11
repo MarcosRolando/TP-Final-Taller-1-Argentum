@@ -37,7 +37,7 @@ Tile::Tile(Tile &&other) noexcept {
     _doMove(std::move(other));
 }
 
-void Tile::operator=(Tile &&other) noexcept{
+Tile& Tile::operator=(Tile &&other) noexcept{
     _doMove(std::move(other));
 }
 
