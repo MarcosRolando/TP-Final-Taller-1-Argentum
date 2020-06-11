@@ -25,7 +25,7 @@ bool Structure::_checkCollision(SDL_Rect a, SDL_Rect b) {
     //Calculate the sides of rect B
     leftB = b.x;
     rightB = b.x + b.w;
-    topB = b.y - b.h; /*NO ES IGUAL A LAS OTRAS, OJO!*/
+    topB = b.y  + TILE_HEIGHT/2 - b.h; /*NO ES IGUAL A LAS OTRAS, OJO!*/
     bottomB = b.y + TILE_HEIGHT/2; /*Porque centro las estructuras en el medio del tile*/
 
     //If any of the sides from A are outside of B
