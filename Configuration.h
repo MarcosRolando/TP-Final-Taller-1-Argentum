@@ -52,8 +52,9 @@ struct XPModifiers {
     unsigned int nextLevelFactor;
     float nextLevelModifier;
     unsigned int attackXPModifier;
-    float killXPMinModifier;
-    float killXPMaxModifier;
+    unsigned int killXPModifier;
+    float killXPMinRange;
+    float killXPMaxRange;
 };
 
 class Configuration {

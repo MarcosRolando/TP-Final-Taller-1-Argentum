@@ -71,10 +71,11 @@ void FileReader::loadGoldModifiers(GoldModifiers &goldModifiers) {
 void FileReader::loadXPModifiers(XPModifiers &xpModifiers) {
     Json::Value& modifiers = obj["XPModifiers"];
     xpModifiers.attackXPModifier = modifiers["AttackXPModifier"].asUInt();
-    xpModifiers.killXPMinModifier = modifiers["MinKillXPModifier"].asFloat();
-    xpModifiers.killXPMaxModifier = modifiers["MaxKillXPModifier"].asFloat();
+    xpModifiers.killXPMinRange = modifiers["MinKillXPModifier"].asFloat();
+    xpModifiers.killXPMaxRange = modifiers["MaxKillXPModifier"].asFloat();
     xpModifiers.nextLevelModifier = modifiers["NextLevelModifier"].asFloat();
     xpModifiers.nextLevelFactor = modifiers["NextLevelFactor"].asUInt();
+    xpModifiers.killXPModifier = modifiers["KillXPModifier"].asUInt();
 }
 
 float FileReader::loadCritAttackChance() {

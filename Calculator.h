@@ -7,6 +7,7 @@
 
 #include "Configuration.h"
 #include <random>
+#include <algorithm>
 
 
 class Calculator {

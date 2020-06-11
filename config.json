@@ -246,7 +246,8 @@
     "NextLevelModifier" : 1.8,
     "MinKillXPModifier" : 0,
     "MaxKillXPModifier" : 0.1,
-    "AttackXPModifier" : 10 //esto se suma a la dif de nivel para calc xp ganado por un ataque
+    "AttackXPModifier" : 10, //esto, se suma a la dif de nivel para calc xp ganado por un ataque
+    "KillXPModifier" : 10 //esto, se suma a la dif de nivel para calc xp ganado por una kill
   },
 
   "PlayerVisionRange" : 5,

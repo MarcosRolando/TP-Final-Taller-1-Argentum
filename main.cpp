@@ -8,8 +8,10 @@
 #include <random>
 
 int main() {
-
-    std::cout <<"safegold " << Calculator::calculateMaxSafeGold(15);
+    Modifiers classMods = Configuration::getInstance().configWarriorModifiers();
+    Modifiers raceMods = Configuration::getInstance().configHumanModifiers();
+    //WeaponStats weapon = Configuration::getInstance().configLongSwordStats();
+    std::cout <<" candodge " << Calculator::canDodge(classMods, raceMods);
 
     /*SoundRepository test;
     test.playMusic();
