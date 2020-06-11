@@ -10,21 +10,16 @@
 #include "Tile.h"
 #include "Coordinate.h"
 
-//Este struct es auxiliar, solo deberia ser usado por el mapa, se declara en el
-//header por tener que declarar la funcion privada
-struct PrivatePointAndDistance {
-    Coordinate point;
-    int distance;
-};
 
 class Map {
 private:
     std::vector<std::vector<Tile>> tiles;
 
 private:
+    bool _isCoordinateValid(Coordinate coordinate);
     Coordinate _getValidCoordinate(Coordinate coordinate) const;
     void _buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topRight, Coordinate& bottomLeft) const;
-    static int _inverseCoordinateDistance(const PrivatePointAndDistance p);
+    static bool _areCoordinatesEqual(Coordinate a, Coordinate b);
 public:
     //Ataca la tile y retorna cuanto danio le hizo al entity guardado, si no
     //hay un etity revuelve 0
@@ -37,6 +32,10 @@ public:
 
     //Almacena en el vector el camino que se debe seguir para llegar a la coordenada deseada
     void getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const;
+
+    //Agrega el item al tile que se encuentra en la coordenada recibida, si la coordenada es invalida
+    //tira invalid_argument
+    void addItem(Coordinate position, std::shared_ptr<Item>&& item);
 };
 
 

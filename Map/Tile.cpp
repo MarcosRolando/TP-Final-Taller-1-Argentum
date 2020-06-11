@@ -26,9 +26,11 @@ Tile::Tile(Tile &&other) noexcept {
     this->entity = std::move(aux);
 }
 
-bool Tile::addEntity(Entity *received_entity) {
+//bool Tile::addEntity(Entity *received_entity) {
+bool Tile::addEntity(std::unique_ptr<Entity>&& received_entity) {
     if (isOccupable) {
-        this->entity.reset(received_entity);
+        //this->entity.reset(received_entity);
+        entity = std::move(received_entity);
         isOccupable = false;
         return true;
     }
@@ -40,8 +42,10 @@ void Tile::removeEntity() {
     isOccupable = true;
 }
 
-void Tile::addItem(Item *received_item) {
-    items.emplace_back(received_item);
+//void Tile::addItem(Item *received_item) {
+void Tile::addItem(std::shared_ptr<Item>&& received_item) {
+    //items.emplace_back(received_item);
+    items.push_back(std::move(received_item));
 }
 
 std::shared_ptr<Item> Tile::removeItem() {

@@ -28,7 +28,8 @@ public:
 
     //Intenta agregar el entity a la tile, destruyendo la entity almacenada
     //previamente
-    bool addEntity(Entity *received_entity);
+    //bool addEntity(Entity *received_entity);
+    bool addEntity(std::unique_ptr<Entity>&& received_entity);
 
     //Elimina la entity guardada, habilita la ocupacion del tile por otra
     //entity
@@ -38,7 +39,8 @@ public:
     void removeEntity();
 
     //Intenta agregar el item al tile, sumandolo a los items ya guardados
-    void addItem(Item *received_item);
+    //void addItem(Item *received_item);
+    void addItem(std::shared_ptr<Item>&& received_item);
 
     //Elimina uno de los items que se encuentran en el tile y lo retorna}
     //Si no hay ningun item retorna nullptr
