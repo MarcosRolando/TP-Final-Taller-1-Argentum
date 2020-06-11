@@ -89,3 +89,7 @@ bool Tile::hasMonsterTarget() const {
     return false;
 }
 
+bool Tile::isAvailable() const {
+    return isOccupable;
+}
+

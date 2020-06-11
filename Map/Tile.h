@@ -61,6 +61,10 @@ public:
 
     //Retorna true si almacena un entity que es un target de un monster
     bool hasMonsterTarget() const;
+
+    //Indica si el tile puede ser ocupado por una entity
+    //Retorna true si puede, false en otro caso
+    bool isAvailable() const;
 };
 
 

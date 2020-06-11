@@ -52,6 +52,11 @@ public:
     //Elimina la entity almacenada en la coordenada, liberando sus recursos y permitiendo
     //el almacenamiento de otra entity, si la coordenada es invalida tira invalid_argument
     void removeEntity(Coordinate position);
+
+    //Intenta mover la entity de starting a final position, si finalPosition esta ocupada
+    //entonces retorna false, sino retorna true
+    //Si alguna de las coordenadas es invalida tira invalid_argument
+    bool moveEntity(Coordinate startingPosition, Coordinate finalPosition);
 };
 
 

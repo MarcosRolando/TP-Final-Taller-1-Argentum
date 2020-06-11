@@ -110,3 +110,16 @@ void Map::removeEntity(Coordinate position) {
     }
     tiles[position.iPosition][position.jPosition].removeEntity()
 }
+
+bool Map::moveEntity(Coordinate startingPosition, Coordinate finalPosition) {
+    if ((!_isCoordinateValid(startingPosition)) ||
+        (!_isCoordinateValid(finalPosition))) {
+        throw (std::invalid_argument("Out of bounds coordinate"));
+    }
+    if (!tiles[finalPosition.iPosition][finalPosition.jPosition].isAvailable()) {
+        return false;
+    }
+    tiles[finalPosition.iPosition][finalPosition.jPosition] =
+            std::move(tiles[startingPosition.iPosition][startingPosition.jPosition]);
+    return true;
+}
