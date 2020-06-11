@@ -7,7 +7,6 @@
 
 #include "../Texture/Texture.h"
 
-
 class Tile {
 private:
     //The attributes of the tile
@@ -18,7 +17,7 @@ private:
 
 public:
     //Initializes position and type
-    Tile(int x, int y, int tileType, Texture& texture);
+    Tile(int x, int y, int tileType, Texture& tileTexture);
 
     //Shows the tile
     void render(SDL_Rect& camera);

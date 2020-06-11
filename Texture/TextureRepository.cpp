@@ -37,12 +37,14 @@
 #define TRADER_PATH "../Images/Citizens/Trader.png"
 #define BANKER_PATH "../Images/Citizens/Banker.png"
 #define GUARD_PATH "../Images/Citizens/Guard.png"
+#define TREE_PATH "../Images/Map/Tree.png"
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
     _loadClothing();
     _loadHeads();
     _loadWeapons();
     _loadTiles();
+    _loadStructures();
     _loadNPCS();
 }
 
@@ -79,7 +81,10 @@ void TextureRepository::_loadWeapons() {
 void TextureRepository::_loadTiles() {
     _setTileImage(Grass, GRASS_PATH, false);
     _setTileImage(Sand, SAND_PATH, true);
-    _setTileImage(Stone, STONE_PATH, true);
+}
+
+void TextureRepository::_loadStructures() {
+    _setStructureImage(Tree, TREE_PATH, 210, 210);
 }
 
 void TextureRepository::_loadNPCS() {
@@ -93,6 +98,19 @@ void TextureRepository::_loadNPCS() {
     _setNPCImage(Guard, GUARD_PATH, 28, 52);
 }
 
+void TextureRepository::_setStructureImage(TextureID textureID, std::string&& structureImage, int width, int height) {
+    try {
+        //Load sprite sheet texture
+        ColorKey_t key = {0, 0, 0};
+        textures.emplace(textureID, renderer);
+        Texture& texture = textures.at(textureID);
+        texture.loadFromFile(structureImage, key);
+        _addStructureSprites(texture, width, height);
+    } catch (SDLException& e) {
+        throw SDLException("Failed to load %s sprite sheet texture!\n", structureImage.c_str());
+    }
+}
+
 void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileImage, bool individualTile) {
     try {
         //Load sprite sheet texture
@@ -101,7 +119,7 @@ void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileIma
         texture.loadFromFile(tileImage);
         _addTileSprites(texture, 0, individualTile);
     } catch (SDLException& e) {
-        throw SDLException("Failed to load sprite sheet texture!\n");
+        throw SDLException("Failed to load %s sprite sheet texture!\n", tileImage.c_str());
     }
 }
 
@@ -121,7 +139,7 @@ void TextureRepository::_setNPCImage(TextureID textureID, std::string&& npcImage
         /*Rigth*/
         _addNPCSprites(texture, 3*height, true, width, height);
     } catch (SDLException& e) {
-        throw SDLException("Failed to load sprite sheet texture!\n");
+        throw SDLException("Failed to load %s sprite sheet texture!\n", npcImage.c_str());
     }
 }
 
@@ -151,7 +169,7 @@ void TextureRepository::_setBodyImage(TextureID textureID, std::string&& bodyIma
         /*Rigth*/
         _addBodySprites(texture, 135, true);
     } catch (SDLException& e) {
-        throw SDLException("Failed to load sprite sheet texture!\n");
+        throw SDLException("Failed to load %s sprite sheet texture!\n", bodyImage.c_str());
     }
 }
 
@@ -223,7 +241,7 @@ void TextureRepository::_setHelmetImage(TextureID textureID, std::string&& helme
         texture.addSprite(34, 0, 17, 17);
         texture.addSprite(51, 0, 17, 17);
     } catch (SDLException& e) {
-        throw SDLException("Failed to load sprite sheet texture!\n");
+        throw SDLException("Failed to load %s sprite sheet texture!\n", helmetImage.c_str());
     }
 }
 
@@ -243,7 +261,7 @@ void TextureRepository::_setShieldImage(TextureID textureID, std::string&& shiel
         /*Rigth*/
         _addShieldSprites(texture, 135, true);
     } catch (SDLException& e) {
-        throw SDLException("Failed to load sprite sheet texture!\n");
+        throw SDLException("Failed to load %s sprite sheet texture!\n", shieldImage.c_str());
     }
 }
 
@@ -264,6 +282,10 @@ void TextureRepository::_addTileSprites(Texture& texture, int y, bool individual
         texture.addSprite(2*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
         texture.addSprite(3*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT);
     }
+}
+
+void TextureRepository::_addStructureSprites(Texture& texture, int width, int height) {
+    texture.addSprite(0, 0, width, height);
 }
 
 Texture& TextureRepository::getTexture(TextureID texture) {

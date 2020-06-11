@@ -41,7 +41,8 @@ void Map::_setTiles() {
 
             //If the number is a valid tile number
             if (( tileType >= 0 ) && ( tileType < TOTAL_TILE_SPRITES )) {
-                tiles.emplace_back(x, y, 0, textureRepo.getTexture(Stone));
+                tiles.emplace_back(x, y, i % 4, textureRepo.getTexture(Grass));
+                if (i == 40) structures.emplace_back(x, y, &textureRepo.getTexture(Tree));
             } else {
                 throw SDLException("Error loading map: Invalid tile type at %d!\n", i);
             }
@@ -63,8 +64,14 @@ void Map::_setTiles() {
     mapFile.close();
 }
 
-void Map::render() {
+void Map::renderGround() {
     for (auto & tile : tiles) {
         tile.render(camera);
+    }
+}
+
+void Map::renderStructures() {
+    for (auto & structure : structures) {
+        structure.render(camera);
     }
 }

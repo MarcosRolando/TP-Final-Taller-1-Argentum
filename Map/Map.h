@@ -11,16 +11,19 @@
 #include "Tile.h"
 #include <vector>
 #include "../Texture/TextureRepository.h"
+#include "Structure.h"
 
 class Map {
 private:
     TextureRepository& textureRepo;
     std::vector<Tile> tiles;
+    std::vector<Structure> structures;
     SDL_Rect& camera;
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera);
-    void render();
+    void renderGround();
+    void renderStructures();
 
 private:
     void _setTiles();

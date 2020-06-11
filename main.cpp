@@ -130,13 +130,14 @@ int main(int argc, char* args[]) {
             SDL_RenderClear( gRenderer );
 
             float timeElapsed = 0;
-            while (timeElapsed < 16.66) {
-                map.render();
+            while (timeElapsed < 50) {
+                map.renderGround();
                 float timeStep = moveTime.getTicks();
                 timeElapsed += timeStep; /*milisegundos desde start*/
                 timeStep = timeStep / 1000.f;
                 player.render(timeStep);
                 monster.render(timeStep);
+                map.renderStructures();
                 moveTime.start();
 
                 //Update screen

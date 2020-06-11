@@ -41,7 +41,8 @@ enum TextureID {
     Priest,
     Trader,
     Banker,
-    Guard
+    Guard,
+    Tree
 };
 
 class TextureRepository {
@@ -58,7 +59,9 @@ private:
     void _loadHeads();
     void _loadWeapons();
     void _loadTiles();
+    void _loadStructures();
     void _loadNPCS();
+    void _setStructureImage(TextureID textureID, std::string&& structureImage, int width, int height);
     void _setNPCImage(TextureID textureID, std::string&& npcImage, int width, int height);
     void _setBodyImage(TextureID texture, std::string&& bodyImage);
     void _setShieldImage(TextureID textureID, std::string&& shieldImage);
@@ -71,6 +74,7 @@ private:
     static void _addShieldSprites(Texture& texture, int y, bool lateralSide);
     static void _addNPCSprites(Texture& texture, int y, bool lateralSide, int width, int height);
     static void _addTileSprites(Texture& texture, int y, bool individualTile);
+    static void _addStructureSprites(Texture& texture, int width, int height);
 };
 
 

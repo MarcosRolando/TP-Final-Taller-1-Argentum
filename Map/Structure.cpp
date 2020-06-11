@@ -1,18 +1,15 @@
 //
-// Created by marcos on 6/7/20.
+// Created by marcos on 10/6/20.
 //
 
-#include "Tile.h"
+#include "Structure.h"
 #include "../GameConstants.h"
 
-Tile::Tile(int x, int y, int tileType, Texture& tileTexture)
-            : tileTexture(tileTexture) {
-    box = {x, y, TILE_WIDTH, TILE_HEIGHT};
-    //Get the tile type
-    type = tileType;
+Structure::Structure(int x, int y, Texture *sTexture) : sTexture(sTexture) {
+    box = {x - 35, y + 15, TILE_WIDTH, TILE_HEIGHT};
 }
 
-bool Tile::_checkCollision(SDL_Rect a, SDL_Rect b) {
+bool Structure::_checkCollision(SDL_Rect a, SDL_Rect b) {
     //The sides of the rectangles
     int leftA, leftB;
     int rightA, rightB;
@@ -40,18 +37,14 @@ bool Tile::_checkCollision(SDL_Rect a, SDL_Rect b) {
     return true;
 }
 
-void Tile::render(SDL_Rect& camera) {
+void Structure::render(SDL_Rect& camera) {
     //If the tile is on screen
-    if (_checkCollision(camera, box)) {
+    if (_checkCollision(camera, box) && sTexture != nullptr) {
         //Show the tile
-        tileTexture.render(box.x - camera.x, box.y - camera.y, type);
+        sTexture->render(box.x - camera.x, box.y - camera.y);
     }
 }
 
-int Tile::getType() const {
-    return type;
-}
-
-SDL_Rect Tile::getBox() const {
+SDL_Rect Structure::getBox() const {
     return box;
 }

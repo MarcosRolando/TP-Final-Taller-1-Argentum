@@ -53,7 +53,7 @@ public:
     void free();
 
     //Renders texture at given point
-    void render( int x, int y, int spritePosition, int scale = 1);
+    void render( int x, int y, int spritePosition = 0, int scale = 1);
 };
 
 
