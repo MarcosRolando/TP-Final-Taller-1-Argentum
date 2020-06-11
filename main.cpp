@@ -1,16 +1,17 @@
 #include <iostream>
 #include "FileReader.h"
 #include "Configuration.h"
+#include "Calculator.h"
 #include "SDL/SoundRepository.h"
 #include <unistd.h>
 #include <queue>
-int main() {
-/*    std::cout <<"mindef "<< Configuration::getInstance()
-    .configLeatherArmorStats().minDefense << std::endl;
-    std::cout <<"maxdef "<< Configuration::getInstance()
-            .configLeatherArmorStats().maxDefense << std::endl;*/
+#include <random>
 
-    SoundRepository test;
+int main() {
+
+    std::cout <<"safegold " << Calculator::calculateMaxSafeGold(15);
+
+    /*SoundRepository test;
     test.playMusic();
     char sound;
     do {
@@ -32,5 +33,5 @@ int main() {
     test.playSounds();
 
     std::cin >> sound;
-    return 0;
+    return 0;*/
 }

@@ -17,6 +17,7 @@ struct Modifiers {
     unsigned int agility;
     unsigned int strength;
     unsigned int meditationRate;
+    unsigned int recoveryRate;
 };
 
 struct WeaponStats {

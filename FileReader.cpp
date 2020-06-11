@@ -105,6 +105,7 @@ void FileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
     modifier.agility = currModifier["Agility"].asUInt();
     modifier.strength = currModifier["Strength"].asUInt();
     modifier.meditationRate = currModifier["MeditationRate"].asUInt();
+    modifier.recoveryRate = currModifier["RecoveryRate"].asUInt();
 }
 
 void FileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMonster){

@@ -8,7 +8,8 @@
       "Strength" : 5,
       "Intelligence" : 5,
       "Agility" : 5,
-      "MeditationRate": 3
+      "MeditationRate": 3,
+      "RecoveryRate" : 6
     },
     {
       "Name" : "Elf",
@@ -18,7 +19,8 @@
       "Strength" : 3,
       "Intelligence" : 9,
       "Agility" : 8,
-      "MeditationRate": 7
+      "MeditationRate": 7,
+      "RecoveryRate" : 5
     },
     {
       "Name" : "Dwarf",
@@ -28,7 +30,8 @@
       "Strength" : 9,
       "Intelligence" : 5,
       "Agility" : 3,
-      "MeditationRate": 2
+      "MeditationRate": 2,
+      "RecoveryRate" : 7
     },
     {
       "Name" : "Gnome",
@@ -38,7 +41,8 @@
       "Strength" : 4,
       "Intelligence" : 8,
       "Agility" : 2,
-      "MeditationRate": 5
+      "MeditationRate": 5,
+      "RecoveryRate" : 4
     }
   ],
   "Class" : [
@@ -50,7 +54,8 @@
       "Strength" : 2,
       "Intelligence" : 9,
       "Agility" : 3,
-      "MeditationRate": 8
+      "MeditationRate": 8,
+      "RecoveryRate" : 5
     },
     {
       "Name" : "Cleric",
@@ -60,7 +65,8 @@
       "Strength" : 6,
       "Intelligence" : 8,
       "Agility" : 5,
-      "MeditationRate": 5
+      "MeditationRate": 5,
+      "RecoveryRate" : 3
     },
     {
       "Name" : "Paladin",
@@ -70,7 +76,8 @@
       "Strength" : 7,
       "Intelligence" : 5,
       "Agility" : 7,
-      "MeditationRate": 5
+      "MeditationRate": 5,
+      "RecoveryRate" : 7
     },
     {
       "Name" : "Warrior",
@@ -80,7 +87,8 @@
       "Strength" : 8,
       "Intelligence" : 3,
       "Agility" : 7,
-      "MeditationRate": 5
+      "MeditationRate": 5,
+      "RecoveryRate" : 8
     }
   ],
 
