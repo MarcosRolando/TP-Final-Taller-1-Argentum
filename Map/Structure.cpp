@@ -5,8 +5,9 @@
 #include "Structure.h"
 #include "../GameConstants.h"
 
-Structure::Structure(int x, int y, Texture *sTexture) : sTexture(sTexture) {
-    box = {x, y, TILE_WIDTH, TILE_HEIGHT};
+Structure::Structure(int x, int y, Texture& sTexture) : sTexture(sTexture) {
+    SpriteDimensions_t dimensions = sTexture.getSpriteDimensions(0);
+    box = {x, y, dimensions.witdth, dimensions.heigth};
 }
 
 bool Structure::_checkCollision(SDL_Rect a, SDL_Rect b) {
@@ -24,8 +25,8 @@ bool Structure::_checkCollision(SDL_Rect a, SDL_Rect b) {
     //Calculate the sides of rect B
     leftB = b.x;
     rightB = b.x + b.w;
-    topB = b.y;
-    bottomB = b.y + b.h;
+    topB = b.y - b.h; /*NO ES IGUAL A LAS OTRAS, OJO!*/
+    bottomB = b.y + TILE_HEIGHT/2; /*Porque centro las estructuras en el medio del tile*/
 
     //If any of the sides from A are outside of B
     if(bottomA <= topB) return false;
@@ -39,9 +40,9 @@ bool Structure::_checkCollision(SDL_Rect a, SDL_Rect b) {
 
 void Structure::render(SDL_Rect& camera) {
     //If the tile is on screen
-    if (_checkCollision(camera, box) && sTexture != nullptr) {
+    if (_checkCollision(camera, box)) {
         //Show the tile
-        sTexture->render(box.x - camera.x, box.y - camera.y);
+        sTexture.render(box.x - camera.x, box.y - camera.y);
     }
 }
 

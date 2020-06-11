@@ -5,17 +5,16 @@
 #ifndef ARGENTUM_STRUCTURE_H
 #define ARGENTUM_STRUCTURE_H
 
-
 #include "../Texture/Texture.h"
 
 class Structure {
 private:
     //The attributes of the tile
     SDL_Rect box{};
-    Texture* sTexture;
+    Texture& sTexture;
 
 public:
-    Structure(int x, int y, Texture* sTexture = nullptr);
+    Structure(int x, int y, Texture& sTexture);
 
     void render(SDL_Rect& camera);
 

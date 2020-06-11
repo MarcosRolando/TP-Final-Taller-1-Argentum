@@ -97,3 +97,9 @@ Texture::Texture(Texture&& other) noexcept : renderer(other.renderer){
     other.mTexture = nullptr;
     gSpriteClips = std::move(other.gSpriteClips);
 }
+
+SpriteDimensions_t Texture::getSpriteDimensions(int spritePosition) {
+    SDL_Rect& spriteDimensions = gSpriteClips[spritePosition];
+    SpriteDimensions_t dimensions = {spriteDimensions.w, spriteDimensions.h};
+    return dimensions;
+}

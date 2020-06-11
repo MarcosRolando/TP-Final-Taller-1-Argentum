@@ -7,7 +7,6 @@
 #include "../GameConstants.h"
 
 const int TOTAL_TILES = 192;
-const int TOTAL_TILE_SPRITES = 12;
 
 Map::Map(TextureRepository& repo, SDL_Rect& camera) : textureRepo(repo), camera(camera) {
     this->camera = camera;
@@ -40,9 +39,9 @@ void Map::_setTiles() {
             }
 
             //If the number is a valid tile number
-            if (( tileType >= 0 ) && ( tileType < TOTAL_TILE_SPRITES )) {
+            if (tileType >= 0 ) {
                 tiles.emplace_back(x, y, i%4, textureRepo.getTexture(Grass));
-                if (i == 20) structures.emplace_back(x, y, &textureRepo.getTexture(Bush));
+                if (i == 40) structures.emplace_back(x, y, textureRepo.getTexture(Tree));
             } else {
                 throw SDLException("Error loading map: Invalid tile type at %d!\n", i);
             }

@@ -21,6 +21,11 @@ struct ColorKey_t {
     int blue;
 };
 
+struct SpriteDimensions_t {
+    int witdth;
+    int heigth;
+};
+
 class Texture {
 private:
     SDL_Renderer& renderer; /*El renderer es uno solo asociado a la ventana (que tambien es una sola)*/
@@ -56,6 +61,8 @@ public:
 
     //Renders texture at given point
     void render( int x, int y, int spritePosition = 0, int scale = 1);
+
+    SpriteDimensions_t getSpriteDimensions(int spritePosition);
 };
 
 
