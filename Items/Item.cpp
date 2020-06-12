@@ -3,8 +3,18 @@
 //
 
 #include "Item.h"
+#include <utility>
+
+Item::Item(const std::string &_name) {
+    name = _name;
+}
+
+Item::Item(std::string &&_name) {
+    name = std::move(_name);
+}
 
 EquipmentPlace Item::use(Player &player) {
     return EQUIPMENT_PLACE_NONE;
 }
+
 

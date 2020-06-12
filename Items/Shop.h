@@ -8,7 +8,10 @@
 #include <unordered_map>
 
 class Shop {
-    std::unordered_map<std::string, >
+private:
+    std::unordered_map<std::string, Product>;
+public:
+
 };
 
 
