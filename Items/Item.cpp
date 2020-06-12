@@ -17,4 +17,8 @@ EquipmentPlace Item::use(Player &player) {
     return EQUIPMENT_PLACE_NONE;
 }
 
+const std::string &Item::getName() {
+    return name;
+}
+
 

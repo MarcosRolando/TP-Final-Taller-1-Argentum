@@ -31,6 +31,8 @@ public:
     //un inventario, si debe ser descartado entonces se tiene que retornar INVENTORY_PLACE_NONE
     //Esta funcion retorna en cierta forma el tipo de item que es
     virtual EquipmentPlace use(Player& player);
+
+    const std::string& getName();
 };
 
 
