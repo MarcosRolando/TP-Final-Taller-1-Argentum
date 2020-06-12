@@ -11,6 +11,8 @@
 
 class Monster: public Entity{
 private:
+    const unsigned int timeBetweenActions;
+    unsigned long timer;
     int health;
     unsigned int damage;
     unsigned int rangeOfVision;
@@ -18,15 +20,16 @@ private:
     //modificarlo
     const Map& map;
     Game& game;
-public:
-    Monster(Game& _game, const Map& map, unsigned int _health, unsigned int _rangeOfVision,
-            Coordinate initialPosition);
-
+private:
     //Retorna el daño que el monstruo intenta realizar
     //VER SI ESTE RETORNO ES NECESARIO
-    unsigned int attack();
+    unsigned int _attack();
 
-    void move();
+    void _move();
+public:
+
+    Monster(Game& _game, const Map& map, unsigned int _health, unsigned int _rangeOfVision,
+            unsigned int timeBetweenActions, Coordinate initialPosition);
 
 
     //Daña el monstruo, retorna la cantidad de danio recibido
@@ -37,6 +40,8 @@ public:
 
     //Retorna true si el monstruo esta muerto, false si esta vivo
     bool isDead();
+
+    void act();
 };
 
 
