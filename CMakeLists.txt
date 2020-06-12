@@ -10,7 +10,8 @@ add_subdirectory(Character)
 
 add_executable(argentum main.cpp SDLException.cpp SDLException.h  Map/Tile.cpp
         Map/Tile.h Map/Map.cpp Map/Map.h Character/Player.cpp Character/Player.h
-        Timer.cpp Timer.h GameConstants.h Character/NPC.cpp Character/NPC.h Direction.h Character/Entity.cpp Character/Entity.h)
+        Timer.cpp Timer.h GameConstants.h Character/NPC.cpp Character/NPC.h Direction.h
+        Character/Entity.cpp Character/Entity.h Screen/Window.cpp Screen/Window.h)
 
 target_compile_options (argentum PUBLIC -std=c++11 -Wall -Werror -pedantic -pedantic-errors
                                                             -O0 -ggdb -DDEBUG -fno-inline)

@@ -6,7 +6,7 @@
 
 Texture::Texture(SDL_Renderer& renderer, int xOff, int yOff) : renderer(renderer) {
     //Initialize
-    mTexture = nullptr;
+    mTexture = nullptrptr;
     mWidth = 0;
     mHeight = 0;
     xOffset = xOff;
@@ -27,7 +27,7 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key) {
 
     //Load image at specified path
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-    if (loadedSurface == nullptr) {
+    if (loadedSurface == nullptrptr) {
         throw SDLException("Unable to load image %s! SDL_image Error: %s\n",
                                                 path.c_str(), IMG_GetError() );
     } else {
@@ -40,7 +40,7 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key) {
 
         //Create texture from surface pixels
         newTexture = SDL_CreateTextureFromSurface(&renderer, loadedSurface);
-        if (newTexture == nullptr) {
+        if (newTexture == nullptrptr) {
             throw SDLException("Unable to create texture from %s! "
                                "SDL Error: %s\n", path.c_str(), SDL_GetError());
         } else {
@@ -58,9 +58,9 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key) {
 
 void Texture::free() {
     //Free texture if it exists
-    if (mTexture != nullptr) {
+    if (mTexture != nullptrptr) {
         SDL_DestroyTexture(mTexture);
-        mTexture = nullptr;
+        mTexture = nullptrptr;
         mWidth = 0;
         mHeight = 0;
     }
@@ -94,7 +94,7 @@ Texture::Texture(Texture&& other) noexcept : renderer(other.renderer){
     other.xOffset = 0;
     other.yOffset = 0;
     mTexture = other.mTexture;
-    other.mTexture = nullptr;
+    other.mTexture = nullptrptr;
     gSpriteClips = std::move(other.gSpriteClips);
 }
 

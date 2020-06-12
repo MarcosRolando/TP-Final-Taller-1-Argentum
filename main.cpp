@@ -42,7 +42,7 @@ void init()
 		//Create window
 		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED,
 		        SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
-		if( gWindow == NULL )
+		if( gWindow == nullptr )
 		{
             throw SDLException("Window could not be created! SDL Error: %s\n", SDL_GetError());
 		}
@@ -50,7 +50,7 @@ void init()
 		{
 			//Create renderer for window
 			gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED );
-			if( gRenderer == NULL )
+			if( gRenderer == nullptr )
 			{
                 throw SDLException("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
 			}
