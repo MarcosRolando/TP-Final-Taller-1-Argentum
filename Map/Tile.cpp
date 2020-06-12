@@ -40,6 +40,7 @@ Tile::Tile(Tile &&other) noexcept {
 
 Tile& Tile::operator=(Tile &&other) noexcept{
     _doMove(std::move(other));
+    return *this;
 }
 
 

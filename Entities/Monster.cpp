@@ -19,6 +19,11 @@ unsigned int Monster::attack() {
 
 
 void Monster::move() {
+
+
+    //IMPLEMENTAR
+
+    /*
     Coordinate nearestPlayer;
     bool hasFoundPlayer = false;
     for (int i = 0; i < ; ++i) {
@@ -26,6 +31,7 @@ void Monster::move() {
 
         }
     }
+     */
 }
 
 

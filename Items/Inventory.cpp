@@ -20,8 +20,8 @@ void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int 
     //casteo no haya fallado
     clothingPtrAux = std::dynamic_pointer_cast<Clothing>(items[itemPosition]);
     if (clothingPtrAux) {
-        items[itemPosition] = std::move(equipment[equipmentPlace]);
-        equipment[equipmentPlace] = std::move(clothingPtrAux);
+        items[itemPosition] = std::move(equipment.at(equipmentPlace));
+        equipment.at(equipmentPlace) = std::move(clothingPtrAux);
     }
 }
 
