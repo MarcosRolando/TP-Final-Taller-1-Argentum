@@ -4,7 +4,6 @@
 
 #include "Window.h"
 #include "../GameConstants.h"
-#include <sstream>
 #include "../SDLException.h"
 
 Window::Window() {
@@ -24,20 +23,20 @@ Window::Window() {
 void Window::_createWindow() {
     //Create window
     mWindow = SDL_CreateWindow( "Argentum Online", SDL_WINDOWPOS_UNDEFINED,
-            SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE );
+            SDL_WINDOWPOS_UNDEFINED, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE );
     if (mWindow != nullptr) {
         mMouseFocus = true;
         mKeyboardFocus = true;
-        mWidth = SCREEN_WIDTH;
-        mHeight = SCREEN_HEIGHT;
+        mWidth = DEFAULT_SCREEN_WIDTH;
+        mHeight = DEFAULT_SCREEN_HEIGHT;
     } else {
-        throw SDLException("Could not create window!");
+        throw SDLException("Window could not be created! SDL Error: %s\n", SDL_GetError());
     }
 }
 
 void Window::_createRenderer() {
     renderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == nullptr) throw SDLException("Could not create renderer!");
+    if (renderer == nullptr) throw SDLException("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 }
 
@@ -49,7 +48,7 @@ void Window::handleEvent(SDL_Event& e) {
             case SDL_WINDOWEVENT_SIZE_CHANGED:
                 mWidth = e.window.data1;
                 mHeight = e.window.data2;
-                SDL_RenderPresent(renderer);
+                show();
                 break;
 
                 //Repaint on exposure
@@ -106,7 +105,12 @@ void Window::handleEvent(SDL_Event& e) {
     }
 }
 
-void Window::free() {
+SDL_Renderer& Window::getRenderer() {
+    return *renderer;
+}
+
+Window::~Window() {
+    if (renderer != nullptr) SDL_DestroyRenderer(renderer);
     if (mWindow != nullptr) SDL_DestroyWindow(mWindow);
     mMouseFocus = false;
     mKeyboardFocus = false;
@@ -114,10 +118,19 @@ void Window::free() {
     mHeight = 0;
 }
 
-SDL_Renderer& Window::getRenderer() {
-    return *renderer;
+void Window::clear() {
+    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(renderer);
 }
 
-Window::~Window() {
-    free();
+void Window::show() {
+    //Update screen
+    float x_scale = (float)mWidth/(float)DEFAULT_SCREEN_WIDTH;
+    float y_scale = (float)mHeight/(float)DEFAULT_SCREEN_HEIGHT;
+    SDL_RenderSetScale(renderer, x_scale, y_scale);
+    SDL_RenderPresent(renderer);
+}
+
+bool Window::isMinimized() {
+    return mMinimized;
 }

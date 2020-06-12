@@ -18,7 +18,7 @@ private:
     int mHeight;
 
     //Window focus
-    bool mMouseFocus;
+    bool mMouseFocus; /*Por ahora no los uso*/
     bool mKeyboardFocus;
     bool mFullScreen;
     bool mMinimized;
@@ -36,10 +36,13 @@ public:
     SDL_Renderer& getRenderer();
 
     //Handles window events
-    void handleEvent( SDL_Event& e );
+    void handleEvent(SDL_Event& e);
 
-    //Deallocates internals
-    void free();
+    bool isMinimized();
+
+    void clear();
+
+    void show();
 
     ~Window();
 };

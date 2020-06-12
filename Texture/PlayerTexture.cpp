@@ -7,13 +7,13 @@
 PlayerTexture::PlayerTexture(TextureRepository& repo, PlayerEquipment equipment)
                                 : textureRepo(repo) {
     if (equipment.helmet != Nothing) helmet = &textureRepo.getTexture(equipment.helmet);
-    else helmet = nullptrptr;
+    else helmet = nullptr;
     head = &textureRepo.getTexture(equipment.head);
     body = &textureRepo.getTexture(equipment.body);
     if (equipment.shield != Nothing) shield = &textureRepo.getTexture(equipment.shield);
-    else shield = nullptrptr;
+    else shield = nullptr;
     if (equipment.weapon != Nothing) weapon = &textureRepo.getTexture(equipment.weapon);
-    else weapon = nullptrptr;
+    else weapon = nullptr;
 }
 
 void PlayerTexture::renderFront(int x, int y, int frame) {

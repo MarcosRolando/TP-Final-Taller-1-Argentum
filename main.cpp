@@ -9,20 +9,15 @@ and may not be redistributed without written permission.*/
 #include "Character/Player.h"
 #include "Character/NPC.h"
 #include "Map/Map.h"
-#include <unistd.h>
 #include "GameConstants.h"
 #include "Timer.h"
+#include "Screen/Window.h"
+
 //Starts up SDL and creates window
 void init();
 
 //Frees media and shuts down SDL
 void close();
-
-//The window we'll be rendering to
-SDL_Window* gWindow = nullptr;
-
-//The window renderer
-SDL_Renderer* gRenderer = nullptr;
 
 void init()
 {
@@ -39,44 +34,16 @@ void init()
 			printf( "Warning: Linear texture filtering not enabled!" );
 		}
 
-		//Create window
-		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED,
-		        SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
-		if( gWindow == nullptr )
-		{
-            throw SDLException("Window could not be created! SDL Error: %s\n", SDL_GetError());
-		}
-		else
-		{
-			//Create renderer for window
-			gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED );
-			if( gRenderer == nullptr )
-			{
-                throw SDLException("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
-			}
-			else
-			{
-				//Initialize renderer color
-				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-
-				//Initialize PNG loading
-				int imgFlags = IMG_INIT_PNG;
-				if( !( IMG_Init( imgFlags ) & imgFlags ) )
-				{
-                    throw SDLException("SDL_image could not initialize! SDL_mage Error: %s\n", IMG_GetError() );
-				}
-			}
-		}
+        //Initialize PNG loading
+        int imgFlags = IMG_INIT_PNG;
+        if( !( IMG_Init( imgFlags ) & imgFlags ) )
+        {
+            throw SDLException("SDL_image could not initialize! SDL_mage Error: %s\n", IMG_GetError() );
+        }
 	}
 }
 
 void close() {
-	//Destroy window
-	SDL_DestroyRenderer( gRenderer );
-	SDL_DestroyWindow( gWindow );
-	gWindow = nullptr;
-	gRenderer = nullptr;
-
 	//Quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
@@ -87,8 +54,9 @@ int main(int argc, char* args[]) {
 	try {
         init();
         //Level camera
+        Window window;
         Timer moveTime;
-        TextureRepository repo(*gRenderer);
+        TextureRepository repo(window.getRenderer());
         SDL_Rect camera = { 0, 0, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT };
         PlayerEquipment pEquipment = {MagicHat, ElfHead, BlueTunic, IronShield, LinkedStaff};
         Player player(repo, camera, 40, 30,pEquipment);
@@ -111,6 +79,7 @@ int main(int argc, char* args[]) {
                 {
                     quit = true;
                 }
+                window.handleEvent(e);
                 if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
                     switch (e.key.keysym.sym) {
                         case SDLK_UP: player.move(UP); break;
@@ -126,23 +95,22 @@ int main(int argc, char* args[]) {
             }
 
             float timeElapsed = 0;
-            while (timeElapsed < 50) {
-                //Clear screen
-                SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-                SDL_RenderClear( gRenderer );
-                map.renderGround();
-                float timeStep = moveTime.getTicks();
-                timeElapsed += timeStep; /*milisegundos desde start*/
-                timeStep = timeStep / 1000.f;
-                player.render(timeStep);
-                monster.render(timeStep);
-                map.renderStructures();
-                moveTime.start();
-
-                //Update screen
-                SDL_RenderSetScale(gRenderer, X_SCALE, Y_SCALE);
-                SDL_RenderPresent(gRenderer);
+            if (!window.isMinimized()) {
+                while (timeElapsed < 50) {
+                    //Clear screen
+                    window.clear();
+                    map.renderGround();
+                    float timeStep = moveTime.getTicks();
+                    timeElapsed += timeStep; /*milisegundos desde start*/
+                    timeStep = timeStep / 1000.f;
+                    player.render(timeStep);
+                    monster.render(timeStep);
+                    map.renderStructures();
+                    moveTime.start();
+                    window.show();
+                }
             }
+
         }
 	} catch (SDLException& e) {
 	    std::cout << e.what() << std::endl;
