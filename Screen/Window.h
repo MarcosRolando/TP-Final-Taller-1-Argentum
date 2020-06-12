@@ -38,7 +38,7 @@ public:
     //Handles window events
     void handleEvent(SDL_Event& e);
 
-    bool isMinimized();
+    bool isMinimized() const;
 
     void clear();
 

@@ -131,6 +131,6 @@ void Window::show() {
     SDL_RenderPresent(renderer);
 }
 
-bool Window::isMinimized() {
+bool Window::isMinimized() const {
     return mMinimized;
 }
