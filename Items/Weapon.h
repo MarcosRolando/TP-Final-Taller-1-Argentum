@@ -7,6 +7,7 @@
 
 
 #include "Item.h"
+#include "../Map/Coordinate.h"
 
 class Weapon : public Item {
 private:

@@ -10,13 +10,10 @@
 #include <memory>
 #include <unordered_map>
 #include "Item.h"
-#include "../Entities/Player.h"
+//#include "../Entities/Player.h"
 #include "Defense/Clothing.h"
 
-enum EquipmentPlace{
-    EQUIPMENT_PLACE_NONE, EQUIPMENT_PLACE_HEAD, EQUIPMENT_PLACE_CHEST, EQUIPMENT_PLACE_WEAPON,
-    EQUIPMENT_PLACE_SHIELD
-};
+class Player;
 
 class Inventory {
 private:

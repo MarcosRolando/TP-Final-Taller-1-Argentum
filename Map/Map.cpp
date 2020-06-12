@@ -108,7 +108,7 @@ void Map::removeEntity(Coordinate position) {
     if (!_isCoordinateValid(position)) {
         throw (std::invalid_argument("Out of bounds coordinate"));
     }
-    tiles[position.iPosition][position.jPosition].removeEntity()
+    tiles[position.iPosition][position.jPosition].removeEntity();
 }
 
 bool Map::moveEntity(Coordinate startingPosition, Coordinate finalPosition) {

@@ -26,7 +26,7 @@ private:
     unsigned int experience;
     Weapon equippedWeapon;
 public:
-    Player(unsigned int maxHealth, unsigned int maxMana);
+    Player(unsigned int maxHealth, unsigned int maxMana, Coordinate initialPosition);
 
     //Modifica la posicion almacenada por el jugador, para que luego sea actualizada
     //por el juego

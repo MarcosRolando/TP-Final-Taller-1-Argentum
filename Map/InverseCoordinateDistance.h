@@ -13,7 +13,7 @@
 //para el pathfinding
 class InverseCoordinateDistance {
 public:
-    bool operator()(const PrivatePointAndDistance& a, const PrivatePointAndDistance& b);
+    bool operator()(const PointAndDistance& a, const PointAndDistance& b);
 };
 
 

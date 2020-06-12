@@ -8,12 +8,14 @@
 
 ////////////////////////////////////PUBLIC///////////////////////////////
 
-Player::Player(unsigned int _maxHealth, unsigned int _maxMana): inventory((*this)) {
+Player::Player(unsigned int _maxHealth, unsigned int _maxMana, Coordinate initialPosition):
+               Entity(initialPosition){
+    /*
     maxHealth = _maxHealth;
     currentHealth = _maxHealth;
     maxMana = _maxMana;
     currentMana = _maxMana;
-
+    */
 }
 
 void Player::move(Direction direction) {
