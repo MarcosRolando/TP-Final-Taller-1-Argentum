@@ -4,7 +4,7 @@
 
 #include "InverseCoordinateDistance.h"
 
-bool InverseCoordinateDistance::operator()(const PrivatePointAndDistance &a,
-                                           const PrivatePointAndDistance &b) {
+bool InverseCoordinateDistance::operator()(const PointAndDistance &a,
+                                           const PointAndDistance &b) {
     return a.distance > b.distance;
 }
