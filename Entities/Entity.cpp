@@ -25,3 +25,23 @@ bool Entity::isMonsterTarget() {
 unsigned int Entity::attacked(unsigned int damage, unsigned int level) {
     return 0;
 }
+
+void Entity::list(std::list<ProductData>& products) {
+    //NO NOTHING
+}
+
+void Entity::withdraw(Player &player, const std::string& itemName) {
+    //NO NOTHING
+}
+
+void Entity::deposit(Player &player, unsigned int itemPosition) {
+    //NO NOTHING
+}
+
+void Entity::buy(Player &player, const std::string &itemName, unsigned int gold) {
+    //NO NOTHING
+}
+
+void Entity::sell(Player &player, unsigned int itemPosition) {
+    //DO NOTHING
+}
