@@ -9,7 +9,7 @@
 
 
 //////////////////////////////PRIVATE/////////////////////////////
-
+/*
 //Mueve el item al lugar de equipamiendo indicado si es que tiene uno
 void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition) {
     std::shared_ptr<Clothing> clothingPtrAux;
@@ -24,7 +24,7 @@ void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int 
         equipment.at(equipmentPlace) = std::move(clothingPtrAux);
     }
 }
-
+*/
 
 //////////////////////////////PUBLIC/////////////////////////////
 

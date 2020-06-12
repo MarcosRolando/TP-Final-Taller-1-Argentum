@@ -7,6 +7,7 @@
 
 
 #include "Item.h"
+#include <memory>
 
 struct ProductData {
     unsigned int price;

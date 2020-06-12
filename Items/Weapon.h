@@ -8,7 +8,7 @@
 
 #include "Item.h"
 
-class Weapon: public Item {
+class Weapon : public Item {
 private:
     unsigned int minDamage;
     unsigned int maxDamage;

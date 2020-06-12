@@ -8,7 +8,7 @@
 
 #include "../Item.h"
 
-class Clothing: public Item {
+class Clothing : public Item {
 private:
     unsigned int minDefense;
     unsigned int maxDefense;

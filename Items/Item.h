@@ -5,7 +5,6 @@
 #ifndef ARGENTUM_ITEM_H
 #define ARGENTUM_ITEM_H
 
-#include "../Entities/Player.h"
 #include <string>
 
 enum EquipmentPlace{
@@ -13,6 +12,7 @@ enum EquipmentPlace{
     EQUIPMENT_PLACE_SHIELD
 };
 
+class Player;
 
 //Clase interfaz de la que heredan todos los items
 //Los items solo tienen sentido en un inventario de un jugador
