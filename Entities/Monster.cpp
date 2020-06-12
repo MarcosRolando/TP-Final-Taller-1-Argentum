@@ -42,7 +42,8 @@ bool Monster::isDead() {
 }
 
 Monster::Monster(Game &_game, const Map& _map, unsigned int _health,
-                 unsigned int _rangeOfVision): game(_game), map(_map){
+                 unsigned int _rangeOfVision, Coordinate initialPosition):
+                 Entity(initialPosition), map(_map), game(_game) {
     health = _health;
     rangeOfVision = _rangeOfVision;
 }

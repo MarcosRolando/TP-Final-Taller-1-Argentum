@@ -19,7 +19,8 @@ private:
     const Map& map;
     Game& game;
 public:
-    Monster(Game& _game, const Map& map, unsigned int _health, unsigned int _rangeOfVision);
+    Monster(Game& _game, const Map& map, unsigned int _health, unsigned int _rangeOfVision,
+            Coordinate initialPosition);
 
     //Retorna el daño que el monstruo intenta realizar
     //VER SI ESTE RETORNO ES NECESARIO
