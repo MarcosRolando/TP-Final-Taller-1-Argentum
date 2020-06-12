@@ -17,6 +17,9 @@ enum EquipmentPlace{
 //Los items solo tienen sentido en un inventario de un jugador
 class Item {
 public:
+    //unsigned int id;
+    std::string name;
+
     //use debe retornar el lugar en el que debera equiparse el item una vez usado desde
     //un inventario, si debe ser descartado entonces se tiene que retornar INVENTORY_PLACE_NONE
     //Esta funcion retorna en cierta forma el tipo de item que es

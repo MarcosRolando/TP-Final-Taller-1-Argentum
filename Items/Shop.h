@@ -5,9 +5,10 @@
 #ifndef ARGENTUM_SHOP_H
 #define ARGENTUM_SHOP_H
 
+#include <unordered_map>
 
 class Shop {
-
+    std::unordered_map<std::string, >
 };
 
 
