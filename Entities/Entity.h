@@ -27,7 +27,7 @@ public:
     void setPosition(Coordinate coordinate);
 
 
-    //Retorna la posicion en la que quiere estar el jugador
+    //Retorna la posicion en la que quiere estar el jugadoras
     Coordinate getPosition();
 };
 
