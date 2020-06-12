@@ -16,7 +16,7 @@ private:
 public:
     explicit Gold(unsigned int ammount = 0);
 
-    void use(int &player) override;
+    EquipmentPlace use(Player& player) override;
 
     unsigned int getAmmount();
 };

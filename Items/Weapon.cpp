@@ -18,14 +18,20 @@ bool Weapon::_isTargetReachable(Coordinate attackPosition,
 
 
 
-void Weapon::_initializeData(unsigned int minDamage, unsigned int maxDamage) {
-    this->minDamage = minDamage;
-    this->maxDamage = maxDamage;
+void Weapon::_initializeData(unsigned int _minDamage, unsigned int _maxDamage) {
+    this->minDamage = _minDamage;
+    this->maxDamage = _maxDamage;
 }
 
 
 
 //////////////////////////////////////PUBLIC//////////////////////
+
+//VER SI ESTO SE SACA DE ACA
+Weapon::Weapon(): Item("Puños"){
+    _initializeData(1, 1);
+}
+
 
 Weapon::Weapon(unsigned int minDamage, unsigned int maxDamage, std::string& _name): Item(_name) {
     _initializeData(minDamage, maxDamage);
@@ -49,6 +55,7 @@ unsigned int Weapon::getDamage(Coordinate attackPosition, Coordinate attackedPos
 EquipmentPlace Weapon::use(Player &player) {
     return EQUIPMENT_PLACE_WEAPON;
 }
+
 
 
 

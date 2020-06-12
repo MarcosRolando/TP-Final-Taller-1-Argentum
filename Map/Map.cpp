@@ -9,8 +9,8 @@
 //////////////////////////////PRIVATE/////////////////////////////
 //Indica si la coordenada esta en el rango de posiciones del mapa
 bool Map::_isCoordinateValid(Coordinate coordinate) {
-    return (coordinate.jPosition >= 0) && (coordinate.jPosition < tiles.size())
-           && (coordinate.iPosition >= 0) && (coordinate.iPosition < tiles.size());
+    return (coordinate.jPosition >= 0) && (coordinate.jPosition < (int)tiles[0].size())
+           && (coordinate.iPosition >= 0) && (coordinate.iPosition < (int)tiles.size());
 }
 
 
@@ -29,13 +29,13 @@ void Map::_buildSearchRegion(Coordinate center, unsigned int range, Coordinate& 
 }
 
 Coordinate Map::_getValidCoordinate(Coordinate coordinate) const {
-    if (coordinate.jPosition >= tiles[0].size()) {
-        coordinate.jPosition = tiles[0].size() - 1;
+    if (coordinate.jPosition >= (int)tiles[0].size()) {
+        coordinate.jPosition = (int)tiles[0].size() - 1;
     } else if (coordinate.jPosition < 0) {
         coordinate.jPosition = 0;
     }
-    if (coordinate.jPosition >= tiles.size()) {
-        coordinate.iPosition = tiles.size() - 1;
+    if (coordinate.iPosition >= (int)tiles.size()) {
+        coordinate.iPosition = (int)tiles.size() - 1;
     } else if (coordinate.iPosition < 0) {
         coordinate.iPosition = 0;
     }

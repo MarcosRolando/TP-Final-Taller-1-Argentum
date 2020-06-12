@@ -37,7 +37,7 @@ bool Inventory::addItem(std::shared_ptr<Item> &&item) {
     if ((storedItemsAmmount == items.size()) || !item) {
         return false;
     }
-    for (int i = 0; i < items.size(); ++i) {
+    for (int i = 0; i < (int)items.size(); ++i) {
         if (!items[i]) {
             items[i] = std::move(item);
             break;

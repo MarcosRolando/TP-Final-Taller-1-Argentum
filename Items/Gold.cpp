@@ -9,8 +9,8 @@ Gold::Gold(unsigned int ammount/* = 0*/): Item("Oro"){
     this->ammount = ammount;
 }
 
-void Gold::use(int &player) {
-    //nada
+EquipmentPlace Gold::use(Player &player) {
+    return EQUIPMENT_PLACE_NONE;
 }
 
 unsigned int Gold::getAmmount() {
