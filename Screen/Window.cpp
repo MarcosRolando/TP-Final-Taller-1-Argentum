@@ -102,6 +102,14 @@ void Window::handleEvent(SDL_Event& e) {
             mFullScreen = true;
             mMinimized = false;
         }
+    } else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_F2) {
+        SDL_SetWindowFullscreen(mWindow, SDL_FALSE);
+        mFullScreen = false;
+        mWidth = DEFAULT_SCREEN_WIDTH;
+        mHeight = DEFAULT_SCREEN_HEIGHT;
+        SDL_RestoreWindow(mWindow);
+        SDL_SetWindowSize(mWindow, mWidth, mHeight);
+        show();
     }
 }
 
