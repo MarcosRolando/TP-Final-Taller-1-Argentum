@@ -41,7 +41,7 @@ private:
 
 public:
     //Initializes variables
-    Texture(SDL_Renderer& renderer, int xOff = 0, int yOff = 0);
+    Texture(SDL_Renderer& renderer);
 
     //Deallocates memory
     ~Texture();
@@ -51,7 +51,8 @@ public:
     Texture(Texture&& other) noexcept;
 
     //Loads image at specified path
-    void loadFromFile(const std::string& path, ColorKey_t key = {-1, -1, -1});
+    void loadFromFile(const std::string& path, ColorKey_t key = {-1, -1, -1},
+                                                            int xOff = 0, int yOff = 0);
 
     /*Especifica una dimension (un clip) que representa un sprite de la textura*/
     void addSprite(int x, int y, int width, int height);

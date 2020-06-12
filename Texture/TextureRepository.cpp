@@ -93,9 +93,9 @@ void TextureRepository::_loadStructures() {
 
 void TextureRepository::_loadNPCS() {
     _setNPCImage(Skeleton, SKELETON_PATH, 25, 52);
-    _setNPCImage(Goblin, GOBLIN_PATH, 24, 31);
+    _setNPCImage(Goblin, GOBLIN_PATH, 24, 31, -5, 15);
     _setNPCImage(Zombie, ZOMBIE_PATH, 25, 45);
-    _setNPCImage(Spider, SPIDER_PATH, 34, 34);
+    _setNPCImage(Spider, SPIDER_PATH, 34, 34, -10, 18);
     _setNPCImage(Priest, PRIEST_PATH, 25, 45);
     _setNPCImage(Trader, TRADER_PATH, 24, 48);
     _setNPCImage(Banker, BANKER_PATH, 25, 45);
@@ -107,9 +107,9 @@ void TextureRepository::_setStructureImage(TextureID textureID, std::string&& st
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
-        textures.emplace(textureID, Texture(renderer, xOffset, yOffset));
+        textures.emplace(textureID, renderer);
         Texture& texture = textures.at(textureID);
-        texture.loadFromFile(structureImage, key);
+        texture.loadFromFile(structureImage, key, xOffset, yOffset);
         _addStructureSprites(texture, width, height);
     } catch (SDLException& e) {
         throw SDLException("Failed to load %s sprite sheet texture!\n", structureImage.c_str());
@@ -128,13 +128,14 @@ void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileIma
     }
 }
 
-void TextureRepository::_setNPCImage(TextureID textureID, std::string&& npcImage, int width, int height) {
+void TextureRepository::_setNPCImage(TextureID textureID, std::string&& npcImage, int width, int height
+                                        , int xOffset, int yOffset) {
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
         textures.emplace(textureID, renderer);
         Texture& texture = textures.at(textureID);
-        texture.loadFromFile(npcImage, key);
+        texture.loadFromFile(npcImage, key, xOffset, yOffset);
         /*Front*/
         _addNPCSprites(texture, 0, false, width, height);
         /*Back*/
@@ -239,9 +240,9 @@ void TextureRepository::_setHelmetImage(TextureID textureID, std::string&& helme
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
-        textures.emplace(textureID, Texture(renderer, xOffset, yOffset));
+        textures.emplace(textureID, renderer);
         Texture& texture = textures.at(textureID);
-        texture.loadFromFile(helmetImage, key);
+        texture.loadFromFile(helmetImage, key, xOffset, yOffset);
         texture.addSprite(0, 0, 17, 17);
         texture.addSprite(17, 0, 17, 17);
         texture.addSprite(34, 0, 17, 17);

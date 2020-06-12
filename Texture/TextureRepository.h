@@ -66,7 +66,8 @@ private:
 
     void _setStructureImage(TextureID textureID, std::string&& structureImage,
                     int width, int height, int xOffset = 0, int yOffset = 0);
-    void _setNPCImage(TextureID textureID, std::string&& npcImage, int width, int height);
+    void _setNPCImage(TextureID textureID, std::string&& npcImage, int width, int height
+                                                , int xOffset = 0, int yOffset = 0);
     void _setBodyImage(TextureID texture, std::string&& bodyImage);
     void _setShieldImage(TextureID textureID, std::string&& shieldImage);
     void _setWeaponImage(TextureID textureID, std::string&& weaponImage);
