@@ -7,6 +7,8 @@
 
 
 #include "../Map/Coordinate.h"
+#include "../Items/Product.h"
+#include <list>
 
 class Entity {
 protected:
@@ -15,8 +17,13 @@ protected:
 public:
     explicit Entity(Coordinate initialPosition);
 
-    //Implementa el comportamiento realizado al ser atacado
-    virtual unsigned int attacked(unsigned int damage, unsigned int level) = 0;
+    //Implementa el comportamiento realizado al ser atacado, por default
+    //retorna 0, debe ser modificado en las clases hijas de ser necesario
+    virtual unsigned int attacked(unsigned int damage, unsigned int level);
+
+    //Implementa el comportamiento realizado al ser atacado, por default
+    //retorna 0, debe ser modificado en las clases hijas de ser necesario
+    virtual void list(std::list<ProductData>);
 
     //Indica si el Entity va a ser atacado por un monstruo, por default retorna
     //false, las clases que hereden deben reimplementarla si son consideradas

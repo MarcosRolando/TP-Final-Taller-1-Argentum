@@ -16,10 +16,11 @@ private:
 
 private:
     bool _isTargetReachable(Coordinate attackPosition, Coordinate attackedPosition) const;
-
+    void _initializeData(unsigned int minDamage, unsigned int maxDamage);
 public:
-    Weapon(unsigned int minDamage, unsigned int maxDamage);
+    Weapon(unsigned int minDamage, unsigned int maxDamage, std::string& name);
 
+    Weapon(unsigned int minDamage, unsigned int maxDamage, std::string&& name);
 
 
     //VER SI SE HACE QUE EN VEZ DE RETORNAR 0 TIRE UNA EXCEPCION

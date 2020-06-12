@@ -21,3 +21,7 @@ Coordinate Entity::getPosition() {
 bool Entity::isMonsterTarget() {
     return false;
 }
+
+unsigned int Entity::attacked(unsigned int damage, unsigned int level) {
+    return 0;
+}
