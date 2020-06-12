@@ -67,6 +67,8 @@ public:
 
     void loadFromRenderedText( std::string textureText, SDL_Color
     textColor, TTF_Font* font );
+
+    void renderText(int x, int y);
 };
 
 

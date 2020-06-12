@@ -4,7 +4,7 @@
 
 #include "Font.h"
 
-Font::Font(std::string path, int fontSize) {
+Font::Font(const std::string& path, int fontSize) {
 //Initialize SDL_ttf
     if( TTF_Init() == -1 ){//ver si esto va en la clase SDL gral
         throw SDLException("SDL_ttf could not initialize! SDL_ttf Error:"

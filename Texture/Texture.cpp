@@ -131,3 +131,12 @@ textColor, TTF_Font* font ) {
         SDL_FreeSurface( textSurface );
     }
 }
+
+void Texture::renderText(int x, int y) {
+//Set rendering space and render to screen
+    SDL_Rect renderQuad = { x, y, mWidth, mHeight };
+
+    //Render to screen
+    SDL_RenderCopy(&renderer, mTexture, NULL, &renderQuad);
+}
+

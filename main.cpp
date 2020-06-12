@@ -3,19 +3,56 @@
 #include "Configuration.h"
 #include "Calculator.h"
 #include "SDL/SoundRepository.h"
+#include "SDL/Text.h"
+#include "Screen/Window.h"
 #include <unistd.h>
 #include <queue>
 #include <random>
 
+//Starts up SDL and creates window
+void init();
 
+//Frees media and shuts down SDL
+void close();
 
-/*int main() {
-    Modifiers classMods = Configuration::getInstance().configWarriorModifiers();
+void init()
+{
+    //Initialize SDL
+    if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+    {
+        throw SDLException("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+    }
+    else
+    {
+        //Set texture filtering to linear
+        if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "MipmapLinearNearest" ) )
+        {
+            printf( "Warning: Linear texture filtering not enabled!" );
+        }
+
+        //Initialize PNG loading
+        int imgFlags = IMG_INIT_PNG;
+        if( !( IMG_Init( imgFlags ) & imgFlags ) )
+        {
+            throw SDLException("SDL_image could not initialize! SDL_mage Error: %s\n", IMG_GetError() );
+        }
+    }
+}
+
+void close() {
+    //Quit SDL subsystems
+    IMG_Quit();
+    SDL_Quit();
+}
+
+int main() {
+    init();
+    /*Modifiers classMods = Configuration::getInstance().configWarriorModifiers();
     Modifiers raceMods = Configuration::getInstance().configHumanModifiers();
     //WeaponStats weapon = Configuration::getInstance().configLongSwordStats();
     std::cout <<" candodge " << Calculator::canDodge(classMods, raceMods);
 
-    *//*SoundRepository test;
+    SoundRepository test;
     test.playMusic();
     char sound;
     do {
@@ -36,9 +73,30 @@
 
     test.playSounds();
 
-    std::cin >> sound;
-    return 0;*//*
-}*/
+    std::cin >> sound;*/
+    Window window;
+    Font font("../SDL/font.ttf", 100);
+    Text health(font, window.getRenderer());
+    SDL_Event e;
+    bool quit = false;
+    //While application is running
+    while( !quit ) {
+        //Handle events on queue
+        while (SDL_PollEvent(&e) != 0) {
+            //User requests quit
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+            window.handleEvent(e);
+        }
+        health.updateText("2000");
+        health.render(100,100);
+        window.show();
+    }
+
+
+    return 0;
+}
 /////////////////////////////////////////////////////////// main de Marcos
 // ////////////////////////////////////////////////////////////////////////
 
@@ -46,6 +104,7 @@
 and may not be redistributed without written permission.*/
 
 //Using SDL, SDL_image, standard math, and strings
+/*
 #include <SDL.h>
 #include <SDL_image.h>
 #include "SDL/SDLException.h"
@@ -145,7 +204,9 @@ int main(int argc, char* args[]) {
                     window.clear();
                     map.renderGround();
                     float timeStep = moveTime.getTicks();
-                    timeElapsed += timeStep; /*milisegundos desde start*/
+                    timeElapsed += timeStep; */
+/*milisegundos desde start*//*
+
                     timeStep = timeStep / 1000.f;
                     player.render(timeStep);
                     monster.render(timeStep);
@@ -165,3 +226,4 @@ int main(int argc, char* args[]) {
 
 	return 0;
 }
+*/
