@@ -4,7 +4,10 @@
 
 #include "Clothing.h"
 
-Clothing::Clothing(unsigned int _minDefense, unsigned int _maxDefense) {
+#include <string>
+
+Clothing::Clothing(unsigned int _minDefense, unsigned int _maxDefense, std::string name):
+                   Item(name) {
     minDefense = _minDefense;
     maxDefense = _maxDefense;
 }

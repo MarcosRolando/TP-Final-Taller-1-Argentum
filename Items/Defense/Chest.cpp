@@ -5,7 +5,7 @@
 #include "Chest.h"
 
 Chest::Chest(unsigned int minDefense, unsigned int maxDefense) : Clothing(
-             minDefense, maxDefense) {
+             minDefense, maxDefense, "Remera") {
 
 }
 

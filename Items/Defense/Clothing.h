@@ -13,7 +13,7 @@ private:
     unsigned int minDefense;
     unsigned int maxDefense;
 public:
-    explicit Clothing(unsigned int minDefense, unsigned int maxDefense);
+    explicit Clothing(unsigned int minDefense, unsigned int maxDefense, std::string name);
 
     unsigned int getDefense();
 

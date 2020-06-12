@@ -5,7 +5,7 @@
 #include "Shield.h"
 
 Shield::Shield(unsigned int minDefense, unsigned int maxDefense) :
-               Clothing(minDefense, maxDefense) {
+               Clothing(minDefense, maxDefense, "SinEscudo") {
 
 }
 
