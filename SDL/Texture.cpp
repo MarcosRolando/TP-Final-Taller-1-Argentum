@@ -80,10 +80,6 @@ void Texture::render( int x, int y )
     //Set rendering space and render to screen
     SDL_Rect renderQuad = { x, y, mWidth, mHeight };
 
-    //Set clip rendering dimensions
-        //renderQuad.w = clip.w;
-        //renderQuad.h = clip.h;
-
     //Render to screen
     SDL_RenderCopy(&renderer, mTexture, NULL, &renderQuad);
 }
