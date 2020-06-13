@@ -130,7 +130,7 @@ int main(int argc, char* args[]) {
         SDL_Rect camera = { 0, 0, DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT };
         PlayerEquipment pEquipment = {MagicHat, ElfHead, BlueTunic, IronShield, LinkedStaff};
         Player player(repo, camera, 40, 30,pEquipment);
-        NPC monster(repo, camera, 168, 30, Guard);
+        NPC monster(repo, camera, 168, 30, Zombie);
         Map map(repo, camera);
         Font font("../SDL/font.ttf", 25);
         Text health(font, window.getRenderer());
@@ -167,9 +167,9 @@ int main(int argc, char* args[]) {
                 }
             }
 
-            float timeElapsed = 0;
             if (!window.isMinimized()) {
-                while (timeElapsed < 50) {
+                float timeElapsed = 0;
+                while (timeElapsed < 100) {
                     //Clear screen
                     window.clear();
                     window.setViewport(MapViewport);
