@@ -41,6 +41,8 @@
 #define LONG_TREE_PATH "../Images/Map/LongTree.png"
 #define BUSH_PATH "../Images/Map/Bush.png"
 #define HOUSE1_PATH "../Images/Map/House1.png"
+#define HOUSE2_PATH "../Images/Map/House2.png"
+#define HOUSE3_PATH "../Images/Map/House3.png"
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
     _loadClothing();
@@ -91,6 +93,8 @@ void TextureRepository::_loadStructures() {
     _setStructureImage(LongTree, LONG_TREE_PATH, 256, 256);
     _setStructureImage(Bush, BUSH_PATH, 75, 65, 30, 40);
     _setStructureImage(House1, HOUSE1_PATH, 196, 200, 30, -100);
+    _setStructureImage(House2, HOUSE2_PATH, 181, 213, 30, -100);
+    _setStructureImage(House3, HOUSE3_PATH, 200, 239, 30, -120);
 }
 
 void TextureRepository::_loadNPCS() {

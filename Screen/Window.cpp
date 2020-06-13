@@ -5,7 +5,7 @@
 #include "Window.h"
 #include "../GameConstants.h"
 #include "../SDL/SDLException.h"
-
+#include <iostream>
 Window::Window() {
     //Initialize non-existant window
     mWindow = nullptr;
@@ -108,14 +108,14 @@ void Window::handleEvent(SDL_Event& e) {
     }
         //Enter exit full screen on return key
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN) {
+        mWidth = DEFAULT_SCREEN_WIDTH;
+        mHeight = DEFAULT_SCREEN_HEIGHT;
         if (mFullScreen) {
             SDL_SetWindowFullscreen(mWindow, SDL_FALSE);
+            SDL_SetWindowSize(mWindow, mWidth, mHeight);
             mFullScreen = false;
         } else {
-            mWidth = DEFAULT_SCREEN_WIDTH;
-            mHeight = DEFAULT_SCREEN_HEIGHT;
             SDL_SetWindowSize(mWindow, mWidth, mHeight);
-            show();
             SDL_SetWindowFullscreen(mWindow, SDL_TRUE);
             mFullScreen = true;
             mMinimized = false;
@@ -127,7 +127,6 @@ void Window::handleEvent(SDL_Event& e) {
         mHeight = DEFAULT_SCREEN_HEIGHT;
         SDL_RestoreWindow(mWindow);
         SDL_SetWindowSize(mWindow, mWidth, mHeight);
-        show();
     }
 }
 
