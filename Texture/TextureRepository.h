@@ -29,6 +29,7 @@ enum TextureID {
     CompoundBow,
     ElvenFlute,
     LinkedStaff,
+    LinkedStaffDrop,
     LongSword,
     LongSwordDrop,
     SimpleBow,

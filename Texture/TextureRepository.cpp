@@ -24,6 +24,7 @@
 #define COMPOUND_BOW_PATH "../Images/Items/CompoundBow.png"
 #define ELVEN_FLUTE_PATH "../Images/Items/ElvenFlute.png"
 #define LINKED_STAFF_PATH "../Images/Items/LinkedStaff.png"
+#define LINKED_STAFF_DROP_PATH "../Images/Items/LinkedStaffDrop.png"
 #define LONG_SWORD_PATH "../Images/Items/LongSword.png"
 #define LONG_SWORD_DROP_PATH "../Images/Items/LongSwordDrop.png"
 #define SIMPLE_BOW_PATH "../Images/Items/SimpleBow.png"
@@ -106,6 +107,7 @@ void TextureRepository::_loadSpells() {
 void TextureRepository::_loadDrops() {
     _setImage(BlueTunicDrop, BLUE_TUNIC_DROP_PATH, 32, 32, 30, 30);
     _setImage(LongSwordDrop, LONG_SWORD_DROP_PATH, 32, 32, 30, 30);
+    _setImage(LinkedStaffDrop, LINKED_STAFF_DROP_PATH, 32, 32, 30, 30);
 }
 
 void TextureRepository::_loadClothing() {
