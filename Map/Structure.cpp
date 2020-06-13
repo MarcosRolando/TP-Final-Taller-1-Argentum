@@ -42,7 +42,7 @@ void Structure::render(SDL_Rect& camera) {
     //If the tile is on screen
     if (_checkCollision(camera, box)) {
         //Show the tile
-        sTexture.render(box.x - camera.x, box.y - camera.y);
+        sTexture.render(box.x - camera.x, box.y - camera.y, 0, 2);
     }
 }
 

@@ -116,13 +116,13 @@ textColor, TTF_Font* font ) {
     //Render text surface
     SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str
             (), textColor);
-    if( textSurface == NULL ) {
+    if( textSurface == nullptr ) {
         throw SDLException("Unable to render text surface! SDL_ttf Error:"
                            " %s\n", TTF_GetError());
     } else {
         //Create texture from surface pixels
         mTexture = SDL_CreateTextureFromSurface( &renderer, textSurface );
-        if( mTexture == NULL ) {
+        if( mTexture == nullptr ) {
             throw SDLException("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
         } else {
             //Get image dimensions
@@ -139,6 +139,6 @@ void Texture::renderText(int x, int y) {
 //Set rendering space and render to screen
     SDL_Rect renderQuad = { x, y, mWidth, mHeight };
     //Render to screen
-    SDL_RenderCopy(&renderer, mTexture, NULL, &renderQuad);
+    SDL_RenderCopy(&renderer, mTexture, nullptr, &renderQuad);
 }
 

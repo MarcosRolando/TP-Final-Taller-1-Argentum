@@ -83,6 +83,7 @@ void Window::handleEvent(SDL_Event& e) {
                 //Window has keyboard focus
             case SDL_WINDOWEVENT_FOCUS_GAINED:
                 mKeyboardFocus = true;
+                mMinimized = false;
                 break;
 
                 //Window lost keyboard focus
@@ -108,14 +109,14 @@ void Window::handleEvent(SDL_Event& e) {
     }
         //Enter exit full screen on return key
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN) {
+        mWidth = DEFAULT_SCREEN_WIDTH;
+        mHeight = DEFAULT_SCREEN_HEIGHT;
         if (mFullScreen) {
             SDL_SetWindowFullscreen(mWindow, SDL_FALSE);
+            SDL_SetWindowSize(mWindow, mWidth, mHeight);
             mFullScreen = false;
         } else {
-            mWidth = DEFAULT_SCREEN_WIDTH;
-            mHeight = DEFAULT_SCREEN_HEIGHT;
             SDL_SetWindowSize(mWindow, mWidth, mHeight);
-            show();
             SDL_SetWindowFullscreen(mWindow, SDL_TRUE);
             mFullScreen = true;
             mMinimized = false;
@@ -127,7 +128,6 @@ void Window::handleEvent(SDL_Event& e) {
         mHeight = DEFAULT_SCREEN_HEIGHT;
         SDL_RestoreWindow(mWindow);
         SDL_SetWindowSize(mWindow, mWidth, mHeight);
-        show();
     }
 }
 
