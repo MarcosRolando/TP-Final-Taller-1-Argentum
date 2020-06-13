@@ -1,10 +1,79 @@
-/*This source code copyrighted by Lazy Foo' Productions (2004-2020)
+/*#include <iostream>
+#include "SDL/Text.h"
+#include "Screen/Window.h"
+
+//Starts up SDL and creates window
+void init();
+
+//Frees media and shuts down SDL
+void close();
+
+void init()
+{
+    //Initialize SDL
+    if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+    {
+        throw SDLException("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+    }
+    else
+    {
+        //Set texture filtering to linear
+        if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "MipmapLinearNearest" ) )
+        {
+            printf( "Warning: Linear texture filtering not enabled!" );
+        }
+
+        //Initialize PNG loading
+        int imgFlags = IMG_INIT_PNG;
+        if( !( IMG_Init( imgFlags ) & imgFlags ) )
+        {
+            throw SDLException("SDL_image could not initialize! SDL_mage Error: %s\n", IMG_GetError() );
+        }
+    }
+}
+
+void close() {
+    //Quit SDL subsystems
+    IMG_Quit();
+    SDL_Quit();
+}
+
+int main() {
+    init();
+    Window window;
+    Font font("../SDL/font.ttf", 100);
+    Text health(font, window.getRenderer());
+    SDL_Event e;
+    bool quit = false;
+    //While application is running
+    while( !quit ) {
+        //Handle events on queue
+        while (SDL_PollEvent(&e) != 0) {
+            //User requests quit
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+            window.handleEvent(e);
+        }
+        health.updateText("2000");
+        health.render(100,100);
+        window.show();
+    }
+
+
+    return 0;
+}*/
+/////////////////////////////////////////////////////////// main de Marcos
+// ////////////////////////////////////////////////////////////////////////
+
+/*This source code copyrighted by Lazy Foo' Productions(2004-2020)
 and may not be redistributed without written permission.*/
 
 //Using SDL, SDL_image, standard math, and strings
+
 #include <SDL.h>
 #include <SDL_image.h>
-#include "SDLException.h"
+#include "SDL/SDLException.h"
 #include <iostream>
 #include "Character/Player.h"
 #include "Character/NPC.h"
@@ -12,6 +81,7 @@ and may not be redistributed without written permission.*/
 #include "GameConstants.h"
 #include "Timer.h"
 #include "Screen/Window.h"
+#include "SDL/Text.h"
 
 //Starts up SDL and creates window
 void init();
@@ -57,11 +127,14 @@ int main(int argc, char* args[]) {
         Window window;
         Timer moveTime;
         TextureRepository repo(window.getRenderer());
-        SDL_Rect camera = { 0, 0, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT };
+        SDL_Rect camera = { 0, 0, DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT };
         PlayerEquipment pEquipment = {MagicHat, ElfHead, BlueTunic, IronShield, LinkedStaff};
         Player player(repo, camera, 40, 30,pEquipment);
         NPC monster(repo, camera, 168, 30, Zombie);
         Map map(repo, camera);
+        Font font("../SDL/font.ttf", 25);
+        Text health(font, window.getRenderer());
+
         //Main loop flag
         bool quit = false;
 
@@ -99,14 +172,21 @@ int main(int argc, char* args[]) {
                 while (timeElapsed < 100) {
                     //Clear screen
                     window.clear();
+                    window.setViewport(MapViewport);
                     map.renderGround();
                     float timeStep = moveTime.getTicks();
-                    timeElapsed += timeStep; /*milisegundos desde start*/
+                    timeElapsed += timeStep;
+
                     timeStep = timeStep / 1000.f;
                     player.render(timeStep);
                     monster.render(timeStep);
                     map.renderStructures();
                     moveTime.start();
+
+                    //Stats
+                    window.setViewport(InventoryViewport);
+                    health.updateText("2000");
+                    health.render(0,0);
                     window.show();
                 }
             }
@@ -121,3 +201,4 @@ int main(int argc, char* args[]) {
 
 	return 0;
 }
+

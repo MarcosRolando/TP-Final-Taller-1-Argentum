@@ -1,0 +1,260 @@
+{
+  "Race" : [
+    {
+      "Name" : "Human",
+      "Health": 7,
+      "Mana" : 3,
+      "Constitution" : 5,
+      "Strength" : 5,
+      "Intelligence" : 5,
+      "Agility" : 5,
+      "MeditationRate": 3,
+      "RecoveryRate" : 6
+    },
+    {
+      "Name" : "Elf",
+      "Health": 3,
+      "Mana" : 8,
+      "Constitution" : 3,
+      "Strength" : 3,
+      "Intelligence" : 9,
+      "Agility" : 8,
+      "MeditationRate": 7,
+      "RecoveryRate" : 5
+    },
+    {
+      "Name" : "Dwarf",
+      "Health": 8,
+      "Mana" : 2,
+      "Constitution" : 8,
+      "Strength" : 9,
+      "Intelligence" : 5,
+      "Agility" : 3,
+      "MeditationRate": 2,
+      "RecoveryRate" : 7
+    },
+    {
+      "Name" : "Gnome",
+      "Health": 5,
+      "Mana" : 5,
+      "Constitution" : 7,
+      "Strength" : 4,
+      "Intelligence" : 8,
+      "Agility" : 2,
+      "MeditationRate": 5,
+      "RecoveryRate" : 4
+    }
+  ],
+  "Class" : [
+    {
+      "Name" : "Mage",
+      "Health": 5,
+      "Mana" : 10,
+      "Constitution" : 3,
+      "Strength" : 2,
+      "Intelligence" : 9,
+      "Agility" : 3,
+      "MeditationRate": 8,
+      "RecoveryRate" : 5
+    },
+    {
+      "Name" : "Cleric",
+      "Health": 7,
+      "Mana" : 7,
+      "Constitution" : 6,
+      "Strength" : 6,
+      "Intelligence" : 8,
+      "Agility" : 5,
+      "MeditationRate": 5,
+      "RecoveryRate" : 3
+    },
+    {
+      "Name" : "Paladin",
+      "Health": 8,
+      "Mana" : 6,
+      "Constitution" : 8,
+      "Strength" : 7,
+      "Intelligence" : 5,
+      "Agility" : 7,
+      "MeditationRate": 5,
+      "RecoveryRate" : 7
+    },
+    {
+      "Name" : "Warrior",
+      "Health": 9,
+      "Mana" : 0,
+      "Constitution" : 8,
+      "Strength" : 8,
+      "Intelligence" : 3,
+      "Agility" : 7,
+      "MeditationRate": 5,
+      "RecoveryRate" : 8
+    }
+  ],
+
+  "Monster" : [
+    {
+      "Name" : "Skeleton",
+      "Health" : 100,
+      "Damage" : 5,
+      "VisionRange" : 5,
+      "LevelMin" : 1,
+      "LevelMax" : 10
+    },
+    {
+      "Name" : "Zombie",
+      "Health" : 100,
+      "Damage" : 7,
+      "VisionRange" : 3,
+      "LevelMin" : 1,
+      "LevelMax" : 10
+    },
+    {
+      "Name" : "Spider",
+      "Health" : 100,
+      "Damage" : 2,
+      "VisionRange" : 8,
+      "LevelMin" : 1,
+      "LevelMax" : 10
+    },
+    {
+      "Name" : "Goblin",
+      "Health" : 100,
+      "Damage" : 5,
+      "VisionRange" : 5,
+      "LevelMin" : 1,
+      "LevelMax" : 10
+    }
+  ],
+
+  "Weapon" : [
+    {
+      "Type" : "LongSword",
+      "MinDmg" : 2,
+      "MaxDmg" : 5,
+      "Range" : 1,
+      "ManaConsumption" : 0
+    },
+    {
+      "Type" : "Axe",
+      "MinDmg" : 4,
+      "MaxDmg" : 5,
+      "Range" : 1,
+      "ManaConsumption" : 0
+    },
+    {
+      "Type" : "WarHammer",
+      "MinDmg" : 1,
+      "MaxDmg" : 9,
+      "Range" : 1,
+      "ManaConsumption" : 0
+    },
+    {
+      "Type" : "AshRod", //vara de fresno
+      "MinDmg" : 2,
+      "MaxDmg" : 4,
+      "Range" : 5,
+      "ManaConsumption" : 5
+    },
+    {
+      "Type" : "ElvenFlute",
+      "MinDmg" : 0,
+      "MaxDmg" : 0,
+      "Range" : 5,
+      "ManaConsumption" : 100
+    },
+    {
+      "Type" : "LinkedStaff", //Baculo engarzado
+      "MinDmg" : 8,
+      "MaxDmg" : 20,
+      "Range" : 5,
+      "ManaConsumption" : 30
+    },
+    {
+      "Type" : "SimpleBow",
+      "MinDmg" : 1,
+      "MaxDmg" : 4,
+      "Range" : 10,
+      "ManaConsumption" : 0
+    },
+    {
+      "Type" : "CompundBow",
+      "MinDmg" : 4,
+      "MaxDmg" : 16,
+      "Range" : 10,
+      "ManaConsumption" : 0
+    }
+  ],
+
+  "Clothing" : [
+    {
+      "Type": "CommonClothing",
+      "MinDefense": 0,
+      "MaxDefense": 1
+    },
+    {
+      "Type": "LeatherArmor",
+      "MinDefense": 2,
+      "MaxDefense": 6
+    },
+    {
+      "Type": "PlateArmor",
+      "MinDefense": 15,
+      "MaxDefense": 30
+    },
+    {
+      "Type": "BlueTunic",
+      "MinDefense": 6,
+      "MaxDefense": 10
+    },
+    {
+      "Type": "Hood",
+      "MinDefense": 1,
+      "MaxDefense": 4
+    },
+    {
+      "Type": "IronHelmet",
+      "MinDefense":4,
+      "MaxDefense": 8
+    },
+    {
+      "Type": "TurtleShield",
+      "MinDefense": 1,
+      "MaxDefense": 2
+    },
+    {
+      "Type": "IronShield",
+      "MinDefense": 1,
+      "MaxDefense": 4
+    },
+    {
+      "Type": "MagicHat",
+      "MinDefense": 4,
+      "MaxDefense": 12
+    }
+  ],
+
+  "GoldModifiers" : {
+    "MinRange" : 0,
+    "MaxRange" : 0.2,
+    "MaxSafeGoldFactor" : 100,
+    "MaxGoldLevelModifier" : 1.1
+  },
+
+  "XPModifiers" : {
+    "NextLevelFactor" : 1000,
+    "NextLevelModifier" : 1.8,
+    "MinKillXPModifier" : 0,
+    "MaxKillXPModifier" : 0.1,
+    "AttackXPModifier" : 10, //esto, se suma a la dif de nivel para calc xp ganado por un ataque
+    "KillXPModifier" : 10 //esto, se suma a la dif de nivel para calc xp ganado por una kill
+  },
+
+  "PlayerVisionRange" : 5,
+  "CritAttackProb" : 0.1,
+  "DodgeProb" : 0.1,
+  "NewbieLevel" : 12, //nivel hasta el cual se considera newbie
+  "MaxLevelDif" : 10, //Si la diferencia de nivel es mayor a 10 no podes atacar
+
+
+}

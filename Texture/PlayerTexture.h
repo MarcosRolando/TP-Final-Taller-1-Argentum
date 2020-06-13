@@ -7,7 +7,7 @@
 
 
 #include "EntityTexture.h"
-#include "../SDLException.h"
+#include "../SDL/SDLException.h"
 #include "TextureRepository.h"
 
 struct PlayerEquipment {

@@ -138,8 +138,8 @@ void Entity::_renderLastDirection(EntityTexture& eTexture) {
 
 void Entity::updateCamera() {
     //Center the camera over the entity
-    camera.x = ((int)xPosition + 25 / 2 ) - DEFAULT_SCREEN_WIDTH / 2;
-    camera.y = ((int)yPosition + 45 / 2 ) - DEFAULT_SCREEN_HEIGHT / 2;
+    camera.x = ((int)xPosition + 25 / 2 ) - DEFAULT_MAP_WIDTH / 2;
+    camera.y = ((int)yPosition + 45 / 2 ) - DEFAULT_MAP_HEIGHT / 2;
 
     //Keep the camera in bounds
     if (camera.x < 0) {

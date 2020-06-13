@@ -10,7 +10,8 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include "../SDLException.h"
+#include "../SDL/SDLException.h"
+#include "../SDL/Font.h"
 #include <string>
 #include <vector>
 
@@ -64,6 +65,11 @@ public:
     void render( int x, int y, int spritePosition = 0, int scale = 1);
 
     SpriteDimensions_t getSpriteDimensions(int spritePosition);
+
+    void loadFromRenderedText( std::string textureText, SDL_Color
+    textColor, TTF_Font* font );
+
+    void renderText(int x, int y);
 };
 
 
