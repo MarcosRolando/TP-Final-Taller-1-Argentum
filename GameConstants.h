@@ -17,6 +17,17 @@ const int DEFAULT_MAP_HEIGHT = 720;
 const int DEFAULT_INVENTORY_WIDTH = 300;
 const int DEFAULT_INVENTORY_HEIGHT = 720;
 
+//General para todas las barras
+const int BAR_WIDTH = 225;
+const int BAR_HEIGHT = 35;
+const int BAR_X_OFFSET = 40;
+
+//Barras individuales
+const int HEALTH_BAR_Y_OFFSET = 0;
+const int MANA_BAR_Y_OFFSET = 45;
+const int XP_BAR_Y_OFFSET = 90;
+
+
 //MiniChat Viewport
 const int DEFAULT_MINICHAT_WIDTH = DEFAULT_SCREEN_WIDTH;
 const int DEFAULT_MINICHAT_HEIGHT = 100;
