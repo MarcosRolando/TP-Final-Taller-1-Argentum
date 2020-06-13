@@ -185,8 +185,25 @@ int main(int argc, char* args[]) {
 
                     //Stats
                     window.setViewport(InventoryViewport);
-                    health.updateText("2000");
-                    health.render(0,0);
+                    int currHealth = 2000;
+                    int totalHealth = 5000;
+                    health.updateText("HEALTH: " + std::to_string(currHealth)
+                    + "/" + std::to_string(totalHealth));
+                    float healthBar = 225 * ((float)currHealth/
+                            (float)totalHealth);
+                    //Barra de vida
+                    SDL_Rect fillRect = {25, 0, (int)healthBar,35 };
+                    SDL_SetRenderDrawColor(&window.getRenderer(), 0xFF,
+                            0x00, 0x00, 0xFF );
+                    SDL_RenderFillRect( &window.getRenderer(), &fillRect );
+
+                    //outline de l abarra de vida
+                    SDL_Rect outlineRect = { 25, 0,
+                                             225, 35 };
+                    SDL_SetRenderDrawColor( &window.getRenderer(), 0x00, 0x00,
+                            0x00, 0xFF );
+                    SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
+                    health.render(25,0);
                     window.show();
                 }
             }
