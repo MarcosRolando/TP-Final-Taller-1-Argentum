@@ -11,7 +11,7 @@
 //se declara en el header por tener que declarar la funcion privada
 struct PointAndDistance {
     Coordinate point;
-    int distance;
+    unsigned int distance;
 };
 
 

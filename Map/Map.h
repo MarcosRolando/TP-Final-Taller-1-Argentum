@@ -9,6 +9,8 @@
 #include <list>
 #include "Tile.h"
 #include "Coordinate.h"
+#include "PointAndDistance.h"
+#include "InverseCoordinateDistance.h"
 
 
 class Map {
@@ -16,8 +18,16 @@ private:
     std::vector<std::vector<Tile>> tiles;
 
 private:
-    bool _isCoordinateValid(Coordinate coordinate);
+    void _storeAdjacentPositions(PointAndDistance refference,
+            std::unordered_map<Coordinate, unsigned int> distances,
+            std::unordered_map<Coordinate, Coordinate>& parentsAndChilds,
+            std::priority_queue<PointAndDistance, std::vector<PointAndDistance>,
+                                InverseCoordinateDistance>& nodes, Coordinate destination) const;
+    static unsigned int _getDistance(Coordinate a, Coordinate b);
+    bool _isCoordinateValid(Coordinate coordinate) const;
     Coordinate _getValidCoordinate(Coordinate coordinate) const;
+    static void _storePath(Coordinate initialPosition, Coordinate desiredPosition, const std::unordered_map<Coordinate,
+                           Coordinate>& parentsAndChilds, std::list<Coordinate>& path);
     void _buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topRight, Coordinate& bottomLeft) const;
     static bool _areCoordinatesEqual(Coordinate a, Coordinate b);
 public:
@@ -31,7 +41,9 @@ public:
     void getTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const;
 
     //Almacena en el vector el camino que se debe seguir para llegar a la coordenada deseada
-    void getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const;
+    //Si existe un camino retorna true y la informacion es guardada en path, sino retorna
+    //false y no guarda nada
+    bool getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const;
 
     //Agrega el item al tile que se encuentra en la coordenada recibida apropiandose del shared_ptr,
     //si la coordenada es invalida tira invalid_argument y no se apropia del puntero

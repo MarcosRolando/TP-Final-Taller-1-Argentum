@@ -9,15 +9,20 @@
 
 //////////////////////////////PRIVATE/////////////////////////////
 
+//Retorna la distancia (siempre positiva) entre las dos coordenadas
+unsigned int Map::_getDistance(Coordinate a, Coordinate b) {
+    return std::abs((a.iPosition - b.iPosition) + (a.jPosition - b.jPosition));
+}
+
 
 //Indica si la coordenada esta en el rango de posiciones del mapa
-bool Map::_isCoordinateValid(Coordinate coordinate) {
+bool Map::_isCoordinateValid(Coordinate coordinate) const {
     return (coordinate.jPosition >= 0) && (coordinate.jPosition < (int)tiles[0].size())
            && (coordinate.iPosition >= 0) && (coordinate.iPosition < (int)tiles.size());
 }
 
 
-bool Map::_areCoordinatesEqual(Coordinate a, Coordinate b) {
+bool Map::_areCoordinatesEqual(Coordinate a, Coordinate b){
     return (a.iPosition == b.iPosition) && (a.jPosition == b.jPosition);
 }
 
@@ -45,6 +50,52 @@ Coordinate Map::_getValidCoordinate(Coordinate coordinate) const {
     return coordinate;
 }
 
+//Guarda en nodes y parentsAndChilds los nodos correspondientes, revisando los
+//nodos que se encuentren adyacentes a referencia
+void Map::_storeAdjacentPositions(
+        PointAndDistance refference, std::unordered_map<Coordinate, unsigned int> distances,
+        std::unordered_map<Coordinate, Coordinate>& parentsAndChilds,
+        std::priority_queue<PointAndDistance, std::vector<PointAndDistance>,
+                            InverseCoordinateDistance>& nodes,
+        Coordinate destination) const {
+    Coordinate topRight;
+    Coordinate bottomLeft;
+    PointAndDistance aux;
+    _buildSearchRegion(refference.point, 1, topRight, bottomLeft);
+    for (int i = topRight.iPosition; i < bottomLeft.iPosition; ++i) {
+        for (int j = topRight.jPosition; j < bottomLeft.jPosition; ++j) {
+            aux.point.iPosition = i;
+            aux.point.jPosition = j;
+            aux.distance = _getDistance(refference.point, aux.point);
+            if ((aux.distance == 1) && (tiles[i][j].isAvailable())) {
+                aux.distance += refference.distance + _getDistance(aux.point, destination);
+                try {
+                    //auxDistance = distances.at(aux.point);
+                    if (distances.at(aux.point) > aux.distance) {
+                        nodes.push(aux);
+                        distances[aux.point] = aux.distance;
+                    }
+                } catch(std::out_of_range& e) {
+                    nodes.push(aux);
+                    distances[aux.point] = aux.distance;
+                }
+                parentsAndChilds[aux.point] = refference.point;
+            }
+        }
+    }
+}
+
+
+void Map::_storePath(Coordinate initialPosition, Coordinate desiredPosition,
+                     const std::unordered_map<Coordinate, Coordinate>& parentsAndChilds,
+                     std::list<Coordinate>& path) {
+    Coordinate aux = desiredPosition;
+    while (!_areCoordinatesEqual(aux, initialPosition)) {
+        path.push_front(aux);
+        aux = parentsAndChilds.at(aux);
+    }
+}
+
 
 //////////////////////////////PUBLIC/////////////////////////////
 
@@ -70,12 +121,15 @@ void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordina
     }
 }
 
-void Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const {
+bool Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const {
     std::vector<PointAndDistance> nodesVector;
     std::priority_queue<PointAndDistance, std::vector<PointAndDistance>, InverseCoordinateDistance> nodes;
 
     //Key: hijo, Dato: padre
     std::unordered_map<Coordinate, Coordinate> parentsAndChilds;
+
+    //Key:Posicion, Dato: distancia
+    std::unordered_map<Coordinate, unsigned int> distances;
 
     PointAndDistance aux;
     aux.point = currentPosition;
@@ -85,9 +139,12 @@ void Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::l
         aux = nodes.top();
         nodes.pop();
         if (_areCoordinatesEqual(aux.point, currentPosition)) {
-            return;
+            return true;
         }
+        _storeAdjacentPositions(aux, parentsAndChilds, nodes, desiredPosition);
+        _storePath(currentPosition, desiredPosition, parentsAndChilds, path);
     }
+    return false;
 }
 
 void Map::addItem(Coordinate position, std::shared_ptr<Item> &&item) {
