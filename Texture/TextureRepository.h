@@ -18,6 +18,7 @@ enum TextureID {
     IronShield,
     LeatherArmor,
     MagicHat,
+    MagicHatDrop,
     PlateArmor,
     TurtleShield,
     DwarfHead,

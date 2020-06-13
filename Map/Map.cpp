@@ -39,7 +39,7 @@ void Map::_setTiles() {
             //If the number is a valid tile number
             tiles.emplace_back(x, y, i%4, textureRepo.getTexture(Grass));
             if (i == 100) structures.emplace_back(x, y, textureRepo.getTexture(House2));
-            if (i == 110) tiles[110].addItemDrop(textureRepo.getTexture(LinkedStaffDrop));
+            if (i == 110) tiles[110].addItemDrop(textureRepo.getTexture(MagicHatDrop));
             /*
             if (tileType >= 0 ) {
                 tiles.emplace_back(x, y, i%4, textureRepo.getTexture(Grass));

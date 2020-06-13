@@ -13,6 +13,7 @@
 #define IRON_SHIELD_PATH "../Images/Clothing/IronShield.png"
 #define LEATHER_ARMOR_PATH "../Images/Clothing/LeatherArmor.png"
 #define MAGIC_HAT_PATH "../Images/Clothing/MagicHat.png"
+#define MAGIC_HAT_DROP_PATH "../Images/Clothing/MagicHatDrop.png"
 #define PLATE_ARMOR_PATH "../Images/Clothing/PlateArmor.png"
 #define TURTLE_SHIELD_PATH "../Images/Clothing/TurtleShield.png"
 #define DWARF_HEAD_PATH "../Images/Heads/DwarfHead.png"
@@ -108,6 +109,7 @@ void TextureRepository::_loadDrops() {
     _setImage(BlueTunicDrop, BLUE_TUNIC_DROP_PATH, 32, 32, 30, 30);
     _setImage(LongSwordDrop, LONG_SWORD_DROP_PATH, 32, 32, 30, 30);
     _setImage(LinkedStaffDrop, LINKED_STAFF_DROP_PATH, 32, 32, 30, 30);
+    _setImage(MagicHatDrop, MAGIC_HAT_DROP_PATH, 32, 32, 30, 30);
 }
 
 void TextureRepository::_loadClothing() {
