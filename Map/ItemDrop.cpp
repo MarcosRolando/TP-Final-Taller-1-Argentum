@@ -2,7 +2,6 @@
 // Created by marcos on 6/13/20.
 //
 
-#include "../GameConstants.h"
 #include "ItemDrop.h"
 
 ItemDrop::ItemDrop(int x, int y) : sTexture(nullptr) {

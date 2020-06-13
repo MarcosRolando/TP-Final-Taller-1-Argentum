@@ -19,9 +19,6 @@ public:
     void render(SDL_Rect& camera);
 
     void setItem(Texture& itemTexture);
-
-private:
-    static bool _checkCollision(SDL_Rect a, SDL_Rect b);
 };
 
 
