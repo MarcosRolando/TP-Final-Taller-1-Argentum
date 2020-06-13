@@ -29,7 +29,7 @@ public:
 
     void addInventoryItem(TextureID texture);
 
-    void addEquippedItem(TextureID texture, EquippedItems item);
+    void addEquipableItem(TextureID texture, EquippedItems item);
 
     void render();
 
@@ -41,9 +41,9 @@ private:
 
     void _renderInventoryItems();
 
-    void _drawEquippedOutlines();
+    void _drawEquipableOutlines();
 
-    void _renderEquippedItems();
+    void _renderEquipableItems();
 };
 
 

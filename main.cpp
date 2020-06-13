@@ -76,14 +76,17 @@ int main(int argc, char* args[]) {
 
         //Event handler
         SDL_Event e;
+
+        //Prueba de llenado de inventario
         for (int i = 0; i < 13; ++i) {
             inventoryGui.addInventoryItem(BlueTunicDrop);
         }
 
-        inventoryGui.addEquippedItem(BlueTunicDrop, Helmet);
-        inventoryGui.addEquippedItem(BlueTunicDrop, Armor);
-        inventoryGui.addEquippedItem(BlueTunicDrop, Weapon);
-        inventoryGui.addEquippedItem(BlueTunicDrop, Shield);
+        //LLeno los items equipables
+        inventoryGui.addEquipableItem(BlueTunicDrop, Helmet);
+        inventoryGui.addEquipableItem(BlueTunicDrop, Armor);
+        inventoryGui.addEquipableItem(BlueTunicDrop, Weapon);
+        inventoryGui.addEquipableItem(BlueTunicDrop, Shield);
 
         //While application is running
         while( !quit )
@@ -129,7 +132,6 @@ int main(int argc, char* args[]) {
 
                     //Stats
                     window.setViewport(InventoryViewport);
-
                     inventoryGui.render();
                     playerInfo.updateHealth(currHealth, totalHealth);
                     playerInfo.updateMana(currMana, totalMana);

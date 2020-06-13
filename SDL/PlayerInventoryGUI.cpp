@@ -13,9 +13,10 @@ PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,
 
 void PlayerInventoryGUI::render(){
     _drawInventoryOutlines();
-    _drawEquippedOutlines();
+    _drawEquipableOutlines();
     _renderInventoryItems();
-    _renderEquippedItems();
+    _renderEquipableItems();
+
 }
 
 void PlayerInventoryGUI::_renderInventoryItems(){
@@ -28,12 +29,21 @@ void PlayerInventoryGUI::_renderInventoryItems(){
     }
 }
 
-void PlayerInventoryGUI::_renderEquippedItems(){
-    //Siempre tiene que haber algo equipado
-    equippedTextures.at(Helmet)->render(85, 475,0,2);
-    equippedTextures.at(Shield)->render(10, 575, 0, 2);
-    equippedTextures.at(Armor)->render(85, 575, 0, 2);
-    equippedTextures.at(Weapon)->render(160, 575, 0, 2);
+void PlayerInventoryGUI::_renderEquipableItems(){
+    if(equippedTextures.count(Helmet)){
+        equippedTextures.at(Helmet)->render(85, 475,0,2);
+    }
+    if(equippedTextures.count(Shield)){
+        equippedTextures.at(Shield)->render(10, 575, 0, 2);
+
+    }
+    if(equippedTextures.count(Armor)){
+        equippedTextures.at(Armor)->render(85, 575, 0, 2);
+
+    }
+    if(equippedTextures.count(Weapon)){
+        equippedTextures.at(Weapon)->render(160, 575, 0, 2);
+    }
 }
 
 void PlayerInventoryGUI::_drawInventoryOutlines(){
@@ -48,7 +58,7 @@ void PlayerInventoryGUI::_drawInventoryOutlines(){
     }
 }
 
-void PlayerInventoryGUI::_drawEquippedOutlines(){
+void PlayerInventoryGUI::_drawEquipableOutlines(){
     SDL_Rect outlineRect;
     for (int j = 0; j < 3; ++j) {
         outlineRect = { 50 + 75 * j, 600, 50, 75 };
@@ -72,7 +82,7 @@ void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
     inventoryTextures.push_back(&repo.getTexture(texture));
 }
 
-void PlayerInventoryGUI::addEquippedItem(TextureID texture, EquippedItems item){
+void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item){
     Texture* currTexture = &repo.getTexture(texture);
     equippedTextures.emplace(item, currTexture);
 }
