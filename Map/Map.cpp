@@ -38,7 +38,8 @@ void Map::_setTiles() {
 
             //If the number is a valid tile number
             tiles.emplace_back(x, y, i%4, textureRepo.getTexture(Grass));
-            if (i == 40) structures.emplace_back(x, y, textureRepo.getTexture(BlueTunicDrop));
+            if (i == 100) structures.emplace_back(x, y, textureRepo.getTexture(House2));
+            if (i == 40) tiles[40].addItemDrop(textureRepo.getTexture(BlueTunicDrop));
             /*
             if (tileType >= 0 ) {
                 tiles.emplace_back(x, y, i%4, textureRepo.getTexture(Grass));

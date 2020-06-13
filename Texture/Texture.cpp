@@ -69,7 +69,7 @@ void Texture::free() {
     }
 }
 
-void Texture::render(int x, int y, int spritePosition, int scale) {
+void Texture::render(int x, int y, int spritePosition, int scale, double angle) {
     //Set rendering space and render to screen
     SDL_Rect renderQuad = {x + xOffset, y + yOffset, mWidth, mHeight};
     SDL_Rect& clip = gSpriteClips.at(spritePosition);
@@ -79,7 +79,7 @@ void Texture::render(int x, int y, int spritePosition, int scale) {
     renderQuad.h = clip.h*scale;
 
     //Render to screen
-    SDL_RenderCopy(&renderer, mTexture, &clip, &renderQuad);
+    SDL_RenderCopyEx(&renderer, mTexture, &clip, &renderQuad, angle, nullptr, SDL_FLIP_NONE);
 }
 
 void Texture::addSprite(int x, int y, int width, int height) {

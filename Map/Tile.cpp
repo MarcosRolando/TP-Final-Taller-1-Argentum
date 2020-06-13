@@ -6,51 +6,18 @@
 #include "../GameConstants.h"
 
 Tile::Tile(int x, int y, int tileType, Texture& tileTexture)
-            : tileTexture(tileTexture) {
+            : tileTexture(tileTexture), item(x, y) {
     box = {x, y, TILE_WIDTH, TILE_HEIGHT};
     //Get the tile type
     type = tileType;
 }
 
-/*
-bool Tile::_checkCollision(SDL_Rect a, SDL_Rect b) {
-    //The sides of the rectangles
-    int leftA, leftB;
-    int rightA, rightB;
-    int topA, topB;
-    int bottomA, bottomB;
-    //Calculate the sides of rect A
-    leftA = a.x;
-    rightA = a.x + a.w;
-    topA = a.y;
-    bottomA = a.y + a.h;
-
-    //Calculate the sides of rect B
-    leftB = b.x;
-    rightB = b.x + b.w;
-    topB = b.y;
-    bottomB = b.y + b.h;
-
-    //If any of the sides from A are outside of B
-    if(bottomA <= topB) return false;
-    if(topA >= bottomB) return false;
-    if(rightA <= leftB) return false;
-    if(leftA >= rightB) return false;
-
-    //If none of the sides from A are outside B
-    return true;
-}
-*/ //VER SI LO QUITO YA QUE AHORA DIRECTO IMPRIMO LAS QUE QUIERO DESDE EL MAPA
-
 void Tile::render(SDL_Rect& camera) {
     //If the tile is on screen
     tileTexture.render(box.x - camera.x, box.y - camera.y, type);
+    item.render(camera);
 }
 
-int Tile::getType() const {
-    return type;
-}
-
-SDL_Rect Tile::getBox() const {
-    return box;
+void Tile::addItemDrop(Texture& itemTexture) {
+    item.setItem(itemTexture);
 }

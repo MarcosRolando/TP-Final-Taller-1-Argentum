@@ -6,12 +6,14 @@
 #define ARGENTUM_TILE_H
 
 #include "../Texture/Texture.h"
+#include "ItemDrop.h"
 
 class Tile {
 private:
     //The attributes of the tile
     SDL_Rect box{};
     Texture& tileTexture;
+    ItemDrop item;
     //The tile type
     int type;
 
@@ -22,14 +24,7 @@ public:
     //Shows the tile
     void render(SDL_Rect& camera);
 
-    //Get the tile type
-    int getType() const;
-
-    //Get the collision box
-    SDL_Rect getBox() const;
-
-private:
-    static bool _checkCollision(SDL_Rect a, SDL_Rect b);
+    void addItemDrop(Texture& itemTexture);
 };
 
 

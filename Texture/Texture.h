@@ -62,9 +62,9 @@ public:
     void free();
 
     //Renders texture at given point
-    void render( int x, int y, int spritePosition = 0, int scale = 1);
+    void render( int x, int y, int spritePosition = 0, int scale = 1, double angle = 0);
 
-    SpriteDimensions_t getSpriteDimensions(int spritePosition);
+    SpriteDimensions_t getSpriteDimensions(int spritePosition = 0);
 
     void loadFromRenderedText( std::string textureText, SDL_Color
     textColor, TTF_Font* font );
