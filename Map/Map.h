@@ -7,6 +7,8 @@
 
 #include <vector>
 #include <list>
+#include <unordered_map>
+#include <queue>
 #include "Tile.h"
 #include "Coordinate.h"
 #include "PointAndDistance.h"

@@ -40,8 +40,8 @@ void Monster::_storeNearestPlayerPathCache() {
     if (positions.size() != 0) {
         std::vector<std::list<Coordinate>> allPaths/*(positions.size())*/;
         std::list<Coordinate> aux;
-        for (int i = 0; i < positions.size(); ++i) {
-            if (map.getPath(currentPosition, positions[i], aux)) {
+        for (auto & position : positions) {
+            if (map.getPath(currentPosition, position, aux)) {
                 allPaths.push_back(std::move(aux));
                 if (allPaths[allPaths.size() - 1].size() < allPaths[nearestTargetIndex].size()) {
                     nearestTargetIndex = allPaths.size() - 1;
