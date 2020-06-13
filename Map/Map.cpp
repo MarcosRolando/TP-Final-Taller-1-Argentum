@@ -188,3 +188,8 @@ bool Map::moveEntity(Coordinate startingPosition, Coordinate finalPosition) {
             std::move(tiles[startingPosition.iPosition][startingPosition.jPosition]);
     return true;
 }
+
+bool Map::isPlaceAvailable(Coordinate position) {
+    return _isCoordinateValid(position) &&
+            tiles[position.iPosition][position.jPosition].isAvailable();
+}

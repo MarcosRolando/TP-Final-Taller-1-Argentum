@@ -69,6 +69,9 @@ public:
     //entonces retorna false, sino retorna true
     //Si alguna de las coordenadas es invalida tira invalid_argument
     bool moveEntity(Coordinate startingPosition, Coordinate finalPosition);
+
+    //Retorna true si el lugar puede ser ocupado por una entity, false en caso contrario
+    bool isPlaceAvailable(Coordinate position);
 };
 
 
