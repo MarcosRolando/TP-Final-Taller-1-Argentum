@@ -35,6 +35,8 @@ enum TextureID {
     LongSwordDrop,
     SimpleBow,
     WarHammer,
+    HealthPotion,
+    ManaPotion,
     Grass,
     Sand,
     Stone,

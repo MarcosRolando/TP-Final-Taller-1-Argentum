@@ -30,6 +30,8 @@
 #define LONG_SWORD_DROP_PATH "../Images/Items/LongSwordDrop.png"
 #define SIMPLE_BOW_PATH "../Images/Items/SimpleBow.png"
 #define WAR_HAMMER_PATH "../Images/Items/WarHammer.png"
+#define HEALTH_POTION_PATH "../Images/Items/HealthPotion.png"
+#define MANA_POTION_PATH "../Images/Items/ManaPotion.png"
 #define GRASS_PATH "../Images/Map/Grass.png"
 #define SAND_PATH "../Images/Map/Sand.png"
 #define STONE_PATH "../Images/Map/Stone.png"
@@ -110,6 +112,8 @@ void TextureRepository::_loadDrops() {
     _setImage(LongSwordDrop, LONG_SWORD_DROP_PATH, 32, 32, 30, 30);
     _setImage(LinkedStaffDrop, LINKED_STAFF_DROP_PATH, 32, 32, 30, 30);
     _setImage(MagicHatDrop, MAGIC_HAT_DROP_PATH, 32, 32, 30, 30);
+    _setImage(HealthPotion, HEALTH_POTION_PATH, 32, 32, 30, 30);
+    _setImage(ManaPotion, MANA_POTION_PATH, 32, 32, 30, 30);
 }
 
 void TextureRepository::_loadClothing() {
