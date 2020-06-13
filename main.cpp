@@ -1,13 +1,6 @@
-#include <iostream>
-#include "FileReader.h"
-#include "Configuration.h"
-#include "Calculator.h"
-#include "SDL/SoundRepository.h"
+/*#include <iostream>
 #include "SDL/Text.h"
 #include "Screen/Window.h"
-#include <unistd.h>
-#include <queue>
-#include <random>
 
 //Starts up SDL and creates window
 void init();
@@ -47,33 +40,6 @@ void close() {
 
 int main() {
     init();
-    /*Modifiers classMods = Configuration::getInstance().configWarriorModifiers();
-    Modifiers raceMods = Configuration::getInstance().configHumanModifiers();
-    //WeaponStats weapon = Configuration::getInstance().configLongSwordStats();
-    std::cout <<" candodge " << Calculator::canDodge(classMods, raceMods);
-
-    SoundRepository test;
-    test.playMusic();
-    char sound;
-    do {
-        std::cin >> sound;
-        if (sound == 'a')
-         test.queueSound(Attack);
-     if (sound == 'e')
-         test.queueSound(Explotion);
-    if (sound == 's')
-        test.queueSound(StepDirt);
-    if (sound == 'p')
-        test.queueSound(Punch);
-    if (sound == 'w')
-        test.pauseMusic();
-    if (sound == 'd')
-        test.playMusic();
-    }while (sound != 'q');
-
-    test.playSounds();
-
-    std::cin >> sound;*/
     Window window;
     Font font("../SDL/font.ttf", 100);
     Text health(font, window.getRenderer());
@@ -96,7 +62,7 @@ int main() {
 
 
     return 0;
-}
+}*/
 /////////////////////////////////////////////////////////// main de Marcos
 // ////////////////////////////////////////////////////////////////////////
 
@@ -104,7 +70,7 @@ int main() {
 and may not be redistributed without written permission.*/
 
 //Using SDL, SDL_image, standard math, and strings
-/*
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include "SDL/SDLException.h"
@@ -115,6 +81,7 @@ and may not be redistributed without written permission.*/
 #include "GameConstants.h"
 #include "Timer.h"
 #include "Screen/Window.h"
+#include "SDL/Text.h"
 
 //Starts up SDL and creates window
 void init();
@@ -165,6 +132,9 @@ int main(int argc, char* args[]) {
         Player player(repo, camera, 40, 30,pEquipment);
         NPC monster(repo, camera, 168, 30, Guard);
         Map map(repo, camera);
+        Font font("../SDL/font.ttf", 25);
+        Text health(font, window.getRenderer());
+
         //Main loop flag
         bool quit = false;
 
@@ -202,16 +172,21 @@ int main(int argc, char* args[]) {
                 while (timeElapsed < 50) {
                     //Clear screen
                     window.clear();
+                    window.setViewport(MapViewport);
                     map.renderGround();
                     float timeStep = moveTime.getTicks();
-                    timeElapsed += timeStep; */
-/*milisegundos desde start*//*
+                    timeElapsed += timeStep;
 
                     timeStep = timeStep / 1000.f;
                     player.render(timeStep);
                     monster.render(timeStep);
                     map.renderStructures();
                     moveTime.start();
+
+                    //Stats
+                    window.setViewport(InventoryViewport);
+                    health.updateText("2000");
+                    health.render(0,0);
                     window.show();
                 }
             }
@@ -226,4 +201,4 @@ int main(int argc, char* args[]) {
 
 	return 0;
 }
-*/
+

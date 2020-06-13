@@ -6,6 +6,10 @@
 #define ARGENTUM_WINDOW_H
 
 #include <SDL.h>
+#include <unordered_map>
+
+enum Viewports {MapViewport, InventoryViewport, MinichatViewport};
+
 
 class Window {
 private:
@@ -13,6 +17,7 @@ private:
     SDL_Window* mWindow;
     SDL_Renderer* renderer;
 
+    std::unordered_map<Viewports, SDL_Rect> viewports;
     //Window dimensions
     int mWidth;
     int mHeight;
@@ -44,7 +49,14 @@ public:
 
     void show();
 
+    int getWidth();
+    int getHeight();
+
     ~Window();
+
+    void _createViewports();
+
+    void setViewport(Viewports viewport);
 };
 
 #endif //ARGENTUM_WINDOW_H

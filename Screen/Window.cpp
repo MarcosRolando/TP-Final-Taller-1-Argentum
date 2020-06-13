@@ -16,8 +16,22 @@ Window::Window() {
     mMinimized = false;
     mWidth = 0;
     mHeight = 0;
+    _createViewports();
     _createWindow();
     _createRenderer();
+}
+
+void Window::_createViewports(){
+    viewports.emplace(MapViewport, SDL_Rect{0,0,DEFAULT_MAP_WIDTH,
+                                             DEFAULT_MAP_HEIGHT});
+
+    viewports.emplace(InventoryViewport, SDL_Rect{DEFAULT_MAP_WIDTH,0,
+                                                  DEFAULT_INVENTORY_WIDTH,
+                                                  DEFAULT_INVENTORY_HEIGHT});
+
+    viewports.emplace(MinichatViewport, SDL_Rect{0, DEFAULT_MAP_HEIGHT,
+                                                 DEFAULT_MINICHAT_WIDTH,
+                                            DEFAULT_MINICHAT_HEIGHT});
 }
 
 void Window::_createWindow() {
@@ -141,4 +155,8 @@ void Window::show() {
 
 bool Window::isMinimized() const {
     return mMinimized;
+}
+
+void Window::setViewport(Viewports viewport){
+    SDL_RenderSetViewport(renderer, &viewports.at(viewport));
 }

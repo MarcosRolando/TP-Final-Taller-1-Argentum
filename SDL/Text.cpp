@@ -13,7 +13,7 @@ void Text::updateText(const std::string& newText){
 }
 
 void Text::render(int x, int y){
-    SDL_Color textColor = { 0xFF, 0xFF, 0xFF };
+    SDL_Color textColor = { 0x00, 0x00, 0x00 };
     textTexture.loadFromRenderedText(text, textColor, font.getFont());
     textTexture.renderText(x,y);
 }
