@@ -14,7 +14,7 @@ const int TOTAL_VERTICAL_TILES = 16;
 const int TOTAL_TILES = TOTAL_HORIZONTAL_TILES*TOTAL_VERTICAL_TILES;
 
 //Screen base constants
-const int DEFAULT_SCREEN_WIDTH = 1452;
+const int DEFAULT_SCREEN_WIDTH = 1552;
 const int DEFAULT_SCREEN_HEIGHT = 868;
 
 const int VISIBLE_HORIZONTAL_TILES = 9;
@@ -25,13 +25,13 @@ const int DEFAULT_MAP_WIDTH = TILE_WIDTH*VISIBLE_HORIZONTAL_TILES; /*1152*/
 const int DEFAULT_MAP_HEIGHT = TILE_HEIGHT*VISIBLE_VERTICAL_TILES; /*768*/
 
 //Inventory Viewport
-const int DEFAULT_INVENTORY_WIDTH = 300;
+const int DEFAULT_INVENTORY_WIDTH = 400;
 const int DEFAULT_INVENTORY_HEIGHT = 768;
 
 //General para todas las barras
 const int BAR_WIDTH = 225;
 const int BAR_HEIGHT = 35;
-const int BAR_X_OFFSET = 40;
+const int BAR_X_OFFSET = 90;
 
 //Barras individuales
 const int HEALTH_BAR_Y_OFFSET = 0;

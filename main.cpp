@@ -86,15 +86,21 @@ int main(int argc, char* args[]) {
         SDL_Event e;
 
         //Prueba de llenado de inventario
-        for (int i = 0; i < 13; ++i) {
-            inventoryGui.addInventoryItem(BlueTunicDrop);
-        }
+        inventoryGui.addInventoryItem(BlueTunicDrop);
+        inventoryGui.addInventoryItem(MagicHatDrop);
+        inventoryGui.addInventoryItem(BlueTunicDrop);
+        inventoryGui.addInventoryItem(HealthPotion);
+        inventoryGui.addInventoryItem(LinkedStaffDrop);
+        inventoryGui.addInventoryItem(LongSwordDrop);
+        inventoryGui.addInventoryItem(ManaPotion);
+
+
 
         //LLeno los items equipables
-        inventoryGui.addEquipableItem(BlueTunicDrop, Helmet);
+       // inventoryGui.addEquipableItem(BlueTunicDrop, Helmet);
         inventoryGui.addEquipableItem(BlueTunicDrop, Armor);
-        inventoryGui.addEquipableItem(BlueTunicDrop, Weapon);
-        inventoryGui.addEquipableItem(BlueTunicDrop, Shield);
+        inventoryGui.addEquipableItem(LongSwordDrop, Weapon);
+       // inventoryGui.addEquipableItem(BlueTunicDrop, Shield);
 
         //While application is running
         while( !quit )
