@@ -111,7 +111,7 @@ void TextureRepository::_loadDrops() {
     _setImage(BlueTunicDrop, BLUE_TUNIC_DROP_PATH, 32, 32, 30, 30);
     _setImage(LongSwordDrop, LONG_SWORD_DROP_PATH, 32, 32, 30, 30);
     _setImage(LinkedStaffDrop, LINKED_STAFF_DROP_PATH, 32, 32, 30, 30);
-    _setImage(MagicHatDrop, MAGIC_HAT_DROP_PATH, 32, 32, 30, 30);
+    _setImage(MagicHatDrop, MAGIC_HAT_DROP_PATH, 32, 32, 33, 30);
     _setImage(HealthPotion, HEALTH_POTION_PATH, 32, 32, 30, 30);
     _setImage(ManaPotion, MANA_POTION_PATH, 32, 32, 30, 30);
 }
