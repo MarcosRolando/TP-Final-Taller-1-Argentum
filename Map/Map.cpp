@@ -51,9 +51,10 @@ Coordinate Map::_getValidCoordinate(Coordinate coordinate) const {
 }
 
 //Guarda en nodes y parentsAndChilds los nodos correspondientes, revisando los
-//nodos que se encuentren adyacentes a referencia
+//nodos que se encuentren adyacentes a referencia, tambien actualiza las distancias
+//de los nodos de ser necesario
 void Map::_storeAdjacentPositions(
-        PointAndDistance refference, std::unordered_map<Coordinate, unsigned int> distances,
+        PointAndDistance refference, std::unordered_map<Coordinate, unsigned int>& distances,
         std::unordered_map<Coordinate, Coordinate>& parentsAndChilds,
         std::priority_queue<PointAndDistance, std::vector<PointAndDistance>,
                             InverseCoordinateDistance>& nodes,
@@ -70,16 +71,16 @@ void Map::_storeAdjacentPositions(
             if ((aux.distance == 1) && (tiles[i][j].isAvailable())) {
                 aux.distance += refference.distance + _getDistance(aux.point, destination);
                 try {
-                    //auxDistance = distances.at(aux.point);
                     if (distances.at(aux.point) > aux.distance) {
                         nodes.push(aux);
                         distances[aux.point] = aux.distance;
+                        parentsAndChilds[aux.point] = refference.point;
                     }
                 } catch(std::out_of_range& e) {
                     nodes.push(aux);
                     distances[aux.point] = aux.distance;
+                    parentsAndChilds[aux.point] = refference.point;
                 }
-                parentsAndChilds[aux.point] = refference.point;
             }
         }
     }
@@ -139,10 +140,10 @@ bool Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::l
         aux = nodes.top();
         nodes.pop();
         if (_areCoordinatesEqual(aux.point, currentPosition)) {
+            _storePath(currentPosition, desiredPosition, parentsAndChilds, path);
             return true;
         }
-        _storeAdjacentPositions(aux, parentsAndChilds, nodes, desiredPosition);
-        _storePath(currentPosition, desiredPosition, parentsAndChilds, path);
+        _storeAdjacentPositions(aux, distances, parentsAndChilds, nodes, desiredPosition);
     }
     return false;
 }

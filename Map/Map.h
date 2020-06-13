@@ -19,7 +19,7 @@ private:
 
 private:
     void _storeAdjacentPositions(PointAndDistance refference,
-            std::unordered_map<Coordinate, unsigned int> distances,
+            std::unordered_map<Coordinate, unsigned int>& distances,
             std::unordered_map<Coordinate, Coordinate>& parentsAndChilds,
             std::priority_queue<PointAndDistance, std::vector<PointAndDistance>,
                                 InverseCoordinateDistance>& nodes, Coordinate destination) const;
