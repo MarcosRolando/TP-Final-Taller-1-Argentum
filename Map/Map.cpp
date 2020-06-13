@@ -59,8 +59,7 @@ void Map::_storeAdjacentPositions(
         std::priority_queue<PointAndDistance, std::vector<PointAndDistance>,
                             InverseCoordinateDistance>& nodes,
         Coordinate destination) const {
-    Coordinate topRight;
-    Coordinate bottomLeft;
+    Coordinate topRight, bottomLeft;
     PointAndDistance aux;
     _buildSearchRegion(refference.point, 1, topRight, bottomLeft);
     for (int i = topRight.iPosition; i < bottomLeft.iPosition; ++i) {
@@ -102,9 +101,7 @@ unsigned int Map::attackTile(unsigned int damage, unsigned int level,
 }
 
 void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const {
-    Coordinate topRight;
-    Coordinate bottomLeft;
-    Coordinate aux;
+    Coordinate topRight, bottomLeft, aux;
     _buildSearchRegion(center, range, topRight, bottomLeft);
     for (int i = topRight.iPosition; i < bottomLeft.iPosition; ++i) {
         for (int j = topRight.jPosition; j < bottomLeft.jPosition; ++j) {
