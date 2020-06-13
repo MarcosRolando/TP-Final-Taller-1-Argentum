@@ -16,14 +16,17 @@ private:
     int health;
     unsigned int damage;
     unsigned int rangeOfVision;
+
+    //Guarda parte del camino para no llamar al pathfinding cada vez que se
+    //quiera mover
+    std::list<Coordinate> pathCache;
+
     //Guarda el mapa para ver sus alrededores, el juego lo guarda para poder
     //modificarlo
     const Map& map;
     Game& game;
 private:
-    //Retorna el daño que el monstruo intenta realizar
-    //VER SI ESTE RETORNO ES NECESARIO
-    unsigned int _attack();
+    bool _tryToAttack();
 
     void _move();
 public:

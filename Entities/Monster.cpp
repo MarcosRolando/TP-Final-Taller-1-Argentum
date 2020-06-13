@@ -9,12 +9,17 @@
 
 
 
-//VER SI HACE FALTA QUE RETORNE EL DAÑO QUE VA A HACER
-unsigned int Monster::_attack() {
-    return damage;
+//Intenta atacar en sus alrededores, si no encuentra un jugador a quien atacar
+//no hace nada y retorna false, sino vacia pathCache, ataca y retorna true
+bool Monster::_tryToAttack() {
+    //return damage;
+    std::vector<Coordinate> targets;
+    map.getTargets();
 }
 
-
+//Pide al game que lo mueva a la siguiente posicion en pathCache, si pathCache
+//esta vacio entonces busca el jugador mas cercano en su rango de vision y le
+//pide al mapa un camino a este
 void Monster::_move() {
 
 
@@ -41,7 +46,6 @@ Monster::Monster(Game &_game, const Map& _map, unsigned int _health,
                  map(_map), game(_game) {
     health = _health;
     rangeOfVision = _rangeOfVision;
-    timeBetweenActions = _timeBetweenActions;
     timer = time(0);
 }
 
