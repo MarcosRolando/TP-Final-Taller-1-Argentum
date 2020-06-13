@@ -48,16 +48,16 @@ void PlayerInventoryGUI::_renderEquipableItems(){
     if(equippedTextures.count(Helmet)){
         equippedTextures.at(Helmet)->render(115, 475,0,2);
     }
-    if(equippedTextures.count(Shield)){
-        equippedTextures.at(Shield)->render(40, 575, 0, 2);
+    if(equippedTextures.count(Weapon)){
+        equippedTextures.at(Weapon)->render(40, 575, 0, 2);
 
     }
     if(equippedTextures.count(Armor)){
         equippedTextures.at(Armor)->render(115, 575, 0, 2);
 
     }
-    if(equippedTextures.count(Weapon)){
-        equippedTextures.at(Weapon)->render(192, 575, 0, 2);
+    if(equippedTextures.count(Shield)){
+        equippedTextures.at(Shield)->render(192, 575, 0, 2);
     }
 }
 
