@@ -29,7 +29,7 @@ private:
 private:
     unsigned int _getDistance(Coordinate a, Coordinate b);
 
-    Coordinate _getNearestPosition(Coordinate refference, const std::vector<Coordinate> positions);
+    void _storeNearestPlayerPathCache();
 
     bool _tryToAttack();
 

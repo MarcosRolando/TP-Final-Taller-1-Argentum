@@ -13,7 +13,7 @@ unsigned int Monster::_getDistance(Coordinate a, Coordinate b) {
     return std::abs((a.iPosition - b.iPosition) + (a.jPosition - b.jPosition));
 }
 
-
+/*
 //Retorna la coordenada a menor distancia de refference, no deberia ser llamada
 //en un vector vacio
 Coordinate Monster::_getNearestPosition(Coordinate refference, std::vector<Coordinate> positions) {
@@ -29,7 +29,32 @@ Coordinate Monster::_getNearestPosition(Coordinate refference, std::vector<Coord
     }
     return nearest;
 }
+*/
 
+//Guarda parte del camino al jugador al cual tiene que moverse la menor cantidad
+//de veces para alcanzarlo
+void Monster::_storeNearestPlayerPathCache() {
+    unsigned int nearestTargetIndex = 0;
+    std::vector<Coordinate> positions;
+    map.getTargets(currentPosition, rangeOfVision, positions);
+    if (positions.size() != 0) {
+        std::vector<std::list<Coordinate>> allPaths/*(positions.size())*/;
+        std::list<Coordinate> aux;
+        for (int i = 0; i < positions.size(); ++i) {
+            if (map.getPath(currentPosition, positions[i], aux)) {
+                allPaths.push_back(std::move(aux));
+                if (allPaths[allPaths.size() - 1].size() < allPaths[nearestTargetIndex].size()) {
+                    nearestTargetIndex = allPaths.size() - 1;
+                }
+                aux.clear();
+            }
+        }
+        pathCache = std::move(allPaths[nearestTargetIndex]);
+        if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
+            pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
+        }
+    }
+}
 
 //Intenta atacar en sus alrededores, si no encuentra un jugador a quien atacar
 //no hace nada y retorna false, sino vacia pathCache, ataca y retorna true
@@ -59,13 +84,7 @@ void Monster::_move() {
         pathCache.clear();
     }
     if (pathCache.empty()) {
-        std::vector<std::list<Coordinate>> allPaths;
-        std::vector<Coordinate> positions;
-        map.getTargets(currentPosition, rangeOfVision, positions);
-        map.getPath(currentPosition, _getNearestPosition(currentPosition, positions), pathCache);
-        if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
-            pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
-        }
+        _storeNearestPlayerPathCache();
     }
 
     //IMPLEMENTAR EL PEDIDO A GAME PARA CAMBIAR DE POSICION
