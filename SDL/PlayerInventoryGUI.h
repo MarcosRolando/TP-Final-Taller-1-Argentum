@@ -7,6 +7,14 @@
 
 #include "../Texture/TextureRepository.h"
 #include <vector>
+#include <unordered_map>
+
+enum EquippedItems{
+    Helmet,
+    Armor,
+    Weapon,
+    Shield,
+};
 
 class PlayerInventoryGUI {
 private:
@@ -14,20 +22,28 @@ private:
     TextureRepository& repo;
     SDL_Renderer& renderer;
     std::vector<Texture*> inventoryTextures;
-    std::vector<Texture*> equippedTextures;
+    std::unordered_map<EquippedItems, Texture*> equippedTextures;
 
 public:
     PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer);
 
-    void addItem(TextureID texture);
+    void addInventoryItem(TextureID texture);
+
+    void addEquippedItem(TextureID texture, EquippedItems item);
 
     void render();
 
-    void _drawOutlines();
-
     ~PlayerInventoryGUI();
 
-    void _renderItems();
+private:
+
+    void _drawInventoryOutlines();
+
+    void _renderInventoryItems();
+
+    void _drawEquippedOutlines();
+
+    void _renderEquippedItems();
 };
 
 
