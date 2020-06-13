@@ -3,10 +3,13 @@
 //
 
 #include <queue>
+#include <unordered_map>
 #include "Map.h"
 #include "InverseCoordinateDistance.h"
 
 //////////////////////////////PRIVATE/////////////////////////////
+
+
 //Indica si la coordenada esta en el rango de posiciones del mapa
 bool Map::_isCoordinateValid(Coordinate coordinate) {
     return (coordinate.jPosition >= 0) && (coordinate.jPosition < (int)tiles[0].size())
@@ -70,6 +73,10 @@ void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordina
 void Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const {
     std::vector<PointAndDistance> nodesVector;
     std::priority_queue<PointAndDistance, std::vector<PointAndDistance>, InverseCoordinateDistance> nodes;
+
+    //Key: hijo, Dato: padre
+    std::unordered_map<Coordinate, Coordinate> parentsAndChilds;
+
     PointAndDistance aux;
     aux.point = currentPosition;
     aux.distance = 0;
