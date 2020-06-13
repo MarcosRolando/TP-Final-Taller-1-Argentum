@@ -16,9 +16,9 @@ Window::Window() {
     mMinimized = false;
     mWidth = 0;
     mHeight = 0;
-    _createViewports();
     _createWindow();
     _createRenderer();
+    _createViewports();
 }
 
 void Window::_createViewports(){
