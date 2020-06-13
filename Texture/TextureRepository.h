@@ -44,7 +44,8 @@ enum TextureID {
     Guard,
     Tree,
     LongTree,
-    Bush
+    Bush,
+    House1
 };
 
 class TextureRepository {

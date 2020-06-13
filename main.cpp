@@ -94,9 +94,9 @@ int main(int argc, char* args[]) {
                 }
             }
 
-            float timeElapsed = 0;
             if (!window.isMinimized()) {
-                while (timeElapsed < 50) {
+                float timeElapsed = 0;
+                while (timeElapsed < 100) {
                     //Clear screen
                     window.clear();
                     map.renderGround();
