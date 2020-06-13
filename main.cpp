@@ -8,7 +8,8 @@
 #include "GameConstants.h"
 #include "Timer.h"
 #include "Screen/Window.h"
-#include "SDL/PlayerInfo.h"
+#include "SDL/PlayerInfoGUI.h"
+#include "SDL/PlayerInventoryGUI.h"
 
 //Starts up SDL and creates window
 void init();
@@ -60,7 +61,8 @@ int main(int argc, char* args[]) {
         NPC monster(repo, camera, 168, 30, Zombie);
         Map map(repo, camera);
         Font font("../SDL/font.ttf", 25);
-        PlayerInfo playerInfo(font, window.getRenderer());
+        PlayerInfoGUI playerInfo(font, window.getRenderer());
+        PlayerInventoryGUI inventoryGui(repo, window.getRenderer());
 
         //Main loop flag
         bool quit = false;
@@ -119,7 +121,7 @@ int main(int argc, char* args[]) {
 
                     //Stats
                     window.setViewport(InventoryViewport);
-
+                    inventoryGui.render();
                     playerInfo.updateHealth(currHealth, totalHealth);
                     playerInfo.updateMana(currMana, totalMana);
                     playerInfo.updateXP(currXP, totalXP);

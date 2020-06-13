@@ -2,29 +2,30 @@
 // Created by ivan on 13/6/20.
 //
 
-#ifndef ARGENTUM_PLAYERINFO_H
-#define ARGENTUM_PLAYERINFO_H
+#ifndef ARGENTUM_PLAYERINFOGUI_H
+#define ARGENTUM_PLAYERINFOGUI_H
 
 #include "Text.h"
 
-class PlayerInfo {
+class PlayerInfoGUI {
 private:
     Text info;
     SDL_Renderer& renderer;
 
 public:
-    PlayerInfo(Font& font, SDL_Renderer& renderer);
-    ~PlayerInfo();
+    PlayerInfoGUI(Font& font, SDL_Renderer& renderer);
 
     void updateHealth(unsigned int currHealth, unsigned int totalHealth);
-
-    void _renderInfo(unsigned int infoCurr, unsigned int infoTotal, int yOffset,
-            SDL_Color color);
 
     void updateMana(unsigned int currMana, unsigned int totalMana);
 
     void updateXP(unsigned int currXP, unsigned int nextLevelXP);
+
+    ~PlayerInfoGUI();
+private:
+    void _renderInfo(unsigned int infoCurr, unsigned int infoTotal, int yOffset,
+                     SDL_Color color);
 };
 
 
-#endif //ARGENTUM_PLAYERINFO_H
+#endif //ARGENTUM_PLAYERINFOGUI_H

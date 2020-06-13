@@ -2,34 +2,34 @@
 // Created by ivan on 13/6/20.
 //
 
-#include "PlayerInfo.h"
+#include "PlayerInfoGUI.h"
 #include "../GameConstants.h"
 
-PlayerInfo::PlayerInfo(Font &font, SDL_Renderer &renderer) : info(font,
-        renderer), renderer(renderer) {}
+PlayerInfoGUI::PlayerInfoGUI(Font &font, SDL_Renderer &renderer) : info(font,
+                                                                        renderer), renderer(renderer) {}
 
 
-void PlayerInfo::updateHealth(unsigned int currHealth, unsigned int
+void PlayerInfoGUI::updateHealth(unsigned int currHealth, unsigned int
 totalHealth){
     info.updateText("HEALTH: " + std::to_string(currHealth)
                       + "/" + std::to_string(totalHealth));
     _renderInfo(currHealth, totalHealth, HEALTH_BAR_Y_OFFSET, {0xFF,0x00,0x00});
 }
 
-void PlayerInfo::updateMana(unsigned int currMana, unsigned int totalMana){
+void PlayerInfoGUI::updateMana(unsigned int currMana, unsigned int totalMana){
     info.updateText("MANA: " + std::to_string(currMana)
                     + "/" + std::to_string(totalMana));
     _renderInfo(currMana, totalMana, MANA_BAR_Y_OFFSET, {0x00,0x00,0xFF});
 }
 
-void PlayerInfo::updateXP(unsigned int currXP, unsigned int nextLevelXP){
+void PlayerInfoGUI::updateXP(unsigned int currXP, unsigned int nextLevelXP){
     info.updateText("XP: " + std::to_string(currXP)
                     + "/" + std::to_string(nextLevelXP));
     _renderInfo(currXP, nextLevelXP, XP_BAR_Y_OFFSET, {0x00,0xFF,0x00});
 }
 
-void PlayerInfo::_renderInfo(unsigned int infoCurr, unsigned int infoTotal,
-        int yOffset, SDL_Color color){
+void PlayerInfoGUI::_renderInfo(unsigned int infoCurr, unsigned int infoTotal,
+                                int yOffset, SDL_Color color){
     float healthBar = BAR_WIDTH * ((float)infoCurr/(float)infoTotal);
 
     //Barra
@@ -44,5 +44,5 @@ void PlayerInfo::_renderInfo(unsigned int infoCurr, unsigned int infoTotal,
     info.render(BAR_X_OFFSET, yOffset);
 }
 
-PlayerInfo::~PlayerInfo() {}
+PlayerInfoGUI::~PlayerInfoGUI() {}
 
