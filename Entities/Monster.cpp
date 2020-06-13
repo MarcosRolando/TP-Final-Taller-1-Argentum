@@ -59,6 +59,7 @@ void Monster::_move() {
         pathCache.clear();
     }
     if (pathCache.empty()) {
+        std::vector<std::list<Coordinate>> allPaths;
         std::vector<Coordinate> positions;
         map.getTargets(currentPosition, rangeOfVision, positions);
         map.getPath(currentPosition, _getNearestPosition(currentPosition, positions), pathCache);
