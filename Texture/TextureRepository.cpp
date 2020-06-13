@@ -6,6 +6,7 @@
 #include "../GameConstants.h"
 
 #define BLUE_TUNIC_PATH "../Images/Clothing/BlueTunic.png"
+#define BLUE_TUNIC_DROP_PATH "../Images/Clothing/BlueTunicInv.png"
 #define COMMON_CLOTHING_PATH "../Images/Clothing/CommonClothing.png"
 #define HOOD_PATH "../Images/Clothing/Hood.png"
 #define IRON_HELMET_PATH "../Images/Clothing/IronHelmet.png"
@@ -51,6 +52,11 @@ TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer
     _loadTiles();
     _loadStructures();
     _loadNPCS();
+    _loadInventory();
+}
+
+void TextureRepository::_loadInventory() {
+    _setImage(BlueTunicDrop, BLUE_TUNIC_DROP_PATH, 32, 32, 30, 30);
 }
 
 void TextureRepository::_loadClothing() {
@@ -89,12 +95,12 @@ void TextureRepository::_loadTiles() {
 }
 
 void TextureRepository::_loadStructures() {
-    _setStructureImage(Tree, TREE_PATH, 256, 256, -64, -194);
-    _setStructureImage(LongTree, LONG_TREE_PATH, 256, 256);
-    _setStructureImage(Bush, BUSH_PATH, 75, 65, 30, 40);
-    _setStructureImage(House1, HOUSE1_PATH, 196, 200, 30, -100);
-    _setStructureImage(House2, HOUSE2_PATH, 181, 213, 30, -100);
-    _setStructureImage(House3, HOUSE3_PATH, 200, 239, 30, -120);
+    _setImage(Tree, TREE_PATH, 256, 256, -64, -194);
+    _setImage(LongTree, LONG_TREE_PATH, 256, 256);
+    _setImage(Bush, BUSH_PATH, 75, 65, 30, 40);
+    _setImage(House1, HOUSE1_PATH, 196, 200, 30, -100);
+    _setImage(House2, HOUSE2_PATH, 181, 213, 30, -100);
+    _setImage(House3, HOUSE3_PATH, 200, 239, 30, -120);
 }
 
 void TextureRepository::_loadNPCS() {
@@ -108,7 +114,7 @@ void TextureRepository::_loadNPCS() {
     _setNPCImage(Guard, GUARD_PATH, 28, 52);
 }
 
-void TextureRepository::_setStructureImage(TextureID textureID, std::string&& structureImage,
+void TextureRepository::_setImage(TextureID textureID, std::string&& structureImage,
                                                 int width, int height, int xOffset, int yOffset) {
     try {
         //Load sprite sheet texture

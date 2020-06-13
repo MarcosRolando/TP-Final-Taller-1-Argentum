@@ -11,6 +11,7 @@
 enum TextureID {
     Nothing, /*Lo uso para el equipo del Player*/
     BlueTunic,
+    BlueTunicDrop,
     CommonClothing,
     Hood,
     IronHelmet,
@@ -66,8 +67,9 @@ private:
     void _loadTiles();
     void _loadStructures();
     void _loadNPCS();
+    void _loadInventory();
 
-    void _setStructureImage(TextureID textureID, std::string&& structureImage,
+    void _setImage(TextureID textureID, std::string&& structureImage,
                     int width, int height, int xOffset = 0, int yOffset = 0);
     void _setNPCImage(TextureID textureID, std::string&& npcImage, int width, int height
                                                 , int xOffset = 0, int yOffset = 0);
