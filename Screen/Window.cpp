@@ -5,7 +5,7 @@
 #include "Window.h"
 #include "../GameConstants.h"
 #include "../SDL/SDLException.h"
-#include <iostream>
+
 Window::Window() {
     //Initialize non-existant window
     mWindow = nullptr;
@@ -83,6 +83,7 @@ void Window::handleEvent(SDL_Event& e) {
                 //Window has keyboard focus
             case SDL_WINDOWEVENT_FOCUS_GAINED:
                 mKeyboardFocus = true;
+                mMinimized = false;
                 break;
 
                 //Window lost keyboard focus
