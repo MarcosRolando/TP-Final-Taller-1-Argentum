@@ -16,6 +16,7 @@ private:
     int health;
     unsigned int damage;
     unsigned int rangeOfVision;
+    unsigned int level;
 
     //Guarda parte del camino para no llamar al pathfinding cada vez que se
     //quiera mover
@@ -26,6 +27,10 @@ private:
     const Map& map;
     Game& game;
 private:
+    unsigned int _getDistance(Coordinate a, Coordinate b);
+
+    Coordinate _getNearestPosition(Coordinate refference, const std::vector<Coordinate> positions);
+
     bool _tryToAttack();
 
     void _move();
