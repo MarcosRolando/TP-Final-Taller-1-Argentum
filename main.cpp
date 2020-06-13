@@ -61,6 +61,8 @@ int main(int argc, char* args[]) {
         Map map(repo, camera);
         Font font("../SDL/font.ttf", 25);
         Text health(font, window.getRenderer());
+        Text mana(font, window.getRenderer());
+        Text experience(font, window.getRenderer());
 
         //Main loop flag
         bool quit = false;
@@ -112,8 +114,66 @@ int main(int argc, char* args[]) {
 
                     //Stats
                     window.setViewport(InventoryViewport);
-                    health.updateText("2000");
-                    health.render(0,0);
+                    //Health
+                    int currHealth = 2000;
+                    int totalHealth = 5000;
+                    health.updateText("HEALTH: " + std::to_string(currHealth)
+                    + "/" + std::to_string(totalHealth));
+                    float healthBar = 225 * ((float)currHealth/
+                            (float)totalHealth);
+                    //Barra de vida
+                    SDL_Rect fillRect = {25, 0, (int)healthBar,35 };
+                    SDL_SetRenderDrawColor(&window.getRenderer(), 0xFF,
+                            0x00, 0x00, 0xFF );
+                    SDL_RenderFillRect( &window.getRenderer(), &fillRect );
+
+                    //outline de la barra de vida
+                    SDL_Rect outlineRect = { 25, 0,225, 35 };
+                    SDL_SetRenderDrawColor( &window.getRenderer(), 0x00,0x00,
+                            0x00, 0xFF );
+                    SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
+                    health.render(25,0);
+
+
+                    //Mana
+                    int currMana = 4500;
+                    int totalMana = 5000;
+                    mana.updateText("MANA: " + std::to_string(currMana)
+                                      + "/" + std::to_string(totalMana));
+                    float manaBar = 225 * ((float)currMana/
+                                             (float)totalMana);
+                    //Barra de vida
+                    fillRect = {25, 45, (int)manaBar,35 };
+                    SDL_SetRenderDrawColor(&window.getRenderer(), 0x00,
+                                           0x00, 0xFF, 0xFF );
+                    SDL_RenderFillRect( &window.getRenderer(), &fillRect );
+
+                    //outline de la barra de mana
+                    outlineRect = { 25, 45,225, 35 };
+                    SDL_SetRenderDrawColor( &window.getRenderer(), 0x00,0x00,
+                                            0x00, 0xFF );
+                    SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
+                    mana.render(25,45);
+
+                    //XP
+                    int currXP = 32000;
+                    int totalXP = 50000;
+                    experience.updateText("XP: " + std::to_string(currXP)
+                                    + "/" + std::to_string(totalXP));
+                    float XPBar = 225 * ((float)currXP/
+                                           (float)totalXP);
+                    //Barra de vida
+                    fillRect = {25, 90, (int)XPBar,35 };
+                    SDL_SetRenderDrawColor(&window.getRenderer(), 0x00,
+                                           0xFF, 0x00, 0xFF );
+                    SDL_RenderFillRect( &window.getRenderer(), &fillRect );
+
+                    //outline de la barra de mana
+                    outlineRect = { 25, 90,225, 35 };
+                    SDL_SetRenderDrawColor( &window.getRenderer(), 0x00,0x00,
+                                            0x00, 0xFF );
+                    SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
+                    experience.render(25,90);
                     window.show();
                 }
             }
