@@ -6,7 +6,6 @@
 #define ARGENTUM_INVERSECOORDINATEDISTANCE_H
 
 
-#include "Map.h"
 #include "PointAndDistance.h"
 
 //Functor utilizado para obtener el nodo de menor distancia en la priority_queue
