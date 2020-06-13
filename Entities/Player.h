@@ -8,7 +8,6 @@
 
 #include "../Items/Inventory.h"
 #include "Entity.h"
-#include "../Items/Weapon.h"
 
 enum Direction{
     DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT
@@ -24,7 +23,6 @@ private:
     //unsigned int maxHealth;
     unsigned int level;
     unsigned int experience;
-    Weapon equippedWeapon;
 public:
     Player(unsigned int maxHealth, unsigned int maxMana, Coordinate initialPosition);
 

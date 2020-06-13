@@ -12,14 +12,18 @@
 #include "Item.h"
 //#include "../Entities/Player.h"
 #include "Defense/Clothing.h"
+#include "Weapon.h"
 
 class Player;
 
+//Esta clase representa los items que almacena y tiene equipados el jugador
 class Inventory {
 private:
     unsigned int storedItemsAmmount;
     std::vector<std::shared_ptr<Item>> items;
-    std::unordered_map<EquipmentPlace, std::shared_ptr<Clothing>> equipment;
+    std::unordered_map<EquipmentPlace, std::shared_ptr<Clothing>> clothingEequipment;
+    Weapon equippedWeapon;
+
 private:
     void manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);
 
