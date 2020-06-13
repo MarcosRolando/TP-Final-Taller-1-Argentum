@@ -4,13 +4,13 @@
 
 #include "Texture.h"
 
-Texture::Texture(SDL_Renderer& renderer, int xOff, int yOff) : renderer(renderer) {
+Texture::Texture(SDL_Renderer& renderer) : renderer(renderer) {
     //Initialize
     mTexture = nullptr;
     mWidth = 0;
     mHeight = 0;
-    xOffset = xOff;
-    yOffset = yOff;
+    xOffset = 0;
+    yOffset = 0;
 }
 
 Texture::~Texture() {
@@ -18,7 +18,7 @@ Texture::~Texture() {
     free();
 }
 
-void Texture::loadFromFile(const std::string& path, ColorKey_t key) {
+void Texture::loadFromFile(const std::string& path, ColorKey_t key, int xOff, int yOff) {
     //Get rid of preexisting texture
     free();
 
@@ -54,6 +54,9 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key) {
     }
 
     mTexture = newTexture;
+
+    xOffset = xOff;
+    yOffset = yOff;
 }
 
 void Texture::free() {
