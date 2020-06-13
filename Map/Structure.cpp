@@ -6,7 +6,7 @@
 #include "../GameConstants.h"
 
 Structure::Structure(int x, int y, Texture& sTexture) : sTexture(sTexture) {
-    SpriteDimensions_t dimensions = sTexture.getSpriteDimensions(0);
+    SpriteDimensions_t dimensions = sTexture.getSpriteDimensions();
     box = {x, y, dimensions.witdth, dimensions.heigth};
 }
 
@@ -42,7 +42,7 @@ void Structure::render(SDL_Rect& camera) {
     //If the tile is on screen
     if (_checkCollision(camera, box)) {
         //Show the tile
-        sTexture.render(box.x - camera.x, box.y - camera.y, 0, 2);
+        sTexture.render(box.x - camera.x, box.y - camera.y);
     }
 }
 

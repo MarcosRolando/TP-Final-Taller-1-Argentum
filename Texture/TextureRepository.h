@@ -18,6 +18,7 @@ enum TextureID {
     IronShield,
     LeatherArmor,
     MagicHat,
+    MagicHatDrop,
     PlateArmor,
     TurtleShield,
     DwarfHead,
@@ -29,9 +30,13 @@ enum TextureID {
     CompoundBow,
     ElvenFlute,
     LinkedStaff,
+    LinkedStaffDrop,
     LongSword,
+    LongSwordDrop,
     SimpleBow,
     WarHammer,
+    HealthPotion,
+    ManaPotion,
     Grass,
     Sand,
     Stone,
@@ -48,7 +53,28 @@ enum TextureID {
     Bush,
     House1,
     House2,
-    House3
+    House3,
+    Explosion0,
+    Explosion1,
+    Explosion2,
+    Explosion3,
+    Explosion4,
+    Explosion5,
+    Explosion6,
+    Explosion7,
+    Explosion8,
+    Explosion9,
+    Explosion10,
+    Explosion11,
+    Explosion12,
+    Explosion13,
+    Explosion14,
+    Explosion15,
+    Explosion16,
+    Explosion17,
+    Explosion18,
+    Explosion19,
+    Explosion20
 };
 
 class TextureRepository {
@@ -67,7 +93,8 @@ private:
     void _loadTiles();
     void _loadStructures();
     void _loadNPCS();
-    void _loadInventory();
+    void _loadDrops();
+    void _loadSpells();
 
     void _setImage(TextureID textureID, std::string&& structureImage,
                     int width, int height, int xOffset = 0, int yOffset = 0);

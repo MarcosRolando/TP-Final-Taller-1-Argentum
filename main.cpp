@@ -10,6 +10,7 @@
 #include "Screen/Window.h"
 #include "SDL/PlayerInfoGUI.h"
 #include "SDL/PlayerInventoryGUI.h"
+#include "Spells/Spell.h"
 
 //Starts up SDL and creates window
 void init();
@@ -59,6 +60,13 @@ int main(int argc, char* args[]) {
         PlayerEquipment pEquipment = {MagicHat, ElfHead, BlueTunic, IronShield, LinkedStaff};
         Player player(repo, camera, 40, 30,pEquipment);
         NPC monster(repo, camera, 168, 30, Zombie);
+
+        std::vector<Texture*> explosions;
+        for (int i = Explosion0; i <= Explosion20; ++i) {
+            explosions.push_back(&repo.getTexture(static_cast<TextureID>(i)));
+        }
+        Spell explosion(std::move(explosions), camera, TILE_WIDTH*3, TILE_HEIGHT*3);
+
         Map map(repo, camera);
         Font font("../SDL/font.ttf", 25);
         PlayerInfoGUI playerInfo(font, window.getRenderer());
@@ -113,7 +121,7 @@ int main(int argc, char* args[]) {
                     }
                 }
             }
-
+            
             if (!window.isMinimized()) {
                 float timeElapsed = 0;
                 while (timeElapsed < 100) {
@@ -128,6 +136,7 @@ int main(int argc, char* args[]) {
                     player.render(timeStep);
                     monster.render(timeStep);
                     map.renderStructures();
+                    explosion.render(timeStep);
                     moveTime.start();
 
                     //Stats
