@@ -121,6 +121,9 @@ int main(int argc, char* args[]) {
 
                     //Stats
                     window.setViewport(InventoryViewport);
+                    for (int i = 0; i < 16; ++i) {
+                        inventoryGui.addItem(BlueTunicDrop);
+                    }
                     inventoryGui.render();
                     playerInfo.updateHealth(currHealth, totalHealth);
                     playerInfo.updateMana(currMana, totalMana);
