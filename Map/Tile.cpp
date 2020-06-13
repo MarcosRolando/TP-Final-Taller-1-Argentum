@@ -12,6 +12,7 @@ Tile::Tile(int x, int y, int tileType, Texture& tileTexture)
     type = tileType;
 }
 
+/*
 bool Tile::_checkCollision(SDL_Rect a, SDL_Rect b) {
     //The sides of the rectangles
     int leftA, leftB;
@@ -39,13 +40,11 @@ bool Tile::_checkCollision(SDL_Rect a, SDL_Rect b) {
     //If none of the sides from A are outside B
     return true;
 }
+*/ //VER SI LO QUITO YA QUE AHORA DIRECTO IMPRIMO LAS QUE QUIERO DESDE EL MAPA
 
 void Tile::render(SDL_Rect& camera) {
     //If the tile is on screen
-    if (_checkCollision(camera, box)) {
-        //Show the tile
-        tileTexture.render(box.x - camera.x, box.y - camera.y, type);
-    }
+    tileTexture.render(box.x - camera.x, box.y - camera.y, type);
 }
 
 int Tile::getType() const {

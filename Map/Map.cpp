@@ -6,8 +6,6 @@
 #include <fstream>
 #include "../GameConstants.h"
 
-const int TOTAL_TILES = 192;
-
 Map::Map(TextureRepository& repo, SDL_Rect& camera) : textureRepo(repo), camera(camera) {
     this->camera = camera;
     _setTiles();
@@ -27,10 +25,10 @@ void Map::_setTiles() {
         //Initialize the tiles
         for (int i = 0; i < TOTAL_TILES; ++i) {
             //Determines what kind of tile will be made
-            int tileType = -1;
+            //int tileType = -1;
 
             //Read tile from map file
-            mapFile >> tileType;
+            //mapFile >> tileType;
 
             //If the was a problem in reading the map
             if (mapFile.fail()) {
@@ -39,13 +37,16 @@ void Map::_setTiles() {
             }
 
             //If the number is a valid tile number
+            tiles.emplace_back(x, y, i%4, textureRepo.getTexture(Grass));
+            if (i == 100) structures.emplace_back(x, y, textureRepo.getTexture(House3));
+            /*
             if (tileType >= 0 ) {
                 tiles.emplace_back(x, y, i%4, textureRepo.getTexture(Grass));
                 if (i == 100) structures.emplace_back(x, y, textureRepo.getTexture(House3));
             } else {
                 throw SDLException("Error loading map: Invalid tile type at %d!\n", i);
             }
-
+            */
             //Move to next tile spot
             x += TILE_WIDTH;
 
@@ -64,8 +65,17 @@ void Map::_setTiles() {
 }
 
 void Map::renderGround() {
-    for (auto & tile : tiles) {
-        tile.render(camera);
+    for (int i = 0; i < (VISIBLE_VERTICAL_TILES + 1); ++i) {
+        for (int j = 0; j < (VISIBLE_HORIZONTAL_TILES + 1); ++j) {
+            float x = (float)camera.x + (float)j * TILE_WIDTH;
+            float y = (float)camera.y + (float)i * TILE_HEIGHT;
+            if (x >= LEVEL_WIDTH) continue;
+            if (y >= LEVEL_HEIGHT) continue;
+            int xTile = floor(x / TILE_WIDTH);
+            int yTile = floor(y / TILE_HEIGHT);
+            int tile = yTile*TOTAL_HORIZONTAL_TILES + xTile;
+            tiles[tile].render(camera);
+        }
     }
 }
 
