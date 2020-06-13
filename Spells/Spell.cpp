@@ -5,7 +5,8 @@
 #include "Spell.h"
 #include "../GameConstants.h"
 
-const float animationTime = 150.f;
+const float ANIMATION_TIME = 150.f;
+const int SPELL_SPEED = 200;
 
 Spell::Spell(std::vector<Texture*>&& textures, SDL_Rect &camera, float x, float y) :
                                 sTextures(textures), camera(camera) {
@@ -19,16 +20,21 @@ Spell::Spell(std::vector<Texture*>&& textures, SDL_Rect &camera, float x, float 
 
 void Spell::_updateFrame(float timeStep) {
     //Calculate time step
-    float offset = SPEED*timeStep;
-    if ( (timePassed + offset) >= animationTime) {
+    float offset = SPELL_SPEED*timeStep;
+    if ( (timePassed + offset) >= ANIMATION_TIME) {
         timePassed = 150.f;
     } else {
         timePassed += offset;
     }
-    for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del spell*/
-        if (timePassed < ((float)animationTime/6 * (float)(i+1))) {
-            currentFrame = i;
-            break;
+    if (timePassed >= 150.f) {
+        currentFrame = 0;
+        timePassed = 0;
+    } else {
+        for (int i = 0; i < 20; ++i) { /*6 es la cantidad de frames distintos del spell*/
+            if (timePassed < ((float)ANIMATION_TIME/20 * (float)(i+1))) {
+                currentFrame = i;
+                break;
+            }
         }
     }
 }
