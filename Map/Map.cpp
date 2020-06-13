@@ -70,13 +70,8 @@ void Map::_storeAdjacentPositions(
             aux.distance = _getDistance(refference.point, aux.point);
             if ((aux.distance == 1) && (tiles[i][j].isAvailable())) {
                 aux.distance += refference.distance + _getDistance(aux.point, destination);
-                try {
-                    if (distances.at(aux.point) > aux.distance) {
-                        nodes.push(aux);
-                        distances[aux.point] = aux.distance;
-                        parentsAndChilds[aux.point] = refference.point;
-                    }
-                } catch(std::out_of_range& e) {
+                if ((distances.count(aux.point) == 0) ||
+                    (distances.at(aux.point) > aux.distance)) {
                     nodes.push(aux);
                     distances[aux.point] = aux.distance;
                     parentsAndChilds[aux.point] = refference.point;
