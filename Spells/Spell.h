@@ -6,10 +6,11 @@
 #define ARGENTUM_SPELL_H
 
 #include "../Texture/Texture.h"
+#include <vector>
 
 class Spell {
 private:
-    Texture& sTexture;
+    std::vector<Texture*> sTextures;
     SDL_Rect& camera;
     float timePassed;
     int currentFrame;
@@ -17,7 +18,7 @@ private:
     float yPosition, height;
 
 public:
-    Spell(Texture& texture, SDL_Rect& camera, float x, float y);
+    Spell(std::vector<Texture*>&& textures, SDL_Rect& camera, float x, float y);
     void render(float timeStep);
 
 private:

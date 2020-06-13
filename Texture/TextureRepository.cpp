@@ -44,6 +44,28 @@
 #define HOUSE1_PATH "../Images/Map/House1.png"
 #define HOUSE2_PATH "../Images/Map/House2.png"
 #define HOUSE3_PATH "../Images/Map/House3.png"
+#define EXPLOSION0_PATH "../Images/Spells/Explosion0.png"
+#define EXPLOSION1_PATH "../Images/Spells/Explosion1.png"
+#define EXPLOSION2_PATH "../Images/Spells/Explosion2.png"
+#define EXPLOSION3_PATH "../Images/Spells/Explosion3.png"
+#define EXPLOSION4_PATH "../Images/Spells/Explosion4.png"
+#define EXPLOSION5_PATH "../Images/Spells/Explosion5.png"
+#define EXPLOSION6_PATH "../Images/Spells/Explosion6.png"
+#define EXPLOSION7_PATH "../Images/Spells/Explosion7.png"
+#define EXPLOSION8_PATH "../Images/Spells/Explosion8.png"
+#define EXPLOSION9_PATH "../Images/Spells/Explosion9.png"
+#define EXPLOSION10_PATH "../Images/Spells/Explosion10.png"
+#define EXPLOSION11_PATH "../Images/Spells/Explosion11.png"
+#define EXPLOSION12_PATH "../Images/Spells/Explosion12.png"
+#define EXPLOSION13_PATH "../Images/Spells/Explosion13.png"
+#define EXPLOSION14_PATH "../Images/Spells/Explosion14.png"
+#define EXPLOSION15_PATH "../Images/Spells/Explosion15.png"
+#define EXPLOSION16_PATH "../Images/Spells/Explosion16.png"
+#define EXPLOSION17_PATH "../Images/Spells/Explosion17.png"
+#define EXPLOSION18_PATH "../Images/Spells/Explosion18.png"
+#define EXPLOSION19_PATH "../Images/Spells/Explosion19.png"
+#define EXPLOSION20_PATH "../Images/Spells/Explosion20.png"
+
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
     _loadClothing();
@@ -53,6 +75,31 @@ TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer
     _loadStructures();
     _loadNPCS();
     _loadInventory();
+    _loadSpells();
+}
+
+void TextureRepository::_loadSpells() {
+    _setImage(Explosion0, EXPLOSION0_PATH, 256, 256);
+    _setImage(Explosion1, EXPLOSION1_PATH, 256, 256);
+    _setImage(Explosion2, EXPLOSION2_PATH, 256, 256);
+    _setImage(Explosion3, EXPLOSION3_PATH, 256, 256);
+    _setImage(Explosion4, EXPLOSION4_PATH, 256, 256);
+    _setImage(Explosion5, EXPLOSION5_PATH, 256, 256);
+    _setImage(Explosion6, EXPLOSION6_PATH, 256, 256);
+    _setImage(Explosion7, EXPLOSION7_PATH, 256, 256);
+    _setImage(Explosion8, EXPLOSION8_PATH, 256, 256);
+    _setImage(Explosion9, EXPLOSION9_PATH, 256, 256);
+    _setImage(Explosion10, EXPLOSION10_PATH, 256, 256);
+    _setImage(Explosion11, EXPLOSION11_PATH, 256, 256);
+    _setImage(Explosion12, EXPLOSION12_PATH, 256, 256);
+    _setImage(Explosion13, EXPLOSION13_PATH, 256, 256);
+    _setImage(Explosion14, EXPLOSION14_PATH, 256, 256);
+    _setImage(Explosion15, EXPLOSION15_PATH, 256, 256);
+    _setImage(Explosion16, EXPLOSION16_PATH, 256, 256);
+    _setImage(Explosion17, EXPLOSION17_PATH, 256, 256);
+    _setImage(Explosion18, EXPLOSION18_PATH, 256, 256);
+    _setImage(Explosion19, EXPLOSION19_PATH, 256, 256);
+    _setImage(Explosion20, EXPLOSION20_PATH, 256, 256);
 }
 
 void TextureRepository::_loadInventory() {

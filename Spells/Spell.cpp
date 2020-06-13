@@ -7,8 +7,8 @@
 
 const float animationTime = 150.f;
 
-Spell::Spell(Texture& texture, SDL_Rect &camera, float x, float y) :
-                                sTexture(texture), camera(camera) {
+Spell::Spell(std::vector<Texture*>&& textures, SDL_Rect &camera, float x, float y) :
+                                sTextures(textures), camera(camera) {
     currentFrame = 0;
     timePassed = 0;
     xPosition = x;
@@ -64,7 +64,7 @@ bool Spell::_checkCollision(SDL_Rect a, SDL_Rect b) {
 void Spell::render(float timeStep) {
     _updateFrame(timeStep);
     if (_checkCollision(camera, {(int)xPosition, (int)yPosition, (int)width, (int)height})) {
-        sTexture.render((int)(xPosition) - camera.x,
-                            (int)(yPosition) - camera.y, currentFrame);
+        sTextures[currentFrame]->render((int)(xPosition) - camera.x,
+                                                (int)(yPosition) - camera.y);
     };
 }
