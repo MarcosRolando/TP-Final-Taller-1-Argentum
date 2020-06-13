@@ -6,7 +6,7 @@
 #include "../GameConstants.h"
 
 #define BLUE_TUNIC_PATH "../Images/Clothing/BlueTunic.png"
-#define BLUE_TUNIC_DROP_PATH "../Images/Clothing/BlueTunicInv.png"
+#define BLUE_TUNIC_DROP_PATH "../Images/Clothing/BlueTunicDrop.png"
 #define COMMON_CLOTHING_PATH "../Images/Clothing/CommonClothing.png"
 #define HOOD_PATH "../Images/Clothing/Hood.png"
 #define IRON_HELMET_PATH "../Images/Clothing/IronHelmet.png"
@@ -25,6 +25,7 @@
 #define ELVEN_FLUTE_PATH "../Images/Items/ElvenFlute.png"
 #define LINKED_STAFF_PATH "../Images/Items/LinkedStaff.png"
 #define LONG_SWORD_PATH "../Images/Items/LongSword.png"
+#define LONG_SWORD_DROP_PATH "../Images/Items/LongSwordDrop.png"
 #define SIMPLE_BOW_PATH "../Images/Items/SimpleBow.png"
 #define WAR_HAMMER_PATH "../Images/Items/WarHammer.png"
 #define GRASS_PATH "../Images/Map/Grass.png"
@@ -74,36 +75,37 @@ TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer
     _loadTiles();
     _loadStructures();
     _loadNPCS();
-    _loadInventory();
+    _loadDrops();
     _loadSpells();
 }
 
 void TextureRepository::_loadSpells() {
-    _setImage(Explosion0, EXPLOSION0_PATH, 256, 256, -128, -20);
-    _setImage(Explosion1, EXPLOSION1_PATH, 256, 256, -128, -20);
-    _setImage(Explosion2, EXPLOSION2_PATH, 256, 256, -128, -20);
-    _setImage(Explosion3, EXPLOSION3_PATH, 256, 256, -128, -20);
-    _setImage(Explosion4, EXPLOSION4_PATH, 256, 256, -128, -20);
-    _setImage(Explosion5, EXPLOSION5_PATH, 256, 256, -128, -20);
-    _setImage(Explosion6, EXPLOSION6_PATH, 256, 256, -128, -20);
-    _setImage(Explosion7, EXPLOSION7_PATH, 256, 256, -128, -20);
-    _setImage(Explosion8, EXPLOSION8_PATH, 256, 256, -128, -20);
-    _setImage(Explosion9, EXPLOSION9_PATH, 256, 256, -128, -20);
-    _setImage(Explosion10, EXPLOSION10_PATH, 256, 256, -128, -20);
-    _setImage(Explosion11, EXPLOSION11_PATH, 256, 256, -128, -20);
-    _setImage(Explosion12, EXPLOSION12_PATH, 256, 256, -128, -20);
-    _setImage(Explosion13, EXPLOSION13_PATH, 256, 256, -128, -20);
-    _setImage(Explosion14, EXPLOSION14_PATH, 256, 256, -128, -20);
-    _setImage(Explosion15, EXPLOSION15_PATH, 256, 256, -128, -20);
-    _setImage(Explosion16, EXPLOSION16_PATH, 256, 256, -128, -20);
-    _setImage(Explosion17, EXPLOSION17_PATH, 256, 256, -128, -20);
-    _setImage(Explosion18, EXPLOSION18_PATH, 256, 256, -128, -20);
-    _setImage(Explosion19, EXPLOSION19_PATH, 256, 256, -128, -20);
-    _setImage(Explosion20, EXPLOSION20_PATH, 256, 256, -128, -20);
+    _setImage(Explosion0, EXPLOSION0_PATH, 256, 256, -135, -20);
+    _setImage(Explosion1, EXPLOSION1_PATH, 256, 256, -135, -20);
+    _setImage(Explosion2, EXPLOSION2_PATH, 256, 256, -135, -20);
+    _setImage(Explosion3, EXPLOSION3_PATH, 256, 256, -135, -20);
+    _setImage(Explosion4, EXPLOSION4_PATH, 256, 256, -135, -20);
+    _setImage(Explosion5, EXPLOSION5_PATH, 256, 256, -135, -20);
+    _setImage(Explosion6, EXPLOSION6_PATH, 256, 256, -135, -20);
+    _setImage(Explosion7, EXPLOSION7_PATH, 256, 256, -135, -20);
+    _setImage(Explosion8, EXPLOSION8_PATH, 256, 256, -135, -20);
+    _setImage(Explosion9, EXPLOSION9_PATH, 256, 256, -135, -20);
+    _setImage(Explosion10, EXPLOSION10_PATH, 256, 256, -135, -20);
+    _setImage(Explosion11, EXPLOSION11_PATH, 256, 256, -135, -20);
+    _setImage(Explosion12, EXPLOSION12_PATH, 256, 256, -135, -20);
+    _setImage(Explosion13, EXPLOSION13_PATH, 256, 256, -135, -20);
+    _setImage(Explosion14, EXPLOSION14_PATH, 256, 256, -135, -20);
+    _setImage(Explosion15, EXPLOSION15_PATH, 256, 256, -135, -20);
+    _setImage(Explosion16, EXPLOSION16_PATH, 256, 256, -135, -20);
+    _setImage(Explosion17, EXPLOSION17_PATH, 256, 256, -135, -20);
+    _setImage(Explosion18, EXPLOSION18_PATH, 256, 256, -135, -20);
+    _setImage(Explosion19, EXPLOSION19_PATH, 256, 256, -135, -20);
+    _setImage(Explosion20, EXPLOSION20_PATH, 256, 256, -135, -20);
 }
 
-void TextureRepository::_loadInventory() {
+void TextureRepository::_loadDrops() {
     _setImage(BlueTunicDrop, BLUE_TUNIC_DROP_PATH, 32, 32, 30, 30);
+    _setImage(LongSwordDrop, LONG_SWORD_DROP_PATH, 32, 32, 30, 30);
 }
 
 void TextureRepository::_loadClothing() {

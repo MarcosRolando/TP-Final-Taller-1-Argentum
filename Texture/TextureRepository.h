@@ -30,6 +30,7 @@ enum TextureID {
     ElvenFlute,
     LinkedStaff,
     LongSword,
+    LongSwordDrop,
     SimpleBow,
     WarHammer,
     Grass,
@@ -88,7 +89,7 @@ private:
     void _loadTiles();
     void _loadStructures();
     void _loadNPCS();
-    void _loadInventory();
+    void _loadDrops();
     void _loadSpells();
 
     void _setImage(TextureID textureID, std::string&& structureImage,
