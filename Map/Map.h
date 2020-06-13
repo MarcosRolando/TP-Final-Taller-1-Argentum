@@ -71,7 +71,7 @@ public:
     bool moveEntity(Coordinate startingPosition, Coordinate finalPosition);
 
     //Retorna true si el lugar puede ser ocupado por una entity, false en caso contrario
-    bool isPlaceAvailable(Coordinate position);
+    bool isPlaceAvailable(Coordinate position) const;
 };
 
 

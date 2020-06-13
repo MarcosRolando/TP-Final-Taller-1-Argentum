@@ -189,7 +189,7 @@ bool Map::moveEntity(Coordinate startingPosition, Coordinate finalPosition) {
     return true;
 }
 
-bool Map::isPlaceAvailable(Coordinate position) {
+bool Map::isPlaceAvailable(Coordinate position) const {
     return _isCoordinateValid(position) &&
             tiles[position.iPosition][position.jPosition].isAvailable();
 }

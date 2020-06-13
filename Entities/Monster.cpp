@@ -4,7 +4,7 @@
 
 #include "Monster.h"
 
-#define MAX_NUMBER_OF_CACHED_NODES 3
+#define MAX_NUMBER_OF_CACHED_NODES 4
 
 ////////////////////////PRIVATE////////////////////////
 
@@ -51,7 +51,13 @@ bool Monster::_tryToAttack() {
 //Pide al game que lo mueva a la siguiente posicion en pathCache, si pathCache
 //esta vacio entonces busca el jugador mas cercano en su rango de vision y le
 //pide al mapa un camino a este
+//Si la proxima posicion a la que se va a mover esta ocupada entonces vuelve a
+//calcular el camino al jugador mas cercano (esto puede pasar si un monstruo se
+//pone en su camino)
 void Monster::_move() {
+    if (!map.isPlaceAvailable(pathCache.front())) {
+        pathCache.clear();
+    }
     if (pathCache.empty()) {
         std::vector<Coordinate> positions;
         map.getTargets(currentPosition, rangeOfVision, positions);
