@@ -10,13 +10,13 @@
 #define COLUMNS 4
 
 #define INVENTORY_ITEMS_X_OFFSET 55
-#define INVENTORY_ITEMS_Y_OFFSET 230
+#define INVENTORY_ITEMS_Y_OFFSET 235
 
 #define ITEM_WIDTH 72
 #define ITEM_HEIGHT 75
 
 #define INVENTORY_OUTLINES_X_OFFSET 85
-#define INVENTORY_OUTLINES_Y_OFFSET 260
+#define INVENTORY_OUTLINES_Y_OFFSET 265
 
 
 PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,
@@ -45,18 +45,18 @@ void PlayerInventoryGUI::_renderInventoryItems() {
 
 void PlayerInventoryGUI::_renderEquipableItems() {
     if(equippedTextures.count(Helmet)){
-        equippedTextures.at(Helmet)->render(115, 475,0,2);
+        equippedTextures.at(Helmet)->render(175, 635,0,2);
     }
     if(equippedTextures.count(Weapon)){
-        equippedTextures.at(Weapon)->render(40, 575, 0, 2);
+        equippedTextures.at(Weapon)->render(100, 735, 0, 2);
 
     }
     if(equippedTextures.count(Armor)){
-        equippedTextures.at(Armor)->render(115, 575, 0, 2);
+        equippedTextures.at(Armor)->render(175, 735, 0, 2);
 
     }
     if(equippedTextures.count(Shield)){
-        equippedTextures.at(Shield)->render(192, 575, 0, 2);
+        equippedTextures.at(Shield)->render(252, 735, 0, 2);
     }
 }
 
@@ -65,8 +65,8 @@ void PlayerInventoryGUI::_drawInventoryOutlines() {
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
             outlineRect = { INVENTORY_OUTLINES_X_OFFSET + ITEM_WIDTH * j,
-                            INVENTORY_OUTLINES_Y_OFFSET + ITEM_HEIGHT * i,
-                            ITEM_WIDTH, ITEM_HEIGHT };
+                            INVENTORY_OUTLINES_Y_OFFSET + (ITEM_HEIGHT - 5) * i,
+                            ITEM_WIDTH, ITEM_HEIGHT - 5 };
             SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
                                     0x14, 0xFF );
             SDL_RenderDrawRect( &renderer, &outlineRect );
@@ -77,15 +77,15 @@ void PlayerInventoryGUI::_drawInventoryOutlines() {
 void PlayerInventoryGUI::_drawEquipableOutlines() {
     SDL_Rect outlineRect;
     for (int j = 0; j < 3; ++j) {
-        outlineRect = { 70 + 75 * j, 600, ITEM_WIDTH, ITEM_HEIGHT };
+        outlineRect = { 125 + 75 * j, 760, ITEM_WIDTH, ITEM_HEIGHT };
         SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
                                 0x14, 0xFF );
         SDL_RenderDrawRect( &renderer, &outlineRect );
     }
 
-    outlineRect = { 145, 500, ITEM_WIDTH, ITEM_HEIGHT };
-    SDL_SetRenderDrawColor( &renderer, 0x00,0x00,
-                            0x00, 0xFF );
+    outlineRect = { 200, 660, ITEM_WIDTH, ITEM_HEIGHT };
+    SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
+                            0x14, 0xFF );
     SDL_RenderDrawRect( &renderer, &outlineRect );
 }
 
