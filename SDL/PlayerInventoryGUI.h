@@ -33,8 +33,6 @@ public:
 
     void render();
 
-    ~PlayerInventoryGUI();
-
 private:
 
     void _drawInventoryOutlines();

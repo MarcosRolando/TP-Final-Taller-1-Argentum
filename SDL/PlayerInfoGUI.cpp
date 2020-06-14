@@ -44,5 +44,3 @@ void PlayerInfoGUI::_renderInfo(unsigned int infoCurr, unsigned int infoTotal,
     info.render(BAR_X_OFFSET, yOffset);
 }
 
-PlayerInfoGUI::~PlayerInfoGUI() {}
-

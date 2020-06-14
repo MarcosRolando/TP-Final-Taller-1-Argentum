@@ -101,7 +101,3 @@ void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item)
     Texture* currTexture = &repo.getTexture(texture);
     equippedTextures.emplace(item, currTexture);
 }
-
-PlayerInventoryGUI::~PlayerInventoryGUI() {
-
-}

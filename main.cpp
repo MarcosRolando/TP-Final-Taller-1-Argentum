@@ -57,7 +57,7 @@ int main(int argc, char* args[]) {
         Timer moveTime;
         TextureRepository repo(window.getRenderer());
         SDL_Rect camera = { 0, 0, DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT };
-        PlayerEquipment pEquipment = {MagicHat, ElfHead, BlueTunic, IronShield, LinkedStaff};
+        PlayerEquipment pEquipment = {Hood, HumanHead, PlateArmor, IronShield, AshRod};
         Player player(repo, camera, 40, 30,pEquipment);
         NPC monster(repo, camera, 168, 30, Zombie);
 
@@ -82,7 +82,7 @@ int main(int argc, char* args[]) {
         SDL_Event e;
 
         //Prueba de llenado de inventario
-        inventoryGui.addInventoryItem(BlueTunicDrop);
+        inventoryGui.addInventoryItem(CommonClothingDrop);
         inventoryGui.addInventoryItem(MagicHatDrop);
         inventoryGui.addInventoryItem(BlueTunicDrop);
         inventoryGui.addInventoryItem(HealthPotion);
@@ -94,7 +94,7 @@ int main(int argc, char* args[]) {
 
         //LLeno los items equipables
        // inventoryGui.addEquipableItem(BlueTunicDrop, Helmet);
-        inventoryGui.addEquipableItem(BlueTunicDrop, Armor);
+        inventoryGui.addEquipableItem(PlateArmorDrop, Armor);
         inventoryGui.addEquipableItem(LongSwordDrop, Weapon);
        // inventoryGui.addEquipableItem(BlueTunicDrop, Shield);
 

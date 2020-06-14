@@ -21,7 +21,6 @@ public:
 
     void updateXP(unsigned int currXP, unsigned int nextLevelXP);
 
-    ~PlayerInfoGUI();
 private:
     void _renderInfo(unsigned int infoCurr, unsigned int infoTotal, int yOffset,
                      SDL_Color color);

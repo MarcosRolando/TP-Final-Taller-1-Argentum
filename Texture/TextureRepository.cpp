@@ -8,13 +8,18 @@
 #define BLUE_TUNIC_PATH "../Images/Clothing/BlueTunic.png"
 #define BLUE_TUNIC_DROP_PATH "../Images/Clothing/BlueTunicDrop.png"
 #define COMMON_CLOTHING_PATH "../Images/Clothing/CommonClothing.png"
+#define COMMON_CLOTHING_DROP_PATH "../Images/Clothing/CommonClothingDrop.png"
 #define HOOD_PATH "../Images/Clothing/Hood.png"
 #define IRON_HELMET_PATH "../Images/Clothing/IronHelmet.png"
 #define IRON_SHIELD_PATH "../Images/Clothing/IronShield.png"
+#define KING_ARMOR_PATH "../Images/Clothing/KingArmor.png"
+#define KING_ARMOR_DROP_PATH "../Images/Clothing/KingArmorDrop.png"
 #define LEATHER_ARMOR_PATH "../Images/Clothing/LeatherArmor.png"
+#define LEATHER_ARMOR_DROP_PATH "../Images/Clothing/LeatherArmorDrop.png"
 #define MAGIC_HAT_PATH "../Images/Clothing/MagicHat.png"
 #define MAGIC_HAT_DROP_PATH "../Images/Clothing/MagicHatDrop.png"
 #define PLATE_ARMOR_PATH "../Images/Clothing/PlateArmor.png"
+#define PLATE_ARMOR_DROP_PATH "../Images/Clothing/PlateArmorDrop.png"
 #define TURTLE_SHIELD_PATH "../Images/Clothing/TurtleShield.png"
 #define DWARF_HEAD_PATH "../Images/Heads/DwarfHead.png"
 #define ELF_HEAD_PATH "../Images/Heads/ElfHead.png"
@@ -75,6 +80,10 @@ void TextureRepository::_loadDrops() {
     _setImage(MagicHatDrop, MAGIC_HAT_DROP_PATH, 32, 32, 33, 30);
     _setImage(HealthPotion, HEALTH_POTION_PATH, 32, 32, 30, 30);
     _setImage(ManaPotion, MANA_POTION_PATH, 32, 32, 30, 30);
+    _setImage(CommonClothingDrop, COMMON_CLOTHING_DROP_PATH, 32, 32, 35, 30);
+    _setImage(KingArmorDrop, KING_ARMOR_DROP_PATH, 32, 32, 35, 30);
+    _setImage(LeatherArmorDrop, LEATHER_ARMOR_DROP_PATH, 32, 32, 35, 30);
+    _setImage(PlateArmorDrop, PLATE_ARMOR_DROP_PATH, 16, 32, 48, 35);
 }
 
 void TextureRepository::_loadClothing() {
@@ -83,6 +92,7 @@ void TextureRepository::_loadClothing() {
     _setShieldImage(IronShield, IRON_SHIELD_PATH);
     _setBodyImage(LeatherArmor, LEATHER_ARMOR_PATH);
     _setBodyImage(PlateArmor, PLATE_ARMOR_PATH);
+    _setBodyImage(KingArmor, KING_ARMOR_PATH);
     _setShieldImage(TurtleShield, TURTLE_SHIELD_PATH);
     _setHelmetImage(Hood, HOOD_PATH);
     _setHelmetImage(IronHelmet, IRON_HELMET_PATH);
