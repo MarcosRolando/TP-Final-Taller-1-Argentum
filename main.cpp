@@ -94,8 +94,8 @@ int main(int argc, char* args[]) {
 
         //LLeno los items equipables
        // inventoryGui.addEquipableItem(BlueTunicDrop, Helmet);
-        inventoryGui.addEquipableItem(TurtleShieldDrop, Armor);
-        inventoryGui.addEquipableItem(IronShieldDrop, Weapon);
+        inventoryGui.addEquipableItem(SimpleBowDrop, Armor);
+        inventoryGui.addEquipableItem(WarHammerDrop, Weapon);
        // inventoryGui.addEquipableItem(BlueTunicDrop, Shield);
 
         //While application is running

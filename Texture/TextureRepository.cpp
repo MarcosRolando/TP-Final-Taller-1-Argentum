@@ -30,15 +30,21 @@
 #define GNOME_HEAD_PATH "../Images/Heads/GnomeHead.png"
 #define HUMAN_HEAD_PATH "../Images/Heads/HumanHead.png"
 #define ASH_ROD_PATH "../Images/Items/AshRod.png"
+#define ASH_ROD_DROP_PATH "../Images/Items/AshRodDrop.png"
 #define AXE_PATH "../Images/Items/Axe.png"
+#define AXE_DROP_PATH "../Images/Items/AxeDrop.png"
 #define COMPOUND_BOW_PATH "../Images/Items/CompoundBow.png"
+#define COMPOUND_BOW_DROP_PATH "../Images/Items/CompoundBowDrop.png"
 #define ELVEN_FLUTE_PATH "../Images/Items/ElvenFlute.png"
+#define ELVEN_FLUTE_DROP_PATH "../Images/Items/ElvenFluteDrop.png"
 #define LINKED_STAFF_PATH "../Images/Items/LinkedStaff.png"
 #define LINKED_STAFF_DROP_PATH "../Images/Items/LinkedStaffDrop.png"
 #define LONG_SWORD_PATH "../Images/Items/LongSword.png"
 #define LONG_SWORD_DROP_PATH "../Images/Items/LongSwordDrop.png"
 #define SIMPLE_BOW_PATH "../Images/Items/SimpleBow.png"
+#define SIMPLE_BOW_DROP_PATH "../Images/Items/SimpleBowDrop.png"
 #define WAR_HAMMER_PATH "../Images/Items/WarHammer.png"
+#define WAR_HAMMER_DROP_PATH "../Images/Items/WarHammerDrop.png"
 #define HEALTH_POTION_PATH "../Images/Items/HealthPotion.png"
 #define MANA_POTION_PATH "../Images/Items/ManaPotion.png"
 #define GRASS_PATH "../Images/Map/Grass.png"
@@ -92,6 +98,12 @@ void TextureRepository::_loadDrops() {
     _setImage(IronHelmetDrop, IRON_HELMET_DROP_PATH, 32, 32, 50, 45);
     _setImage(IronShieldDrop, IRON_SHIELD_DROP_PATH, 32, 32, 35, 30, 2);
     _setImage(TurtleShieldDrop, TURTLE_SHIELD_DROP_PATH, 32, 32, 50, 45);
+    _setImage(AshRodDrop, ASH_ROD_DROP_PATH, 32, 32, 35, 30, 2);
+    _setImage(AxeDrop, AXE_DROP_PATH, 32, 32, 32, 30, 2);
+    _setImage(CompoundBowDrop, COMPOUND_BOW_DROP_PATH, 32, 32, 32, 30, 2);
+    _setImage(ElvenFluteDrop, ELVEN_FLUTE_DROP_PATH, 32, 32, 32, 30, 2);
+    _setImage(SimpleBowDrop, SIMPLE_BOW_DROP_PATH, 32, 32, 32, 30, 2);
+    _setImage(WarHammerDrop, WAR_HAMMER_DROP_PATH, 32, 32, 32, 30, 2);
 }
 
 void TextureRepository::_loadClothing() {
@@ -118,7 +130,7 @@ void TextureRepository::_loadWeapons() {
     _setWeaponImage(AshRod, ASH_ROD_PATH);
     _setWeaponImage(Axe, AXE_PATH);
     _setWeaponImage(CompoundBow, COMPOUND_BOW_PATH);
-    _setWeaponImage(ElvenFlute, ELVEN_FLUTE_PATH);
+    //_setWeaponImage(ElvenFlute, ELVEN_FLUTE_PATH); todo
     _setWeaponImage(LinkedStaff, LINKED_STAFF_PATH);
     _setWeaponImage(LongSword, LONG_SWORD_PATH);
     _setWeaponImage(SimpleBow, SIMPLE_BOW_PATH);
@@ -258,7 +270,7 @@ void TextureRepository::_setWeaponImage(TextureID textureID, std::string&& weapo
         /*Rigth*/
         _addWeaponSprites(texture, 135, true);
     } catch (SDLException& e) {
-        throw SDLException("Failed to load sprite sheet texture!\n");
+        throw SDLException("Failed to load %s sprite sheet texture!\n", weaponImage.c_str());
     }
 }
 
@@ -294,7 +306,7 @@ void TextureRepository::_setHeadImage(TextureID textureID, std::string&& headIma
         texture.addSprite(34, 0, 17, 15);
         texture.addSprite(51, 0, 17, 15);
     } catch (SDLException& e) {
-        throw SDLException("Failed to load sprite sheet texture!\n");
+        throw SDLException("Failed to load %s sprite sheet texture!\n", headImage.c_str());
     }
 }
 
