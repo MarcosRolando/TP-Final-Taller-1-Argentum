@@ -8,8 +8,8 @@
 const float ANIMATION_TIME = 150.f;
 const int SPELL_SPEED = 200;
 
-Spell::Spell(std::vector<Texture*>&& textures, SDL_Rect &camera, float x, float y) :
-                                sTextures(textures), camera(camera) {
+Spell::Spell(Texture& texture, SDL_Rect &camera, float x, float y) :
+                                sTexture(texture), camera(camera) {
     currentFrame = 0;
     timePassed = 0;
     xPosition = x;
@@ -22,16 +22,16 @@ void Spell::_updateFrame(float timeStep) {
     //Calculate time step
     float offset = SPELL_SPEED*timeStep;
     if ( (timePassed + offset) >= ANIMATION_TIME) {
-        timePassed = 150.f;
+        timePassed = ANIMATION_TIME;
     } else {
         timePassed += offset;
     }
-    if (timePassed >= 150.f) {
+    if (timePassed >= ANIMATION_TIME) {
         currentFrame = 0;
         timePassed = 0;
     } else {
-        for (int i = 0; i < 20; ++i) { /*6 es la cantidad de frames distintos del spell*/
-            if (timePassed < ((float)ANIMATION_TIME/20 * (float)(i+1))) {
+        for (int i = 0; i < 24; ++i) { /*6 es la cantidad de frames distintos del spell*/
+            if (timePassed < ((float)ANIMATION_TIME/24 * (float)(i+1))) {
                 currentFrame = i;
                 break;
             }
@@ -70,7 +70,7 @@ bool Spell::_checkCollision(SDL_Rect a, SDL_Rect b) {
 void Spell::render(float timeStep) {
     _updateFrame(timeStep);
     if (_checkCollision(camera, {(int)xPosition, (int)yPosition, (int)width, (int)height})) {
-        sTextures[currentFrame]->render((int)(xPosition) - camera.x,
-                                                (int)(yPosition) - camera.y);
+        sTexture.render((int)(xPosition) - camera.x,
+                                (int)(yPosition) - camera.y, currentFrame);
     };
 }

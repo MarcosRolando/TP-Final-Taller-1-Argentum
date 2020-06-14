@@ -49,28 +49,8 @@
 #define HOUSE1_PATH "../Images/Map/House1.png"
 #define HOUSE2_PATH "../Images/Map/House2.png"
 #define HOUSE3_PATH "../Images/Map/House3.png"
-#define EXPLOSION0_PATH "../Images/Spells/Explosion0.png"
-#define EXPLOSION1_PATH "../Images/Spells/Explosion1.png"
-#define EXPLOSION2_PATH "../Images/Spells/Explosion2.png"
-#define EXPLOSION3_PATH "../Images/Spells/Explosion3.png"
-#define EXPLOSION4_PATH "../Images/Spells/Explosion4.png"
-#define EXPLOSION5_PATH "../Images/Spells/Explosion5.png"
-#define EXPLOSION6_PATH "../Images/Spells/Explosion6.png"
-#define EXPLOSION7_PATH "../Images/Spells/Explosion7.png"
-#define EXPLOSION8_PATH "../Images/Spells/Explosion8.png"
-#define EXPLOSION9_PATH "../Images/Spells/Explosion9.png"
-#define EXPLOSION10_PATH "../Images/Spells/Explosion10.png"
-#define EXPLOSION11_PATH "../Images/Spells/Explosion11.png"
-#define EXPLOSION12_PATH "../Images/Spells/Explosion12.png"
-#define EXPLOSION13_PATH "../Images/Spells/Explosion13.png"
-#define EXPLOSION14_PATH "../Images/Spells/Explosion14.png"
-#define EXPLOSION15_PATH "../Images/Spells/Explosion15.png"
-#define EXPLOSION16_PATH "../Images/Spells/Explosion16.png"
-#define EXPLOSION17_PATH "../Images/Spells/Explosion17.png"
-#define EXPLOSION18_PATH "../Images/Spells/Explosion18.png"
-#define EXPLOSION19_PATH "../Images/Spells/Explosion19.png"
-#define EXPLOSION20_PATH "../Images/Spells/Explosion20.png"
-
+#define EXPLOSION_PATH "../Images/Spells/Explosion.png"
+#define MAGIC_MISSIL_PATH "../Images/Spells/MagicMissil.png"
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
     _loadClothing();
@@ -84,27 +64,8 @@ TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer
 }
 
 void TextureRepository::_loadSpells() {
-    _setImage(Explosion0, EXPLOSION0_PATH, 256, 256, -135, -20);
-    _setImage(Explosion1, EXPLOSION1_PATH, 256, 256, -135, -20);
-    _setImage(Explosion2, EXPLOSION2_PATH, 256, 256, -135, -20);
-    _setImage(Explosion3, EXPLOSION3_PATH, 256, 256, -135, -20);
-    _setImage(Explosion4, EXPLOSION4_PATH, 256, 256, -135, -20);
-    _setImage(Explosion5, EXPLOSION5_PATH, 256, 256, -135, -20);
-    _setImage(Explosion6, EXPLOSION6_PATH, 256, 256, -135, -20);
-    _setImage(Explosion7, EXPLOSION7_PATH, 256, 256, -135, -20);
-    _setImage(Explosion8, EXPLOSION8_PATH, 256, 256, -135, -20);
-    _setImage(Explosion9, EXPLOSION9_PATH, 256, 256, -135, -20);
-    _setImage(Explosion10, EXPLOSION10_PATH, 256, 256, -135, -20);
-    _setImage(Explosion11, EXPLOSION11_PATH, 256, 256, -135, -20);
-    _setImage(Explosion12, EXPLOSION12_PATH, 256, 256, -135, -20);
-    _setImage(Explosion13, EXPLOSION13_PATH, 256, 256, -135, -20);
-    _setImage(Explosion14, EXPLOSION14_PATH, 256, 256, -135, -20);
-    _setImage(Explosion15, EXPLOSION15_PATH, 256, 256, -135, -20);
-    _setImage(Explosion16, EXPLOSION16_PATH, 256, 256, -135, -20);
-    _setImage(Explosion17, EXPLOSION17_PATH, 256, 256, -135, -20);
-    _setImage(Explosion18, EXPLOSION18_PATH, 256, 256, -135, -20);
-    _setImage(Explosion19, EXPLOSION19_PATH, 256, 256, -135, -20);
-    _setImage(Explosion20, EXPLOSION20_PATH, 256, 256, -135, -20);
+    _setSpellImage(Explosion, EXPLOSION_PATH, 256, 256, -10, -10);
+    _setSpellImage(MagicMissil, MAGIC_MISSIL_PATH, 96, 100, 20, 15);
 }
 
 void TextureRepository::_loadDrops() {
@@ -185,6 +146,23 @@ void TextureRepository::_setImage(TextureID textureID, std::string&& structureIm
     }
 }
 
+void TextureRepository::_setSpellImage(TextureID textureID, std::string&& spellImage,
+                                           int width, int height, int xOffset, int yOffset) {
+    try {
+        //Load sprite sheet texture
+        ColorKey_t key = {0, 0, 0};
+        textures.emplace(textureID, renderer);
+        Texture& texture = textures.at(textureID);
+        texture.loadFromFile(spellImage, key, xOffset, yOffset);
+        _addSpellSprites(texture, 0, width, height);
+        _addSpellSprites(texture, height, width, height);
+        _addSpellSprites(texture, 2*height, width, height);
+        _addSpellSprites(texture, 3*height, width, height);
+    } catch (SDLException& e) {
+        throw SDLException("Failed to load %s sprite sheet texture!\n", spellImage.c_str());
+    }
+}
+
 void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileImage, bool individualTile) {
     try {
         //Load sprite sheet texture
@@ -219,11 +197,9 @@ void TextureRepository::_setNPCImage(TextureID textureID, std::string&& npcImage
 }
 
 void TextureRepository::_addNPCSprites(Texture& texture, int y, bool lateralSide, int width, int height) {
-    texture.addSprite(0, y, width, height);
-    texture.addSprite(width, y, width, height);
-    texture.addSprite(2*width, y, width, height);
-    texture.addSprite(3*width, y, width, height);
-    texture.addSprite(4*width, y, width, height);
+    for (int i = 0; i < 5; ++i) {
+        texture.addSprite(width*i, y, width, height);
+    }
     if (lateralSide) texture.addSprite(4*width, y, width, height);
     else texture.addSprite(5*width, y, width, height);
 }
@@ -362,6 +338,12 @@ void TextureRepository::_addTileSprites(Texture& texture, int y, bool individual
 
 void TextureRepository::_addStructureSprites(Texture& texture, int width, int height) {
     texture.addSprite(0, 0, width, height);
+}
+
+void TextureRepository::_addSpellSprites(Texture& texture, int y, int width, int height) {
+    for (int i = 0; i < 6; ++i) {
+        texture.addSprite(width*i, y, width, height);
+    }
 }
 
 Texture& TextureRepository::getTexture(TextureID texture) {

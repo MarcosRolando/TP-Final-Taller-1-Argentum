@@ -61,11 +61,7 @@ int main(int argc, char* args[]) {
         Player player(repo, camera, 40, 30,pEquipment);
         NPC monster(repo, camera, 168, 30, Zombie);
 
-        std::vector<Texture*> explosions;
-        for (int i = Explosion0; i <= Explosion20; ++i) {
-            explosions.push_back(&repo.getTexture(static_cast<TextureID>(i)));
-        }
-        Spell explosion(std::move(explosions), camera, TILE_WIDTH*3, TILE_HEIGHT*3);
+        Spell explosion(repo.getTexture(MagicMissil), camera, TILE_WIDTH*3, TILE_HEIGHT*3);
 
         Map map(repo, camera);
         Font font("../SDL/font.ttf", 25);

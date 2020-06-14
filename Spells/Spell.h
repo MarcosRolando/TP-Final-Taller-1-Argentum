@@ -10,7 +10,7 @@
 
 class Spell {
 private:
-    std::vector<Texture*> sTextures;
+    Texture& sTexture;
     SDL_Rect& camera;
     float timePassed;
     int currentFrame;
@@ -18,7 +18,7 @@ private:
     float yPosition, height;
 
 public:
-    Spell(std::vector<Texture*>&& textures, SDL_Rect& camera, float x, float y);
+    Spell(Texture& texture, SDL_Rect& camera, float x, float y);
     void render(float timeStep);
 
 private:

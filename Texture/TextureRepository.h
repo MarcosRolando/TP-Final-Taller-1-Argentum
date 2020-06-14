@@ -54,27 +54,8 @@ enum TextureID {
     House1,
     House2,
     House3,
-    Explosion0,
-    Explosion1,
-    Explosion2,
-    Explosion3,
-    Explosion4,
-    Explosion5,
-    Explosion6,
-    Explosion7,
-    Explosion8,
-    Explosion9,
-    Explosion10,
-    Explosion11,
-    Explosion12,
-    Explosion13,
-    Explosion14,
-    Explosion15,
-    Explosion16,
-    Explosion17,
-    Explosion18,
-    Explosion19,
-    Explosion20
+    Explosion,
+    MagicMissil
 };
 
 class TextureRepository {
@@ -98,6 +79,8 @@ private:
 
     void _setImage(TextureID textureID, std::string&& structureImage,
                     int width, int height, int xOffset = 0, int yOffset = 0);
+    void _setSpellImage(TextureID textureID, std::string&& spellImage,
+                            int width, int height, int xOffset = 0, int yOffset = 0);
     void _setNPCImage(TextureID textureID, std::string&& npcImage, int width, int height
                                                 , int xOffset = 0, int yOffset = 0);
     void _setBodyImage(TextureID texture, std::string&& bodyImage);
@@ -114,6 +97,7 @@ private:
     static void _addNPCSprites(Texture& texture, int y, bool lateralSide, int width, int height);
     static void _addTileSprites(Texture& texture, int y, bool individualTile);
     static void _addStructureSprites(Texture& texture, int width, int height);
+    static void _addSpellSprites(Texture& texture, int y, int width, int height);
 };
 
 
