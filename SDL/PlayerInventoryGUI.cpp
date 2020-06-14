@@ -9,14 +9,14 @@
 #define LINES 4
 #define COLUMNS 4
 
-#define INVENTORY_ITEMS_X_OFFSET 20
-#define INVENTORY_ITEMS_Y_OFFSET 150
+#define INVENTORY_ITEMS_X_OFFSET 25
+#define INVENTORY_ITEMS_Y_OFFSET 170
 
 #define ITEM_WIDTH 72
 #define ITEM_HEIGHT 75
 
-#define INVENTORY_OUTLINES_X_OFFSET 50
-#define INVENTORY_OUTLINES_Y_OFFSET 175
+#define INVENTORY_OUTLINES_X_OFFSET 55
+#define INVENTORY_OUTLINES_Y_OFFSET 195
 
 
 PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,
@@ -69,8 +69,8 @@ void PlayerInventoryGUI::_drawInventoryOutlines() {
             outlineRect = { INVENTORY_OUTLINES_X_OFFSET + ITEM_WIDTH * j,
                             INVENTORY_OUTLINES_Y_OFFSET + ITEM_HEIGHT * i,
                             ITEM_WIDTH, ITEM_HEIGHT };
-            SDL_SetRenderDrawColor( &renderer, 0x00,0x00,
-                                    0x00, 0xFF );
+            SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
+                                    0x14, 0xFF );
             SDL_RenderDrawRect( &renderer, &outlineRect );
         }
     }
@@ -80,8 +80,8 @@ void PlayerInventoryGUI::_drawEquipableOutlines() {
     SDL_Rect outlineRect;
     for (int j = 0; j < 3; ++j) {
         outlineRect = { 70 + 75 * j, 600, ITEM_WIDTH, ITEM_HEIGHT };
-        SDL_SetRenderDrawColor( &renderer, 0x00,0x00,
-                                0x00, 0xFF );
+        SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
+                                0x14, 0xFF );
         SDL_RenderDrawRect( &renderer, &outlineRect );
     }
 
