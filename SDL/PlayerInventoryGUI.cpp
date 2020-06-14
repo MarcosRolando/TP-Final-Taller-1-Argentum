@@ -9,30 +9,31 @@
 #define LINES 4
 #define COLUMNS 4
 
-#define INVENTORY_ITEMS_X_OFFSET 20
-#define INVENTORY_ITEMS_Y_OFFSET 150
+#define INVENTORY_ITEMS_X_OFFSET 25
+#define INVENTORY_ITEMS_Y_OFFSET 170
 
 #define ITEM_WIDTH 72
 #define ITEM_HEIGHT 75
 
-#define INVENTORY_OUTLINES_X_OFFSET 50
-#define INVENTORY_OUTLINES_Y_OFFSET 175
+#define INVENTORY_OUTLINES_X_OFFSET 55
+#define INVENTORY_OUTLINES_Y_OFFSET 195
 
 
 PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,
                                        SDL_Renderer &renderer) : repo(repo),
-                                       renderer(renderer){
+                                       renderer(renderer) {
+    inventory = &repo.getTexture(Inventory);
 }
 
-void PlayerInventoryGUI::render(){
+void PlayerInventoryGUI::render() {
+    inventory->render(10, 70);
     _drawInventoryOutlines();
     _drawEquipableOutlines();
     _renderInventoryItems();
     _renderEquipableItems();
-
 }
 
-void PlayerInventoryGUI::_renderInventoryItems(){
+void PlayerInventoryGUI::_renderInventoryItems() {
     unsigned int size = inventoryTextures.size();
     for (int i = 0; i < INVENTORY_SIZE; i += LINES) {
         for (int j = 0; j < COLUMNS; ++j) {
@@ -44,7 +45,7 @@ void PlayerInventoryGUI::_renderInventoryItems(){
     }
 }
 
-void PlayerInventoryGUI::_renderEquipableItems(){
+void PlayerInventoryGUI::_renderEquipableItems() {
     if(equippedTextures.count(Helmet)){
         equippedTextures.at(Helmet)->render(115, 475,0,2);
     }
@@ -61,26 +62,26 @@ void PlayerInventoryGUI::_renderEquipableItems(){
     }
 }
 
-void PlayerInventoryGUI::_drawInventoryOutlines(){
+void PlayerInventoryGUI::_drawInventoryOutlines() {
     SDL_Rect outlineRect;
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
             outlineRect = { INVENTORY_OUTLINES_X_OFFSET + ITEM_WIDTH * j,
                             INVENTORY_OUTLINES_Y_OFFSET + ITEM_HEIGHT * i,
                             ITEM_WIDTH, ITEM_HEIGHT };
-            SDL_SetRenderDrawColor( &renderer, 0x00,0x00,
-                                    0x00, 0xFF );
+            SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
+                                    0x14, 0xFF );
             SDL_RenderDrawRect( &renderer, &outlineRect );
         }
     }
 }
 
-void PlayerInventoryGUI::_drawEquipableOutlines(){
+void PlayerInventoryGUI::_drawEquipableOutlines() {
     SDL_Rect outlineRect;
     for (int j = 0; j < 3; ++j) {
         outlineRect = { 70 + 75 * j, 600, ITEM_WIDTH, ITEM_HEIGHT };
-        SDL_SetRenderDrawColor( &renderer, 0x00,0x00,
-                                0x00, 0xFF );
+        SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
+                                0x14, 0xFF );
         SDL_RenderDrawRect( &renderer, &outlineRect );
     }
 
@@ -97,7 +98,7 @@ void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
     inventoryTextures.push_back(&repo.getTexture(texture));
 }
 
-void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item){
+void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item) {
     Texture* currTexture = &repo.getTexture(texture);
     equippedTextures.emplace(item, currTexture);
 }

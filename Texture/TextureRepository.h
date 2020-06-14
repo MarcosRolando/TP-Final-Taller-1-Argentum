@@ -44,6 +44,8 @@ enum TextureID {
     ElvenFluteDrop,
     LinkedStaff,
     LinkedStaffDrop,
+    GnarledStaff,
+    GnarledStaffDrop,
     LongSword,
     LongSwordDrop,
     SimpleBow,
@@ -70,7 +72,10 @@ enum TextureID {
     House2,
     House3,
     Explosion,
-    MagicMissil
+    MagicArrow,
+    MagicMissil,
+    Heal,
+    Inventory
 };
 
 class TextureRepository {
@@ -91,9 +96,11 @@ private:
     void _loadNPCS();
     void _loadDrops();
     void _loadSpells();
+    void _loadUI();
 
-    void _setImage(TextureID textureID, std::string&& structureImage,
-                    int width, int height, int xOffset = 0, int yOffset = 0, int scale = 1);
+    void _setImage(TextureID textureID, std::string&& image,
+                    int width, int height, int xOffset = 0, int yOffset = 0, int scale = 1
+                            , ColorKey_t key = {0, 0, 0});
     void _setSpellImage(TextureID textureID, std::string&& spellImage,
                             int width, int height, int xOffset = 0, int yOffset = 0);
     void _setNPCImage(TextureID textureID, std::string&& npcImage, int width, int height

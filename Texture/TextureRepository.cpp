@@ -39,6 +39,8 @@
 #define ELVEN_FLUTE_DROP_PATH "../Images/Items/ElvenFluteDrop.png"
 #define LINKED_STAFF_PATH "../Images/Items/LinkedStaff.png"
 #define LINKED_STAFF_DROP_PATH "../Images/Items/LinkedStaffDrop.png"
+#define GNARLED_STAFF_PATH "../Images/Items/GnarledStaff.png"
+#define GNARLED_STAFF_DROP_PATH "../Images/Items/GnarledStaffDrop.png"
 #define LONG_SWORD_PATH "../Images/Items/LongSword.png"
 #define LONG_SWORD_DROP_PATH "../Images/Items/LongSwordDrop.png"
 #define SIMPLE_BOW_PATH "../Images/Items/SimpleBow.png"
@@ -65,7 +67,10 @@
 #define HOUSE2_PATH "../Images/Map/House2.png"
 #define HOUSE3_PATH "../Images/Map/House3.png"
 #define EXPLOSION_PATH "../Images/Spells/Explosion.png"
+#define MAGIC_ARROW_PATH "../Images/Spells/MagicArrow.png"
 #define MAGIC_MISSIL_PATH "../Images/Spells/MagicMissil.png"
+#define HEAL_PATH "../Images/Spells/Heal.png"
+#define INVENTORY_PATH "../Images/UI/Inventory.png"
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
     _loadClothing();
@@ -76,17 +81,26 @@ TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer
     _loadNPCS();
     _loadDrops();
     _loadSpells();
+    _loadUI();
+}
+
+void TextureRepository::_loadUI() {
+    _setImage(Inventory, INVENTORY_PATH, 189, 280, 0
+                        , 0, 2, {-1, -1, -1});
 }
 
 void TextureRepository::_loadSpells() {
     _setSpellImage(Explosion, EXPLOSION_PATH, 256, 256, -10, -10);
-    _setSpellImage(MagicMissil, MAGIC_MISSIL_PATH, 96, 100, 20, 15);
+    _setSpellImage(MagicArrow, MAGIC_ARROW_PATH, 96, 100, 20, 15);
+    _setSpellImage(MagicMissil, MAGIC_MISSIL_PATH, 128, 128, 8, 5);
+    _setSpellImage(Heal, HEAL_PATH, 76, 76, 25, 20);
 }
 
 void TextureRepository::_loadDrops() {
     _setImage(BlueTunicDrop, BLUE_TUNIC_DROP_PATH, 32, 32, 30, 30, 2);
-    _setImage(LongSwordDrop, LONG_SWORD_DROP_PATH, 32, 32, 30, 30, 2);
+    _setImage(LongSwordDrop, LONG_SWORD_DROP_PATH, 32, 32, 33, 30, 2);
     _setImage(LinkedStaffDrop, LINKED_STAFF_DROP_PATH, 32, 32, 30, 30, 2);
+    _setImage(GnarledStaffDrop, GNARLED_STAFF_DROP_PATH, 32, 32, 35, 30, 2);
     _setImage(MagicHatDrop, MAGIC_HAT_DROP_PATH, 32, 32, 50, 45);
     _setImage(HealthPotion, HEALTH_POTION_PATH, 32, 32, 50, 45);
     _setImage(ManaPotion, MANA_POTION_PATH, 32, 32, 50, 45);
@@ -132,6 +146,7 @@ void TextureRepository::_loadWeapons() {
     _setWeaponImage(CompoundBow, COMPOUND_BOW_PATH);
     //_setWeaponImage(ElvenFlute, ELVEN_FLUTE_PATH); todo
     _setWeaponImage(LinkedStaff, LINKED_STAFF_PATH);
+    _setWeaponImage(GnarledStaff, GNARLED_STAFF_PATH);
     _setWeaponImage(LongSword, LONG_SWORD_PATH);
     _setWeaponImage(SimpleBow, SIMPLE_BOW_PATH);
     _setWeaponImage(WarHammer, WAR_HAMMER_PATH);
@@ -162,17 +177,16 @@ void TextureRepository::_loadNPCS() {
     _setNPCImage(Guard, GUARD_PATH, 28, 52);
 }
 
-void TextureRepository::_setImage(TextureID textureID, std::string&& structureImage,
-                    int width, int height, int xOffset, int yOffset, int scale) {
+void TextureRepository::_setImage(TextureID textureID, std::string&& image,
+                    int width, int height, int xOffset, int yOffset, int scale, ColorKey_t key) {
     try {
         //Load sprite sheet texture
-        ColorKey_t key = {0, 0, 0};
         textures.emplace(textureID, renderer);
         Texture& texture = textures.at(textureID);
-        texture.loadFromFile(structureImage, key, xOffset, yOffset, scale);
+        texture.loadFromFile(image, key, xOffset, yOffset, scale);
         _addStructureSprites(texture, width, height);
     } catch (SDLException& e) {
-        throw SDLException("Failed to load %s sprite sheet texture!\n", structureImage.c_str());
+        throw SDLException("Failed to load %s sprite sheet texture!\n", image.c_str());
     }
 }
 
