@@ -21,7 +21,6 @@ private:
     //Capaz le tengo q agregar un text
     TextureRepository& repo;
     SDL_Renderer& renderer;
-    Texture* inventory;
     std::vector<Texture*> inventoryTextures;
     std::unordered_map<EquippedItems, Texture*> equippedTextures;
 

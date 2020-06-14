@@ -75,7 +75,8 @@ enum TextureID {
     MagicArrow,
     MagicMissil,
     Heal,
-    Inventory
+    Inventory,
+    Background
 };
 
 class TextureRepository {

@@ -22,11 +22,9 @@
 PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,
                                        SDL_Renderer &renderer) : repo(repo),
                                        renderer(renderer) {
-    inventory = &repo.getTexture(Inventory);
 }
 
 void PlayerInventoryGUI::render() {
-    inventory->render(10, 70);
     _drawInventoryOutlines();
     _drawEquipableOutlines();
     _renderInventoryItems();

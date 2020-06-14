@@ -8,7 +8,12 @@
 #include <SDL.h>
 #include <unordered_map>
 
-enum Viewports {MapViewport, InventoryViewport, MinichatViewport};
+enum Viewports {
+    ScreenViewport,
+    MapViewport,
+    InventoryViewport,
+    MinichatViewport
+};
 
 
 class Window {
