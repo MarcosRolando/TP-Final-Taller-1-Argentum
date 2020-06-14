@@ -121,7 +121,6 @@ bool Monster::isDead() {
 void Monster::act() {
     unsigned long currentTime = time(0);
     if (currentTime - timer >= timeBetweenActions) {
-        //HACER CHEQUEO PARA VER SI ME TENGO QUE MOVER O SI TENGO QUE ATACAR
         if (!_tryToAttack()) {
             _move();
         }
