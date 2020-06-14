@@ -14,6 +14,7 @@
 #define IRON_HELMET_PATH "../Images/Clothing/IronHelmet.png"
 #define IRON_HELMET_DROP_PATH "../Images/Clothing/IronHelmetDrop.png"
 #define IRON_SHIELD_PATH "../Images/Clothing/IronShield.png"
+#define IRON_SHIELD_DROP_PATH "../Images/Clothing/IronShieldDrop.png"
 #define KING_ARMOR_PATH "../Images/Clothing/KingArmor.png"
 #define KING_ARMOR_DROP_PATH "../Images/Clothing/KingArmorDrop.png"
 #define LEATHER_ARMOR_PATH "../Images/Clothing/LeatherArmor.png"
@@ -23,6 +24,7 @@
 #define PLATE_ARMOR_PATH "../Images/Clothing/PlateArmor.png"
 #define PLATE_ARMOR_DROP_PATH "../Images/Clothing/PlateArmorDrop.png"
 #define TURTLE_SHIELD_PATH "../Images/Clothing/TurtleShield.png"
+#define TURTLE_SHIELD_DROP_PATH "../Images/Clothing/TurtleShieldDrop.png"
 #define DWARF_HEAD_PATH "../Images/Heads/DwarfHead.png"
 #define ELF_HEAD_PATH "../Images/Heads/ElfHead.png"
 #define GNOME_HEAD_PATH "../Images/Heads/GnomeHead.png"
@@ -88,6 +90,8 @@ void TextureRepository::_loadDrops() {
     _setImage(PlateArmorDrop, PLATE_ARMOR_DROP_PATH, 16, 32, 48, 35, 2);
     _setImage(HoodDrop, HOOD_DROP_PATH, 32, 32, 50, 45);
     _setImage(IronHelmetDrop, IRON_HELMET_DROP_PATH, 32, 32, 50, 45);
+    _setImage(IronShieldDrop, IRON_SHIELD_DROP_PATH, 32, 32, 35, 30, 2);
+    _setImage(TurtleShieldDrop, TURTLE_SHIELD_DROP_PATH, 32, 32, 50, 45);
 }
 
 void TextureRepository::_loadClothing() {

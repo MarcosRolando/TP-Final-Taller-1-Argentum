@@ -24,12 +24,6 @@ void Map::_setTiles() {
     } else {
         //Initialize the tiles
         for (int i = 0; i < TOTAL_TILES; ++i) {
-            //Determines what kind of tile will be made
-            //int tileType = -1;
-
-            //Read tile from map file
-            //mapFile >> tileType;
-
             //If the was a problem in reading the map
             if (mapFile.fail()) {
                 //Stop loading map
@@ -39,15 +33,8 @@ void Map::_setTiles() {
             //If the number is a valid tile number
             tiles.emplace_back(x, y, i%4, textureRepo.getTexture(Grass));
             if (i == 100) structures.emplace_back(x, y, textureRepo.getTexture(House2));
-            if (i == 5) tiles[5].addItemDrop(textureRepo.getTexture(ManaPotion));
-            /*
-            if (tileType >= 0 ) {
-                tiles.emplace_back(x, y, i%4, textureRepo.getTexture(Grass));
-                if (i == 100) structures.emplace_back(x, y, textureRepo.getTexture(House3));
-            } else {
-                throw SDLException("Error loading map: Invalid tile type at %d!\n", i);
-            }
-            */
+            if (i == 5) tiles[5].addItemDrop(textureRepo.getTexture(TurtleShieldDrop));
+
             //Move to next tile spot
             x += TILE_WIDTH;
 
