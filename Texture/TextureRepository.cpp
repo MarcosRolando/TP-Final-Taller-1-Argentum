@@ -88,8 +88,8 @@ TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer
 void TextureRepository::_loadUI() {
     _setImage(Inventory, INVENTORY_PATH, 189, 280, 0
                         , 0, 2, {-1, -1, -1});
-    _setImage(Background, BACKGROUND_PATH, 800, 600, 0
-            , 0, 2, {-1, -1, -1});
+    _setImage(Background, BACKGROUND_PATH, 1495, 937, 0
+            , 0, 1, {-1, -1, -1});
 }
 
 void TextureRepository::_loadSpells() {
