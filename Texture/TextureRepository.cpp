@@ -70,6 +70,7 @@
 #define MAGIC_ARROW_PATH "../Images/Spells/MagicArrow.png"
 #define MAGIC_MISSIL_PATH "../Images/Spells/MagicMissil.png"
 #define HEAL_PATH "../Images/Spells/Heal.png"
+#define INVENTORY_PATH "../Images/UI/Inventory.png"
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
     _loadClothing();
@@ -80,6 +81,12 @@ TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer
     _loadNPCS();
     _loadDrops();
     _loadSpells();
+    _loadUI();
+}
+
+void TextureRepository::_loadUI() {
+    _setImage(Inventory, INVENTORY_PATH, 189, 280, 0
+                        , 0, 2, {-1, -1, -1});
 }
 
 void TextureRepository::_loadSpells() {
@@ -170,17 +177,16 @@ void TextureRepository::_loadNPCS() {
     _setNPCImage(Guard, GUARD_PATH, 28, 52);
 }
 
-void TextureRepository::_setImage(TextureID textureID, std::string&& structureImage,
-                    int width, int height, int xOffset, int yOffset, int scale) {
+void TextureRepository::_setImage(TextureID textureID, std::string&& image,
+                    int width, int height, int xOffset, int yOffset, int scale, ColorKey_t key) {
     try {
         //Load sprite sheet texture
-        ColorKey_t key = {0, 0, 0};
         textures.emplace(textureID, renderer);
         Texture& texture = textures.at(textureID);
-        texture.loadFromFile(structureImage, key, xOffset, yOffset, scale);
+        texture.loadFromFile(image, key, xOffset, yOffset, scale);
         _addStructureSprites(texture, width, height);
     } catch (SDLException& e) {
-        throw SDLException("Failed to load %s sprite sheet texture!\n", structureImage.c_str());
+        throw SDLException("Failed to load %s sprite sheet texture!\n", image.c_str());
     }
 }
 

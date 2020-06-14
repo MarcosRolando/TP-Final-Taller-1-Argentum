@@ -33,7 +33,7 @@ void Map::_setTiles() {
             //If the number is a valid tile number
             tiles.emplace_back(x, y, i%4, textureRepo.getTexture(Grass));
             if (i == 100) structures.emplace_back(x, y, textureRepo.getTexture(House2));
-            if (i == 5) tiles[5].addItemDrop(textureRepo.getTexture(GnarledStaffDrop));
+            if (i == 5) tiles[5].addItemDrop(textureRepo.getTexture(IronHelmetDrop));
 
             //Move to next tile spot
             x += TILE_WIDTH;

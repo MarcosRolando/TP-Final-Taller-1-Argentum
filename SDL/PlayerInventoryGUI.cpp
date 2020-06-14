@@ -21,18 +21,19 @@
 
 PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,
                                        SDL_Renderer &renderer) : repo(repo),
-                                       renderer(renderer){
+                                       renderer(renderer) {
+    inventory = &repo.getTexture(Inventory);
 }
 
-void PlayerInventoryGUI::render(){
+void PlayerInventoryGUI::render() {
+    inventory->render(10, 70);
     _drawInventoryOutlines();
     _drawEquipableOutlines();
     _renderInventoryItems();
     _renderEquipableItems();
-
 }
 
-void PlayerInventoryGUI::_renderInventoryItems(){
+void PlayerInventoryGUI::_renderInventoryItems() {
     unsigned int size = inventoryTextures.size();
     for (int i = 0; i < INVENTORY_SIZE; i += LINES) {
         for (int j = 0; j < COLUMNS; ++j) {
@@ -44,7 +45,7 @@ void PlayerInventoryGUI::_renderInventoryItems(){
     }
 }
 
-void PlayerInventoryGUI::_renderEquipableItems(){
+void PlayerInventoryGUI::_renderEquipableItems() {
     if(equippedTextures.count(Helmet)){
         equippedTextures.at(Helmet)->render(115, 475,0,2);
     }
@@ -61,7 +62,7 @@ void PlayerInventoryGUI::_renderEquipableItems(){
     }
 }
 
-void PlayerInventoryGUI::_drawInventoryOutlines(){
+void PlayerInventoryGUI::_drawInventoryOutlines() {
     SDL_Rect outlineRect;
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
@@ -75,7 +76,7 @@ void PlayerInventoryGUI::_drawInventoryOutlines(){
     }
 }
 
-void PlayerInventoryGUI::_drawEquipableOutlines(){
+void PlayerInventoryGUI::_drawEquipableOutlines() {
     SDL_Rect outlineRect;
     for (int j = 0; j < 3; ++j) {
         outlineRect = { 70 + 75 * j, 600, ITEM_WIDTH, ITEM_HEIGHT };
@@ -97,7 +98,7 @@ void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
     inventoryTextures.push_back(&repo.getTexture(texture));
 }
 
-void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item){
+void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item) {
     Texture* currTexture = &repo.getTexture(texture);
     equippedTextures.emplace(item, currTexture);
 }
