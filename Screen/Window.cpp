@@ -27,7 +27,7 @@ void Window::_createViewports(){
     viewports.emplace(MapViewport, SDL_Rect{20,236,DEFAULT_MAP_WIDTH,
                                              DEFAULT_MAP_HEIGHT});
 
-    viewports.emplace(InventoryViewport, SDL_Rect{DEFAULT_MAP_WIDTH,0,
+    viewports.emplace(InventoryViewport, SDL_Rect{20 + DEFAULT_MAP_WIDTH,0,
                                                   DEFAULT_INVENTORY_WIDTH,
                                                   DEFAULT_INVENTORY_HEIGHT});
 
