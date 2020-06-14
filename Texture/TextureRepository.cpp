@@ -69,6 +69,7 @@
 #define EXPLOSION_PATH "../Images/Spells/Explosion.png"
 #define MAGIC_ARROW_PATH "../Images/Spells/MagicArrow.png"
 #define MAGIC_MISSIL_PATH "../Images/Spells/MagicMissil.png"
+#define HEAL_PATH "../Images/Spells/Heal.png"
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
     _loadClothing();
@@ -85,6 +86,7 @@ void TextureRepository::_loadSpells() {
     _setSpellImage(Explosion, EXPLOSION_PATH, 256, 256, -10, -10);
     _setSpellImage(MagicArrow, MAGIC_ARROW_PATH, 96, 100, 20, 15);
     _setSpellImage(MagicMissil, MAGIC_MISSIL_PATH, 128, 128, 8, 5);
+    _setSpellImage(Heal, HEAL_PATH, 76, 76, 25, 20);
 }
 
 void TextureRepository::_loadDrops() {

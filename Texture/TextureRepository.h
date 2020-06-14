@@ -73,7 +73,8 @@ enum TextureID {
     House3,
     Explosion,
     MagicArrow,
-    MagicMissil
+    MagicMissil,
+    Heal
 };
 
 class TextureRepository {
