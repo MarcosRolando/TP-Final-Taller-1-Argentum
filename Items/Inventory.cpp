@@ -11,16 +11,25 @@
 //////////////////////////////PRIVATE/////////////////////////////
 //Mueve el item al lugar de equipamiendo indicado si es que tiene uno
 void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition) {
-    std::shared_ptr<Clothing> clothingPtrAux;
     if (equipmentPlace == EQUIPMENT_PLACE_NONE) {
         return;
     }
-    //No deberia pasar porque se recibe el equipmentPlace, pero chequea que el
-    //casteo no haya fallado
-    clothingPtrAux = std::dynamic_pointer_cast<Clothing>(items[itemPosition]);
-    if (clothingPtrAux) {
-        items[itemPosition] = std::move(clothingEequipment.at(equipmentPlace));
-        clothingEequipment.at(equipmentPlace) = std::move(clothingPtrAux);
+    if (equipmentPlace == EQUIPMENT_PLACE_WEAPON) {
+        std::shared_ptr<Weapon> weaponPtrAux;
+        weaponPtrAux = std::dynamic_pointer_cast<Weapon>(items[itemPosition]);
+        if (weaponPtrAux) {
+            items[itemPosition] = std::move(equippedWeapon);
+            equippedWeapon = std::move(weaponPtrAux);
+        }
+    } else {
+        std::shared_ptr<Clothing> clothingPtrAux;
+        //No deberia pasar porque se recibe el equipmentPlace, pero chequea que el
+        //casteo no haya fallado
+        clothingPtrAux = std::dynamic_pointer_cast<Clothing>(items[itemPosition]);
+        if (clothingPtrAux) {
+            items[itemPosition] = std::move(clothingEequipment.at(equipmentPlace));
+            clothingEequipment.at(equipmentPlace) = std::move(clothingPtrAux);
+        }
     }
 }
 

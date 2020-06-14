@@ -22,7 +22,7 @@ private:
     unsigned int storedItemsAmmount;
     std::vector<std::shared_ptr<Item>> items;
     std::unordered_map<EquipmentPlace, std::shared_ptr<Clothing>> clothingEequipment;
-    Weapon equippedWeapon;
+    std::shared_ptr<Weapon> equippedWeapon;
 
 private:
     void manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);
