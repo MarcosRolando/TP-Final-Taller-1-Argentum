@@ -39,6 +39,8 @@
 #define ELVEN_FLUTE_DROP_PATH "../Images/Items/ElvenFluteDrop.png"
 #define LINKED_STAFF_PATH "../Images/Items/LinkedStaff.png"
 #define LINKED_STAFF_DROP_PATH "../Images/Items/LinkedStaffDrop.png"
+#define GNARLED_STAFF_PATH "../Images/Items/GnarledStaff.png"
+#define GNARLED_STAFF_DROP_PATH "../Images/Items/GnarledStaffDrop.png"
 #define LONG_SWORD_PATH "../Images/Items/LongSword.png"
 #define LONG_SWORD_DROP_PATH "../Images/Items/LongSwordDrop.png"
 #define SIMPLE_BOW_PATH "../Images/Items/SimpleBow.png"
@@ -65,6 +67,7 @@
 #define HOUSE2_PATH "../Images/Map/House2.png"
 #define HOUSE3_PATH "../Images/Map/House3.png"
 #define EXPLOSION_PATH "../Images/Spells/Explosion.png"
+#define MAGIC_ARROW_PATH "../Images/Spells/MagicArrow.png"
 #define MAGIC_MISSIL_PATH "../Images/Spells/MagicMissil.png"
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
@@ -80,13 +83,15 @@ TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer
 
 void TextureRepository::_loadSpells() {
     _setSpellImage(Explosion, EXPLOSION_PATH, 256, 256, -10, -10);
-    _setSpellImage(MagicMissil, MAGIC_MISSIL_PATH, 96, 100, 20, 15);
+    _setSpellImage(MagicArrow, MAGIC_ARROW_PATH, 96, 100, 20, 15);
+    _setSpellImage(MagicMissil, MAGIC_MISSIL_PATH, 128, 128, 8, 5);
 }
 
 void TextureRepository::_loadDrops() {
     _setImage(BlueTunicDrop, BLUE_TUNIC_DROP_PATH, 32, 32, 30, 30, 2);
-    _setImage(LongSwordDrop, LONG_SWORD_DROP_PATH, 32, 32, 30, 30, 2);
+    _setImage(LongSwordDrop, LONG_SWORD_DROP_PATH, 32, 32, 33, 30, 2);
     _setImage(LinkedStaffDrop, LINKED_STAFF_DROP_PATH, 32, 32, 30, 30, 2);
+    _setImage(GnarledStaffDrop, GNARLED_STAFF_DROP_PATH, 32, 32, 35, 30, 2);
     _setImage(MagicHatDrop, MAGIC_HAT_DROP_PATH, 32, 32, 50, 45);
     _setImage(HealthPotion, HEALTH_POTION_PATH, 32, 32, 50, 45);
     _setImage(ManaPotion, MANA_POTION_PATH, 32, 32, 50, 45);
@@ -132,6 +137,7 @@ void TextureRepository::_loadWeapons() {
     _setWeaponImage(CompoundBow, COMPOUND_BOW_PATH);
     //_setWeaponImage(ElvenFlute, ELVEN_FLUTE_PATH); todo
     _setWeaponImage(LinkedStaff, LINKED_STAFF_PATH);
+    _setWeaponImage(GnarledStaff, GNARLED_STAFF_PATH);
     _setWeaponImage(LongSword, LONG_SWORD_PATH);
     _setWeaponImage(SimpleBow, SIMPLE_BOW_PATH);
     _setWeaponImage(WarHammer, WAR_HAMMER_PATH);

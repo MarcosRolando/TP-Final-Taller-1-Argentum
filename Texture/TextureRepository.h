@@ -44,6 +44,8 @@ enum TextureID {
     ElvenFluteDrop,
     LinkedStaff,
     LinkedStaffDrop,
+    GnarledStaff,
+    GnarledStaffDrop,
     LongSword,
     LongSwordDrop,
     SimpleBow,
@@ -70,6 +72,7 @@ enum TextureID {
     House2,
     House3,
     Explosion,
+    MagicArrow,
     MagicMissil
 };
 
