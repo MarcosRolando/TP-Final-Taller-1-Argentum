@@ -61,6 +61,8 @@ int main(int argc, char* args[]) {
         Player player(repo, camera, 40, 30,pEquipment);
         NPC monster(repo, camera, 168, 30, Zombie);
 
+        Texture& background = repo.getTexture(Background);
+
         Spell explosion(repo.getTexture(MagicMissil), camera, TILE_WIDTH*3, TILE_HEIGHT*3);
 
         Map map(repo, camera);
@@ -129,6 +131,10 @@ int main(int argc, char* args[]) {
                 while (timeElapsed < 100) {
                     //Clear screen
                     window.clear();
+
+                    window.setViewport(ScreenViewport);
+                    background.render(0, 0);
+
                     window.setViewport(MapViewport);
                     map.renderGround();
                     float timeStep = moveTime.getTicks();
