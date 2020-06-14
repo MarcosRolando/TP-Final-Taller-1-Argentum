@@ -11,7 +11,7 @@ ItemDrop::ItemDrop(int x, int y) : sTexture(nullptr) {
 void ItemDrop::render(SDL_Rect& camera) {
     //If the tile is on screen
     if (sTexture != nullptr) {
-        sTexture->render(box.x - camera.x, box.y - camera.y, 0, 2, -90);
+        sTexture->render(box.x - camera.x, box.y - camera.y, 0, -90);
     }
 }
 

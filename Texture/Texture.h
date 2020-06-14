@@ -37,6 +37,7 @@ private:
     int mHeight;
     int xOffset;
     int yOffset;
+    int defaultScale;
     //Scene sprites
     std::vector<SDL_Rect> gSpriteClips;
 
@@ -53,7 +54,7 @@ public:
 
     //Loads image at specified path
     void loadFromFile(const std::string& path, ColorKey_t key = {-1, -1, -1},
-                                                            int xOff = 0, int yOff = 0);
+                                    int xOff = 0, int yOff = 0, int scale = 1);
 
     /*Especifica una dimension (un clip) que representa un sprite de la textura*/
     void addSprite(int x, int y, int width, int height);
@@ -61,15 +62,22 @@ public:
     //Deallocates texture
     void free();
 
+    /*Hago sobrecarga para poder pasar por parametro default a la escala de la textura
+     * cuando la cree*/
+    void render(int x, int y, int spritePosition = 0, double angle = 0);
+
     //Renders texture at given point
-    void render( int x, int y, int spritePosition = 0, int scale = 1, double angle = 0);
+    void render(int x, int y, int spritePosition, double angle, int scale);
 
     SpriteDimensions_t getSpriteDimensions(int spritePosition = 0);
 
-    void loadFromRenderedText( std::string textureText, SDL_Color
+    void loadFromRenderedText( const std::string& textureText, SDL_Color
     textColor, TTF_Font* font );
 
     void renderText(int x, int y);
+
+private:
+
 };
 
 

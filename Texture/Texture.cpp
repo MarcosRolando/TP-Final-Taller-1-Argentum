@@ -11,6 +11,7 @@ Texture::Texture(SDL_Renderer& renderer) : renderer(renderer) {
     mHeight = 0;
     xOffset = 0;
     yOffset = 0;
+    defaultScale = 1;
 }
 
 Texture::~Texture() {
@@ -18,7 +19,8 @@ Texture::~Texture() {
     free();
 }
 
-void Texture::loadFromFile(const std::string& path, ColorKey_t key, int xOff, int yOff) {
+void Texture::loadFromFile(const std::string& path, ColorKey_t key, int xOff, int yOff,
+                                                                int scale) {
     //Get rid of preexisting texture
     free();
 
@@ -57,6 +59,7 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key, int xOff, in
 
     xOffset = xOff;
     yOffset = yOff;
+    defaultScale = scale;
 }
 
 void Texture::free() {
@@ -69,7 +72,7 @@ void Texture::free() {
     }
 }
 
-void Texture::render(int x, int y, int spritePosition, int scale, double angle) {
+void Texture::render(int x, int y, int spritePosition, double angle, int scale) {
     //Set rendering space and render to screen
     SDL_Rect renderQuad = {x + xOffset, y + yOffset, mWidth, mHeight};
     SDL_Rect& clip = gSpriteClips.at(spritePosition);
@@ -96,6 +99,8 @@ Texture::Texture(Texture&& other) noexcept : renderer(other.renderer){
     yOffset = other.yOffset;
     other.xOffset = 0;
     other.yOffset = 0;
+    defaultScale = other.defaultScale;
+    other.defaultScale = 1;
     mTexture = other.mTexture;
     other.mTexture = nullptr;
     gSpriteClips = std::move(other.gSpriteClips);
@@ -108,8 +113,8 @@ SpriteDimensions_t Texture::getSpriteDimensions(int spritePosition) {
 }
 
 /* Crea una textura con texto */
-void Texture::loadFromRenderedText( std::string textureText, SDL_Color
-textColor, TTF_Font* font ) {
+void Texture::loadFromRenderedText(const std::string& textureText, SDL_Color
+                                                textColor, TTF_Font* font ) {
     //Get rid of preexisting texture
     free();
 
@@ -142,3 +147,6 @@ void Texture::renderText(int x, int y) {
     SDL_RenderCopy(&renderer, mTexture, nullptr, &renderQuad);
 }
 
+void Texture::render(int x, int y, int spritePosition, double angle) {
+    render(x, y, spritePosition, angle, defaultScale);
+}

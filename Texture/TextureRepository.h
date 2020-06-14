@@ -15,7 +15,9 @@ enum TextureID {
     CommonClothing,
     CommonClothingDrop,
     Hood,
+    HoodDrop,
     IronHelmet,
+    IronHelmetDrop,
     IronShield,
     KingArmor,
     KingArmorDrop,
@@ -83,7 +85,7 @@ private:
     void _loadSpells();
 
     void _setImage(TextureID textureID, std::string&& structureImage,
-                    int width, int height, int xOffset = 0, int yOffset = 0);
+                    int width, int height, int xOffset = 0, int yOffset = 0, int scale = 1);
     void _setSpellImage(TextureID textureID, std::string&& spellImage,
                             int width, int height, int xOffset = 0, int yOffset = 0);
     void _setNPCImage(TextureID textureID, std::string&& npcImage, int width, int height

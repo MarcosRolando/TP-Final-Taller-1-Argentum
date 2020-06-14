@@ -10,7 +10,9 @@
 #define COMMON_CLOTHING_PATH "../Images/Clothing/CommonClothing.png"
 #define COMMON_CLOTHING_DROP_PATH "../Images/Clothing/CommonClothingDrop.png"
 #define HOOD_PATH "../Images/Clothing/Hood.png"
+#define HOOD_DROP_PATH "../Images/Clothing/HoodDrop.png"
 #define IRON_HELMET_PATH "../Images/Clothing/IronHelmet.png"
+#define IRON_HELMET_DROP_PATH "../Images/Clothing/IronHelmetDrop.png"
 #define IRON_SHIELD_PATH "../Images/Clothing/IronShield.png"
 #define KING_ARMOR_PATH "../Images/Clothing/KingArmor.png"
 #define KING_ARMOR_DROP_PATH "../Images/Clothing/KingArmorDrop.png"
@@ -74,16 +76,18 @@ void TextureRepository::_loadSpells() {
 }
 
 void TextureRepository::_loadDrops() {
-    _setImage(BlueTunicDrop, BLUE_TUNIC_DROP_PATH, 32, 32, 30, 30);
-    _setImage(LongSwordDrop, LONG_SWORD_DROP_PATH, 32, 32, 30, 30);
-    _setImage(LinkedStaffDrop, LINKED_STAFF_DROP_PATH, 32, 32, 30, 30);
-    _setImage(MagicHatDrop, MAGIC_HAT_DROP_PATH, 32, 32, 33, 30);
-    _setImage(HealthPotion, HEALTH_POTION_PATH, 32, 32, 30, 30);
-    _setImage(ManaPotion, MANA_POTION_PATH, 32, 32, 30, 30);
-    _setImage(CommonClothingDrop, COMMON_CLOTHING_DROP_PATH, 32, 32, 35, 30);
-    _setImage(KingArmorDrop, KING_ARMOR_DROP_PATH, 32, 32, 35, 30);
-    _setImage(LeatherArmorDrop, LEATHER_ARMOR_DROP_PATH, 32, 32, 35, 30);
-    _setImage(PlateArmorDrop, PLATE_ARMOR_DROP_PATH, 16, 32, 48, 35);
+    _setImage(BlueTunicDrop, BLUE_TUNIC_DROP_PATH, 32, 32, 30, 30, 2);
+    _setImage(LongSwordDrop, LONG_SWORD_DROP_PATH, 32, 32, 30, 30, 2);
+    _setImage(LinkedStaffDrop, LINKED_STAFF_DROP_PATH, 32, 32, 30, 30, 2);
+    _setImage(MagicHatDrop, MAGIC_HAT_DROP_PATH, 32, 32, 50, 45);
+    _setImage(HealthPotion, HEALTH_POTION_PATH, 32, 32, 50, 45);
+    _setImage(ManaPotion, MANA_POTION_PATH, 32, 32, 50, 45);
+    _setImage(CommonClothingDrop, COMMON_CLOTHING_DROP_PATH, 32, 32, 35, 30, 2);
+    _setImage(KingArmorDrop, KING_ARMOR_DROP_PATH, 32, 32, 35, 30, 2);
+    _setImage(LeatherArmorDrop, LEATHER_ARMOR_DROP_PATH, 32, 32, 35, 30, 2);
+    _setImage(PlateArmorDrop, PLATE_ARMOR_DROP_PATH, 16, 32, 48, 35, 2);
+    _setImage(HoodDrop, HOOD_DROP_PATH, 32, 32, 50, 45);
+    _setImage(IronHelmetDrop, IRON_HELMET_DROP_PATH, 32, 32, 50, 45);
 }
 
 void TextureRepository::_loadClothing() {
@@ -143,13 +147,13 @@ void TextureRepository::_loadNPCS() {
 }
 
 void TextureRepository::_setImage(TextureID textureID, std::string&& structureImage,
-                                                int width, int height, int xOffset, int yOffset) {
+                    int width, int height, int xOffset, int yOffset, int scale) {
     try {
         //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
         textures.emplace(textureID, renderer);
         Texture& texture = textures.at(textureID);
-        texture.loadFromFile(structureImage, key, xOffset, yOffset);
+        texture.loadFromFile(structureImage, key, xOffset, yOffset, scale);
         _addStructureSprites(texture, width, height);
     } catch (SDLException& e) {
         throw SDLException("Failed to load %s sprite sheet texture!\n", structureImage.c_str());
