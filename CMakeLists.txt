@@ -12,14 +12,14 @@ add_subdirectory(Map)
 add_subdirectory(Character)
 
 add_executable(argentum main.cpp SDL/SDLException.cpp SDL/SDLException.h
-SDL/SoundRepository.cpp SDL/SoundRepository.h SDL/Font.cpp SDL/Font.h
+SDL/Sound/SoundRepository.cpp SDL/Sound/SoundRepository.h SDL/Text/Font.cpp SDL/Text/Font.h
 FileReader.cpp FileReader.h Configuration.cpp
-Configuration.h SDL/Sound.cpp SDL/Sound.h Calculator.cpp Calculator.h
+Configuration.h SDL/Sound/Sound.cpp SDL/Sound/Sound.h Calculator.cpp Calculator.h
 Map/Tile.cpp Map/Tile.h Map/Map.cpp Map/Map.h Character/Player.cpp
 Character/Player.h Timer.cpp Timer.h GameConstants.h Character/NPC.cpp
 Character/NPC.h Direction.h Character/Entity.cpp Character/Entity.h
-Screen/Window.cpp Screen/Window.h SDL/Text.cpp SDL/Text.h SDL/PlayerInfoGUI.cpp
-        SDL/PlayerInfoGUI.h SDL/PlayerInventoryGUI.cpp SDL/PlayerInventoryGUI.h
+Screen/Window.cpp Screen/Window.h SDL/Text/Text.cpp SDL/Text/Text.h SDL/GUI/PlayerInfoGUI.cpp
+        SDL/GUI/PlayerInfoGUI.h SDL/GUI/PlayerInventoryGUI.cpp SDL/GUI/PlayerInventoryGUI.h
         Spells/Spell.cpp Spells/Spell.h)
 
 

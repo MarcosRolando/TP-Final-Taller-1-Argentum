@@ -11,7 +11,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "../SDL/SDLException.h"
-#include "../SDL/Font.h"
+#include "../SDL/Text/Font.h"
 #include <string>
 #include <vector>
 

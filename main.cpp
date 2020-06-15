@@ -8,8 +8,8 @@
 #include "GameConstants.h"
 #include "Timer.h"
 #include "Screen/Window.h"
-#include "SDL/PlayerInfoGUI.h"
-#include "SDL/PlayerInventoryGUI.h"
+#include "SDL/GUI/PlayerInfoGUI.h"
+#include "SDL/GUI/PlayerInventoryGUI.h"
 #include "Spells/Spell.h"
 
 //Starts up SDL and creates window
@@ -66,19 +66,19 @@ int main(int argc, char* args[]) {
         Spell explosion(repo.getTexture(MagicMissil), camera, TILE_WIDTH*3, TILE_HEIGHT*3);
 
         Map map(repo, camera);
-        Font font("../SDL/medieval.ttf", 25);
+        Font font("../SDL/Text/medieval.ttf", 25);
         PlayerInfoGUI playerInfo(font, window.getRenderer());
-        PlayerInventoryGUI inventoryGui(repo, window.getRenderer());
+        PlayerInventoryGUI inventoryGui(repo, window.getRenderer(), font);
 
         //Main loop flag
         bool quit = false;
 
-        int currHealth = 1500;
-        int totalHealth = 5000;
-        int currXP = 9800;
-        int totalXP = 10000;
-        int currMana = 980;
-        int totalMana = 2000;
+        int currHealth = 50000;
+        int totalHealth = 50000;
+        int currXP = 3800000;
+        int totalXP = 3800000;
+        int currMana = 20000;
+        int totalMana = 20000;
 
         //Event handler
         SDL_Event e;
@@ -148,7 +148,10 @@ int main(int argc, char* args[]) {
 
                     //Stats
                     window.setViewport(InventoryViewport);
+                    inventoryGui.updateGold(1000);
                     inventoryGui.render();
+                    playerInfo.updateLevel(15);
+                    window.setViewport(PlayerInfoViewport);
                     playerInfo.updateHealth(currHealth, totalHealth);
                     playerInfo.updateMana(currMana, totalMana);
                     playerInfo.updateXP(currXP, totalXP);

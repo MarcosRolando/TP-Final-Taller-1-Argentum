@@ -34,6 +34,9 @@ void Window::_createViewports(){
     viewports.emplace(MinichatViewport, SDL_Rect{0, DEFAULT_MAP_HEIGHT,
                                                  DEFAULT_MINICHAT_WIDTH,
                                             DEFAULT_MINICHAT_HEIGHT});
+
+    viewports.emplace(PlayerInfoViewport, SDL_Rect{0, DEFAULT_MINICHAT_HEIGHT
+    + DEFAULT_MAP_HEIGHT - 45, DEFAULT_MAP_WIDTH, 40});
 }
 
 void Window::_createWindow() {
