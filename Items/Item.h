@@ -33,7 +33,9 @@ public:
     //Esta funcion retorna en cierta forma el tipo de item que es
     virtual EquipmentPlace use(Player& player);
 
-    const std::string& getName();
+    const std::string& getName() const;
+
+    const unsigned int getPrice() const;
 };
 
 

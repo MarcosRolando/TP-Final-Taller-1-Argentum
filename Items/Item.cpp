@@ -19,8 +19,12 @@ EquipmentPlace Item::use(Player &player) {
     return EQUIPMENT_PLACE_NONE;
 }
 
-const std::string &Item::getName() {
+const std::string &Item::getName() const {
     return name;
+}
+
+const unsigned int Item::getPrice() const {
+    return price;
 }
 
 
