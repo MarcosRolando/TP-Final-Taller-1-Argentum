@@ -76,6 +76,8 @@ std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
         if ((stringHash(items[i]->getName()) == itemNameHash) &&
             (itemName == items[i]->getName())) {
             returnItem = std::move(items[i]);
+            storedItemsAmmount--;
+            break;
         }
     }
     return returnItem;
