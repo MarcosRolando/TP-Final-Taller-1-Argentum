@@ -2,8 +2,8 @@
 // Created by ivan on 8/6/20.
 //
 
-#ifndef ARGENTUM_FILEREADER_H
-#define ARGENTUM_FILEREADER_H
+#ifndef ARGENTUM_CONFIGFILEREADER_H
+#define ARGENTUM_CONFIGFILEREADER_H
 
 #include <fstream>
 #include "jsoncpp/json/json.h"
@@ -19,14 +19,14 @@ struct XPModifiers;
 
 
 
-class FileReader {
+class ConfigFileReader {
 private:
     Json::Reader reader;
     Json::Value obj;
     std::ifstream file;
 
 public:
-    FileReader(const std::string& path);
+    ConfigFileReader(const std::string& path);
 
     void loadClassModifiers(std::vector<Modifiers>& mods);
     void loadRaceModifiers(std::vector<Modifiers>& mods);
@@ -46,7 +46,7 @@ public:
 
     unsigned int loadPlayerVisionRange();
 
-    ~FileReader();
+    ~ConfigFileReader();
 
 private:
     void _getModifiers(Modifiers &modifier, Json::Value& currModifier);
@@ -58,4 +58,4 @@ private:
 };
 
 
-#endif //ARGENTUM_FILEREADER_H
+#endif //ARGENTUM_CONFIGFILEREADER_H

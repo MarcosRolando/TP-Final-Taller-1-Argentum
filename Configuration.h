@@ -5,7 +5,7 @@
 #ifndef ARGENTUM_CONFIGURATION_H
 #define ARGENTUM_CONFIGURATION_H
 
-#include "FileReader.h"
+#include "ConfigFileReader.h"
 #include <iostream>
 #include <vector>
 

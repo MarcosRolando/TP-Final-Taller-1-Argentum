@@ -2,18 +2,18 @@
 // Created by ivan on 8/6/20.
 //
 
-#include "FileReader.h"
+#include "ConfigFileReader.h"
 
-FileReader::FileReader(const std::string& path) {
+ConfigFileReader::ConfigFileReader(const std::string& path) {
     file.open(path);
     reader.parse(file, obj);
 }
 
-FileReader::~FileReader() {
+ConfigFileReader::~ConfigFileReader() {
     file.close();
 }
 
-void FileReader::loadClassModifiers(std::vector<Modifiers> &mods) {
+void ConfigFileReader::loadClassModifiers(std::vector<Modifiers> &mods) {
     Json::Value& classModifiers = obj["Class"];
     Modifiers currMods;
     for (auto & classModifier : classModifiers) {
@@ -22,7 +22,7 @@ void FileReader::loadClassModifiers(std::vector<Modifiers> &mods) {
     }
 }
 
-void FileReader::loadRaceModifiers(std::vector<Modifiers> &mods) {
+void ConfigFileReader::loadRaceModifiers(std::vector<Modifiers> &mods) {
     Json::Value& raceModifiers = obj["Race"];
     Modifiers currMods;
     for (auto & raceModifier : raceModifiers) {
@@ -31,7 +31,7 @@ void FileReader::loadRaceModifiers(std::vector<Modifiers> &mods) {
     }
 }
 
-void FileReader::loadWeaponStats(std::vector<WeaponStats>& stats) {
+void ConfigFileReader::loadWeaponStats(std::vector<WeaponStats>& stats) {
     Json::Value& weapons = obj["Weapon"];
     WeaponStats currStats;
     for (auto & weapon : weapons) {
@@ -40,7 +40,7 @@ void FileReader::loadWeaponStats(std::vector<WeaponStats>& stats) {
     }
 }
 
-void FileReader::loadClothingStats(std::vector<ClothingStats>& stats) {
+void ConfigFileReader::loadClothingStats(std::vector<ClothingStats>& stats) {
     Json::Value& clothings = obj["Clothing"];
     ClothingStats currStats;
     for (auto & clothing : clothings) {
@@ -50,7 +50,7 @@ void FileReader::loadClothingStats(std::vector<ClothingStats>& stats) {
 }
 
 
-void FileReader::loadMonsterStats(std::vector<MonsterStats>& stats) {
+void ConfigFileReader::loadMonsterStats(std::vector<MonsterStats>& stats) {
     Json::Value& monsterStats = obj["Monster"];
     MonsterStats currStats;
     for (auto & monsterStat : monsterStats) {
@@ -59,7 +59,7 @@ void FileReader::loadMonsterStats(std::vector<MonsterStats>& stats) {
     }
 }
 
-void FileReader::loadGoldModifiers(GoldModifiers &goldModifiers) {
+void ConfigFileReader::loadGoldModifiers(GoldModifiers &goldModifiers) {
     Json::Value& modifiers = obj["GoldModifiers"];
     goldModifiers.safeGoldFactor = modifiers["MaxSafeGoldFactor"].asUInt();
     goldModifiers.safeGoldLevelModifier = modifiers["MaxGoldLevelModifier"]
@@ -68,7 +68,7 @@ void FileReader::loadGoldModifiers(GoldModifiers &goldModifiers) {
     goldModifiers.goldDropFactorMax = modifiers["MaxRange"].asFloat();
 }
 
-void FileReader::loadXPModifiers(XPModifiers &xpModifiers) {
+void ConfigFileReader::loadXPModifiers(XPModifiers &xpModifiers) {
     Json::Value& modifiers = obj["XPModifiers"];
     xpModifiers.attackXPModifier = modifiers["AttackXPModifier"].asUInt();
     xpModifiers.killXPMinRange = modifiers["MinKillXPModifier"].asFloat();
@@ -78,27 +78,27 @@ void FileReader::loadXPModifiers(XPModifiers &xpModifiers) {
     xpModifiers.killXPModifier = modifiers["KillXPModifier"].asUInt();
 }
 
-float FileReader::loadCritAttackChance() {
+float ConfigFileReader::loadCritAttackChance() {
     return obj["CritAttackProb"].asFloat();
 }
 
-float FileReader::loadDodgeChance() {
+float ConfigFileReader::loadDodgeChance() {
     return obj["DodgeProb"].asFloat();
 }
 
-unsigned int FileReader::loadNewbieLevel() {
+unsigned int ConfigFileReader::loadNewbieLevel() {
     return obj["NewbieLevel"].asUInt();
 }
 
-unsigned int FileReader::loadmaxLevelDif() {
+unsigned int ConfigFileReader::loadmaxLevelDif() {
     return obj["MaxLevelDif"].asUInt();
 }
 
-unsigned int FileReader::loadPlayerVisionRange() {
+unsigned int ConfigFileReader::loadPlayerVisionRange() {
     return obj["PlayerVisionRange"].asUInt();
 }
 
-void FileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
+void ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
     modifier.health = currModifier["Health"].asUInt();
     modifier.mana = currModifier["Mana"].asUInt();
     modifier.constitution = currModifier["Constitution"].asUInt();
@@ -109,7 +109,7 @@ void FileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
     modifier.recoveryRate = currModifier["RecoveryRate"].asUInt();
 }
 
-void FileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMonster){
+void ConfigFileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMonster){
     stats.health = currMonster["Health"].asUInt();
     stats.damage = currMonster["Damage"].asUInt();
     stats.rangeOfVision = currMonster["VisionRange"].asUInt();
@@ -117,14 +117,14 @@ void FileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMonster)
     stats.maxLevel = currMonster["LevelMax"].asUInt();
 }
 
-void FileReader::_getWeaponStats(WeaponStats& stats, Json::Value currWeapon){
+void ConfigFileReader::_getWeaponStats(WeaponStats& stats, Json::Value currWeapon){
     stats.maxDmg = currWeapon["MaxDmg"].asUInt();
     stats.minDmg = currWeapon["MinDmg"].asUInt();
     stats.manaConsumption = currWeapon["ManaConsumption"].asUInt();
     stats.range = currWeapon["Range"].asUInt();
 }
 
-void FileReader::_getClothingStats(ClothingStats& stats, Json::Value
+void ConfigFileReader::_getClothingStats(ClothingStats& stats, Json::Value
 currClothing){
     stats.maxDefense = currClothing["MaxDefense"].asUInt();
     stats.minDefense = currClothing["MinDefense"].asUInt();

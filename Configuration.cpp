@@ -22,7 +22,7 @@ Configuration &Configuration::getInstance() {
 }
 
 Configuration::Configuration() {
-    FileReader fileReader("../config.json");
+    ConfigFileReader fileReader("../config.json");
 
     fileReader.loadClassModifiers(classModifiers);
     fileReader.loadRaceModifiers(raceModifiers);

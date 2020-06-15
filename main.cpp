@@ -11,6 +11,7 @@
 #include "SDL/GUI/PlayerInfoGUI.h"
 #include "SDL/GUI/PlayerInventoryGUI.h"
 #include "Spells/Spell.h"
+#include "MapFileReader.h"
 
 //Starts up SDL and creates window
 void init();
@@ -48,6 +49,13 @@ void close() {
 	SDL_Quit();
 }
 
+int main(int argc, char* args[]) {
+    MapFileReader map("map.json");
+    std::cout << map.getStructure(0,53) << std::endl;
+    return 0;
+}
+
+/*
 int main(int argc, char* args[]) {
 	//Start up SDL and create window
 	try {
@@ -167,3 +175,4 @@ int main(int argc, char* args[]) {
 
 	return 0;
 }
+ */
