@@ -6,6 +6,7 @@
 #define ARGENTUM_ITEM_H
 
 #include <string>
+#include <memory>
 
 enum EquipmentPlace{
     EQUIPMENT_PLACE_NONE, EQUIPMENT_PLACE_HEAD, EQUIPMENT_PLACE_CHEST, EQUIPMENT_PLACE_WEAPON,
@@ -36,6 +37,12 @@ public:
     const std::string& getName() const;
 
     const unsigned int getPrice() const;
+
+    //Retorna una instancia del tipo de item, debe implementarse para cada
+    //item final
+    virtual std::shared_ptr<Item> getInstance() = 0;
+
+    virtual ~Item() = default;
 };
 
 

@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <list>
 #include <utility>
+#include <memory>
 #include "Item.h"
 
 //Clase utilizada para guardar instancias de items, se guardan las instancias
@@ -18,10 +19,16 @@
 //guardados en la instancia
 class Storage {
 private:
-    std::unordered_map<std::string, std::list<Item>> storedItems;
+    std::unordered_map<std::string, std::list<std::shared_ptr<Item>>> storedItems;
 public:
     //Se apropia de los contenidos de initialProducts
-    explicit Storage(std::unordered_map<std::string, std::list<Item>>&& initialItems) noexcept;
+    explicit Storage(std::unordered_map<std::string,
+                     std::list<std::shared_ptr<Item>>>&& initialItems) noexcept;
+
+    //Almacena el item, apropiandose de el
+    void addItem(std::shared_ptr<Item>&& item);
+
+    void retreiveItem(std::string itemName, Player& player);
 };
 
 

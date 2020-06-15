@@ -7,6 +7,7 @@
 
 
 #include "../Map/Coordinate.h"
+#include "Player.h"
 #include <list>
 
 class Entity {
@@ -56,6 +57,8 @@ public:
 
     //Retorna la posicion en la que quiere estar el jugadoras
     Coordinate getPosition();
+
+    virtual ~Entity() = default;
 };
 
 

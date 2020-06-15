@@ -50,6 +50,8 @@ public:
     bool isDead();
 
     void act();
+
+    std::shared_ptr<Item> dropLoot();
 };
 
 

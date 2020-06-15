@@ -18,6 +18,7 @@ public:
     unsigned int getDefense();
 
     //virtual EquipmentPlace use(Player& player) = 0;
+    virtual ~Clothing() = default;
 };
 
 

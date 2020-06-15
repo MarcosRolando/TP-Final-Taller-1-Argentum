@@ -16,3 +16,13 @@ EquipmentPlace Gold::use(Player &player) {
 unsigned int Gold::getAmmount() {
     return ammount;
 }
+
+std::shared_ptr<Item> Gold::getInstance() {
+    std::shared_ptr<Item> gold(new Gold(0));
+    return gold;
+}
+
+std::shared_ptr<Item> Gold::getInstance(unsigned int storedGold) {
+    std::shared_ptr<Item> gold(new Gold(storedGold));
+    return gold;
+}

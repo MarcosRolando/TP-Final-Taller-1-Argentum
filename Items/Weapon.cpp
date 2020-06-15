@@ -56,6 +56,3 @@ EquipmentPlace Weapon::use(Player &player) {
     return EQUIPMENT_PLACE_WEAPON;
 }
 
-
-
-

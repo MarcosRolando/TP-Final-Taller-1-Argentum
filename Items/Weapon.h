@@ -37,6 +37,8 @@ public:
     unsigned int getDamage(Coordinate attackPosition, Coordinate attackedPosition) const;
 
     EquipmentPlace use(Player& player) override;
+
+    virtual ~Weapon() override;
 };
 
 
