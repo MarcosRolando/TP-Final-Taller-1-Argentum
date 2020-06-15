@@ -16,5 +16,5 @@ void Banker::withdraw(Player &player, const std::string &itemName) {
 
 void Banker::deposit(Player &player, const std::string& itemName) {
     //Entity::deposit(player, itemPosition);
-    storage.storeItem(item);
+    storage.storeItem(player.removeItem(itemName));
 }

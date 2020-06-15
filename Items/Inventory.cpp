@@ -69,7 +69,7 @@ void Inventory::useItem(Player& player, unsigned int itemPosition) {
 }
 
 std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
-    std::shared_ptr<Item> returnItem;
+    std::shared_ptr<Item> returnItem(nullptr);
     std::hash<std::string> stringHash;
     unsigned int itemNameHash = stringHash(itemName);
     for (int i = 0; i < items.size(); ++i) {

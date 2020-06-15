@@ -40,6 +40,10 @@ public:
     //retorna true, sino no se apropia de el y retorna false
     bool storeItem(std::shared_ptr<Item>&& item);
 
+    //Retorna el item que almacene el inventario al pedirle el item con nombre
+    //itemName
+    std::shared_ptr<Item> removeItem(const std::string& itemName);
+
 };
 
 
