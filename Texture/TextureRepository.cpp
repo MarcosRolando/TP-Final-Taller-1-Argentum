@@ -50,6 +50,7 @@
 #define HEALTH_POTION_PATH "../Images/Items/HealthPotion.png"
 #define MANA_POTION_PATH "../Images/Items/ManaPotion.png"
 #define GRASS_PATH "../Images/Map/Grass.png"
+#define DEAD_GRASS_PATH "../Images/Map/DeadGrass.png"
 #define SAND_PATH "../Images/Map/Sand.png"
 #define STONE_PATH "../Images/Map/Stone.png"
 #define SKELETON_PATH "../Images/Monsters/Skeleton.png"
@@ -63,7 +64,9 @@
 #define TREE_PATH "../Images/Map/Tree.png"
 #define LONG_TREE_PATH "../Images/Map/LongTree.png"
 #define FAT_TREE_PATH "../Images/Map/FatTree.png"
+#define PALM_TREE_PATH "../Images/Map/PalmTree.png"
 #define BUSH_PATH "../Images/Map/Bush.png"
+#define DEAD_BUSH_PATH "../Images/Map/DeadBush.png"
 #define HOUSE1_PATH "../Images/Map/House1.png"
 #define HOUSE2_PATH "../Images/Map/House2.png"
 #define HOUSE3_PATH "../Images/Map/House3.png"
@@ -155,6 +158,7 @@ void TextureRepository::_loadWeapons() {
 
 void TextureRepository::_loadTiles() {
     _setTileImage(Grass, GRASS_PATH, false);
+    _setTileImage(DeadGrass, DEAD_GRASS_PATH, false);
     _setTileImage(Sand, SAND_PATH, true);
 }
 
@@ -162,7 +166,9 @@ void TextureRepository::_loadStructures() {
     _setImage(Tree, TREE_PATH, 256, 256, -60, -180);
     _setImage(LongTree, LONG_TREE_PATH, 256, 256, -60, -180);
     _setImage(FatTree, FAT_TREE_PATH, 256, 256, -60, -180);
+    _setImage(PalmTree, PALM_TREE_PATH, 256, 256, -60, -180);
     _setImage(Bush, BUSH_PATH, 75, 65, 30, 40);
+    _setImage(DeadBush, DEAD_BUSH_PATH, 75, 65, 30, 40);
     _setImage(House1, HOUSE1_PATH, 196, 200, 40, -150);
     _setImage(House2, HOUSE2_PATH, 181, 213, 40, -150);
     _setImage(House3, HOUSE3_PATH, 200, 239, 30, -165);
