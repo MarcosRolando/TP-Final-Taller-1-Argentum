@@ -51,7 +51,7 @@ void close() {
 
 int main(int argc, char* args[]) {
     MapFileReader map("map.json");
-    std::cout << map.getStructure(0,53) << std::endl;
+    std::cout << map.getStructure(0,32) << std::endl;
     return 0;
 }
 

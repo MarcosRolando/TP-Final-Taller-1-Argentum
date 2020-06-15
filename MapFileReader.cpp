@@ -5,6 +5,8 @@
 #include "MapFileReader.h"
 
 MapFileReader::MapFileReader(const std::string& path) {
+    width = 0;
+    height = 0;
     file.open(path);
     reader.parse(file, obj);
     _readMapSize();
@@ -22,7 +24,14 @@ void MapFileReader::_readIDs() {
     for (auto & tileset : tilesets) {
         std::string name = tileset["name"].asString();
         int id = tileset["firstgid"].asInt();
-        mapElements.emplace(id, name);
+        int tilecount = tileset["tilecount"].asInt();
+        if (tilecount > 1) {
+            for (int i = 0; i < tilecount; ++i) {
+                mapElements.emplace(id + i, name + std::to_string(i));
+            }
+        } else {
+            mapElements.emplace(id, name);
+        }
     }
 }
 
