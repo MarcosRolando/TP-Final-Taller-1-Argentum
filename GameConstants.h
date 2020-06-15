@@ -33,14 +33,14 @@ const int DEFAULT_SCREEN_WIDTH = DEFAULT_MAP_WIDTH + DEFAULT_INVENTORY_WIDTH;
 const int DEFAULT_SCREEN_HEIGHT = DEFAULT_MAP_HEIGHT + 296;
 
 //General para todas las barras
-const int BAR_WIDTH = 225;
-const int BAR_HEIGHT = 35;
-const int BAR_X_OFFSET = 90;
+//const int BAR_WIDTH = 225;
+const int BAR_HEIGHT = 30;
+//const int BAR_X_OFFSET = 90;
 
 //Barras individuales
-const int HEALTH_BAR_Y_OFFSET = 0;
-const int MANA_BAR_Y_OFFSET = 45;
-const int XP_BAR_Y_OFFSET = 90;
+const int HEALTH_BAR_X_OFFSET = 25;
+const int MANA_BAR_X_OFFSET = 425;
+const int XP_BAR_X_OFFSET = 725;
 
 //The dimensions of the level
 const int LEVEL_WIDTH = TOTAL_HORIZONTAL_TILES * TILE_WIDTH;

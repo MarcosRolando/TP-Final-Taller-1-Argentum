@@ -3,7 +3,7 @@
 //
 
 #include "PlayerInventoryGUI.h"
-#include "../GameConstants.h"
+#include "../../GameConstants.h"
 
 #define INVENTORY_SIZE 16 //////////////////////////////USAR EL GENERAL
 #define LINES 4
@@ -20,8 +20,9 @@
 
 
 PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,
-                                       SDL_Renderer &renderer) : repo(repo),
-                                       renderer(renderer) {
+                                       SDL_Renderer &renderer, Font& font) :
+                                            text(font,renderer), repo(repo),
+                                                             renderer(renderer) {
 }
 
 void PlayerInventoryGUI::render() {
@@ -29,6 +30,7 @@ void PlayerInventoryGUI::render() {
     _drawEquipableOutlines();
     _renderInventoryItems();
     _renderEquipableItems();
+    _renderText();
 }
 
 void PlayerInventoryGUI::_renderInventoryItems() {
@@ -89,8 +91,6 @@ void PlayerInventoryGUI::_drawEquipableOutlines() {
     SDL_RenderDrawRect( &renderer, &outlineRect );
 }
 
-
-
 void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
     //Ver si tengo q chequear tamaño
     inventoryTextures.push_back(&repo.getTexture(texture));
@@ -99,4 +99,16 @@ void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
 void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item) {
     Texture* currTexture = &repo.getTexture(texture);
     equippedTextures.emplace(item, currTexture);
+}
+
+void PlayerInventoryGUI::updateGold(unsigned int gold) {
+    text.updateText("GOLD: " + std::to_string(gold));
+}
+
+void PlayerInventoryGUI::_renderText() {
+    text.render(160, 565, SDL_Color{0xFF,0xFF,0x00});
+    text.updateText("INVENTORY");
+    text.render(160, 225, SDL_Color{0xFF,0xFF,0xFF});
+    text.updateText("EQUIPPED");
+    text.render(60, 690, SDL_Color{0xFF,0xFF,0xFF});
 }

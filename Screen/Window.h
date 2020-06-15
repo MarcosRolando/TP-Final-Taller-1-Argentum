@@ -12,7 +12,8 @@ enum Viewports {
     ScreenViewport,
     MapViewport,
     InventoryViewport,
-    MinichatViewport
+    MinichatViewport,
+    PlayerInfoViewport
 };
 
 
