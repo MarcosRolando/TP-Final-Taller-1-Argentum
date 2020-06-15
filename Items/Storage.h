@@ -26,6 +26,8 @@ struct ProductData {
     unsigned int stock;
 };
 
+//Esta clase se encarga de manejar el stock de items, los guarda y maneja
+//su agregado y retiro
 class Storage {
 private:
     std::unordered_map<std::string, std::list<std::shared_ptr<Item>>> storedItems;
@@ -39,7 +41,7 @@ public:
 
     //Intenta pasar el item pedido de Storage a Player, si el item no existe o
     //el player no tiene espacio entonces no hace nada
-    void retreiveItem(std::string itemName, Player& player);
+    void retreiveItem(const std::string& itemName, Player& player);
 };
 
 
