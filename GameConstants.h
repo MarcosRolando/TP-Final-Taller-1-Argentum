@@ -39,7 +39,7 @@ const int BAR_HEIGHT = 30;
 
 //Barras individuales
 const int HEALTH_BAR_X_OFFSET = 25;
-const int MANA_BAR_X_OFFSET = 425;
+const int MANA_BAR_X_OFFSET = 385;
 const int XP_BAR_X_OFFSET = 725;
 
 //The dimensions of the level
