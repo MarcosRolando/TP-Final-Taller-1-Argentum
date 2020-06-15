@@ -62,6 +62,7 @@
 #define GUARD_PATH "../Images/Citizens/Guard.png"
 #define TREE_PATH "../Images/Map/Tree.png"
 #define LONG_TREE_PATH "../Images/Map/LongTree.png"
+#define FAT_TREE_PATH "../Images/Map/FatTree.png"
 #define BUSH_PATH "../Images/Map/Bush.png"
 #define HOUSE1_PATH "../Images/Map/House1.png"
 #define HOUSE2_PATH "../Images/Map/House2.png"
@@ -159,11 +160,12 @@ void TextureRepository::_loadTiles() {
 
 void TextureRepository::_loadStructures() {
     _setImage(Tree, TREE_PATH, 256, 256, -60, -180);
-    _setImage(LongTree, LONG_TREE_PATH, 256, 256);
+    _setImage(LongTree, LONG_TREE_PATH, 256, 256, -60, -180);
+    _setImage(FatTree, FAT_TREE_PATH, 256, 256, -60, -180);
     _setImage(Bush, BUSH_PATH, 75, 65, 30, 40);
-    _setImage(House1, HOUSE1_PATH, 196, 200, 30, -100);
-    _setImage(House2, HOUSE2_PATH, 181, 213, 30, -100);
-    _setImage(House3, HOUSE3_PATH, 200, 239, 30, -120);
+    _setImage(House1, HOUSE1_PATH, 196, 200, 40, -150);
+    _setImage(House2, HOUSE2_PATH, 181, 213, 40, -150);
+    _setImage(House3, HOUSE3_PATH, 200, 239, 30, -165);
 }
 
 void TextureRepository::_loadNPCS() {

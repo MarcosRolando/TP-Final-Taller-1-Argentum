@@ -67,6 +67,7 @@ enum TextureID {
     Guard,
     Tree,
     LongTree,
+    FatTree,
     Bush,
     House1,
     House2,
