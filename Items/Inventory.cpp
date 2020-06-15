@@ -67,3 +67,16 @@ void Inventory::useItem(Player& player, unsigned int itemPosition) {
         manageItemPlacement(items[itemPosition]->use(player), itemPosition);
     }
 }
+
+std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
+    std::shared_ptr<Item> returnItem;
+    std::hash<std::string> stringHash;
+    unsigned int itemNameHash = stringHash(itemName);
+    for (int i = 0; i < items.size(); ++i) {
+        if ((stringHash(items[i]->getName()) == itemNameHash) &&
+            (itemName == items[i]->getName())) {
+            returnItem = std::move(items[i]);
+        }
+    }
+    return returnItem;
+}

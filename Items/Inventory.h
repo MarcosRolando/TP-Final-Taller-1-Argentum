@@ -39,6 +39,11 @@ public:
     //Si no hay un item en la posicion retorna un shared_ptr que almacena null_ptr
     std::shared_ptr<Item> removeItem(unsigned int itemPosition);
 
+    //Elimina el item con el nombre recibido del inventario y lo retorna,
+    //dejando el lugar que ocupaba para un nuevo item que quiera ser guardado
+    //Si no hay un item con el nombre recibido retorna un shared_ptr que almacena null_ptr
+    std::shared_ptr<Item> removeItem(const std::string& itemName);
+
     //Usa el item en la posicion indicada, si no hay un item en la posicion no
     //hace nada
     void useItem(Player& player, unsigned int itemPosition);
