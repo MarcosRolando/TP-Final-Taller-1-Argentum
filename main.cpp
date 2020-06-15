@@ -66,7 +66,7 @@ int main(int argc, char* args[]) {
         Spell explosion(repo.getTexture(MagicMissil), camera, TILE_WIDTH*3, TILE_HEIGHT*3);
 
         Map map(repo, camera);
-        Font font("../SDL/font.ttf", 25);
+        Font font("../SDL/medieval.ttf", 25);
         PlayerInfoGUI playerInfo(font, window.getRenderer());
         PlayerInventoryGUI inventoryGui(repo, window.getRenderer());
 

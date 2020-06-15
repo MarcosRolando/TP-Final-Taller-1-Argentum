@@ -22,7 +22,7 @@ public:
 
     void updateText(const std::string &newText);
 
-    void render(int x, int y);
+    void render(int x, int y, SDL_Color color = {0, 0, 0});
 };
 
 

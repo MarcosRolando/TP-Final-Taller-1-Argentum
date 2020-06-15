@@ -6,7 +6,7 @@
 #include "../GameConstants.h"
 
 PlayerInfoGUI::PlayerInfoGUI(Font &font, SDL_Renderer &renderer) : info(font,
-                                                                        renderer), renderer(renderer) {}
+                                        renderer), renderer(renderer) {}
 
 
 void PlayerInfoGUI::updateHealth(unsigned int currHealth, unsigned int

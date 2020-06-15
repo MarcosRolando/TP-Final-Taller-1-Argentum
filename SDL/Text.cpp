@@ -12,10 +12,9 @@ void Text::updateText(const std::string& newText){
     text = newText;
 }
 
-void Text::render(int x, int y){
-    SDL_Color textColor = { 0x00, 0x00, 0x00 };
-    textTexture.loadFromRenderedText(text, textColor, font.getFont());
-    textTexture.renderText(x,y);
+void Text::render(int x, int y, SDL_Color color){
+    textTexture.loadFromRenderedText(text, color, font.getFont());
+    textTexture.renderText(x, y);
 }
 
 Text::~Text() {
