@@ -38,9 +38,8 @@ public:
     void storeItem(std::shared_ptr<Item>&& item);
 
     //Intenta pasar el item pedido de Storage a Player, si el item no existe o
-    //el player no tiene espacio retorna false, sino retorna false y storage no
-    //es modificado
-    bool retreiveItem(std::string itemName, Player& player);
+    //el player no tiene espacio entonces no hace nada
+    void retreiveItem(std::string itemName, Player& player);
 };
 
 
