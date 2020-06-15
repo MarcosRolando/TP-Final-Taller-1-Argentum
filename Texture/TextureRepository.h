@@ -81,11 +81,11 @@ enum TextureID {
     BrokenRipStone,
     DeadGuy,
     VeryDeadGuy,
-    HungedGuy,
+    HangedGuy,
     RipStone,
     Explosion,
     MagicArrow,
-    MagicMissil,
+    MagicMissile,
     Heal,
     Background
 };

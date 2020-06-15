@@ -76,11 +76,11 @@
 #define BROKEN_RIP_STONE_PATH "../Images/Map/BrokenRipStone.png"
 #define DEAD_GUY_PATH "../Images/Map/DeadGuy.png"
 #define VERY_DEAD_GUY_PATH "../Images/Map/VeryDeadGuy.png"
-#define HUNGED_GUY_PATH "../Images/Map/HungedGuy.png"
+#define HANGED_GUY_PATH "../Images/Map/HangedGuy.png"
 #define RIP_STONE_PATH "../Images/Map/RipStone.png"
 #define EXPLOSION_PATH "../Images/Spells/Explosion.png"
 #define MAGIC_ARROW_PATH "../Images/Spells/MagicArrow.png"
-#define MAGIC_MISSIL_PATH "../Images/Spells/MagicMissil.png"
+#define MAGIC_MISSILE_PATH "../Images/Spells/MagicMissile.png"
 #define HEAL_PATH "../Images/Spells/Heal.png"
 #define BACKGROUND_PATH "../Images/UI/Background.png"
 
@@ -104,7 +104,7 @@ void TextureRepository::_loadUI() {
 void TextureRepository::_loadSpells() {
     _setSpellImage(Explosion, EXPLOSION_PATH, 256, 256, -10, -10);
     _setSpellImage(MagicArrow, MAGIC_ARROW_PATH, 96, 100, 20, 15);
-    _setSpellImage(MagicMissil, MAGIC_MISSIL_PATH, 128, 128, 8, 5);
+    _setSpellImage(MagicMissile, MAGIC_MISSILE_PATH, 128, 128, 8, 5);
     _setSpellImage(Heal, HEAL_PATH, 76, 76, 25, 20);
 }
 
@@ -182,7 +182,7 @@ void TextureRepository::_loadStructures() {
     _setImage(BrokenRipStone, BROKEN_RIP_STONE_PATH, 75, 65, 30, 20);
     _setImage(DeadGuy, DEAD_GUY_PATH, 75, 65, 30, -60, 2);
     _setImage(VeryDeadGuy, VERY_DEAD_GUY_PATH, 75, 65, 0, 10, 2);
-    _setImage(HungedGuy, HUNGED_GUY_PATH, 75, 65, 30, -60, 2);
+    _setImage(HangedGuy, HANGED_GUY_PATH, 75, 65, 30, -60, 2);
     _setImage(RipStone, RIP_STONE_PATH, 75, 65, 30, 40);
     _setImage(DeadBush, DEAD_BUSH_PATH, 75, 65, 30, 40);
     _setImage(House1, HOUSE1_PATH, 196, 200, 40, -150);

@@ -63,7 +63,7 @@ int main(int argc, char* args[]) {
 
         Texture& background = repo.getTexture(Background);
 
-        Spell explosion(repo.getTexture(MagicMissil), camera, TILE_WIDTH*3, TILE_HEIGHT*3);
+        Spell explosion(repo.getTexture(MagicMissile), camera, TILE_WIDTH*3, TILE_HEIGHT*3);
 
         Map map(repo, camera);
         Font font("../SDL/Text/medieval.ttf", 25);
