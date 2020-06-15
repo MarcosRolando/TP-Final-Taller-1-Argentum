@@ -70,7 +70,6 @@
 #define MAGIC_ARROW_PATH "../Images/Spells/MagicArrow.png"
 #define MAGIC_MISSIL_PATH "../Images/Spells/MagicMissil.png"
 #define HEAL_PATH "../Images/Spells/Heal.png"
-#define INVENTORY_PATH "../Images/UI/Inventory.png"
 #define BACKGROUND_PATH "../Images/UI/Background.png"
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
@@ -86,8 +85,6 @@ TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer
 }
 
 void TextureRepository::_loadUI() {
-    _setImage(Inventory, INVENTORY_PATH, 189, 280, 0
-                        , 0, 2, {-1, -1, -1});
     _setImage(Background, BACKGROUND_PATH, 1495, 937, 0
             , 0, 1, {-1, -1, -1});
 }

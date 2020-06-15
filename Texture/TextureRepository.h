@@ -75,7 +75,6 @@ enum TextureID {
     MagicArrow,
     MagicMissil,
     Heal,
-    Inventory,
     Background
 };
 
