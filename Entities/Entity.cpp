@@ -34,7 +34,7 @@ void Entity::withdraw(Player &player, const std::string& itemName) {
     //NO NOTHING
 }
 
-void Entity::deposit(Player &player, unsigned int itemPosition) {
+void Entity::deposit(Player &player, const std::string& itemName) {
     //NO NOTHING
 }
 

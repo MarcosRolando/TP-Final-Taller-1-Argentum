@@ -13,6 +13,6 @@ void Banker::withdraw(Player &player, const std::string &itemName) {
 
 }
 
-void Banker::deposit(Player &player, unsigned int itemPosition) {
+void Banker::deposit(Player &player, const std::string& itemName) {
     //Entity::deposit(player, itemPosition);
 }

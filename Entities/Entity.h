@@ -37,7 +37,7 @@ public:
     //Implementa el comportamiento realizado al pedirle que guarde el item que se
     //encuentra en la posicion pasada, por default no hace nada, debe ser reimplementada
     //si la clase hija puede almacenar y devolver items
-    virtual void deposit(Player& player, unsigned int itemPosition);
+    virtual void deposit(Player& player, const std::string& itemName);
 
     //Implementa el comportamiento realizado al intentar comprar un item
     //con el nombre pasado, por default no hace nada, debe ser reimplementada
