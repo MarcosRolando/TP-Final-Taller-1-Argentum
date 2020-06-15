@@ -52,7 +52,8 @@
 #define GRASS_PATH "../Images/Map/Grass.png"
 #define DEAD_GRASS_PATH "../Images/Map/DeadGrass.png"
 #define SAND_PATH "../Images/Map/Sand.png"
-#define STONE_PATH "../Images/Map/Stone.png"
+#define STONE_PATH "../Images/Map/RipStone.png"
+#define WATER_PATH "../Images/Map/Water.png"
 #define SKELETON_PATH "../Images/Monsters/Skeleton.png"
 #define GOBLIN_PATH "../Images/Monsters/Goblin.png"
 #define ZOMBIE_PATH "../Images/Monsters/Zombie.png"
@@ -65,11 +66,18 @@
 #define LONG_TREE_PATH "../Images/Map/LongTree.png"
 #define FAT_TREE_PATH "../Images/Map/FatTree.png"
 #define PALM_TREE_PATH "../Images/Map/PalmTree.png"
+#define DEAD_TREE_PATH "../Images/Map/DeadTree.png"
 #define BUSH_PATH "../Images/Map/Bush.png"
 #define DEAD_BUSH_PATH "../Images/Map/DeadBush.png"
 #define HOUSE1_PATH "../Images/Map/House1.png"
 #define HOUSE2_PATH "../Images/Map/House2.png"
 #define HOUSE3_PATH "../Images/Map/House3.png"
+#define BONE_GUY_PATH "../Images/Map/BoneGuy.png"
+#define BROKEN_RIP_STONE_PATH "../Images/Map/BrokenRipStone.png"
+#define DEAD_GUY_PATH "../Images/Map/DeadGuy.png"
+#define VERY_DEAD_GUY_PATH "../Images/Map/VeryDeadGuy.png"
+#define HUNGED_GUY_PATH "../Images/Map/HungedGuy.png"
+#define RIP_STONE_PATH "../Images/Map/RipStone.png"
 #define EXPLOSION_PATH "../Images/Spells/Explosion.png"
 #define MAGIC_ARROW_PATH "../Images/Spells/MagicArrow.png"
 #define MAGIC_MISSIL_PATH "../Images/Spells/MagicMissil.png"
@@ -159,6 +167,7 @@ void TextureRepository::_loadWeapons() {
 void TextureRepository::_loadTiles() {
     _setTileImage(Grass, GRASS_PATH, false);
     _setTileImage(DeadGrass, DEAD_GRASS_PATH, false);
+    _setTileImage(Water, WATER_PATH, false);
     _setTileImage(Sand, SAND_PATH, true);
 }
 
@@ -167,7 +176,14 @@ void TextureRepository::_loadStructures() {
     _setImage(LongTree, LONG_TREE_PATH, 256, 256, -60, -180);
     _setImage(FatTree, FAT_TREE_PATH, 256, 256, -60, -180);
     _setImage(PalmTree, PALM_TREE_PATH, 256, 256, -60, -180);
+    _setImage(DeadTree, DEAD_TREE_PATH, 256, 256, -60, -180);
     _setImage(Bush, BUSH_PATH, 75, 65, 30, 40);
+    _setImage(BoneGuy, BONE_GUY_PATH, 75, 65, 30, 40);
+    _setImage(BrokenRipStone, BROKEN_RIP_STONE_PATH, 75, 65, 30, 20);
+    _setImage(DeadGuy, DEAD_GUY_PATH, 75, 65, 30, -60, 2);
+    _setImage(VeryDeadGuy, VERY_DEAD_GUY_PATH, 75, 65, 0, 10, 2);
+    _setImage(HungedGuy, HUNGED_GUY_PATH, 75, 65, 30, -60, 2);
+    _setImage(RipStone, RIP_STONE_PATH, 75, 65, 30, 40);
     _setImage(DeadBush, DEAD_BUSH_PATH, 75, 65, 30, 40);
     _setImage(House1, HOUSE1_PATH, 196, 200, 40, -150);
     _setImage(House2, HOUSE2_PATH, 181, 213, 40, -150);

@@ -31,8 +31,8 @@ void Map::_setTiles() {
             }
 
             //If the number is a valid tile number
-            tiles.emplace_back(x, y, i%4, textureRepo.getTexture(DeadGrass));
-            if (i == 25) structures.emplace_back(x, y, textureRepo.getTexture(DeadBush));
+            tiles.emplace_back(x, y, i%4, textureRepo.getTexture(Grass));
+            if (i == 25) structures.emplace_back(x, y, textureRepo.getTexture(VeryDeadGuy));
             if (i == 5) tiles[5].addItemDrop(textureRepo.getTexture(GnarledStaffDrop));
 
             //Move to next tile spot
