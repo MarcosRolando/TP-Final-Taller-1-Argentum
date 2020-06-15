@@ -7,8 +7,11 @@
 
 
 #include "../Map/Coordinate.h"
-#include "Player.h"
+#include "../Items/Storage.h"
+//#include "Player.h"
 #include <list>
+
+class Player;
 
 class Entity {
 protected:

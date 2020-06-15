@@ -28,12 +28,13 @@ void Weapon::_initializeData(unsigned int _minDamage, unsigned int _maxDamage) {
 //////////////////////////////////////PUBLIC//////////////////////
 
 //VER SI ESTO SE SACA DE ACA
-Weapon::Weapon(): Item("Puños"){
+Weapon::Weapon(): Item("Puños") {
     _initializeData(1, 1);
 }
 
 
-Weapon::Weapon(unsigned int minDamage, unsigned int maxDamage, std::string& _name): Item(_name) {
+Weapon::Weapon(unsigned int minDamage, unsigned int maxDamage, std::string& _name,
+               unsigned int price): Item(_name, price) {
     _initializeData(minDamage, maxDamage);
 }
 

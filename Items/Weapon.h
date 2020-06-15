@@ -21,7 +21,7 @@ private:
 public:
     Weapon();
 
-    Weapon(unsigned int minDamage, unsigned int maxDamage, std::string& name);
+    Weapon(unsigned int minDamage, unsigned int maxDamage, std::string& name, unsigned int price);
 
     Weapon(unsigned int minDamage, unsigned int maxDamage, std::string&& name);
 

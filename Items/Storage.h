@@ -19,6 +19,13 @@
 //guardados en la instancia
 
 //Cualquier tipo de item que sea guardado 0 veces no tiene un lugar en el unordered_map
+
+struct ProductData {
+    std::string name;
+    unsigned int price;
+    unsigned int stock;
+};
+
 class Storage {
 private:
     std::unordered_map<std::string, std::list<std::shared_ptr<Item>>> storedItems;

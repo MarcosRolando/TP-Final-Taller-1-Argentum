@@ -24,7 +24,7 @@ private:
     unsigned int price;
 public:
     //Constructor que copia el nombre recibido en el item para almacenarlo
-    Item(const std::string& name, unsigned int price);
+    explicit Item(const std::string& name, unsigned int price = 0);
 
     //Constructor que se apropia del nombre del item
     Item(std::string&& name, unsigned int price);
