@@ -158,7 +158,7 @@ void TextureRepository::_loadTiles() {
 }
 
 void TextureRepository::_loadStructures() {
-    _setImage(Tree, TREE_PATH, 256, 256, -64, -194);
+    _setImage(Tree, TREE_PATH, 256, 256, -60, -180);
     _setImage(LongTree, LONG_TREE_PATH, 256, 256);
     _setImage(Bush, BUSH_PATH, 75, 65, 30, 40);
     _setImage(House1, HOUSE1_PATH, 196, 200, 30, -100);
