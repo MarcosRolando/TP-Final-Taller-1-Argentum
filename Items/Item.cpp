@@ -5,12 +5,14 @@
 #include "Item.h"
 #include <utility>
 
-Item::Item(const std::string &_name) {
+Item::Item(const std::string &_name, unsigned int _price) {
     name = _name;
+    price = _price;
 }
 
-Item::Item(std::string &&_name) {
+Item::Item(std::string &&_name, unsigned int _price) {
     name = std::move(_name);
+    price = _price;
 }
 
 EquipmentPlace Item::use(Player &player) {

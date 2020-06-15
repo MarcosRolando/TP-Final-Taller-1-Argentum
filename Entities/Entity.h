@@ -7,7 +7,6 @@
 
 
 #include "../Map/Coordinate.h"
-#include "../Items/Product.h"
 #include <list>
 
 class Entity {
