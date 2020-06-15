@@ -82,7 +82,6 @@ int main(int argc, char* args[]) {
 
         //Event handler
         SDL_Event e;
-
         //Prueba de llenado de inventario
         inventoryGui.addInventoryItem(BlueTunicDrop);
         inventoryGui.addInventoryItem(CommonClothingDrop);
@@ -124,7 +123,7 @@ int main(int argc, char* args[]) {
                     }
                 }
             }
-            
+
             if (!window.isMinimized()) {
                 float timeElapsed = 0;
                 while (timeElapsed < 100) {

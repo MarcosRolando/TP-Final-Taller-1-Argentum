@@ -118,7 +118,7 @@ void Window::handleEvent(SDL_Event& e) {
             SDL_SetWindowSize(mWindow, mWidth, mHeight);
             mFullScreen = false;
         } else {
-            SDL_SetWindowSize(mWindow, mWidth, mHeight);
+            //SDL_SetWindowSize(mWindow, mWidth, mHeight);
             SDL_SetWindowFullscreen(mWindow, SDL_TRUE);
             mFullScreen = true;
             mMinimized = false;
