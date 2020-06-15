@@ -11,12 +11,20 @@ Storage::Storage(std::unordered_map<std::string,
     storedItems = std::move(initialItems);
 }
 
-void Storage::addItem(std::shared_ptr<Item> &&item) {
+void Storage::storeItem(std::shared_ptr<Item> &&item) {
     storedItems[item->getName()].push_back(std::move(item));
 }
 
-void Storage::retreiveItem(std::string itemName, Player &player) {
+bool Storage::retreiveItem(std::string itemName, Player &player) {
     if (storedItems.count(itemName) == 1) {
-
+        if (!player.storeItem(std::move(storedItems[itemName][0]))) {
+            return false;
+        }
+        storedItems[itemName].pop_front();
+        if (storedItems[itemName].empty()) {
+            storedItems.erase(itemName);
+        }
+        return true;
     }
+    return false;
 }

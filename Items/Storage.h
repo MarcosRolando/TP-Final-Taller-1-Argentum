@@ -17,6 +17,8 @@
 //copiando cada vez que se retira algun item. Esto permite ademas extensibilidad
 //ya que se podria agregar a cada item por separado modificadores y estos quedarian
 //guardados en la instancia
+
+//Cualquier tipo de item que sea guardado 0 veces no tiene un lugar en el unordered_map
 class Storage {
 private:
     std::unordered_map<std::string, std::list<std::shared_ptr<Item>>> storedItems;
@@ -26,9 +28,9 @@ public:
                      std::list<std::shared_ptr<Item>>>&& initialItems) noexcept;
 
     //Almacena el item, apropiandose de el
-    void addItem(std::shared_ptr<Item>&& item);
+    void storeItem(std::shared_ptr<Item>&& item);
 
-    void retreiveItem(std::string itemName, Player& player);
+    bool retreiveItem(std::string itemName, Player& player);
 };
 
 

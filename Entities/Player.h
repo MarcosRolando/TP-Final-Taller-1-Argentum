@@ -35,6 +35,11 @@ public:
 
     //IMPLEMENTAR
     void attack(Coordinate target);
+
+    //Si hay lugar en el inventario del player entonces se apropia del item y
+    //retorna true, sino no se apropia de el y retorna false
+    bool storeItem(std::shared_ptr<Item>&& item);
+
 };
 
 
