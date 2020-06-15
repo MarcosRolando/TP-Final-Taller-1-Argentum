@@ -120,7 +120,7 @@ void TextureRepository::_loadDrops() {
     _setImage(CompoundBowDrop, COMPOUND_BOW_DROP_PATH, 32, 32, 32, 30, 2);
     _setImage(ElvenFluteDrop, ELVEN_FLUTE_DROP_PATH, 32, 32, 32, 30, 2);
     _setImage(SimpleBowDrop, SIMPLE_BOW_DROP_PATH, 32, 32, 32, 30, 2);
-    _setImage(WarHammerDrop, WAR_HAMMER_DROP_PATH, 32, 32, 32, 30, 2);
+    _setImage(WarHammerDrop, WAR_HAMMER_DROP_PATH, 32, 32, 32, 28, 2);
 }
 
 void TextureRepository::_loadClothing() {

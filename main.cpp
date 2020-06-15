@@ -84,18 +84,18 @@ int main(int argc, char* args[]) {
         SDL_Event e;
 
         //Prueba de llenado de inventario
-        inventoryGui.addInventoryItem(CommonClothingDrop);
-        inventoryGui.addInventoryItem(MagicHatDrop);
         inventoryGui.addInventoryItem(BlueTunicDrop);
-        inventoryGui.addInventoryItem(HealthPotion);
-        inventoryGui.addInventoryItem(LinkedStaffDrop);
+        inventoryGui.addInventoryItem(CommonClothingDrop);
+        inventoryGui.addInventoryItem(KingArmorDrop);
+        inventoryGui.addInventoryItem(MagicHatDrop);
+        inventoryGui.addInventoryItem(PlateArmorDrop);
         inventoryGui.addInventoryItem(LongSwordDrop);
-        inventoryGui.addInventoryItem(ManaPotion);
+        inventoryGui.addInventoryItem(HealthPotion);
 
 
         //LLeno los items equipables
        // inventoryGui.addEquipableItem(BlueTunicDrop, Helmet);
-        inventoryGui.addEquipableItem(GnarledStaffDrop, Armor);
+        inventoryGui.addEquipableItem(AshRodDrop, Armor);
         inventoryGui.addEquipableItem(WarHammerDrop, Weapon);
        // inventoryGui.addEquipableItem(BlueTunicDrop, Shield);
 
