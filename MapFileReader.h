@@ -9,6 +9,12 @@
 #include "jsoncpp/json/json.h"
 #include <unordered_map>
 
+struct TileInfo {
+    std::string tileType;
+    std::string structureType;
+    std::string entityType;
+};
+
 class MapFileReader {
 private:
     Json::Reader reader;
@@ -19,8 +25,7 @@ private:
 
 public:
     explicit MapFileReader(const std::string& path);
-    std::string getTile(int x, int y);
-    std::string getStructure(int row, int column);
+    TileInfo getTileInfo(int x, int y);
     ~MapFileReader();
 
 private:

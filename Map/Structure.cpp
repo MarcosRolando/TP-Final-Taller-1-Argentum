@@ -8,7 +8,7 @@
 Structure::Structure(int x, int y, Texture* sTexture) : sTexture(sTexture) {
     if (sTexture != nullptr) {
         SpriteDimensions_t dimensions = sTexture->getSpriteDimensions();
-        box = {x, y, dimensions.witdth, dimensions.height};
+        box = {x, y, dimensions.width, dimensions.height};
     } else {
         box = {x, y, 0, 0};
     }
@@ -57,6 +57,6 @@ SDL_Rect Structure::getBox() const {
 void Structure::setTexture(Texture& texture) {
     sTexture = &texture;
     SpriteDimensions_t dimensions = sTexture->getSpriteDimensions();
-    box.w = dimensions.witdth;
+    box.w = dimensions.width;
     box.h = dimensions.height;
 }

@@ -17,59 +17,72 @@ void Map::_setTiles() {
 
     for (int j = 0; j < TOTAL_HORIZONTAL_TILES; ++j) {
         for (int i = 0; i < TOTAL_VERTICAL_TILES; ++i) {
-            std::string tileType = mapFile.getTile(j, i);
-            std::string structureType = mapFile.getStructure(j, i);
+            TileInfo tileInfo = mapFile.getTileInfo(j, i);
             int x = i*TILE_WIDTH;
             int y = j*TILE_HEIGHT;
-            if (tileType.find("DeadGrass") != (size_t )-1) {
-                tiles.emplace_back(x, y, (int)tileType[9] - 48, textureRepo.getTexture(DeadGrass));
-            } else if (tileType.find("Grass") != (size_t )-1) {
-                tiles.emplace_back(x, y, (int)tileType[5] - 48, textureRepo.getTexture(Grass));
-            } else if (tileType.find("DarkWater") != (size_t )-1) {
-                tiles.emplace_back(x, y, (int) tileType[9] - 48,textureRepo.getTexture(DarkWater));
-            } else if (tileType.find("Water") != (size_t )-1) {
-                tiles.emplace_back(x, y, (int) tileType[5] - 48,textureRepo.getTexture(Water));
-            } else if (tileType == "Sand") {
+
+            if (tileInfo.tileType.find("DeadGrass") != (size_t )-1) {
+                tiles.emplace_back(x, y, (int)tileInfo.tileType[9] - 48, textureRepo.getTexture(DeadGrass));
+            } else if (tileInfo.tileType.find("PrettyGrass") != (size_t )-1) {
+                tiles.emplace_back(x, y, (int) tileInfo.tileType[11] - 48,textureRepo.getTexture(PrettyGrass));
+            } else if (tileInfo.tileType.find("PrettyRoad") != (size_t )-1) {
+                tiles.emplace_back(x, y, (int) tileInfo.tileType[10] - 48,textureRepo.getTexture(PrettyRoad));
+            } else if (tileInfo.tileType.find("Grass") != (size_t )-1) {
+                tiles.emplace_back(x, y, (int)tileInfo.tileType[5] - 48, textureRepo.getTexture(Grass));
+            } else if (tileInfo.tileType.find("DarkWater") != (size_t )-1) {
+                tiles.emplace_back(x, y, (int) tileInfo.tileType[9] - 48,textureRepo.getTexture(DarkWater));
+            } else if (tileInfo.tileType.find("Water") != (size_t )-1) {
+                tiles.emplace_back(x, y, (int) tileInfo.tileType[5] - 48,textureRepo.getTexture(Water));
+            } else if (tileInfo.tileType == "Sand") {
                 tiles.emplace_back(x, y, 0,textureRepo.getTexture(Sand));
             } else {
                 tiles.emplace_back(x, y, 0, textureRepo.getTexture(Water));
             }
-            if (structureType == "BoneGuy") {
+
+            if (tileInfo.structureType == "BoneGuy") {
                 tiles.back().setStructure(textureRepo.getTexture(BoneGuy));
-            } else if (structureType == "BrokenRipStone") {
+            } else if (tileInfo.structureType == "BrokenRipStone") {
                 tiles.back().setStructure(textureRepo.getTexture(BrokenRipStone));
-            } else if (structureType == "Bush") {
+            } else if (tileInfo.structureType == "Bush") {
                 tiles.back().setStructure(textureRepo.getTexture(Bush));
-            } else if (structureType == "DeadBush") {
+            } else if (tileInfo.structureType == "DeadBush") {
                 tiles.back().setStructure(textureRepo.getTexture(DeadBush));
-            } else if (structureType == "DeadGuy") {
+            } else if (tileInfo.structureType == "DeadGuy") {
                 tiles.back().setStructure(textureRepo.getTexture(DeadGuy));
-            } else if (structureType == "DeadTree") {
+            } else if (tileInfo.structureType == "DeadTree") {
                 tiles.back().setStructure(textureRepo.getTexture(DeadTree));
-            } else if (structureType == "FatTree") {
+            } else if (tileInfo.structureType == "FatTree") {
                 tiles.back().setStructure(textureRepo.getTexture(FatTree));
-            } else if (structureType == "HangedGuy") {
+            } else if (tileInfo.structureType == "HangedGuy") {
                 tiles.back().setStructure(textureRepo.getTexture(HangedGuy));
-            } else if (structureType == "House1") {
+            } else if (tileInfo.structureType == "House1") {
                 tiles.back().setStructure(textureRepo.getTexture(House1));
-            } else if (structureType == "House2") {
+            } else if (tileInfo.structureType == "House2") {
                 tiles.back().setStructure(textureRepo.getTexture(House2));
-            } else if (structureType == "House3") {
+            } else if (tileInfo.structureType == "House3") {
                 tiles.back().setStructure(textureRepo.getTexture(House3));
-            } else if (structureType == "LongTree") {
+            } else if (tileInfo.structureType == "LongTree") {
                 tiles.back().setStructure(textureRepo.getTexture(LongTree));
-            } else if (structureType == "PalmTree") {
+            } else if (tileInfo.structureType == "PalmTree") {
                 tiles.back().setStructure(textureRepo.getTexture(PalmTree));
-            } else if (structureType == "RipStone") {
+            } else if (tileInfo.structureType == "RipStone") {
                 tiles.back().setStructure(textureRepo.getTexture(RipStone));
-            } else if (structureType == "Tree") {
+            } else if (tileInfo.structureType == "Tree") {
                 tiles.back().setStructure(textureRepo.getTexture(Tree));
-            } else if (structureType == "VeryDeadGuy") {
+            } else if (tileInfo.structureType == "VeryDeadGuy") {
                 tiles.back().setStructure(textureRepo.getTexture(VeryDeadGuy));
-            } else if (structureType == "SunkenColumn") {
+            } else if (tileInfo.structureType == "SunkenColumn") {
                 tiles.back().setStructure(textureRepo.getTexture(SunkenColumn));
-            } else if (structureType == "SunkenShip") {
+            } else if (tileInfo.structureType == "SunkenShip") {
                 tiles.back().setStructure(textureRepo.getTexture(SunkenShip));
+            }
+
+            if (tileInfo.entityType == "Banker") {
+                npcs.emplace_back(textureRepo, camera, x, y, Banker);
+            } else if (tileInfo.entityType == "Priest") {
+                npcs.emplace_back(textureRepo, camera, x, y, Priest);
+            } else if (tileInfo.entityType == "Trader") {
+                npcs.emplace_back(textureRepo, camera, x, y, Trader);
             }
         }
     }
@@ -102,5 +115,11 @@ void Map::renderStructures() {
             int tile = yTile*TOTAL_HORIZONTAL_TILES + xTile;
             tiles[tile].renderStructure(camera);
         }
+    }
+}
+
+void Map::renderNPCS(float timeStep) {
+    for (auto & npc : npcs) {
+        npc.render(timeStep);
     }
 }

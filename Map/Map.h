@@ -12,17 +12,20 @@
 #include <vector>
 #include "../Texture/TextureRepository.h"
 #include "Structure.h"
+#include "../Character/NPC.h"
 
 class Map {
 private:
     TextureRepository& textureRepo;
     std::vector<Tile> tiles;
     SDL_Rect& camera;
+    std::vector<NPC> npcs;
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera);
     void renderGround();
     void renderStructures();
+    void renderNPCS(float timeStep);
 
 private:
     void _setTiles();
