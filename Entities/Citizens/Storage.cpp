@@ -28,7 +28,7 @@ void Storage::retreiveItem(const std::string& itemName, Player &player) {
     }
 }
 
-unsigned int Storage::getAvailableItems(std::list<ProductData> &products,
+unsigned int Storage::getStorageData(std::list<ProductData> &products,
                                         float priceMultiplier) const{
     for (const auto & storedItem : storedItems) {
         products.emplace_back(storedItem.second.front()->getName(), storedItem.second.size(),

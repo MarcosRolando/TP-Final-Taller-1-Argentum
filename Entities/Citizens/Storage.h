@@ -53,7 +53,7 @@ public:
     //Almacena en la lista instancias del struct ProductData, retorna la cantidad
     //de oro que tiene almacenada storage
     //Multiplica el precio del item por priceMultiplier
-    unsigned int getAvailableItems(std::list<ProductData>& products,
+    unsigned int getStorageData(std::list<ProductData>& products,
                                    float priceMultiplier) const;
 
     //Indica si el item con el nombre indicado se encuentra guardado
