@@ -6,12 +6,16 @@
 #define ARGENTUM_PRIEST_H
 
 
-#include "Storage.h"
+#include "Shop.h"
+#include "../Entity.h"
 
-class Priest {
+class Priest: Entity {
 private:
-    Storage storage;
+    //Storage storage;
+    Shop shop;
 public:
+    Priest();
+
     //Implementa el comportamiento realizado al pedirle una lista de los items
     //que tiene en venta, por default no hace nada, debe ser reimplementada
     //si la clase hija tiene objetos en venta para listar

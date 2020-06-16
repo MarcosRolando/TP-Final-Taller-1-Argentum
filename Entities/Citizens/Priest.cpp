@@ -7,6 +7,10 @@
 #define BUYING_PRICE_MULTIPLIER 1.25
 #define SELLING_PRICE_MULTIPLIER 0.75
 
+Priest::Priest(): shop() {
+
+}
+
 unsigned int Priest::list(std::list<ProductData> &products) {
     return storage.getAvailableItems(products, BUYING_PRICE_MULTIPLIER);
 }
@@ -32,3 +36,4 @@ void Priest::sell(Player &player, const std::string& itemName) {
         }
     }
 }
+
