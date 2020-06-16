@@ -176,7 +176,7 @@ void TextureRepository::_loadStructures() {
     _setImage(LongTree, LONG_TREE_PATH, 256, 256, -60, -180);
     _setImage(FatTree, FAT_TREE_PATH, 256, 256, -60, -180);
     _setImage(PalmTree, PALM_TREE_PATH, 256, 256, -60, -180);
-    _setImage(DeadTree, DEAD_TREE_PATH, 256, 256, -60, -180);
+    _setImage(DeadTree, DEAD_TREE_PATH, 256, 256, -60, -160);
     _setImage(Bush, BUSH_PATH, 75, 65, 30, 40);
     _setImage(BoneGuy, BONE_GUY_PATH, 75, 65, 30, 40);
     _setImage(BrokenRipStone, BROKEN_RIP_STONE_PATH, 75, 65, 30, 20);
