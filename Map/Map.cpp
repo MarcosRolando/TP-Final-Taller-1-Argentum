@@ -25,6 +25,8 @@ void Map::_setTiles() {
                 tiles.emplace_back(x, y, (int)tileType[9] - 48, textureRepo.getTexture(DeadGrass));
             } else if (tileType.find("Grass") != (size_t )-1) {
                 tiles.emplace_back(x, y, (int)tileType[5] - 48, textureRepo.getTexture(Grass));
+            } else if (tileType.find("DarkWater") != (size_t )-1) {
+                tiles.emplace_back(x, y, (int) tileType[9] - 48,textureRepo.getTexture(DarkWater));
             } else if (tileType.find("Water") != (size_t )-1) {
                 tiles.emplace_back(x, y, (int) tileType[5] - 48,textureRepo.getTexture(Water));
             } else if (tileType == "Sand") {
@@ -64,6 +66,10 @@ void Map::_setTiles() {
                 tiles.back().setStructure(textureRepo.getTexture(Tree));
             } else if (structureType == "VeryDeadGuy") {
                 tiles.back().setStructure(textureRepo.getTexture(VeryDeadGuy));
+            } else if (structureType == "SunkenColumn") {
+                tiles.back().setStructure(textureRepo.getTexture(SunkenColumn));
+            } else if (structureType == "SunkenShip") {
+                tiles.back().setStructure(textureRepo.getTexture(SunkenShip));
             }
         }
     }

@@ -52,8 +52,8 @@
 #define GRASS_PATH "../Images/Map/Grass.png"
 #define DEAD_GRASS_PATH "../Images/Map/DeadGrass.png"
 #define SAND_PATH "../Images/Map/Sand.png"
-#define STONE_PATH "../Images/Map/RipStone.png"
 #define WATER_PATH "../Images/Map/Water.png"
+#define DARK_WATER_PATH "../Images/Map/DarkWater.png"
 #define SKELETON_PATH "../Images/Monsters/Skeleton.png"
 #define GOBLIN_PATH "../Images/Monsters/Goblin.png"
 #define ZOMBIE_PATH "../Images/Monsters/Zombie.png"
@@ -72,6 +72,8 @@
 #define HOUSE1_PATH "../Images/Map/House1.png"
 #define HOUSE2_PATH "../Images/Map/House2.png"
 #define HOUSE3_PATH "../Images/Map/House3.png"
+#define SUNKEN_COLUMN_PATH "../Images/Map/SunkenColumn.png"
+#define SUNKEN_SHIP_PATH "../Images/Map/SunkenShip.png"
 #define BONE_GUY_PATH "../Images/Map/BoneGuy.png"
 #define BROKEN_RIP_STONE_PATH "../Images/Map/BrokenRipStone.png"
 #define DEAD_GUY_PATH "../Images/Map/DeadGuy.png"
@@ -168,6 +170,7 @@ void TextureRepository::_loadTiles() {
     _setTileImage(Grass, GRASS_PATH, false);
     _setTileImage(DeadGrass, DEAD_GRASS_PATH, false);
     _setTileImage(Water, WATER_PATH, false);
+    _setTileImage(DarkWater, DARK_WATER_PATH, false);
     _setTileImage(Sand, SAND_PATH, true);
 }
 
@@ -188,6 +191,8 @@ void TextureRepository::_loadStructures() {
     _setImage(House1, HOUSE1_PATH, 196, 200, 40, -150);
     _setImage(House2, HOUSE2_PATH, 181, 213, 40, -150);
     _setImage(House3, HOUSE3_PATH, 200, 239, 30, -165);
+    _setImage(SunkenShip, SUNKEN_SHIP_PATH, 256, 256, -120, -10, 2);
+    _setImage(SunkenColumn, SUNKEN_COLUMN_PATH, 256, 256, 5, -185);
 }
 
 void TextureRepository::_loadNPCS() {
