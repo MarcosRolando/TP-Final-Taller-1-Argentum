@@ -8,10 +8,12 @@
 #include <unordered_map>
 #include "../Entity.h"
 
+//Clase que se encarga de guardar todos los items que le otorgue el jugador
+//El jugador puede darle oro o items nuevos para que guarde o sacar oro o items
 class Banker: Entity {
 private:
     //Storage storage;
-    //std::unordered_map<std::string, Storage>
+    std::unordered_map<std::string, Storage> playersStorages;
 
 public:
     Banker();
@@ -35,6 +37,12 @@ public:
     //Si se quiere depositar oro se debe poner en itemName "oro <cantidad>" sin incluir
     //los <>
     void deposit(Player& player, const std::string& itemName) override;
+
+
+    //Recibe los items de un player y su nickname, y los agrega a lo que tiene guardado
+    //HACER QUE RECIBA PARAMETROS COMO LOS DE STORAGE, PORQUE SE VA A CONSTRUIR UN STORAGE
+    //EN EL NICKNAME RECIBIDO
+    void addPlayerItems(ARGS);
 };
 
 
