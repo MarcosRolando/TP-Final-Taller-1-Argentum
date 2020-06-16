@@ -17,7 +17,7 @@ PlayerTexture::PlayerTexture(TextureRepository& repo, PlayerEquipment equipment)
 }
 
 void PlayerTexture::renderFront(int x, int y, int frame) {
-    if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
+    if (frame < 0 || frame > 5) throw TPException("I dont have that character frame!");
     EntityTexture::render(head, x + 8, y - 15, 0);
     EntityTexture::render(body, x, y, frame);
     EntityTexture::render(helmet, x + 8, y - 15, 0);
@@ -26,7 +26,7 @@ void PlayerTexture::renderFront(int x, int y, int frame) {
 }
 
 void PlayerTexture::renderBack(int x, int y, int frame) {
-    if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
+    if (frame < 0 || frame > 5) throw TPException("I dont have that character frame!");
     EntityTexture::render(head, x + 8, y - 15, 3);
     EntityTexture::render(weapon, x + 3, y - 10, frame + 6);
     EntityTexture::render(shield, x, y - 15, frame + 6);
@@ -35,7 +35,7 @@ void PlayerTexture::renderBack(int x, int y, int frame) {
 }
 
 void PlayerTexture::renderRight(int x, int y, int frame) {
-    if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
+    if (frame < 0 || frame > 5) throw TPException("I dont have that character frame!");
     EntityTexture::render(head, x + 9, y - 15, 1);
     EntityTexture::render(shield, x + 3, y, frame + 18);
     EntityTexture::render(body, x, y, frame + 18);
@@ -44,7 +44,7 @@ void PlayerTexture::renderRight(int x, int y, int frame) {
 }
 
 void PlayerTexture::renderLeft(int x, int y, int frame) {
-    if (frame < 0 || frame > 5) throw SDLException("I dont have that character frame!");
+    if (frame < 0 || frame > 5) throw TPException("I dont have that character frame!");
     EntityTexture::render(head, x + 6, y - 15, 2);
     EntityTexture::render(weapon, x - 4, y - 10, frame + 12);
     EntityTexture::render(body, x, y, frame + 12);

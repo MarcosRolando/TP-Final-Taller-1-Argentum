@@ -7,8 +7,8 @@
 Sound::Sound(std::string path) {
     sound = Mix_LoadWAV(path.c_str());
     if(sound == NULL ){
-        throw SDLException("Failed to load sound effect! SDL_mixer "
-                           "Error: %s\n",Mix_GetError() );
+        throw TPException("Failed to load sound effect! SDL_mixer "
+                           "Error: %s\n", Mix_GetError() );
     }
 }
 

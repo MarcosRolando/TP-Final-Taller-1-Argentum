@@ -4,7 +4,7 @@
 
 #include "Window.h"
 #include "../GameConstants.h"
-#include "../SDL/SDLException.h"
+#include "../SDL/TPException.h"
 
 Window::Window() {
     //Initialize non-existant window
@@ -49,13 +49,13 @@ void Window::_createWindow() {
         mWidth = DEFAULT_SCREEN_WIDTH;
         mHeight = DEFAULT_SCREEN_HEIGHT;
     } else {
-        throw SDLException("Window could not be created! SDL Error: %s\n", SDL_GetError());
+        throw TPException("Window could not be created! SDL Error: %s\n", SDL_GetError());
     }
 }
 
 void Window::_createRenderer() {
     renderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == nullptr) throw SDLException("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
+    if (renderer == nullptr) throw TPException("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 }
 

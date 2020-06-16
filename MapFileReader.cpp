@@ -3,12 +3,18 @@
 //
 
 #include "MapFileReader.h"
+#include "SDL/TPException.h"
 
 MapFileReader::MapFileReader(const std::string& path) {
     width = 0;
     height = 0;
     file.open(path);
-    reader.parse(file, obj);
+    try {
+        reader.parse(file, obj);
+    } catch (...) {
+        file.close();
+        throw TPException("Fallo el parseo del Mapa!");
+    }
     _readMapSize();
     _readIDs();
 }
@@ -47,4 +53,8 @@ std::string MapFileReader::getStructure(int row, int column) {
     Json::Value& data = layers[1]["data"];
     int type = data[row*width + column].asInt();
     return mapElements.at(type);
+}
+
+MapFileReader::~MapFileReader() {
+    file.close();
 }

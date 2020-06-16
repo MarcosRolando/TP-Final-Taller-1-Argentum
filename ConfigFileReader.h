@@ -49,12 +49,12 @@ public:
     ~ConfigFileReader();
 
 private:
-    void _getModifiers(Modifiers &modifier, Json::Value& currModifier);
-    void _getMonsterStats(MonsterStats &stats, Json::Value &currMonster);
+    static void _getModifiers(Modifiers &modifier, Json::Value& currModifier);
+    static void _getMonsterStats(MonsterStats &stats, Json::Value &currMonster);
 
-    void _getWeaponStats(WeaponStats &stats, Json::Value currWeapon);
+    static void _getWeaponStats(WeaponStats &stats, Json::Value currWeapon);
 
-    void _getClothingStats(ClothingStats &stats, Json::Value currClothing);
+    static void _getClothingStats(ClothingStats &stats, Json::Value currClothing);
 };
 
 

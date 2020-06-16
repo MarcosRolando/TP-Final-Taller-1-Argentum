@@ -18,6 +18,6 @@ void ItemDrop::render(SDL_Rect& camera) {
 void ItemDrop::setItem(Texture& itemTexture) {
     SpriteDimensions_t dimensions = itemTexture.getSpriteDimensions();
     box.w = dimensions.witdth;
-    box.h = dimensions.heigth;
+    box.h = dimensions.height;
     sTexture = &itemTexture;
 }

@@ -17,7 +17,6 @@ class Map {
 private:
     TextureRepository& textureRepo;
     std::vector<Tile> tiles;
-    std::vector<Structure> structures;
     SDL_Rect& camera;
 
 public:

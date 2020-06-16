@@ -11,10 +11,12 @@ class Structure {
 private:
     //The attributes of the tile
     SDL_Rect box{};
-    Texture& sTexture;
+    Texture* sTexture;
 
 public:
-    Structure(int x, int y, Texture& sTexture);
+    Structure(int x, int y, Texture* sTexture);
+
+    void setTexture(Texture& texture);
 
     void render(SDL_Rect& camera);
 

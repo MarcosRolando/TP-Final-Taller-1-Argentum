@@ -10,7 +10,7 @@
 #include <SDL_mixer.h>
 #include <string>
 
-#include "../SDLException.h"
+#include "../TPException.h"
 
 class Sound {
 private:

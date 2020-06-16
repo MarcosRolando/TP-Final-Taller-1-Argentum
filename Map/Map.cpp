@@ -18,6 +18,7 @@ void Map::_setTiles() {
     for (int j = 0; j < TOTAL_HORIZONTAL_TILES; ++j) {
         for (int i = 0; i < TOTAL_VERTICAL_TILES; ++i) {
             std::string tileType = mapFile.getTile(j, i);
+            std::string structureType = mapFile.getStructure(j, i);
             int x = i*TILE_WIDTH;
             int y = j*TILE_HEIGHT;
             if (tileType.find("DeadGrass") != (size_t )-1) {
@@ -31,86 +32,42 @@ void Map::_setTiles() {
             } else {
                 tiles.emplace_back(x, y, 0, textureRepo.getTexture(Water));
             }
-            std::string structureType = mapFile.getStructure(j, i);
             if (structureType == "BoneGuy") {
-                structures.emplace_back(x, y, textureRepo.getTexture(BoneGuy));
+                tiles.back().setStructure(textureRepo.getTexture(BoneGuy));
             } else if (structureType == "BrokenRipStone") {
-                structures.emplace_back(x, y, textureRepo.getTexture(BrokenRipStone));
+                tiles.back().setStructure(textureRepo.getTexture(BrokenRipStone));
             } else if (structureType == "Bush") {
-                structures.emplace_back(x, y, textureRepo.getTexture(Bush));
+                tiles.back().setStructure(textureRepo.getTexture(Bush));
             } else if (structureType == "DeadBush") {
-                structures.emplace_back(x, y, textureRepo.getTexture(DeadBush));
+                tiles.back().setStructure(textureRepo.getTexture(DeadBush));
             } else if (structureType == "DeadGuy") {
-                structures.emplace_back(x, y, textureRepo.getTexture(DeadGuy));
+                tiles.back().setStructure(textureRepo.getTexture(DeadGuy));
             } else if (structureType == "DeadTree") {
-                structures.emplace_back(x, y, textureRepo.getTexture(DeadTree));
+                tiles.back().setStructure(textureRepo.getTexture(DeadTree));
             } else if (structureType == "FatTree") {
-                structures.emplace_back(x, y, textureRepo.getTexture(FatTree));
+                tiles.back().setStructure(textureRepo.getTexture(FatTree));
             } else if (structureType == "HangedGuy") {
-                structures.emplace_back(x, y, textureRepo.getTexture(HangedGuy));
+                tiles.back().setStructure(textureRepo.getTexture(HangedGuy));
             } else if (structureType == "House1") {
-                structures.emplace_back(x, y, textureRepo.getTexture(House1));
+                tiles.back().setStructure(textureRepo.getTexture(House1));
             } else if (structureType == "House2") {
-                structures.emplace_back(x, y, textureRepo.getTexture(House2));
+                tiles.back().setStructure(textureRepo.getTexture(House2));
             } else if (structureType == "House3") {
-                structures.emplace_back(x, y, textureRepo.getTexture(House3));
+                tiles.back().setStructure(textureRepo.getTexture(House3));
             } else if (structureType == "LongTree") {
-                structures.emplace_back(x, y, textureRepo.getTexture(LongTree));
+                tiles.back().setStructure(textureRepo.getTexture(LongTree));
             } else if (structureType == "PalmTree") {
-                structures.emplace_back(x, y, textureRepo.getTexture(PalmTree));
+                tiles.back().setStructure(textureRepo.getTexture(PalmTree));
             } else if (structureType == "RipStone") {
-                structures.emplace_back(x, y, textureRepo.getTexture(RipStone));
+                tiles.back().setStructure(textureRepo.getTexture(RipStone));
             } else if (structureType == "Tree") {
-                structures.emplace_back(x, y, textureRepo.getTexture(Tree));
+                tiles.back().setStructure(textureRepo.getTexture(Tree));
             } else if (structureType == "VeryDeadGuy") {
-                structures.emplace_back(x, y, textureRepo.getTexture(VeryDeadGuy));
+                tiles.back().setStructure(textureRepo.getTexture(VeryDeadGuy));
             }
         }
     }
 }
-
-/*
-void Map::_setTiles() {
-    //The tile offsets
-    int x = 0, y = 0;
-
-    //Open the map
-    std::ifstream mapFile( "../lazy.map" );
-
-    //If the map couldn't be loaded
-    if (mapFile.fail()) {
-        throw SDLException("Unable to load map file!\n");
-    } else {
-        //Initialize the tiles
-        for (int i = 0; i < TOTAL_TILES; ++i) {
-            //If the was a problem in reading the map
-            if (mapFile.fail()) {
-                //Stop loading map
-                throw SDLException("Error loading map: Unexpected end of file!\n");
-            }
-
-            //If the number is a valid tile number
-            tiles.emplace_back(x, y, i%4, textureRepo.getTexture(Grass));
-            if (i == 25) structures.emplace_back(x, y, textureRepo.getTexture(VeryDeadGuy));
-            if (i == 5) tiles[5].addItemDrop(textureRepo.getTexture(GnarledStaffDrop));
-
-            //Move to next tile spot
-            x += TILE_WIDTH;
-
-            //If we've gone too far
-            if (x >= LEVEL_WIDTH) {
-                //Move back
-                x = 0;
-                //Move to the next row
-                y += TILE_HEIGHT;
-            }
-        }
-    }
-
-    //Close the file
-    mapFile.close();
-}
- */
 
 void Map::renderGround() {
     for (int i = 0; i < (VISIBLE_VERTICAL_TILES + 1); ++i) {
@@ -122,13 +79,22 @@ void Map::renderGround() {
             int xTile = floor(x / TILE_WIDTH);
             int yTile = floor(y / TILE_HEIGHT);
             int tile = yTile*TOTAL_HORIZONTAL_TILES + xTile;
-            tiles[tile].render(camera);
+            tiles[tile].renderGround(camera);
         }
     }
 }
 
 void Map::renderStructures() {
-    for (auto & structure : structures) {
-        structure.render(camera);
+    for (int i = 0; i < (VISIBLE_VERTICAL_TILES + 3); ++i) {
+        for (int j = 0; j < (VISIBLE_HORIZONTAL_TILES + 3); ++j) {
+            float x = (float)camera.x + (float)j * TILE_WIDTH;
+            float y = (float)camera.y + (float)i * TILE_HEIGHT;
+            if (x >= LEVEL_WIDTH) continue;
+            if (y >= LEVEL_HEIGHT) continue;
+            int xTile = floor(x / TILE_WIDTH);
+            int yTile = floor(y / TILE_HEIGHT);
+            int tile = yTile*TOTAL_HORIZONTAL_TILES + xTile;
+            tiles[tile].renderStructure(camera);
+        }
     }
 }

@@ -7,7 +7,7 @@
 #include <string>
 #include <iostream>
 
-#include "../SDLException.h"
+#include "../TPException.h"
 
 class Font {
 private:

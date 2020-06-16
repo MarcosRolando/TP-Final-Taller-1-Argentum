@@ -2,10 +2,10 @@
 // Created by marcos on 6/6/20.
 //
 
-#include "SDLException.h"
+#include "TPException.h"
 #include <SDL.h>
 
-SDLException::SDLException(const char *fmt, ...) {
+TPException::TPException(const char *fmt, ...) {
     va_list args;
     va_start(args, fmt);
     vsnprintf(errorMessage, BUF_LEN, fmt, args);
@@ -13,7 +13,7 @@ SDLException::SDLException(const char *fmt, ...) {
     errorMessage[BUF_LEN - 1] = 0;
 }
 
-const char *SDLException::what() const noexcept {
+const char *TPException::what() const noexcept {
     return errorMessage;
 }
 

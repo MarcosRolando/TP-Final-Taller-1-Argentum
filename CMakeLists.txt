@@ -11,7 +11,7 @@ add_subdirectory(Texture)
 add_subdirectory(Map)
 add_subdirectory(Character)
 
-add_executable(argentum main.cpp SDL/SDLException.cpp SDL/SDLException.h
+add_executable(argentum main.cpp SDL/TPException.cpp SDL/TPException.h
 SDL/Sound/SoundRepository.cpp SDL/Sound/SoundRepository.h SDL/Text/Font.cpp SDL/Text/Font.h
         ConfigFileReader.cpp ConfigFileReader.h Configuration.cpp
 Configuration.h SDL/Sound/Sound.cpp SDL/Sound/Sound.h Calculator.cpp Calculator.h

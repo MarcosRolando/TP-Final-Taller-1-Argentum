@@ -21,6 +21,7 @@ public:
     explicit MapFileReader(const std::string& path);
     std::string getTile(int x, int y);
     std::string getStructure(int row, int column);
+    ~MapFileReader();
 
 private:
     void _readMapSize();

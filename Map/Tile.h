@@ -7,6 +7,7 @@
 
 #include "../Texture/Texture.h"
 #include "ItemDrop.h"
+#include "Structure.h"
 
 class Tile {
 private:
@@ -14,15 +15,20 @@ private:
     SDL_Rect box{};
     Texture& tileTexture;
     ItemDrop item;
+    Structure structure;
     //The tile type
     int type;
 
 public:
     //Initializes position and type
-    Tile(int x, int y, int tileType, Texture& tileTexture);
+    Tile(int x, int y, int tileType, Texture& tileTexture, Texture* sTexture = nullptr);
+
+    void setStructure(Texture& sTexture);
 
     //Shows the tile
-    void render(SDL_Rect& camera);
+    void renderGround(SDL_Rect& camera);
+
+    void renderStructure(SDL_Rect& camera);
 
     void addItemDrop(Texture& itemTexture);
 };

@@ -182,7 +182,7 @@ void TextureRepository::_loadStructures() {
     _setImage(BrokenRipStone, BROKEN_RIP_STONE_PATH, 75, 65, 30, 20);
     _setImage(DeadGuy, DEAD_GUY_PATH, 75, 65, 30, -60, 2);
     _setImage(VeryDeadGuy, VERY_DEAD_GUY_PATH, 75, 65, 0, 10, 2);
-    _setImage(HangedGuy, HANGED_GUY_PATH, 75, 65, 30, -60, 2);
+    _setImage(HangedGuy, HANGED_GUY_PATH, 75, 65, 5, -60, 2);
     _setImage(RipStone, RIP_STONE_PATH, 75, 65, 30, 40);
     _setImage(DeadBush, DEAD_BUSH_PATH, 75, 65, 30, 40);
     _setImage(House1, HOUSE1_PATH, 196, 200, 40, -150);
@@ -209,8 +209,8 @@ void TextureRepository::_setImage(TextureID textureID, std::string&& image,
         Texture& texture = textures.at(textureID);
         texture.loadFromFile(image, key, xOffset, yOffset, scale);
         _addStructureSprites(texture, width, height);
-    } catch (SDLException& e) {
-        throw SDLException("Failed to load %s sprite sheet texture!\n", image.c_str());
+    } catch (TPException& e) {
+        throw TPException("Failed to load %s sprite sheet texture!\n", image.c_str());
     }
 }
 
@@ -226,8 +226,8 @@ void TextureRepository::_setSpellImage(TextureID textureID, std::string&& spellI
         _addSpellSprites(texture, height, width, height);
         _addSpellSprites(texture, 2*height, width, height);
         _addSpellSprites(texture, 3*height, width, height);
-    } catch (SDLException& e) {
-        throw SDLException("Failed to load %s sprite sheet texture!\n", spellImage.c_str());
+    } catch (TPException& e) {
+        throw TPException("Failed to load %s sprite sheet texture!\n", spellImage.c_str());
     }
 }
 
@@ -238,8 +238,8 @@ void TextureRepository::_setTileImage(TextureID textureID, std::string&& tileIma
         Texture& texture = textures.at(textureID);
         texture.loadFromFile(tileImage);
         _addTileSprites(texture, 0, individualTile);
-    } catch (SDLException& e) {
-        throw SDLException("Failed to load %s sprite sheet texture!\n", tileImage.c_str());
+    } catch (TPException& e) {
+        throw TPException("Failed to load %s sprite sheet texture!\n", tileImage.c_str());
     }
 }
 
@@ -259,8 +259,8 @@ void TextureRepository::_setNPCImage(TextureID textureID, std::string&& npcImage
         _addNPCSprites(texture, 2*height, true, width, height);
         /*Rigth*/
         _addNPCSprites(texture, 3*height, true, width, height);
-    } catch (SDLException& e) {
-        throw SDLException("Failed to load %s sprite sheet texture!\n", npcImage.c_str());
+    } catch (TPException& e) {
+        throw TPException("Failed to load %s sprite sheet texture!\n", npcImage.c_str());
     }
 }
 
@@ -287,8 +287,8 @@ void TextureRepository::_setBodyImage(TextureID textureID, std::string&& bodyIma
         _addBodySprites(texture, 90, true);
         /*Rigth*/
         _addBodySprites(texture, 135, true);
-    } catch (SDLException& e) {
-        throw SDLException("Failed to load %s sprite sheet texture!\n", bodyImage.c_str());
+    } catch (TPException& e) {
+        throw TPException("Failed to load %s sprite sheet texture!\n", bodyImage.c_str());
     }
 }
 
@@ -307,8 +307,8 @@ void TextureRepository::_setWeaponImage(TextureID textureID, std::string&& weapo
         _addWeaponSprites(texture, 90, true);
         /*Rigth*/
         _addWeaponSprites(texture, 135, true);
-    } catch (SDLException& e) {
-        throw SDLException("Failed to load %s sprite sheet texture!\n", weaponImage.c_str());
+    } catch (TPException& e) {
+        throw TPException("Failed to load %s sprite sheet texture!\n", weaponImage.c_str());
     }
 }
 
@@ -343,8 +343,8 @@ void TextureRepository::_setHeadImage(TextureID textureID, std::string&& headIma
         texture.addSprite(17, 0, 17, 15);
         texture.addSprite(34, 0, 17, 15);
         texture.addSprite(51, 0, 17, 15);
-    } catch (SDLException& e) {
-        throw SDLException("Failed to load %s sprite sheet texture!\n", headImage.c_str());
+    } catch (TPException& e) {
+        throw TPException("Failed to load %s sprite sheet texture!\n", headImage.c_str());
     }
 }
 
@@ -360,8 +360,8 @@ void TextureRepository::_setHelmetImage(TextureID textureID, std::string&& helme
         texture.addSprite(17, 0, 17, 17);
         texture.addSprite(34, 0, 17, 17);
         texture.addSprite(51, 0, 17, 17);
-    } catch (SDLException& e) {
-        throw SDLException("Failed to load %s sprite sheet texture!\n", helmetImage.c_str());
+    } catch (TPException& e) {
+        throw TPException("Failed to load %s sprite sheet texture!\n", helmetImage.c_str());
     }
 }
 
@@ -380,8 +380,8 @@ void TextureRepository::_setShieldImage(TextureID textureID, std::string&& shiel
         _addShieldSprites(texture, 90, true);
         /*Rigth*/
         _addShieldSprites(texture, 135, true);
-    } catch (SDLException& e) {
-        throw SDLException("Failed to load %s sprite sheet texture!\n", shieldImage.c_str());
+    } catch (TPException& e) {
+        throw TPException("Failed to load %s sprite sheet texture!\n", shieldImage.c_str());
     }
 }
 

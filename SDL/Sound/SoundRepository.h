@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <queue>
 
-#include "../SDLException.h"
+#include "../TPException.h"
 #include "Sound.h"
 
 enum SoundID {Attack, Explotion, Punch, StepDirt};

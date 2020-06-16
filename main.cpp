@@ -1,6 +1,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
-#include "SDL/SDLException.h"
+#include "SDL/TPException.h"
 #include <iostream>
 #include "Character/Player.h"
 #include "Character/NPC.h"
@@ -24,7 +24,7 @@ void init()
 	//Initialize SDL
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
 	{
-        throw SDLException("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+        throw TPException("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
 	}
 	else
 	{
@@ -38,7 +38,7 @@ void init()
         int imgFlags = IMG_INIT_PNG;
         if( !( IMG_Init( imgFlags ) & imgFlags ) )
         {
-            throw SDLException("SDL_image could not initialize! SDL_mage Error: %s\n", IMG_GetError() );
+            throw TPException("SDL_image could not initialize! SDL_mage Error: %s\n", IMG_GetError() );
         }
 	}
 }
@@ -160,8 +160,10 @@ int main(int argc, char* args[]) {
                 }
             }
         }
-	} catch (SDLException& e) {
-	    std::cout << e.what() << std::endl;
+	} catch (TPException& e) {
+	    std::cerr << e.what() << std::endl;
+	} catch (...) {
+	    std::cerr << "No se que paso pero algo rompio xd" << std::endl;
 	}
 
 	//Free resources and close SDL

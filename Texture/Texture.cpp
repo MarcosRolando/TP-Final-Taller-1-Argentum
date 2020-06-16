@@ -30,8 +30,8 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key, int xOff, in
     //Load image at specified path
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == nullptr) {
-        throw SDLException("Unable to load image %s! SDL_image Error: %s\n",
-                                                path.c_str(), IMG_GetError() );
+        throw TPException("Unable to load image %s! SDL_image Error: %s\n",
+                          path.c_str(), IMG_GetError() );
     } else {
         //Color key image
         if (key.red > -1 && key.green > -1 && key.blue > -1) {
@@ -43,7 +43,7 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key, int xOff, in
         //Create texture from surface pixels
         newTexture = SDL_CreateTextureFromSurface(&renderer, loadedSurface);
         if (newTexture == nullptr) {
-            throw SDLException("Unable to create texture from %s! "
+            throw TPException("Unable to create texture from %s! "
                                "SDL Error: %s\n", path.c_str(), SDL_GetError());
         } else {
             //Get image dimensions
@@ -122,13 +122,13 @@ void Texture::loadFromRenderedText(const std::string& textureText, SDL_Color
     SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str
             (), textColor);
     if( textSurface == nullptr ) {
-        throw SDLException("Unable to render text surface! SDL_ttf Error:"
+        throw TPException("Unable to render text surface! SDL_ttf Error:"
                            " %s\n", TTF_GetError());
     } else {
         //Create texture from surface pixels
         mTexture = SDL_CreateTextureFromSurface( &renderer, textSurface );
         if( mTexture == nullptr ) {
-            throw SDLException("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
+            throw TPException("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
         } else {
             //Get image dimensions
             mWidth = textSurface->w;

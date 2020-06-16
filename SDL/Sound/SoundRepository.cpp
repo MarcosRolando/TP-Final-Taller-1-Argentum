@@ -13,12 +13,12 @@ SoundRepository::SoundRepository() {
 
 void SoundRepository::_init() {
     if( SDL_Init(SDL_INIT_AUDIO ) < 0 ) {//Esto iria en una clase SDL general
-        throw SDLException("SDL could not initialize! SDL Error: %s\n",
-                SDL_GetError() );
+        throw TPException("SDL could not initialize! SDL Error: %s\n",
+                          SDL_GetError() );
     }
     if( Mix_OpenAudio(FREQUENCY, MIX_DEFAULT_FORMAT, 2,
                                                 CHUNKSIZE) < 0 ){
-        throw SDLException("SDL_mixer could not initialize!"
+        throw TPException("SDL_mixer could not initialize!"
                            " SDL_mixer Error: %s\n", Mix_GetError());
     }
 }
@@ -37,7 +37,7 @@ void SoundRepository::_loadSounds(){
 void SoundRepository::_loadMusic(){
     music = Mix_LoadMUS("../Sounds/hkost.wav");
     if(music == NULL ) {
-        throw SDLException("Failed to load beat music! SDL_mixer Error: "
+        throw TPException("Failed to load beat music! SDL_mixer Error: "
                            "%s\n", Mix_GetError());
     }
 }

@@ -3,10 +3,16 @@
 //
 
 #include "ConfigFileReader.h"
+#include "SDL/TPException.h"
 
 ConfigFileReader::ConfigFileReader(const std::string& path) {
     file.open(path);
-    reader.parse(file, obj);
+    try {
+        reader.parse(file, obj);
+    } catch (...) {
+        file.close();
+        throw TPException("Fallo el parseo del Config!");
+    }
 }
 
 ConfigFileReader::~ConfigFileReader() {
@@ -15,7 +21,7 @@ ConfigFileReader::~ConfigFileReader() {
 
 void ConfigFileReader::loadClassModifiers(std::vector<Modifiers> &mods) {
     Json::Value& classModifiers = obj["Class"];
-    Modifiers currMods;
+    Modifiers currMods{};
     for (auto & classModifier : classModifiers) {
        _getModifiers(currMods, classModifier);
        mods.push_back(currMods);
@@ -24,7 +30,7 @@ void ConfigFileReader::loadClassModifiers(std::vector<Modifiers> &mods) {
 
 void ConfigFileReader::loadRaceModifiers(std::vector<Modifiers> &mods) {
     Json::Value& raceModifiers = obj["Race"];
-    Modifiers currMods;
+    Modifiers currMods{};
     for (auto & raceModifier : raceModifiers) {
         _getModifiers(currMods, raceModifier);
         mods.push_back(currMods);
@@ -33,7 +39,7 @@ void ConfigFileReader::loadRaceModifiers(std::vector<Modifiers> &mods) {
 
 void ConfigFileReader::loadWeaponStats(std::vector<WeaponStats>& stats) {
     Json::Value& weapons = obj["Weapon"];
-    WeaponStats currStats;
+    WeaponStats currStats{};
     for (auto & weapon : weapons) {
         _getWeaponStats(currStats, weapon);
         stats.push_back(currStats);
@@ -42,7 +48,7 @@ void ConfigFileReader::loadWeaponStats(std::vector<WeaponStats>& stats) {
 
 void ConfigFileReader::loadClothingStats(std::vector<ClothingStats>& stats) {
     Json::Value& clothings = obj["Clothing"];
-    ClothingStats currStats;
+    ClothingStats currStats{};
     for (auto & clothing : clothings) {
         _getClothingStats(currStats, clothing);
         stats.push_back(currStats);
@@ -52,7 +58,7 @@ void ConfigFileReader::loadClothingStats(std::vector<ClothingStats>& stats) {
 
 void ConfigFileReader::loadMonsterStats(std::vector<MonsterStats>& stats) {
     Json::Value& monsterStats = obj["Monster"];
-    MonsterStats currStats;
+    MonsterStats currStats{};
     for (auto & monsterStat : monsterStats) {
         _getMonsterStats(currStats, monsterStat);
         stats.push_back(currStats);

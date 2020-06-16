@@ -5,9 +5,13 @@
 #include "Structure.h"
 #include "../GameConstants.h"
 
-Structure::Structure(int x, int y, Texture& sTexture) : sTexture(sTexture) {
-    SpriteDimensions_t dimensions = sTexture.getSpriteDimensions();
-    box = {x, y, dimensions.witdth, dimensions.heigth};
+Structure::Structure(int x, int y, Texture* sTexture) : sTexture(sTexture) {
+    if (sTexture != nullptr) {
+        SpriteDimensions_t dimensions = sTexture->getSpriteDimensions();
+        box = {x, y, dimensions.witdth, dimensions.height};
+    } else {
+        box = {x, y, 0, 0};
+    }
 }
 
 bool Structure::_checkCollision(SDL_Rect a, SDL_Rect b) {
@@ -40,12 +44,19 @@ bool Structure::_checkCollision(SDL_Rect a, SDL_Rect b) {
 
 void Structure::render(SDL_Rect& camera) {
     //If the tile is on screen
-    if (_checkCollision(camera, box)) {
+    if (sTexture != nullptr && _checkCollision(camera, box)) {
         //Show the tile
-        sTexture.render(box.x - camera.x, box.y - camera.y);
+        sTexture->render(box.x - camera.x, box.y - camera.y);
     }
 }
 
 SDL_Rect Structure::getBox() const {
     return box;
+}
+
+void Structure::setTexture(Texture& texture) {
+    sTexture = &texture;
+    SpriteDimensions_t dimensions = sTexture->getSpriteDimensions();
+    box.w = dimensions.witdth;
+    box.h = dimensions.height;
 }

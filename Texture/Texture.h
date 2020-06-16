@@ -10,7 +10,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include "../SDL/SDLException.h"
+#include "../SDL/TPException.h"
 #include "../SDL/Text/Font.h"
 #include <string>
 #include <vector>
@@ -24,7 +24,7 @@ struct ColorKey_t {
 
 struct SpriteDimensions_t {
     int witdth;
-    int heigth;
+    int height;
 };
 
 class Texture {
