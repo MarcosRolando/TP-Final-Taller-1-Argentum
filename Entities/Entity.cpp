@@ -26,8 +26,8 @@ unsigned int Entity::attacked(unsigned int damage, unsigned int level) {
     return 0;
 }
 
-void Entity::list(std::list<ProductData>& products) {
-    //NO NOTHING
+unsigned int Entity::list(std::list<ProductData>& products) {
+    return 0;
 }
 
 void Entity::withdraw(Player &player, const std::string& itemName) {

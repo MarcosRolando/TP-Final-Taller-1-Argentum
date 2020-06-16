@@ -5,17 +5,20 @@
 #ifndef ARGENTUM_BANKER_H
 #define ARGENTUM_BANKER_H
 
-
+#include <unordered_map>
 #include "../Entity.h"
 
 class Banker: Entity {
 private:
-    Storage storage;
+    //Storage storage;
+    //std::unordered_map<std::string, Storage>
 
 public:
+    Banker();
+
     //Almacena una lista con los datos de los items y oro almacenados
     //NO TIENE QUE ALMACENAR PRODUCTDATA, CAMBIAR
-    void list(std::list<ProductData>& products) override;
+    unsigned int list(std::list<ProductData>& products) override;
 
     //Intenta sacar el item del banco y almacenarlo en el inventario del jugador
     //Si el item no esta guardado en el banco o el judador no tiene espacio en

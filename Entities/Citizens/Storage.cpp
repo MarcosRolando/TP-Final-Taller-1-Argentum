@@ -9,6 +9,7 @@
 Storage::Storage(std::unordered_map<std::string,
                  std::list<std::shared_ptr<Item>>>&& initialItems) noexcept {
     storedItems = std::move(initialItems);
+    storedGold = 0;
 }
 
 void Storage::storeItem(std::shared_ptr<Item> &&item) {
@@ -25,4 +26,13 @@ void Storage::retreiveItem(const std::string& itemName, Player &player) {
             storedItems.erase(itemName);
         }
     }
+}
+
+unsigned int Storage::getAvailableItems(std::list<ProductData> &products,
+                                        float priceMultiplier) {
+    for (const auto & storedItem : storedItems) {
+        products.emplace_back(storedItem.second.front()->getName(), storedItem.second.size(),
+                        storedItem.second.front()->getPrice() * priceMultiplier);
+    }
+    return storedGold;
 }

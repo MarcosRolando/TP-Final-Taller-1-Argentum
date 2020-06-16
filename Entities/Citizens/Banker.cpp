@@ -4,18 +4,19 @@
 
 #include "Banker.h"
 
-void Banker::list(std::list<ProductData> &products) {
-    //Entity::list(products);
-    return 10;
+unsigned int Banker::list(std::list<ProductData> &products) {
+    return storage.getAvailableItems(products, 0);
 }
 
 void Banker::withdraw(Player &player, const std::string &itemName) {
-    //Entity::withdraw(player, itemName);
     storage.retreiveItem(itemName, player);
 
 }
 
 void Banker::deposit(Player &player, const std::string& itemName) {
-    //Entity::deposit(player, itemPosition);
     storage.storeItem(player.removeItem(itemName));
+}
+
+Banker::Banker() {
+
 }

@@ -24,6 +24,11 @@ struct ProductData {
     const std::string& name;
     unsigned int stock; //Cantidad de instancias del item de nombre name guardadas
     unsigned int price; //Precio de venta del item
+
+    ProductData(const std::string& _name, unsigned int _stock, unsigned int _price): name(_name) {
+        stock = _stock;
+        price = _price;
+    }
 };
 
 //Esta clase se encarga de manejar el stock de items, los guarda y maneja
@@ -33,6 +38,7 @@ private:
     unsigned int storedGold;
     std::unordered_map<std::string, std::list<std::shared_ptr<Item>>> storedItems;
 public:
+
     //Se apropia de los contenidos de initialProducts
     explicit Storage(std::unordered_map<std::string,
                      std::list<std::shared_ptr<Item>>>&& initialItems) noexcept;

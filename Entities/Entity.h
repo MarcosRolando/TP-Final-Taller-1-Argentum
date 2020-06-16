@@ -17,7 +17,7 @@ class Entity {
 protected:
     Coordinate currentPosition;
 
-public:
+ public:
     explicit Entity(Coordinate initialPosition);
 
     //Implementa el comportamiento realizado al ser atacado, por default
@@ -27,7 +27,7 @@ public:
     //Implementa el comportamiento realizado al pedirle una lista de los items
     //que tiene en venta, por default no hace nada, debe ser reimplementada
     //si la clase hija tiene objetos en venta para listar
-    virtual void list(std::list<ProductData>& products);
+    virtual unsigned int list(std::list<ProductData>& products);
 
     //Implementa el comportamiento realizado al pedirle uno de los items
     //que tiene guardados, por default no hace nada, debe ser reimplementada
