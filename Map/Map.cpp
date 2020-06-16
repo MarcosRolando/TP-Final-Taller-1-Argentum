@@ -104,8 +104,8 @@ void Map::renderGround() {
 }
 
 void Map::renderStructures() {
-    for (int i = 0; i < (VISIBLE_VERTICAL_TILES + 3); ++i) {
-        for (int j = 0; j < (VISIBLE_HORIZONTAL_TILES + 3); ++j) {
+    for (int i = -1; i < (VISIBLE_VERTICAL_TILES + 3); ++i) {
+        for (int j = -1; j < (VISIBLE_HORIZONTAL_TILES + 3); ++j) {
             float x = (float)camera.x + (float)j * TILE_WIDTH;
             float y = (float)camera.y + (float)i * TILE_HEIGHT;
             if (x >= LEVEL_WIDTH) continue;
