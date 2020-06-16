@@ -5,7 +5,7 @@
 #include "Inventory.h"
 
 
-#define INVENTORY_SIZE 10
+#define INVENTORY_SIZE 16
 
 
 //////////////////////////////PRIVATE/////////////////////////////
