@@ -11,7 +11,8 @@
 
 //Funcion auxiliar para hacer la construccion y asignacion por movimiento
 void Tile::_doMove(Tile &&other) noexcept {
-    std::unique_ptr<Entity> aux = std::move(other.entity);
+    //std::unique_ptr<Entity> aux = std::move(other.entity);
+    std::shared_ptr<Entity> aux = std::move(other.entity);
     other.entity = std::move(this->entity);
     this->entity = std::move(aux);
 }
@@ -57,7 +58,7 @@ bool Tile::addEntity(std::unique_ptr<Entity>&& received_entity) {
 }
 
 void Tile::removeEntity() {
-    entity.reset(nullptr);
+    entity.reset();
     isOccupable = true;
 }
 
