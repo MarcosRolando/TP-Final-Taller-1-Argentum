@@ -6,12 +6,13 @@
 #define ARGENTUM_TRADER_H
 
 
-#include "Storage.h"
 #include "../Entity.h"
+#include "Shop.h"
 
 class Trader: Entity {
 private:
-    Storage storage;
+    //Storage storage;
+    Shop shop;
 public:
     //Implementa el comportamiento realizado al pedirle una lista de los items
     //que tiene en venta, por default no hace nada, debe ser reimplementada

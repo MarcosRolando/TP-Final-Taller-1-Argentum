@@ -6,7 +6,7 @@
 
 
 unsigned int Shop::list(std::list<ProductData> &products) {
-    return shop.getAvailableItems(products, buyingMultiplier);
+    return storage.getStorageData(products, buyingMultiplier);
 }
 
 void Shop::buy(Player &player, const std::string &itemName) {
