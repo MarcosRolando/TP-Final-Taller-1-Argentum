@@ -10,7 +10,7 @@
 #include <list>
 #include <utility>
 #include <memory>
-#include "Item.h"
+#include "../../Items/Item.h"
 
 //Clase utilizada para guardar instancias de items, se guardan las instancias
 //y no cantidades de cada item ya que de esa forma no se debe estar creando y
@@ -21,15 +21,16 @@
 //Cualquier tipo de item que sea guardado 0 veces no tiene un lugar en el unordered_map
 
 struct ProductData {
-    std::string name;
-    unsigned int price;
-    unsigned int stock;
+    const std::string& name;
+    unsigned int stock; //Cantidad de instancias del item de nombre name guardadas
+    unsigned int price; //Precio de venta del item
 };
 
 //Esta clase se encarga de manejar el stock de items, los guarda y maneja
 //su agregado y retiro
 class Storage {
 private:
+    unsigned int storedGold;
     std::unordered_map<std::string, std::list<std::shared_ptr<Item>>> storedItems;
 public:
     //Se apropia de los contenidos de initialProducts
@@ -42,6 +43,13 @@ public:
     //Intenta pasar el item pedido de Storage a Player, si el item no existe o
     //el player no tiene espacio entonces no hace nada
     void retreiveItem(const std::string& itemName, Player& player);
+
+    //Almacena en la lista instancias del struct ProductData, retorna la cantidad
+    //de oro que tiene almacenada storage
+    //Multiplica el precio del item por priceMultiplier
+    unsigned int getAvailableItems(std::list<ProductData>& products, float priceMultiplier);
+
+
 };
 
 

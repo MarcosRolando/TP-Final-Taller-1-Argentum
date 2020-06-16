@@ -11,7 +11,7 @@ add_executable(argentum main.cpp Items/Item.h Items/Weapon.cpp Items/Weapon.h
         Entities/Entity.cpp Items/Defense/Clothing.cpp Items/Defense/Clothing.h Items/Defense/Head.cpp
         Items/Defense/Head.h Items/Defense/Shield.cpp Items/Defense/Shield.h Items/Defense/Chest.cpp
         Items/Defense/Chest.h Items/Item.cpp Map/InverseCoordinateDistance.cpp Map/InverseCoordinateDistance.h
-        Map/PointAndDistance.h Entities/Stats.cpp Entities/Stats.h Entities/Citizens/Banker.cpp Entities/Citizens/Banker.h Items/Storage.cpp Items/Storage.h)
+        Map/PointAndDistance.h Entities/Stats.cpp Entities/Stats.h Entities/Citizens/Banker.cpp Entities/Citizens/Banker.h Entities/Citizens/Storage.cpp Entities/Citizens/Storage.h Entities/Citizens/Trader.cpp Entities/Citizens/Trader.h)
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
                                                             -O0 -ggdb -DDEBUG -fno-inline)
