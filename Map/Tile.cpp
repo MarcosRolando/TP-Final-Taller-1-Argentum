@@ -95,3 +95,33 @@ bool Tile::isAvailable() const {
     return isOccupable;
 }
 
+unsigned int Tile::list(std::list<ProductData> &products) {
+    if (!entity) {
+        return 0;
+    }
+    return entity->list(products);
+}
+
+void Tile::withdraw(Player &player, const std::string &itemName) {
+    if (entity) {
+        entity->withdraw(player, itemName);
+    }
+}
+
+void Tile::deposit(Player &player, const std::string &itemName) {
+    if (entity) {
+        entity->deposit(player, itemName);
+    }
+}
+
+void Tile::buy(Player &player, const std::string &itemName) {
+    if (entity) {
+        entity->buy(player, itemName);
+    }
+}
+
+void Tile::sell(Player &player, const std::string &itemName) {
+    if (entity) {
+        entity->sell(player, itemName);
+    }
+}

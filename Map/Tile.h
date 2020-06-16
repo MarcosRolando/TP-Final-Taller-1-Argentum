@@ -65,6 +65,21 @@ public:
     //Indica si el tile puede ser ocupado por una entity
     //Retorna true si puede, false en otro caso
     bool isAvailable() const;
+
+    //Delega el comportamiento a la entity que guarda, si es que guarda una
+    unsigned int list(std::list<ProductData>& products);
+
+    //Delega el comportamiento a la entity que guarda, si es que guarda una
+    void withdraw(Player& player, const std::string& itemName);
+
+    //Delega el comportamiento a la entity que guarda, si es que guarda una
+    void deposit(Player& player, const std::string& itemName);
+
+    //Delega el comportamiento a la entity que guarda, si es que guarda una
+    void buy(Player& player, const std::string& itemName);
+
+    //Delega el comportamiento a la entity que guarda, si es que guarda una
+    void sell(Player& player, const std::string& itemName);
 };
 
 
