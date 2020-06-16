@@ -26,7 +26,7 @@ unsigned int Calculator::calculateGoldDrop(unsigned int maxHealth) {
             .goldDropFactorMin;
     float maxRange = Configuration::getInstance().configGoldModifiers()
             .goldDropFactorMax;
-    float randNum = _getRandomNumber(minRange, maxRange);
+    float randNum = _getRandomFloat(minRange, maxRange);
 
     return (randNum * maxHealth);
 }
@@ -62,27 +62,34 @@ unsigned int Calculator::calculateKillXP(unsigned int dmg, unsigned int myLevel,
                                          unsigned int otherMaxHealth) {
     unsigned int modifier = Configuration::getInstance().configXPModifiers()
             .killXPModifier;
-    int multiplier = otherLevel - myLevel + modifier;
+    int multiplier = (otherLevel - myLevel + modifier);
     float minRange = Configuration::getInstance().configXPModifiers()
             .killXPMinRange;
     float maxRange = Configuration::getInstance().configXPModifiers()
             .killXPMaxRange;
-    float random = _getRandomNumber(minRange, maxRange);
+    float random = _getRandomFloat(minRange, maxRange);
 
     return (random * otherMaxHealth * std::max(multiplier, 0));
 }
 
-unsigned int
+/*unsigned int
 Calculator::calculateDamage(Modifiers classMods, Modifiers raceMods,
                             WeaponStats weapon) {
     unsigned int totalStrength = classMods.strength + raceMods.strength;
     unsigned int minRange = weapon.minDmg;
     unsigned int maxRange = weapon.maxDmg;
-    float random = _getRandomNumber(minRange, maxRange);
+    float random = _getRandomFloat(minRange, maxRange);
+    return totalStrength * random;
+}*/
+
+unsigned int Calculator::calculateDamage(Modifiers classMods, Modifiers
+raceMods, unsigned int minWeaponDmg, unsigned int maxWeaponDmg) {
+    unsigned int totalStrength = classMods.strength + raceMods.strength;
+    unsigned int random = _getRandomUInt(minWeaponDmg, maxWeaponDmg);
     return totalStrength * random;
 }
 
-unsigned int Calculator::calculateDefense(ClothingStats armor, ClothingStats
+/*unsigned int Calculator::calculateDefense(ClothingStats armor, ClothingStats
                                             shield, ClothingStats helmet) {
     unsigned int armorMinDef = armor.minDefense;
     unsigned int armorMaxDef = armor.maxDefense;
@@ -95,21 +102,37 @@ unsigned int Calculator::calculateDefense(ClothingStats armor, ClothingStats
 
     float armorDef = _getRandomNumber(armorMinDef, armorMaxDef);
     float helmetDef = _getRandomNumber(helmetMinDef, helmetMaxDef);
-    float shieldDef = _getRandomNumber(shieldMinDef, shieldMaxDef);
+    float shieldDef = _getRandomFloat(shieldMinDef, shieldMaxDef);
 
     return (armorDef + helmetDef + shieldDef);
+}*/
+
+unsigned int Calculator::calculateDefense(unsigned int minClothingDefense,
+        unsigned int maxClothingDefense) {
+    unsigned int clothingDef = _getRandomUInt(minClothingDefense,
+                                        maxClothingDefense);
+
+    return clothingDef;
 }
 
 bool Calculator::canDodge(Modifiers classMods, Modifiers raceMods) {
-    float random = _getRandomNumber(0, 1);
+    float random = _getRandomFloat(0, 1);
     unsigned int totalAgility = classMods.agility + raceMods.agility;
 
     return (pow(random, totalAgility) < 0.001);
 }
 
-float Calculator::_getRandomNumber(float minRange, float maxRange) {
+float Calculator::_getRandomFloat(float minRange, float maxRange) {
     std::random_device seed;
     std::default_random_engine generator(seed());
     std::uniform_real_distribution<float> dist(minRange, maxRange);
+    return dist(generator);
+}
+
+unsigned int Calculator::_getRandomUInt(unsigned int minRange, unsigned int
+maxRange) {
+    std::random_device seed;
+    std::default_random_engine generator(seed());
+    std::uniform_int_distribution<int> dist(minRange, maxRange);
     return dist(generator);
 }
