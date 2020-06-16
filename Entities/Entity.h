@@ -42,12 +42,12 @@ protected:
     //Implementa el comportamiento realizado al intentar comprar un item
     //con el nombre pasado, por default no hace nada, debe ser reimplementada
     //si la clase hija puede comprar y vender items
-    virtual void buy(Player& player, const std::string& itemName, unsigned int gold);
+    virtual void buy(Player& player, const std::string& itemName);
 
     //Implementa el comportamiento realizado al intentar vender un item que se
     //encuentra en la posicion pasada, por default no hace nada, debe ser reimplementada
     //si la clase hija puede comprar y vender items
-    virtual void sell(Player& player, unsigned int itemPosition);
+    virtual void sell(Player& player, const std::string& itemName);
 
     //Indica si el Entity va a ser atacado por un monstruo, por default retorna
     //false, las clases que hereden deben reimplementarla si son consideradas

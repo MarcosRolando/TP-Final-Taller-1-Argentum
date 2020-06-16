@@ -1,18 +1,23 @@
 //
-// Created by agustin on 15/6/20.
+// Created by agustin on 16/6/20.
 //
 
-#ifndef ARGENTUM_TRADER_H
-#define ARGENTUM_TRADER_H
+#ifndef ARGENTUM_SHOP_H
+#define ARGENTUM_SHOP_H
 
 
 #include "Storage.h"
-#include "../Entity.h"
 
-class Trader: Entity {
+class Shop {
 private:
+    float buyingMultiplier;
+    float sellingMultiplier;
     Storage storage;
 public:
+
+    Shop(std::unordered_map<std::string,
+            std::list<std::shared_ptr<Item>>>&& initialItems, float buyingMultiplier, float sellingMultiplier);
+
     //Implementa el comportamiento realizado al pedirle una lista de los items
     //que tiene en venta, por default no hace nada, debe ser reimplementada
     //si la clase hija tiene objetos en venta para listar
@@ -30,4 +35,4 @@ public:
 };
 
 
-#endif //ARGENTUM_TRADER_H
+#endif //ARGENTUM_SHOP_H

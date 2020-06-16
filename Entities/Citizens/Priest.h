@@ -2,14 +2,13 @@
 // Created by agustin on 15/6/20.
 //
 
-#ifndef ARGENTUM_TRADER_H
-#define ARGENTUM_TRADER_H
+#ifndef ARGENTUM_PRIEST_H
+#define ARGENTUM_PRIEST_H
 
 
 #include "Storage.h"
-#include "../Entity.h"
 
-class Trader: Entity {
+class Priest {
 private:
     Storage storage;
 public:
@@ -30,4 +29,4 @@ public:
 };
 
 
-#endif //ARGENTUM_TRADER_H
+#endif //ARGENTUM_PRIEST_H

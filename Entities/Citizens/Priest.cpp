@@ -2,17 +2,16 @@
 // Created by agustin on 15/6/20.
 //
 
-#include "Trader.h"
+#include "Priest.h"
 
-#define BUYING_PRICE_MULTIPLIER 1.1
-#define SELLING_PRICE_MULTIPLIER 0.9
+#define BUYING_PRICE_MULTIPLIER 1.25
+#define SELLING_PRICE_MULTIPLIER 0.75
 
-
-unsigned int Trader::list(std::list<ProductData> &products) {
+unsigned int Priest::list(std::list<ProductData> &products) {
     return storage.getAvailableItems(products, BUYING_PRICE_MULTIPLIER);
 }
 
-void Trader::buy(Player &player, const std::string &itemName) {
+void Priest::buy(Player &player, const std::string &itemName) {
     unsigned int price;
     if (storage.isItemAvailable(itemName)) {
         price = storage.getItemPrice(itemName) * BUYING_PRICE_MULTIPLIER;
@@ -23,7 +22,7 @@ void Trader::buy(Player &player, const std::string &itemName) {
     }
 }
 
-void Trader::sell(Player &player, const std::string& itemName) {
+void Priest::sell(Player &player, const std::string& itemName) {
     unsigned int price;
     if (storage.isItemAvailable(itemName)) {
         price = storage.getItemPrice(itemName) * SELLING_PRICE_MULTIPLIER;

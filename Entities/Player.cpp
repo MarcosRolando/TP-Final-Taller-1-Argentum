@@ -43,3 +43,15 @@ bool Player::isMonsterTarget() {
     return true;
 }
 
+bool Player::spendGold(unsigned int ammount) {
+    if (ammount <= gold) {
+        gold -= ammount;
+        return true;
+    }
+    return false;
+}
+
+void Player::receiveGold(unsigned int ammount) {
+    gold += ammount;
+}
+

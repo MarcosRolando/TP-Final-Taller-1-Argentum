@@ -38,10 +38,10 @@ void Entity::deposit(Player &player, const std::string& itemName) {
     //NO NOTHING
 }
 
-void Entity::buy(Player &player, const std::string &itemName, unsigned int gold) {
+void Entity::buy(Player &player, const std::string &itemName) {
     //NO NOTHING
 }
 
-void Entity::sell(Player &player, unsigned int itemPosition) {
+void Entity::sell(Player &player, const std::string& itemName) {
     //DO NOTHING
 }

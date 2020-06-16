@@ -17,12 +17,15 @@ enum Direction{
 class Player: public Entity {
 private:
     Inventory inventory;
+    /*
     unsigned int currentMana;
     //unsigned int maxMana;
     unsigned int currentHealth;
     //unsigned int maxHealth;
     unsigned int level;
     unsigned int experience;
+    */
+    unsigned int gold;
 public:
     Player(unsigned int maxHealth, unsigned int maxMana, Coordinate initialPosition);
 
@@ -44,6 +47,12 @@ public:
     //itemName
     std::shared_ptr<Item> removeItem(const std::string& itemName);
 
+    //Intenta reducir en ammount la cantidad de oro que guarda, si esta es menor
+    //que ammount entonces no la reduce y retorna false, sino la reduce y retorna
+    //true
+    bool spendGold(unsigned int ammount);
+
+    void receiveGold(unsigned int ammount);
 };
 
 
