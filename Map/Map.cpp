@@ -13,7 +13,7 @@ Map::Map(TextureRepository& repo, SDL_Rect& camera) : textureRepo(repo), camera(
 }
 
 void Map::_setTiles() {
-    MapFileReader mapFile("map.json");
+    MapFileReader mapFile("../map.json");
 
     for (int j = 0; j < TOTAL_HORIZONTAL_TILES; ++j) {
         for (int i = 0; i < TOTAL_VERTICAL_TILES; ++i) {
