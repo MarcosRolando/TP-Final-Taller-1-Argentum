@@ -4,6 +4,9 @@
 
 #include "IronHelmet.h"
 
-IronHelmet::IronHelmet() {
+#include "../../../Config/Configuration.h"
+
+IronHelmet::IronHelmet(): Head(Configuration::getInstance().configIronHelmetStats(),
+                               "Casco de hierro") {
 
 }
