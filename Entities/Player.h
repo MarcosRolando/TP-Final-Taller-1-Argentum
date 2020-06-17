@@ -8,6 +8,7 @@
 
 #include "../Items/Inventory.h"
 #include "Entity.h"
+#include "Stats.h"
 
 enum Direction{
     DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT
@@ -17,14 +18,7 @@ enum Direction{
 class Player: public Entity {
 private:
     Inventory inventory;
-    /*
-    unsigned int currentMana;
-    //unsigned int maxMana;
-    unsigned int currentHealth;
-    //unsigned int maxHealth;
-    unsigned int level;
-    unsigned int experience;
-    */
+    Stats stats;
     unsigned int gold;
 public:
     Player(unsigned int maxHealth, unsigned int maxMana, Coordinate initialPosition);

@@ -9,7 +9,7 @@
 ////////////////////////////////////PUBLIC///////////////////////////////
 
 Player::Player(unsigned int _maxHealth, unsigned int _maxMana, Coordinate initialPosition):
-               Entity(initialPosition){
+               Entity(initialPosition) {
     /*
     maxHealth = _maxHealth;
     currentHealth = _maxHealth;

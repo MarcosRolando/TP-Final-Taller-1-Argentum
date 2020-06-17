@@ -5,6 +5,8 @@
 #ifndef ARGENTUM_STATS_H
 #define ARGENTUM_STATS_H
 
+#include "../Config/Configuration.h"
+
 //Clase que maneja el recibimiento de ataques, Player y Monster le delegan
 //operaciones cuando deben modificar sus stats
 class Stats {
@@ -26,6 +28,8 @@ private:
     unsigned int level;
     unsigned int currentMana;
     unsigned int currentLife;
+    unsigned int maxMana;
+    unsigned int maxLife;
 public:
     Stats(unsigned int constitution, unsigned int intelligence, unsigned int agility,
           unsigned int classLifeMultiplier, unsigned int raceLifeMultiplier,
