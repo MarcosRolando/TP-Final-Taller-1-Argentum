@@ -4,13 +4,13 @@ project(Argentum)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-add_executable(argentum main.cpp Items/Item.h Items/Weapon.cpp Items/Weapon.h
+add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Attack/Weapon.h
         Items/Gold.cpp Items/Gold.h Map/Tile.cpp Map/Tile.h Map/FloorType.h Entities/Entity.h
         Map/Coordinate.h Entities/Monster.cpp Entities/Monster.h Game.cpp Game.h Map/Map.cpp
         Map/Map.h Items/Inventory.cpp Items/Inventory.h Entities/Player.cpp Entities/Player.h
-        Entities/Entity.cpp Items/Defense/Clothing.cpp Items/Defense/Clothing.h Items/Defense/Head.cpp
-        Items/Defense/Head.h Items/Defense/Shield.cpp Items/Defense/Shield.h Items/Defense/Chest.cpp
-        Items/Defense/Chest.h Items/Item.cpp Map/InverseCoordinateDistance.cpp Map/InverseCoordinateDistance.h
+        Entities/Entity.cpp Items/Defense/Clothing.cpp Items/Defense/Clothing.h Items/Defense/Head/Head.cpp
+        Items/Defense/Head/Head.h Items/Defense/Shield/Shield.cpp Items/Defense/Shield/Shield.h Items/Defense/Chest/Chest.cpp
+        Items/Defense/Chest/Chest.h Items/Item.cpp Map/InverseCoordinateDistance.cpp Map/InverseCoordinateDistance.h
         Map/PointAndDistance.h Entities/Stats.cpp Entities/Stats.h Entities/Citizens/Banker.cpp Entities/Citizens/Banker.h Entities/Citizens/Storage.cpp Entities/Citizens/Storage.h Entities/Citizens/Trader.cpp Entities/Citizens/Trader.h Entities/Citizens/Priest.cpp Entities/Citizens/Priest.h Entities/Citizens/Shop.cpp Entities/Citizens/Shop.h Items/ItemsFactory.cpp Items/ItemsFactory.h)
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors

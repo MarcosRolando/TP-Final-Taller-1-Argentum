@@ -6,7 +6,7 @@
 #define ARGENTUM_SHIELD_H
 
 
-#include "Clothing.h"
+#include "../Clothing.h"
 
 class Shield: public Clothing {
 public:

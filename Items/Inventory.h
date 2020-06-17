@@ -12,7 +12,7 @@
 #include "Item.h"
 //#include "../Entities/Player.h"
 #include "Defense/Clothing.h"
-#include "Weapon.h"
+#include "Attack/Weapon.h"
 
 class Player;
 
