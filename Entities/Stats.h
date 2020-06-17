@@ -26,6 +26,8 @@ private:
     unsigned int level;
     unsigned int currentMana;
     unsigned int currentLife;
+    unsigned int maxMana;
+    unsigned int maxLife;
 public:
     Stats(unsigned int constitution, unsigned int intelligence, unsigned int agility,
           unsigned int classLifeMultiplier, unsigned int raceLifeMultiplier,

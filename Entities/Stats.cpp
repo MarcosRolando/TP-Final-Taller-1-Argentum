@@ -3,8 +3,7 @@
 //
 
 #include "Stats.h"
-
-#include <time.h>
+#include <ctime>
 
 Stats::Stats(unsigned int _constitution, unsigned int _intelligence,
              unsigned int _agility, unsigned int _classLifeMultiplier,
@@ -21,6 +20,10 @@ Stats::Stats(unsigned int _constitution, unsigned int _intelligence,
     experience = _experience;
     level = _level;
     isMeditating = false;
-    generalTimer = time(0);
+    generalTimer = time(nullptr);
     meditationTimer = generalTimer;
+    currentMana = 0;
+    currentLife = 0;
+    maxMana = constitution * classLifeMultiplier * raceLifeMultiplier * level;
+    maxLife = intelligence * classManaMultiplier * raceManaMultiplier * level;
 }
