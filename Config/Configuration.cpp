@@ -4,18 +4,6 @@
 
 #include "Configuration.h"
 
-enum Races {HUMAN, ELF, DWARF, GNOME};
-
-enum Classes {MAGE, CLERIC, PALADIN, WARRIOR};
-
-enum Monsters {SKELETON, ZOMBIE, SPIDER, GOBLIN};
-
-enum Weapon {LONGSWORD, AXE, WARHAMMER, ASH_ROD, ELVEN_FLUTE, LINKED_STAFF,
-        SIMPLE_BOW, COMPOUND_BOW};
-
-enum Clothing {COMMON_CLOTHING, LEATHER_ARMOR, PLATE_ARMOR, BLUE_TUNIC, HOOD,
-        IRON_HELMET, TURTLE_SHIELD, IRON_SHIELD, MAGIC_HAT};
-
 Configuration& Configuration::getInstance() {
     static Configuration instance;
     return instance;

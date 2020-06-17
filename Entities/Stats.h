@@ -31,10 +31,7 @@ private:
     unsigned int maxMana;
     unsigned int maxLife;
 public:
-    Stats(unsigned int constitution, unsigned int intelligence, unsigned int agility,
-          unsigned int classLifeMultiplier, unsigned int raceLifeMultiplier,
-          unsigned int classManaMultiplier, unsigned int raceManaMultiplier,
-          unsigned int experience, unsigned int level);
+    Stats(Race _race, Class _class, unsigned int _level, unsigned int _experience);
 
 };
 

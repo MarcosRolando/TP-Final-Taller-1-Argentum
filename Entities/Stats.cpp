@@ -5,25 +5,9 @@
 #include "Stats.h"
 #include <ctime>
 
-Stats::Stats(unsigned int _constitution, unsigned int _intelligence,
-             unsigned int _agility, unsigned int _classLifeMultiplier,
-             unsigned int _raceLifeMultiplier, unsigned int _classManaMultiplier,
-             unsigned int _raceManaMultiplier, unsigned int _experience,
-             unsigned int _level) {
-    constitution = _constitution;
-    intelligence = _intelligence;
-    agility = _agility;
-    classLifeMultiplier = _classLifeMultiplier;
-    raceLifeMultiplier = _raceLifeMultiplier;
-    raceManaMultiplier = _raceManaMultiplier;
-    classManaMultiplier = _classManaMultiplier;
-    experience = _experience;
-    level = _level;
+Stats::Stats(Race _race, Class _class, unsigned int _level, unsigned int _experience) {
+
     isMeditating = false;
     generalTimer = time(nullptr);
     meditationTimer = generalTimer;
-    currentMana = 0;
-    currentLife = 0;
-    maxMana = constitution * classLifeMultiplier * raceLifeMultiplier * level;
-    maxLife = intelligence * classManaMultiplier * raceManaMultiplier * level;
 }
