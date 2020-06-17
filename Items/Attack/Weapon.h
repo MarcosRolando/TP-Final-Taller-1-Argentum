@@ -6,8 +6,8 @@
 #define ARGENTUM_WEAPON_H
 
 
-#include "Item.h"
-#include "../Map/Coordinate.h"
+#include "../Item.h"
+#include "../../Map/Coordinate.h"
 
 class Weapon : public Item {
 private:
