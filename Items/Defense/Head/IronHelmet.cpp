@@ -3,3 +3,7 @@
 //
 
 #include "IronHelmet.h"
+
+IronHelmet::IronHelmet() {
+
+}

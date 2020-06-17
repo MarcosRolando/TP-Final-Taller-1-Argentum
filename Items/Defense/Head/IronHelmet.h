@@ -6,8 +6,11 @@
 #define ARGENTUM_IRONHELMET_H
 
 
-class IronHelmet {
+#include "Head.h"
 
+class IronHelmet: Head {
+public:
+    IronHelmet();
 };
 
 

@@ -11,7 +11,7 @@ add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Atta
         Entities/Entity.cpp Items/Defense/Clothing.cpp Items/Defense/Clothing.h Items/Defense/Head/Head.cpp
         Items/Defense/Head/Head.h Items/Defense/Shield/Shield.cpp Items/Defense/Shield/Shield.h Items/Defense/Chest/Chest.cpp
         Items/Defense/Chest/Chest.h Items/Item.cpp Map/InverseCoordinateDistance.cpp Map/InverseCoordinateDistance.h
-        Map/PointAndDistance.h Entities/Stats.cpp Entities/Stats.h Entities/Citizens/Banker.cpp Entities/Citizens/Banker.h Entities/Citizens/Storage.cpp Entities/Citizens/Storage.h Entities/Citizens/Trader.cpp Entities/Citizens/Trader.h Entities/Citizens/Priest.cpp Entities/Citizens/Priest.h Entities/Citizens/Shop.cpp Entities/Citizens/Shop.h Items/ItemsFactory.cpp Items/ItemsFactory.h)
+        Map/PointAndDistance.h Entities/Stats.cpp Entities/Stats.h Entities/Citizens/Banker.cpp Entities/Citizens/Banker.h Entities/Citizens/Storage.cpp Entities/Citizens/Storage.h Entities/Citizens/Trader.cpp Entities/Citizens/Trader.h Entities/Citizens/Priest.cpp Entities/Citizens/Priest.h Entities/Citizens/Shop.cpp Entities/Citizens/Shop.h Items/ItemsFactory.cpp Items/ItemsFactory.h Items/Defense/Head/IronHelmet.cpp Items/Defense/Head/IronHelmet.h)
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
                                                             -O0 -ggdb -DDEBUG -fno-inline)
