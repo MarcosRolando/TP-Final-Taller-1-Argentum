@@ -15,7 +15,7 @@ add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Atta
         Entities/Citizens/Storage.cpp Entities/Citizens/Storage.h Entities/Citizens/Trader.cpp Entities/Citizens/Trader.h
         Entities/Citizens/Priest.cpp Entities/Citizens/Priest.h Entities/Citizens/Shop.cpp Entities/Citizens/Shop.h
         Items/ItemsFactory.cpp Items/ItemsFactory.h Config/Configuration.cpp Config/ConfigFileReader.cpp Items/Defense/Head/IronHelmet.cpp
-        Items/Defense/Head/IronHelmet.h)
+        Items/Defense/Head/IronHelmet.h Items/Defense/Shield/TurtleShield.cpp Items/Defense/Shield/TurtleShield.h)
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
                                                             -O0 -ggdb -DDEBUG -fno-inline)

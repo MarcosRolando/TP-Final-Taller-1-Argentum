@@ -4,8 +4,14 @@
 
 #include "Shield.h"
 
+/*
 Shield::Shield(unsigned int minDefense, unsigned int maxDefense) :
                Clothing(minDefense, maxDefense, "SinEscudo") {
+
+}
+*/
+
+Shield::Shield(ClothingStats stats, const std::string& name): Clothing(stats, name) {
 
 }
 
