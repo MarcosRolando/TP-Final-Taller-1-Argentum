@@ -45,7 +45,7 @@ namespace Config {
         unsigned int recoveryRate;
     };
 
-    struct WeaponStats {
+    struct WeaponData {
         std::string name;
         unsigned int minDmg;
         unsigned int maxDmg;
@@ -54,7 +54,7 @@ namespace Config {
         unsigned int price;
     };
 
-    struct ClothingStats {
+    struct ClothingData {
         std::string name;
         unsigned int minDefense;
         unsigned int maxDefense;

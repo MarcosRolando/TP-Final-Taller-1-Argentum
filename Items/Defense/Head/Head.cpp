@@ -13,7 +13,7 @@ Head::Head(unsigned int minDefense, unsigned int maxDefense): Clothing(minDefens
 }
 */
 
-Head::Head(ClothingStats stats, const std::string& name): Clothing(stats, name) {
+Head::Head(const ClothingData& stats): Clothing(stats) {
 
 }
 

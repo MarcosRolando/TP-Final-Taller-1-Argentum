@@ -46,10 +46,7 @@ Weapon::Weapon(unsigned int minDamage, unsigned int maxDamage, std::string &&_na
 }
 */
 
-Weapon::Weapon(Config::WeaponStats stats, const std::string &name, unsigned int price):
-               Item(name, price) {
-    //VER SI HAGO QUE RECIBA UN WEAPONSTATS, AUNQUE TAL VEZ ESO SERIA MEZCLAR EL TEMA DE
-    //CONFIG CON LA IMPLEMENTACION
+Weapon::Weapon(const Config::WeaponData& stats): Item(stats.name, stats.price) {
     _initializeData(stats.minDmg, stats.maxDmg, stats.manaConsumption, stats.range);
 }
 

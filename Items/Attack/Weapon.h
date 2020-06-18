@@ -28,7 +28,7 @@ public:
 
     //Weapon(unsigned int minDamage, unsigned int maxDamage, const std::string&& name);
 
-    Weapon(Config::WeaponStats stats, const std::string& name, unsigned int price);
+    explicit Weapon(const Config::WeaponData& stats);
 
 
     //VER SI SE HACE QUE EN VEZ DE RETORNAR 0 TIRE UNA EXCEPCION

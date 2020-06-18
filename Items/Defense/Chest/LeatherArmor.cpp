@@ -6,7 +6,6 @@
 
 using namespace Config;
 
-LeatherArmor::LeatherArmor(): Chest(Configuration::getInstance().configClothingStats(LEATHER_ARMOR),
-                                    "Armadura de cuero") {
+LeatherArmor::LeatherArmor(): Chest(Configuration::getInstance().configClothingStats(LEATHER_ARMOR)) {
 
 }

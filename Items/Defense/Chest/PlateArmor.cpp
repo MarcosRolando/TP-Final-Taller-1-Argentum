@@ -6,7 +6,6 @@
 
 using namespace Config;
 
-PlateArmor::PlateArmor(): Chest(Configuration::getInstance().configClothingStats(PLATE_ARMOR),
-                               "Armadura de placas") {
+PlateArmor::PlateArmor(): Chest(Configuration::getInstance().configClothingStats(PLATE_ARMOR)) {
 
 }

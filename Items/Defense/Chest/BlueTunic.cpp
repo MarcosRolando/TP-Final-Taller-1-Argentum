@@ -6,7 +6,6 @@
 
 using namespace Config;
 
-BlueTunic::BlueTunic(): Chest(Configuration::getInstance().configClothingStats(BLUE_TUNIC),
-                             "Túnica azul") {
+BlueTunic::BlueTunic(): Chest(Configuration::getInstance().configClothingStats(BLUE_TUNIC)) {
 
 }
