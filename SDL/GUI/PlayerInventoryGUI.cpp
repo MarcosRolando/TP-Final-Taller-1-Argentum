@@ -47,18 +47,18 @@ void PlayerInventoryGUI::_renderInventoryItems() {
 
 void PlayerInventoryGUI::_renderEquipableItems() {
     if(equippedTextures.count(Helmet)){
-        equippedTextures.at(Helmet)->render(175, 635,0);
-    }
-    if(equippedTextures.count(Weapon)){
-        equippedTextures.at(Weapon)->render(95, 735, 0);
-
+        equippedTextures.at(Helmet)->render(250, 635,0);
     }
     if(equippedTextures.count(Armor)){
-        equippedTextures.at(Armor)->render(175, 735, 0);
+        equippedTextures.at(Armor)->render(325, 635, 0);
+
+    }
+    if(equippedTextures.count(Weapon)){
+        equippedTextures.at(Weapon)->render(250, 735, 0);
 
     }
     if(equippedTextures.count(Shield)){
-        equippedTextures.at(Shield)->render(252, 735, 0);
+        equippedTextures.at(Shield)->render(325, 735, 0);
     }
 }
 
@@ -78,17 +78,31 @@ void PlayerInventoryGUI::_drawInventoryOutlines() {
 
 void PlayerInventoryGUI::_drawEquipableOutlines() {
     SDL_Rect outlineRect;
-    for (int j = 0; j < 3; ++j) {
-        outlineRect = { 125 + 75 * j, 760, ITEM_WIDTH, ITEM_HEIGHT };
+/*    for (int j = 0; j < 3; ++j) {
+        outlineRect = { 200 + 75 * j, 760, ITEM_WIDTH, ITEM_HEIGHT };
         SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
                                 0x14, 0xFF );
         SDL_RenderDrawRect( &renderer, &outlineRect );
     }
 
-    outlineRect = { 200, 660, ITEM_WIDTH, ITEM_HEIGHT };
+    outlineRect = { 275, 660, ITEM_WIDTH, ITEM_HEIGHT };
     SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
                             0x14, 0xFF );
-    SDL_RenderDrawRect( &renderer, &outlineRect );
+    SDL_RenderDrawRect( &renderer, &outlineRect );*/
+
+    for (int j = 0; j < 2; ++j) {
+        outlineRect = { 275 + 75 * j, 660, ITEM_WIDTH, ITEM_HEIGHT };
+        SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
+                                0x14, 0xFF );
+        SDL_RenderDrawRect( &renderer, &outlineRect );
+    }
+    for (int j = 0; j < 2; ++j) {
+        outlineRect = { 275 + 75 * j, 760, ITEM_WIDTH, ITEM_HEIGHT };
+        SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
+                                0x14, 0xFF );
+        SDL_RenderDrawRect( &renderer, &outlineRect );
+    }
+
 }
 
 void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
@@ -103,12 +117,10 @@ void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item)
 
 void PlayerInventoryGUI::updateGold(unsigned int gold) {
     text.updateText("GOLD: " + std::to_string(gold));
+    text.render(160, 565, SDL_Color{0xFF,0xFF,0x00});
 }
 
 void PlayerInventoryGUI::_renderText() {
-    text.render(160, 565, SDL_Color{0xFF,0xFF,0x00});
     text.updateText("INVENTORY");
     text.render(160, 225, SDL_Color{0xFF,0xFF,0xFF});
-    text.updateText("EQUIPPED");
-    text.render(60, 690, SDL_Color{0xFF,0xFF,0xFF});
 }

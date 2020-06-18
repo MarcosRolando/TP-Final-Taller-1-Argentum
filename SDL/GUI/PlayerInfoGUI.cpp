@@ -51,3 +51,18 @@ void PlayerInfoGUI::updateLevel(unsigned int newLevel) {
     info.render(70, 50, SDL_Color{0xFF,0xFF,0xFF});
 }
 
+void PlayerInfoGUI::updateSkills(unsigned int strength, unsigned int agility,
+        unsigned int intelligence, unsigned int constitution){
+    info.updateText("STRENGTH : " + std::to_string(strength));
+    info.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});
+
+    info.updateText("CONSTITUTION : " + std::to_string(constitution));
+    info.render(40, 700, SDL_Color{0xFF,0xFF,0xFF});
+
+    info.updateText("INTELLIGENCE : " + std::to_string(intelligence));
+    info.render(40, 740, SDL_Color{0xFF,0xFF,0xFF});
+
+    info.updateText("AGILITY : " + std::to_string(agility));
+    info.render(40, 780, SDL_Color{0xFF,0xFF,0xFF});
+}
+

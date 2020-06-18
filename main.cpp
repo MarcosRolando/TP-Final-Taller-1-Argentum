@@ -96,8 +96,10 @@ int main(int argc, char* args[]) {
 
         //LLeno los items equipables
        // inventoryGui.addEquipableItem(BlueTunicDrop, Helmet);
-        inventoryGui.addEquipableItem(AshRodDrop, Armor);
+        inventoryGui.addEquipableItem(LeatherArmorDrop, Armor);
         inventoryGui.addEquipableItem(WarHammerDrop, Weapon);
+        inventoryGui.addEquipableItem(IronHelmetDrop, Helmet);
+        inventoryGui.addEquipableItem(TurtleShieldDrop, Shield);
        // inventoryGui.addEquipableItem(BlueTunicDrop, Shield);
 
         //While application is running
@@ -152,6 +154,7 @@ int main(int argc, char* args[]) {
                     inventoryGui.updateGold(1000);
                     inventoryGui.render();
                     playerInfo.updateLevel(15);
+                    playerInfo.updateSkills(20, 20, 20, 20);
                     window.setViewport(PlayerInfoViewport);
                     playerInfo.updateHealth(currHealth, totalHealth);
                     playerInfo.updateMana(currMana, totalMana);
