@@ -7,6 +7,17 @@
 
 #include <utility>
 
+Storage &Storage::operator=(Storage &&other) noexcept {
+    storedGold = other.storedGold;
+    storedItems = std::move(other.storedItems);
+    return *this;
+}
+
+Storage::Storage(Storage &&other) noexcept {
+    storedGold = other.storedGold;
+    storedItems = std::move(other.storedItems);
+}
+
 Storage::Storage(const std::unordered_map<std::string, unsigned int>&
                  initialItemsAmmounts, unsigned int initialGold) {
     storedGold = initialGold;
@@ -63,4 +74,8 @@ bool Storage::decreaseGoldReserves(unsigned int amount) {
         return true;
     }
     return false;
+}
+
+Storage::Storage() {
+    storedGold = 0;
 }

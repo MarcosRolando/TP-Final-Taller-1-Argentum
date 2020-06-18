@@ -39,6 +39,12 @@ private:
     std::unordered_map<std::string, std::list<std::shared_ptr<Item>>> storedItems;
 public:
 
+    Storage();
+
+    Storage(Storage&& other) noexcept;
+
+    Storage& operator=(Storage&& other) noexcept ;
+
     //Se apropia de los contenidos de initialProducts
     explicit Storage(const std::unordered_map<std::string, unsigned int>&
                      initialItemsAmmounts, unsigned int initialGold);
