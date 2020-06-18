@@ -13,7 +13,7 @@
 
 class Tile {
 private:
-    std::shared_ptr<Entity> entity;
+    std::unique_ptr<Entity> entity;
     std::list<std::shared_ptr<Item>> items;
     bool isOccupable;
     FloorType floor;
