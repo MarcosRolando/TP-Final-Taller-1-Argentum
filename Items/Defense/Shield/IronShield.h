@@ -8,7 +8,7 @@
 
 #include "Shield.h"
 
-class IronShield: Shield {
+class IronShield: public Shield {
 public:
     IronShield();
 };

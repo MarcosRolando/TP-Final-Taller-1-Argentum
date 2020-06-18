@@ -8,7 +8,7 @@
 
 #include "Weapon.h"
 
-class CompositeBow: Weapon {
+class CompositeBow: public Weapon {
 public:
     CompositeBow();
 };

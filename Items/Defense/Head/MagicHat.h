@@ -8,7 +8,7 @@
 
 #include "Head.h"
 
-class MagicHat: Head {
+class MagicHat: public Head {
 public:
     MagicHat();
 };

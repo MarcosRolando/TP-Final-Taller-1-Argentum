@@ -8,7 +8,7 @@
 
 #include "Chest.h"
 
-class LeatherArmor : Chest{
+class LeatherArmor: public Chest{
 public:
     LeatherArmor();
 };

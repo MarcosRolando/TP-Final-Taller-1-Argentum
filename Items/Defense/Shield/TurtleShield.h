@@ -8,7 +8,7 @@
 
 #include "Shield.h"
 
-class TurtleShield: Shield {
+class TurtleShield: public Shield {
 public:
     TurtleShield();
 };

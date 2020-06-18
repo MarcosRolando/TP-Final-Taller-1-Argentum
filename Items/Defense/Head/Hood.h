@@ -8,7 +8,7 @@
 
 #include "Head.h"
 
-class Hood: Head {
+class Hood: public Head {
 public:
     Hood();
 };

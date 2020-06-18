@@ -8,7 +8,7 @@
 
 #include "Chest.h"
 
-class BlueTunic: Chest {
+class BlueTunic: public Chest {
 public:
     BlueTunic();
 };

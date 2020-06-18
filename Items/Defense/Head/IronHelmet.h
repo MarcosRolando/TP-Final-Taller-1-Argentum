@@ -8,7 +8,7 @@
 
 #include "Head.h"
 
-class IronHelmet: Head {
+class IronHelmet: public Head {
 public:
     IronHelmet();
 };
