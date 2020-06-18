@@ -29,9 +29,9 @@ private:
     unsigned int nextLevelExperience;
     unsigned int level;
     unsigned int currentMana;
-    unsigned int currentLife;
+    int currentLife;
     unsigned int maxMana;
-    unsigned int maxLife;
+    int maxLife;
 public:
     Stats(Config::Race _race, Config::Class _class, unsigned int _level, unsigned int _experience);
 
@@ -43,9 +43,9 @@ public:
 
     int modifyLife(int damage, unsigned int attackerLevel, unsigned int defense);
 
-    unsigned int getMaxLife() const;
+    int getMaxLife() const;
 
-    unsigned int getCurrentLife() const;
+    int getCurrentLife() const;
 
 private:
     void _increaseStats();

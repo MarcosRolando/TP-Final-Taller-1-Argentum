@@ -79,10 +79,10 @@ int Stats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defen
     return 0;
 }
 
-unsigned int Stats::getMaxLife() const {
+int Stats::getMaxLife() const {
     return maxLife;
 }
 
-unsigned int Stats::getCurrentLife() const {
+int Stats::getCurrentLife() const {
     return currentLife;
 }

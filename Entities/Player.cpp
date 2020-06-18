@@ -48,7 +48,7 @@ void Player::attack(Coordinate target) {
                                                         result.level, result.maxLife);
     }
     stats.increaseExperience(experienceGained);
-    //todo ver el tema de devolver el danio ocasionado
+    //todo ver el tema de guardar el danio ocasionado
 }
 
 AttackResult Player::attacked(int damage, unsigned int attackerLevel) {

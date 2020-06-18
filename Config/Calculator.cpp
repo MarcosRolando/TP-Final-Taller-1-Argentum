@@ -6,12 +6,12 @@
 
 using namespace Config;
 
-unsigned int Calculator::calculateMaxLife(Modifiers classMods, Modifiers
+int Calculator::calculateMaxLife(Modifiers classMods, Modifiers
                                             raceMods, unsigned int level) {
     unsigned int totalConstitution = classMods.constitution + raceMods
             .constitution;
 
-    return totalConstitution * classMods.lifeMultiplier * raceMods.lifeMultiplier * level;
+    return static_cast<int>(totalConstitution * classMods.lifeMultiplier * raceMods.lifeMultiplier * level);
 }
 
 unsigned int Calculator::calculateMaxMana(Modifiers classMods, Modifiers

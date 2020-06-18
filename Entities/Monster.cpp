@@ -38,7 +38,7 @@ void Monster::_storeNearestPlayerPathCache() {
     unsigned int nearestTargetIndex = 0;
     std::vector<Coordinate> positions;
     map.getTargets(currentPosition, rangeOfVision, positions);
-    if (positions.size() != 0) {
+    if (!positions.empty()) {
         std::vector<std::list<Coordinate>> allPaths/*(positions.size())*/;
         std::list<Coordinate> aux;
         for (auto & position : positions) {
@@ -73,7 +73,6 @@ bool Monster::_tryToAttack() {
 }
 
 
-
 //Pide al game que lo mueva a la siguiente posicion en pathCache, si pathCache
 //esta vacio entonces busca el jugador mas cercano en su rango de vision y le
 //pide al mapa un camino a este
@@ -95,32 +94,34 @@ void Monster::_move() {
 
 ////////////////////////PUBLIC/////////////////////////
 
-Monster::Monster(Game &_game, const Map& _map, unsigned int _life,
+Monster::Monster(Game &_game, const Map& _map, int _life,
                  unsigned int _rangeOfVision, unsigned int _timeBetweenActions,
                  Coordinate initialPosition):
                  Entity(initialPosition), timeBetweenActions(_timeBetweenActions),
                  map(_map), game(_game) {
-    life = _life;
+    maxLife = _life;
+    currentLife = maxLife;
     rangeOfVision = _rangeOfVision;
-    timer = time(0);
+    timer = time(nullptr);
     level = 0;
+    damage = 0; //todo no estaria haciendo nada de danio xd
 }
 
 
 AttackResult Monster::attacked(int _damage, unsigned int attackerLevel) {
-    life -= _damage;
-    if (life < 0) {
-        life = 0;
+    currentLife -= _damage;
+    if (currentLife < 0) {
+        currentLife = 0;
     }
-    return {_damage, Calculator::calculateAttackXP(_damage, level, attackerLevel)};
+    return {_damage, level, currentLife, maxLife};
 }
 
-bool Monster::isDead() {
-    return life == 0;
+bool Monster::isDead() const {
+    return currentLife == 0;
 }
 
 void Monster::act() {
-    unsigned long currentTime = time(0);
+    unsigned long currentTime = time(0); //todo esto recibe un puntero time_t donde lo guarda, no 0
     if (currentTime - timer >= timeBetweenActions) {
         if (!_tryToAttack()) {
             _move();

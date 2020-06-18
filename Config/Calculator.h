@@ -13,7 +13,7 @@
 class Calculator {
 public:
 
-    static unsigned int calculateMaxLife(Config::Modifiers classMods, Config::Modifiers
+    static int calculateMaxLife(Config::Modifiers classMods, Config::Modifiers
     raceMods, unsigned int level);
 
     static unsigned int calculateMaxMana(Config::Modifiers classMods, Config::Modifiers

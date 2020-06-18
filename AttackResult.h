@@ -8,8 +8,8 @@
 struct AttackResult {
     int damage;
     unsigned int level;
-    unsigned int currentLife;
-    unsigned int maxLife;
+    int currentLife;
+    int maxLife;
 };
 
 #endif //ARGENTUM_ATTACKRESULT_H
