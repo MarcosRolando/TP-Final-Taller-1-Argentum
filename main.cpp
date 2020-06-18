@@ -11,7 +11,7 @@
 #include "SDL/GUI/PlayerInfoGUI.h"
 #include "SDL/GUI/PlayerInventoryGUI.h"
 #include "Spells/Spell.h"
-#include "MapFileReader.h"
+#include "SDL/Minichat/Minichat.h"
 
 //Starts up SDL and creates window
 void init();
@@ -71,6 +71,7 @@ int main(int argc, char* args[]) {
         Font font("../SDL/Text/medieval.ttf", 25);
         PlayerInfoGUI playerInfo(font, window.getRenderer());
         PlayerInventoryGUI inventoryGui(repo, window.getRenderer(), font);
+        Minichat minichat(font, window.getRenderer());
 
         //Main loop flag
         bool quit = false;
@@ -82,8 +83,7 @@ int main(int argc, char* args[]) {
         int currMana = 20000;
         int totalMana = 20000;
 
-        //Event handler
-        SDL_Event e;
+
         //Prueba de llenado de inventario
         inventoryGui.addInventoryItem(BlueTunicDrop);
         inventoryGui.addInventoryItem(CommonClothingDrop);
@@ -102,6 +102,11 @@ int main(int argc, char* args[]) {
         inventoryGui.addEquipableItem(TurtleShieldDrop, Shield);
        // inventoryGui.addEquipableItem(BlueTunicDrop, Shield);
 
+        //Event handler
+        SDL_Event e;
+
+        SDL_StartTextInput();
+
         //While application is running
         while( !quit )
         {
@@ -113,17 +118,36 @@ int main(int argc, char* args[]) {
                 {
                     quit = true;
                 }
+                //window.setViewport(MinichatViewport);
+                minichat.handleEvent(e);
+
                 window.handleEvent(e);
                 if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
                     switch (e.key.keysym.sym) {
-                        case SDLK_UP: player.move(UP); break;
-                        case SDLK_DOWN: player.move(DOWN); break;
-                        case SDLK_LEFT: player.move(LEFT); break;
-                        case SDLK_RIGHT: player.move(RIGHT); break;
-                        case SDLK_w: monster.move(UP); break;
-                        case SDLK_s: monster.move(DOWN); break;
-                        case SDLK_a: monster.move(LEFT); break;
-                        case SDLK_d: monster.move(RIGHT); break;
+                        case SDLK_UP:
+                            player.move(UP);
+                            break;
+                        case SDLK_DOWN:
+                            player.move(DOWN);
+                            break;
+                        case SDLK_LEFT:
+                            player.move(LEFT);
+                            break;
+                        case SDLK_RIGHT:
+                            player.move(RIGHT);
+                            break;
+                        case SDLK_w:
+                            monster.move(UP);
+                            break;
+                        case SDLK_s:
+                            monster.move(DOWN);
+                            break;
+                        case SDLK_a:
+                            monster.move(LEFT);
+                            break;
+                        case SDLK_d:
+                            monster.move(RIGHT);
+                            break;
                     }
                 }
             }
@@ -163,20 +187,19 @@ int main(int argc, char* args[]) {
                     playerInfo.updateXP(currXP, totalXP);
 
                     window.setViewport(MinichatViewport);
-                    SDL_Rect fillRect = {0, 0, DEFAULT_MINICHAT_WIDTH,
-                                         DEFAULT_MINICHAT_HEIGHT};
-                    SDL_SetRenderDrawColor(&window.getRenderer(), 0x00, 0x00,
-                                           0xFF, 0xFF);
-                    SDL_RenderFillRect( &window.getRenderer(), &fillRect);
+                    minichat.render();
                     window.show();
                 }
             }
+            SDL_StopTextInput();
         }
 	} catch (TPException& e) {
 	    std::cerr << e.what() << std::endl;
 	} catch (...) {
 	    std::cerr << "No se que paso pero algo rompio xd" << std::endl;
 	}
+
+
 
 	//Free resources and close SDL
 	close();
