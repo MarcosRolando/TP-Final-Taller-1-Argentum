@@ -75,13 +75,13 @@ unsigned int Calculator::calculateKillXP(unsigned int dmg, unsigned int myLevel,
 }
 
 
-unsigned int Calculator::calculateDamage(unsigned int strength, unsigned int weaponDamage) {
+int Calculator::calculateDamage(unsigned int strength, int weaponDamage) {
     return strength * weaponDamage;
 }
 
 unsigned int Calculator::calculateDefense(unsigned int minClothingDefense,
         unsigned int maxClothingDefense) {
-    unsigned int clothingDef = _getRandomUInt(minClothingDefense,
+    unsigned int clothingDef = getRandomInt(minClothingDefense,
                                         maxClothingDefense);
 
     return clothingDef;
@@ -101,8 +101,7 @@ float Calculator::_getRandomFloat(float minRange, float maxRange) {
     return dist(generator);
 }
 
-unsigned int Calculator::_getRandomUInt(unsigned int minRange, unsigned int
-maxRange) {
+int Calculator::getRandomInt(int minRange, int maxRange) {
     std::random_device seed;
     std::default_random_engine generator(seed());
     std::uniform_int_distribution<int> dist(minRange, maxRange);

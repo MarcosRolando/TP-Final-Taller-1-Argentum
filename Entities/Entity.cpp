@@ -9,7 +9,6 @@ Entity::Entity(Coordinate initialPosition) {
     currentPosition.jPosition = initialPosition.jPosition;
 }
 
-
 void Entity::setPosition(Coordinate coordinate) {
     currentPosition = coordinate;
 }

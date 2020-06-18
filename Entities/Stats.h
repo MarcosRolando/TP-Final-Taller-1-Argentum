@@ -34,7 +34,7 @@ private:
 public:
     Stats(Config::Race _race, Config::Class _class, unsigned int _level, unsigned int _experience);
 
-    unsigned int getTotalDamage(unsigned int weaponDamage);
+    int getTotalDamage(int weaponDamage);
 
     unsigned int getLevel();
 

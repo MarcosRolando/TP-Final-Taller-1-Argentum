@@ -9,7 +9,7 @@ using namespace Config;
 ////////////////////////////////////PUBLIC///////////////////////////////
 
 Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsigned int _experience
-                ,Coordinate _initialPosition):
+                , Coordinate _initialPosition):
                Entity(_initialPosition), stats(_race, _class, _level, _experience),
                game(_game){
 
@@ -36,9 +36,9 @@ void Player::move(Direction direction) {
 }
 
 void Player::attack(Coordinate target) {
-    unsigned int weaponDamage;
+    int weaponDamage;
     weaponDamage = inventory.getEquippedWeapon().getDamage(currentPosition, target);
-    unsigned int totalDamage = stats.getTotalDamage(weaponDamage);
+    int totalDamage = stats.getTotalDamage(weaponDamage);
     game.attackPosition(totalDamage, stats.getLevel(), target);
 }
 

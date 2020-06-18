@@ -12,22 +12,16 @@
 
 class Weapon : public Item {
 private:
-    unsigned int minDamage;
-    unsigned int maxDamage;
+    int minDamage;
+    int maxDamage;
     unsigned int attackRange;
     unsigned int manaConsumption;
 
 private:
     bool _isTargetReachable(Coordinate attackPosition, Coordinate attackedPosition) const;
-    void _initializeData(unsigned int minDamage, unsigned int maxDamage,
+    void _initializeData(int minDamage, int maxDamage,
                          unsigned int _manaConsumption, unsigned int _range);
 public:
-    //Weapon();
-
-    //Weapon(unsigned int minDamage, unsigned int maxDamage, const std::string& name, unsigned int price);
-
-    //Weapon(unsigned int minDamage, unsigned int maxDamage, const std::string&& name);
-
     explicit Weapon(const Config::WeaponData& stats);
 
 
@@ -39,7 +33,7 @@ public:
     //no lo realiza retorna 0
     //Podria recibir la distancia, pero esto permite encapsular la forma de
     //calcular la distancia en la Weapon
-    unsigned int getDamage(Coordinate attackPosition, Coordinate attackedPosition) const;
+    int getDamage(Coordinate attackPosition, Coordinate attackedPosition) const;
 
     EquipmentPlace use(Player& player) override;
 

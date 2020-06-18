@@ -31,7 +31,7 @@ Stats::Stats(Race _race, Class _class, unsigned int _level, unsigned int _experi
     currentMana = maxMana;
 }
 
-unsigned int Stats::getTotalDamage(unsigned int weaponDamage) {
+int Stats::getTotalDamage(int weaponDamage) {
     return Calculator::calculateDamage(strength, weaponDamage);
 }
 

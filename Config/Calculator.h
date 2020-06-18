@@ -31,17 +31,17 @@ public:
     static unsigned int calculateKillXP(unsigned int dmg, unsigned int
     myLevel, unsigned int otherLevel, unsigned int otherMaxHealth);
 
-    static unsigned int calculateDamage(unsigned int strength, unsigned int weaponDamage);
+    static int calculateDamage(unsigned int strength, int weaponDamage);
 
     static unsigned int calculateDefense(unsigned int minClothingDefense,
             unsigned int maxClothingDefense);
 
     static bool canDodge(Config::Modifiers classMods, Config::Modifiers raceMods);
 
+    static int getRandomInt(int minRange, int maxRange);
+
 private:
     static float _getRandomFloat(float minRange, float maxRange);
-    static unsigned int _getRandomUInt(unsigned int minRange, unsigned int
-    maxRange);
 };
 
 
