@@ -6,78 +6,16 @@
 #define ARGENTUM_CONFIGURATION_H
 
 #include "ConfigFileReader.h"
-#include <iostream>
-#include <vector>
-
-enum Race {HUMAN, ELF, DWARF, GNOME};
-
-enum Class {MAGE, CLERIC, PALADIN, WARRIOR};
-
-enum Monster {SKELETON, ZOMBIE, SPIDER, GOBLIN};
-
-enum Weapon {LONGSWORD, AXE, WARHAMMER, ASH_ROD, ELVEN_FLUTE, LINKED_STAFF,
-    SIMPLE_BOW, COMPOUND_BOW};
-
-enum Clothing {COMMON_CLOTHING, LEATHER_ARMOR, PLATE_ARMOR, BLUE_TUNIC, HOOD,
-    IRON_HELMET, TURTLE_SHIELD, IRON_SHIELD, MAGIC_HAT};
-
-struct Modifiers {
-    unsigned int health;
-    unsigned int mana;
-    unsigned int constitution;
-    unsigned int intelligence;
-    unsigned int agility;
-    unsigned int strength;
-    unsigned int meditationRate;
-    unsigned int recoveryRate;
-};
-
-struct WeaponStats {
-    unsigned int minDmg;
-    unsigned int maxDmg;
-    unsigned int manaConsumption;
-    unsigned int range;
-};
-
-struct ClothingStats {
-    unsigned int minDefense;
-    unsigned int maxDefense;
-};
-
-struct MonsterStats {
-    int health;
-    unsigned int damage;
-    unsigned int rangeOfVision;
-    unsigned int minLevel;
-    unsigned int maxLevel;
-};
-
-
-struct GoldModifiers {
-    float goldDropFactorMin;
-    float goldDropFactorMax;
-    unsigned int safeGoldFactor;
-    float safeGoldLevelModifier;
-};
-
-struct XPModifiers {
-    unsigned int nextLevelFactor;
-    float nextLevelModifier;
-    unsigned int attackXPModifier;
-    unsigned int killXPModifier;
-    float killXPMinRange;
-    float killXPMaxRange;
-};
 
 class Configuration {
 
 private:
-    std::vector<Modifiers> raceModifiers;
-    std::vector<Modifiers> classModifiers;
-    std::vector<MonsterStats> monsterStats;
+    std::unordered_map<Race, Modifiers> raceModifiers;
+    std::unordered_map<Class, Modifiers> classModifiers;
+    std::unordered_map<Monster, MonsterStats> monsterStats;
 
-    std::vector<WeaponStats> weaponStats;
-    std::vector<ClothingStats> clothingStats;
+    std::unordered_map<Weapon, WeaponStats> weaponStats;
+    std::unordered_map<Clothing, ClothingStats> clothingStats;
 
     GoldModifiers goldModifiers;
 
