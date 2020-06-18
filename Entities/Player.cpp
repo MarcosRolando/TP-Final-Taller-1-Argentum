@@ -3,7 +3,6 @@
 //
 
 #include "Player.h"
-#include "../Config/Calculator.h"
 
 using namespace Config;
 
@@ -37,9 +36,10 @@ void Player::move(Direction direction) {
 }
 
 void Player::attack(Coordinate target) {
-    unsigned int weaponDamage = inventory.getEquippedWeapon().getDamage();
-
-    game.attackPosition(, target);
+    unsigned int weaponDamage;
+    weaponDamage = inventory.getEquippedWeapon().getDamage(currentPosition, target);
+    unsigned int totalDamage = stats.getTotalDamage(weaponDamage);
+    game.attackPosition(totalDamage, stats.getLevel(), target);
 }
 
 bool Player::isMonsterTarget() {

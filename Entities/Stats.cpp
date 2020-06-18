@@ -30,3 +30,11 @@ Stats::Stats(Race _race, Class _class, unsigned int _level, unsigned int _experi
     currentLife = maxLife;
     currentMana = maxMana;
 }
+
+unsigned int Stats::getTotalDamage(unsigned int weaponDamage) {
+    return Calculator::calculateDamage(strength, weaponDamage);
+}
+
+unsigned int Stats::getLevel() {
+    return level;
+}
