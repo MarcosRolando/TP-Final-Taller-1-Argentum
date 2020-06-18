@@ -18,8 +18,8 @@ Configuration::Configuration() {
     fileReader.loadRaceModifiers(raceModifiers);
     fileReader.loadMonsterStats(monsterStats);
 
-    fileReader.loadWeaponStats(weaponStats);
-    fileReader.loadClothingStats(clothingStats);
+    fileReader.loadWeaponData(WeaponData);
+    fileReader.loadClothingData(ClothingData);
 
     fileReader.loadGoldModifiers(goldModifiers);
     fileReader.loadXPModifiers(xpModifiers);
@@ -44,12 +44,12 @@ MonsterStats Configuration::configMonsterStats(Monster monster) const{
     return monsterStats.at(monster);
 }
 
-WeaponStats Configuration::configWeaponStats(Weapon weapon) const{
-    return weaponStats.at(weapon);
+WeaponData Configuration::configWeaponData(Weapon weapon) const{
+    return WeaponData.at(weapon);
 }
 
-ClothingStats Configuration::configClothingStats(Clothing clothes) const{
-    return clothingStats.at(clothes);
+ClothingData Configuration::configClothingData(Clothing clothes) const{
+    return ClothingData.at(clothes);
 }
 
 GoldModifiers Configuration::configGoldModifiers() const{

@@ -106,10 +106,10 @@ namespace Config {
 
         void loadMonsterStats(std::unordered_map<Monster, MonsterStats> &stats);
 
-        void loadWeaponStats(std::unordered_map<Weapon, WeaponStats> &stats);
+        void loadWeaponData(std::unordered_map<Weapon, WeaponData> &stats);
 
         void
-        loadClothingStats(std::unordered_map<Clothing, ClothingStats> &stats);
+        loadClothingData(std::unordered_map<Clothing, ClothingData> &stats);
 
         void loadGoldModifiers(GoldModifiers &goldModifiers);
 
@@ -135,10 +135,10 @@ namespace Config {
         _getMonsterStats(MonsterStats &stats, Json::Value &currMonster);
 
         static void
-        _getWeaponStats(WeaponStats &stats, Json::Value &currWeapon);
+        _getWeaponData(WeaponData &stats, Json::Value &currWeapon);
 
         static void
-        _getClothingStats(ClothingStats &stats, Json::Value &currClothing);
+        _getClothingData(ClothingData &stats, Json::Value &currClothing);
     };
 }
 

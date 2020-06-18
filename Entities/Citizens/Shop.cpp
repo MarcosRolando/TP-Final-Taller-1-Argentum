@@ -4,7 +4,6 @@
 
 #include "Shop.h"
 
-
 unsigned int Shop::list(std::list<ProductData> &products) {
     return storage.getStorageData(products, buyingMultiplier);
 }

@@ -50,20 +50,20 @@ void ConfigFileReader::loadRaceModifiers(std::unordered_map<Race, Modifiers>& mo
     }
 }
 
-void ConfigFileReader::loadWeaponStats(std::unordered_map<Weapon, WeaponStats>& stats) {
+void ConfigFileReader::loadWeaponData(std::unordered_map<Weapon, WeaponData>& stats) {
     Json::Value& weaponsStats = obj["Weapon"];
-    WeaponStats currStats{};
+    WeaponData currStats{};
     for (auto & weaponStat : weaponsStats) {
-        _getWeaponStats(currStats, weaponStat);
+        _getWeaponData(currStats, weaponStat);
         stats.emplace(weapons.at(weaponStat["Type"].asString()), currStats);
     }
 }
 
-void ConfigFileReader::loadClothingStats(std::unordered_map<Clothing, ClothingStats>& stats) {
+void ConfigFileReader::loadClothingData(std::unordered_map<Clothing, ClothingData>& stats) {
     Json::Value& clothingsStats = obj["Clothing"];
-    ClothingStats currStats{};
+    ClothingData currStats{};
     for (auto & clothingStat : clothingsStats) {
-        _getClothingStats(currStats, clothingStat);
+        _getClothingData(currStats, clothingStat);
         stats.emplace(clothing.at(clothingStat["Type"].asString()), currStats);
     }
 }
@@ -136,7 +136,7 @@ void ConfigFileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMo
     stats.maxLevel = currMonster["LevelMax"].asUInt();
 }
 
-void ConfigFileReader::_getWeaponStats(WeaponStats& stats, Json::Value& currWeapon){
+void ConfigFileReader::_getWeaponData(WeaponData& stats, Json::Value& currWeapon){
     stats.name = currWeapon["Name"].asString();
     stats.maxDmg = currWeapon["MaxDmg"].asUInt();
     stats.minDmg = currWeapon["MinDmg"].asUInt();
@@ -145,7 +145,7 @@ void ConfigFileReader::_getWeaponStats(WeaponStats& stats, Json::Value& currWeap
     stats.price = currWeapon["Price"].asUInt();
 }
 
-void ConfigFileReader::_getClothingStats(ClothingStats& stats, Json::Value&
+void ConfigFileReader::_getClothingData(ClothingData& stats, Json::Value&
                                         currClothing){
     stats.name = currClothing["Name"].asString();
     stats.maxDefense = currClothing["MaxDefense"].asUInt();

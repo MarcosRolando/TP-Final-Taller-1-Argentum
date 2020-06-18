@@ -6,6 +6,6 @@
 
 using namespace Config;
 
-CompositeBow::CompositeBow(): Weapon(Configuration::getInstance().configWeaponStats(COMPOSITE_BOW)) {
+CompositeBow::CompositeBow(): Weapon(Configuration::getInstance().configWeaponData(COMPOSITE_BOW)) {
 
 }

@@ -6,5 +6,5 @@
 
 using namespace Config;
 
-IronShield::IronShield(): Shield(Configuration::getInstance().configClothingStats(IRON_SHIELD)) {
+IronShield::IronShield(): Shield(Configuration::getInstance().configClothingData(IRON_SHIELD)) {
 }

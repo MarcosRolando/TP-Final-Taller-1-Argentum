@@ -6,6 +6,6 @@
 
 using namespace Config;
 
-MagicHat::MagicHat(): Head(Configuration::getInstance().configClothingStats(MAGIC_HAT)) {
+MagicHat::MagicHat(): Head(Configuration::getInstance().configClothingData(MAGIC_HAT)) {
 
 }

@@ -6,5 +6,5 @@
 
 using namespace Config;
 
-TurtleShield::TurtleShield(): Shield(Configuration::getInstance().configClothingStats(Config::TURTLE_SHIELD)) {
+TurtleShield::TurtleShield(): Shield(Configuration::getInstance().configClothingData(Config::TURTLE_SHIELD)) {
 }

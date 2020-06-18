@@ -6,6 +6,6 @@
 
 using namespace Config;
 
-BlueTunic::BlueTunic(): Chest(Configuration::getInstance().configClothingStats(BLUE_TUNIC)) {
+BlueTunic::BlueTunic(): Chest(Configuration::getInstance().configClothingData(BLUE_TUNIC)) {
 
 }

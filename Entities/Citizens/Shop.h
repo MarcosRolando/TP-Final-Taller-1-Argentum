@@ -7,6 +7,7 @@
 
 
 #include "Storage.h"
+#include "../Player.h"
 
 class Shop {
 private:

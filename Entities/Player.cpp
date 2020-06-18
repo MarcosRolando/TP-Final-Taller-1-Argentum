@@ -21,16 +21,16 @@ Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsig
 void Player::move(Direction direction) {
     switch (direction) {
         case DIRECTION_UP:
-            currentPosition.jPosition--;
+            --currentPosition.jPosition;
             break;
         case DIRECTION_DOWN:
-            currentPosition.jPosition++;
+            ++currentPosition.jPosition;
             break;
         case DIRECTION_LEFT:
-            currentPosition.iPosition++;
+            ++currentPosition.iPosition;
             break;
         case DIRECTION_RIGHT:
-            currentPosition.iPosition--;
+            --currentPosition.iPosition;
             break;
     }
 }
@@ -69,4 +69,3 @@ std::shared_ptr<Item> Player::removeItem(const std::string &itemName) {
 void Player::useItem(int itemPosition) {
     inventory.useItem(*this, itemPosition);
 }
-

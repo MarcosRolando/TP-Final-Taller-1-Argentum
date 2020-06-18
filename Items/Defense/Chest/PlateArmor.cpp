@@ -6,6 +6,6 @@
 
 using namespace Config;
 
-PlateArmor::PlateArmor(): Chest(Configuration::getInstance().configClothingStats(PLATE_ARMOR)) {
+PlateArmor::PlateArmor(): Chest(Configuration::getInstance().configClothingData(PLATE_ARMOR)) {
 
 }

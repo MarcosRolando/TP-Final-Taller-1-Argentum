@@ -6,6 +6,6 @@
 
 #include "../../../Config/Configuration.h"
 
-IronHelmet::IronHelmet(): Head(Configuration::getInstance().configClothingStats(Config::IRON_HELMET)) {
+IronHelmet::IronHelmet(): Head(Configuration::getInstance().configClothingData(Config::IRON_HELMET)) {
 
 }
