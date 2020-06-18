@@ -12,6 +12,28 @@
 
 namespace Config {
 
+    enum Race {
+        HUMAN, ELF, DWARF, GNOME
+    };
+
+    enum Class {
+        WIZARD, CLERIC, PALADIN, WARRIOR
+    };
+
+    enum Monster {
+        SKELETON, ZOMBIE, SPIDER, GOBLIN
+    };
+
+    enum Weapon {
+        LONGSWORD, AXE, WARHAMMER, ASH_ROD, ELVEN_FLUTE, LINKED_STAFF,
+        SIMPLE_BOW, COMPOUND_BOW, GNARLED_STAFF
+    };
+
+    enum Clothing {
+        COMMON_CLOTHING, LEATHER_ARMOR, PLATE_ARMOR, BLUE_TUNIC, HOOD,
+        IRON_HELMET, TURTLE_SHIELD, IRON_SHIELD, MAGIC_HAT
+    };
+
     struct Modifiers {
         unsigned int health;
         unsigned int mana;
