@@ -10,16 +10,16 @@
 class Configuration {
 
 private:
-    std::unordered_map<Race, Modifiers> raceModifiers;
-    std::unordered_map<Class, Modifiers> classModifiers;
-    std::unordered_map<Monster, MonsterStats> monsterStats;
+    std::unordered_map<Race, Modifiers> raceModifiers{};
+    std::unordered_map<Class, Modifiers> classModifiers{};
+    std::unordered_map<Monster, MonsterStats> monsterStats{};
 
-    std::unordered_map<Weapon, WeaponStats> weaponStats;
-    std::unordered_map<Clothing, ClothingStats> clothingStats;
+    std::unordered_map<Weapon, WeaponStats> weaponStats{};
+    std::unordered_map<Clothing, ClothingStats> clothingStats{};
 
-    GoldModifiers goldModifiers;
+    GoldModifiers goldModifiers{};
 
-    XPModifiers xpModifiers;
+    XPModifiers xpModifiers{};
 
     float criticalAttackChance;
     float dodgeChance;

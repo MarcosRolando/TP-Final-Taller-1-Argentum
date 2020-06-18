@@ -4,6 +4,8 @@
 
 #include "Configuration.h"
 
+using namespace Config;
+
 Configuration& Configuration::getInstance() {
     static Configuration instance;
     return instance;

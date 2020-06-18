@@ -5,6 +5,8 @@
 #include "ConfigFileReader.h"
 #include "../TPException.h"
 
+using namespace Config;
+
 ConfigFileReader::ConfigFileReader(const std::string& path) :
     classes{{"Warrior", WARRIOR}, {"Wizard", WIZARD}, {"Paladin", PALADIN},
            {"Cleric", CLERIC}},
@@ -30,7 +32,7 @@ ConfigFileReader::~ConfigFileReader() {
     file.close();
 }
 
-void ConfigFileReader::loadClassModifiers(std::unordered_map<Class, Modifiers>& mods) {
+void Config::ConfigFileReader::loadClassModifiers(std::unordered_map<Class, Modifiers>& mods) {
     Json::Value& classModifiers = obj["Class"];
     Modifiers currMods{};
     for (auto & classModifier : classModifiers) {
