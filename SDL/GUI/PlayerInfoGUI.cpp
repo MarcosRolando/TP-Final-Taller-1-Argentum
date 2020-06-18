@@ -35,15 +35,15 @@ void PlayerInfoGUI::_renderInfo(unsigned int infoCurr, unsigned int infoTotal,
     float healthBar = barLen * ((float)infoCurr/(float)infoTotal);
 
     //Barra
-    SDL_Rect fillRect = {xOffset, 0, (int)healthBar, BAR_HEIGHT};
+    SDL_Rect fillRect = {xOffset, 10, (int)healthBar, BAR_HEIGHT};
     SDL_SetRenderDrawColor(&renderer, color.r, color.g, color.b, 0xFF);
     SDL_RenderFillRect( &renderer, &fillRect);
 
     //outline de la barra
-    SDL_Rect outlineRect = {xOffset, 0, (int)barLen, BAR_HEIGHT };
+    SDL_Rect outlineRect = {xOffset, 10, (int)barLen, BAR_HEIGHT };
     SDL_SetRenderDrawColor( &renderer, 0x00,0x00,0x00, 0xFF );
     SDL_RenderDrawRect( &renderer, &outlineRect );
-    info.render(xOffset, 0, SDL_Color{0xFF,0xFF,0xFF});
+    info.render(xOffset, 10, SDL_Color{0xFF,0xFF,0xFF});
 }
 
 void PlayerInfoGUI::updateLevel(unsigned int newLevel) {

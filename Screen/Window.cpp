@@ -31,12 +31,12 @@ void Window::_createViewports(){
                                                   DEFAULT_INVENTORY_WIDTH,
                                                   DEFAULT_INVENTORY_HEIGHT});
 
-    viewports.emplace(MinichatViewport, SDL_Rect{0, DEFAULT_MAP_HEIGHT,
+    viewports.emplace(MinichatViewport, SDL_Rect{15 ,15,
                                                  DEFAULT_MINICHAT_WIDTH,
                                             DEFAULT_MINICHAT_HEIGHT});
 
-    viewports.emplace(PlayerInfoViewport, SDL_Rect{0, DEFAULT_MINICHAT_HEIGHT
-    + DEFAULT_MAP_HEIGHT - 45, DEFAULT_MAP_WIDTH, 40});
+    viewports.emplace(PlayerInfoViewport, SDL_Rect{20, DEFAULT_MINICHAT_HEIGHT
+    + DEFAULT_MAP_HEIGHT + 80, DEFAULT_MAP_WIDTH, 45});
 }
 
 void Window::_createWindow() {

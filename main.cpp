@@ -155,10 +155,19 @@ int main(int argc, char* args[]) {
                     inventoryGui.render();
                     playerInfo.updateLevel(15);
                     playerInfo.updateSkills(20, 20, 20, 20);
+
+                    //PlayerInfo
                     window.setViewport(PlayerInfoViewport);
                     playerInfo.updateHealth(currHealth, totalHealth);
                     playerInfo.updateMana(currMana, totalMana);
                     playerInfo.updateXP(currXP, totalXP);
+
+                    window.setViewport(MinichatViewport);
+                    SDL_Rect fillRect = {0, 0, DEFAULT_MINICHAT_WIDTH,
+                                         DEFAULT_MINICHAT_HEIGHT};
+                    SDL_SetRenderDrawColor(&window.getRenderer(), 0x00, 0x00,
+                                           0xFF, 0xFF);
+                    SDL_RenderFillRect( &window.getRenderer(), &fillRect);
                     window.show();
                 }
             }
