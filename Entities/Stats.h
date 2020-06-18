@@ -39,6 +39,8 @@ public:
     unsigned int getLevel();
 
     void increaseExperience(unsigned int _experience);
+
+    int modifyLife(int damage, unsigned int attackerLevel, unsigned int defense);
 };
 
 

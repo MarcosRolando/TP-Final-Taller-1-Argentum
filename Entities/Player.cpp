@@ -44,6 +44,11 @@ void Player::attack(Coordinate target) {
     //todo ver el tema de devolver el danio ocasionado
 }
 
+AttackResult Player::attacked(int damage, unsigned int attackerLevel) {
+    unsigned int defense = //todo
+    stats.modifyLife(damage, attackerLevel);
+}
+
 bool Player::isMonsterTarget() {
     return true;
 }

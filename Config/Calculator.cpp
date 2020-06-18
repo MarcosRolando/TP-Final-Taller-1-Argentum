@@ -87,11 +87,9 @@ unsigned int Calculator::calculateDefense(unsigned int minClothingDefense,
     return clothingDef;
 }
 
-bool Calculator::canDodge(Modifiers classMods, Modifiers raceMods) {
+bool Calculator::canDodge(unsigned int agility) {
     float random = _getRandomFloat(0, 1);
-    unsigned int totalAgility = classMods.agility + raceMods.agility;
-
-    return (pow(random, totalAgility) < 0.001);
+    return (pow(random, agility) < 0.001);
 }
 
 float Calculator::_getRandomFloat(float minRange, float maxRange) {

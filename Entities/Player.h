@@ -54,6 +54,8 @@ public:
     //Usa el item en la posicion indicada, si no hay un item en la posicion no
     //hace nada
     void useItem(int itemPosition);
+
+    AttackResult attacked(int damage, unsigned int attackerLevel) override;
 };
 
 

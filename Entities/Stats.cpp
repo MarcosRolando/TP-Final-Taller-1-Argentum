@@ -5,6 +5,8 @@
 #include "Stats.h"
 #include <ctime>
 #include "../Config/Calculator.h"
+#include "../Config/Configuration.h"
+#include <algorithm>
 
 using namespace Config;
 
@@ -41,4 +43,21 @@ unsigned int Stats::getLevel() {
 
 void Stats::increaseExperience(unsigned int _experience) {
     experience += experience;
+}
+
+int Stats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defense) {
+    if (damage < 0) {
+        currentLife += damage;
+        if (currentLife > maxLife) currentLife = maxLife;
+        return damage;
+    } else {
+        Configuration& config = Configuration::getInstance();
+        if ((attackerLevel - level) < config.configMaxLevelDif()
+            && !Calculator::canDodge(agility)) {
+            int totalDamage = std::max(damage - static_cast<int>(defense), 0);
+            currentLife -= totalDamage;
+            return totalDamage;
+        }
+    }
+    return 0;
 }
