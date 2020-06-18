@@ -21,7 +21,7 @@ bool Entity::isMonsterTarget() {
     return false;
 }
 
-unsigned int Entity::attacked(unsigned int damage, unsigned int level) {
+unsigned int Entity::attacked(int damage, unsigned int level) {
     return 0;
 }
 
