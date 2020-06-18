@@ -35,39 +35,15 @@ public:
 
     static Configuration& getInstance();
 
-    Modifiers configMageModifiers() const;
-    Modifiers configClericModifiers() const;
-    Modifiers configPaladinModifiers() const;
-    Modifiers configWarriorModifiers() const;
+    Modifiers configClassModifiers(Class _class) const;
 
-    Modifiers configHumanModifiers() const;
-    Modifiers configElfModifiers() const;
-    Modifiers configDwarfModifiers() const;
-    Modifiers configGnomeModifiers() const;
+    Modifiers configRaceModifiers(Race race) const;
 
-    MonsterStats configSkeletonStats() const;
-    MonsterStats configSpiderStats() const;
-    MonsterStats configZombieStats() const;
-    MonsterStats configGoblinStats() const;
+    MonsterStats configMonsterStats(Monster monster) const;
 
-    WeaponStats configLongSwordStats() const;
-    WeaponStats configAxeStats() const;
-    WeaponStats configWarhammerStats() const;
-    WeaponStats configAshRodStats() const;
-    WeaponStats configElvenFluteStats() const;
-    WeaponStats configLinkedStaffStats() const;
-    WeaponStats configSimpleBowStats() const;
-    WeaponStats configCompoundBowStats() const;
+    WeaponStats configWeaponStats(Weapon weapon) const;
 
-    ClothingStats configCommonClothingStats() const;
-    ClothingStats configLeatherArmorStats() const;
-    ClothingStats configPlateArmorStats() const;
-    ClothingStats configBlueTunicStats() const;
-    ClothingStats configHoodStats() const;
-    ClothingStats configIronHelmetStats() const;
-    ClothingStats configTurtleShieldStats() const;
-    ClothingStats configIronShieldStats() const;
-    ClothingStats configMagicHatStats() const;
+    ClothingStats configClothingStats(Clothing clothes) const;
 
     GoldModifiers configGoldModifiers() const;
     XPModifiers configXPModifiers() const;

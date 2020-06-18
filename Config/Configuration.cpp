@@ -30,122 +30,25 @@ Configuration::Configuration() {
     playerVisionRange = fileReader.loadPlayerVisionRange();
 }
 
-Modifiers Configuration::configMageModifiers() const{
-    return classModifiers[MAGE];
+Modifiers Configuration::configClassModifiers(Class _class) const{
+    return classModifiers.at(_class);
 }
 
-Modifiers Configuration::configClericModifiers() const{
-    return classModifiers[CLERIC];
+Modifiers Configuration::configRaceModifiers(Race race) const{
+    return raceModifiers.at(race);
 }
 
-Modifiers Configuration::configPaladinModifiers() const{
-    return classModifiers[PALADIN];
+MonsterStats Configuration::configMonsterStats(Monster monster) const{
+    return monsterStats.at(monster);
 }
 
-Modifiers Configuration::configWarriorModifiers() const{
-    return classModifiers[WARRIOR];
+WeaponStats Configuration::configWeaponStats(Weapon weapon) const{
+    return weaponStats.at(weapon);
 }
 
-Modifiers Configuration::configHumanModifiers() const{
-    return raceModifiers[HUMAN];
+ClothingStats Configuration::configClothingStats(Clothing clothes) const{
+    return clothingStats.at(clothes);
 }
-
-Modifiers Configuration::configElfModifiers() const{
-    return raceModifiers[ELF];
-}
-
-Modifiers Configuration::configDwarfModifiers() const{
-    return raceModifiers[DWARF];
-}
-
-Modifiers Configuration::configGnomeModifiers() const{
-    return raceModifiers[GNOME];
-}
-
-MonsterStats Configuration::configSkeletonStats() const{
-    return monsterStats[SKELETON];
-}
-
-MonsterStats Configuration::configZombieStats() const{
-    return monsterStats[ZOMBIE];
-}
-
-MonsterStats Configuration::configSpiderStats() const{
-    return monsterStats[SPIDER];
-}
-
-MonsterStats Configuration::configGoblinStats() const{
-    return monsterStats[GOBLIN];
-}
-
-WeaponStats Configuration::configLongSwordStats() const{
-    return weaponStats[LONGSWORD];
-}
-
-WeaponStats Configuration::configAxeStats() const{
-    return weaponStats[AXE];
-}
-
-WeaponStats Configuration::configWarhammerStats() const{
-    return weaponStats[WARHAMMER];
-}
-
-WeaponStats Configuration::configAshRodStats() const{
-    return weaponStats[ASH_ROD];
-}
-
-WeaponStats Configuration::configElvenFluteStats() const{
-    return weaponStats[ELVEN_FLUTE];
-}
-
-WeaponStats Configuration::configLinkedStaffStats() const{
-    return weaponStats[LINKED_STAFF];
-}
-
-WeaponStats Configuration::configSimpleBowStats() const{
-    return weaponStats[SIMPLE_BOW];
-}
-
-WeaponStats Configuration::configCompoundBowStats() const{
-    return weaponStats[COMPOUND_BOW];
-}
-
-ClothingStats Configuration::configCommonClothingStats() const{
-    return clothingStats[COMMON_CLOTHING];
-}
-
-ClothingStats Configuration::configLeatherArmorStats() const{
-    return clothingStats[LEATHER_ARMOR];
-}
-
-ClothingStats Configuration::configPlateArmorStats() const{
-    return clothingStats[PLATE_ARMOR];
-}
-
-ClothingStats Configuration::configBlueTunicStats() const{
-    return clothingStats[BLUE_TUNIC];
-}
-
-ClothingStats Configuration::configHoodStats() const{
-    return clothingStats[HOOD];
-}
-
-ClothingStats Configuration::configIronHelmetStats() const{
-    return clothingStats[IRON_HELMET];
-}
-
-ClothingStats Configuration::configTurtleShieldStats() const{
-    return clothingStats[TURTLE_SHIELD];
-}
-
-ClothingStats Configuration::configIronShieldStats() const{
-    return clothingStats[IRON_SHIELD];
-}
-
-ClothingStats Configuration::configMagicHatStats() const{
-    return clothingStats[MAGIC_HAT];
-}
-
 
 GoldModifiers Configuration::configGoldModifiers() const{
     return goldModifiers;
