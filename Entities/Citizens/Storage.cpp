@@ -4,7 +4,6 @@
 
 #include "Storage.h"
 #include "../../Items/ItemsFactory.h"
-
 #include <utility>
 
 Storage::Storage(const std::unordered_map<std::string, unsigned int>&
@@ -26,7 +25,7 @@ void Storage::storeItem(std::shared_ptr<Item> &&item) {
 
 void Storage::retreiveItem(const std::string& itemName, Player &player) {
     if (storedItems.count(itemName) == 1) {
-        if (!player.storeItem(std::move(storedItems[itemName].front()))) {
+        if (!player.storeItem(std::move(storedItems[itemName].front()))) { //todo VER SI ACA NO DEBERIAMOS USAR AT EN VEZ DE []
             return;
         }
         storedItems[itemName].pop_front();

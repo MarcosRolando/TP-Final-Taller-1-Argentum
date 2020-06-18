@@ -95,12 +95,12 @@ void Monster::_move() {
 
 ////////////////////////PUBLIC/////////////////////////
 
-Monster::Monster(Game &_game, const Map& _map, unsigned int _health,
+Monster::Monster(Game &_game, const Map& _map, unsigned int _life,
                  unsigned int _rangeOfVision, unsigned int _timeBetweenActions,
                  Coordinate initialPosition):
                  Entity(initialPosition), timeBetweenActions(_timeBetweenActions),
                  map(_map), game(_game) {
-    health = _health;
+    life = _life;
     rangeOfVision = _rangeOfVision;
     timer = time(0);
     level = 0;
@@ -108,15 +108,15 @@ Monster::Monster(Game &_game, const Map& _map, unsigned int _health,
 
 
 AttackResult Monster::attacked(int _damage, unsigned int attackerLevel) {
-    health -= _damage;
-    if (health < 0) {
-        health = 0;
+    life -= _damage;
+    if (life < 0) {
+        life = 0;
     }
     return {_damage, Calculator::calculateAttackXP(_damage, level, attackerLevel)};
 }
 
 bool Monster::isDead() {
-    return health == 0;
+    return life == 0;
 }
 
 void Monster::act() {

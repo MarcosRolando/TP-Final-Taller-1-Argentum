@@ -26,6 +26,7 @@ private:
     unsigned int raceManaMultiplier;
 
     unsigned int experience;
+    unsigned int nextLevelExperience;
     unsigned int level;
     unsigned int currentMana;
     unsigned int currentLife;
@@ -34,13 +35,20 @@ private:
 public:
     Stats(Config::Race _race, Config::Class _class, unsigned int _level, unsigned int _experience);
 
-    int getTotalDamage(int weaponDamage);
+    int getTotalDamage(int weaponDamage) const;
 
-    unsigned int getLevel();
+    unsigned int getLevel() const;
 
     void increaseExperience(unsigned int _experience);
 
     int modifyLife(int damage, unsigned int attackerLevel, unsigned int defense);
+
+    unsigned int getMaxLife() const;
+
+    unsigned int getCurrentLife() const;
+
+private:
+    void _increaseStats();
 };
 
 

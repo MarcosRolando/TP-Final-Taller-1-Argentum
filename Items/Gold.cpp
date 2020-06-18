@@ -4,8 +4,7 @@
 
 #include "Gold.h"
 
-
-Gold::Gold(unsigned int amount): Item("Oro"){
+Gold::Gold(unsigned int amount): Item("Oro", 1){
     this->amount = amount;
 }
 

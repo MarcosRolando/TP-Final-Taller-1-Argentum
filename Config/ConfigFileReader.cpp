@@ -118,7 +118,7 @@ unsigned int ConfigFileReader::loadPlayerVisionRange() {
 }
 
 void ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
-    modifier.lifeMultiplier = currModifier["Health"].asUInt();
+    modifier.lifeMultiplier = currModifier["life"].asUInt();
     modifier.manaMultiplier = currModifier["Mana"].asUInt();
     modifier.constitution = currModifier["Constitution"].asUInt();
     modifier.intelligence = currModifier["Intelligence"].asUInt();
@@ -129,7 +129,7 @@ void ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& currModif
 }
 
 void ConfigFileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMonster){
-    stats.health = currMonster["Health"].asUInt();
+    stats.life = currMonster["life"].asUInt();
     stats.damage = currMonster["Damage"].asUInt();
     stats.rangeOfVision = currMonster["VisionRange"].asUInt();
     stats.minLevel = currMonster["LevelMin"].asUInt();

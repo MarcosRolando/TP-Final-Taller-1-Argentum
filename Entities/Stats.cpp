@@ -31,22 +31,37 @@ Stats::Stats(Race _race, Class _class, unsigned int _level, unsigned int _experi
     maxMana = Calculator::calculateMaxMana(classModifier, raceModifier, level);
     currentLife = maxLife;
     currentMana = maxMana;
+    nextLevelExperience = Calculator::calculateNextLevelXP(level);
 }
 
-int Stats::getTotalDamage(int weaponDamage) {
+int Stats::getTotalDamage(int weaponDamage) const {
     return Calculator::calculateDamage(strength, weaponDamage);
 }
 
-unsigned int Stats::getLevel() {
+unsigned int Stats::getLevel() const {
     return level;
 }
 
+void Stats::_increaseStats() {
+    ++strength;
+    ++agility;
+    ++intelligence;
+    ++constitution;
+}
+
 void Stats::increaseExperience(unsigned int _experience) {
-    experience += experience;
+    experience += _experience;
+    if (experience >= nextLevelExperience) {
+        ++level;
+        _increaseStats();
+        experience = 0;
+        nextLevelExperience = Calculator::calculateNextLevelXP(level);
+    }
+
 }
 
 int Stats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defense) {
-    if (currentLife <= 0) return 0;
+    if (currentLife == 0) return 0;
     if (damage < 0) {
         currentLife += damage;
         if (currentLife > maxLife) currentLife = maxLife;
@@ -57,8 +72,17 @@ int Stats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defen
             && !Calculator::canDodge(agility)) {
             int totalDamage = std::max(damage - static_cast<int>(defense), 0);
             currentLife -= totalDamage;
+            if (currentLife < 0) currentLife = 0;
             return totalDamage;
         }
     }
     return 0;
+}
+
+unsigned int Stats::getMaxLife() const {
+    return maxLife;
+}
+
+unsigned int Stats::getCurrentLife() const {
+    return currentLife;
 }

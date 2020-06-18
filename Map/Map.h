@@ -14,7 +14,6 @@
 #include "PointAndDistance.h"
 #include "InverseCoordinateDistance.h"
 
-
 class Map {
 private:
     std::vector<std::vector<Tile>> tiles;

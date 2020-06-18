@@ -19,7 +19,7 @@ public:
     static unsigned int calculateMaxMana(Config::Modifiers classMods, Config::Modifiers
     raceMods, unsigned int level);
 
-    static unsigned int calculateGoldDrop(unsigned int maxHealth);
+    static unsigned int calculateGoldDrop(unsigned int maxLife);
 
     static unsigned int calculateMaxSafeGold(unsigned int level);
 
@@ -28,13 +28,10 @@ public:
     static unsigned int calculateAttackXP(unsigned int dmg, unsigned int
     myLevel, unsigned int otherLevel);
 
-    static unsigned int calculateKillXP(unsigned intmyLevel, unsigned int otherLevel,
-                                        unsigned int otherMaxHealth);
+    static unsigned int calculateKillXP(unsigned int myLevel, unsigned int otherLevel,
+                                        unsigned int othermaxLife);
 
     static int calculateDamage(unsigned int strength, int weaponDamage);
-
-    static unsigned int calculateDefense(unsigned int minClothingDefense,
-            unsigned int maxClothingDefense);
 
     static bool canDodge(unsigned int agility);
 

@@ -41,16 +41,21 @@ void Player::attack(Coordinate target) {
     weaponDamage = inventory.getWeaponDamage(currentPosition, target);
     int totalDamage = stats.getTotalDamage(weaponDamage);
     AttackResult result = game.attackPosition(totalDamage, stats.getLevel(), target);
-    stats.increaseExperience(result.experience);
+    unsigned int experienceGained = Calculator::calculateAttackXP(result.damage,
+                            stats.getLevel(), result.level);
+    if (result.currentLife == 0 && result.damage > 0) {
+        experienceGained += Calculator::calculateKillXP(stats.getLevel(),
+                                                        result.level, result.maxLife);
+    }
+    stats.increaseExperience(experienceGained);
     //todo ver el tema de devolver el danio ocasionado
 }
 
 AttackResult Player::attacked(int damage, unsigned int attackerLevel) {
     unsigned int defense = inventory.getDefense();
     int totalDamage = stats.modifyLife(damage, attackerLevel, defense);
-    unsigned int experienceGained = Calculator::calculateAttackXP(damage, stats.getLevel(),
-                                    attackerLevel);
-    return {totalDamage, experienceGained};
+    return {totalDamage, stats.getLevel(), stats.getCurrentLife(),
+            stats.getMaxLife()};
 }
 
 bool Player::isMonsterTarget() {

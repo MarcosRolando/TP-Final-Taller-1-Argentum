@@ -63,7 +63,7 @@ namespace Config {
     };
 
     struct MonsterStats {
-        int health;
+        int life;
         unsigned int damage;
         unsigned int rangeOfVision;
         unsigned int minLevel;

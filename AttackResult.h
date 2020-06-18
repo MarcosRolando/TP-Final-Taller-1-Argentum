@@ -7,7 +7,9 @@
 
 struct AttackResult {
     int damage;
-    unsigned int experience;
+    unsigned int level;
+    unsigned int currentLife;
+    unsigned int maxLife;
 };
 
 #endif //ARGENTUM_ATTACKRESULT_H

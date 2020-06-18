@@ -14,7 +14,7 @@ class Monster: public Entity{
 private:
     const unsigned int timeBetweenActions;
     unsigned long timer;
-    int health;
+    int life;
     unsigned int damage;
     unsigned int rangeOfVision;
     unsigned int level;
@@ -37,7 +37,7 @@ private:
     void _move();
 public:
 
-    Monster(Game& _game, const Map& map, unsigned int _health, unsigned int _rangeOfVision,
+    Monster(Game& _game, const Map& map, unsigned int _life, unsigned int _rangeOfVision,
             unsigned int timeBetweenActions, Coordinate initialPosition);
 
 

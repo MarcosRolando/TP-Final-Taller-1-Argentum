@@ -22,7 +22,7 @@ unsigned int Calculator::calculateMaxMana(Modifiers classMods, Modifiers
     return totalIntelligence * classMods.manaMultiplier * raceMods.manaMultiplier * level;
 }
 
-unsigned int Calculator::calculateGoldDrop(unsigned int maxHealth) {
+unsigned int Calculator::calculateGoldDrop(unsigned int maxLife) {
 
     float minRange = Configuration::getInstance().configGoldModifiers()
             .goldDropFactorMin;
@@ -30,7 +30,7 @@ unsigned int Calculator::calculateGoldDrop(unsigned int maxHealth) {
             .goldDropFactorMax;
     float randNum = _getRandomFloat(minRange, maxRange);
 
-    return (static_cast<unsigned int>(randNum) * maxHealth);
+    return (static_cast<unsigned int>(randNum) * maxLife);
 }
 
 unsigned int Calculator::calculateMaxSafeGold(unsigned int level) {
@@ -61,7 +61,7 @@ unsigned int Calculator::calculateAttackXP(unsigned int dmg, unsigned int
 
 unsigned int Calculator::calculateKillXP(unsigned int myLevel,
                                          unsigned int otherLevel,
-                                         unsigned int otherMaxHealth) {
+                                         unsigned int othermaxLife) {
     unsigned int modifier = Configuration::getInstance().configXPModifiers()
             .killXPModifier;
     int multiplier = static_cast<int>((otherLevel - myLevel + modifier));
@@ -71,20 +71,12 @@ unsigned int Calculator::calculateKillXP(unsigned int myLevel,
             .killXPMaxRange;
     float random = _getRandomFloat(minRange, maxRange);
 
-    return static_cast<unsigned int>((random * static_cast<float>(otherMaxHealth) * std::max(multiplier, 0)));
+    return static_cast<unsigned int>((random * static_cast<float>(othermaxLife) * std::max(multiplier, 0)));
 }
 
 
 int Calculator::calculateDamage(unsigned int strength, int weaponDamage) {
-    return strength * weaponDamage;
-}
-
-unsigned int Calculator::calculateDefense(unsigned int minClothingDefense,
-        unsigned int maxClothingDefense) {
-    unsigned int clothingDef = getRandomInt(minClothingDefense,
-                                        maxClothingDefense);
-
-    return clothingDef;
+    return static_cast<int>(strength) * weaponDamage;
 }
 
 bool Calculator::canDodge(unsigned int agility) {
