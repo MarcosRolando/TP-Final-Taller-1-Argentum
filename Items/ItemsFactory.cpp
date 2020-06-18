@@ -136,3 +136,7 @@ ItemsFactory &ItemsFactory::getInstance() {
     static ItemsFactory factory;
     return factory;
 }
+
+void ItemsFactory::storeItemInstance(std::string itemName, std::shared_ptr<Item> &item) {
+    itemsCreators.at(itemName)(item);
+}
