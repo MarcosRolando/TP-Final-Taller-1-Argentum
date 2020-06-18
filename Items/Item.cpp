@@ -5,8 +5,7 @@
 #include "Item.h"
 #include <utility>
 
-Item::Item(const std::string &_name, unsigned int _price) {
-    name = _name;
+Item::Item(const std::string &_name, unsigned int _price): name(_name) {
     price = _price;
 }
 

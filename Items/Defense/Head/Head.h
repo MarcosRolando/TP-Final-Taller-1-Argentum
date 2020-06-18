@@ -11,7 +11,7 @@
 class Head: public Clothing {
 public:
     //Head(unsigned int minDefense, unsigned int maxDefense);
-    explicit Head(Config::ClothingStats stats, const std::string& name);
+    explicit Head(const Config::ClothingData& stats);
 
     EquipmentPlace use(Player& player) override;
 };

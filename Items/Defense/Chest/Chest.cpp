@@ -13,7 +13,7 @@ Chest::Chest(unsigned int minDefense, unsigned int maxDefense) : Clothing(
 }
 */
 
-Chest::Chest(Config::ClothingStats stats, const std::string &name) : Clothing(stats, name) {
+Chest::Chest(const ClothingData& stats) : Clothing(stats) {
 
 }
 

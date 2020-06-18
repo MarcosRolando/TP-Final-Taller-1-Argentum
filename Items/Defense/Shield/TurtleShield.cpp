@@ -6,6 +6,5 @@
 
 using namespace Config;
 
-TurtleShield::TurtleShield(): Shield(Configuration::getInstance().configClothingStats(Config::TURTLE_SHIELD),
-                                     "Escudo de tortuga") {
+TurtleShield::TurtleShield(): Shield(Configuration::getInstance().configClothingStats(Config::TURTLE_SHIELD)) {
 }
