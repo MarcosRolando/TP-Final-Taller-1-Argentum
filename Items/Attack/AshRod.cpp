@@ -6,6 +6,6 @@
 
 using namespace Config;
 
-AshRod::AshRod(): Weapon(Configuration::getInstance().configWeaponStats(ASH_ROD)) {
+AshRod::AshRod(): Weapon(Configuration::getInstance().configWeaponData(ASH_ROD)) {
 
 }

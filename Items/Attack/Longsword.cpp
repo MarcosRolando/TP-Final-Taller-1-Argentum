@@ -6,6 +6,6 @@
 
 using namespace Config;
 
-Longsword::Longsword(): Weapon(Configuration::getInstance().configWeaponStats(LONGSWORD)) {
+Longsword::Longsword(): Weapon(Configuration::getInstance().configWeaponData(LONGSWORD)) {
 
 }

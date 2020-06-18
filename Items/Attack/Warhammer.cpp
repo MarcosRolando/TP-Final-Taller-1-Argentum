@@ -6,6 +6,6 @@
 
 using namespace Config;
 
-Warhammer::Warhammer(): Weapon(Configuration::getInstance().configWeaponStats(WARHAMMER)) {
+Warhammer::Warhammer(): Weapon(Configuration::getInstance().configWeaponData(WARHAMMER)) {
 
 }

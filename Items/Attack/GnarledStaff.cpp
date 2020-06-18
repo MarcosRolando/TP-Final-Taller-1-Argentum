@@ -6,6 +6,6 @@
 
 using namespace Config;
 
-GnarledStaff::GnarledStaff(): Weapon(Configuration::getInstance().configWeaponStats(GNARLED_STAFF)) {
+GnarledStaff::GnarledStaff(): Weapon(Configuration::getInstance().configWeaponData(GNARLED_STAFF)) {
 
 }

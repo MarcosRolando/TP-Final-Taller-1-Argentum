@@ -4,6 +4,6 @@
 
 #include "LinkedStaff.h"
 
-LinkedStaff::LinkedStaff(): Weapon(Configuration::getInstance().configWeaponStats(Config::LINKED_STAFF)) {
+LinkedStaff::LinkedStaff(): Weapon(Configuration::getInstance().configWeaponData(Config::LINKED_STAFF)) {
 
 }

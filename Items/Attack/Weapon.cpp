@@ -17,7 +17,6 @@ bool Weapon::_isTargetReachable(Coordinate attackPosition,
 }
 
 
-
 void Weapon::_initializeData(int _minDamage, int _maxDamage, unsigned int _manaConsumption,
                             unsigned int _range) {
     minDamage = _minDamage;
@@ -25,7 +24,6 @@ void Weapon::_initializeData(int _minDamage, int _maxDamage, unsigned int _manaC
     manaConsumption = _manaConsumption;
     attackRange = _range;
 }
-
 
 
 //////////////////////////////////////PUBLIC//////////////////////

@@ -6,6 +6,6 @@
 
 using namespace Config;
 
-Axe::Axe(): Weapon(Configuration::getInstance().configWeaponStats(AXE)) {
+Axe::Axe(): Weapon(Configuration::getInstance().configWeaponData(AXE)) {
 
 }

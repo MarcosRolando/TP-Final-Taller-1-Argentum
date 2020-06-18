@@ -6,6 +6,6 @@
 
 using namespace Config;
 
-ElvenFlute::ElvenFlute(): Weapon(Configuration::getInstance().configWeaponStats(ELVEN_FLUTE)) {
+ElvenFlute::ElvenFlute(): Weapon(Configuration::getInstance().configWeaponData(ELVEN_FLUTE)) {
 
 }

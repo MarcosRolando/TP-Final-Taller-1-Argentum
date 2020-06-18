@@ -6,6 +6,6 @@
 
 using namespace Config;
 
-SimpleBow::SimpleBow(): Weapon(Configuration::getInstance().configWeaponStats(SIMPLE_BOW)) {
+SimpleBow::SimpleBow(): Weapon(Configuration::getInstance().configWeaponData(SIMPLE_BOW)) {
 
 }
