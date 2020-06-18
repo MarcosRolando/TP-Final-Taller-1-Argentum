@@ -40,8 +40,8 @@ private:
 public:
 
     //Se apropia de los contenidos de initialProducts
-    explicit Storage(std::unordered_map<std::string,
-                     std::list<std::shared_ptr<Item>>>&& initialItems) noexcept;
+    explicit Storage(const std::unordered_map<std::string, unsigned int>&
+                     initialItemsAmmounts, unsigned int initialGold);
 
     //Almacena el item, apropiandose de el
     void storeItem(std::shared_ptr<Item>&& item);
