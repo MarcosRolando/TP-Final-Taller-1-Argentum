@@ -6,6 +6,7 @@
 
 Text::Text(Font& font, SDL_Renderer& renderer) : font(font),
                                     textTexture(renderer) {
+    text = " ";
 }
 
 void Text::updateText(const std::string& newText){

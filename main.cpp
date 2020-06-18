@@ -76,13 +76,6 @@ int main(int argc, char* args[]) {
         //Main loop flag
         bool quit = false;
 
-        int currHealth = 50000;
-        int totalHealth = 50000;
-        int currXP = 3800000;
-        int totalXP = 3800000;
-        int currMana = 20000;
-        int totalMana = 20000;
-
 
         //Prueba de llenado de inventario
         inventoryGui.addInventoryItem(BlueTunicDrop);
@@ -95,21 +88,19 @@ int main(int argc, char* args[]) {
 
 
         //LLeno los items equipables
-       // inventoryGui.addEquipableItem(BlueTunicDrop, Helmet);
         inventoryGui.addEquipableItem(LeatherArmorDrop, Armor);
         inventoryGui.addEquipableItem(WarHammerDrop, Weapon);
         inventoryGui.addEquipableItem(IronHelmetDrop, Helmet);
         inventoryGui.addEquipableItem(TurtleShieldDrop, Shield);
-       // inventoryGui.addEquipableItem(BlueTunicDrop, Shield);
 
         //Event handler
         SDL_Event e;
 
-        SDL_StartTextInput();
-
         //While application is running
         while( !quit )
         {
+            SDL_StartTextInput();
+
             //Handle events on queue
             while( SDL_PollEvent( &e ) != 0 )
             {
@@ -118,10 +109,10 @@ int main(int argc, char* args[]) {
                 {
                     quit = true;
                 }
-                //window.setViewport(MinichatViewport);
                 minichat.handleEvent(e);
 
                 window.handleEvent(e);
+
                 if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
                     switch (e.key.keysym.sym) {
                         case SDLK_UP:
@@ -136,7 +127,7 @@ int main(int argc, char* args[]) {
                         case SDLK_RIGHT:
                             player.move(RIGHT);
                             break;
-                        case SDLK_w:
+                        /*case SDLK_w:
                             monster.move(UP);
                             break;
                         case SDLK_s:
@@ -147,7 +138,7 @@ int main(int argc, char* args[]) {
                             break;
                         case SDLK_d:
                             monster.move(RIGHT);
-                            break;
+                            break;*/
                     }
                 }
             }
@@ -182,11 +173,12 @@ int main(int argc, char* args[]) {
 
                     //PlayerInfo
                     window.setViewport(PlayerInfoViewport);
-                    playerInfo.updateHealth(currHealth, totalHealth);
-                    playerInfo.updateMana(currMana, totalMana);
-                    playerInfo.updateXP(currXP, totalXP);
+                    playerInfo.updateHealth(20000, 20000);
+                    playerInfo.updateMana(9800, 10000);
+                    playerInfo.updateXP(150000, 800000);
 
                     window.setViewport(MinichatViewport);
+
                     minichat.render();
                     window.show();
                 }
