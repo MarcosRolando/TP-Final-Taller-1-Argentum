@@ -36,7 +36,7 @@ public:
 
     const std::string& getName() const;
 
-    const unsigned int getPrice() const;
+    unsigned int getPrice() const;
 
     /*
     //Retorna una instancia del tipo de item, debe implementarse para cada

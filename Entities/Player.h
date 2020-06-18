@@ -18,7 +18,7 @@ enum Direction{
 class Player: public Entity {
 private:
     Inventory inventory;
-    Stats stats;
+    //Stats stats;
     unsigned int gold;
 public:
     Player(unsigned int maxHealth, unsigned int maxMana, Coordinate initialPosition);

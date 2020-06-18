@@ -14,7 +14,7 @@ ConfigFileReader::ConfigFileReader(const std::string& path) :
     monsters{{"Skeleton", SKELETON}, {"Zombie", ZOMBIE},{"Spider", SPIDER}, {"Goblin", GOBLIN}},
     weapons{{"Longsword", LONGSWORD},{"Axe", AXE}, {"Warhammer", WARHAMMER},
             {"AshRod", ASH_ROD}, {"ElvenFlute", ELVEN_FLUTE}, {"LinkedStaff", LINKED_STAFF},
-            {"SimpleBow", SIMPLE_BOW}, {"CompoundBow", COMPOUND_BOW}, {"GnarledStaff", GNARLED_STAFF}},
+            {"SimpleBow", SIMPLE_BOW}, {"CompoundBow", COMPOSITE_BOW}, {"GnarledStaff", GNARLED_STAFF}},
     clothing{{"Longsword", COMMON_CLOTHING},{"Axe", LEATHER_ARMOR}, {"Warhammer", PLATE_ARMOR},
             {"AshRod", BLUE_TUNIC}, {"ElvenFlute", HOOD}, {"LinkedStaff", IRON_HELMET},
             {"SimpleBow", TURTLE_SHIELD}, {"CompoundBow", IRON_SHIELD}, {"GnarledStaff", MAGIC_HAT}} {
@@ -55,7 +55,7 @@ void ConfigFileReader::loadWeaponStats(std::unordered_map<Weapon, WeaponStats>& 
     WeaponStats currStats{};
     for (auto & weaponStat : weaponsStats) {
         _getWeaponStats(currStats, weaponStat);
-        stats.emplace(weapons.at(weaponStat["Name"].asString()), currStats);
+        stats.emplace(weapons.at(weaponStat["Type"].asString()), currStats);
     }
 }
 
@@ -64,7 +64,7 @@ void ConfigFileReader::loadClothingStats(std::unordered_map<Clothing, ClothingSt
     ClothingStats currStats{};
     for (auto & clothingStat : clothingsStats) {
         _getClothingStats(currStats, clothingStat);
-        stats.emplace(clothing.at(clothingStat["Name"].asString()), currStats);
+        stats.emplace(clothing.at(clothingStat["Type"].asString()), currStats);
     }
 }
 
@@ -118,8 +118,8 @@ unsigned int ConfigFileReader::loadPlayerVisionRange() {
 }
 
 void ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
-    modifier.health = currModifier["Health"].asUInt();
-    modifier.mana = currModifier["Mana"].asUInt();
+    modifier.lifeMultiplier = currModifier["Health"].asUInt();
+    modifier.manaMultiplier = currModifier["Mana"].asUInt();
     modifier.constitution = currModifier["Constitution"].asUInt();
     modifier.intelligence = currModifier["Intelligence"].asUInt();
     modifier.agility = currModifier["Agility"].asUInt();

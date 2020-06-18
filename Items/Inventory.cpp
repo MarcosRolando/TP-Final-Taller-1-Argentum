@@ -46,9 +46,9 @@ bool Inventory::addItem(std::shared_ptr<Item> &&item) {
     if ((storedItemsAmmount == items.size()) || !item) {
         return false;
     }
-    for (int i = 0; i < (int)items.size(); ++i) {
-        if (!items[i]) {
-            items[i] = std::move(item);
+    for (auto & i : items) {
+        if (!i) {
+            i = std::move(item);
             break;
         }
     }
@@ -72,10 +72,10 @@ std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
     std::shared_ptr<Item> returnItem(nullptr);
     std::hash<std::string> stringHash;
     unsigned int itemNameHash = stringHash(itemName);
-    for (int i = 0; i < items.size(); ++i) {
-        if ((stringHash(items[i]->getName()) == itemNameHash) &&
-            (itemName == items[i]->getName())) {
-            returnItem = std::move(items[i]);
+    for (auto & item : items) {
+        if ((stringHash(item->getName()) == itemNameHash) &&
+            (itemName == item->getName())) {
+            returnItem = std::move(item);
             storedItemsAmmount--;
             break;
         }

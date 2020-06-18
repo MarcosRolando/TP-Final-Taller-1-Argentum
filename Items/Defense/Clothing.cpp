@@ -14,7 +14,7 @@ Clothing::Clothing(unsigned int _minDefense, unsigned int _maxDefense, std::stri
 }
 */
 
-Clothing::Clothing(ClothingStats stats, const std::string& name): Item(name) {
+Clothing::Clothing(Config::ClothingStats stats, const std::string& name): Item(name) {
     minDefense = stats.minDefense;
     maxDefense = stats.maxDefense;
 }

@@ -35,8 +35,8 @@ namespace Config {
     };
 
     struct Modifiers {
-        unsigned int health;
-        unsigned int mana;
+        unsigned int lifeMultiplier;
+        unsigned int manaMultiplier;
         unsigned int constitution;
         unsigned int intelligence;
         unsigned int agility;
