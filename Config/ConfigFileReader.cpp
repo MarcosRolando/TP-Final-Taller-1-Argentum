@@ -141,12 +141,12 @@ void ConfigFileReader::_getWeaponStats(WeaponStats& stats, Json::Value& currWeap
     stats.minDmg = currWeapon["MinDmg"].asUInt();
     stats.manaConsumption = currWeapon["ManaConsumption"].asUInt();
     stats.range = currWeapon["Range"].asUInt();
+    stats.price = currWeapon["Price"].asUInt();
 }
 
 void ConfigFileReader::_getClothingStats(ClothingStats& stats, Json::Value&
 currClothing){
     stats.maxDefense = currClothing["MaxDefense"].asUInt();
     stats.minDefense = currClothing["MinDefense"].asUInt();
+    stats.price = currClothing["Price"].asUInt();
 }
-
-

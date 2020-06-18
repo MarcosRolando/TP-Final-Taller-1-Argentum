@@ -50,11 +50,13 @@ namespace Config {
         unsigned int maxDmg;
         unsigned int manaConsumption;
         unsigned int range;
+        unsigned int price;
     };
 
     struct ClothingStats {
         unsigned int minDefense;
         unsigned int maxDefense;
+        unsigned int price;
     };
 
     struct MonsterStats {
