@@ -3,3 +3,8 @@
 //
 
 #include "ItemsFactory.h"
+
+ItemsFactory &ItemsFactory::getInstance() {
+    static ItemsFactory factory;
+    return factory;
+}

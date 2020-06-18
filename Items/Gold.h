@@ -14,7 +14,7 @@ private:
     unsigned int amount;
 
 public:
-    explicit Gold(unsigned int amount = 0);
+    explicit Gold(unsigned int amount);
 
     EquipmentPlace use(Player& player) override;
 

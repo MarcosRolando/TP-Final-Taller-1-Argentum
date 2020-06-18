@@ -5,7 +5,7 @@
 #include "Gold.h"
 
 
-Gold::Gold(unsigned int amount/* = 0*/): Item("Oro"){
+Gold::Gold(unsigned int amount): Item("Oro"){
     this->amount = amount;
 }
 
