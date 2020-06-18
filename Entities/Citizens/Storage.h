@@ -47,7 +47,7 @@ public:
 
     //Se apropia de los contenidos de initialProducts
     explicit Storage(const std::unordered_map<std::string, unsigned int>&
-                     initialItemsAmmounts, unsigned int initialGold);
+                     initialItemsAmounts, unsigned int initialGold);
 
     //Almacena el item, apropiandose de el
     void storeItem(std::shared_ptr<Item>&& item);

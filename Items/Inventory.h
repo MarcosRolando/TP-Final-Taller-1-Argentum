@@ -21,7 +21,7 @@ class Inventory {
 private:
     unsigned int storedItemsamount;
     std::vector<std::shared_ptr<Item>> items;
-    std::unordered_map<EquipmentPlace, std::shared_ptr<Clothing>> clothingEequipment;
+    std::unordered_map<EquipmentPlace, std::shared_ptr<Clothing>> clothingEquipment;
     std::shared_ptr<Weapon> equippedWeapon;
 
 private:
@@ -48,7 +48,11 @@ public:
     //hace nada
     void useItem(Player& player, unsigned int itemPosition);
 
-    const Weapon& getEquippedWeapon() const;
+    //Retorna el danio generado por el arma en el rango de ella
+    int getWeaponDamage(Coordinate currentPosition, Coordinate target) const;
+
+    //Retorna la defensa total provista por la armadura equipada (casco, chest, shield)
+    unsigned int getDefense();
 };
 
 

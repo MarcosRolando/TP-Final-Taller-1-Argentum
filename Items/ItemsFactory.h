@@ -39,7 +39,7 @@ private:
     static void storeWarhammer(std::shared_ptr<Item>& item);
 
     //VER COMO SE TRATA EL CASO ESPECIAL DE GOLD
-    static void storeGold(std::shared_ptr<Item>& item, unsigned int ammount);
+    static void storeGold(std::shared_ptr<Item>& item, unsigned int amount);
 
 public:
 

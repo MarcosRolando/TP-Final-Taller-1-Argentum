@@ -59,7 +59,7 @@ unsigned int Calculator::calculateAttackXP(unsigned int dmg, unsigned int
     return dmg * std::max(multiplier, 0);
 }
 
-unsigned int Calculator::calculateKillXP(unsigned int dmg, unsigned int myLevel,
+unsigned int Calculator::calculateKillXP(unsigned int myLevel,
                                          unsigned int otherLevel,
                                          unsigned int otherMaxHealth) {
     unsigned int modifier = Configuration::getInstance().configXPModifiers()

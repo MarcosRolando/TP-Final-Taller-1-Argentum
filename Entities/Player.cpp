@@ -3,6 +3,7 @@
 //
 
 #include "Player.h"
+#include "../Config/Calculator.h"
 
 using namespace Config;
 
@@ -37,7 +38,7 @@ void Player::move(Direction direction) {
 
 void Player::attack(Coordinate target) {
     int weaponDamage;
-    weaponDamage = inventory.getEquippedWeapon().getDamage(currentPosition, target);
+    weaponDamage = inventory.getWeaponDamage(currentPosition, target);
     int totalDamage = stats.getTotalDamage(weaponDamage);
     AttackResult result = game.attackPosition(totalDamage, stats.getLevel(), target);
     stats.increaseExperience(result.experience);
@@ -45,8 +46,11 @@ void Player::attack(Coordinate target) {
 }
 
 AttackResult Player::attacked(int damage, unsigned int attackerLevel) {
-    unsigned int defense = //todo
-    stats.modifyLife(damage, attackerLevel);
+    unsigned int defense = inventory.getDefense();
+    int totalDamage = stats.modifyLife(damage, attackerLevel, defense);
+    unsigned int experienceGained = Calculator::calculateAttackXP(damage, stats.getLevel(),
+                                    attackerLevel);
+    return {totalDamage, experienceGained};
 }
 
 bool Player::isMonsterTarget() {
