@@ -137,6 +137,7 @@ void ConfigFileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMo
 }
 
 void ConfigFileReader::_getWeaponStats(WeaponStats& stats, Json::Value& currWeapon){
+    stats.name = currWeapon["Name"].asString();
     stats.maxDmg = currWeapon["MaxDmg"].asUInt();
     stats.minDmg = currWeapon["MinDmg"].asUInt();
     stats.manaConsumption = currWeapon["ManaConsumption"].asUInt();
@@ -145,7 +146,8 @@ void ConfigFileReader::_getWeaponStats(WeaponStats& stats, Json::Value& currWeap
 }
 
 void ConfigFileReader::_getClothingStats(ClothingStats& stats, Json::Value&
-currClothing){
+                                        currClothing){
+    stats.name = currClothing["Name"].asString();
     stats.maxDefense = currClothing["MaxDefense"].asUInt();
     stats.minDefense = currClothing["MinDefense"].asUInt();
     stats.price = currClothing["Price"].asUInt();
