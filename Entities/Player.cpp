@@ -3,14 +3,17 @@
 //
 
 #include "Player.h"
+#include "../Config/Calculator.h"
 
 using namespace Config;
 
 ////////////////////////////////////PUBLIC///////////////////////////////
 
-Player::Player(Race _race, Class _class, unsigned int _level, unsigned int _experience
-            , Coordinate _initialPosition):
-               Entity(_initialPosition), stats(_race, _class, _level, _experience) {
+Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsigned int _experience
+                ,Coordinate _initialPosition):
+               Entity(_initialPosition), stats(_race, _class, _level, _experience),
+               game(_game){
+
     gold = 0; //todo habria que recibir la cantidad de oro tambien,
                 //todo o pasar por referencia la clase que maneje el archivo de
                 //todo persistencia directamente
@@ -34,7 +37,9 @@ void Player::move(Direction direction) {
 }
 
 void Player::attack(Coordinate target) {
-    //IMPLEMENTAR
+    unsigned int weaponDamage = inventory.getEquippedWeapon().getDamage();
+
+    game.attackPosition(, target);
 }
 
 bool Player::isMonsterTarget() {

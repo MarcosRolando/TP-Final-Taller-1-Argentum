@@ -9,19 +9,20 @@
 #include "../Items/Inventory.h"
 #include "Entity.h"
 #include "Stats.h"
+#include "../Game.h"
 
 enum Direction{
     DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT
 };
-
 
 class Player: public Entity {
 private:
     Inventory inventory;
     Stats stats;
     unsigned int gold;
+    Game& game;
 public:
-    Player(Config::Race _race, Config::Class _class, unsigned int _level,
+    Player(Game& _game, Config::Race _race, Config::Class _class, unsigned int _level,
            unsigned int _experience, Coordinate _initialPosition);
 
     //Modifica la posicion almacenada por el jugador, para que luego sea actualizada

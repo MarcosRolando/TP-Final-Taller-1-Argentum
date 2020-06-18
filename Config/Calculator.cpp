@@ -74,40 +74,10 @@ unsigned int Calculator::calculateKillXP(unsigned int dmg, unsigned int myLevel,
     return static_cast<unsigned int>((random * static_cast<float>(otherMaxHealth) * std::max(multiplier, 0)));
 }
 
-/*unsigned int
-Calculator::calculateDamage(Modifiers classMods, Modifiers raceMods,
-                            WeaponStats weapon) {
-    unsigned int totalStrength = classMods.strength + raceMods.strength;
-    unsigned int minRange = weapon.minDmg;
-    unsigned int maxRange = weapon.maxDmg;
-    float random = _getRandomFloat(minRange, maxRange);
-    return totalStrength * random;
-}*/
 
-unsigned int Calculator::calculateDamage(Modifiers classMods, Modifiers
-raceMods, unsigned int minWeaponDmg, unsigned int maxWeaponDmg) {
-    unsigned int totalStrength = classMods.strength + raceMods.strength;
-    unsigned int random = _getRandomUInt(minWeaponDmg, maxWeaponDmg);
-    return totalStrength * random;
+unsigned int Calculator::calculateDamage(unsigned int strength, unsigned int weaponDamage) {
+    return strength * weaponDamage;
 }
-
-/*unsigned int Calculator::calculateDefense(ClothingStats armor, ClothingStats
-                                            shield, ClothingStats helmet) {
-    unsigned int armorMinDef = armor.minDefense;
-    unsigned int armorMaxDef = armor.maxDefense;
-
-    unsigned int shieldMinDef = shield.minDefense;
-    unsigned int shieldMaxDef = shield.maxDefense;
-
-    unsigned int helmetMinDef = helmet.minDefense;
-    unsigned int helmetMaxDef = helmet.maxDefense;
-
-    float armorDef = _getRandomNumber(armorMinDef, armorMaxDef);
-    float helmetDef = _getRandomNumber(helmetMinDef, helmetMaxDef);
-    float shieldDef = _getRandomFloat(shieldMinDef, shieldMaxDef);
-
-    return (armorDef + helmetDef + shieldDef);
-}*/
 
 unsigned int Calculator::calculateDefense(unsigned int minClothingDefense,
         unsigned int maxClothingDefense) {

@@ -31,14 +31,7 @@ public:
     static unsigned int calculateKillXP(unsigned int dmg, unsigned int
     myLevel, unsigned int otherLevel, unsigned int otherMaxHealth);
 
-    //static unsigned int calculateDamage(Modifiers classMods, Modifiers
-    //raceMods, WeaponStats weapon);
-
-    static unsigned int calculateDamage(Config::Modifiers classMods, Config::Modifiers
-    raceMods, unsigned int minWeaponDmg, unsigned int maxWeaponDmg);
-
-    //static unsigned int calculateDefense(ClothingStats armor, ClothingStats
-    //shield, ClothingStats helmet);
+    static unsigned int calculateDamage(unsigned int strength, unsigned int weaponDamage);
 
     static unsigned int calculateDefense(unsigned int minClothingDefense,
             unsigned int maxClothingDefense);

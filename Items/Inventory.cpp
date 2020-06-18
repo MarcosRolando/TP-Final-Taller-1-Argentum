@@ -81,3 +81,7 @@ std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
     }
     return returnItem;
 }
+
+const Weapon& Inventory::getEquippedWeapon() const {
+    return *equippedWeapon.get();
+}

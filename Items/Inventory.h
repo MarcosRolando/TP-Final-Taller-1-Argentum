@@ -47,6 +47,8 @@ public:
     //Usa el item en la posicion indicada, si no hay un item en la posicion no
     //hace nada
     void useItem(Player& player, unsigned int itemPosition);
+
+    const Weapon& getEquippedWeapon() const;
 };
 
 
