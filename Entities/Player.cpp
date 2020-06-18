@@ -41,15 +41,27 @@ bool Player::isMonsterTarget() {
     return true;
 }
 
-bool Player::spendGold(unsigned int ammount) {
-    if (ammount <= gold) {
-        gold -= ammount;
+bool Player::spendGold(unsigned int amount) {
+    if (amount <= gold) {
+        gold -= amount;
         return true;
     }
     return false;
 }
 
-void Player::receiveGold(unsigned int ammount) {
-    gold += ammount;
+void Player::receiveGold(unsigned int amount) {
+    gold += amount;
+}
+
+bool Player::storeItem(std::shared_ptr<Item> &&item) {
+    return inventory.addItem(std::move(item));
+}
+
+std::shared_ptr<Item> Player::removeItem(const std::string &itemName) {
+    return inventory.removeItem(itemName);
+}
+
+void Player::useItem(int itemPosition) {
+    inventory.useItem(*this, itemPosition);
 }
 

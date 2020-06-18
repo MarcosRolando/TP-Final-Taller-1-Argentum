@@ -10,7 +10,7 @@
 
 //////////////////////////////PRIVATE/////////////////////////////
 //Mueve el item al lugar de equipamiendo indicado si es que tiene uno
-void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition) {
+void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition) {
     if (equipmentPlace == EQUIPMENT_PLACE_NONE) {
         return;
     }
@@ -36,14 +36,13 @@ void Inventory::manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int 
 //////////////////////////////PUBLIC/////////////////////////////
 
 Inventory::Inventory(): items(INVENTORY_SIZE, nullptr){
-    storedItemsAmmount = 0;
-
+    storedItemsamount = 0;
 }
 
 
 
 bool Inventory::addItem(std::shared_ptr<Item> &&item) {
-    if ((storedItemsAmmount == items.size()) || !item) {
+    if ((storedItemsamount == items.size()) || !item) {
         return false;
     }
     for (auto & i : items) {
@@ -52,19 +51,19 @@ bool Inventory::addItem(std::shared_ptr<Item> &&item) {
             break;
         }
     }
-    storedItemsAmmount++;
+    ++storedItemsamount;
     return true;
 }
 
 std::shared_ptr<Item> Inventory::removeItem(unsigned int itemPosition) {
     std::shared_ptr<Item> aux = std::move(items[itemPosition]);
-    storedItemsAmmount--;
+    --storedItemsamount;
     return aux;
 }
 
 void Inventory::useItem(Player& player, unsigned int itemPosition) {
     if (items[itemPosition]) {
-        manageItemPlacement(items[itemPosition]->use(player), itemPosition);
+        _manageItemPlacement(items[itemPosition]->use(player), itemPosition);
     }
 }
 
@@ -76,7 +75,7 @@ std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
         if ((stringHash(item->getName()) == itemNameHash) &&
             (itemName == item->getName())) {
             returnItem = std::move(item);
-            storedItemsAmmount--;
+            --storedItemsamount;
             break;
         }
     }

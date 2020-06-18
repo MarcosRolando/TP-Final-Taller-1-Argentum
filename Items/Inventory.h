@@ -19,13 +19,13 @@ class Player;
 //Esta clase representa los items que almacena y tiene equipados el jugador
 class Inventory {
 private:
-    unsigned int storedItemsAmmount;
+    unsigned int storedItemsamount;
     std::vector<std::shared_ptr<Item>> items;
     std::unordered_map<EquipmentPlace, std::shared_ptr<Clothing>> clothingEequipment;
     std::shared_ptr<Weapon> equippedWeapon;
 
 private:
-    void manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);
+    void _manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);
 
 public:
     Inventory();

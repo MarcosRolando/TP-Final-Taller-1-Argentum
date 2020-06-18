@@ -63,9 +63,9 @@ public:
     //es invalido se tira out_of_range
     unsigned int getItemPrice(const std::string& itemName) const;
 
-    void increaseGoldReserves(unsigned int ammount);
+    void increaseGoldReserves(unsigned int amount);
 
-    bool decreaseGoldReserves(unsigned int ammount);
+    bool decreaseGoldReserves(unsigned int amount);
 };
 
 

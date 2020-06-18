@@ -34,7 +34,7 @@ private:
     static bool _areCoordinatesEqual(Coordinate a, Coordinate b);
 public:
     //Ataca la tile y retorna cuanto danio le hizo al entity guardado, si no
-    //hay un etity revuelve 0
+    //hay un etity devuelve 0
     unsigned int attackTile(unsigned int damage, unsigned int level,
                             Coordinate coordinate);
 

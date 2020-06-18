@@ -5,14 +5,14 @@
 #include "Gold.h"
 
 
-Gold::Gold(unsigned int ammount/* = 0*/): Item("Oro"){
-    this->ammount = ammount;
+Gold::Gold(unsigned int amount/* = 0*/): Item("Oro"){
+    this->amount = amount;
 }
 
 EquipmentPlace Gold::use(Player &player) {
     return EQUIPMENT_PLACE_NONE;
 }
 
-unsigned int Gold::getAmmount() {
-    return ammount;
+unsigned int Gold::getamount() {
+    return amount;
 }

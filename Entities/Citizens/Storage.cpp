@@ -45,13 +45,13 @@ unsigned int Storage::getItemPrice(const std::string &itemName) const {
     return storedItems.at(itemName).front()->getPrice();
 }
 
-void Storage::increaseGoldReserves(unsigned int ammount) {
-    storedGold += ammount;
+void Storage::increaseGoldReserves(unsigned int amount) {
+    storedGold += amount;
 }
 
-bool Storage::decreaseGoldReserves(unsigned int ammount) {
-    if (ammount <= storedGold) {
-        storedGold -= ammount;
+bool Storage::decreaseGoldReserves(unsigned int amount) {
+    if (amount <= storedGold) {
+        storedGold -= amount;
         return true;
     }
     return false;

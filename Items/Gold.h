@@ -11,14 +11,14 @@
 //Clase que representa un puniado de oro en el piso
 class Gold: public Item {
 private:
-    unsigned int ammount;
+    unsigned int amount;
 
 public:
-    explicit Gold(unsigned int ammount = 0);
+    explicit Gold(unsigned int amount = 0);
 
     EquipmentPlace use(Player& player) override;
 
-    unsigned int getAmmount();
+    unsigned int getamount();
 };
 
 #endif //ARGENTUM_GOLD_H

@@ -42,12 +42,17 @@ public:
     //itemName
     std::shared_ptr<Item> removeItem(const std::string& itemName);
 
-    //Intenta reducir en ammount la cantidad de oro que guarda, si esta es menor
-    //que ammount entonces no la reduce y retorna false, sino la reduce y retorna
+    //Intenta reducir en amount la cantidad de oro que guarda, si esta es menor
+    //que amount entonces no la reduce y retorna false, sino la reduce y retorna
     //true
-    bool spendGold(unsigned int ammount);
+    bool spendGold(unsigned int amount);
 
-    void receiveGold(unsigned int ammount);
+    //Incrementa el oro del Player en cantidad amount
+    void receiveGold(unsigned int amount);
+
+    //Usa el item en la posicion indicada, si no hay un item en la posicion no
+    //hace nada
+    void useItem(int itemPosition);
 };
 
 

@@ -9,6 +9,7 @@
 #include "Entity.h"
 #include "../Game.h"
 
+
 class Monster: public Entity{
 private:
     const unsigned int timeBetweenActions;
