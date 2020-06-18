@@ -55,7 +55,7 @@ void ConfigFileReader::loadWeaponStats(std::unordered_map<Weapon, WeaponStats>& 
     WeaponStats currStats{};
     for (auto & weaponStat : weaponsStats) {
         _getWeaponStats(currStats, weaponStat);
-        stats.emplace(weapons.at(weaponStat["Name"].asString()), currStats);
+        stats.emplace(weapons.at(weaponStat["Type"].asString()), currStats);
     }
 }
 
@@ -64,7 +64,7 @@ void ConfigFileReader::loadClothingStats(std::unordered_map<Clothing, ClothingSt
     ClothingStats currStats{};
     for (auto & clothingStat : clothingsStats) {
         _getClothingStats(currStats, clothingStat);
-        stats.emplace(clothing.at(clothingStat["Name"].asString()), currStats);
+        stats.emplace(clothing.at(clothingStat["Type"].asString()), currStats);
     }
 }
 
@@ -118,8 +118,8 @@ unsigned int ConfigFileReader::loadPlayerVisionRange() {
 }
 
 void ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
-    modifier.health = currModifier["Health"].asUInt();
-    modifier.mana = currModifier["Mana"].asUInt();
+    modifier.lifeMultiplier = currModifier["Health"].asUInt();
+    modifier.manaMultiplier = currModifier["Mana"].asUInt();
     modifier.constitution = currModifier["Constitution"].asUInt();
     modifier.intelligence = currModifier["Intelligence"].asUInt();
     modifier.agility = currModifier["Agility"].asUInt();

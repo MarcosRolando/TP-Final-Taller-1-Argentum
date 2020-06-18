@@ -18,6 +18,7 @@ private:
     unsigned int constitution;
     unsigned int intelligence;
     unsigned int agility;
+    unsigned int strength;
 
     unsigned int classLifeMultiplier;
     unsigned int raceLifeMultiplier;
@@ -31,7 +32,7 @@ private:
     unsigned int maxMana;
     unsigned int maxLife;
 public:
-    Stats(Race _race, Class _class, unsigned int _level, unsigned int _experience);
+    Stats(Config::Race _race, Config::Class _class, unsigned int _level, unsigned int _experience);
 
 };
 

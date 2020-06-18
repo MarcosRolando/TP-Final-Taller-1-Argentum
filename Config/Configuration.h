@@ -35,15 +35,15 @@ public:
 
     static Configuration& getInstance();
 
-    Modifiers configClassModifiers(Class _class) const;
+    Modifiers configClassModifiers(Config::Class _class) const;
 
-    Modifiers configRaceModifiers(Race race) const;
+    Modifiers configRaceModifiers(Config::Race race) const;
 
-    MonsterStats configMonsterStats(Monster monster) const;
+    MonsterStats configMonsterStats(Config::Monster monster) const;
 
-    WeaponStats configWeaponStats(Weapon weapon) const;
+    WeaponStats configWeaponStats(Config::Weapon weapon) const;
 
-    ClothingStats configClothingStats(Clothing clothes) const;
+    ClothingStats configClothingStats(Config::Clothing clothes) const;
 
     GoldModifiers configGoldModifiers() const;
     XPModifiers configXPModifiers() const;
