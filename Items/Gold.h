@@ -9,7 +9,7 @@
 #include "Item.h"
 
 //Clase que representa un puniado de oro en el piso
-class Gold: public Item{
+class Gold: public Item {
 private:
     unsigned int ammount;
 
@@ -19,10 +19,6 @@ public:
     EquipmentPlace use(Player& player) override;
 
     unsigned int getAmmount();
-
-    std::shared_ptr<Item> getInstance() override;
-
-    std::shared_ptr<Item> getInstance(unsigned int storedGold);
 };
 
 #endif //ARGENTUM_GOLD_H

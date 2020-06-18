@@ -26,7 +26,7 @@ namespace Config {
 
     enum Weapon {
         LONGSWORD, AXE, WARHAMMER, ASH_ROD, ELVEN_FLUTE, LINKED_STAFF,
-        SIMPLE_BOW, COMPOUND_BOW, GNARLED_STAFF
+        SIMPLE_BOW, COMPOSITE_BOW, GNARLED_STAFF
     };
 
     enum Clothing {

@@ -23,7 +23,7 @@ const std::string &Item::getName() const {
     return name;
 }
 
-const unsigned int Item::getPrice() const {
+unsigned int Item::getPrice() const {
     return price;
 }
 

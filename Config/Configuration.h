@@ -10,16 +10,16 @@
 class Configuration {
 
 private:
-    std::unordered_map<Race, Modifiers> raceModifiers{};
-    std::unordered_map<Class, Modifiers> classModifiers{};
-    std::unordered_map<Monster, MonsterStats> monsterStats{};
+    std::unordered_map<Config::Race, Config::Modifiers> raceModifiers{};
+    std::unordered_map<Config::Class, Config::Modifiers> classModifiers{};
+    std::unordered_map<Config::Monster, Config::MonsterStats> monsterStats{};
 
-    std::unordered_map<Weapon, WeaponStats> weaponStats{};
-    std::unordered_map<Clothing, ClothingStats> clothingStats{};
+    std::unordered_map<Config::Weapon, Config::WeaponStats> weaponStats{};
+    std::unordered_map<Config::Clothing, Config::ClothingStats> clothingStats{};
 
-    GoldModifiers goldModifiers{};
+    Config::GoldModifiers goldModifiers{};
 
-    XPModifiers xpModifiers{};
+    Config::XPModifiers xpModifiers{};
 
     float criticalAttackChance;
     float dodgeChance;
@@ -35,18 +35,18 @@ public:
 
     static Configuration& getInstance();
 
-    Modifiers configClassModifiers(Config::Class _class) const;
+    Config::Modifiers configClassModifiers(Config::Class _class) const;
 
-    Modifiers configRaceModifiers(Config::Race race) const;
+    Config::Modifiers configRaceModifiers(Config::Race race) const;
 
-    MonsterStats configMonsterStats(Config::Monster monster) const;
+    Config::MonsterStats configMonsterStats(Config::Monster monster) const;
 
-    WeaponStats configWeaponStats(Config::Weapon weapon) const;
+    Config::WeaponStats configWeaponStats(Config::Weapon weapon) const;
 
-    ClothingStats configClothingStats(Config::Clothing clothes) const;
+    Config::ClothingStats configClothingStats(Config::Clothing clothes) const;
 
-    GoldModifiers configGoldModifiers() const;
-    XPModifiers configXPModifiers() const;
+    Config::GoldModifiers configGoldModifiers() const;
+    Config::XPModifiers configXPModifiers() const;
 
     float configCriticalAttackChance() const;
     float configDodgeChance() const;

@@ -4,6 +4,7 @@
 
 #include "Stats.h"
 #include <ctime>
+#include "../Config/Calculator.h"
 
 using namespace Config;
 
@@ -24,4 +25,8 @@ Stats::Stats(Race _race, Class _class, unsigned int _level, unsigned int _experi
     meditationTimer = generalTimer;
     experience = _experience;
     level = _level;
+    maxLife = Calculator::calculateMaxLife(classModifier, raceModifier, level);
+    maxMana = Calculator::calculateMaxMana(classModifier, raceModifier, level);
+    currentLife = maxLife;
+    currentMana = maxMana;
 }
