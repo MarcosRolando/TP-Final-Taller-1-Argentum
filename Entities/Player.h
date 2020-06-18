@@ -18,10 +18,11 @@ enum Direction{
 class Player: public Entity {
 private:
     Inventory inventory;
-    //Stats stats;
+    Stats stats;
     unsigned int gold;
 public:
-    Player(unsigned int maxHealth, unsigned int maxMana, Coordinate initialPosition);
+    Player(Config::Race _race, Config::Class _class, unsigned int _level,
+           unsigned int _experience, Coordinate _initialPosition);
 
     //Modifica la posicion almacenada por el jugador, para que luego sea actualizada
     //por el juego
