@@ -33,9 +33,9 @@ private:
     void _buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topRight, Coordinate& bottomLeft) const;
     static bool _areCoordinatesEqual(Coordinate a, Coordinate b);
 public:
-    //Ataca la tile y retorna cuanto danio le hizo al entity guardado, si no
-    //hay un etity devuelve 0
-    unsigned int attackTile(int damage, unsigned int level,
+    //Ataca la tile y retorna cuanto danio le hizo al entity guardado y el
+    // xp ganado, si no hay un etity devuelve 0 en ambos
+    AttackResult attackTile(int damage, unsigned int level,
                             Coordinate coordinate);
 
     //Almacena en el vector la cantidad de targets de un monstruo en un cuadrado centrado en

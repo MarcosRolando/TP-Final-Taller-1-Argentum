@@ -38,3 +38,7 @@ int Stats::getTotalDamage(int weaponDamage) {
 unsigned int Stats::getLevel() {
     return level;
 }
+
+void Stats::increaseExperience(unsigned int _experience) {
+    experience += experience;
+}

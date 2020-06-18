@@ -95,7 +95,7 @@ void Map::_storePath(Coordinate initialPosition, Coordinate desiredPosition,
 //////////////////////////////PUBLIC/////////////////////////////
 
 
-unsigned int Map::attackTile(int damage, unsigned int level,
+AttackResult Map::attackTile(int damage, unsigned int level,
                              Coordinate coordinate) {
     return tiles[coordinate.iPosition][coordinate.jPosition].attacked(damage, level);
 }

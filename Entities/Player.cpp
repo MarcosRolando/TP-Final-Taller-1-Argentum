@@ -39,7 +39,9 @@ void Player::attack(Coordinate target) {
     int weaponDamage;
     weaponDamage = inventory.getEquippedWeapon().getDamage(currentPosition, target);
     int totalDamage = stats.getTotalDamage(weaponDamage);
-    game.attackPosition(totalDamage, stats.getLevel(), target);
+    AttackResult result = game.attackPosition(totalDamage, stats.getLevel(), target);
+    stats.increaseExperience(result.experience);
+    //todo ver el tema de devolver el danio ocasionado
 }
 
 bool Player::isMonsterTarget() {

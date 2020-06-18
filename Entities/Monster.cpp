@@ -3,6 +3,7 @@
 //
 
 #include "Monster.h"
+#include "../Config/Calculator.h"
 
 #define MAX_NUMBER_OF_CACHED_NODES 4
 
@@ -106,12 +107,12 @@ Monster::Monster(Game &_game, const Map& _map, unsigned int _health,
 }
 
 
-unsigned int Monster::attacked(unsigned int _damage, unsigned int level) {
+AttackResult Monster::attacked(int _damage, unsigned int attackerLevel) {
     health -= _damage;
     if (health < 0) {
         health = 0;
     }
-    return damage;
+    return {_damage, Calculator::calculateAttackXP(_damage, level, attackerLevel)};
 }
 
 bool Monster::isDead() {

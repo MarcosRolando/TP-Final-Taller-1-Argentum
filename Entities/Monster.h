@@ -45,7 +45,7 @@ public:
     //Recibe level por un tema de herencia y logica del juego, esto igualmente
     //hace que el ataque sea extendible, podria aplicarse la logica del fair
     //play tambien a los monstruos
-    unsigned int attacked(unsigned int damage, unsigned int level) override;
+    AttackResult attacked(int damage, unsigned int attackerLevel) override;
 
     //Retorna true si el monstruo esta muerto, false si esta vivo
     bool isDead();

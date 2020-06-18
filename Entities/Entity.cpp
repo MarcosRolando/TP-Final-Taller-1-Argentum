@@ -21,8 +21,8 @@ bool Entity::isMonsterTarget() {
     return false;
 }
 
-unsigned int Entity::attacked(int damage, unsigned int level) {
-    return 0;
+AttackResult Entity::attacked(int damage, unsigned int level) {
+    return {0, 0};
 }
 
 unsigned int Entity::list(std::list<ProductData>& products) {

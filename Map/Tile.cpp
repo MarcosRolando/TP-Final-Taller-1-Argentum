@@ -77,9 +77,9 @@ std::shared_ptr<Item> Tile::removeItem() {
     return return_item;
 }
 
-unsigned int Tile::attacked(int damage, unsigned int level) {
+AttackResult Tile::attacked(int damage, unsigned int level) {
     if (!entity) {
-        return 0;
+        return {0, 0};
     }
     return entity->attacked(damage, level);
 }

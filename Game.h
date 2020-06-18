@@ -12,7 +12,7 @@ class Game {
 private:
     Map map;
 public:
-    unsigned int attackPosition(int damage, unsigned int level,
+    AttackResult attackPosition(int damage, unsigned int level,
                             Coordinate coordinate);
 };
 

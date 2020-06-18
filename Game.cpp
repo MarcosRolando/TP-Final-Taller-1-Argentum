@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-unsigned int Game::attackPosition(int damage, unsigned int level,
-                              Coordinate coordinate) {
+AttackResult Game::attackPosition(int damage, unsigned int level,
+                                    Coordinate coordinate) {
     return map.attackTile(damage, level, coordinate);
 }

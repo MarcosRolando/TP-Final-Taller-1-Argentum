@@ -38,6 +38,7 @@ public:
 
     unsigned int getLevel();
 
+    void increaseExperience(unsigned int _experience);
 };
 
 
