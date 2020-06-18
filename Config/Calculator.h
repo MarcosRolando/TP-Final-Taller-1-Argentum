@@ -36,7 +36,7 @@ public:
     static unsigned int calculateDefense(unsigned int minClothingDefense,
             unsigned int maxClothingDefense);
 
-    static bool canDodge(Config::Modifiers classMods, Config::Modifiers raceMods);
+    static bool canDodge(unsigned int agility);
 
     static int getRandomInt(int minRange, int maxRange);
 
