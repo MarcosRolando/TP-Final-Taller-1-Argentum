@@ -4,8 +4,8 @@
 
 #include "TurtleShield.h"
 
-#include "../../../Config/Configuration.h"
+using namespace Config;
 
-TurtleShield::TurtleShield(): Shield(Configuration::getInstance().configTurtleShieldStats(),
+TurtleShield::TurtleShield(): Shield(Configuration::getInstance().configClothingStats(Config::TURTLE_SHIELD),
                                      "Escudo de tortuga") {
 }

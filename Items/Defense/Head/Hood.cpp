@@ -4,6 +4,8 @@
 
 #include "Hood.h"
 
-Hood::Hood(): Head(Configuration::getInstance().configHoodStats(), "Capucha") {
+using namespace Config;
+
+Hood::Hood(): Head(Configuration::getInstance().configClothingStats(HOOD), "Capucha") {
 
 }

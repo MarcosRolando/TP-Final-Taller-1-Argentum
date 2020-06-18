@@ -4,6 +4,9 @@
 
 #include "PlateArmor.h"
 
-PlateArmor::PlateArmor(): Chest(Configuration::getInstance(), "Armadura de placas") {
+using namespace Config;
+
+PlateArmor::PlateArmor(): Chest(Configuration::getInstance().configClothingStats(PLATE_ARMOR),
+                               "Armadura de placas") {
 
 }

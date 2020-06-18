@@ -6,7 +6,7 @@
 
 #include "../../../Config/Configuration.h"
 
-IronHelmet::IronHelmet(): Head(Configuration::getInstance().configIronHelmetStats(),
+IronHelmet::IronHelmet(): Head(Configuration::getInstance().configClothingStats(Config::IRON_HELMET),
                                "Casco de hierro") {
 
 }

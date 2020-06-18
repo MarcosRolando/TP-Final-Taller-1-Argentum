@@ -4,6 +4,9 @@
 
 #include "BlueTunic.h"
 
-BlueTunic::BlueTunic(): Chest(Configuration::getInstance().configBlueTunicStats(), "Túnica azul") {
+using namespace Config;
+
+BlueTunic::BlueTunic(): Chest(Configuration::getInstance().configClothingStats(BLUE_TUNIC),
+                             "Túnica azul") {
 
 }

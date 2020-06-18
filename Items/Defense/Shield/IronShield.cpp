@@ -4,6 +4,8 @@
 
 #include "IronShield.h"
 
-IronShield::IronShield(): Shield(Configuration::getInstance().configIronShieldStats(),
+using namespace Config;
+
+IronShield::IronShield(): Shield(Configuration::getInstance().configClothingStats(IRON_SHIELD),
                                  "Escudo de hierro") {
 }

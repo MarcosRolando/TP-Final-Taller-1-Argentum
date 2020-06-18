@@ -4,6 +4,8 @@
 
 #include "Shield.h"
 
+using namespace Config;
+
 /*
 Shield::Shield(unsigned int minDefense, unsigned int maxDefense) :
                Clothing(minDefense, maxDefense, "SinEscudo") {

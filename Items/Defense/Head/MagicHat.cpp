@@ -4,8 +4,9 @@
 
 #include "MagicHat.h"
 
-#include "../../../Config/Configuration.h"
+using namespace Config;
 
-MagicHat::MagicHat(): Head(Configuration::getInstance().configMagicHatStats(), "Sombrero mágico") {
+MagicHat::MagicHat(): Head(Configuration::getInstance().configClothingStats(MAGIC_HAT),
+                           "Sombrero mágico") {
 
 }
