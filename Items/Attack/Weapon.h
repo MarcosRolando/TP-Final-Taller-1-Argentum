@@ -8,22 +8,27 @@
 
 #include "../Item.h"
 #include "../../Map/Coordinate.h"
+#include "../../Config/Configuration.h"
 
 class Weapon : public Item {
 private:
     unsigned int minDamage;
     unsigned int maxDamage;
     unsigned int attackRange;
+    unsigned int manaConsumption;
 
 private:
     bool _isTargetReachable(Coordinate attackPosition, Coordinate attackedPosition) const;
-    void _initializeData(unsigned int minDamage, unsigned int maxDamage);
+    void _initializeData(unsigned int minDamage, unsigned int maxDamage,
+                         unsigned int _manaConsumption, unsigned int _range);
 public:
-    Weapon();
+    //Weapon();
 
-    Weapon(unsigned int minDamage, unsigned int maxDamage, std::string& name, unsigned int price);
+    //Weapon(unsigned int minDamage, unsigned int maxDamage, const std::string& name, unsigned int price);
 
-    Weapon(unsigned int minDamage, unsigned int maxDamage, std::string&& name);
+    //Weapon(unsigned int minDamage, unsigned int maxDamage, const std::string&& name);
+
+    Weapon(Config::WeaponStats stats, const std::string& name, unsigned int price);
 
 
     //VER SI SE HACE QUE EN VEZ DE RETORNAR 0 TIRE UNA EXCEPCION

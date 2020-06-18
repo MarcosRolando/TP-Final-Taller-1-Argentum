@@ -18,15 +18,18 @@ bool Weapon::_isTargetReachable(Coordinate attackPosition,
 
 
 
-void Weapon::_initializeData(unsigned int _minDamage, unsigned int _maxDamage) {
-    this->minDamage = _minDamage;
-    this->maxDamage = _maxDamage;
+void Weapon::_initializeData(unsigned int _minDamage, unsigned int _maxDamage,
+                             unsigned int _manaConsumption, unsigned int _range) {
+    minDamage = _minDamage;
+    maxDamage = _maxDamage;
+    manaConsumption = _manaConsumption;
+    attackRange = _range;
 }
 
 
 
 //////////////////////////////////////PUBLIC//////////////////////
-
+/*
 //VER SI ESTO SE SACA DE ACA
 Weapon::Weapon(): Item("Puños") {
     _initializeData(1, 1);
@@ -41,7 +44,14 @@ Weapon::Weapon(unsigned int minDamage, unsigned int maxDamage, std::string& _nam
 Weapon::Weapon(unsigned int minDamage, unsigned int maxDamage, std::string &&_name): Item(std::move(_name)){
     _initializeData(minDamage, maxDamage);
 }
+*/
 
+Weapon::Weapon(Config::WeaponStats stats, const std::string &name, unsigned int price):
+               Item(name, price) {
+    //VER SI HAGO QUE RECIBA UN WEAPONSTATS, AUNQUE TAL VEZ ESO SERIA MEZCLAR EL TEMA DE
+    //CONFIG CON LA IMPLEMENTACION
+    _initializeData(stats.minDmg, stats.maxDmg, stats.manaConsumption, stats.range);
+}
 
 //VER SI SE HACE QUE EN VEZ DE RETORNAR 0 TIRE UNA EXCEPCION
 unsigned int Weapon::getDamage(Coordinate attackPosition, Coordinate attackedPosition) const{

@@ -6,6 +6,7 @@
 
 using namespace Config;
 
-Hood::Hood(): Head(Configuration::getInstance().configClothingStats(HOOD), "Capucha") {
+Hood::Hood(): Head(Configuration::getInstance().configClothingStats(HOOD),
+                   "Capucha") {
 
 }
