@@ -3,6 +3,9 @@
 //
 
 #include "Chest.h"
+
+using namespace Config;
+
 /*
 Chest::Chest(unsigned int minDefense, unsigned int maxDefense) : Clothing(
              minDefense, maxDefense, "Remera") {
@@ -10,7 +13,7 @@ Chest::Chest(unsigned int minDefense, unsigned int maxDefense) : Clothing(
 }
 */
 
-Chest::Chest(ClothingStats stats, const std::string &name) : Clothing(stats, name) {
+Chest::Chest(Config::ClothingStats stats, const std::string &name) : Clothing(stats, name) {
 
 }
 

@@ -4,6 +4,8 @@
 
 #include "Head.h"
 
+using namespace Config;
+
 /*
 //VER SI SACO EL STRING LITERAL DE ACA
 Head::Head(unsigned int minDefense, unsigned int maxDefense): Clothing(minDefense, maxDefense, "Cabeza"){

@@ -11,7 +11,7 @@
 class Shield: public Clothing {
 public:
     //Shield(unsigned int minDefense, unsigned int maxDefense);
-    Shield(ClothingStats stats, const std::string& name);
+    Shield(Config::ClothingStats stats, const std::string& name);
 
     EquipmentPlace use(Player& player) override;
 };
