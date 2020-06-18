@@ -6,10 +6,13 @@
 
 #include <utility>
 
+//todo PASAR ESTE VALOR A CONFIG
+#define INITIAL_GOLD 10000
+
 Storage::Storage(std::unordered_map<std::string,
                  std::list<std::shared_ptr<Item>>>&& initialItems) noexcept {
     storedItems = std::move(initialItems);
-    storedGold = 0;
+    storedGold = INITIAL_GOLD;
 }
 
 void Storage::storeItem(std::shared_ptr<Item> &&item) {
