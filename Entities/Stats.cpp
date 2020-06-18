@@ -46,6 +46,7 @@ void Stats::increaseExperience(unsigned int _experience) {
 }
 
 int Stats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defense) {
+    if (currentLife <= 0) return 0;
     if (damage < 0) {
         currentLife += damage;
         if (currentLife > maxLife) currentLife = maxLife;

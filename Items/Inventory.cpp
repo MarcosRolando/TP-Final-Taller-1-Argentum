@@ -27,8 +27,8 @@ void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int
         //casteo no haya fallado
         clothingPtrAux = std::dynamic_pointer_cast<Clothing>(items[itemPosition]);
         if (clothingPtrAux) {
-            items[itemPosition] = std::move(clothingEequipment.at(equipmentPlace));
-            clothingEequipment.at(equipmentPlace) = std::move(clothingPtrAux);
+            items[itemPosition] = std::move(clothingEquipment.at(equipmentPlace));
+            clothingEquipment.at(equipmentPlace) = std::move(clothingPtrAux);
         }
     }
 }
@@ -82,6 +82,14 @@ std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
     return returnItem;
 }
 
-const Weapon& Inventory::getEquippedWeapon() const {
-    return *equippedWeapon.get();
+int Inventory::getWeaponDamage(Coordinate currentPosition, Coordinate target) const {
+    return equippedWeapon->getDamage(currentPosition, target);
+}
+
+unsigned int Inventory::getDefense() {
+    unsigned int defense = 0;
+    for (auto & armour : clothingEquipment) {
+        defense += armour.second->getDefense();
+    }
+    return defense;
 }

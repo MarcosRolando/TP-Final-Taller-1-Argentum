@@ -28,8 +28,8 @@ public:
     static unsigned int calculateAttackXP(unsigned int dmg, unsigned int
     myLevel, unsigned int otherLevel);
 
-    static unsigned int calculateKillXP(unsigned int dmg, unsigned int
-    myLevel, unsigned int otherLevel, unsigned int otherMaxHealth);
+    static unsigned int calculateKillXP(unsigned intmyLevel, unsigned int otherLevel,
+                                        unsigned int otherMaxHealth);
 
     static int calculateDamage(unsigned int strength, int weaponDamage);
 

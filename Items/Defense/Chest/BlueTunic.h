@@ -5,7 +5,6 @@
 #ifndef ARGENTUM_BLUETUNIC_H
 #define ARGENTUM_BLUETUNIC_H
 
-
 #include "Chest.h"
 
 class BlueTunic: public Chest {

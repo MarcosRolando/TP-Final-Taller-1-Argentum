@@ -8,14 +8,14 @@
 #include <utility>
 
 Storage::Storage(const std::unordered_map<std::string, unsigned int>&
-                 initialItemsAmmounts, unsigned int initialGold) {
+                 initialItemsAmounts, unsigned int initialGold) {
     storedGold = initialGold;
     ItemsFactory& factory = ItemsFactory::getInstance();
     std::shared_ptr<Item> aux;
-    for (const auto & initialItemAmmount: initialItemsAmmounts) {
-        for (unsigned int i = 0; i < initialItemAmmount.second; ++i) {
-            factory.storeItemInstance(initialItemAmmount.first, aux);
-            storedItems[initialItemAmmount.first].push_back(std::move(aux));
+    for (const auto & initialItemAmount: initialItemsAmounts) {
+        for (unsigned int i = 0; i < initialItemAmount.second; ++i) {
+            factory.storeItemInstance(initialItemAmount.first, aux);
+            storedItems[initialItemAmount.first].push_back(std::move(aux));
         }
     }
 }

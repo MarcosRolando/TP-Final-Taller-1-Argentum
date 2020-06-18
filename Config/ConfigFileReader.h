@@ -31,7 +31,8 @@ namespace Config {
 
     enum Clothing {
         COMMON_CLOTHING, LEATHER_ARMOR, PLATE_ARMOR, BLUE_TUNIC, HOOD,
-        IRON_HELMET, TURTLE_SHIELD, IRON_SHIELD, MAGIC_HAT
+        IRON_HELMET, TURTLE_SHIELD, IRON_SHIELD, MAGIC_HAT, NO_HELMET,
+        NO_SHIELD
     };
 
     struct Modifiers {

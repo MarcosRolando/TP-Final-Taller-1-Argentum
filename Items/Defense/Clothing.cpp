@@ -3,7 +3,7 @@
 //
 
 #include "Clothing.h"
-
+#include "../../Config/Calculator.h"
 #include <string>
 
 /*
@@ -21,6 +21,6 @@ Clothing::Clothing(const Config::ClothingData& stats): Item(stats.name, stats.pr
 
 
 unsigned int Clothing::getDefense() {
-    return (rand() % (maxDefense - minDefense + 1)) + minDefense;
+    return Calculator::getRandomInt(minDefense, maxDefense);
 }
 
