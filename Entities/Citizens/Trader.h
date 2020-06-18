@@ -14,7 +14,7 @@ private:
     //Storage storage;
     Shop shop;
 public:
-    Trader(Coordinate initialPosition);
+    explicit Trader(Coordinate initialPosition);
 
     //Implementa el comportamiento realizado al pedirle una lista de los items
     //que tiene en venta, por default no hace nada, debe ser reimplementada
