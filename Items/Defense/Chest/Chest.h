@@ -10,7 +10,8 @@
 
 class Chest: public Clothing {
 public:
-    Chest(unsigned int minDefense, unsigned int maxDefense);
+    //Chest(unsigned int minDefense, unsigned int maxDefense);
+    Chest(ClothingStats stats, const std::string& name);
 
     EquipmentPlace use(Player& player) override;
 };

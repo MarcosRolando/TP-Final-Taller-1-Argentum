@@ -7,13 +7,16 @@
 
 
 #include "../Item.h"
+#include "../Item.h"
+#include "../../Config/Configuration.h"
 
 class Clothing : public Item {
 private:
     unsigned int minDefense;
     unsigned int maxDefense;
 public:
-    explicit Clothing(unsigned int minDefense, unsigned int maxDefense, std::string name);
+    //explicit Clothing(unsigned int minDefense, unsigned int maxDefense, std::string name);
+    explicit Clothing(ClothingStats stats, const std::string& name);
 
     unsigned int getDefense();
 
