@@ -4,6 +4,13 @@
 
 #include "Shop.h"
 
+#define INITIAL_GOLD 10000 //todo PASAR ESTE VALOR A CONFIG
+
+Shop::Shop(const std::unordered_map<std::string, unsigned int> &initialItemsAmmounts,
+           float buyingMultiplier, float sellingMultiplier): storage(initialItemsAmmounts, INITIAL_GOLD) {
+
+}
+
 unsigned int Shop::list(std::list<ProductData> &products) {
     return storage.getStorageData(products, buyingMultiplier);
 }

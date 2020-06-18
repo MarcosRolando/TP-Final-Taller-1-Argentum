@@ -16,8 +16,8 @@ private:
     Storage storage;
 public:
 
-    Shop(std::unordered_map<std::string,
-            std::list<std::shared_ptr<Item>>>&& initialItems, float buyingMultiplier, float sellingMultiplier);
+    Shop(const std::unordered_map<std::string, unsigned int>&
+         initialItemsAmmounts, float buyingMultiplier, float sellingMultiplier);
 
     //Almacena en la lista los items que tiene en venta, los precios
     //almacenados para cada producto fueron modificados utilizando el
