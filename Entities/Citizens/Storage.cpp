@@ -3,16 +3,21 @@
 //
 
 #include "Storage.h"
+#include "../../Items/ItemsFactory.h"
 
 #include <utility>
 
-//todo PASAR ESTE VALOR A CONFIG
-#define INITIAL_GOLD 10000
-
-Storage::Storage(std::unordered_map<std::string,
-                 std::list<std::shared_ptr<Item>>>&& initialItems) noexcept {
-    storedItems = std::move(initialItems);
-    storedGold = INITIAL_GOLD;
+Storage::Storage(const std::unordered_map<std::string, unsigned int>&
+                 initialItemsAmmounts, unsigned int initialGold) {
+    storedGold = initialGold;
+    ItemsFactory& factory = ItemsFactory::getInstance();
+    std::shared_ptr<Item> aux;
+    for (const auto & initialItemAmmount: initialItemsAmmounts) {
+        for (unsigned int i = 0; i < initialItemAmmount.second; ++i) {
+            factory.storeItemInstance(initialItemAmmount.first, aux);
+            storedItems[initialItemAmmount.first].push_back(std::move(aux));
+        }
+    }
 }
 
 void Storage::storeItem(std::shared_ptr<Item> &&item) {
