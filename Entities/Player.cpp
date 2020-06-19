@@ -94,3 +94,11 @@ void Player::useItem(int itemPosition) {
 const std::string &Player::getNickname() const {
     return nickname;
 }
+
+void Player::restoreLife(unsigned int ammount) {
+        stats.restoreLife(ammount);
+}
+
+void Player::restoreMana(unsigned int ammount) {
+    stats.restoreMana(ammount);
+}

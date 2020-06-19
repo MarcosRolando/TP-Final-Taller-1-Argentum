@@ -100,3 +100,7 @@ void Stats::restoreMana(unsigned int ammount) {
         currentMana = maxMana;
     }
 }
+
+bool Stats::isDead() {
+    return getCurrentLife() == 0;
+}

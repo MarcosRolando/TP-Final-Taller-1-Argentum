@@ -53,6 +53,8 @@ public:
     //Restaura hasta ammount cantidad de mana, sin pasarse de la cantidad maxima
     void restoreMana(unsigned int ammount);
 
+    bool isDead();
+
 private:
     void _increaseStats();
 };
