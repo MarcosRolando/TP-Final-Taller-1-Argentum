@@ -37,38 +37,45 @@ void Player::move(Direction direction) {
 }
 
 void Player::attack(Coordinate target) {
-    int weaponDamage;
-    weaponDamage = inventory.getWeaponDamage(currentPosition, target);
-    int totalDamage = stats.getTotalDamage(weaponDamage);
-    AttackResult result = game.attackPosition(totalDamage, stats.getLevel(), target);
-    stats.increaseExperience(result.experience);
-    //todo ver el tema de guardar el danio ocasionado
+    if (!stats.isDead()) {
+        int weaponDamage;
+        weaponDamage = inventory.getWeaponDamage(currentPosition, target);
+        int totalDamage = stats.getTotalDamage(weaponDamage);
+        AttackResult result = game.attackPosition(totalDamage, stats.getLevel(), target);
+        stats.increaseExperience(result.experience);
+        //todo ver el tema de guardar el danio ocasionado
+    }
 }
 
 void Player::_dropItems() {
-    std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();
-    game.dropItems(std::move(items), currentPosition);
+    if (!stats.isDead()) {
+        std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();
+        game.dropItems(std::move(items), currentPosition);
+    }
 }
 
 AttackResult Player::attacked(int damage, unsigned int attackerLevel) {
-    unsigned int defense = inventory.getDefense();
-    int totalDamage = stats.modifyLife(damage, attackerLevel, defense);
-    unsigned int experience = Calculator::calculateAttackXP(totalDamage,
-                                    attackerLevel, stats.getLevel());
-    if (stats.getCurrentLife() == 0 && totalDamage > 0) {
-        _dropItems();
-        experience += Calculator::calculateKillXP(attackerLevel,
-                                    stats.getLevel(), stats.getMaxLife());
+    if (!stats.isDead()) {
+        unsigned int defense = inventory.getDefense();
+        int totalDamage = stats.modifyLife(damage, attackerLevel, defense);
+        unsigned int experience = Calculator::calculateAttackXP(totalDamage,
+                                                                attackerLevel, stats.getLevel());
+        if (stats.getCurrentLife() == 0 && totalDamage > 0) {
+            _dropItems();
+            experience += Calculator::calculateKillXP(attackerLevel,
+                                                      stats.getLevel(), stats.getMaxLife());
+        }
+        return {totalDamage, experience};
     }
-    return {totalDamage, experience};
+    return {0, 0};
 }
 
 bool Player::isMonsterTarget() {
-    return true;
+    return !stats.isDead();
 }
 
 bool Player::spendGold(unsigned int amount) {
-    if (amount <= gold) {
+    if ((!stats.isDead()) && (amount <= gold)) {
         gold -= amount;
         return true;
     }
@@ -76,19 +83,30 @@ bool Player::spendGold(unsigned int amount) {
 }
 
 void Player::receiveGold(unsigned int amount) {
-    gold += amount;
+    if (!stats.isDead()) {
+        gold += amount;
+    }
 }
 
 bool Player::storeItem(std::shared_ptr<Item> &&item) {
-    return inventory.addItem(std::move(item));
+    if (!stats.isDead()) {
+        return inventory.addItem(std::move(item));
+    }
+    return false;
 }
 
 std::shared_ptr<Item> Player::removeItem(const std::string &itemName) {
-    return inventory.removeItem(itemName);
+    if (!stats.isDead()) {
+        return inventory.removeItem(itemName);
+    }
+    std::shared_ptr<Item> aux;
+    return aux;
 }
 
 void Player::useItem(int itemPosition) {
-    inventory.useItem(*this, itemPosition);
+    if (!stats.isDead()) {
+        inventory.useItem(*this, itemPosition);
+    }
 }
 
 const std::string &Player::getNickname() const {
@@ -96,9 +114,13 @@ const std::string &Player::getNickname() const {
 }
 
 void Player::restoreLife(unsigned int ammount) {
+    if (!stats.isDead()) {
         stats.restoreLife(ammount);
+    }
 }
 
 void Player::restoreMana(unsigned int ammount) {
-    stats.restoreMana(ammount);
+    if (!stats.isDead()) {
+        stats.restoreMana(ammount);
+    }
 }
