@@ -18,8 +18,8 @@ Storage::Storage(Storage &&other) noexcept {
 }
 
 Storage::Storage(const std::unordered_map<std::string, unsigned int>&
-                 initialItemsAmounts, unsigned int initialGold) {
-    storedGold = initialGold;
+                 initialItemsAmounts, unsigned int gold) {
+    storedGold = gold;
     ItemsFactory& factory = ItemsFactory::getInstance();
     std::shared_ptr<Item> aux;
     for (const auto & initialItemAmount: initialItemsAmounts) {

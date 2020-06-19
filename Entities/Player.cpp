@@ -10,10 +10,10 @@ using namespace Config;
 ////////////////////////////////////PUBLIC///////////////////////////////
 
 Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsigned int _experience
-                , Coordinate _initialPosition):
+                , Coordinate _initialPosition, const std::string _nickname):
                Entity(_initialPosition), stats(_race, _class, _level, _experience),
                game(_game){
-
+    nickname = _nickname;
     gold = 0; //todo habria que recibir la cantidad de oro tambien,
                 //todo o pasar por referencia la clase que maneje el archivo de
                 //todo persistencia directamente
@@ -88,4 +88,8 @@ std::shared_ptr<Item> Player::removeItem(const std::string &itemName) {
 
 void Player::useItem(int itemPosition) {
     inventory.useItem(*this, itemPosition);
+}
+
+const std::string &Player::getNickname() const {
+    return <#initializer#>;
 }

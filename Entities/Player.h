@@ -21,9 +21,11 @@ private:
     Stats stats;
     unsigned int gold;
     Game& game;
+    std::string nickname;
+
 public:
     Player(Game& _game, Config::Race _race, Config::Class _class, unsigned int _level,
-           unsigned int _experience, Coordinate _initialPosition);
+           unsigned int _experience, Coordinate _initialPosition, const std::string nickname);
 
     //Modifica la posicion almacenada por el jugador, para que luego sea actualizada
     //por el juego
@@ -56,6 +58,8 @@ public:
     void useItem(int itemPosition);
 
     AttackResult attacked(int damage, unsigned int attackerLevel) override;
+
+    const std::string& getNickname() const;
 
 private:
     void _dropItems();

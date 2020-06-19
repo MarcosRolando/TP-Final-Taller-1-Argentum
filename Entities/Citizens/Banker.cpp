@@ -4,7 +4,7 @@
 
 #include "Banker.h"
 
-Banker::Banker() {
+Banker::Banker(Coordinate initialPosition): Entity(initialPosition) {
 
 }
 
@@ -19,6 +19,12 @@ void Banker::withdraw(Player &player, const std::string &itemName) {
 }
 
 void Banker::deposit(Player &player, const std::string& itemName) {
-    storage.storeItem(player.removeItem(itemName));
+    //storage.storeItem(player.removeItem(itemName));
+    playersStorages.at(storage).storeItem(player.removeItem(itemName));
+}
+
+void Banker::addPlayerItems(const std::string& playerName, const std::unordered_map<std::string, unsigned int>
+                            &initialItemsAmounts, unsigned int gold) {
+    playersStorages.emplace(playerName, Storage(initialItemsAmounts, gold));
 }
 

@@ -13,10 +13,10 @@
 class Banker: Entity {
 private:
     //Storage storage;
-    std::unordered_map<std::string, Storage> playersStorages;
+    static std::unordered_map<std::string, Storage> playersStorages;
 
 public:
-    Banker();
+    Banker(Coordinate initialPosition);
 
     //Almacena una lista con los datos de los items y oro almacenados
     //NO TIENE QUE ALMACENAR PRODUCTDATA, CAMBIAR
@@ -42,7 +42,8 @@ public:
     //Recibe los items de un player y su nickname, y los agrega a lo que tiene guardado
     //HACER QUE RECIBA PARAMETROS COMO LOS DE STORAGE, PORQUE SE VA A CONSTRUIR UN STORAGE
     //EN EL NICKNAME RECIBIDO
-    static void addPlayerItems(ARGS);
+    static void addPlayerItems(const std::string& playerName, const std::unordered_map<std::string, unsigned int>&
+                               initialItemsAmounts, unsigned int gold);
 };
 
 
