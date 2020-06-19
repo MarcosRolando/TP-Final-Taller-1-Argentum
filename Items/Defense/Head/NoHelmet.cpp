@@ -9,3 +9,7 @@ using namespace Config;
 NoHelmet::NoHelmet() : Head(Configuration::getInstance().configClothingData(NO_HELMET)){
 
 }
+
+bool NoHelmet::isDefault() {
+    return true;
+}

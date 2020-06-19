@@ -37,6 +37,10 @@ public:
 
     EquipmentPlace use(Player& player) override;
 
+    //Esta funcion existe para que cuando el juegador muera y tire todos sus
+    //items no tire los default
+    virtual bool isDefault();
+
     virtual ~Weapon() override;
 };
 

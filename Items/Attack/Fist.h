@@ -10,6 +10,7 @@
 class Fist : public Weapon {
 public:
     Fist();
+    bool isDefault() override;
 };
 
 

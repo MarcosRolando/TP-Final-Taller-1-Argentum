@@ -123,3 +123,9 @@ void Tile::sell(Player &player, const std::string &itemName) {
         entity->sell(player, itemName);
     }
 }
+
+void Tile::addItem(std::list<std::shared_ptr<Item>>&& _items) {
+    for (auto & item : _items) {
+        items.push_back(std::move(item));
+    }
+}

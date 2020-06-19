@@ -12,6 +12,7 @@
 #include "Item.h"
 #include "Defense/Clothing.h"
 #include "Attack/Weapon.h"
+#include <list>
 
 class Player;
 
@@ -52,6 +53,11 @@ public:
 
     //Retorna la defensa total provista por la armadura equipada (casco, chest, shield)
     unsigned int getDefense();
+
+    std::list<std::shared_ptr<Item>> dropAllItems();
+
+private:
+    void _dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems);
 };
 
 

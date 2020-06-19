@@ -10,7 +10,7 @@ using namespace Config;
 ////////////////////////////////////PUBLIC///////////////////////////////
 
 Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsigned int _experience
-                , Coordinate _initialPosition, const std::string _nickname):
+                , Coordinate _initialPosition, const std::string& _nickname):
                Entity(_initialPosition), stats(_race, _class, _level, _experience),
                game(_game){
     nickname = _nickname;
@@ -46,7 +46,8 @@ void Player::attack(Coordinate target) {
 }
 
 void Player::_dropItems() {
-    //inventory.
+    std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();
+    game.dropItems(std::move(items), currentPosition);
 }
 
 AttackResult Player::attacked(int damage, unsigned int attackerLevel) {
@@ -91,5 +92,5 @@ void Player::useItem(int itemPosition) {
 }
 
 const std::string &Player::getNickname() const {
-    return <#initializer#>;
+    return nickname;
 }

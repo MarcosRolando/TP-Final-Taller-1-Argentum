@@ -9,3 +9,7 @@ using namespace Config;
 NoShield::NoShield(): Shield(Configuration::getInstance().configClothingData(NO_SHIELD)) {
 
 }
+
+bool NoShield::isDefault() {
+    return true;
+}

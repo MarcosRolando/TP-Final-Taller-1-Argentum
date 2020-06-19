@@ -9,3 +9,7 @@ using namespace Config;
 Fist::Fist() : Weapon(Configuration::getInstance().configWeaponData(FIST)) {
 
 }
+
+bool Fist::isDefault() {
+    return true;
+}

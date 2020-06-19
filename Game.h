@@ -14,6 +14,7 @@ private:
 public:
     AttackResult attackPosition(int damage, unsigned int level,
                             Coordinate coordinate);
+    void dropItems(std::list<std::shared_ptr<Item>>&& items, Coordinate position);
 };
 
 

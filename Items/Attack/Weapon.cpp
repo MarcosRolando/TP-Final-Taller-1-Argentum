@@ -44,3 +44,11 @@ EquipmentPlace Weapon::use(Player &player) {
     return EQUIPMENT_PLACE_WEAPON;
 }
 
+Weapon::~Weapon() {
+
+}
+
+bool Weapon::isDefault() {
+    return false;
+}
+

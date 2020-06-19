@@ -24,3 +24,7 @@ unsigned int Clothing::getDefense() {
     return Calculator::getRandomInt(minDefense, maxDefense);
 }
 
+bool Clothing::isDefault() {
+    return false;
+}
+

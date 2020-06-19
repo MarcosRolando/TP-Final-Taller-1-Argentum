@@ -3,10 +3,12 @@
 //
 
 #include "Inventory.h"
-
+#include "Defense/Head/NoHelmet.h"
+#include "Defense/Chest/CommonClothing.h"
+#include "Defense/Shield/NoShield.h"
+#include "Attack/Fist.h"
 
 #define INVENTORY_SIZE 16
-
 
 //////////////////////////////PRIVATE/////////////////////////////
 //Mueve el item al lugar de equipamiendo indicado si es que tiene uno
@@ -38,8 +40,6 @@ void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int
 Inventory::Inventory(): items(INVENTORY_SIZE, nullptr){
     storedItemsamount = 0;
 }
-
-
 
 bool Inventory::addItem(std::shared_ptr<Item> &&item) {
     if ((storedItemsamount == items.size()) || !item) {
@@ -92,4 +92,30 @@ unsigned int Inventory::getDefense() {
         defense += armour.second->getDefense();
     }
     return defense;
+}
+
+void Inventory::_dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems) {
+    for (auto & armour : clothingEquipment) {
+        if (!armour.second->isDefault()) {
+            droppedItems.push_back(std::move(armour.second));
+        }
+    }
+    if (!equippedWeapon->isDefault()) {
+        droppedItems.push_back(std::move(equippedWeapon));
+    }
+    clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new NoHelmet());
+    clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new CommonClothing());
+    clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new NoShield());
+    equippedWeapon.reset(new Fist());
+}
+
+std::list<std::shared_ptr<Item>> Inventory::dropAllItems() {
+    std::list<std::shared_ptr<Item>> droppedItems;
+    for (int i = 0; i < INVENTORY_SIZE; ++i) {
+        if (items[i]) {
+            droppedItems.push_back(std::move(items[i]));
+        }
+    }
+    _dropEquippedItems(droppedItems);
+    return droppedItems;
 }

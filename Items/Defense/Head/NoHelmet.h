@@ -10,6 +10,7 @@
 class NoHelmet : public Head {
 public:
     NoHelmet();
+    bool isDefault() override;
 };
 
 

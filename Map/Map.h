@@ -73,6 +73,9 @@ public:
 
     //Retorna true si el lugar puede ser ocupado por una entity, false en caso contrario
     bool isPlaceAvailable(Coordinate position) const;
+
+    //Agrega los items de la lista al tile
+    void addItemsToTile(std::list<std::shared_ptr<Item>>&& items, Coordinate position);
 };
 
 

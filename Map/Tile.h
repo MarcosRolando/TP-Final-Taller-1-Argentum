@@ -50,6 +50,9 @@ public:
     //void addItem(Item *received_item);
     void addItem(std::shared_ptr<Item>&& received_item);
 
+    //Agrega los items recibidos en la lista a los items que contiene el tile
+    void addItem(std::list<std::shared_ptr<Item>>&& _items);
+
     //Elimina uno de los items que se encuentran en el tile y lo retorna}
     //Si no hay ningun item retorna nullptr
     std::shared_ptr<Item> removeItem();

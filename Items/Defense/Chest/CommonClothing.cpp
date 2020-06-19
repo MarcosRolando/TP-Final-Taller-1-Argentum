@@ -9,3 +9,7 @@ using namespace Config;
 CommonClothing::CommonClothing() : Chest(Configuration::getInstance().configClothingData(COMMON_CLOTHING)){
 
 }
+
+bool CommonClothing::isDefault() {
+    return true;
+}
