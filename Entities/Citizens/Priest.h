@@ -18,7 +18,7 @@ public:
     //Implementa el comportamiento realizado al pedirle una lista de los items
     //que tiene en venta, por default no hace nada, debe ser reimplementada
     //si la clase hija tiene objetos en venta para listar
-    unsigned int list(std::list<ProductData>& products) override;
+    unsigned int list(const Player &player, std::list<ProductData>& products) override;
 
     //Implementa el comportamiento realizado al intentar el jugador comprar un item
     //con el nombre pasado, por default no hace nada, debe ser reimplementada
