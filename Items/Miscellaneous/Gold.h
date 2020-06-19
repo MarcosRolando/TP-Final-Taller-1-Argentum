@@ -6,7 +6,7 @@
 #define ARGENTUM_GOLD_H
 
 
-#include "Item.h"
+#include "../Item.h"
 
 //Clase que representa un puniado de oro en el piso
 class Gold: public Item {

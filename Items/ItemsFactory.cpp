@@ -22,7 +22,7 @@
 #include "Attack/SimpleBow.h"
 #include "Attack/Warhammer.h"
 #include "../Config/Calculator.h"
-#include "Gold.h"
+#include "Miscellaneous/Gold.h"
 
 using namespace Config;
 

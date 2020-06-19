@@ -6,7 +6,7 @@ include_directories(${SDL2_INCLUDE_DIRS})
 
 
 add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Attack/Weapon.h
-        Items/Gold.cpp Items/Gold.h Map/Tile.cpp Map/Tile.h Map/FloorType.h Entities/Entity.h
+        Items/Miscellaneous/Gold.cpp Items/Miscellaneous/Gold.h Map/Tile.cpp Map/Tile.h Map/FloorType.h Entities/Entity.h
         Map/Coordinate.h Entities/Monster.cpp Entities/Monster.h Game.cpp Game.h Map/Map.cpp
         Map/Map.h Items/Inventory.cpp Items/Inventory.h Entities/Player.cpp Entities/Player.h
         Entities/Entity.cpp Items/Defense/Clothing.cpp Items/Defense/Clothing.h Items/Defense/Head/Head.cpp
@@ -27,7 +27,7 @@ add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Atta
         Items/Attack/Warhammer.cpp Items/Attack/Warhammer.h Items/Attack/Axe.cpp Items/Attack/Axe.h Items/Attack/Longsword.cpp
         Items/Attack/Longsword.h Items/Attack/Fist.cpp Items/Attack/Fist.h AttackResult.h Items/Defense/Chest/CommonClothing.cpp
         Items/Defense/Chest/CommonClothing.h Items/Defense/Head/NoHelmet.cpp Items/Defense/Head/NoHelmet.h Items/Defense/Shield/NoShield.cpp
-        Items/Defense/Shield/NoShield.h TPException.cpp Entities/MoveDirection.h)
+        Items/Defense/Shield/NoShield.h TPException.cpp Entities/MoveDirection.h Items/Miscellaneous/ManaPotion.cpp Items/Miscellaneous/ManaPotion.h Items/Miscellaneous/HealthPotion.cpp Items/Miscellaneous/HealthPotion.h Items/Miscellaneous/Potion.cpp Items/Miscellaneous/Potion.h)
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
                                                             -O0 -ggdb -DDEBUG -fno-inline)
