@@ -11,12 +11,20 @@
 #include "../AttackResult.h"
 #include <list>
 #include "MoveDirection.h"
+#include <chrono>
+
+struct Movement {
+    bool moving;
+    unsigned int movedDistance;
+    std::chrono::duration<unsigned int, std::milli>
+};
 
 class Player;
 
 class Entity {
 protected:
-    Coordinate currentPosition;
+    Coordinate currentPosition{};
+    Movement movement{};
 
  public:
     explicit Entity(Coordinate initialPosition);
@@ -55,9 +63,9 @@ protected:
     //targets
     virtual bool isMonsterTarget();
 
-    //Desplaza a la entity hacia el tile pedido y comienza su interpolacion
-    //(simulacion de movimiento)
-    void move();
+    //Encola la accion de movimiento si el entity esta quieto,
+    // la cual puede ser rechazada o aceptada
+    void move(Direction moveDirection) const;
 
     //Le asigna al jugador la posicion recibida
     void setPosition(Coordinate coordinate);
