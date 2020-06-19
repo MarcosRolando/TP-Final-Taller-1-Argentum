@@ -86,3 +86,21 @@ int Stats::getMaxLife() const {
 int Stats::getCurrentLife() const {
     return currentLife;
 }
+
+void Stats::restoreLife(unsigned int ammount) {
+    currentLife += ammount;
+    if (currentLife > maxLife) {
+        currentLife = maxLife;
+    }
+}
+
+void Stats::restoreMana(unsigned int ammount) {
+    currentMana += ammount;
+    if (currentMana > maxMana) {
+        currentMana = maxMana;
+    }
+}
+
+bool Stats::isDead() {
+    return getCurrentLife() == 0;
+}
