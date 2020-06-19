@@ -10,6 +10,7 @@
 #include "Citizens/Storage.h"
 #include "../AttackResult.h"
 #include <list>
+#include "MoveDirection.h"
 
 class Player;
 
@@ -53,6 +54,10 @@ protected:
     //false, las clases que hereden deben reimplementarla si son consideradas
     //targets
     virtual bool isMonsterTarget();
+
+    //Desplaza a la entity hacia el tile pedido y comienza su interpolacion
+    //(simulacion de movimiento)
+    void move();
 
     //Le asigna al jugador la posicion recibida
     void setPosition(Coordinate coordinate);

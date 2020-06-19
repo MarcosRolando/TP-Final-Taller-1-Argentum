@@ -10,10 +10,7 @@
 #include "Entity.h"
 #include "Stats.h"
 #include "../Game.h"
-
-enum Direction {
-    DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT
-};
+#include "MoveDirection.h"
 
 class Player: public Entity {
 private:

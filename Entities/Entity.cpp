@@ -44,3 +44,7 @@ void Entity::buy(Player &player, const std::string &itemName) {
 void Entity::sell(Player &player, const std::string& itemName) {
     //DO NOTHING
 }
+
+void Entity::move() {
+
+}

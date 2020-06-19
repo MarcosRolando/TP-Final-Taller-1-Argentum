@@ -27,7 +27,7 @@ add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Atta
         Items/Attack/Warhammer.cpp Items/Attack/Warhammer.h Items/Attack/Axe.cpp Items/Attack/Axe.h Items/Attack/Longsword.cpp
         Items/Attack/Longsword.h Items/Attack/Fist.cpp Items/Attack/Fist.h AttackResult.h Items/Defense/Chest/CommonClothing.cpp
         Items/Defense/Chest/CommonClothing.h Items/Defense/Head/NoHelmet.cpp Items/Defense/Head/NoHelmet.h Items/Defense/Shield/NoShield.cpp
-        Items/Defense/Shield/NoShield.h TPException.cpp)
+        Items/Defense/Shield/NoShield.h TPException.cpp Entities/MoveDirection.h)
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
                                                             -O0 -ggdb -DDEBUG -fno-inline)
