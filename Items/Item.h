@@ -31,7 +31,7 @@ public:
     Item(const std::string& name, unsigned int price);
 
     //Constructor que se apropia del nombre del item
-    Item(std::string&& name, unsigned int price);
+    //Item(std::string&& name, unsigned int price);
 
     //use debe retornar el lugar en el que debera equiparse el item una vez usado desde
     //un inventario, si debe ser descartado entonces se tiene que retornar INVENTORY_PLACE_NONE
