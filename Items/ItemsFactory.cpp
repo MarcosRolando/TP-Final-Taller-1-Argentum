@@ -21,6 +21,8 @@
 #include "Attack/Longsword.h"
 #include "Attack/SimpleBow.h"
 #include "Attack/Warhammer.h"
+#include "../Config/Calculator.h"
+#include "Gold.h"
 
 using namespace Config;
 
@@ -48,6 +50,13 @@ ItemsFactory::ItemsFactory() {
     itemsCreators[config.configWeaponData(LONGSWORD).name] = storeLongsword;
     itemsCreators[config.configWeaponData(SIMPLE_BOW).name] = storeSimpleBow;
     itemsCreators[config.configWeaponData(WARHAMMER).name] = storeWarhammer;
+
+    //AGREGAR FUNCIONES PARA CREAR POCIONES
+
+
+    for (const auto & creator: itemsCreators) {
+        itemsNames.push_back(&creator.first);
+    }
 }
 
 void ItemsFactory::storeBlueTunic(std::shared_ptr<Item> &item) {
@@ -130,6 +139,11 @@ void ItemsFactory::storeWarhammer(std::shared_ptr<Item> &item) {
     item = std::move(aux);
 }
 
+void ItemsFactory::storeGold(std::shared_ptr<Item> &item, unsigned int amount) {
+    std::shared_ptr<Item> aux(new Gold(amount));
+    item = std::move(aux);
+}
+
 ///////////////////////////PUBLIC//////////////////////////////////
 
 ItemsFactory &ItemsFactory::getInstance() {
@@ -139,4 +153,16 @@ ItemsFactory &ItemsFactory::getInstance() {
 
 void ItemsFactory::storeItemInstance(std::string itemName, std::shared_ptr<Item> &item) {
     itemsCreators.at(itemName)(item);
+}
+
+void ItemsFactory::storeRandomDrop(std::shared_ptr<Item> &item, unsigned int goldMultiplier) {
+    int randomNumber = Calculator::getRandomInt(1, 100);
+    if (randomNumber <= 18) {
+        storeGold(item, Calculator::calculateGoldDrop(goldMultiplier));
+    } else if (randomNumber == 19) {
+        //LLAMAR A FUNCION PARA CREAR POCIONES
+    } else if (randomNumber == 20) {
+        randomNumber = Calculator::getRandomInt(0, itemsNames.size() - 1);
+        itemsCreators[itemsNames[randomNumber]](item);
+    }
 }

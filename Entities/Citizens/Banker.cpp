@@ -9,18 +9,18 @@ Banker::Banker(Coordinate initialPosition): Entity(initialPosition) {
 }
 
 
-unsigned int Banker::list(std::list<ProductData> &products) {
-    return storage.getAvailableItems(products, 0);
+unsigned int Banker::list(const Player &player, std::list<ProductData> &products) {
+    return playersStorages.at(player.getNickname()).getAvailableItems(products, 0);
 }
 
 void Banker::withdraw(Player &player, const std::string &itemName) {
-    storage.retreiveItem(itemName, player);
+    playersStorages.at(player.getNickname()).retreiveItem(itemName, player);
 
 }
 
 void Banker::deposit(Player &player, const std::string& itemName) {
     //storage.storeItem(player.removeItem(itemName));
-    playersStorages.at(storage).storeItem(player.removeItem(itemName));
+    playersStorages.at(player.getNickname()).storeItem(player.removeItem(itemName));
 }
 
 void Banker::addPlayerItems(const std::string& playerName, const std::unordered_map<std::string, unsigned int>

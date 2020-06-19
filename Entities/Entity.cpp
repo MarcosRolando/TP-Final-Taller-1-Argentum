@@ -25,7 +25,7 @@ AttackResult Entity::attacked(int damage, unsigned int level) {
     return {0, 0};
 }
 
-unsigned int Entity::list(std::list<ProductData>& products) {
+unsigned int Entity::list(const Player &player, std::list<ProductData>& products) {
     return 0;
 }
 
