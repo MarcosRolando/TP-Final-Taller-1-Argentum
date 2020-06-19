@@ -9,11 +9,12 @@ Item::Item(const std::string &_name, unsigned int _price): name(_name) {
     price = _price;
 }
 
-Item::Item(std::string &&_name, unsigned int _price) {
-    name = std::move(_name);
+/*
+Item::Item(const std::string &_name, unsigned int _price): name(_name) {
+    //name = std::move(_name);
     price = _price;
 }
-
+*/
 EquipmentPlace Item::use(Player &player) {
     return EQUIPMENT_PLACE_NONE;
 }

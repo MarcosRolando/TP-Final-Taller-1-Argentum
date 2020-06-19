@@ -42,7 +42,7 @@ public:
     //Recibe los items de un player y su nickname, y los agrega a lo que tiene guardado
     //HACER QUE RECIBA PARAMETROS COMO LOS DE STORAGE, PORQUE SE VA A CONSTRUIR UN STORAGE
     //EN EL NICKNAME RECIBIDO
-    void addPlayerItems(ARGS);
+    static void addPlayerItems(ARGS);
 };
 
 
