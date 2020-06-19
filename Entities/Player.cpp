@@ -41,21 +41,20 @@ void Player::attack(Coordinate target) {
     weaponDamage = inventory.getWeaponDamage(currentPosition, target);
     int totalDamage = stats.getTotalDamage(weaponDamage);
     AttackResult result = game.attackPosition(totalDamage, stats.getLevel(), target);
-    unsigned int experienceGained = Calculator::calculateAttackXP(result.damage,
-                            stats.getLevel(), result.level);
-    if (result.currentLife == 0 && result.damage > 0) {
-        experienceGained += Calculator::calculateKillXP(stats.getLevel(),
-                                                        result.level, result.maxLife);
-    }
-    stats.increaseExperience(experienceGained);
+    stats.increaseExperience(result.experience);
     //todo ver el tema de guardar el danio ocasionado
 }
 
 AttackResult Player::attacked(int damage, unsigned int attackerLevel) {
     unsigned int defense = inventory.getDefense();
     int totalDamage = stats.modifyLife(damage, attackerLevel, defense);
-    return {totalDamage, stats.getLevel(), stats.getCurrentLife(),
-            stats.getMaxLife()};
+    unsigned int experience = Calculator::calculateAttackXP(totalDamage,
+                                    attackerLevel, stats.getLevel());
+    if (stats.getCurrentLife() == 0 && totalDamage > 0) {
+        experience += Calculator::calculateKillXP(attackerLevel,
+                                    stats.getLevel(), stats.getMaxLife());
+    }
+    return {totalDamage, experience};
 }
 
 bool Player::isMonsterTarget() {
