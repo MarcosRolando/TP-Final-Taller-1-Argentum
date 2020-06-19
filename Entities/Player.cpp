@@ -45,12 +45,17 @@ void Player::attack(Coordinate target) {
     //todo ver el tema de guardar el danio ocasionado
 }
 
+void Player::_dropItems() {
+    //inventory.
+}
+
 AttackResult Player::attacked(int damage, unsigned int attackerLevel) {
     unsigned int defense = inventory.getDefense();
     int totalDamage = stats.modifyLife(damage, attackerLevel, defense);
     unsigned int experience = Calculator::calculateAttackXP(totalDamage,
                                     attackerLevel, stats.getLevel());
     if (stats.getCurrentLife() == 0 && totalDamage > 0) {
+        _dropItems();
         experience += Calculator::calculateKillXP(attackerLevel,
                                     stats.getLevel(), stats.getMaxLife());
     }

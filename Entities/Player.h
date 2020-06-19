@@ -11,7 +11,7 @@
 #include "Stats.h"
 #include "../Game.h"
 
-enum Direction{
+enum Direction {
     DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT
 };
 
@@ -56,6 +56,9 @@ public:
     void useItem(int itemPosition);
 
     AttackResult attacked(int damage, unsigned int attackerLevel) override;
+
+private:
+    void _dropItems();
 };
 
 

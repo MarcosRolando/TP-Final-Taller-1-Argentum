@@ -68,7 +68,7 @@ int Stats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defen
         return damage;
     } else {
         Configuration& config = Configuration::getInstance();
-        if ((attackerLevel - level) < config.configMaxLevelDif()
+        if (std::abs(static_cast<int>(attackerLevel - level)) < config.configMaxLevelDif()
             && !Calculator::canDodge(agility)) {
             int totalDamage = std::max(damage - static_cast<int>(defense), 0);
             currentLife -= totalDamage;

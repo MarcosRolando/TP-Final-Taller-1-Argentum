@@ -44,8 +44,6 @@ Tile& Tile::operator=(Tile &&other) noexcept{
     return *this;
 }
 
-
-
 //bool Tile::addEntity(Entity *received_entity) {
 bool Tile::addEntity(std::unique_ptr<Entity>&& received_entity) {
     if (isOccupable) {

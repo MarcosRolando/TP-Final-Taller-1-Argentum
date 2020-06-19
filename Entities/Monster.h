@@ -10,7 +10,7 @@
 #include "../Game.h"
 
 
-class Monster: public Entity{
+class Monster: public Entity {
 private:
     const unsigned int timeBetweenActions;
     unsigned long timer;
