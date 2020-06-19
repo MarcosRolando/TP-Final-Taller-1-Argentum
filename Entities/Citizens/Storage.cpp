@@ -31,7 +31,9 @@ Storage::Storage(const std::unordered_map<std::string, unsigned int>&
 }
 
 void Storage::storeItem(std::shared_ptr<Item> &&item) {
-    storedItems[item->getName()].push_back(std::move(item));
+    if (item) {
+        storedItems[item->getName()].push_back(std::move(item));
+    }
 }
 
 void Storage::retreiveItem(const std::string& itemName, Player &player) {
