@@ -18,11 +18,13 @@ Configuration::Configuration() {
     fileReader.loadRaceModifiers(raceModifiers);
     fileReader.loadMonsterStats(monsterStats);
 
-    fileReader.loadWeaponData(WeaponData);
-    fileReader.loadClothingData(ClothingData);
+    fileReader.loadWeaponData(weaponData);
+    fileReader.loadClothingData(clothingData);
 
     fileReader.loadGoldModifiers(goldModifiers);
     fileReader.loadXPModifiers(xpModifiers);
+
+    fileReader.loadPotionData(potionData);
 
     criticalAttackChance = fileReader.loadCritAttackChance();
     dodgeChance = fileReader.loadDodgeChance();
@@ -45,11 +47,11 @@ MonsterStats Configuration::configMonsterStats(Monster monster) const{
 }
 
 WeaponData Configuration::configWeaponData(Weapon weapon) const{
-    return WeaponData.at(weapon);
+    return weaponData.at(weapon);
 }
 
 ClothingData Configuration::configClothingData(Clothing clothes) const{
-    return ClothingData.at(clothes);
+    return clothingData.at(clothes);
 }
 
 GoldModifiers Configuration::configGoldModifiers() const{
@@ -58,6 +60,10 @@ GoldModifiers Configuration::configGoldModifiers() const{
 
 XPModifiers Configuration::configXPModifiers() const{
     return xpModifiers;
+}
+
+PotionData Configuration::configPotionData(Potion potion) const{
+    return potionData.at(potion);
 }
 
 float Configuration::configCriticalAttackChance() const{

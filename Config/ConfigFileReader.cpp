@@ -17,7 +17,8 @@ ConfigFileReader::ConfigFileReader(const std::string& path) :
             {"SimpleBow", SIMPLE_BOW}, {"CompoundBow", COMPOSITE_BOW}, {"GnarledStaff", GNARLED_STAFF}},
     clothing{{"Longsword", COMMON_CLOTHING},{"Axe", LEATHER_ARMOR}, {"Warhammer", PLATE_ARMOR},
             {"AshRod", BLUE_TUNIC}, {"ElvenFlute", HOOD}, {"LinkedStaff", IRON_HELMET},
-            {"SimpleBow", TURTLE_SHIELD}, {"CompoundBow", IRON_SHIELD}, {"GnarledStaff", MAGIC_HAT}} {
+            {"SimpleBow", TURTLE_SHIELD}, {"CompoundBow", IRON_SHIELD}, {"GnarledStaff", MAGIC_HAT}},
+    potions {{"HealthPotion", HEALTH_POTION}, {"ManaPotion", MANA_POTION}} {
 
     file.open(path);
     try {
@@ -32,7 +33,7 @@ ConfigFileReader::~ConfigFileReader() {
     file.close();
 }
 
-void Config::ConfigFileReader::loadClassModifiers(std::unordered_map<Class, Modifiers>& mods) {
+void ConfigFileReader::loadClassModifiers(std::unordered_map<Class, Modifiers>& mods) {
     Json::Value& classModifiers = obj["Class"];
     Modifiers currMods{};
     for (auto & classModifier : classModifiers) {
@@ -65,6 +66,15 @@ void ConfigFileReader::loadClothingData(std::unordered_map<Clothing, ClothingDat
     for (auto & clothingStat : clothingsStats) {
         _getClothingData(currStats, clothingStat);
         stats.emplace(clothing.at(clothingStat["Type"].asString()), currStats);
+    }
+}
+
+void ConfigFileReader::loadPotionData(std::unordered_map<Potion, PotionData>& stats) {
+    Json::Value& potionData = obj["Potion"];
+    PotionData currPotion{};
+    for (auto & potion : potionData) {
+        _getPotionData(currPotion, potion);
+        stats.emplace(potions.at(potion["Name"].asString()), currPotion);
     }
 }
 
@@ -151,4 +161,11 @@ void ConfigFileReader::_getClothingData(ClothingData& stats, Json::Value&
     stats.maxDefense = currClothing["MaxDefense"].asUInt();
     stats.minDefense = currClothing["MinDefense"].asUInt();
     stats.price = currClothing["Price"].asUInt();
+}
+
+void ConfigFileReader::_getPotionData(PotionData& stats, Json::Value&
+                                        currPotion){
+    stats.name = currPotion["Name"].asString();
+    stats.recoveryValue = currPotion["RecoveryValue"].asUInt();
+    stats.price = currPotion["Price"].asUInt();
 }

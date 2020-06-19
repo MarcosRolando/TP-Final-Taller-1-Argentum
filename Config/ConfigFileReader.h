@@ -35,6 +35,10 @@ namespace Config {
         NO_SHIELD
     };
 
+    enum Potion {
+        HEALTH_POTION, MANA_POTION
+    };
+
     struct Modifiers {
         unsigned int lifeMultiplier;
         unsigned int manaMultiplier;
@@ -70,6 +74,12 @@ namespace Config {
         unsigned int maxLevel;
     };
 
+    struct PotionData {
+        std::string name;
+        unsigned int recoveryValue;
+        unsigned int price;
+    };
+
     struct GoldModifiers {
         float goldDropFactorMin;
         float goldDropFactorMax;
@@ -86,7 +96,6 @@ namespace Config {
         float killXPMaxRange;
     };
 
-
     class ConfigFileReader {
     private:
         Json::Reader reader;
@@ -97,6 +106,7 @@ namespace Config {
         std::unordered_map<std::string, Monster> monsters;
         std::unordered_map<std::string, Weapon> weapons;
         std::unordered_map<std::string, Clothing> clothing;
+        std::unordered_map<std::string, Potion> potions;
 
     public:
         ConfigFileReader(const std::string &path);
@@ -126,6 +136,8 @@ namespace Config {
 
         unsigned int loadPlayerVisionRange();
 
+        void loadPotionData(std::unordered_map<Potion, PotionData>& stats);
+
         ~ConfigFileReader();
 
     private:
@@ -140,6 +152,8 @@ namespace Config {
 
         static void
         _getClothingData(ClothingData &stats, Json::Value &currClothing);
+
+        static void _getPotionData(PotionData &stats, Json::Value &currPotion);
     };
 }
 

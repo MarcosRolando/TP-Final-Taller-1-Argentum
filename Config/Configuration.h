@@ -13,9 +13,9 @@ private:
     std::unordered_map<Config::Race, Config::Modifiers> raceModifiers{};
     std::unordered_map<Config::Class, Config::Modifiers> classModifiers{};
     std::unordered_map<Config::Monster, Config::MonsterStats> monsterStats{};
-
-    std::unordered_map<Config::Weapon, Config::WeaponData> WeaponData{};
-    std::unordered_map<Config::Clothing, Config::ClothingData> ClothingData{};
+    std::unordered_map<Config::Weapon, Config::WeaponData> weaponData{};
+    std::unordered_map<Config::Clothing, Config::ClothingData> clothingData{};
+    std::unordered_map<Config::Potion, Config::PotionData> potionData{};
 
     Config::GoldModifiers goldModifiers{};
 
@@ -44,6 +44,8 @@ public:
     Config::WeaponData configWeaponData(Config::Weapon weapon) const;
 
     Config::ClothingData configClothingData(Config::Clothing clothes) const;
+
+    Config::PotionData configPotionData(Config::Potion potion) const;
 
     Config::GoldModifiers configGoldModifiers() const;
     Config::XPModifiers configXPModifiers() const;
