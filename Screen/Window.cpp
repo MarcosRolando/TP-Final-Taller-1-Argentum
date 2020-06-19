@@ -36,7 +36,8 @@ void Window::_createViewports(){
                                             DEFAULT_MINICHAT_HEIGHT});
 
     viewports.emplace(PlayerInfoViewport, SDL_Rect{20, DEFAULT_MINICHAT_HEIGHT
-    + DEFAULT_MAP_HEIGHT + 80, DEFAULT_MAP_WIDTH, 45});
+    + DEFAULT_MAP_HEIGHT + 30, DEFAULT_PLAYER_INFO_WIDTH,
+    DEFAULT_PLAYER_INFO_HEIGHT});
 }
 
 void Window::_createWindow() {
@@ -113,7 +114,7 @@ void Window::handleEvent(SDL_Event& e) {
         }
     }
         //Enter exit full screen on return key
-    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN) {
+    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_F1) {
         mWidth = DEFAULT_SCREEN_WIDTH;
         mHeight = DEFAULT_SCREEN_HEIGHT;
         if (mFullScreen) {

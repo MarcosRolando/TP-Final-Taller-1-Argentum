@@ -68,14 +68,15 @@ int main(int argc, char* args[]) {
         Spell explosion(repo.getTexture(MagicMissile), camera, TILE_WIDTH*3, TILE_HEIGHT*3);
 
         Map map(repo, camera);
-        Font font("../SDL/Text/medieval.ttf", 25);
-        PlayerInfoGUI playerInfo(font, window.getRenderer());
-        PlayerInventoryGUI inventoryGui(repo, window.getRenderer(), font);
-        Minichat minichat(font, window.getRenderer());
+        Font UIFont("../SDL/Text/medieval.ttf", 25);
+        Font minichatFont("../SDL/Text/font.ttf", 20);
+        PlayerInfoGUI playerInfo(UIFont, window.getRenderer());
+        PlayerInventoryGUI inventoryGui(repo, window.getRenderer(), UIFont);
+        //Buscar una buena font para el minichat
+        Minichat minichat(minichatFont, window.getRenderer());
 
         //Main loop flag
         bool quit = false;
-
 
         //Prueba de llenado de inventario
         inventoryGui.addInventoryItem(BlueTunicDrop);
@@ -113,18 +114,28 @@ int main(int argc, char* args[]) {
 
                 window.handleEvent(e);
 
+                std::string a = " ";
+
                 if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
                     switch (e.key.keysym.sym) {
                         case SDLK_UP:
+                            a = "up";
+                            minichat.queueText(a);
                             player.move(UP);
                             break;
                         case SDLK_DOWN:
+                            a = "down";
+                            minichat.queueText(a);
                             player.move(DOWN);
                             break;
                         case SDLK_LEFT:
+                            a = "left";
+                            minichat.queueText(a);
                             player.move(LEFT);
                             break;
                         case SDLK_RIGHT:
+                            a = "rigth";
+                            minichat.queueText(a);
                             player.move(RIGHT);
                             break;
                         /*case SDLK_w:
@@ -149,9 +160,11 @@ int main(int argc, char* args[]) {
                     //Clear screen
                     window.clear();
 
+                    //Screen
                     window.setViewport(ScreenViewport);
                     background.render(0, 0);
 
+                    //Map
                     window.setViewport(MapViewport);
                     map.renderGround();
                     float timeStep = moveTime.getTicks();
@@ -177,10 +190,15 @@ int main(int argc, char* args[]) {
                     playerInfo.updateMana(9800, 10000);
                     playerInfo.updateXP(150000, 800000);
 
+                    //Minichat
                     window.setViewport(MinichatViewport);
-
                     minichat.render();
                     window.show();
+                    //Dejo esto comentado aca xq me sirve para ver los vewports
+                    /*SDL_Rect fillRect = {0, 0, DEFAULT_MAP_WIDTH, 45};
+                    SDL_SetRenderDrawColor(&window.getRenderer(), 0xFF,
+                                           0x00, 0x00, 0xFF);
+                    SDL_RenderFillRect( &window.getRenderer(), &fillRect);*/
                 }
             }
             SDL_StopTextInput();

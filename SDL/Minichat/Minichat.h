@@ -7,23 +7,22 @@
 
 #include "../Text/Text.h"
 #include "../../GameConstants.h"
-
+#include <list>
 class Minichat {
 private:
+    Font& minichatFont;
     Text input;
+    std::list<Text> texts;
     SDL_Renderer& renderer;
-    SDL_Point mPosition;
+    SDL_Point mPosition{};
     bool focusOnMinichat;
 public:
     Minichat(Font& font, SDL_Renderer& renderer);
     void handleEvent( SDL_Event& e );
+    void render();
     ~Minichat();
 
-    void render();
-
-    void inputText(std::string &input);
-
-    bool isFocused();
+    void queueText(std::string &newText);
 };
 
 

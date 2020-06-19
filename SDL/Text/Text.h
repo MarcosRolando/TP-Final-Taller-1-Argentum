@@ -18,13 +18,20 @@ private:
     Texture textTexture;
 public:
     Text(Font& font, SDL_Renderer& renderer);
-    ~Text();
 
     void updateText(const std::string &newText);
 
+    void appendText(const std::string &newText);
+
+    void eraseText();
+
+    std::string& getText();
+
+    int getTextLength();
+
     void render(int x, int y, SDL_Color color = {0, 0, 0});
 
-    void appendText(const std::string &newText);
+    ~Text();
 };
 
 

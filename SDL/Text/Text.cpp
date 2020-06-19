@@ -6,7 +6,7 @@
 
 Text::Text(Font& font, SDL_Renderer& renderer) : font(font),
                                     textTexture(renderer) {
-    text = " ";
+    text = " ";//Pongo esto xq SDL no puede renderizar texto vacio
 }
 
 void Text::updateText(const std::string& newText){
@@ -25,3 +25,17 @@ void Text::render(int x, int y, SDL_Color color){
 Text::~Text() {
 
 }
+
+void Text::eraseText() {
+    text.pop_back();
+}
+
+int Text::getTextLength() {
+    return text.length();
+}
+
+std::string& Text::getText() {
+    return text;
+}
+
+
