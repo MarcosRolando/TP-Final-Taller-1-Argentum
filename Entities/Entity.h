@@ -14,9 +14,8 @@
 #include <chrono>
 
 struct Movement {
-    bool moving;
-    unsigned int movedDistance;
-    std::chrono::duration<unsigned int, std::milli>
+    bool moving{};
+    unsigned int movedDistance{};
 };
 
 class Player;
@@ -25,6 +24,7 @@ class Entity {
 protected:
     Coordinate currentPosition{};
     Movement movement{};
+    unsigned int speed;
 
  public:
     explicit Entity(Coordinate initialPosition);
@@ -72,6 +72,13 @@ protected:
 
     //Retorna la posicion en la que quiere estar el jugadoras
     Coordinate getPosition();
+
+    //Le confirma a entity el request de movimiento
+    void startMoving();
+
+    //Actualiza el estado de la entity, por ejemplo si se esta moviendo le
+    //actualiza la interpolacion
+    void update(double timeStep);
 
     virtual ~Entity() = default;
 };

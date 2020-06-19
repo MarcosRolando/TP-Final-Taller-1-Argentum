@@ -4,13 +4,13 @@
 
 #include "Entity.h"
 
-using namespace std::chrono;
+const unsigned int DISTANCE_TO_MOVE = 500;
 
 Entity::Entity(Coordinate initialPosition) {
     currentPosition.iPosition = initialPosition.iPosition;
     currentPosition.jPosition = initialPosition.jPosition;
     movement.movedDistance = 0;
-    movement.elapsedTime = 0;
+    speed = 1;
 }
 
 void Entity::setPosition(Coordinate coordinate) {
@@ -71,5 +71,14 @@ void Entity::move(Direction moveDirection) const {
 void Entity::startMoving() {
     movement.moving = true;
     movement.movedDistance = 0;
-    high_resolution_clock::time_point currentTime = high_resolution_clock::now();
+}
+
+void Entity::update(double timeStep) {
+    if (movement.moving) {
+        movement.movedDistance += static_cast<unsigned int>(timeStep) * speed;
+        if (movement.movedDistance >= DISTANCE_TO_MOVE) {
+            movement.movedDistance = DISTANCE_TO_MOVE;
+            movement.moving = false;
+        }
+    }
 }
