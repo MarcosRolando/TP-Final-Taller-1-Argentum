@@ -25,8 +25,8 @@ PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,
                                                              renderer(renderer) {
 }
 
-void PlayerInventoryGUI::render() {
-    _drawInventoryOutlines();
+void PlayerInventoryGUI::render(int selectedSlotX, int selectedSlotY) {
+    _drawInventoryOutlines(selectedSlotX, selectedSlotY);
     _drawEquipableOutlines();
     _renderInventoryItems();
     _renderEquipableItems();
@@ -62,15 +62,20 @@ void PlayerInventoryGUI::_renderEquipableItems() {
     }
 }
 
-void PlayerInventoryGUI::_drawInventoryOutlines() {
+void PlayerInventoryGUI::_drawInventoryOutlines(int selectedSlotX, int
+selectedSlotY) {
     SDL_Rect outlineRect;
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
             outlineRect = { INVENTORY_OUTLINES_X_OFFSET + (ITEM_WIDTH + 6) * j,
                             INVENTORY_OUTLINES_Y_OFFSET + (ITEM_HEIGHT - 3) * i,
                             ITEM_WIDTH + 6, ITEM_HEIGHT - 3 };
-            SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
-                                    0x14, 0xFF );
+            SDL_SetRenderDrawColor(&renderer, 0x3f, 0x2a,
+                                   0x14, 0xFF);
+            if (j == selectedSlotX && i == selectedSlotY){
+                SDL_SetRenderDrawColor(&renderer, 0xff, 0xff,
+                                       0xff, 0xFF);
+            }
             SDL_RenderDrawRect( &renderer, &outlineRect );
         }
     }
@@ -78,18 +83,6 @@ void PlayerInventoryGUI::_drawInventoryOutlines() {
 
 void PlayerInventoryGUI::_drawEquipableOutlines() {
     SDL_Rect outlineRect;
-/*    for (int j = 0; j < 3; ++j) {
-        outlineRect = { 200 + 75 * j, 760, ITEM_WIDTH, ITEM_HEIGHT };
-        SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
-                                0x14, 0xFF );
-        SDL_RenderDrawRect( &renderer, &outlineRect );
-    }
-
-    outlineRect = { 275, 660, ITEM_WIDTH, ITEM_HEIGHT };
-    SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,
-                            0x14, 0xFF );
-    SDL_RenderDrawRect( &renderer, &outlineRect );*/
-
     for (int j = 0; j < 2; ++j) {
         outlineRect = { 275 + 75 * j, 660, ITEM_WIDTH, ITEM_HEIGHT };
         SDL_SetRenderDrawColor( &renderer, 0x3f,0x2a,

@@ -12,6 +12,7 @@
 #include "SDL/GUI/PlayerInventoryGUI.h"
 #include "Spells/Spell.h"
 #include "SDL/Minichat/Minichat.h"
+#include "SDL/Selector.h"
 
 //Starts up SDL and creates window
 void init();
@@ -74,6 +75,7 @@ int main(int argc, char* args[]) {
         PlayerInventoryGUI inventoryGui(repo, window.getRenderer(), UIFont);
         //Buscar una buena font para el minichat
         Minichat minichat(minichatFont, window.getRenderer());
+        Selector selector;
 
         Text clickPos(UIFont, window.getRenderer());
 
@@ -102,9 +104,7 @@ int main(int argc, char* args[]) {
         //While application is running
         while( !quit )
         {
-
             SDL_StartTextInput();
-
             //Handle events on queue
             while( SDL_PollEvent( &e ) != 0 )
             {
@@ -113,7 +113,6 @@ int main(int argc, char* args[]) {
                 {
                     quit = true;
                 }
-
 
                 if( e.type == SDL_MOUSEBUTTONDOWN )
                 {
@@ -124,7 +123,7 @@ int main(int argc, char* args[]) {
 
                 window.handleEvent(e);
 
-                std::string a = " ";
+                std::string a = " ";//Para probar lo del minichat
 
                 if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
                     switch (e.key.keysym.sym) {
@@ -148,18 +147,6 @@ int main(int argc, char* args[]) {
                             minichat.queueText(a);
                             player.move(RIGHT);
                             break;
-                        /*case SDLK_w:
-                            monster.move(UP);
-                            break;
-                        case SDLK_s:
-                            monster.move(DOWN);
-                            break;
-                        case SDLK_a:
-                            monster.move(LEFT);
-                            break;
-                        case SDLK_d:
-                            monster.move(RIGHT);
-                            break;*/
                     }
                 }
             }
@@ -187,30 +174,34 @@ int main(int argc, char* args[]) {
                     map.renderStructures();
                     moveTime.start();
 
-                    //Stats
+                    selector.verifyInventorySlotSelection(xClick, yClick);
+
+                    //Inventory
                     window.setViewport(InventoryViewport);
                     inventoryGui.updateGold(1000);
-                    inventoryGui.render();
+                    inventoryGui.render(selector.getInventorySlotX(),
+                            selector.getInventorySlotY());
                     playerInfo.updateLevel(15);
                     playerInfo.updateSkills(20, 20, 20, 20);
 
-                    int playerXTile = player.getXPosition()/TILE_WIDTH;
-                    int playerYTile = player.getYPosition()/TILE_HEIGHT;
-                    playerInfo.updatePosition(playerXTile,playerYTile);
+                    int x = player.getXPosition();
+                    int y = player.getYPosition();
+                    playerInfo.updatePosition(x/TILE_WIDTH,y/TILE_HEIGHT);
 
-                    if (xClick>20 && xClick<1044 && yClick>236 && yClick < 876){
-                        //float xClickTile = (xClick-20)/TILE_WIDTH;
-                        //float yClickTile = (yClick-236)/TILE_HEIGHT;
-                        int relativeX = ((xClick-20) - ((int)player.getXPosition()-40)%1024)/TILE_WIDTH;
-                        int relativeY = ((yClick-236) - ((int)player.getYPosition()-30)%640)/TILE_HEIGHT;
-                        clickPos.updateText("ClickXTile: " + std::to_string(
-                                (int)relativeX) + "   " + "ClickYTile: " +
-                                std::to_string((int)relativeY));
+                    selector.verifyTileSelection(xClick, yClick,x,y);
+                    clickPos.updateText("ClickXTile: " + std::to_string(
+                            (int) selector.getSelectedTileX()) + "   " + "ClickYTile: " +
+                                        std::to_string((int) selector
+                                                .getSelectedTileY()));
+                    clickPos.render(100,100, {0xFF,0xFF,0xFF});
 
-                    }
-                    clickPos.render(150,100, {0xFF,0xFF,0xFF});
-
-
+                    /*window.setViewport(MapViewport);
+                    SDL_Rect fillRect = {selector.getSelectedTileX()*128,
+                                         selector.getSelectedTileY()*128,
+                                         128, 128};
+                    SDL_SetRenderDrawColor(&window.getRenderer(), 0xFF,
+                                           0x00, 0x00, 0xFF);
+                    SDL_RenderDrawRect( &window.getRenderer(), &fillRect );*/
 
                     //PlayerInfo
                     window.setViewport(PlayerInfoViewport);

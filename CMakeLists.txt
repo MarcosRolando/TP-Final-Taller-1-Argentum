@@ -20,7 +20,7 @@ Character/Player.h Timer.cpp Timer.h GameConstants.h Character/NPC.cpp
 Character/NPC.h Direction.h Character/Entity.cpp Character/Entity.h
 Screen/Window.cpp Screen/Window.h SDL/Text/Text.cpp SDL/Text/Text.h SDL/GUI/PlayerInfoGUI.cpp
         SDL/GUI/PlayerInfoGUI.h SDL/GUI/PlayerInventoryGUI.cpp SDL/GUI/PlayerInventoryGUI.h
-        Spells/Spell.cpp Spells/Spell.h MapFileReader.cpp MapFileReader.h SDL/Minichat/Minichat.cpp SDL/Minichat/Minichat.h)
+        Spells/Spell.cpp Spells/Spell.h MapFileReader.cpp MapFileReader.h SDL/Minichat/Minichat.cpp SDL/Minichat/Minichat.h SDL/Selector.cpp SDL/Selector.h)
 
 
 target_compile_options (argentum PUBLIC -std=c++11 -Wall -Werror -pedantic

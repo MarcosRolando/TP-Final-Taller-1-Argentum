@@ -36,11 +36,11 @@ public:
 
     void updateGold(unsigned int gold);
 
-    void render();
+    void render(int selectedSlotX, int selectedSlotY);
 
 private:
 
-    void _drawInventoryOutlines();
+    void _drawInventoryOutlines(int x, int y);
 
     void _renderInventoryItems();
 
