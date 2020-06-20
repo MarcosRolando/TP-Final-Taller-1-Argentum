@@ -12,3 +12,7 @@ AttackResult Game::attackPosition(int damage, unsigned int level,
 void Game::dropItems(std::list<std::shared_ptr<Item>>&& items, Coordinate position) {
     map.addItemsToTile(std::move(items), position);
 }
+
+void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
+    map.addItemsToTile(std::move(item), position);
+}

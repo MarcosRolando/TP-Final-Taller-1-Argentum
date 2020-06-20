@@ -4,6 +4,7 @@
 
 #include "Monster.h"
 #include "../Config/Calculator.h"
+#include "../Items/ItemsFactory.h"
 
 #define MAX_NUMBER_OF_CACHED_NODES 4
 
@@ -121,16 +122,22 @@ Monster::Monster(Game &_game, const Map& _map, int _life,
 
 
 AttackResult Monster::attacked(int _damage, unsigned int attackerLevel) {
-    currentLife -= _damage;
-    if (currentLife < 0) {
-        currentLife = 0;
+    if (!isDead()) {
+        currentLife -= _damage;
+        if (currentLife < 0) {
+            currentLife = 0;
+            std::shared_ptr<Item> drop;
+            ItemsFactory::getInstance().storeRandomDrop(drop, maxLife);
+            game.dropItems(std::move(drop), currentPosition);
+        }
+        unsigned int experience = Calculator::calculateAttackXP(damage,
+                                                                attackerLevel, level);
+        if (currentLife == 0 && damage > 0) {
+            experience += Calculator::calculateKillXP(attackerLevel, level, maxLife);
+        }
+        return {_damage, experience};
     }
-    unsigned int experience = Calculator::calculateAttackXP(damage,
-                                                            attackerLevel, level);
-    if (currentLife == 0 && damage > 0) {
-        experience += Calculator::calculateKillXP(attackerLevel, level, maxLife);
-    }
-    return {_damage, experience};
+    return {0, 0};
 }
 
 bool Monster::isDead() const {

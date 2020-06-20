@@ -76,6 +76,9 @@ public:
 
     //Agrega los items de la lista al tile
     void addItemsToTile(std::list<std::shared_ptr<Item>>&& items, Coordinate position);
+
+    //Agrega los items de la lista al tile
+    void addItemsToTile(std::shared_ptr<Item>&& item, Coordinate position);
 };
 
 

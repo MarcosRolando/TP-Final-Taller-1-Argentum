@@ -189,3 +189,7 @@ bool Map::isPlaceAvailable(Coordinate position) const {
 void Map::addItemsToTile(std::list<std::shared_ptr<Item>>&& items, Coordinate position) {
     tiles[position.iPosition][position.jPosition].addItem(std::move(items));
 }
+
+void Map::addItemsToTile(std::shared_ptr<Item> &&item, Coordinate position) {
+    tiles[position.iPosition][position.jPosition].addItem(std::move(item));
+}
