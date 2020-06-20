@@ -6,7 +6,6 @@
 #define ARGENTUM_CONFIGURATION_H
 
 #include "ConfigFileReader.h"
-
 #include <unordered_map>
 
 class Configuration {

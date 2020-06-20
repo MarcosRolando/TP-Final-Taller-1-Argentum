@@ -7,7 +7,6 @@
 
 #include <fstream>
 #include "jsoncpp/json/json.h"
-#include "Configuration.h"
 #include <unordered_map>
 
 namespace Config {
@@ -109,7 +108,7 @@ namespace Config {
         std::unordered_map<std::string, Potion> potions;
 
     public:
-        ConfigFileReader(const std::string &path);
+        explicit ConfigFileReader(const std::string &path);
 
         void loadClassModifiers(std::unordered_map<Class, Modifiers> &mods);
 
@@ -119,8 +118,7 @@ namespace Config {
 
         void loadWeaponData(std::unordered_map<Weapon, WeaponData> &stats);
 
-        void
-        loadClothingData(std::unordered_map<Clothing, ClothingData> &stats);
+        void loadClothingData(std::unordered_map<Clothing, ClothingData> &stats);
 
         void loadGoldModifiers(GoldModifiers &goldModifiers);
 
