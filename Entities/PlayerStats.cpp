@@ -5,6 +5,7 @@
 #include "PlayerStats.h"
 #include <ctime>
 #include "../Config/Calculator.h"
+#include "../Config/Configuration.h"
 #include <algorithm>
 
 using namespace GameType;
@@ -110,3 +111,4 @@ void PlayerStats::restoreMana(unsigned int amount) {
 bool PlayerStats::isDead() const {
     return getCurrentLife() == 0;
 }
+

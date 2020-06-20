@@ -5,7 +5,7 @@
 #ifndef ARGENTUM_PLAYERSTATS_H
 #define ARGENTUM_PLAYERSTATS_H
 
-#include "../Config/Configuration.h"
+#include "../Config/GameEnums.h"
 
 //Clase que maneja el recibimiento de ataques, Player y Monster le delegan
 //operaciones cuando deben modificar sus stats
