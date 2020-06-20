@@ -4,7 +4,7 @@
 
 #include "CompositeBow.h"
 
-using namespace Config;
+using namespace GameType;
 
 CompositeBow::CompositeBow(): Weapon(Configuration::getInstance().configWeaponData(COMPOSITE_BOW)) {
 

@@ -4,7 +4,7 @@
 
 #include "MagicHat.h"
 
-using namespace Config;
+using namespace GameType;
 
 MagicHat::MagicHat(): Head(Configuration::getInstance().configClothingData(MAGIC_HAT)) {
 

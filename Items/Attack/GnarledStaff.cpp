@@ -4,7 +4,7 @@
 
 #include "GnarledStaff.h"
 
-using namespace Config;
+using namespace GameType;
 
 GnarledStaff::GnarledStaff(): Weapon(Configuration::getInstance().configWeaponData(GNARLED_STAFF)) {
 

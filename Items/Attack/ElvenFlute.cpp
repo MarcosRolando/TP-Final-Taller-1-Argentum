@@ -4,7 +4,7 @@
 
 #include "ElvenFlute.h"
 
-using namespace Config;
+using namespace GameType;
 
 ElvenFlute::ElvenFlute(): Weapon(Configuration::getInstance().configWeaponData(ELVEN_FLUTE)) {
 

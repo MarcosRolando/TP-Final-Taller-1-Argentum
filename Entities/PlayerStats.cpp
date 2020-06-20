@@ -7,12 +7,12 @@
 #include "../Config/Calculator.h"
 #include <algorithm>
 
-using namespace Config;
+using namespace GameType;
 
 PlayerStats::PlayerStats(Race _race, Class _class, unsigned int _level, unsigned int _experience) {
     Configuration& config = Configuration::getInstance();
-    Modifiers classModifier = config.configClassModifiers(_class);
-    Modifiers raceModifier = config.configRaceModifiers(_race);
+    Config::Modifiers classModifier = config.configClassModifiers(_class);
+    Config::Modifiers raceModifier = config.configRaceModifiers(_race);
     classLifeMultiplier = classModifier.lifeMultiplier;
     classManaMultiplier = classModifier.manaMultiplier;
     raceLifeMultiplier = raceModifier.lifeMultiplier;
@@ -60,7 +60,6 @@ void PlayerStats::increaseExperience(unsigned int _experience) {
         experience = 0;
         nextLevelExperience = Calculator::calculateNextLevelXP(level);
     }
-
 }
 
 int PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defense) {

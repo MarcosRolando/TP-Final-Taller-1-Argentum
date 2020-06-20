@@ -4,7 +4,7 @@
 
 #include "SimpleBow.h"
 
-using namespace Config;
+using namespace GameType;
 
 SimpleBow::SimpleBow(): Weapon(Configuration::getInstance().configWeaponData(SIMPLE_BOW)) {
 

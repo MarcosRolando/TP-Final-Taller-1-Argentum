@@ -4,7 +4,7 @@
 
 #include "TurtleShield.h"
 
-using namespace Config;
+using namespace GameType;
 
-TurtleShield::TurtleShield(): Shield(Configuration::getInstance().configClothingData(Config::TURTLE_SHIELD)) {
+TurtleShield::TurtleShield(): Shield(Configuration::getInstance().configClothingData(TURTLE_SHIELD)) {
 }

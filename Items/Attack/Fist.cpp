@@ -4,7 +4,7 @@
 
 #include "Fist.h"
 
-using namespace Config;
+using namespace GameType;
 
 Fist::Fist() : Weapon(Configuration::getInstance().configWeaponData(FIST)) {
 

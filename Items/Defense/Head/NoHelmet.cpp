@@ -4,7 +4,7 @@
 
 #include "NoHelmet.h"
 
-using namespace Config;
+using namespace GameType;
 
 NoHelmet::NoHelmet() : Head(Configuration::getInstance().configClothingData(NO_HELMET)){
 

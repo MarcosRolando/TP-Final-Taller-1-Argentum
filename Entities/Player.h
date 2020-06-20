@@ -21,7 +21,7 @@ private:
     std::string nickname;
 
 public:
-    Player(Game& _game, Config::Race _race, Config::Class _class, unsigned int _level,
+    Player(Game& _game, GameType::Race _race, GameType::Class _class, unsigned int _level,
            unsigned int _experience, Coordinate _initialPosition, const std::string& nickname);
 
 

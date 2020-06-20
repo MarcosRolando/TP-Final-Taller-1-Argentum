@@ -11,12 +11,12 @@
 class Configuration {
 
 private:
-    std::unordered_map<Config::Race, Config::Modifiers> raceModifiers{};
-    std::unordered_map<Config::Class, Config::Modifiers> classModifiers{};
-    std::unordered_map<Config::Monster, Config::MonsterStats> monsterStats{};
-    std::unordered_map<Config::Weapon, Config::WeaponData> weaponData{};
-    std::unordered_map<Config::Clothing, Config::ClothingData> clothingData{};
-    std::unordered_map<Config::Potion, Config::PotionData> potionData{};
+    std::unordered_map<GameType::Race, Config::Modifiers> raceModifiers{};
+    std::unordered_map<GameType::Class, Config::Modifiers> classModifiers{};
+    std::unordered_map<GameType::Monster, Config::MonsterStats> monsterStats{};
+    std::unordered_map<GameType::Weapon, Config::WeaponData> weaponData{};
+    std::unordered_map<GameType::Clothing, Config::ClothingData> clothingData{};
+    std::unordered_map<GameType::Potion, Config::PotionData> potionData{};
 
     Config::GoldModifiers goldModifiers{};
 
@@ -36,17 +36,17 @@ public:
 
     static Configuration& getInstance();
 
-    Config::Modifiers configClassModifiers(Config::Class _class) const;
+    Config::Modifiers configClassModifiers(GameType::Class _class) const;
 
-    Config::Modifiers configRaceModifiers(Config::Race race) const;
+    Config::Modifiers configRaceModifiers(GameType::Race race) const;
 
-    Config::MonsterStats configMonsterStats(Config::Monster monster) const;
+    Config::MonsterStats configMonsterStats(GameType::Monster monster) const;
 
-    Config::WeaponData configWeaponData(Config::Weapon weapon) const;
+    Config::WeaponData configWeaponData(GameType::Weapon weapon) const;
 
-    Config::ClothingData configClothingData(Config::Clothing clothes) const;
+    Config::ClothingData configClothingData(GameType::Clothing clothes) const;
 
-    Config::PotionData configPotionData(Config::Potion potion) const;
+    Config::PotionData configPotionData(GameType::Potion potion) const;
 
     Config::GoldModifiers configGoldModifiers() const;
     Config::XPModifiers configXPModifiers() const;

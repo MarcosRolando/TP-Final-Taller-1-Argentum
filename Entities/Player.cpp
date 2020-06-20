@@ -7,7 +7,7 @@
 #include "../AttackResult.h"
 #include "../Game.h"
 
-using namespace Config;
+using namespace GameType;
 
 ////////////////////////////////////PUBLIC///////////////////////////////
 

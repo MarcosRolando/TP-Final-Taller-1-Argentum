@@ -4,6 +4,8 @@
 
 #include "LinkedStaff.h"
 
-LinkedStaff::LinkedStaff(): Weapon(Configuration::getInstance().configWeaponData(Config::LINKED_STAFF)) {
+using namespace GameType;
+
+LinkedStaff::LinkedStaff(): Weapon(Configuration::getInstance().configWeaponData(LINKED_STAFF)) {
 
 }

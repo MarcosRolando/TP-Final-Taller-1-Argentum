@@ -17,11 +17,6 @@ class Monster: public Entity {
 private:
     const unsigned int timeBetweenActions;
     unsigned long timer;
-    int currentLife;
-    int maxLife;
-    int damage;
-    unsigned int rangeOfVision;
-    unsigned int level;
 
     //Guarda parte del camino para no llamar al pathfinding cada vez que se
     //quiera mover

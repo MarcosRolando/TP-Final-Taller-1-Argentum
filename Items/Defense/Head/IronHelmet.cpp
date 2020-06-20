@@ -6,6 +6,8 @@
 
 #include "../../../Config/Configuration.h"
 
-IronHelmet::IronHelmet(): Head(Configuration::getInstance().configClothingData(Config::IRON_HELMET)) {
+using namespace GameType;
+
+IronHelmet::IronHelmet(): Head(Configuration::getInstance().configClothingData(IRON_HELMET)) {
 
 }

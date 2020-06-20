@@ -4,7 +4,7 @@
 
 #include "Warhammer.h"
 
-using namespace Config;
+using namespace GameType;
 
 Warhammer::Warhammer(): Weapon(Configuration::getInstance().configWeaponData(WARHAMMER)) {
 
