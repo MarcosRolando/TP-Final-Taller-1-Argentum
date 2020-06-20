@@ -27,8 +27,8 @@ PlayerStats::PlayerStats(Race _race, Class _class, unsigned int _level, unsigned
     meditationTimer = generalTimer;
     experience = _experience;
     level = _level;
-    maxLife = Calculator::calculateMaxLife(classModifier, raceModifier, level);
-    maxMana = Calculator::calculateMaxMana(classModifier, raceModifier, level);
+    maxLife = Calculator::calculateMaxLife(constitution, classLifeMultiplier, raceLifeMultiplier, level);
+    maxMana = Calculator::calculateMaxMana(intelligence, classManaMultiplier, raceManaMultiplier, level);
     currentLife = maxLife;
     currentMana = maxMana;
     nextLevelExperience = Calculator::calculateNextLevelXP(level);
