@@ -23,6 +23,10 @@ private:
     //siguiente formato: comando,parametro1,parametro2
     //movimiento: M,coordenadaInicialx,coordenadaInicialy,coordenadaFinalx,coordenadaFinaly
     std::queue<std::string> eventQueue;
+
+    unsigned int monsterCreationRate;
+    unsigned int maxNumberOfMonsters;
+
 public:
     AttackResult attackPosition(int damage, unsigned int level,
                             Coordinate coordinate);
@@ -39,6 +43,8 @@ public:
     //si finalPosition no es ocupable entonces no hace nada eventualmente
     //Esta funcion encola la accion de mover un entity de initial a finalPosition
     void requestMove(Coordinate initialPosition, Coordinate finalPosition);
+
+    void clearEventQueue();
 };
 
 
