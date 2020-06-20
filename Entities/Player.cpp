@@ -39,7 +39,9 @@ void Player::_dropItems() {
         int goldDropped = gold - Calculator::calculateMaxSafeGold(stats.getLevel());
         goldDropped = std::max(goldDropped, 0);
         gold -= goldDropped;
-        items.emplace_back(new Gold(goldDropped));
+        if (goldDropped > 0) {
+            items.emplace_back(new Gold(goldDropped));
+        }
         game.dropItems(std::move(items), currentPosition);
     }
 }
@@ -73,7 +75,9 @@ bool Player::spendGold(unsigned int amount) {
 }
 
 void Player::receiveGold(unsigned int amount) {
-    if (!stats.isDead()) {
+    int maxGold = Calculator::calculateMaxSafeGold(stats.getLevel());
+    maxGold += maxGold / 2;
+    if (!stats.isDead() && (gold + amount) <= maxGold) {
         gold += amount;
     }
 }
