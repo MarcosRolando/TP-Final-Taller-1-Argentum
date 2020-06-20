@@ -7,6 +7,8 @@
 
 #include "ConfigFileReader.h"
 
+#include <unordered_map>
+
 class Configuration {
 
 private:
