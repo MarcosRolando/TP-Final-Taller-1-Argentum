@@ -4,6 +4,8 @@ project(Argentum)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
+find_package(jsoncpp)
+include_directories(${jsoncpp_INCLUDE_DIRS})
 
 add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Attack/Weapon.h
         Items/Miscellaneous/Gold.cpp Items/Miscellaneous/Gold.h Map/Tile.cpp Map/Tile.h Map/FloorType.h Entities/Entity.h
