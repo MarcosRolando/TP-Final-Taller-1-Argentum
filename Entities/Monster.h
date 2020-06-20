@@ -36,6 +36,8 @@ private:
     bool _tryToAttack();
 
     void _move();
+
+    Direction _getMoveDirection();
 public:
 
     Monster(Game& _game, const Map& map, int _life, unsigned int _rangeOfVision,

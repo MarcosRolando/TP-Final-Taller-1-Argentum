@@ -72,6 +72,20 @@ bool Monster::_tryToAttack() {
     return false;
 }
 
+Direction Monster::_getMoveDirection() {
+    Coordinate destiny = pathCache.front();
+    Coordinate difference = {destiny.iPosition - currentPosition.iPosition,
+                             destiny.jPosition - currentPosition.jPosition};
+    if (difference.iPosition  == 1) {
+        return DIRECTION_DOWN;
+    } else if (difference.iPosition == -1) {
+        return DIRECTION_UP;
+    } else if (difference.jPosition == -1) {
+        return DIRECTION_LEFT;
+    } else {
+        return DIRECTION_RIGHT;
+    }
+}
 
 //Pide al game que lo mueva a la siguiente posicion en pathCache, si pathCache
 //esta vacio entonces busca el jugador mas cercano en su rango de vision y le
@@ -86,9 +100,7 @@ void Monster::_move() {
     if (pathCache.empty()) {
         _storeNearestPlayerPathCache();
     }
-
-    //IMPLEMENTAR EL PEDIDO A GAME PARA CAMBIAR DE POSICION
-
+    Entity::move(_getMoveDirection());
 }
 
 
@@ -128,7 +140,7 @@ bool Monster::isDead() const {
 void Monster::act() {
     unsigned long currentTime = time(0); //todo esto recibe un puntero time_t donde lo guarda, no 0
     if (currentTime - timer >= timeBetweenActions) {
-        if (!_tryToAttack()) {
+        if (!_tryToAttack() && !isMoving()) {
             _move();
         }
         timer = currentTime;

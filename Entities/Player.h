@@ -24,10 +24,6 @@ public:
     Player(Game& _game, Config::Race _race, Config::Class _class, unsigned int _level,
            unsigned int _experience, Coordinate _initialPosition, const std::string& nickname);
 
-    //Modifica la posicion almacenada por el jugador, para que luego sea actualizada
-    //por el juego
-    void move(Direction direction);
-
 
     bool isMonsterTarget() override;
 

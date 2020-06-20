@@ -19,23 +19,6 @@ Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsig
                 //todo persistencia directamente
 }
 
-void Player::move(Direction direction) {
-    switch (direction) {
-        case DIRECTION_UP:
-            --currentPosition.jPosition;
-            break;
-        case DIRECTION_DOWN:
-            ++currentPosition.jPosition;
-            break;
-        case DIRECTION_LEFT:
-            ++currentPosition.iPosition;
-            break;
-        case DIRECTION_RIGHT:
-            --currentPosition.iPosition;
-            break;
-    }
-}
-
 void Player::attack(Coordinate target) {
     if (!stats.isDead()) {
         int weaponDamage;

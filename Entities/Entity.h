@@ -14,7 +14,7 @@
 #include <chrono>
 
 struct Movement {
-    bool moving{};
+    bool isMoving{};
     unsigned int movedDistance{};
 };
 
@@ -74,11 +74,14 @@ protected:
     Coordinate getPosition();
 
     //Le confirma a entity el request de movimiento
-    void startMoving();
+    void startMoving(Direction moveDirection);
 
     //Actualiza el estado de la entity, por ejemplo si se esta moviendo le
     //actualiza la interpolacion
     void update(double timeStep);
+
+    //Retorna si el entity esta o no en movimiento (lo uso en monster)
+    bool isMoving() const;
 
     virtual ~Entity() = default;
 };

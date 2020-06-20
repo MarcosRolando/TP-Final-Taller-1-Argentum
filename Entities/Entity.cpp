@@ -10,6 +10,7 @@ Entity::Entity(Coordinate initialPosition) {
     currentPosition.iPosition = initialPosition.iPosition;
     currentPosition.jPosition = initialPosition.jPosition;
     movement.movedDistance = 0;
+    movement.isMoving = false;
     speed = 1;
 }
 
@@ -50,7 +51,7 @@ void Entity::sell(Player &player, const std::string& itemName) {
 }
 
 void Entity::move(Direction moveDirection) const {
-    if (movement.moving) {
+    if (movement.isMoving) {
         switch (moveDirection) {
             case DIRECTION_UP:
                 //todo invocar a metodo para moverme
@@ -68,17 +69,35 @@ void Entity::move(Direction moveDirection) const {
     }
 }
 
-void Entity::startMoving() {
-    movement.moving = true;
+void Entity::startMoving(Direction moveDirection) {
+    switch (moveDirection) {
+        case DIRECTION_UP:
+            --currentPosition.iPosition;
+            break;
+        case DIRECTION_DOWN:
+            ++currentPosition.iPosition;
+            break;
+        case DIRECTION_RIGHT:
+            ++currentPosition.jPosition;
+            break;
+        case DIRECTION_LEFT:
+            --currentPosition.jPosition;
+            break;
+    }
+    movement.isMoving = true;
     movement.movedDistance = 0;
 }
 
 void Entity::update(double timeStep) {
-    if (movement.moving) {
+    if (movement.isMoving) {
         movement.movedDistance += static_cast<unsigned int>(timeStep) * speed;
         if (movement.movedDistance >= DISTANCE_TO_MOVE) {
             movement.movedDistance = DISTANCE_TO_MOVE;
-            movement.moving = false;
+            movement.isMoving = false;
         }
     }
+}
+
+bool Entity::isMoving() const {
+    return movement.isMoving;
 }
