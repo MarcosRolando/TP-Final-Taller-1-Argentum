@@ -16,7 +16,6 @@ void Tile::renderGround(SDL_Rect& camera) {
     //If the tile is on screen
     tileTexture.render(box.x - camera.x, box.y - camera.y, type);
     item.render(camera);
-    structure.render(camera);
 }
 
 void Tile::addItemDrop(Texture& itemTexture) {

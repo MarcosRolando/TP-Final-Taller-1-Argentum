@@ -25,8 +25,6 @@ public:
 
     void eraseText();
 
-    std::string& getText();
-
     int getTextLength();
 
     void render(int x, int y, SDL_Color color = {0, 0, 0});

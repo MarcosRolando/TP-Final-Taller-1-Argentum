@@ -75,6 +75,8 @@ int main(int argc, char* args[]) {
         //Buscar una buena font para el minichat
         Minichat minichat(minichatFont, window.getRenderer());
 
+        Text clickPos(UIFont, window.getRenderer());
+
         //Main loop flag
         bool quit = false;
 
@@ -96,10 +98,11 @@ int main(int argc, char* args[]) {
 
         //Event handler
         SDL_Event e;
-
+        int xClick = 0, yClick = 0;
         //While application is running
         while( !quit )
         {
+
             SDL_StartTextInput();
 
             //Handle events on queue
@@ -110,6 +113,13 @@ int main(int argc, char* args[]) {
                 {
                     quit = true;
                 }
+
+
+                if( e.type == SDL_MOUSEBUTTONDOWN )
+                {
+                    SDL_GetMouseState(&xClick, &yClick );
+                }
+
                 minichat.handleEvent(e);
 
                 window.handleEvent(e);
@@ -134,7 +144,7 @@ int main(int argc, char* args[]) {
                             player.move(LEFT);
                             break;
                         case SDLK_RIGHT:
-                            a = "rigth";
+                            a = "right";
                             minichat.queueText(a);
                             player.move(RIGHT);
                             break;
@@ -183,6 +193,26 @@ int main(int argc, char* args[]) {
                     inventoryGui.render();
                     playerInfo.updateLevel(15);
                     playerInfo.updateSkills(20, 20, 20, 20);
+                    float x = player.getXPosition();
+                    float y = player.getYPosition();
+                    playerInfo.updatePosition(x,y);
+
+
+
+                    //int relativeTileX = xClickTile - (x/TILE_WIDTH);
+                    //int relativeTileY = yClickTile - (y/TILE_HEIGHT);
+
+                    if (xClick>20 && xClick<1044 && yClick>236 && yClick < 876){
+                        float xClickTile = (xClick-20)/TILE_WIDTH;
+                        float yClickTile = (yClick-236)/TILE_HEIGHT;
+                        clickPos.updateText("ClickXTile: " + std::to_string(
+                                (int)xClickTile) + "   " + "ClickYTile: " +
+                                std::to_string((int)yClickTile));
+
+                    }
+                    clickPos.render(150,100, {0xFF,0xFF,0xFF});
+
+
 
                     //PlayerInfo
                     window.setViewport(PlayerInfoViewport);

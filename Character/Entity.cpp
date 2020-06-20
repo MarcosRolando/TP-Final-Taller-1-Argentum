@@ -159,3 +159,12 @@ void Entity::updateCamera() {
 void Entity::move(Direction direction) {
     if (moveDirection == STILL) moveDirection = direction;
 }
+
+float Entity::getXPosition(){ //Estas capaz despues las tenemos q sacar, ahora
+    // las uso para probar
+    return xPosition;
+}
+
+float Entity::getYPosition(){
+    return yPosition;
+}

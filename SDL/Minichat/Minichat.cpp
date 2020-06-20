@@ -4,12 +4,16 @@
 
 #include "Minichat.h"
 
+#define MAX_TEXT_LEN 93
+
 Minichat::Minichat(Font& font, SDL_Renderer& renderer) : minichatFont(font),
 input(font,renderer), renderer(renderer) {
     focusOnMinichat = false;
     mPosition.x = 15; //Pos de inicio del viewport del minichat
     mPosition.y = 15;
-    input.updateText("Accion:/ ");
+    input.updateText("Accion:/ ");//Pongo el Accion:/ aca xq me parece al
+    // pedo crear un text solo para eso, pero capaz tengo q hacerlo por el
+    // tema del protocolo
     //LLeno el vector con mensajes vacios
     for (int i = 0; i < 7; ++i) {
         texts.emplace_back(font,renderer);
@@ -35,7 +39,8 @@ void Minichat::handleEvent(SDL_Event &e) {
     } else if( e.type == SDL_TEXTINPUT ) {
         if (focusOnMinichat){
             std::string newInput = e.text.text;
-            input.appendText(newInput);
+            if (input.getTextLength() < MAX_TEXT_LEN)
+                input.appendText(newInput);
         }
     } else if( e.type == SDL_KEYDOWN ) {
         if (e.key.keysym.sym == SDLK_BACKSPACE && input.getTextLength() > 8
@@ -46,7 +51,7 @@ void Minichat::handleEvent(SDL_Event &e) {
             input.eraseText();
         } else if (e.key.keysym.sym == SDLK_RETURN && focusOnMinichat ){
             input.updateText("Accion:/ ");
-           //Procesar el comando que escribio el user
+            //Procesar el comando que escribio el user
         }
     }
 }

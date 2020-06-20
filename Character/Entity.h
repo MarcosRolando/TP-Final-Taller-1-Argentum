@@ -26,6 +26,8 @@ public:
     virtual void render(float timeStep) = 0;
     void updatePosition(float stepTime);
     void updateCamera();
+    float getXPosition();
+    float getYPosition();
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);

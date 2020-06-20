@@ -34,8 +34,5 @@ int Text::getTextLength() {
     return text.length();
 }
 
-std::string& Text::getText() {
-    return text;
-}
 
 

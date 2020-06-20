@@ -11,6 +11,7 @@ class PlayerInfoGUI {
 private:
     Text info;
     SDL_Renderer& renderer;
+    int xPosition, yPosition;
 
 public:
     PlayerInfoGUI(Font& font, SDL_Renderer& renderer);
@@ -23,12 +24,16 @@ public:
 
     void updateLevel(unsigned int newLevel);
 
+    void updatePosition(float x, float y);
+
     void updateSkills(unsigned int strength, unsigned int agility,
                       unsigned int intelligence, unsigned int constitution);
+
 
 private:
     void _renderInfo(unsigned int infoCurr, unsigned int infoTotal, int xOffset,
                      unsigned int barLen, SDL_Color color);
+
 
 };
 

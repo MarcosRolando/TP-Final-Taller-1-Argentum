@@ -6,7 +6,10 @@
 #include "../../GameConstants.h"
 
 PlayerInfoGUI::PlayerInfoGUI(Font &font, SDL_Renderer &renderer) : info(font,
-                                        renderer), renderer(renderer) {}
+                                        renderer), renderer(renderer) {
+    xPosition = 0;
+    yPosition = 0;
+}
 
 
 void PlayerInfoGUI::updateHealth(unsigned int currHealth, unsigned int
@@ -65,4 +68,16 @@ void PlayerInfoGUI::updateSkills(unsigned int strength, unsigned int agility,
     info.updateText("AGILITY : " + std::to_string(agility));
     info.render(40, 780, SDL_Color{0xFF,0xFF,0xFF});
 }
+
+void PlayerInfoGUI::updatePosition(float x, float y) {
+    int xTile, yTile;
+
+    xTile = (x)/TILE_WIDTH ;
+    yTile = (y)/TILE_HEIGHT;
+    info.updateText("MyX: " + std::to_string((int)xTile) + "   " + "MyY: " +
+                        std::to_string((int)yTile));
+    info.render(150,875,{0xFF,0xFF,0xFF});//x e y son relativos al viewport
+    // del Inventario
+}
+
 

@@ -14,7 +14,7 @@ private:
     Text input;
     std::list<Text> texts;
     SDL_Renderer& renderer;
-    SDL_Point mPosition{};
+    SDL_Point mPosition;
     bool focusOnMinichat;
 public:
     Minichat(Font& font, SDL_Renderer& renderer);
