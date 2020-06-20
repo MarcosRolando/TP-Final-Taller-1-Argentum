@@ -30,7 +30,7 @@ add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Atta
         Items/Defense/Shield/NoShield.h TPException.cpp Entities/MoveDirection.h Items/Miscellaneous/ManaPotion.cpp Items/Miscellaneous/ManaPotion.h Items/Miscellaneous/HealthPotion.cpp Items/Miscellaneous/HealthPotion.h Items/Miscellaneous/Potion.cpp Items/Miscellaneous/Potion.h)
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
-                                                            -O0 -ggdb -DDEBUG -fno-inline)
+                        -O0 -ggdb -DDEBUG -fno-inline -ljsoncpp)
 
 target_link_options(argentum PRIVATE -lm -pthread)
 
