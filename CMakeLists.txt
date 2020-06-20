@@ -34,6 +34,6 @@ add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Atta
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
                         -O0 -ggdb -DDEBUG -fno-inline -ljsoncpp)
 
-target_link_options(argentum PRIVATE -lm -pthread jsoncpp ${Boost_LIBRARIES})
+target_link_options(argentum PRIVATE -lm -pthread)
 
-target_link_libraries(argentum ${SDL2_LIBRARIES} SDL2_image SDL2_ttf SDL2_mixer)
+target_link_libraries(argentum ${SDL2_LIBRARIES} SDL2_image SDL2_ttf SDL2_mixer jsoncpp ${Boost_LIBRARIES})
