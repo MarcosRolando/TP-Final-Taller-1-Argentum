@@ -69,13 +69,10 @@ void PlayerInfoGUI::updateSkills(unsigned int strength, unsigned int agility,
     info.render(40, 780, SDL_Color{0xFF,0xFF,0xFF});
 }
 
-void PlayerInfoGUI::updatePosition(float x, float y) {
-    int xTile, yTile;
+void PlayerInfoGUI::updatePosition(int x, int y) {
 
-    xTile = (x)/TILE_WIDTH ;
-    yTile = (y)/TILE_HEIGHT;
-    info.updateText("MyX: " + std::to_string((int)xTile) + "   " + "MyY: " +
-                        std::to_string((int)yTile));
+    info.updateText("MyX: " + std::to_string(x) + "   " + "MyY: " +
+                        std::to_string(y));
     info.render(150,875,{0xFF,0xFF,0xFF});//x e y son relativos al viewport
     // del Inventario
 }

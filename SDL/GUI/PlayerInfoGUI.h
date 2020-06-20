@@ -24,7 +24,7 @@ public:
 
     void updateLevel(unsigned int newLevel);
 
-    void updatePosition(float x, float y);
+    void updatePosition(int x, int y);
 
     void updateSkills(unsigned int strength, unsigned int agility,
                       unsigned int intelligence, unsigned int constitution);

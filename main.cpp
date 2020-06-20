@@ -193,21 +193,19 @@ int main(int argc, char* args[]) {
                     inventoryGui.render();
                     playerInfo.updateLevel(15);
                     playerInfo.updateSkills(20, 20, 20, 20);
-                    float x = player.getXPosition();
-                    float y = player.getYPosition();
-                    playerInfo.updatePosition(x,y);
 
-
-
-                    //int relativeTileX = xClickTile - (x/TILE_WIDTH);
-                    //int relativeTileY = yClickTile - (y/TILE_HEIGHT);
+                    int playerXTile = player.getXPosition()/TILE_WIDTH;
+                    int playerYTile = player.getYPosition()/TILE_HEIGHT;
+                    playerInfo.updatePosition(playerXTile,playerYTile);
 
                     if (xClick>20 && xClick<1044 && yClick>236 && yClick < 876){
-                        float xClickTile = (xClick-20)/TILE_WIDTH;
-                        float yClickTile = (yClick-236)/TILE_HEIGHT;
+                        //float xClickTile = (xClick-20)/TILE_WIDTH;
+                        //float yClickTile = (yClick-236)/TILE_HEIGHT;
+                        int relativeX = ((xClick-20) - ((int)player.getXPosition()-40)%1024)/TILE_WIDTH;
+                        int relativeY = ((yClick-236) - ((int)player.getYPosition()-30)%640)/TILE_HEIGHT;
                         clickPos.updateText("ClickXTile: " + std::to_string(
-                                (int)xClickTile) + "   " + "ClickYTile: " +
-                                std::to_string((int)yClickTile));
+                                (int)relativeX) + "   " + "ClickYTile: " +
+                                std::to_string((int)relativeY));
 
                     }
                     clickPos.render(150,100, {0xFF,0xFF,0xFF});
