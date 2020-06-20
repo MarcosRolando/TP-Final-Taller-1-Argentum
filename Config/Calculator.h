@@ -5,10 +5,6 @@
 #ifndef ARGENTUM_CALCULATOR_H
 #define ARGENTUM_CALCULATOR_H
 
-#include "Configuration.h"
-#include <random>
-#include <algorithm>
-
 
 class Calculator {
 public:

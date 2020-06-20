@@ -3,6 +3,7 @@
 //
 
 #include "Entity.h"
+#include "../AttackResult.h"
 
 const unsigned int DISTANCE_TO_MOVE = 500;
 

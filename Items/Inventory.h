@@ -9,12 +9,14 @@
 #include <vector>
 #include <memory>
 #include <unordered_map>
-#include "Item.h"
-#include "Defense/Clothing.h"
-#include "Attack/Weapon.h"
 #include <list>
+#include "Item.h"
 
+class Weapon;
 class Player;
+class Clothing;
+class Item;
+struct Coordinate;
 
 //Esta clase representa los items que almacena y tiene equipados el jugador
 class Inventory {

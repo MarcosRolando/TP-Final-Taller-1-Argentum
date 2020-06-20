@@ -3,6 +3,7 @@
 //
 
 #include "HealthPotion.h"
+#include "../../Entities/Player.h"
 
 using namespace Config;
 

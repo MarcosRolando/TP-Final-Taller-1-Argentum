@@ -4,6 +4,7 @@
 
 #include "Weapon.h"
 #include "../../Config/Calculator.h"
+#include "../../Map/Coordinate.h"
 #include <ctime>
 #include <cstdlib>
 

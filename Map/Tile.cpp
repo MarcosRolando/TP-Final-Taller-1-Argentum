@@ -3,9 +3,9 @@
 //
 
 #include "Tile.h"
-
 #include <memory>
 #include "FloorType.h"
+#include "../AttackResult.h"
 
 ////////////////////////////////////////PRIVATE////////////////////////////////////////
 

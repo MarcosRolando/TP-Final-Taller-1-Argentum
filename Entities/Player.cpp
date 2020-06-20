@@ -4,6 +4,8 @@
 
 #include "Player.h"
 #include "../Config/Calculator.h"
+#include "../AttackResult.h"
+#include "../Game.h"
 
 using namespace Config;
 

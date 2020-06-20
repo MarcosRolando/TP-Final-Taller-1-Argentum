@@ -7,12 +7,13 @@
 
 
 #include "Storage.h"
-#include "../Player.h"
+
+class Player;
 
 class Shop {
 private:
-    float buyingMultiplier;
-    float sellingMultiplier;
+    float buyingMultiplier{};
+    float sellingMultiplier{};
     Storage storage;
 public:
 

@@ -3,9 +3,9 @@
 //
 
 #include "Trader.h"
+#include "../../Config/Configuration.h"
 
 #define INITIAL_ITEMS_AMOUNT 10
-
 #define BUYING_PRICE_MULTIPLIER 1.1
 #define SELLING_PRICE_MULTIPLIER 0.9
 

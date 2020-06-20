@@ -10,7 +10,9 @@
 #include <list>
 #include <utility>
 #include <memory>
-#include "../../Items/Item.h"
+
+class Item;
+class Player;
 
 //Clase utilizada para guardar instancias de items, se guardan las instancias
 //y no cantidades de cada item ya que de esa forma no se debe estar creando y

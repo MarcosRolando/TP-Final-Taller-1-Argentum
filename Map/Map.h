@@ -9,10 +9,13 @@
 #include <list>
 #include <unordered_map>
 #include <queue>
-#include "Tile.h"
-#include "Coordinate.h"
-#include "PointAndDistance.h"
+#include <memory>
 #include "InverseCoordinateDistance.h"
+
+class Tile;
+struct AttackResult;
+class Item;
+class Entity;
 
 class Map {
 private:

@@ -5,6 +5,8 @@
 #include "Monster.h"
 #include "../Config/Calculator.h"
 #include "../Items/ItemsFactory.h"
+#include "../Game.h"
+#include "../AttackResult.h"
 
 #define MAX_NUMBER_OF_CACHED_NODES 4
 
@@ -157,5 +159,4 @@ void Monster::act() {
 std::shared_ptr<Item> Monster::dropLoot() {
     return std::shared_ptr<Item>();
 }
-
 

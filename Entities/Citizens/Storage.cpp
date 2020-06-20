@@ -5,6 +5,7 @@
 #include "Storage.h"
 #include "../../Items/ItemsFactory.h"
 #include <utility>
+#include "../../Items/Item.h"
 
 class Player {
 public:

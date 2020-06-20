@@ -7,11 +7,12 @@
 
 
 #include "../Map/Coordinate.h"
-#include "Citizens/Storage.h"
-#include "../AttackResult.h"
 #include <list>
 #include "MoveDirection.h"
 #include <chrono>
+
+struct ProductData;
+struct AttackResult;
 
 struct Movement {
     bool isMoving{};

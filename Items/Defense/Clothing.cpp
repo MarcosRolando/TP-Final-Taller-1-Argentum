@@ -4,7 +4,6 @@
 
 #include "Clothing.h"
 #include "../../Config/Calculator.h"
-#include <string>
 
 /*
 Clothing::Clothing(unsigned int _minDefense, unsigned int _maxDefense, std::string name):

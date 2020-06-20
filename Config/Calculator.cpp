@@ -3,6 +3,8 @@
 //
 
 #include "Calculator.h"
+#include "Configuration.h"
+#include <random>
 
 const float CRITICAL_PROBABILITY = 0.05;
 

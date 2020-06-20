@@ -7,8 +7,11 @@
 
 
 #include "Entity.h"
-#include "../Game.h"
+#include <memory>
 
+class Game;
+class Map;
+class Item;
 
 class Monster: public Entity {
 private:

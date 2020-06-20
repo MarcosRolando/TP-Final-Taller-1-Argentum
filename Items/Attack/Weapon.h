@@ -7,8 +7,9 @@
 
 
 #include "../Item.h"
-#include "../../Map/Coordinate.h"
 #include "../../Config/Configuration.h"
+
+struct Coordinate;
 
 class Weapon : public Item {
 private:

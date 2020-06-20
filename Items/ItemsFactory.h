@@ -8,7 +8,8 @@
 #include <unordered_map>
 #include <memory>
 #include <vector>
-#include "Item.h"
+
+class Item;
 
 typedef void (*objectCreator) (std::shared_ptr<Item>&);
 

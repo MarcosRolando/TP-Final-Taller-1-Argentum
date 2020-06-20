@@ -5,7 +5,8 @@
 #include <queue>
 #include <unordered_map>
 #include "Map.h"
-#include "InverseCoordinateDistance.h"
+#include "../AttackResult.h"
+#include "Tile.h"
 
 //////////////////////////////PRIVATE/////////////////////////////
 

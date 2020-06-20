@@ -5,7 +5,6 @@
 #include "PlayerStats.h"
 #include <ctime>
 #include "../Config/Calculator.h"
-#include "../Config/Configuration.h"
 #include <algorithm>
 
 using namespace Config;

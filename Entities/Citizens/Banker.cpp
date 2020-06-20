@@ -3,6 +3,9 @@
 //
 
 #include "Banker.h"
+#include <memory>
+#include "../../Items/Item.h"
+#include "Storage.h"
 
 class Player {
 public:
@@ -14,7 +17,6 @@ public:
 Banker::Banker(Coordinate initialPosition): Entity(initialPosition) {
 
 }
-
 
 unsigned int Banker::list(const Player &player, std::list<ProductData> &products) {
     return playersStorages.at(player.getNickname()).getStorageData(products, 0);

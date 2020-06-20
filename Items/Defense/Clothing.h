@@ -5,8 +5,6 @@
 #ifndef ARGENTUM_CLOTHING_H
 #define ARGENTUM_CLOTHING_H
 
-
-#include "../Item.h"
 #include "../Item.h"
 #include "../../Config/Configuration.h"
 

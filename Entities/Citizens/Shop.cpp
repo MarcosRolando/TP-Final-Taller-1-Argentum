@@ -3,6 +3,7 @@
 //
 
 #include "Shop.h"
+#include "../Player.h"
 
 #define INITIAL_GOLD 10000 //todo PASAR ESTE VALOR A CONFIG
 

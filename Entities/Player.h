@@ -9,8 +9,8 @@
 #include "../Items/Inventory.h"
 #include "Entity.h"
 #include "PlayerStats.h"
-#include "../Game.h"
-#include "MoveDirection.h"
+
+class Game;
 
 class Player: public Entity {
 private:

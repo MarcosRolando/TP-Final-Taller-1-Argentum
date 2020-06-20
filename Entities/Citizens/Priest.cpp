@@ -3,6 +3,7 @@
 //
 
 #include "Priest.h"
+#include "../../Config/Configuration.h"
 
 using namespace Config;
 

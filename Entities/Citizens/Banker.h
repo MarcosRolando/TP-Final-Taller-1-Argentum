@@ -8,15 +8,17 @@
 #include <unordered_map>
 #include "../Entity.h"
 
+class Storage;
+
 //Clase que se encarga de guardar todos los items que le otorgue el jugador
 //El jugador puede darle oro o items nuevos para que guarde o sacar oro o items
-class Banker: Entity {
+class Banker : Entity {
 private:
     //Storage storage;
     static std::unordered_map<std::string, Storage> playersStorages;
 
 public:
-    Banker(Coordinate initialPosition);
+    explicit Banker(Coordinate initialPosition);
 
     //Almacena una lista con los datos de los items y oro almacenados
     //NO TIENE QUE ALMACENAR PRODUCTDATA, CAMBIAR
