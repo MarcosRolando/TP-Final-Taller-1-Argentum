@@ -13,11 +13,11 @@
 class Calculator {
 public:
 
-    static int calculateMaxLife(Config::Modifiers classMods, Config::Modifiers
-    raceMods, unsigned int level);
+    static int calculateMaxLife(unsigned int constitution, unsigned int classLifeMultiplier,
+                                unsigned int raceLifeMultiplier, unsigned int level);
 
-    static unsigned int calculateMaxMana(Config::Modifiers classMods, Config::Modifiers
-    raceMods, unsigned int level);
+    static unsigned int calculateMaxMana(unsigned int intelligence, unsigned int classManaMultiplier,
+                                        unsigned int raceManaMultiplier, unsigned int level);
 
     static unsigned int calculateGoldDrop(unsigned int maxLife);
 

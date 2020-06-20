@@ -15,20 +15,14 @@ bool Calculator::isCritical() {
     return dist(generator);
 }
 
-int Calculator::calculateMaxLife(Modifiers classMods, Modifiers
-                                            raceMods, unsigned int level) {
-    unsigned int totalConstitution = classMods.constitution + raceMods
-            .constitution;
-
-    return static_cast<int>(totalConstitution * classMods.lifeMultiplier * raceMods.lifeMultiplier * level);
+int Calculator::calculateMaxLife(unsigned int constitution, unsigned int classLifeMultiplier,
+                                unsigned int raceLifeMultiplier, unsigned int level) {
+    return static_cast<int>(constitution * classLifeMultiplier * raceLifeMultiplier * level);
 }
 
-unsigned int Calculator::calculateMaxMana(Modifiers classMods, Modifiers
-                                            raceMods, unsigned int level) {
-    unsigned int totalIntelligence = classMods.intelligence + raceMods
-            .intelligence;
-
-    return totalIntelligence * classMods.manaMultiplier * raceMods.manaMultiplier * level;
+unsigned int Calculator::calculateMaxMana(unsigned int intelligence, unsigned int classManaMultiplier,
+                                            unsigned int raceManaMultiplier, unsigned int level) {
+    return intelligence * classManaMultiplier * raceManaMultiplier * level;
 }
 
 unsigned int Calculator::calculateGoldDrop(unsigned int maxLife) {

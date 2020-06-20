@@ -47,6 +47,10 @@ void PlayerStats::_increaseStats() {
     ++agility;
     ++intelligence;
     ++constitution;
+    maxLife = Calculator::calculateMaxLife(constitution, classLifeMultiplier, raceLifeMultiplier,
+                                            level);
+    maxMana = Calculator::calculateMaxMana(intelligence, classManaMultiplier, raceManaMultiplier,
+                                            level);
 }
 
 void PlayerStats::increaseExperience(unsigned int _experience) {
