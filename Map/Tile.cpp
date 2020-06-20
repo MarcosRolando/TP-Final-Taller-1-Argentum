@@ -63,7 +63,9 @@ void Tile::removeEntity() {
 //void Tile::addItem(Item *received_item) {
 void Tile::addItem(std::shared_ptr<Item>&& received_item) {
     //items.emplace_back(received_item);
-    items.push_back(std::move(received_item));
+    if (received_item) {
+        items.push_back(std::move(received_item));
+    }
 }
 
 std::shared_ptr<Item> Tile::removeItem() {
@@ -126,6 +128,8 @@ void Tile::sell(Player &player, const std::string &itemName) {
 
 void Tile::addItem(std::list<std::shared_ptr<Item>>&& _items) {
     for (auto & item : _items) {
-        items.push_back(std::move(item));
+        if (item) {
+            items.push_back(std::move(item));
+        }
     }
 }
