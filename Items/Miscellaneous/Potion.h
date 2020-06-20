@@ -8,6 +8,7 @@
 
 #include "../Item.h"
 #include "../../Config/Configuration.h"
+#include "../../Entities/Player.h"
 
 class Potion: public Item {
 protected:

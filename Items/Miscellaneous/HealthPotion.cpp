@@ -6,6 +6,13 @@
 
 using namespace Config;
 
+/*
+class Player {
+public:
+    void restoreLife(unsigned int amount);
+};
+*/
+
 HealthPotion::HealthPotion(): Potion(Configuration::getInstance().configPotionData(HEALTH_POTION)) {
 
 }
