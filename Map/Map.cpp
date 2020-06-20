@@ -141,12 +141,6 @@ bool Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::l
     return false;
 }
 
-void Map::addItem(Coordinate position, std::shared_ptr<Item> &&item) {
-    if (!_isCoordinateValid(position)) {
-        throw (std::invalid_argument("Out of bounds coordinate"));
-    }
-    tiles[position.iPosition][position.jPosition].addItem(std::move(item));
-}
 
 bool Map::addEntity(Coordinate position, std::unique_ptr<Entity> &&entity) {
     if (!_isCoordinateValid(position)) {
@@ -188,9 +182,15 @@ bool Map::isPlaceAvailable(Coordinate position) const {
 }
 
 void Map::addItemsToTile(std::list<std::shared_ptr<Item>>&& items, Coordinate position) {
+    if (!_isCoordinateValid(position)) {
+        throw (std::invalid_argument("Out of bounds coordinate"));
+    }
     tiles[position.iPosition][position.jPosition].addItem(std::move(items));
 }
 
 void Map::addItemsToTile(std::shared_ptr<Item> &&item, Coordinate position) {
+    if (!_isCoordinateValid(position)) {
+        throw (std::invalid_argument("Out of bounds coordinate"));
+    }
     tiles[position.iPosition][position.jPosition].addItem(std::move(item));
 }
