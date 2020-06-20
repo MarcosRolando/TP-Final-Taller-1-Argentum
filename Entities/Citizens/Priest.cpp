@@ -25,7 +25,7 @@ Priest::Priest(Coordinate initialPosition): Entity(initialPosition) {
 }
 
 unsigned int Priest::list(const Player &player, std::list<ProductData> &products) {
-    return shop.list(products);
+    return shop.list(player, products);
 }
 
 
