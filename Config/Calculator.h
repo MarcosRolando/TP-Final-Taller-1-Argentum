@@ -37,6 +37,8 @@ public:
 
     static int getRandomInt(int minRange, int maxRange);
 
+    static bool isCritical();
+
 private:
     static float _getRandomFloat(float minRange, float maxRange);
 };

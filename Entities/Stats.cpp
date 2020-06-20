@@ -68,8 +68,12 @@ int Stats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defen
         return damage;
     } else {
         Configuration& config = Configuration::getInstance();
-        if (std::abs(static_cast<int>(attackerLevel - level)) < config.configMaxLevelDif()
-            && !Calculator::canDodge(agility)) {
+        if (std::abs(static_cast<int>(attackerLevel - level)) < config.configMaxLevelDif()) {
+            if (Calculator::isCritical()) {
+                damage = damage * 2;
+            } else if (Calculator::canDodge(agility)) {
+                return 0;
+            }
             int totalDamage = std::max(damage - static_cast<int>(defense), 0);
             currentLife -= totalDamage;
             if (currentLife < 0) currentLife = 0;
@@ -87,20 +91,20 @@ int Stats::getCurrentLife() const {
     return currentLife;
 }
 
-void Stats::restoreLife(unsigned int ammount) {
-    currentLife += ammount;
+void Stats::restoreLife(unsigned int amount) {
+    currentLife += amount;
     if (currentLife > maxLife) {
         currentLife = maxLife;
     }
 }
 
-void Stats::restoreMana(unsigned int ammount) {
-    currentMana += ammount;
+void Stats::restoreMana(unsigned int amount) {
+    currentMana += amount;
     if (currentMana > maxMana) {
         currentMana = maxMana;
     }
 }
 
-bool Stats::isDead() {
+bool Stats::isDead() const {
     return getCurrentLife() == 0;
 }

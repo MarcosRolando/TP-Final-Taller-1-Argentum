@@ -96,14 +96,14 @@ const std::string &Player::getNickname() const {
     return nickname;
 }
 
-void Player::restoreLife(unsigned int ammount) {
+void Player::restoreLife(unsigned int amount) {
     if (!stats.isDead()) {
-        stats.restoreLife(ammount);
+        stats.restoreLife(amount);
     }
 }
 
-void Player::restoreMana(unsigned int ammount) {
+void Player::restoreMana(unsigned int amount) {
     if (!stats.isDead()) {
-        stats.restoreMana(ammount);
+        stats.restoreMana(amount);
     }
 }

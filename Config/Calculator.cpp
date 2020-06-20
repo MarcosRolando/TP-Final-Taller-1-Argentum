@@ -4,7 +4,16 @@
 
 #include "Calculator.h"
 
+const float CRITICAL_PROBABILITY = 0.05;
+
 using namespace Config;
+
+bool Calculator::isCritical() {
+    std::random_device seed;
+    std::default_random_engine generator(seed());
+    std::bernoulli_distribution dist(CRITICAL_PROBABILITY);
+    return dist(generator);
+}
 
 int Calculator::calculateMaxLife(Modifiers classMods, Modifiers
                                             raceMods, unsigned int level) {

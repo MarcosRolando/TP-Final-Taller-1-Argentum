@@ -19,7 +19,7 @@ public:
     Shop();
 
     Shop(const std::unordered_map<std::string, unsigned int>&
-         initialItemsAmmounts, float buyingMultiplier, float sellingMultiplier);
+         initialItemsAmounts, float buyingMultiplier, float sellingMultiplier);
 
     Shop(Shop&& other) noexcept;
 

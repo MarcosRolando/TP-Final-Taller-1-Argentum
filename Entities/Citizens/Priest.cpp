@@ -6,21 +6,21 @@
 
 using namespace Config;
 
-#define INITIAL_ITEMS_AMMOUNT 10
+#define INITIAL_ITEMS_AMOUNT 10
 #define BUYING_PRICE_MULTIPLIER 1.25
 #define SELLING_PRICE_MULTIPLIER 0.75
 
 Priest::Priest(Coordinate initialPosition): Entity(initialPosition) {
     Configuration& config = Configuration::getInstance();
-    std::unordered_map<std::string, unsigned int> initialItemsAmmounts;
-    initialItemsAmmounts[config.configWeaponData(LINKED_STAFF).name] = INITIAL_ITEMS_AMMOUNT;
-    initialItemsAmmounts[config.configWeaponData(GNARLED_STAFF).name] = INITIAL_ITEMS_AMMOUNT;
-    initialItemsAmmounts[config.configWeaponData(ELVEN_FLUTE).name] = INITIAL_ITEMS_AMMOUNT;
-    initialItemsAmmounts[config.configWeaponData(ASH_ROD).name] = INITIAL_ITEMS_AMMOUNT;
+    std::unordered_map<std::string, unsigned int> initialItemsAmounts;
+    initialItemsAmounts[config.configWeaponData(LINKED_STAFF).name] = INITIAL_ITEMS_AMOUNT;
+    initialItemsAmounts[config.configWeaponData(GNARLED_STAFF).name] = INITIAL_ITEMS_AMOUNT;
+    initialItemsAmounts[config.configWeaponData(ELVEN_FLUTE).name] = INITIAL_ITEMS_AMOUNT;
+    initialItemsAmounts[config.configWeaponData(ASH_ROD).name] = INITIAL_ITEMS_AMOUNT;
 
     //AGREGAR QUE SE CREAN LAS POCIONES
 
-    Shop aux(initialItemsAmmounts, BUYING_PRICE_MULTIPLIER, SELLING_PRICE_MULTIPLIER);
+    Shop aux(initialItemsAmounts, BUYING_PRICE_MULTIPLIER, SELLING_PRICE_MULTIPLIER);
     shop = std::move(aux);
 }
 

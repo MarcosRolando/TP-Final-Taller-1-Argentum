@@ -11,8 +11,8 @@ Shop::Shop() {
     buyingMultiplier = 1;
 }
 
-Shop::Shop(const std::unordered_map<std::string, unsigned int> &initialItemsAmmounts,
-           float buyingMultiplier, float sellingMultiplier): storage(initialItemsAmmounts, INITIAL_GOLD) {
+Shop::Shop(const std::unordered_map<std::string, unsigned int> &initialItemsAmounts,
+           float buyingMultiplier, float sellingMultiplier): storage(initialItemsAmounts, INITIAL_GOLD) {
 }
 
 Shop &Shop::operator=(Shop &&other) noexcept {

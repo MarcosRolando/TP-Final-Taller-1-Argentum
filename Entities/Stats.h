@@ -47,13 +47,13 @@ public:
 
     int getCurrentLife() const;
 
-    //Restaura hasta ammount cantidad de vida, sin pasarse de la cantidad maxima
-    void restoreLife(unsigned int ammount);
+    //Restaura hasta amount cantidad de vida, sin pasarse de la cantidad maxima
+    void restoreLife(unsigned int amount);
 
-    //Restaura hasta ammount cantidad de mana, sin pasarse de la cantidad maxima
-    void restoreMana(unsigned int ammount);
+    //Restaura hasta amount cantidad de mana, sin pasarse de la cantidad maxima
+    void restoreMana(unsigned int amount);
 
-    bool isDead();
+    bool isDead() const;
 
 private:
     void _increaseStats();
