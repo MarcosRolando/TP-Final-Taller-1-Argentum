@@ -2,7 +2,7 @@
 // Created by agustin on 14/6/20.
 //
 
-#include "Stats.h"
+#include "PlayerStats.h"
 #include <ctime>
 #include "../Config/Calculator.h"
 #include "../Config/Configuration.h"
@@ -10,7 +10,7 @@
 
 using namespace Config;
 
-Stats::Stats(Race _race, Class _class, unsigned int _level, unsigned int _experience) {
+PlayerStats::PlayerStats(Race _race, Class _class, unsigned int _level, unsigned int _experience) {
     Configuration& config = Configuration::getInstance();
     Modifiers classModifier = config.configClassModifiers(_class);
     Modifiers raceModifier = config.configRaceModifiers(_race);
@@ -34,22 +34,22 @@ Stats::Stats(Race _race, Class _class, unsigned int _level, unsigned int _experi
     nextLevelExperience = Calculator::calculateNextLevelXP(level);
 }
 
-int Stats::getTotalDamage(int weaponDamage) const {
+int PlayerStats::getTotalDamage(int weaponDamage) const {
     return Calculator::calculateDamage(strength, weaponDamage);
 }
 
-unsigned int Stats::getLevel() const {
+unsigned int PlayerStats::getLevel() const {
     return level;
 }
 
-void Stats::_increaseStats() {
+void PlayerStats::_increaseStats() {
     ++strength;
     ++agility;
     ++intelligence;
     ++constitution;
 }
 
-void Stats::increaseExperience(unsigned int _experience) {
+void PlayerStats::increaseExperience(unsigned int _experience) {
     experience += _experience;
     if (experience >= nextLevelExperience) {
         ++level;
@@ -60,7 +60,7 @@ void Stats::increaseExperience(unsigned int _experience) {
 
 }
 
-int Stats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defense) {
+int PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defense) {
     if (currentLife == 0) return 0;
     if (damage < 0) {
         currentLife += damage;
@@ -83,28 +83,28 @@ int Stats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defen
     return 0;
 }
 
-int Stats::getMaxLife() const {
+int PlayerStats::getMaxLife() const {
     return maxLife;
 }
 
-int Stats::getCurrentLife() const {
+int PlayerStats::getCurrentLife() const {
     return currentLife;
 }
 
-void Stats::restoreLife(unsigned int amount) {
+void PlayerStats::restoreLife(unsigned int amount) {
     currentLife += amount;
     if (currentLife > maxLife) {
         currentLife = maxLife;
     }
 }
 
-void Stats::restoreMana(unsigned int amount) {
+void PlayerStats::restoreMana(unsigned int amount) {
     currentMana += amount;
     if (currentMana > maxMana) {
         currentMana = maxMana;
     }
 }
 
-bool Stats::isDead() const {
+bool PlayerStats::isDead() const {
     return getCurrentLife() == 0;
 }

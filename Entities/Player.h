@@ -8,14 +8,14 @@
 
 #include "../Items/Inventory.h"
 #include "Entity.h"
-#include "Stats.h"
+#include "PlayerStats.h"
 #include "../Game.h"
 #include "MoveDirection.h"
 
 class Player: public Entity {
 private:
     Inventory inventory;
-    Stats stats;
+    PlayerStats stats;
     unsigned int gold;
     Game& game;
     std::string nickname;

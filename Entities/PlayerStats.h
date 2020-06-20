@@ -2,14 +2,14 @@
 // Created by agustin on 14/6/20.
 //
 
-#ifndef ARGENTUM_STATS_H
-#define ARGENTUM_STATS_H
+#ifndef ARGENTUM_PLAYERSTATS_H
+#define ARGENTUM_PLAYERSTATS_H
 
 #include "../Config/Configuration.h"
 
 //Clase que maneja el recibimiento de ataques, Player y Monster le delegan
 //operaciones cuando deben modificar sus stats
-class Stats {
+class PlayerStats {
 private:
     unsigned int generalTimer;
     unsigned int meditationTimer;
@@ -33,7 +33,7 @@ private:
     unsigned int maxMana;
     int maxLife;
 public:
-    Stats(Config::Race _race, Config::Class _class, unsigned int _level, unsigned int _experience);
+    PlayerStats(Config::Race _race, Config::Class _class, unsigned int _level, unsigned int _experience);
 
     int getTotalDamage(int weaponDamage) const;
 
@@ -60,4 +60,4 @@ private:
 };
 
 
-#endif //ARGENTUM_STATS_H
+#endif //ARGENTUM_PLAYERSTATS_H

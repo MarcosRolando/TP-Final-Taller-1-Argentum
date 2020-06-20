@@ -132,7 +132,7 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel) {
         }
         unsigned int experience = Calculator::calculateAttackXP(damage,
                                                                 attackerLevel, level);
-        if (currentLife == 0 && damage > 0) {
+        if (isDead() && damage > 0) {
             experience += Calculator::calculateKillXP(attackerLevel, level, maxLife);
         }
         return {_damage, experience};
