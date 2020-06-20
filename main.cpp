@@ -79,6 +79,7 @@ int main(int argc, char* args[]) {
 
         Text clickPos(UIFont, window.getRenderer());
 
+
         //Main loop flag
         bool quit = false;
 
@@ -101,9 +102,13 @@ int main(int argc, char* args[]) {
         //Event handler
         SDL_Event e;
         int xClick = 0, yClick = 0;
+        int xPlayer, yPlayer;
         //While application is running
         while( !quit )
         {
+            //Esto capaz lo cambiamos de lugar despues
+            xPlayer = player.getXPosition();
+            yPlayer = player.getYPosition();
             SDL_StartTextInput();
             //Handle events on queue
             while( SDL_PollEvent( &e ) != 0 )
@@ -117,6 +122,7 @@ int main(int argc, char* args[]) {
                 if( e.type == SDL_MOUSEBUTTONDOWN )
                 {
                     SDL_GetMouseState(&xClick, &yClick );
+                    selector.verifyTileSelection(xClick, yClick, xPlayer, yPlayer);
                 }
 
                 minichat.handleEvent(e);
@@ -167,6 +173,24 @@ int main(int argc, char* args[]) {
                     float timeStep = moveTime.getTicks();
                     timeElapsed += timeStep;
 
+
+                    //Outline del tile seleccionado
+                    int sumX = 0,tileX = 0;
+                    int tileY = 0;
+                    if ((xPlayer-40)/TILE_WIDTH > 3){
+                        sumX = 50;
+                        tileX = -(xPlayer/TILE_WIDTH) + 4;
+                    }
+                    if ((yPlayer-30)/TILE_HEIGHT > 1){
+                        tileY = -(yPlayer/TILE_HEIGHT) + 2;
+                    }
+                    SDL_Rect fillRect = {(selector.getSelectedTileX()+tileX)*128-sumX,
+                                         (selector.getSelectedTileY()+tileY)*128,
+                                         128, 128};
+                    SDL_SetRenderDrawColor(&window.getRenderer(), 0xFF,
+                                           0x00, 0x00, 0xFF);
+                    SDL_RenderDrawRect( &window.getRenderer(), &fillRect );
+
                     timeStep = timeStep / 1000.f;
                     player.render(timeStep);
                     monster.render(timeStep);
@@ -174,34 +198,22 @@ int main(int argc, char* args[]) {
                     map.renderStructures();
                     moveTime.start();
 
-                    selector.verifyInventorySlotSelection(xClick, yClick);
-
                     //Inventory
                     window.setViewport(InventoryViewport);
+                    selector.verifyInventorySlotSelection(xClick, yClick);
                     inventoryGui.updateGold(1000);
                     inventoryGui.render(selector.getInventorySlotX(),
                             selector.getInventorySlotY());
                     playerInfo.updateLevel(15);
                     playerInfo.updateSkills(20, 20, 20, 20);
+                    playerInfo.updatePosition(xPlayer / TILE_WIDTH,
+                            yPlayer / TILE_HEIGHT);
 
-                    int x = player.getXPosition();
-                    int y = player.getYPosition();
-                    playerInfo.updatePosition(x/TILE_WIDTH,y/TILE_HEIGHT);
-
-                    selector.verifyTileSelection(xClick, yClick,x,y);
                     clickPos.updateText("ClickXTile: " + std::to_string(
                             (int) selector.getSelectedTileX()) + "   " + "ClickYTile: " +
                                         std::to_string((int) selector
                                                 .getSelectedTileY()));
                     clickPos.render(100,100, {0xFF,0xFF,0xFF});
-
-                    /*window.setViewport(MapViewport);
-                    SDL_Rect fillRect = {selector.getSelectedTileX()*128,
-                                         selector.getSelectedTileY()*128,
-                                         128, 128};
-                    SDL_SetRenderDrawColor(&window.getRenderer(), 0xFF,
-                                           0x00, 0x00, 0xFF);
-                    SDL_RenderDrawRect( &window.getRenderer(), &fillRect );*/
 
                     //PlayerInfo
                     window.setViewport(PlayerInfoViewport);
