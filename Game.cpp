@@ -17,3 +17,9 @@ void Game::dropItems(std::list<std::shared_ptr<Item>>&& items, Coordinate positi
 void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
     map.addItemsToTile(std::move(item), position);
 }
+
+void Game::requestMove(Coordinate initialPosition, Coordinate finalPosition) {
+    if (map.isPlaceAvailable(finalPosition)) {
+
+    }
+}
