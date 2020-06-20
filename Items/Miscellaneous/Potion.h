@@ -9,7 +9,7 @@
 #include "../Item.h"
 #include "../../Config/Configuration.h"
 
-class Potion: Item {
+class Potion: public Item {
 protected:
     unsigned int recoveryValue;
 public:

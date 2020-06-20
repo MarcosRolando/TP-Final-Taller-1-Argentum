@@ -8,7 +8,7 @@
 
 #include "Potion.h"
 
-class HealthPotion: Potion {
+class HealthPotion: public Potion {
 private:
     void restoreStat(Player& player) override;
 public:

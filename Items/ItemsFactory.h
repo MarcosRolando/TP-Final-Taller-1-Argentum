@@ -19,29 +19,33 @@ private:
 private:
     ItemsFactory();
 
-    static void storeBlueTunic(std::shared_ptr<Item>& item);
-    static void storeLeatherArmor(std::shared_ptr<Item>& item);
-    static void storePlateArmor(std::shared_ptr<Item>& item);
+    static void _storeBlueTunic(std::shared_ptr<Item>& item);
+    static void _storeLeatherArmor(std::shared_ptr<Item>& item);
+    static void _storePlateArmor(std::shared_ptr<Item>& item);
 
-    static void storeHood(std::shared_ptr<Item>& item);
-    static void storeIronHelmet(std::shared_ptr<Item>& item);
-    static void storeMagicHat(std::shared_ptr<Item>& item);
+    static void _storeHood(std::shared_ptr<Item>& item);
+    static void _storeIronHelmet(std::shared_ptr<Item>& item);
+    static void _storeMagicHat(std::shared_ptr<Item>& item);
 
-    static void storeIronShield(std::shared_ptr<Item>& item);
-    static void storeTurtleShield(std::shared_ptr<Item>& item);
+    static void _storeIronShield(std::shared_ptr<Item>& item);
+    static void _storeTurtleShield(std::shared_ptr<Item>& item);
 
-    static void storeAshRod(std::shared_ptr<Item>& item);
-    static void storeCompositeBow(std::shared_ptr<Item>& item);
-    static void storeElvenFlute(std::shared_ptr<Item>& item);
-    static void storeGnarledStaff(std::shared_ptr<Item>& item);
-    static void storeLinkedStaff(std::shared_ptr<Item>& item);
-    static void storeLongsword(std::shared_ptr<Item>& item);
-    static void storeSimpleBow(std::shared_ptr<Item>& item);
-    static void storeWarhammer(std::shared_ptr<Item>& item);
+    static void _storeAshRod(std::shared_ptr<Item>& item);
+    static void _storeCompositeBow(std::shared_ptr<Item>& item);
+    static void _storeElvenFlute(std::shared_ptr<Item>& item);
+    static void _storeGnarledStaff(std::shared_ptr<Item>& item);
+    static void _storeLinkedStaff(std::shared_ptr<Item>& item);
+    static void _storeLongsword(std::shared_ptr<Item>& item);
+    static void _storeSimpleBow(std::shared_ptr<Item>& item);
+    static void _storeWarhammer(std::shared_ptr<Item>& item);
 
     //AGREGAR FUNCIONES PARA CREAR POCIONES
+    static void _storeManaPotion(std::shared_ptr<Item>& item);
+    static void _storeHealthPotion(std::shared_ptr<Item>& item);
 
-    static void storeGold(std::shared_ptr<Item>& item, unsigned int amount);
+    static void _storeRandomPotion(std::shared_ptr<Item>& item);
+
+    static void _storeGold(std::shared_ptr<Item>& item, unsigned int amount);
 
 public:
 
