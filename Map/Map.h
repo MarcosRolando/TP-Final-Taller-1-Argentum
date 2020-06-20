@@ -49,10 +49,6 @@ public:
     //false y no guarda nada
     bool getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const;
 
-    //Agrega el item al tile que se encuentra en la coordenada recibida apropiandose del shared_ptr,
-    //si la coordenada es invalida tira invalid_argument y no se apropia del puntero
-    void addItem(Coordinate position, std::shared_ptr<Item>&& item);
-
     //Intenta agregar la entity al tile que se encuentra en la coordenada recibida apropiandose
     //del unique_ptr, si la coordenada es invalida tira invalid_argument y no se apropia del puntero
     //Si la posicion es ocupable entonces se apropia del puntero y retorna true,
@@ -77,10 +73,12 @@ public:
     //Retorna true si el lugar puede ser ocupado por una entity, false en caso contrario
     bool isPlaceAvailable(Coordinate position) const;
 
-    //Agrega los items de la lista al tile
+    //Agrega los items de la lista al tile al tile que se encuentra en la coordenada recibida apropiandose de la lista,
+    //si la coordenada es invalida tira invalid_argument y no se apropia del puntero
     void addItemsToTile(std::list<std::shared_ptr<Item>>&& items, Coordinate position);
 
-    //Agrega los items de la lista al tile
+    //Agrega el item al tile que se encuentra en la coordenada recibida apropiandose del shared_ptr,
+    //si la coordenada es invalida tira invalid_argument y no se apropia del puntero
     void addItemsToTile(std::shared_ptr<Item>&& item, Coordinate position);
 };
 
