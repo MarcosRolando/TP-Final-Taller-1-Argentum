@@ -5,7 +5,7 @@
 #include "Priest.h"
 #include "../../Config/Configuration.h"
 
-using namespace Config;
+using namespace GameType;
 
 #define INITIAL_ITEMS_AMOUNT 10
 #define BUYING_PRICE_MULTIPLIER 1.25

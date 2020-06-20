@@ -4,7 +4,7 @@
 
 #include "Longsword.h"
 
-using namespace Config;
+using namespace GameType;
 
 Longsword::Longsword(): Weapon(Configuration::getInstance().configWeaponData(LONGSWORD)) {
 

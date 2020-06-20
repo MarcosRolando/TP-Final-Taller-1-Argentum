@@ -4,7 +4,7 @@
 
 #include "LeatherArmor.h"
 
-using namespace Config;
+using namespace GameType;
 
 LeatherArmor::LeatherArmor(): Chest(Configuration::getInstance().configClothingData(LEATHER_ARMOR)) {
 

@@ -4,7 +4,7 @@
 
 #include "NoShield.h"
 
-using namespace Config;
+using namespace GameType;
 
 NoShield::NoShield(): Shield(Configuration::getInstance().configClothingData(NO_SHIELD)) {
 

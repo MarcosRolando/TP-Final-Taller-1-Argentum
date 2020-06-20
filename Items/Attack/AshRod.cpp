@@ -4,7 +4,7 @@
 
 #include "AshRod.h"
 
-using namespace Config;
+using namespace GameType;
 
 AshRod::AshRod(): Weapon(Configuration::getInstance().configWeaponData(ASH_ROD)) {
 

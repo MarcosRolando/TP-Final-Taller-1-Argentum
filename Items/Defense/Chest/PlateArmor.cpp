@@ -4,7 +4,7 @@
 
 #include "PlateArmor.h"
 
-using namespace Config;
+using namespace GameType;
 
 PlateArmor::PlateArmor(): Chest(Configuration::getInstance().configClothingData(PLATE_ARMOR)) {
 

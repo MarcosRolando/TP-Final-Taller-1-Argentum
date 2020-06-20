@@ -5,7 +5,7 @@
 #include "HealthPotion.h"
 #include "../../Entities/Player.h"
 
-using namespace Config;
+using namespace GameType;
 
 /*
 class Player {

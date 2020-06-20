@@ -4,7 +4,7 @@
 
 #include "IronShield.h"
 
-using namespace Config;
+using namespace GameType;
 
 IronShield::IronShield(): Shield(Configuration::getInstance().configClothingData(IRON_SHIELD)) {
 }

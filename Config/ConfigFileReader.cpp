@@ -5,9 +5,9 @@
 #include "ConfigFileReader.h"
 #include "../TPException.h"
 
-using namespace Config;
+using namespace GameType;
 
-ConfigFileReader::ConfigFileReader(const std::string& path) :
+Config::ConfigFileReader::ConfigFileReader(const std::string& path) :
     classes{{"Warrior", WARRIOR}, {"Wizard", WIZARD}, {"Paladin", PALADIN},
            {"Cleric", CLERIC}},
     races{{"Human", HUMAN}, {"Elf", ELF},{"Dwarf", DWARF}, {"Gnome", GNOME}},
@@ -29,11 +29,11 @@ ConfigFileReader::ConfigFileReader(const std::string& path) :
     }
 }
 
-ConfigFileReader::~ConfigFileReader() {
+Config::ConfigFileReader::~ConfigFileReader() {
     file.close();
 }
 
-void ConfigFileReader::loadClassModifiers(std::unordered_map<Class, Modifiers>& mods) {
+void Config::ConfigFileReader::loadClassModifiers(std::unordered_map<Class, Modifiers>& mods) {
     Json::Value& classModifiers = obj["Class"];
     Modifiers currMods{};
     for (auto & classModifier : classModifiers) {
@@ -42,7 +42,7 @@ void ConfigFileReader::loadClassModifiers(std::unordered_map<Class, Modifiers>& 
     }
 }
 
-void ConfigFileReader::loadRaceModifiers(std::unordered_map<Race, Modifiers>& mods) {
+void Config::ConfigFileReader::loadRaceModifiers(std::unordered_map<Race, Modifiers>& mods) {
     Json::Value& raceModifiers = obj["Race"];
     Modifiers currMods{};
     for (auto & raceModifier : raceModifiers) {
@@ -51,7 +51,7 @@ void ConfigFileReader::loadRaceModifiers(std::unordered_map<Race, Modifiers>& mo
     }
 }
 
-void ConfigFileReader::loadWeaponData(std::unordered_map<Weapon, WeaponData>& stats) {
+void Config::ConfigFileReader::loadWeaponData(std::unordered_map<Weapon, WeaponData>& stats) {
     Json::Value& weaponsStats = obj["Weapon"];
     WeaponData currStats{};
     for (auto & weaponStat : weaponsStats) {
@@ -60,7 +60,7 @@ void ConfigFileReader::loadWeaponData(std::unordered_map<Weapon, WeaponData>& st
     }
 }
 
-void ConfigFileReader::loadClothingData(std::unordered_map<Clothing, ClothingData>& stats) {
+void Config::ConfigFileReader::loadClothingData(std::unordered_map<Clothing, ClothingData>& stats) {
     Json::Value& clothingsStats = obj["Clothing"];
     ClothingData currStats{};
     for (auto & clothingStat : clothingsStats) {
@@ -69,7 +69,7 @@ void ConfigFileReader::loadClothingData(std::unordered_map<Clothing, ClothingDat
     }
 }
 
-void ConfigFileReader::loadPotionData(std::unordered_map<Potion, PotionData>& stats) {
+void Config::ConfigFileReader::loadPotionData(std::unordered_map<Potion, PotionData>& stats) {
     Json::Value& potionData = obj["Potion"];
     PotionData currPotion{};
     for (auto & potion : potionData) {
@@ -79,7 +79,7 @@ void ConfigFileReader::loadPotionData(std::unordered_map<Potion, PotionData>& st
 }
 
 
-void ConfigFileReader::loadMonsterStats(std::unordered_map<Monster, MonsterStats>& stats) {
+void Config::ConfigFileReader::loadMonsterStats(std::unordered_map<Monster, MonsterStats>& stats) {
     Json::Value& monsterStats = obj["Monster"];
     MonsterStats currStats{};
     for (auto & monsterStat : monsterStats) {
@@ -88,7 +88,7 @@ void ConfigFileReader::loadMonsterStats(std::unordered_map<Monster, MonsterStats
     }
 }
 
-void ConfigFileReader::loadGoldModifiers(GoldModifiers& goldModifiers) {
+void Config::ConfigFileReader::loadGoldModifiers(GoldModifiers& goldModifiers) {
     Json::Value& modifiers = obj["GoldModifiers"];
     goldModifiers.safeGoldFactor = modifiers["MaxSafeGoldFactor"].asUInt();
     goldModifiers.safeGoldLevelModifier = modifiers["MaxGoldLevelModifier"]
@@ -97,7 +97,7 @@ void ConfigFileReader::loadGoldModifiers(GoldModifiers& goldModifiers) {
     goldModifiers.goldDropFactorMax = modifiers["MaxRange"].asFloat();
 }
 
-void ConfigFileReader::loadXPModifiers(XPModifiers& xpModifiers) {
+void Config::ConfigFileReader::loadXPModifiers(XPModifiers& xpModifiers) {
     Json::Value& modifiers = obj["XPModifiers"];
     xpModifiers.attackXPModifier = modifiers["AttackXPModifier"].asUInt();
     xpModifiers.killXPMinRange = modifiers["MinKillXPModifier"].asFloat();
@@ -107,27 +107,27 @@ void ConfigFileReader::loadXPModifiers(XPModifiers& xpModifiers) {
     xpModifiers.killXPModifier = modifiers["KillXPModifier"].asUInt();
 }
 
-float ConfigFileReader::loadCritAttackChance() {
+float Config::ConfigFileReader::loadCritAttackChance() {
     return obj["CritAttackProb"].asFloat();
 }
 
-float ConfigFileReader::loadDodgeChance() {
+float Config::ConfigFileReader::loadDodgeChance() {
     return obj["DodgeProb"].asFloat();
 }
 
-unsigned int ConfigFileReader::loadNewbieLevel() {
+unsigned int Config::ConfigFileReader::loadNewbieLevel() {
     return obj["NewbieLevel"].asUInt();
 }
 
-unsigned int ConfigFileReader::loadmaxLevelDif() {
+unsigned int Config::ConfigFileReader::loadmaxLevelDif() {
     return obj["MaxLevelDif"].asUInt();
 }
 
-unsigned int ConfigFileReader::loadPlayerVisionRange() {
+unsigned int Config::ConfigFileReader::loadPlayerVisionRange() {
     return obj["PlayerVisionRange"].asUInt();
 }
 
-void ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
+void Config::ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
     modifier.lifeMultiplier = currModifier["life"].asUInt();
     modifier.manaMultiplier = currModifier["Mana"].asUInt();
     modifier.constitution = currModifier["Constitution"].asUInt();
@@ -138,7 +138,7 @@ void ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& currModif
     modifier.recoveryRate = currModifier["RecoveryRate"].asUInt();
 }
 
-void ConfigFileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMonster){
+void Config::ConfigFileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMonster){
     stats.life = currMonster["life"].asUInt();
     stats.damage = currMonster["Damage"].asUInt();
     stats.rangeOfVision = currMonster["VisionRange"].asUInt();
@@ -146,7 +146,7 @@ void ConfigFileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMo
     stats.maxLevel = currMonster["LevelMax"].asUInt();
 }
 
-void ConfigFileReader::_getWeaponData(WeaponData& stats, Json::Value& currWeapon){
+void Config::ConfigFileReader::_getWeaponData(WeaponData& stats, Json::Value& currWeapon){
     stats.name = currWeapon["Name"].asString();
     stats.maxDmg = currWeapon["MaxDmg"].asUInt();
     stats.minDmg = currWeapon["MinDmg"].asUInt();
@@ -155,7 +155,7 @@ void ConfigFileReader::_getWeaponData(WeaponData& stats, Json::Value& currWeapon
     stats.price = currWeapon["Price"].asUInt();
 }
 
-void ConfigFileReader::_getClothingData(ClothingData& stats, Json::Value&
+void Config::ConfigFileReader::_getClothingData(ClothingData& stats, Json::Value&
                                         currClothing){
     stats.name = currClothing["Name"].asString();
     stats.maxDefense = currClothing["MaxDefense"].asUInt();
@@ -163,7 +163,7 @@ void ConfigFileReader::_getClothingData(ClothingData& stats, Json::Value&
     stats.price = currClothing["Price"].asUInt();
 }
 
-void ConfigFileReader::_getPotionData(PotionData& stats, Json::Value&
+void Config::ConfigFileReader::_getPotionData(PotionData& stats, Json::Value&
                                         currPotion){
     stats.name = currPotion["Name"].asString();
     stats.recoveryValue = currPotion["RecoveryValue"].asUInt();

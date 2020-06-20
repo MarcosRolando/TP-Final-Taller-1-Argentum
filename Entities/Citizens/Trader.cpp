@@ -9,7 +9,7 @@
 #define BUYING_PRICE_MULTIPLIER 1.1
 #define SELLING_PRICE_MULTIPLIER 0.9
 
-using namespace Config;
+using namespace GameType;
 
 Trader::Trader(Coordinate initialPosition) : Entity(initialPosition) {
     Configuration& config = Configuration::getInstance();

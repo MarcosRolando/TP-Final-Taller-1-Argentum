@@ -26,7 +26,7 @@
 #include "Miscellaneous/ManaPotion.h"
 #include "Miscellaneous/HealthPotion.h"
 
-using namespace Config;
+using namespace GameType;
 
 ///////////////////////////PRIVATE//////////////////////////////////
 

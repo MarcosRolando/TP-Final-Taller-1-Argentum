@@ -8,35 +8,9 @@
 #include <fstream>
 #include "jsoncpp/json/json.h"
 #include <unordered_map>
+#include "GameEnums.h"
 
 namespace Config {
-
-    enum Race {
-        HUMAN, ELF, DWARF, GNOME
-    };
-
-    enum Class {
-        WIZARD, CLERIC, PALADIN, WARRIOR
-    };
-
-    enum Monster {
-        SKELETON, ZOMBIE, SPIDER, GOBLIN
-    };
-
-    enum Weapon {
-        LONGSWORD, AXE, WARHAMMER, ASH_ROD, ELVEN_FLUTE, LINKED_STAFF,
-        SIMPLE_BOW, COMPOSITE_BOW, GNARLED_STAFF, FIST
-    };
-
-    enum Clothing {
-        COMMON_CLOTHING, LEATHER_ARMOR, PLATE_ARMOR, BLUE_TUNIC, HOOD,
-        IRON_HELMET, TURTLE_SHIELD, IRON_SHIELD, MAGIC_HAT, NO_HELMET,
-        NO_SHIELD
-    };
-
-    enum Potion {
-        HEALTH_POTION, MANA_POTION
-    };
 
     struct Modifiers {
         unsigned int lifeMultiplier;
@@ -100,25 +74,25 @@ namespace Config {
         Json::Reader reader;
         Json::Value obj;
         std::ifstream file;
-        std::unordered_map<std::string, Class> classes;
-        std::unordered_map<std::string, Race> races;
-        std::unordered_map<std::string, Monster> monsters;
-        std::unordered_map<std::string, Weapon> weapons;
-        std::unordered_map<std::string, Clothing> clothing;
-        std::unordered_map<std::string, Potion> potions;
+        std::unordered_map<std::string, GameType::Class> classes;
+        std::unordered_map<std::string, GameType::Race> races;
+        std::unordered_map<std::string, GameType::Monster> monsters;
+        std::unordered_map<std::string, GameType::Weapon> weapons;
+        std::unordered_map<std::string, GameType::Clothing> clothing;
+        std::unordered_map<std::string, GameType::Potion> potions;
 
     public:
         explicit ConfigFileReader(const std::string &path);
 
-        void loadClassModifiers(std::unordered_map<Class, Modifiers> &mods);
+        void loadClassModifiers(std::unordered_map<GameType::Class, Modifiers> &mods);
 
-        void loadRaceModifiers(std::unordered_map<Race, Modifiers> &mods);
+        void loadRaceModifiers(std::unordered_map<GameType::Race, Modifiers> &mods);
 
-        void loadMonsterStats(std::unordered_map<Monster, MonsterStats> &stats);
+        void loadMonsterStats(std::unordered_map<GameType::Monster, MonsterStats> &stats);
 
-        void loadWeaponData(std::unordered_map<Weapon, WeaponData> &stats);
+        void loadWeaponData(std::unordered_map<GameType::Weapon, WeaponData> &stats);
 
-        void loadClothingData(std::unordered_map<Clothing, ClothingData> &stats);
+        void loadClothingData(std::unordered_map<GameType::Clothing, ClothingData> &stats);
 
         void loadGoldModifiers(GoldModifiers &goldModifiers);
 
@@ -134,7 +108,7 @@ namespace Config {
 
         unsigned int loadPlayerVisionRange();
 
-        void loadPotionData(std::unordered_map<Potion, PotionData>& stats);
+        void loadPotionData(std::unordered_map<GameType::Potion, PotionData>& stats);
 
         ~ConfigFileReader();
 

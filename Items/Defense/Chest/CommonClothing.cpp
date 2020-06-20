@@ -4,7 +4,7 @@
 
 #include "CommonClothing.h"
 
-using namespace Config;
+using namespace GameType;
 
 CommonClothing::CommonClothing() : Chest(Configuration::getInstance().configClothingData(COMMON_CLOTHING)){
 

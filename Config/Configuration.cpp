@@ -4,7 +4,7 @@
 
 #include "Configuration.h"
 
-using namespace Config;
+using namespace GameType;
 
 Configuration& Configuration::getInstance() {
     static Configuration instance;
@@ -12,7 +12,7 @@ Configuration& Configuration::getInstance() {
 }
 
 Configuration::Configuration() {
-    ConfigFileReader fileReader("../config.json");
+    Config::ConfigFileReader fileReader("../config.json");
 
     fileReader.loadClassModifiers(classModifiers);
     fileReader.loadRaceModifiers(raceModifiers);
@@ -34,35 +34,35 @@ Configuration::Configuration() {
     playerVisionRange = fileReader.loadPlayerVisionRange();
 }
 
-Modifiers Configuration::configClassModifiers(Class _class) const{
+Config::Modifiers Configuration::configClassModifiers(Class _class) const{
     return classModifiers.at(_class);
 }
 
-Modifiers Configuration::configRaceModifiers(Race race) const{
+Config::Modifiers Configuration::configRaceModifiers(Race race) const{
     return raceModifiers.at(race);
 }
 
-MonsterStats Configuration::configMonsterStats(Monster monster) const{
+Config::MonsterStats Configuration::configMonsterStats(Monster monster) const{
     return monsterStats.at(monster);
 }
 
-WeaponData Configuration::configWeaponData(Weapon weapon) const{
+Config::WeaponData Configuration::configWeaponData(Weapon weapon) const{
     return weaponData.at(weapon);
 }
 
-ClothingData Configuration::configClothingData(Clothing clothes) const{
+Config::ClothingData Configuration::configClothingData(Clothing clothes) const{
     return clothingData.at(clothes);
 }
 
-GoldModifiers Configuration::configGoldModifiers() const{
+Config::GoldModifiers Configuration::configGoldModifiers() const{
     return goldModifiers;
 }
 
-XPModifiers Configuration::configXPModifiers() const{
+Config::XPModifiers Configuration::configXPModifiers() const{
     return xpModifiers;
 }
 
-PotionData Configuration::configPotionData(Potion potion) const{
+Config::PotionData Configuration::configPotionData(Potion potion) const{
     return potionData.at(potion);
 }
 

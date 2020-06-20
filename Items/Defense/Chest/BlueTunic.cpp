@@ -4,7 +4,7 @@
 
 #include "BlueTunic.h"
 
-using namespace Config;
+using namespace GameType;
 
 BlueTunic::BlueTunic(): Chest(Configuration::getInstance().configClothingData(BLUE_TUNIC)) {
 

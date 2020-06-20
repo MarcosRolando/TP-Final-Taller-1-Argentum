@@ -159,4 +159,3 @@ void Monster::act() {
 std::shared_ptr<Item> Monster::dropLoot() {
     return std::shared_ptr<Item>();
 }
-

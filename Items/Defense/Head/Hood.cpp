@@ -4,7 +4,7 @@
 
 #include "Hood.h"
 
-using namespace Config;
+using namespace GameType;
 
 Hood::Hood(): Head(Configuration::getInstance().configClothingData(HOOD)) {
 

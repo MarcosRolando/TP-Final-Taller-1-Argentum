@@ -5,7 +5,7 @@
 #ifndef ARGENTUM_PLAYERSTATS_H
 #define ARGENTUM_PLAYERSTATS_H
 
-#include "../Config/Configuration.h"
+#include "../Config/GameEnums.h"
 
 //Clase que maneja el recibimiento de ataques, Player y Monster le delegan
 //operaciones cuando deben modificar sus stats
@@ -32,8 +32,9 @@ private:
     int currentLife;
     unsigned int maxMana;
     int maxLife;
+
 public:
-    PlayerStats(Config::Race _race, Config::Class _class, unsigned int _level, unsigned int _experience);
+    PlayerStats(GameType::Race _race, GameType::Class _class, unsigned int _level, unsigned int _experience);
 
     int getTotalDamage(int weaponDamage) const;
 

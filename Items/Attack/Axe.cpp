@@ -4,7 +4,7 @@
 
 #include "Axe.h"
 
-using namespace Config;
+using namespace GameType;
 
 Axe::Axe(): Weapon(Configuration::getInstance().configWeaponData(AXE)) {
 
