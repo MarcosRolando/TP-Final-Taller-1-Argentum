@@ -111,4 +111,3 @@ void PlayerStats::restoreMana(unsigned int amount) {
 bool PlayerStats::isDead() const {
     return getCurrentLife() == 0;
 }
-

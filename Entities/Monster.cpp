@@ -7,6 +7,7 @@
 #include "../Items/ItemsFactory.h"
 #include "../Game.h"
 #include "../AttackResult.h"
+#include "../Config/Configuration.h"
 
 #define MAX_NUMBER_OF_CACHED_NODES 4
 
@@ -40,7 +41,7 @@ Coordinate Monster::_getNearestPosition(Coordinate refference, std::vector<Coord
 void Monster::_storeNearestPlayerPathCache() {
     unsigned int nearestTargetIndex = 0;
     std::vector<Coordinate> positions;
-    map.getTargets(currentPosition, rangeOfVision, positions);
+    map.getTargets(currentPosition, stats.getRangeOfVision(), positions);
     if (!positions.empty()) {
         std::vector<std::list<Coordinate>> allPaths/*(positions.size())*/;
         std::list<Coordinate> aux;
@@ -64,10 +65,10 @@ void Monster::_storeNearestPlayerPathCache() {
 //no hace nada y retorna false, sino vacia pathCache, ataca y retorna true
 bool Monster::_tryToAttack() {
     std::vector<Coordinate> targets;
-    map.getTargets(currentPosition, rangeOfVision, targets);
+    map.getTargets(currentPosition, stats.getRangeOfVision(), targets);
     for (auto & target : targets) {
         if (_getDistance(currentPosition, target) == 1) {
-            game.attackPosition(damage, level, target);
+            game.attackPosition(stats.getDamage(), stats.getLevel(), target);
             pathCache.clear();
             return true;
         }
@@ -104,46 +105,33 @@ void Monster::_move() {
         _storeNearestPlayerPathCache();
     }
     Entity::move(_getMoveDirection());
+    pathCache.pop_front();
 }
 
 
 ////////////////////////PUBLIC/////////////////////////
 
-Monster::Monster(Game &_game, const Map& _map, int _life,
-                 unsigned int _rangeOfVision, unsigned int _timeBetweenActions,
-                 Coordinate initialPosition):
-                 Entity(initialPosition), timeBetweenActions(_timeBetweenActions),
-                 map(_map), game(_game) {
-    maxLife = _life;
-    currentLife = maxLife;
-    rangeOfVision = _rangeOfVision;
+Monster::Monster(Game &_game, const Map& _map, Coordinate initialPosition,
+                 GameType::Monster _type):
+                 Entity(initialPosition),
+                 timeBetweenActions(Configuration::getInstance().configMonsterStats(_type).reactionSpeed),
+                 stats(_type), map(_map), game(_game) {
     timer = time(nullptr);
-    level = 0;
-    damage = 0; //todo no estaria haciendo nada de danio xd
+    type = _type;
 }
 
 
 AttackResult Monster::attacked(int _damage, unsigned int attackerLevel) {
+    AttackResult result = {0, 0};
     if (!isDead()) {
-        currentLife -= _damage;
-        if (currentLife < 0) {
-            currentLife = 0;
+        result = stats.modifyLife(_damage, attackerLevel);
+        if (isDead()) {
             std::shared_ptr<Item> drop;
-            ItemsFactory::getInstance().storeRandomDrop(drop, maxLife);
+            ItemsFactory::getInstance().storeRandomDrop(drop, stats.getMaxLife());
             game.dropItems(std::move(drop), currentPosition);
         }
-        unsigned int experience = Calculator::calculateAttackXP(damage,
-                                                                attackerLevel, level);
-        if (isDead() && damage > 0) {
-            experience += Calculator::calculateKillXP(attackerLevel, level, maxLife);
-        }
-        return {_damage, experience};
     }
-    return {0, 0};
-}
-
-bool Monster::isDead() const {
-    return currentLife == 0;
+    return result;
 }
 
 void Monster::act() {
@@ -156,6 +144,7 @@ void Monster::act() {
     }
 }
 
-std::shared_ptr<Item> Monster::dropLoot() {
-    return std::shared_ptr<Item>();
+bool Monster::isDead() {
+    return (stats.getCurrentLife() == 0);
 }
+

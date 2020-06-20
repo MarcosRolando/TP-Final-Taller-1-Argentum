@@ -42,9 +42,14 @@ namespace Config {
     struct MonsterStats {
         int life;
         unsigned int damage;
+        unsigned int constitution;
+        unsigned int agility;
+        unsigned int strength;
         unsigned int rangeOfVision;
         unsigned int minLevel;
         unsigned int maxLevel;
+        unsigned int reactionSpeed;
+        unsigned int speed;
     };
 
     struct PotionData {

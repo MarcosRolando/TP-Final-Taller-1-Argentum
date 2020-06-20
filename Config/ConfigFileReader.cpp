@@ -144,6 +144,11 @@ void Config::ConfigFileReader::_getMonsterStats(MonsterStats& stats, Json::Value
     stats.rangeOfVision = currMonster["VisionRange"].asUInt();
     stats.minLevel = currMonster["LevelMin"].asUInt();
     stats.maxLevel = currMonster["LevelMax"].asUInt();
+    stats.constitution = currMonster["Constitution"].asUInt();
+    stats.agility = currMonster["Agility"].asUInt();
+    stats.strength = currMonster["Strength"].asUInt();
+    stats.reactionSpeed = currMonster["ReactionSpeed"].asUInt();
+    stats.speed = currMonster["Speed"].asUInt();
 }
 
 void Config::ConfigFileReader::_getWeaponData(WeaponData& stats, Json::Value& currWeapon){

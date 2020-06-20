@@ -8,6 +8,8 @@
 
 #include "Entity.h"
 #include <memory>
+#include "MonsterStats.h"
+#include "../Config/GameEnums.h"
 
 class Game;
 class Map;
@@ -17,6 +19,8 @@ class Monster: public Entity {
 private:
     const unsigned int timeBetweenActions;
     unsigned long timer;
+    MonsterStats stats;
+    GameType::Monster type;
 
     //Guarda parte del camino para no llamar al pathfinding cada vez que se
     //quiera mover
@@ -38,8 +42,8 @@ private:
     Direction _getMoveDirection();
 public:
 
-    Monster(Game& _game, const Map& map, int _life, unsigned int _rangeOfVision,
-            unsigned int timeBetweenActions, Coordinate initialPosition);
+    Monster(Game& _game, const Map& map, Coordinate initialPositionunsigned,
+            GameType::Monster _type);
 
 
     //Daña el monstruo, retorna la cantidad de danio recibido
@@ -48,12 +52,9 @@ public:
     //play tambien a los monstruos
     AttackResult attacked(int damage, unsigned int attackerLevel) override;
 
-    //Retorna true si el monstruo esta muerto, false si esta vivo
-    bool isDead() const;
-
     void act();
 
-    static std::shared_ptr<Item> dropLoot();
+    bool isDead();
 };
 
 
