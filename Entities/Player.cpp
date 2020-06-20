@@ -6,6 +6,7 @@
 #include "../Config/Calculator.h"
 #include "../AttackResult.h"
 #include "../Game.h"
+#include "../Items/Miscellaneous/Gold.h"
 
 using namespace GameType;
 
@@ -35,6 +36,10 @@ void Player::attack(Coordinate target) {
 void Player::_dropItems() {
     if (!stats.isDead()) {
         std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();
+        int goldDropped = gold - Calculator::calculateMaxSafeGold(stats.getLevel());
+        goldDropped = std::max(goldDropped, 0);
+        gold -= goldDropped;
+        items.emplace_back(new Gold(goldDropped));
         game.dropItems(std::move(items), currentPosition);
     }
 }
