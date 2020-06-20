@@ -7,6 +7,8 @@
 #include "../../Items/Item.h"
 #include "Storage.h"
 
+std::unordered_map<std::string, Storage> Banker::playersStorages;
+
 class Player {
 public:
     const std::string& getNickname() const;
