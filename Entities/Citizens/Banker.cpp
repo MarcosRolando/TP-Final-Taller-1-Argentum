@@ -4,13 +4,20 @@
 
 #include "Banker.h"
 
+class Player {
+public:
+    const std::string& getNickname() const;
+    std::shared_ptr<Item> removeItem(const std::string& itemName);
+};
+
+
 Banker::Banker(Coordinate initialPosition): Entity(initialPosition) {
 
 }
 
 
 unsigned int Banker::list(const Player &player, std::list<ProductData> &products) {
-    return playersStorages.at(player.getNickname()).getAvailableItems(products, 0);
+    return playersStorages.at(player.getNickname()).getStorageData(products, 0);
 }
 
 void Banker::withdraw(Player &player, const std::string &itemName) {

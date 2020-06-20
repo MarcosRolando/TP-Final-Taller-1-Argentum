@@ -95,11 +95,11 @@ bool Tile::isAvailable() const {
     return isOccupable;
 }
 
-unsigned int Tile::list(std::list<ProductData> &products) {
+unsigned int Tile::list(Player& player, std::list<ProductData> &products) {
     if (!entity) {
         return 0;
     }
-    return entity->list(products);
+    return entity->list(player, products);
 }
 
 void Tile::withdraw(Player &player, const std::string &itemName) {
