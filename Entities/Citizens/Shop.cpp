@@ -28,7 +28,7 @@ Shop::Shop(Shop &&other) noexcept {
     sellingMultiplier = other.sellingMultiplier;
 }
 
-unsigned int Shop::list(std::list<ProductData> &products) {
+unsigned int Shop::list(Player& player, std::list<ProductData> &products) {
     return storage.getStorageData(products, buyingMultiplier);
 }
 

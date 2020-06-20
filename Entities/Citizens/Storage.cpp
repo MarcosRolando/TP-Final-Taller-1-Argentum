@@ -6,6 +6,11 @@
 #include "../../Items/ItemsFactory.h"
 #include <utility>
 
+class Player {
+public:
+    bool storeItem(std::shared_ptr<Item>&& item);
+};
+
 Storage &Storage::operator=(Storage &&other) noexcept {
     storedGold = other.storedGold;
     storedItems = std::move(other.storedItems);

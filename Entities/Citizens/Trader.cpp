@@ -37,8 +37,8 @@ Trader::Trader(Coordinate initialPosition) : Entity(initialPosition) {
     shop = std::move(aux);
 }
 
-unsigned int Trader::list(std::list<ProductData> &products) {
-    return shop.list(products);
+unsigned int Trader::list(const Player &player, std::list<ProductData> &products) {
+    return shop.list(player, products);
 }
 
 void Trader::buy(Player &player, const std::string &itemName) {
