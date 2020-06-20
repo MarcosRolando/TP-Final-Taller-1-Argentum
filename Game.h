@@ -9,9 +9,19 @@
 #include "Map/Map.h"
 #include <queue>
 
+
+
+enum CommandType: char {
+    COMMAND_TYPE_MOVE = 'M'
+};
+
 class Game {
 private:
     Map map;
+
+    //Guarda strings que le indican a game que debera hacer. Se guardan con el
+    //siguiente formato: comando,parametro1,parametro2
+    //movimiento: M,coordenadaInicialx,coordenadaInicialy,coordenadaFinalx,coordenadaFinaly
     std::queue<std::string> eventQueue;
 public:
     AttackResult attackPosition(int damage, unsigned int level,
@@ -26,7 +36,8 @@ public:
 
     //Le indica a game que se quiere mover un entity de initial a final position,
     //initialPosition debe contener un entity, sino el comportamiento es indefinido,
-    //si finalPosition no es ocupable entoncesno hace nada
+    //si finalPosition no es ocupable entonces no hace nada eventualmente
+    //Esta funcion encola la accion de mover un entity de initial a finalPosition
     void requestMove(Coordinate initialPosition, Coordinate finalPosition);
 };
 

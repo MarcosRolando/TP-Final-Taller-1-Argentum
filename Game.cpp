@@ -20,6 +20,12 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 
 void Game::requestMove(Coordinate initialPosition, Coordinate finalPosition) {
     if (map.isPlaceAvailable(finalPosition)) {
-
+        std::string command;
+        command.push_back(COMMAND_TYPE_MOVE);
+        command += "," + std::to_string(initialPosition.iPosition);
+        command += "," + std::to_string(initialPosition.jPosition);
+        command += "," + std::to_string(finalPosition.iPosition);
+        command += "," + std::to_string(finalPosition.jPosition);
+        eventQueue.push(std::move(command));
     }
 }

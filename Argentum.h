@@ -6,8 +6,13 @@
 #define ARGENTUM_ARGENTUM_H
 
 
-class Argentum {
+#include "Game.h"
 
+class Argentum {
+private:
+    Game game;
+public:
+    void execute();
 };
 
 
