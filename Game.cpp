@@ -7,7 +7,7 @@
 
 /////////////////////////////////PRIVATE//////////////////////////
 
-void Game::_repopulateMap(unsigned int timePassed) {
+void Game::_repopulateMap(double timePassed) {
     spawnTimer += timePassed;
     if (spawnTimer >= spawnInterval) {
         unsigned int monstersToCreate = monsterCreationRate;
@@ -16,10 +16,10 @@ void Game::_repopulateMap(unsigned int timePassed) {
         if ((monstersToCreate + /*CANTIDAD DE MONSTUOS*/) > /*CANTIDAD DE MONSTUOS*/) {
             monstersToCreate = /*CANTIDAD DE MONSTUOS*/ - monstersToCreate;
         }
-        for (int i = 0; i < monstersToCreate; ++i) {
+        for (unsigned int i = 0; i < monstersToCreate; ++i) {
             //AGREGAR MONSTRUO AL MAPA
             monstersFactory.storeRandomMonster(this, map, monster, /*HACER QUE MAP DEVUELVA LA COORDENADA ASI INICIALIZO CON ESO AL MOSNTRUO*/);
-            map.addMonster(monster);
+            map.addMonster(std::move(monster));
         }
     }
 }

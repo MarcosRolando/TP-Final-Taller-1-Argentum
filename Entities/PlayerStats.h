@@ -10,10 +10,11 @@
 //Clase que maneja el recibimiento de ataques, Player y Monster le delegan
 //operaciones cuando deben modificar sus stats
 
+/*
 struct  {
 
 };
-
+*/
 class PlayerStats {
 private:
     bool isMeditating;

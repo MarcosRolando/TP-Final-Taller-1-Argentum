@@ -42,7 +42,8 @@ MonstersFactory::MonstersFactory() {
 }
 
 void MonstersFactory::storeRandomMonster(Game& game, Map& map, std::shared_ptr<Monster> &monster, Coordinate initialPosition) {
-    monsterCreators[existingMonsters[Calculator::getRandomInt(0, existingMonsters.size() - 1)]](monster, initialPosition);
+    monsterCreators[existingMonsters.Calculator::getRandomInt(0, existingMonsters.size() - 1)]](monster, initialPosition);
+    //todo la lista no tiene operador [] asi que no podemos acceder asi a un elemento cualquiera
 }
 
 

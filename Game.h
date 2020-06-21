@@ -10,8 +10,6 @@
 #include "MonstersFactory.h"
 #include <queue>
 
-
-
 enum CommandType: char {
     COMMAND_TYPE_MOVE = 'M'
 };
@@ -27,12 +25,12 @@ private:
 
     unsigned int monsterCreationRate;
     unsigned int maxNumberOfMonsters;
-    unsigned int spawnTimer;
-    unsigned int spawnInterval;
+    double spawnTimer;
+    double spawnInterval;
     MonstersFactory monstersFactory;
 private:
     void _executeQueueOperations();
-    void _repopulateMap();
+    void _repopulateMap(double timePassed);
 
 public:
     AttackResult attackPosition(int damage, unsigned int level, bool isAPlayer,
