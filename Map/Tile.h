@@ -60,7 +60,7 @@ public:
     //Ataca la entidad que se encuentre guardada en el mapa
     //Retorna la cantidad de daño que recibio la entidad atacada, si no hay
     //una entidad retorna 0
-    AttackResult attacked(int damage, unsigned int level);
+    AttackResult attacked(int damage, unsigned int level, bool isAPlayer);
 
     //Retorna true si almacena un entity que es un target de un monster
     bool hasMonsterTarget() const;

@@ -32,7 +32,7 @@ private:
     void _repopulateMap();
 
 public:
-    AttackResult attackPosition(int damage, unsigned int level,
+    AttackResult attackPosition(int damage, unsigned int level, bool isAPlayer,
                             Coordinate coordinate);
     //Llama a Map para que guarde los items recibidos en el tile que corresponde
     //a la coordenada recibida

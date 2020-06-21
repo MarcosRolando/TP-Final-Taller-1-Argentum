@@ -40,6 +40,7 @@ private:
     void _move();
 
     Direction _getMoveDirection();
+
 public:
 
     Monster(Game& _game, const Map& map, Coordinate initialPositionunsigned,

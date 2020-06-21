@@ -28,7 +28,7 @@ void Player::attack(Coordinate target) {
         int weaponDamage;
         weaponDamage = inventory.getWeaponDamage(currentPosition, target);
         int totalDamage = stats.getTotalDamage(weaponDamage);
-        AttackResult result = game.attackPosition(totalDamage, stats.getLevel(), target);
+        AttackResult result = game.attackPosition(totalDamage, stats.getLevel(), true, target);
         stats.increaseExperience(result.experience);
         //todo ver el tema de guardar el danio ocasionado
     }
@@ -54,7 +54,7 @@ AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPl
     }
     if (!stats.isDead()) {
         unsigned int defense = inventory.getDefense();
-        int totalDamage = stats.modifyLife(damage, attackerLevel, defense);
+        int totalDamage = stats.modifyLife(damage, attackerLevel, defense, isAPlayer);
         unsigned int experience = Calculator::calculateAttackXP(totalDamage,
                                                                 attackerLevel, stats.getLevel());
         if (stats.getCurrentLife() == 0 && totalDamage > 0) {
@@ -80,7 +80,7 @@ bool Player::spendGold(unsigned int amount) {
 }
 
 void Player::receiveGold(unsigned int amount) {
-    int maxGold = Calculator::calculateMaxSafeGold(stats.getLevel());
+    unsigned int maxGold = Calculator::calculateMaxSafeGold(stats.getLevel());
     maxGold += maxGold / 2;
     if (!stats.isDead() && (gold + amount) <= maxGold) {
         gold += amount;

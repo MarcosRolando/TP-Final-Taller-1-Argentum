@@ -96,9 +96,9 @@ void Map::_storePath(Coordinate initialPosition, Coordinate desiredPosition,
 //////////////////////////////PUBLIC/////////////////////////////
 
 
-AttackResult Map::attackTile(int damage, unsigned int level,
+AttackResult Map::attackTile(int damage, unsigned int level, bool isAPlayer,
                              Coordinate coordinate) {
-    return tiles[coordinate.iPosition][coordinate.jPosition].attacked(damage, level);
+    return tiles[coordinate.iPosition][coordinate.jPosition].attacked(damage, level, isAPlayer);
 }
 
 void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const {
@@ -140,7 +140,6 @@ bool Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::l
     }
     return false;
 }
-
 
 bool Map::addEntity(Coordinate position, std::unique_ptr<Entity> &&entity) {
     if (!_isCoordinateValid(position)) {

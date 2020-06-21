@@ -37,7 +37,7 @@ private:
 public:
     //Ataca la tile y retorna cuanto danio le hizo al entity guardado y el
     // xp ganado, si no hay un etity devuelve 0 en ambos
-    AttackResult attackTile(int damage, unsigned int level,
+    AttackResult attackTile(int damage, unsigned int level, bool isAPlayer,
                             Coordinate coordinate);
 
     //Almacena en el vector la cantidad de targets de un monstruo en un cuadrado centrado en

@@ -14,9 +14,9 @@ void Game::_repopulateMap() {
 
 /////////////////////////////////PUBLIC//////////////////////////
 
-AttackResult Game::attackPosition(int damage, unsigned int level,
+AttackResult Game::attackPosition(int damage, unsigned int level, bool isAPlayer,
                                     Coordinate coordinate) {
-    return map.attackTile(damage, level, coordinate);
+    return map.attackTile(damage, level, isAPlayer, coordinate);
 }
 
 void Game::dropItems(std::list<std::shared_ptr<Item>>&& items, Coordinate position) {
