@@ -73,7 +73,7 @@ protected:
     void setPosition(Coordinate coordinate);
 
     //Retorna la posicion en la que quiere estar el jugadoras
-    Coordinate getPosition();
+    Coordinate getPosition() const;
 
     //Le confirma a entity el request de movimiento para comenzar la interpolacion
     void startMovementInterpolation(Coordinate newPosition);
