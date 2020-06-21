@@ -96,7 +96,13 @@ void Player::receiveGold(unsigned int amount) {
 bool Player::storeItem(std::shared_ptr<Item> &&item) {
     if (!stats.isDead()) {
         stats.stopMeditating();
-        return inventory.addItem(std::move(item));
+        if (item->isGold()) {
+            std::shared_ptr<Gold> aux = std::dynamic_pointer_cast<Gold>(item);
+            gold += aux->getamount();
+            return true;
+        } else {
+            return inventory.addItem(std::move(item));
+        }
     }
     return false;
 }

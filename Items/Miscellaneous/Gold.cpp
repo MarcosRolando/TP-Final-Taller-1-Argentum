@@ -15,3 +15,7 @@ EquipmentPlace Gold::use(Player &player) {
 unsigned int Gold::getamount() {
     return amount;
 }
+
+bool Gold::isGold() const {
+    return true;
+}

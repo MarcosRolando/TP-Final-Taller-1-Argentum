@@ -47,11 +47,7 @@ public:
 
     unsigned int getPrice() const;
 
-    /*
-    //Retorna una instancia del tipo de item, debe implementarse para cada
-    //item final
-    virtual std::shared_ptr<Item> getInstance() = 0;
-    */
+    virtual bool isGold() const;
 
     virtual ~Item() = default;
 };

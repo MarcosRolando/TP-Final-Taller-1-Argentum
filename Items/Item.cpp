@@ -26,3 +26,7 @@ const std::string &Item::getName() const {
 unsigned int Item::getPrice() const {
     return price;
 }
+
+bool Item::isGold() const {
+    return false;
+}

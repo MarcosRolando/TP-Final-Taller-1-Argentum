@@ -19,6 +19,8 @@ public:
     EquipmentPlace use(Player& player) override;
 
     unsigned int getamount();
+
+    bool isGold() const override;
 };
 
 #endif //ARGENTUM_GOLD_H
