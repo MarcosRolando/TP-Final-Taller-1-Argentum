@@ -61,7 +61,7 @@ int main(int argc, char* args[]) {
         TextureRepository repo(window.getRenderer());
         SDL_Rect camera = { 0, 0, DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT };
         PlayerEquipment pEquipment = {Hood, HumanHead, PlateArmor, IronShield, GnarledStaff};
-        Player player(repo, camera, 40, 30,pEquipment);
+        Player player(repo, camera, 11560, 11550,pEquipment);
         NPC monster(repo, camera, 168, 30, Zombie);
 
         Texture& background = repo.getTexture(Background);
@@ -189,6 +189,7 @@ int main(int argc, char* args[]) {
                     timeStep = timeStep / 1000.f;
                     player.render(timeStep);
                     monster.render(timeStep);
+                    map.renderNPCS(timeStep);
                     explosion.render(timeStep);
                     map.renderStructures();
                     moveTime.start();

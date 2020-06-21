@@ -41,18 +41,16 @@ void MapFileReader::_readIDs() {
     }
 }
 
-std::string MapFileReader::getTile(int row, int column) {
+TileInfo MapFileReader::getTileInfo(int row, int column) {
     Json::Value& layers = obj["layers"];
-    Json::Value& data = layers[0]["data"];
-    int type = data[row*width + column].asInt();
-    return mapElements.at(type);
-}
-
-std::string MapFileReader::getStructure(int row, int column) {
-    Json::Value& layers = obj["layers"];
-    Json::Value& data = layers[1]["data"];
-    int type = data[row*width + column].asInt();
-    return mapElements.at(type);
+    Json::Value& tileData = layers[0]["data"];
+    TileInfo tile;
+    tile.tileType = mapElements.at(tileData[row*width + column].asInt());
+    Json::Value& sData = layers[1]["data"];
+    tile.structureType = mapElements.at(sData[row*width + column].asInt());
+    Json::Value& eData = layers[2]["data"];
+    tile.entityType = mapElements.at(eData[row*width + column].asInt());
+    return tile;
 }
 
 MapFileReader::~MapFileReader() {

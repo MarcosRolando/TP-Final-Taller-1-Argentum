@@ -8,7 +8,7 @@
 Structure::Structure(int x, int y, Texture* sTexture) : sTexture(sTexture) {
     if (sTexture != nullptr) {
         SpriteDimensions_t dimensions = sTexture->getSpriteDimensions();
-        box = {x, y, dimensions.witdth, dimensions.height};
+        box = {x, y, dimensions.width, dimensions.height};
     } else {
         box = {x, y, 0, 0};
     }
@@ -28,7 +28,7 @@ bool Structure::_checkCollision(SDL_Rect a, SDL_Rect b) {
 
     //Calculate the sides of rect B
     leftB = b.x;
-    rightB = b.x + b.w;
+    rightB = b.x + b.w + TILE_WIDTH/2;
     topB = b.y  + TILE_HEIGHT/2 - b.h; /*NO ES IGUAL A LAS OTRAS, OJO!*/
     bottomB = b.y + TILE_HEIGHT/2; /*Porque centro las estructuras en el medio del tile*/
 
@@ -57,6 +57,6 @@ SDL_Rect Structure::getBox() const {
 void Structure::setTexture(Texture& texture) {
     sTexture = &texture;
     SpriteDimensions_t dimensions = sTexture->getSpriteDimensions();
-    box.w = dimensions.witdth;
+    box.w = dimensions.width;
     box.h = dimensions.height;
 }

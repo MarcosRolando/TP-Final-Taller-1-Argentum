@@ -23,7 +23,7 @@ struct ColorKey_t {
 };
 
 struct SpriteDimensions_t {
-    int witdth;
+    int width;
     int height;
 };
 

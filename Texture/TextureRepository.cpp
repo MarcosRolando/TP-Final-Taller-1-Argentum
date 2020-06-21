@@ -50,6 +50,8 @@
 #define HEALTH_POTION_PATH "../Images/Items/HealthPotion.png"
 #define MANA_POTION_PATH "../Images/Items/ManaPotion.png"
 #define GRASS_PATH "../Images/Map/Grass.png"
+#define PRETTY_GRASS_PATH "../Images/Map/PrettyGrass.png"
+#define PRETTY_ROAD_PATH "../Images/Map/PrettyRoad.png"
 #define DEAD_GRASS_PATH "../Images/Map/DeadGrass.png"
 #define SAND_PATH "../Images/Map/Sand.png"
 #define WATER_PATH "../Images/Map/Water.png"
@@ -168,6 +170,8 @@ void TextureRepository::_loadWeapons() {
 
 void TextureRepository::_loadTiles() {
     _setTileImage(Grass, GRASS_PATH, false);
+    _setTileImage(PrettyGrass, PRETTY_GRASS_PATH, false);
+    _setTileImage(PrettyRoad, PRETTY_ROAD_PATH, false);
     _setTileImage(DeadGrass, DEAD_GRASS_PATH, false);
     _setTileImage(Water, WATER_PATH, false);
     _setTileImage(DarkWater, DARK_WATER_PATH, false);
