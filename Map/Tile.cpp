@@ -6,6 +6,8 @@
 #include <memory>
 #include "FloorType.h"
 #include "../AttackResult.h"
+#include "../Entities/Entity.h"
+
 
 ////////////////////////////////////////PRIVATE////////////////////////////////////////
 

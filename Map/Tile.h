@@ -7,15 +7,19 @@
 
 #include <memory>
 #include <list>
-#include "../Items/Item.h"
 #include "FloorType.h"
 #include "../Entities/Entity.h"
+
+class Item;
+struct AttackResult;
+struct ProductData;
+class Player;
 
 class Tile {
 private:
     std::shared_ptr<Entity> entity;
     std::list<std::shared_ptr<Item>> items;
-    bool isOccupable;
+    bool isOccupable{};
     FloorType floor;
 private:
     void _doMove(Tile&& other) noexcept;

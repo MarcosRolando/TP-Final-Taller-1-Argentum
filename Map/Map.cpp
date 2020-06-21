@@ -9,7 +9,6 @@
 #include "../AttackResult.h"
 #include "Tile.h"
 #include "../Config/Calculator.h"
-#include "../Entities/Monster.h"
 
 //////////////////////////////PRIVATE/////////////////////////////
 
