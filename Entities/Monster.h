@@ -49,8 +49,9 @@ public:
     //Daña el monstruo, retorna la cantidad de danio recibido
     //Recibe level por un tema de herencia y logica del juego, esto igualmente
     //hace que el ataque sea extendible, podria aplicarse la logica del fair
-    //play tambien a los monstruos
-    AttackResult attacked(int damage, unsigned int attackerLevel) override;
+    //play tambien a los monstruos. El isAPlayer no lo usa pero hacia falta
+    //para el polimorfismo de Player
+    AttackResult attacked(int damage, unsigned int attackerLevel, bool isAPlayer) override;
 
     void act();
 

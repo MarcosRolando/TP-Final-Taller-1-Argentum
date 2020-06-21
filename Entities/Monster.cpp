@@ -121,7 +121,7 @@ Monster::Monster(Game &_game, const Map& _map, Coordinate initialPosition,
 }
 
 
-AttackResult Monster::attacked(int _damage, unsigned int attackerLevel) {
+AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isAPlayer) {
     AttackResult result = {0, 0};
     if (!isDead()) {
         result = stats.modifyLife(_damage, attackerLevel);
