@@ -10,6 +10,6 @@ NoHelmet::NoHelmet() : Head(Configuration::getInstance().configClothingData(NO_H
 
 }
 
-bool NoHelmet::isDefault() {
+bool NoHelmet::isDefault() const {
     return true;
 }

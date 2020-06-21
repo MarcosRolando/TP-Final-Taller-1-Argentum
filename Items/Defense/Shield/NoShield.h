@@ -10,7 +10,7 @@
 class NoShield : public Shield {
 public:
     NoShield();
-    bool isDefault() override;
+    bool isDefault() const override;
 };
 
 

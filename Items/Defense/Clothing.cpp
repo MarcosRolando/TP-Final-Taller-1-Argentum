@@ -28,11 +28,11 @@ Clothing::Clothing(GameType::Clothing clothing): Item(Configuration::getInstance
 }
 
 
-unsigned int Clothing::getDefense() {
+unsigned int Clothing::getDefense() const {
     return Calculator::getRandomInt(minDefense, maxDefense);
 }
 
-bool Clothing::isDefault() {
+bool Clothing::isDefault() const {
     return false;
 }
 

@@ -10,6 +10,6 @@ CommonClothing::CommonClothing() : Chest(Configuration::getInstance().configClot
 
 }
 
-bool CommonClothing::isDefault() {
+bool CommonClothing::isDefault() const {
     return true;
 }
