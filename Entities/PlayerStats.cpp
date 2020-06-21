@@ -54,6 +54,8 @@ void PlayerStats::_increaseStats() {
                                             level);
     maxMana = Calculator::calculateMaxMana(intelligence, classManaMultiplier, raceManaMultiplier,
                                             level);
+    currentLife = maxLife;
+    currentMana = maxMana;
 }
 
 void PlayerStats::increaseExperience(unsigned int _experience) {
@@ -141,4 +143,8 @@ void PlayerStats::startMeditating() {
 
 void PlayerStats::stopMeditating() {
     isMeditating = false;
+}
+
+unsigned int &PlayerStats::getCurrentMana() {
+    return currentMana;
 }

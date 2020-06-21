@@ -37,6 +37,8 @@ public:
 
     unsigned int getMaxLife() const;
 
+    unsigned int getAgility() const;
+
 private:
     //Retorna true si el monstruo esta muerto, false si esta vivo
     bool _isDead() const;

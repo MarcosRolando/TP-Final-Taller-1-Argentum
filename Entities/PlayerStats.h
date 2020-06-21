@@ -80,6 +80,8 @@ public:
     //Hace que el player deje de estar en modo meditacion
     void stopMeditating();
 
+    unsigned int &getCurrentMana();
+
 private:
     void _increaseStats();
 };

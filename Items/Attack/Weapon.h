@@ -14,10 +14,10 @@ struct Coordinate;
 
 class Weapon : public Item {
 private:
-    int minDamage;
-    int maxDamage;
-    unsigned int attackRange;
-    unsigned int manaConsumption;
+    int minDamage{};
+    int maxDamage{};
+    unsigned int attackRange{};
+    unsigned int manaConsumption{};
 
 private:
     bool _isTargetReachable(Coordinate attackPosition, Coordinate attackedPosition) const;
@@ -36,7 +36,8 @@ public:
     //no lo realiza retorna 0
     //Podria recibir la distancia, pero esto permite encapsular la forma de
     //calcular la distancia en la Weapon
-    int getDamage(Coordinate attackPosition, Coordinate attackedPosition) const;
+    int getDamage(Coordinate attackPosition, Coordinate attackedPosition,
+                  unsigned int& currentMana) const;
 
     EquipmentPlace use(Player& player) override;
 
@@ -44,7 +45,7 @@ public:
     //items no tire los default
     virtual bool isDefault();
 
-    virtual ~Weapon() override;
+    ~Weapon() override;
 };
 
 

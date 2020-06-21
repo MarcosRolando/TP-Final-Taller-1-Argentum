@@ -85,8 +85,9 @@ std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
     return returnItem;
 }
 
-int Inventory::getWeaponDamage(Coordinate currentPosition, Coordinate target) const {
-    return equippedWeapon->getDamage(currentPosition, target);
+int Inventory::getWeaponDamage(Coordinate currentPosition, Coordinate target,
+                                unsigned int& currentMana) const {
+    return equippedWeapon->getDamage(currentPosition, target, currentMana);
 }
 
 unsigned int Inventory::getDefense() {

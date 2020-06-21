@@ -42,11 +42,13 @@ Weapon::Weapon(GameType::Weapon weapon): Item(Configuration::getInstance().confi
 }
 
 //VER SI SE HACE QUE EN VEZ DE RETORNAR 0 TIRE UNA EXCEPCION
-int Weapon::getDamage(Coordinate attackPosition, Coordinate attackedPosition) const{
-    srand(clock());
-    if (!_isTargetReachable(attackPosition, attackedPosition)) {
+int Weapon::getDamage(Coordinate attackPosition, Coordinate attackedPosition,
+                    unsigned int& currentMana) const {
+    if (!_isTargetReachable(attackPosition, attackedPosition) ||
+        manaConsumption > currentMana ) {
         return 0;
     }
+   currentMana -= manaConsumption;
    return Calculator::getRandomInt(minDamage, maxDamage);
 }
 
@@ -54,9 +56,7 @@ EquipmentPlace Weapon::use(Player &player) {
     return EQUIPMENT_PLACE_WEAPON;
 }
 
-Weapon::~Weapon() {
-
-}
+Weapon::~Weapon() = default;
 
 bool Weapon::isDefault() {
     return false;

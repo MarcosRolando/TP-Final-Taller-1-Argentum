@@ -24,10 +24,11 @@ Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsig
 }
 
 void Player::attack(Coordinate target) {
-    stats.stopMeditating();
     if (!stats.isDead()) {
+        stats.stopMeditating();
         int weaponDamage;
-        weaponDamage = inventory.getWeaponDamage(currentPosition, target);
+        weaponDamage = inventory.getWeaponDamage(currentPosition, target,
+                                                    stats.getCurrentMana());
         int totalDamage = stats.getTotalDamage(weaponDamage);
         AttackResult result = game.attackPosition(totalDamage, stats.getLevel(),
                                                 true, target);
@@ -61,7 +62,7 @@ AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPl
         int totalDamage = stats.modifyLife(damage, attackerLevel, defense, isAPlayer);
         unsigned int experience = Calculator::calculateAttackXP(totalDamage,
                                     attackerLevel, stats.getLevel());
-        if (stats.getCurrentLife() == 0 && totalDamage > 0) {
+        if (stats.isDead() && totalDamage > 0) {
             _dropItems();
             experience += Calculator::calculateKillXP(attackerLevel,
                     stats.getLevel(), stats.getMaxLife());
@@ -93,16 +94,16 @@ void Player::receiveGold(unsigned int amount) {
 }
 
 bool Player::storeItem(std::shared_ptr<Item> &&item) {
-    stats.stopMeditating();
     if (!stats.isDead()) {
+        stats.stopMeditating();
         return inventory.addItem(std::move(item));
     }
     return false;
 }
 
 std::shared_ptr<Item> Player::removeItem(const std::string &itemName) {
-    stats.stopMeditating();
     if (!stats.isDead()) {
+        stats.stopMeditating();
         return inventory.removeItem(itemName);
     }
     std::shared_ptr<Item> aux;
@@ -110,8 +111,8 @@ std::shared_ptr<Item> Player::removeItem(const std::string &itemName) {
 }
 
 void Player::useItem(int itemPosition) {
-    stats.stopMeditating();
     if (!stats.isDead()) {
+        stats.stopMeditating();
         inventory.useItem(*this, itemPosition);
     }
 }
@@ -133,7 +134,9 @@ void Player::restoreMana(unsigned int amount) {
 }
 
 void Player::meditate() {
-    stats.startMeditating();
+    if (!stats.isDead()) {
+        stats.startMeditating();
+    }
 }
 
 void Player::update(double timeStep) {
@@ -146,9 +149,15 @@ void Player::move(Direction direction) {
 }
 
 void Player::unequip(EquipmentPlace clothing) {
-    inventory.unequip(clothing);
+    if (!stats.isDead()) {
+        stats.startMeditating();
+        inventory.unequip(clothing);
+    }
 }
 
 void Player::unequip() {
-    inventory.unequip();
+    if (!stats.isDead()) {
+        stats.startMeditating();
+        inventory.unequip();
+    }
 }

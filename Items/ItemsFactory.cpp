@@ -257,8 +257,8 @@ void ItemsFactory::storeRandomDrop(std::shared_ptr<Item> &item, unsigned int gol
     } else if (randomNumber == 19) {
         _storeRandomPotion(item);
     } else if (randomNumber == 20) {
-        const std::string& healthPotionName = Configuration::getInstance().configPotionData(HEALTH_POTION).name;
-        const std::string& manaPotionName = Configuration::getInstance().configPotionData(MANA_POTION).name;
+        const std::string& healthPotionName = Configuration::getInstance().configPotionData(GameType::HEALTH_POTION).name;
+        const std::string& manaPotionName = Configuration::getInstance().configPotionData(GameType::MANA_POTION).name;
         randomNumber = Calculator::getRandomInt(0, (int)itemsNames.size() - 1);
         while ((*itemsNames[randomNumber] == healthPotionName) ||
                (*itemsNames[randomNumber] == manaPotionName)) {
