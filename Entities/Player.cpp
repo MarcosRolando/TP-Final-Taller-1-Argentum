@@ -144,3 +144,11 @@ void Player::update(double timeStep) {
 void Player::move(Direction direction) {
     Entity::move(game, direction);
 }
+
+void Player::unequip(EquipmentPlace clothing) {
+    inventory.unequip(clothing);
+}
+
+void Player::unequip() {
+    inventory.unequip();
+}

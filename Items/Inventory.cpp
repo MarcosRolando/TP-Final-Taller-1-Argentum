@@ -21,16 +21,18 @@ void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int
         std::shared_ptr<Weapon> weaponPtrAux;
         weaponPtrAux = std::dynamic_pointer_cast<Weapon>(items[itemPosition]);
         if (weaponPtrAux) {
-            items[itemPosition] = std::move(equippedWeapon);
+            if (!equippedWeapon->isDefault()) {
+                items[itemPosition] = std::move(equippedWeapon);
+            }
             equippedWeapon = std::move(weaponPtrAux);
         }
     } else {
         std::shared_ptr<Clothing> clothingPtrAux;
-        //No deberia pasar porque se recibe el equipmentPlace, pero chequea que el
-        //casteo no haya fallado
         clothingPtrAux = std::dynamic_pointer_cast<Clothing>(items[itemPosition]);
         if (clothingPtrAux) {
-            items[itemPosition] = std::move(clothingEquipment.at(equipmentPlace));
+            if (!clothingEquipment.at(equipmentPlace)->isDefault()) {
+                items[itemPosition] = std::move(clothingEquipment.at(equipmentPlace));
+            }
             clothingEquipment.at(equipmentPlace) = std::move(clothingPtrAux);
         }
     }
@@ -119,4 +121,24 @@ std::list<std::shared_ptr<Item>> Inventory::dropAllItems() {
     }
     _dropEquippedItems(droppedItems);
     return droppedItems;
+}
+
+void Inventory::unequip(EquipmentPlace clothing) {
+    if (clothingEquipment.at(clothing)->isDefault()) return;
+    for (auto & item : items) {
+        if (!item) {
+            item = std::move(clothingEquipment.at(clothing));
+            break;
+        }
+    }
+}
+
+void Inventory::unequip() {
+    if (equippedWeapon->isDefault()) return;
+    for (auto & item : items) {
+        if (!item) {
+            item = std::move(equippedWeapon);
+            break;
+        }
+    }
 }

@@ -71,6 +71,12 @@ public:
     //Notifica al juego la intencion de moverse del player
     void move(Direction direction);
 
+    //Desequipa la ropa de equipment place
+    void unequip(EquipmentPlace clothing);
+
+    //Desequipa el arma
+    void unequip();
+
 private:
     void _dropItems();
 };

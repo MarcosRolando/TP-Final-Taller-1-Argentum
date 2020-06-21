@@ -56,7 +56,12 @@ public:
     //Retorna la defensa total provista por la armadura equipada (casco, chest, shield)
     unsigned int getDefense();
 
+    //Retorna una lista con todos los items del iventario, quitandolos del mismo
     std::list<std::shared_ptr<Item>> dropAllItems();
+
+    void unequip(EquipmentPlace clothing);
+
+    void unequip();
 
 private:
     void _dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems);
