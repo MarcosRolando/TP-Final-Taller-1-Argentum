@@ -18,7 +18,7 @@ class Item;
 class Monster: public Entity {
 private:
     const unsigned int timeBetweenActions;
-    unsigned int elapsedTime;
+    double elapsedTime;
     MonsterStats stats;
     GameType::Monster type;
 
@@ -54,7 +54,7 @@ public:
     //para el polimorfismo de Player
     AttackResult attacked(int damage, unsigned int attackerLevel, bool isAPlayer) override;
 
-    void act();
+    void update(double timeStep) override;
 
     bool isDead();
 };

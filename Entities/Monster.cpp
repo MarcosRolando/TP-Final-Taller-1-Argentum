@@ -134,13 +134,14 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
     return result;
 }
 
-void Monster::act() {
-    unsigned long currentTime = time(0); //todo esto recibe un puntero time_t donde lo guarda, no 0
-    if (currentTime - timer >= timeBetweenActions) {
+void Monster::update(double timeStep) {
+    Entity::update(timeStep);
+    elapsedTime += timeStep;
+    if (elapsedTime >= timeBetweenActions) {
         if (!_tryToAttack() && !isMoving()) {
             _move();
         }
-        timer = currentTime;
+        elapsedTime = 0;
     }
 }
 
