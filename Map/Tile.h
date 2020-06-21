@@ -34,9 +34,7 @@ public:
     //Intenta agregar la entity al tile
     //Si la posicion es ocupable entonces se apropia
     //del puntero y retorna true, sino no se apropia de de el y retorna false
-
-    //bool addEntity(Entity *received_entity);
-    bool addEntity(std::shared_ptr<Entity>&& received_entity);
+    void addEntity(std::shared_ptr<Entity>&& received_entity);
 
     //Elimina la entity guardada, habilita la ocupacion del tile por otra
     //entity

@@ -6,6 +6,7 @@
 #include <memory>
 #include "FloorType.h"
 #include "../AttackResult.h"
+#include "../TPException.h"
 
 ////////////////////////////////////////PUBLIC////////////////////////////////////////
 
@@ -30,15 +31,13 @@ void Tile::moveEntity(Tile&& otherTile, Coordinate position) {
     entity->startMovementInterpolation(position);
 }
 
-//bool Tile::addEntity(Entity *received_entity) {
-bool Tile::addEntity(std::shared_ptr<Entity>&& received_entity) {
+void Tile::addEntity(std::shared_ptr<Entity>&& received_entity) {
     if (isOccupable) {
-        //this->entity.reset(received_entity);
         entity = std::move(received_entity);
         isOccupable = false;
-        return true;
+    } else {
+        throw TPException("Intentaron agregar un entity a un tile no ocupable!");
     }
-    return false;
 }
 
 void Tile::removeEntity() {
@@ -46,9 +45,7 @@ void Tile::removeEntity() {
     isOccupable = true;
 }
 
-//void Tile::addItem(Item *received_item) {
 void Tile::addItem(std::shared_ptr<Item>&& received_item) {
-    //items.emplace_back(received_item);
     if (received_item) {
         items.push_back(std::move(received_item));
     }

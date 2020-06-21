@@ -52,9 +52,8 @@ public:
 
     //Intenta agregar la entity al tile que se encuentra en la coordenada recibida apropiandose
     //del shared_ptr, si la coordenada es invalida tira invalid_argument y no se apropia del puntero
-    //Si la posicion es ocupable entonces se apropia del puntero y retorna true,
-    //sino no se apropia de de el y retorna false
-    bool addEntity(Coordinate position, std::shared_ptr<Entity>&& entity);
+    //Si la posicion es ocupable entonces se apropia del puntero, sino tira TPException
+    void addEntity(Coordinate position, std::shared_ptr<Entity>&& entity);
 
     //Toma el primer item almacenado en el tile que se encuentra en la coordenada
     //pasada, lo elimina de la tile y lo retorna, si la coordenada es invalida se

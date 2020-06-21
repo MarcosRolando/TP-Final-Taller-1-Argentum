@@ -143,11 +143,11 @@ bool Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::l
     return false;
 }
 
-bool Map::addEntity(Coordinate position, std::shared_ptr<Entity> &&entity) {
+void Map::addEntity(Coordinate position, std::shared_ptr<Entity> &&entity) {
     if (!_isCoordinateValid(position)) {
         throw (std::invalid_argument("Out of bounds coordinate"));
     }
-    return tiles[position.iPosition][position.jPosition].addEntity(std::move(entity));
+    tiles[position.iPosition][position.jPosition].addEntity(std::move(entity));
 }
 
 std::shared_ptr<Item> Map::removeItem(Coordinate position) {
