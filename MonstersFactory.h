@@ -19,10 +19,10 @@ private:
     std::unordered_map<GameType::Monster, monsterCreator> monsterCreators;
     std::list<GameType::Monster> existingMonsters;
 private:
-    void _storeSpider(std::unique_ptr<Monster>& monster);
-    void _storeSkeleton(std::unique_ptr<Monster>& monster);
-    void _storeZombie(std::unique_ptr<Monster>& monster);
-    void _storeGoblin(std::unique_ptr<Monster>& monster);
+    static void _storeSpider(std::unique_ptr<Monster>& monster);
+    static void _storeSkeleton(std::unique_ptr<Monster>& monster);
+    static void _storeZombie(std::unique_ptr<Monster>& monster);
+    static void _storeGoblin(std::unique_ptr<Monster>& monster);
 
 public:
     MonstersFactory();
