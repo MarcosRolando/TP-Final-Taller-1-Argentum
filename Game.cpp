@@ -33,7 +33,7 @@ void Game::_repopulateMap(double timePassed) {
 
 
 void Game::_executeQueueOperations() {
-    MoveCommand aux;
+    MoveCommand aux{};
     while (!eventQueue.empty()) {
         aux = eventQueue.front();
         eventQueue.pop();

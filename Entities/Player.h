@@ -68,6 +68,9 @@ public:
     //Hace que el player comience a meditar
     void meditate();
 
+    //Notifica al juego la intencion de moverse del player
+    void move(Direction direction);
+
 private:
     void _dropItems();
 };

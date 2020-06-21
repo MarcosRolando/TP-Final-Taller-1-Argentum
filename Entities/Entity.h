@@ -13,6 +13,7 @@
 
 struct ProductData;
 struct AttackResult;
+class Game;
 
 struct Movement {
     bool isMoving{};
@@ -66,7 +67,7 @@ protected:
 
     //Encola la accion de movimiento si el entity esta quieto,
     // la cual puede ser rechazada o aceptada
-    void move(Direction moveDirection) const;
+    void move(Game& game, Direction moveDirection) const;
 
     //Le asigna al jugador la posicion recibida
     void setPosition(Coordinate coordinate);
@@ -74,8 +75,8 @@ protected:
     //Retorna la posicion en la que quiere estar el jugadoras
     Coordinate getPosition();
 
-    //Le confirma a entity el request de movimiento
-    void startMoving(Direction moveDirection);
+    //Le confirma a entity el request de movimiento para comenzar la interpolacion
+    void startMovementInterpolation(Coordinate newPosition);
 
     //Actualiza el estado de la entity, por ejemplo si se esta moviendo le
     //actualiza la interpolacion

@@ -4,6 +4,7 @@
 
 #include "Entity.h"
 #include "../AttackResult.h"
+#include "../Game.h"
 
 const unsigned int DISTANCE_TO_MOVE = 500;
 
@@ -51,40 +52,31 @@ void Entity::sell(Player &player, const std::string& itemName) {
     //DO NOTHING
 }
 
-void Entity::move(Direction moveDirection) const {
-    if (movement.isMoving) {
+void Entity::move(Game& game, Direction moveDirection) const {
+    if (!isMoving()) {
         switch (moveDirection) {
             case DIRECTION_UP:
-                //todo invocar a metodo para moverme
+                game.requestMove(currentPosition,
+                        {currentPosition.iPosition - 1, currentPosition.jPosition});
                 break;
             case DIRECTION_DOWN:
-                //todo invocar a metodo para moverme
+                game.requestMove(currentPosition,
+                                 {currentPosition.iPosition + 1, currentPosition.jPosition});
                 break;
             case DIRECTION_RIGHT:
-                //todo invocar a metodo para moverme
+                game.requestMove(currentPosition,
+                                 {currentPosition.iPosition, currentPosition.jPosition + 1});
                 break;
             case DIRECTION_LEFT:
-                //todo invocar a metodo para moverme
+                game.requestMove(currentPosition,
+                                 {currentPosition.iPosition, currentPosition.jPosition - 1});
                 break;
         }
     }
 }
 
-void Entity::startMoving(Direction moveDirection) {
-    switch (moveDirection) {
-        case DIRECTION_UP:
-            --currentPosition.iPosition;
-            break;
-        case DIRECTION_DOWN:
-            ++currentPosition.iPosition;
-            break;
-        case DIRECTION_RIGHT:
-            ++currentPosition.jPosition;
-            break;
-        case DIRECTION_LEFT:
-            --currentPosition.jPosition;
-            break;
-    }
+void Entity::startMovementInterpolation(Coordinate newPosition) {
+    currentPosition = newPosition;
     movement.isMoving = true;
     movement.movedDistance = 0;
 }

@@ -6,25 +6,12 @@
 #include <memory>
 #include "FloorType.h"
 #include "../AttackResult.h"
-#include "../Entities/Entity.h"
-
-
-////////////////////////////////////////PRIVATE////////////////////////////////////////
-
-//Funcion auxiliar para hacer la construccion y asignacion por movimiento
-void Tile::_doMove(Tile &&other) noexcept {
-    //std::shared_ptr<Entity> aux = std::move(other.entity);
-    std::shared_ptr<Entity> aux = std::move(other.entity);
-    other.entity = std::move(this->entity);
-    this->entity = std::move(aux);
-}
-
 
 ////////////////////////////////////////PUBLIC////////////////////////////////////////
 
 
 
-Tile::Tile(bool isFromCity, FloorType floor): entity(nullptr){
+Tile::Tile(bool isFromCity, FloorType floor): entity(nullptr) {
     this->floor = floor;
     this->isFromCity = isFromCity;
     switch (floor) {
@@ -37,14 +24,10 @@ Tile::Tile(bool isFromCity, FloorType floor): entity(nullptr){
     }
 }
 
-
-Tile::Tile(Tile &&other) noexcept {
-    _doMove(std::move(other));
-}
-
-Tile& Tile::operator=(Tile &&other) noexcept{
-    _doMove(std::move(other));
-    return *this;
+void Tile::moveEntity(Tile&& otherTile, Coordinate position) {
+    this->entity = std::move(otherTile.entity);
+    otherTile.entity = nullptr;
+    entity->startMovementInterpolation(position);
 }
 
 //bool Tile::addEntity(Entity *received_entity) {
@@ -137,6 +120,6 @@ void Tile::addItem(std::list<std::shared_ptr<Item>>&& _items) {
     }
 }
 
-bool Tile::isInCity() {
+bool Tile::isInCity() const {
     return isFromCity;
 }

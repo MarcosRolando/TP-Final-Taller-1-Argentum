@@ -45,6 +45,7 @@ private:
 public:
     AttackResult attackPosition(int damage, unsigned int level, bool isAPlayer,
                             Coordinate coordinate);
+
     //Llama a Map para que guarde los items recibidos en el tile que corresponde
     //a la coordenada recibida
     void dropItems(std::list<std::shared_ptr<Item>>&& items, Coordinate position);

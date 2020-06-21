@@ -23,20 +23,13 @@ private:
     bool isFromCity;
     FloorType floor;
 
-private:
-    void _doMove(Tile&& other) noexcept;
-
 public:
     //Inicializa el tile, dependiendo tel tipo de piso que reciba seteara el
     //tile como ocupable o no ocupable
     explicit Tile(bool isFromCity, FloorType floor);
 
-    //Constructor por movimiento, intercambia las entities de las tiles
-    //El tile se queda con la entity de other, y other con la del tile que
-    //llama a la funcion
-    Tile(Tile&& other) noexcept;
-
-    Tile& operator=(Tile&& other) noexcept;
+    //El tile se queda con la entity de other y setea la de other en nullptr
+    void moveEntity(Tile&& otherTile, Coordinate position);
 
     //Intenta agregar la entity al tile
     //Si la posicion es ocupable entonces se apropia
@@ -53,8 +46,6 @@ public:
     void removeEntity();
 
     //Intenta agregar el item al tile, sumandolo a los items ya guardados
-
-    //void addItem(Item *received_item);
     void addItem(std::shared_ptr<Item>&& received_item);
 
     //Agrega los items recibidos en la lista a los items que contiene el tile
@@ -91,7 +82,7 @@ public:
     //Delega el comportamiento a la entity que guarda, si es que guarda una
     void sell(Player& player, const std::string& itemName);
 
-    bool isInCity();
+    bool isInCity() const;
 };
 
 

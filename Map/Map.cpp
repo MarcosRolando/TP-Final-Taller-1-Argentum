@@ -172,8 +172,9 @@ bool Map::moveEntity(Coordinate startingPosition, Coordinate finalPosition) {
     if (!tiles[finalPosition.iPosition][finalPosition.jPosition].isAvailable()) {
         return false;
     }
-    tiles[finalPosition.iPosition][finalPosition.jPosition] =
-            std::move(tiles[startingPosition.iPosition][startingPosition.jPosition]);
+    Tile& tile = tiles[finalPosition.iPosition][finalPosition.jPosition];
+    tile.moveEntity(std::move(tiles[startingPosition.iPosition][startingPosition.jPosition]),
+                        finalPosition);
     return true;
 }
 
