@@ -37,6 +37,8 @@ private:
 
 private:
 
+    void _updateMonsters(double timeStep);
+
     //CUANDO SE IMPLEMENTE ESTO VAMOS A TENER QUE TOMAR EN CUENTA QUE VAMOS A TENER QUE ENCOLAR
     //CADA MOVIMIENTO REALIZADO PARA MANDARSELO A LOS CLIENTES
     void _executeQueueOperations();
@@ -60,7 +62,7 @@ public:
     //Esta funcion encola la accion de mover un entity de initial a finalPosition
     void requestMove(Coordinate initialPosition, Coordinate finalPosition);
 
-    void update(double timePassed);
+    void update(double timeStep);
 };
 
 

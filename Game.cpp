@@ -44,6 +44,12 @@ void Game::_executeQueueOperations() {
 }
 
 
+void Game::_updateMonsters(double timeStep) {
+    for (const auto & monster: monsters) {
+        monster->update(timeStep);
+    }
+}
+
 /////////////////////////////////PUBLIC//////////////////////////
 
 AttackResult Game::attackPosition(int damage, unsigned int level, bool isAPlayer,
@@ -65,8 +71,11 @@ void Game::requestMove(Coordinate initialPosition, Coordinate finalPosition) {
     }
 }
 
-void Game::update(double timePassed) {
-    _repopulateMap(timePassed);
+void Game::update(double timeStep) {
+    _repopulateMap(timeStep);
+    _updateMonsters(timeStep);
+
+    //AGREGAR UPDATE DE PLAYERS CONECTADOS
 
     //ACORDARSE DE ELIMINAR LOS MONSTRUOS MUERTOS DE LA LISTA DE MONSTERS
 }

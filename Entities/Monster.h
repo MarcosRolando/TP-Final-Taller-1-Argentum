@@ -56,7 +56,7 @@ public:
 
     void update(double timeStep) override;
 
-    bool isDead();
+    bool isDead() const;
 };
 
 

@@ -145,7 +145,7 @@ void Monster::update(double timeStep) {
     }
 }
 
-bool Monster::isDead() {
+bool Monster::isDead() const {
     return (stats.getCurrentLife() == 0);
 }
 
