@@ -2,10 +2,12 @@
 // Created by agustin on 7/6/20.
 //
 
+#include <algorithm>
 #include "Game.h"
 #include "../AttackResult.h"
 #include "../Entities/Entity.h"
 #include "../Entities/Monster.h"
+#include "ShouldMonsterBeRemoved.h"
 
 /////////////////////////////////PRIVATE//////////////////////////
 
@@ -52,6 +54,18 @@ void Game::_updateMonsters(double timeStep) {
     }
 }
 
+//Elimina de las listas almacenadas y del mapa los players y monsters que deban ser eliminados
+void Game::_removeEntities() {
+    std::list<Coordinate> monstersToRemove;
+    ShouldMonsterBeRemoved sholdBeRemoved(monstersToRemove);
+    monsters.erase(std::remove_if(monsters.begin(), monsters.end(), sholdBeRemoved), monsters.end());
+    for (const auto & coordinate: monstersToRemove) {
+        map.removeEntity(coordinate);
+    }
+
+    //AGREGAR BORRADO DE PLAYER_HANDLERS
+}
+
 /////////////////////////////////PUBLIC//////////////////////////
 
 AttackResult Game::attackPosition(int damage, unsigned int level, bool isAPlayer,
@@ -79,5 +93,5 @@ void Game::update(double timeStep) {
 
     //AGREGAR UPDATE DE PLAYERS CONECTADOS
 
-    //ACORDARSE DE ELIMINAR LOS MONSTRUOS MUERTOS DE LA LISTA DE MONSTERS
+    _removeEntities();
 }
