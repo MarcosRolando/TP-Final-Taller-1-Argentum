@@ -16,7 +16,7 @@ class Game;
 class Map;
 
 typedef void (*monsterCreator)(Game& game, Map& map, Coordinate initialPosition,
-                               std::unique_ptr<Monster>& monster);
+                               std::shared_ptr<Monster>& monster);
 
 class MonstersFactory {
 private:
@@ -24,17 +24,17 @@ private:
     std::list<GameType::Monster> existingMonsters;
 private:
     static void _storeSpider(Game& game, Map& map, Coordinate initialPosition,
-                             std::unique_ptr<Monster>& monster);
+                             std::shared_ptr<Monster>& monster);
     static void _storeSkeleton(Game& game, Map& map, Coordinate initialPosition,
-                               std::unique_ptr<Monster>& monster);
+                               std::shared_ptr<Monster>& monster);
     static void _storeZombie(Game& game, Map& map, Coordinate initialPosition,
-                             std::unique_ptr<Monster>& monster);
+                             std::shared_ptr<Monster>& monster);
     static void _storeGoblin(Game& game, Map& map, Coordinate initialPosition,
-                             std::unique_ptr<Monster>& monster);
+                             std::shared_ptr<Monster>& monster);
 
 public:
     MonstersFactory();
-    void storeRandomMonster(Game& game, Map& map, std::unique_ptr<Monster>& monster, Coordinate initialPosition);
+    void storeRandomMonster(Game& game, Map& map, std::shared_ptr<Monster>& monster, Coordinate initialPosition);
 };
 
 

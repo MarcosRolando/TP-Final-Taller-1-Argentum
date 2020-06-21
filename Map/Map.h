@@ -16,6 +16,7 @@ class Tile;
 struct AttackResult;
 class Item;
 class Entity;
+class Monster;
 
 class Map {
 private:
@@ -50,10 +51,10 @@ public:
     bool getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const;
 
     //Intenta agregar la entity al tile que se encuentra en la coordenada recibida apropiandose
-    //del unique_ptr, si la coordenada es invalida tira invalid_argument y no se apropia del puntero
+    //del shared_ptr, si la coordenada es invalida tira invalid_argument y no se apropia del puntero
     //Si la posicion es ocupable entonces se apropia del puntero y retorna true,
     //sino no se apropia de de el y retorna false
-    bool addEntity(Coordinate position, std::unique_ptr<Entity>&& entity);
+    bool addEntity(Coordinate position, std::shared_ptr<Entity>&& entity);
 
     //Toma el primer item almacenado en el tile que se encuentra en la coordenada
     //pasada, lo elimina de la tile y lo retorna, si la coordenada es invalida se
@@ -80,6 +81,8 @@ public:
     //Agrega el item al tile que se encuentra en la coordenada recibida apropiandose del shared_ptr,
     //si la coordenada es invalida tira invalid_argument y no se apropia del puntero
     void addItemsToTile(std::shared_ptr<Item>&& item, Coordinate position);
+
+    void addMonster(std::shared_ptr<Monster>&& monster);
 };
 
 

@@ -4,9 +4,11 @@
 
 #include <queue>
 #include <unordered_map>
+#include <memory>
 #include "Map.h"
 #include "../AttackResult.h"
 #include "Tile.h"
+#include "../Config/Calculator.h"
 
 //////////////////////////////PRIVATE/////////////////////////////
 
@@ -141,7 +143,7 @@ bool Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::l
     return false;
 }
 
-bool Map::addEntity(Coordinate position, std::unique_ptr<Entity> &&entity) {
+bool Map::addEntity(Coordinate position, std::shared_ptr<Entity> &&entity) {
     if (!_isCoordinateValid(position)) {
         throw (std::invalid_argument("Out of bounds coordinate"));
     }
@@ -192,4 +194,17 @@ void Map::addItemsToTile(std::shared_ptr<Item> &&item, Coordinate position) {
         throw (std::invalid_argument("Out of bounds coordinate"));
     }
     tiles[position.iPosition][position.jPosition].addItem(std::move(item));
+}
+
+void Map::addMonster(std::shared_ptr<Monster> &&monster) {
+    //std::shared_ptr<Entity> aux;
+    //aux.reset((Entity*)monster.get());
+    //monster.reset();
+    unsigned int xPosition = Calculator::getRandomInt(0, (int)(tiles.size() - 1));
+    unsigned int yPosition = Calculator::getRandomInt(0, (int)(tiles[0].size() - 1));
+    while ((!tiles[xPosition][yPosition].isAvailable()) || (tiles[xPosition][yPosition].isInCity())) {
+        xPosition = Calculator::getRandomInt(0, (int)(tiles.size() - 1));
+        yPosition = Calculator::getRandomInt(0, (int)(tiles[0].size() - 1));
+    }
+    tiles[xPosition][yPosition].addEntity(std::static_pointer_cast<Entity>(monster));
 }
