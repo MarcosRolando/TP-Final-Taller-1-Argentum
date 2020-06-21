@@ -7,8 +7,11 @@
 
 /////////////////////////////////PRIVATE//////////////////////////
 
+//Carga hasta monsterCreationRate monstruos nuevos cada cierto invervalo de tiempo
+//Si la cantidad que se desea crear sobrepasa la cantidad maxima, entonces crea hasta
+//conseguir la cantidad maxima
 void Game::_repopulateMap(double timePassed) {
-    spawnTimer += timePassed;
+    spawnTimer += static_cast<unsigned int>(timePassed);
     if (spawnTimer >= spawnInterval) {
         unsigned int monstersToCreate = monsterCreationRate;
         std::shared_ptr<Monster> monster;
@@ -44,6 +47,7 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 
 void Game::requestMove(Coordinate initialPosition, Coordinate finalPosition) {
     if (map.isPlaceAvailable(finalPosition)) {
+        /*
         std::string command;
         command.push_back(COMMAND_TYPE_MOVE);
         command += "," + std::to_string(initialPosition.iPosition);
@@ -51,9 +55,13 @@ void Game::requestMove(Coordinate initialPosition, Coordinate finalPosition) {
         command += "," + std::to_string(finalPosition.iPosition);
         command += "," + std::to_string(finalPosition.jPosition);
         eventQueue.push(std::move(command));
+        */
+        eventQueue.push({initialPosition, finalPosition, false});
     }
 }
 
-void Game::update() {
+void Game::update(double timePassed) {
+    _repopulateMap(timePassed);
 
+    //ACORDARSE DE ELIMINAR LOS MONSTRUOS MUERTOS DE LA LISTA DE MONSTERS
 }
