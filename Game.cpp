@@ -7,19 +7,24 @@
 
 /////////////////////////////////PRIVATE//////////////////////////
 
+//Carga hasta monsterCreationRate monstruos nuevos cada cierto invervalo de tiempo
+//Si la cantidad que se desea crear sobrepasa la cantidad maxima, entonces crea hasta
+//conseguir la cantidad maxima
 void Game::_repopulateMap(double timePassed) {
-    spawnTimer += timePassed;
+    spawnTimer += static_cast<unsigned int>(timePassed);
     if (spawnTimer >= spawnInterval) {
         unsigned int monstersToCreate = monsterCreationRate;
         std::shared_ptr<Monster> monster;
         spawnTimer = 0;
-        if ((monstersToCreate + /*CANTIDAD DE MONSTUOS*/) > /*CANTIDAD DE MONSTUOS*/) {
-            monstersToCreate = /*CANTIDAD DE MONSTUOS*/ - monstersToCreate;
+        if ((monstersToCreate + monsters.size()) > maxNumberOfMonsters) {
+            monstersToCreate = maxNumberOfMonsters - monsters.size();
         }
         for (unsigned int i = 0; i < monstersToCreate; ++i) {
-            //AGREGAR MONSTRUO AL MAPA
-            monstersFactory.storeRandomMonster(this, map, monster, /*HACER QUE MAP DEVUELVA LA COORDENADA ASI INICIALIZO CON ESO AL MOSNTRUO*/);
-            map.addMonster(std::move(monster));
+            Coordinate monsterPosition = map.getMonsterCoordinate();
+            monstersFactory.storeRandomMonster(*this, map, monster, monsterPosition);
+            monsters.push_back(monster);
+            //map.addMonster(std::move(monster));
+            map.addEntity(monsterPosition, std::static_pointer_cast<Entity>(monster));
         }
     }
 }
@@ -42,6 +47,7 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 
 void Game::requestMove(Coordinate initialPosition, Coordinate finalPosition) {
     if (map.isPlaceAvailable(finalPosition)) {
+        /*
         std::string command;
         command.push_back(COMMAND_TYPE_MOVE);
         command += "," + std::to_string(initialPosition.iPosition);
@@ -49,9 +55,13 @@ void Game::requestMove(Coordinate initialPosition, Coordinate finalPosition) {
         command += "," + std::to_string(finalPosition.iPosition);
         command += "," + std::to_string(finalPosition.jPosition);
         eventQueue.push(std::move(command));
+        */
+        eventQueue.push({initialPosition, finalPosition, false});
     }
 }
 
-void Game::update() {
+void Game::update(double timePassed) {
+    _repopulateMap(timePassed);
 
+    //ACORDARSE DE ELIMINAR LOS MONSTRUOS MUERTOS DE LA LISTA DE MONSTERS
 }

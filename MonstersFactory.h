@@ -6,7 +6,7 @@
 #define ARGENTUM_MONSTERSFACTORY_H
 
 #include <unordered_map>
-#include <list>
+#include <vector>
 #include <memory>
 #include "Config/GameEnums.h"
 #include "Map/Coordinate.h"
@@ -21,7 +21,7 @@ typedef void (*monsterCreator)(Game& game, Map& map, Coordinate initialPosition,
 class MonstersFactory {
 private:
     std::unordered_map<GameType::Monster, monsterCreator> monsterCreators;
-    std::list<GameType::Monster> existingMonsters;
+    std::vector<GameType::Monster> existingMonsters;
 private:
     static void _storeSpider(Game& game, Map& map, Coordinate initialPosition,
                              std::shared_ptr<Monster>& monster);

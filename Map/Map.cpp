@@ -197,7 +197,7 @@ void Map::addItemsToTile(std::shared_ptr<Item> &&item, Coordinate position) {
     tiles[position.iPosition][position.jPosition].addItem(std::move(item));
 }
 
-void Map::addMonster(std::shared_ptr<Monster> &&monster) {
+Coordinate Map::getMonsterCoordinate(/*std::shared_ptr<Monster>&& monster*/) {
     //std::shared_ptr<Entity> aux;
     //aux.reset((Entity*)monster.get());
     //monster.reset();
@@ -207,5 +207,6 @@ void Map::addMonster(std::shared_ptr<Monster> &&monster) {
         xPosition = Calculator::getRandomInt(0, (int)(tiles.size() - 1));
         yPosition = Calculator::getRandomInt(0, (int)(tiles[0].size() - 1));
     }
-    tiles[xPosition][yPosition].addEntity(std::static_pointer_cast<Entity>(monster));
+    //tiles[xPosition][yPosition].addEntity(std::static_pointer_cast<Entity>(monster));
+    return {static_cast<int>(xPosition), static_cast<int>(yPosition)};
 }

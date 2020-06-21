@@ -10,25 +10,42 @@
 #include "MonstersFactory.h"
 #include <queue>
 
+/*
 enum CommandType: char {
     COMMAND_TYPE_MOVE = 'M'
+};
+*/
+
+struct MoveCommand {
+    Coordinate initialPosition;
+    Coordinate finalPosition;
+    bool isTeleporting;
 };
 
 class Game {
 private:
     Map map;
 
+    /*
     //Guarda strings que le indican a game que debera hacer. Se guardan con el
     //siguiente formato: comando,parametro1,parametro2
     //movimiento: M,coordenadaInicialx,coordenadaInicialy,coordenadaFinalx,coordenadaFinaly
     std::queue<std::string> eventQueue;
+    */
+    std::queue<MoveCommand> eventQueue;
 
     unsigned int monsterCreationRate;
     unsigned int maxNumberOfMonsters;
-    double spawnTimer;
-    double spawnInterval;
+    unsigned int spawnTimer;
+    unsigned int  spawnInterval;
     MonstersFactory monstersFactory;
+
+    std::list<std::shared_ptr<Monster>> monsters;
+
 private:
+
+    //CUANDO SE IMPLEMENTE ESTO VAMOS A TENER QUE TOMAR EN CUENTA QUE VAMOS A TENER QUE ENCOLAR
+    //CADA MOVIMIENTO REALIZADO PARA MANDARSELO A LOS CLIENTES
     void _executeQueueOperations();
     void _repopulateMap(double timePassed);
 
@@ -49,7 +66,7 @@ public:
     //Esta funcion encola la accion de mover un entity de initial a finalPosition
     void requestMove(Coordinate initialPosition, Coordinate finalPosition);
 
-    void update();
+    void update(double timePassed);
 };
 
 
