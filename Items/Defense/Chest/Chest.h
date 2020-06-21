@@ -11,7 +11,8 @@
 class Chest: public Clothing {
 public:
     //Chest(unsigned int minDefense, unsigned int maxDefense);
-    explicit Chest(const Config::ClothingData& stats);
+    //explicit Chest(const Config::ClothingData& stats);
+    explicit Chest(GameType::Clothing clothing);
 
     EquipmentPlace use(Player& player) override;
 };

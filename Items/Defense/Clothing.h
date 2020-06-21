@@ -14,7 +14,8 @@ private:
     unsigned int maxDefense;
 public:
     //explicit Clothing(unsigned int minDefense, unsigned int maxDefense, std::string name);
-    explicit Clothing(const Config::ClothingData& stats);
+    //explicit Clothing(const Config::ClothingData& stats);
+    explicit Clothing(GameType::Clothing clothing);
 
     unsigned int getDefense();
 

@@ -13,7 +13,13 @@ Head::Head(unsigned int minDefense, unsigned int maxDefense): Clothing(minDefens
 }
 */
 
+/*
 Head::Head(const ClothingData& stats): Clothing(stats) {
+
+}
+*/
+
+Head::Head(GameType::Clothing clothing) : Clothing(clothing) {
 
 }
 

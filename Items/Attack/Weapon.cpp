@@ -5,6 +5,7 @@
 #include "Weapon.h"
 #include "../../Config/Calculator.h"
 #include "../../Map/Coordinate.h"
+#include "../../Config/Configuration.h"
 #include <ctime>
 #include <cstdlib>
 
@@ -28,7 +29,15 @@ void Weapon::_initializeData(int _minDamage, int _maxDamage, unsigned int _manaC
 
 
 //////////////////////////////////////PUBLIC//////////////////////
+/*
 Weapon::Weapon(const Config::WeaponData& stats): Item(stats.name, stats.price) {
+    _initializeData(stats.minDmg, stats.maxDmg, stats.manaConsumption, stats.range);
+}
+*/
+
+Weapon::Weapon(GameType::Weapon weapon): Item(Configuration::getInstance().configWeaponData(weapon).name,
+                                              Configuration::getInstance().configWeaponData(weapon).price) {
+    Config::WeaponData stats = Configuration::getInstance().configWeaponData(weapon);
     _initializeData(stats.minDmg, stats.maxDmg, stats.manaConsumption, stats.range);
 }
 
