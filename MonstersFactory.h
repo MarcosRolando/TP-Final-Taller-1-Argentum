@@ -6,7 +6,11 @@
 #define ARGENTUM_MONSTERSFACTORY_H
 
 #include <unordered_map>
-#include "Entities/Monster.h"
+#include <list>
+#include <memory>
+#include "Config/GameEnums.h"
+
+class Monster;
 
 typedef void (*monsterCreator)(std::unique_ptr<Monster>& monster);
 
@@ -19,6 +23,7 @@ private:
     void _storeSkeleton(std::unique_ptr<Monster>& monster);
     void _storeZombie(std::unique_ptr<Monster>& monster);
     void _storeGoblin(std::unique_ptr<Monster>& monster);
+
 public:
     MonstersFactory();
     void storeRandomMonster(std::unique_ptr<Monster>& monster);
