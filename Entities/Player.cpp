@@ -27,7 +27,8 @@ void Player::attack(Coordinate target) {
     if (!stats.isDead()) {
         stats.stopMeditating();
         int weaponDamage;
-        weaponDamage = inventory.getWeaponDamage(currentPosition, target);
+        weaponDamage = inventory.getWeaponDamage(currentPosition, target,
+                                                    stats.getCurrentMana());
         int totalDamage = stats.getTotalDamage(weaponDamage);
         AttackResult result = game.attackPosition(totalDamage, stats.getLevel(),
                                                 true, target);

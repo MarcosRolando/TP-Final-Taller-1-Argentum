@@ -144,3 +144,7 @@ void PlayerStats::startMeditating() {
 void PlayerStats::stopMeditating() {
     isMeditating = false;
 }
+
+unsigned int &PlayerStats::getCurrentMana() {
+    return currentMana;
+}

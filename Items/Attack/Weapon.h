@@ -36,7 +36,8 @@ public:
     //no lo realiza retorna 0
     //Podria recibir la distancia, pero esto permite encapsular la forma de
     //calcular la distancia en la Weapon
-    int getDamage(Coordinate attackPosition, Coordinate attackedPosition) const;
+    int getDamage(Coordinate attackPosition, Coordinate attackedPosition,
+                  unsigned int& currentMana) const;
 
     EquipmentPlace use(Player& player) override;
 
