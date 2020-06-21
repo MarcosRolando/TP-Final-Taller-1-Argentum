@@ -32,7 +32,7 @@ protected:
 
     //Implementa el comportamiento realizado al ser atacado, por default
     //retorna 0, debe ser modificado en las clases hijas de ser necesario
-    virtual AttackResult attacked(int damage, unsigned int level);
+    virtual AttackResult attacked(int damage, unsigned int level, bool isAPlayer);
 
     //Implementa el comportamiento realizado al pedirle una lista de los items
     //que tiene en venta, por default no hace nada, debe ser reimplementada

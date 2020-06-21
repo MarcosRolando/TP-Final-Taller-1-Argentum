@@ -7,6 +7,7 @@
 #include "../AttackResult.h"
 #include "../Game.h"
 #include "../Items/Miscellaneous/Gold.h"
+#include "../Config/Configuration.h"
 
 using namespace GameType;
 
@@ -46,7 +47,11 @@ void Player::_dropItems() {
     }
 }
 
-AttackResult Player::attacked(int damage, unsigned int attackerLevel) {
+AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPlayer) {
+    unsigned int newbieLevel = Configuration::getInstance().configNewbieLevel();
+    if (isAPlayer && ( stats.getLevel() <= newbieLevel || attackerLevel <= newbieLevel) ) {
+        return {0, 0};
+    }
     if (!stats.isDead()) {
         unsigned int defense = inventory.getDefense();
         int totalDamage = stats.modifyLife(damage, attackerLevel, defense);

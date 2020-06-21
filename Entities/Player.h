@@ -50,7 +50,7 @@ public:
     //hace nada
     void useItem(int itemPosition);
 
-    AttackResult attacked(int damage, unsigned int attackerLevel) override;
+    AttackResult attacked(int damage, unsigned int attackerLevel, bool isAPlayer) override;
 
     const std::string& getNickname() const;
 
