@@ -25,8 +25,8 @@ namespace Config {
 
     struct WeaponData {
         std::string name;
-        unsigned int minDmg;
-        unsigned int maxDmg;
+        int minDmg;
+        int maxDmg;
         unsigned int manaConsumption;
         unsigned int range;
         unsigned int price;

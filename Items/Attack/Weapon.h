@@ -14,10 +14,10 @@ struct Coordinate;
 
 class Weapon : public Item {
 private:
-    int minDamage;
-    int maxDamage;
-    unsigned int attackRange;
-    unsigned int manaConsumption;
+    int minDamage{};
+    int maxDamage{};
+    unsigned int attackRange{};
+    unsigned int manaConsumption{};
 
 private:
     bool _isTargetReachable(Coordinate attackPosition, Coordinate attackedPosition) const;
@@ -44,7 +44,7 @@ public:
     //items no tire los default
     virtual bool isDefault();
 
-    virtual ~Weapon() override;
+    ~Weapon() override;
 };
 
 

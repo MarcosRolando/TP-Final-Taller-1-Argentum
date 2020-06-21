@@ -42,8 +42,7 @@ Weapon::Weapon(GameType::Weapon weapon): Item(Configuration::getInstance().confi
 }
 
 //VER SI SE HACE QUE EN VEZ DE RETORNAR 0 TIRE UNA EXCEPCION
-int Weapon::getDamage(Coordinate attackPosition, Coordinate attackedPosition) const{
-    srand(clock());
+int Weapon::getDamage(Coordinate attackPosition, Coordinate attackedPosition) const {
     if (!_isTargetReachable(attackPosition, attackedPosition)) {
         return 0;
     }
@@ -54,9 +53,7 @@ EquipmentPlace Weapon::use(Player &player) {
     return EQUIPMENT_PLACE_WEAPON;
 }
 
-Weapon::~Weapon() {
-
-}
+Weapon::~Weapon() = default;
 
 bool Weapon::isDefault() {
     return false;

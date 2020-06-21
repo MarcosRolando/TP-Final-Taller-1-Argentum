@@ -155,8 +155,8 @@ void Config::ConfigFileReader::_getMonsterStats(MonsterStats& stats, Json::Value
 
 void Config::ConfigFileReader::_getWeaponData(WeaponData& stats, Json::Value& currWeapon){
     stats.name = currWeapon["Name"].asString();
-    stats.maxDmg = currWeapon["MaxDmg"].asUInt();
-    stats.minDmg = currWeapon["MinDmg"].asUInt();
+    stats.maxDmg = currWeapon["MaxDmg"].asInt();
+    stats.minDmg = currWeapon["MinDmg"].asInt();
     stats.manaConsumption = currWeapon["ManaConsumption"].asUInt();
     stats.range = currWeapon["Range"].asUInt();
     stats.price = currWeapon["Price"].asUInt();

@@ -124,6 +124,7 @@ Monster::Monster(Game &_game, const Map& _map, Coordinate initialPosition,
 AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isAPlayer) {
     AttackResult result = {0, 0};
     if (!isDead()) {
+        if (Calculator::canDodge(stats.getAgility())) return result;
         result = stats.modifyLife(_damage, attackerLevel);
         if (isDead()) {
             std::shared_ptr<Item> drop;
