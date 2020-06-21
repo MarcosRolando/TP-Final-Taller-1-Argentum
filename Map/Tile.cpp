@@ -24,8 +24,9 @@ void Tile::_doMove(Tile &&other) noexcept {
 
 
 
-Tile::Tile(FloorType floor): entity(nullptr){
+Tile::Tile(bool isFromCity, FloorType floor): entity(nullptr){
     this->floor = floor;
+    this->isFromCity = isFromCity;
     switch (floor) {
         case FLOOR_TYPE_TREE:
         case FLOOR_TYPE_WALL:
@@ -134,4 +135,8 @@ void Tile::addItem(std::list<std::shared_ptr<Item>>&& _items) {
             items.push_back(std::move(item));
         }
     }
+}
+
+bool Tile::isInCity() {
+    return isFromCity;
 }
