@@ -7,19 +7,21 @@
 
 using namespace GameType;
 
-#define INITIAL_ITEMS_AMOUNT 10
+#define INITIAL_WEAPONS_AMOUNT 10
+#define INITIAL_POTIONS_AMOUNT 30
 #define BUYING_PRICE_MULTIPLIER 1.25
 #define SELLING_PRICE_MULTIPLIER 0.75
 
 Priest::Priest(Coordinate initialPosition): Entity(initialPosition) {
     Configuration& config = Configuration::getInstance();
     std::unordered_map<std::string, unsigned int> initialItemsAmounts;
-    initialItemsAmounts[config.configWeaponData(LINKED_STAFF).name] = INITIAL_ITEMS_AMOUNT;
-    initialItemsAmounts[config.configWeaponData(GNARLED_STAFF).name] = INITIAL_ITEMS_AMOUNT;
-    initialItemsAmounts[config.configWeaponData(ELVEN_FLUTE).name] = INITIAL_ITEMS_AMOUNT;
-    initialItemsAmounts[config.configWeaponData(ASH_ROD).name] = INITIAL_ITEMS_AMOUNT;
+    initialItemsAmounts[config.configWeaponData(LINKED_STAFF).name] = INITIAL_WEAPONS_AMOUNT;
+    initialItemsAmounts[config.configWeaponData(GNARLED_STAFF).name] = INITIAL_WEAPONS_AMOUNT;
+    initialItemsAmounts[config.configWeaponData(ELVEN_FLUTE).name] = INITIAL_WEAPONS_AMOUNT;
+    initialItemsAmounts[config.configWeaponData(ASH_ROD).name] = INITIAL_WEAPONS_AMOUNT;
 
-    //AGREGAR QUE SE CREAN LAS POCIONES
+    initialItemsAmounts[config.configPotionData(HEALTH_POTION).name] = INITIAL_POTIONS_AMOUNT;
+    initialItemsAmounts[config.configPotionData(MANA_POTION).name] = INITIAL_POTIONS_AMOUNT;
 
     Shop aux(initialItemsAmounts, BUYING_PRICE_MULTIPLIER, SELLING_PRICE_MULTIPLIER);
     shop = std::move(aux);
