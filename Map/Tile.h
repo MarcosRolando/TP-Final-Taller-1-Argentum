@@ -21,8 +21,10 @@ private:
     std::list<std::shared_ptr<Item>> items;
     bool isOccupable{};
     FloorType floor;
+
 private:
     void _doMove(Tile&& other) noexcept;
+
 public:
     //Inicializa el tile, dependiendo tel tipo de piso que reciba seteara el
     //tile como ocupable o no ocupable
