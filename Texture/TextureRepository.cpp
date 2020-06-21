@@ -204,10 +204,10 @@ void TextureRepository::_loadNPCS() {
     _setNPCImage(Goblin, GOBLIN_PATH, 24, 31, -5, 15);
     _setNPCImage(Zombie, ZOMBIE_PATH, 25, 45);
     _setNPCImage(Spider, SPIDER_PATH, 34, 34, -10, 18);
-    _setNPCImage(Priest, PRIEST_PATH, 25, 45);
-    _setNPCImage(Trader, TRADER_PATH, 24, 48);
-    _setNPCImage(Banker, BANKER_PATH, 25, 45);
-    _setNPCImage(Guard, GUARD_PATH, 28, 52);
+    _setNPCImage(Priest, PRIEST_PATH, 25, 45, 37, 33);
+    _setNPCImage(Trader, TRADER_PATH, 24, 48,37, 33);
+    _setNPCImage(Banker, BANKER_PATH, 25, 45, 37, 33);
+    _setNPCImage(Guard, GUARD_PATH, 28, 52, 37, 33);
 }
 
 void TextureRepository::_setImage(TextureID textureID, std::string&& image,
