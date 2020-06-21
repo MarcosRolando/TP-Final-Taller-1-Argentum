@@ -7,24 +7,25 @@
 #include "MonstersFactory.h"
 
 #include "Entities/Monster.h"
+#include "Config/Calculator.h"
 
 
 ////////////////////////////////////PRIVATE///////////////////////////
 
-void MonstersFactory::_storeSpider(std::unique_ptr<Monster> &monster) {
-    monster.reset(new Monster(GameType::SPIDER));
+void MonstersFactory::_storeSpider(Game& game, Map& map, Coordinate initialPosition, std::unique_ptr<Monster>& monster) {
+    monster.reset(new Monster(game, map, initialPosition, GameType::SPIDER));
 }
 
-void MonstersFactory::_storeSkeleton(std::unique_ptr<Monster> &monster) {
-    monster.reset(new Monster(GameType::SKELETON));
+void MonstersFactory::_storeSkeleton(Game& game, Map& map, Coordinate initialPosition, std::unique_ptr<Monster>& monster) {
+    monster.reset(new Monster(game, map, initialPosition, GameType::SKELETON));
 }
 
-void MonstersFactory::_storeZombie(std::unique_ptr<Monster> &monster) {
-    monster.reset(new Monster(GameType::ZOMBIE));
+void MonstersFactory::_storeZombie(Game& game, Map& map, Coordinate initialPosition, std::unique_ptr<Monster>& monster) {
+    monster.reset(new Monster(game, map, initialPosition, GameType::ZOMBIE));
 }
 
-void MonstersFactory::_storeGoblin(std::unique_ptr<Monster> &monster) {
-    monster.reset(new Monster(GameType::GOBLIN));
+void MonstersFactory::_storeGoblin(Game& game, Map& map, Coordinate initialPosition, std::unique_ptr<Monster>& monster) {
+    monster.reset(new Monster(game, map, initialPosition, GameType::GOBLIN));
 }
 
 ////////////////////////////////////PUBLIC///////////////////////////
@@ -40,8 +41,8 @@ MonstersFactory::MonstersFactory() {
     }
 }
 
-void MonstersFactory::storeRandomMonster(std::unique_ptr<Monster> &monster) {
-    Calculator::getRandom
+void MonstersFactory::storeRandomMonster(Game& game, Map& map, std::unique_ptr<Monster> &monster, Coordinate initialPosition) {
+    monsterCreators[existingMonsters[Calculator::getRandomInt(0, existingMonsters.size() - 1)]](monster, initialPosition);
 }
 
 
