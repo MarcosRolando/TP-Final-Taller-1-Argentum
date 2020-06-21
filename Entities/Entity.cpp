@@ -27,7 +27,7 @@ bool Entity::isMonsterTarget() {
     return false;
 }
 
-AttackResult Entity::attacked(int damage, unsigned int level) {
+AttackResult Entity::attacked(int damage, unsigned int level, bool isAPlayer) {
     return {0, 0};
 }
 

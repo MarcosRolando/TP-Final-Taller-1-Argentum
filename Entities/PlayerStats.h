@@ -42,7 +42,8 @@ public:
 
     void increaseExperience(unsigned int _experience);
 
-    int modifyLife(int damage, unsigned int attackerLevel, unsigned int defense);
+    int modifyLife(int damage, unsigned int attackerLevel, unsigned int defense,
+                   bool isAPlayer);
 
     int getMaxLife() const;
 

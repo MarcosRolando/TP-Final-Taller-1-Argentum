@@ -6,6 +6,8 @@
 #include "../Config/Calculator.h"
 #include "../AttackResult.h"
 #include "../Game.h"
+#include "../Items/Miscellaneous/Gold.h"
+#include "../Config/Configuration.h"
 
 using namespace GameType;
 
@@ -35,11 +37,21 @@ void Player::attack(Coordinate target) {
 void Player::_dropItems() {
     if (!stats.isDead()) {
         std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();
+        int goldDropped = gold - Calculator::calculateMaxSafeGold(stats.getLevel());
+        goldDropped = std::max(goldDropped, 0);
+        gold -= goldDropped;
+        if (goldDropped > 0) {
+            items.emplace_back(new Gold(goldDropped));
+        }
         game.dropItems(std::move(items), currentPosition);
     }
 }
 
-AttackResult Player::attacked(int damage, unsigned int attackerLevel) {
+AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPlayer) {
+    unsigned int newbieLevel = Configuration::getInstance().configNewbieLevel();
+    if (isAPlayer && ( stats.getLevel() <= newbieLevel || attackerLevel <= newbieLevel) ) {
+        return {0, 0};
+    }
     if (!stats.isDead()) {
         unsigned int defense = inventory.getDefense();
         int totalDamage = stats.modifyLife(damage, attackerLevel, defense);
@@ -68,7 +80,9 @@ bool Player::spendGold(unsigned int amount) {
 }
 
 void Player::receiveGold(unsigned int amount) {
-    if (!stats.isDead()) {
+    int maxGold = Calculator::calculateMaxSafeGold(stats.getLevel());
+    maxGold += maxGold / 2;
+    if (!stats.isDead() && (gold + amount) <= maxGold) {
         gold += amount;
     }
 }
