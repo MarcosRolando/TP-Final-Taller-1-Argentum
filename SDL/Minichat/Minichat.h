@@ -6,6 +6,7 @@
 #define ARGENTUM_MINICHAT_H
 
 #include "../Text/Text.h"
+#include "../../Screen/Window.h"
 #include "../../GameConstants.h"
 #include <list>
 class Minichat {
@@ -18,7 +19,7 @@ private:
     bool focusOnMinichat;
 public:
     Minichat(Font& font, SDL_Renderer& renderer);
-    void handleEvent( SDL_Event& e );
+    void handleEvent( SDL_Event& e, Window& window);
     void render();
     ~Minichat();
 
