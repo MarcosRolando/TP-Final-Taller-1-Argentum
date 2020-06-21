@@ -13,7 +13,7 @@
 
 class Tile {
 private:
-    std::unique_ptr<Entity> entity;
+    std::shared_ptr<Entity> entity;
     std::list<std::shared_ptr<Item>> items;
     bool isOccupable;
     FloorType floor;
@@ -36,7 +36,7 @@ public:
     //del puntero y retorna true, sino no se apropia de de el y retorna false
 
     //bool addEntity(Entity *received_entity);
-    bool addEntity(std::unique_ptr<Entity>&& received_entity);
+    bool addEntity(std::shared_ptr<Entity>&& received_entity);
 
     //Elimina la entity guardada, habilita la ocupacion del tile por otra
     //entity
@@ -83,6 +83,8 @@ public:
 
     //Delega el comportamiento a la entity que guarda, si es que guarda una
     void sell(Player& player, const std::string& itemName);
+
+    bool isInCity();
 };
 
 

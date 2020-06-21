@@ -7,6 +7,7 @@
 
 
 #include "Map/Map.h"
+#include "MonstersFactory.h"
 #include <queue>
 
 
@@ -26,7 +27,9 @@ private:
 
     unsigned int monsterCreationRate;
     unsigned int maxNumberOfMonsters;
-
+    unsigned int spawnTimer;
+    unsigned int spawnInterval;
+    MonstersFactory monstersFactory;
 private:
     void _executeQueueOperations();
     void _repopulateMap();

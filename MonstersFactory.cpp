@@ -12,19 +12,19 @@
 
 ////////////////////////////////////PRIVATE///////////////////////////
 
-void MonstersFactory::_storeSpider(Game& game, Map& map, Coordinate initialPosition, std::unique_ptr<Monster>& monster) {
+void MonstersFactory::_storeSpider(Game& game, Map& map, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
     monster.reset(new Monster(game, map, initialPosition, GameType::SPIDER));
 }
 
-void MonstersFactory::_storeSkeleton(Game& game, Map& map, Coordinate initialPosition, std::unique_ptr<Monster>& monster) {
+void MonstersFactory::_storeSkeleton(Game& game, Map& map, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
     monster.reset(new Monster(game, map, initialPosition, GameType::SKELETON));
 }
 
-void MonstersFactory::_storeZombie(Game& game, Map& map, Coordinate initialPosition, std::unique_ptr<Monster>& monster) {
+void MonstersFactory::_storeZombie(Game& game, Map& map, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
     monster.reset(new Monster(game, map, initialPosition, GameType::ZOMBIE));
 }
 
-void MonstersFactory::_storeGoblin(Game& game, Map& map, Coordinate initialPosition, std::unique_ptr<Monster>& monster) {
+void MonstersFactory::_storeGoblin(Game& game, Map& map, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
     monster.reset(new Monster(game, map, initialPosition, GameType::GOBLIN));
 }
 
@@ -41,7 +41,7 @@ MonstersFactory::MonstersFactory() {
     }
 }
 
-void MonstersFactory::storeRandomMonster(Game& game, Map& map, std::unique_ptr<Monster> &monster, Coordinate initialPosition) {
+void MonstersFactory::storeRandomMonster(Game& game, Map& map, std::shared_ptr<Monster> &monster, Coordinate initialPosition) {
     monsterCreators[existingMonsters[Calculator::getRandomInt(0, existingMonsters.size() - 1)]](monster, initialPosition);
 }
 
