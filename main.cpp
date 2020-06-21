@@ -61,7 +61,7 @@ int main(int argc, char* args[]) {
         TextureRepository repo(window.getRenderer());
         SDL_Rect camera = { 0, 0, DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT };
         PlayerEquipment pEquipment = {Hood, HumanHead, PlateArmor, IronShield, GnarledStaff};
-        Player player(repo, camera, 40, 30,pEquipment);
+        Player player(repo, camera, 12200, 12062,pEquipment);
         NPC monster(repo, camera, 168, 30, Zombie);
 
         Texture& background = repo.getTexture(Background);
@@ -174,22 +174,15 @@ int main(int argc, char* args[]) {
                     timeElapsed += timeStep;
 
 
-                    //Outline del tile seleccionado
-                    int sumX = 0,tileX = 0;
-                    int tileY = 0;
-                    if ((xPlayer-40)/TILE_WIDTH > 3){
-                        sumX = 50;
-                        tileX = -(xPlayer/TILE_WIDTH) + 4;
-                    }
-                    if ((yPlayer-30)/TILE_HEIGHT > 1){
-                        tileY = -(yPlayer/TILE_HEIGHT) + 2;
-                    }
-                    SDL_Rect fillRect = {(selector.getSelectedTileX()+tileX)*128-sumX,
-                                         (selector.getSelectedTileY()+tileY)*128,
-                                         128, 128};
+                    /*//Outline del tile seleccionado
+                    int xToRender = selector.getSelectedTileXToRender(xPlayer);
+                    int yToRender = selector.getSelectedTileYToRender(yPlayer);
+
+                    SDL_Rect fillRect = {xToRender, yToRender,128, 128};
                     SDL_SetRenderDrawColor(&window.getRenderer(), 0xFF,
                                            0x00, 0x00, 0xFF);
-                    SDL_RenderDrawRect( &window.getRenderer(), &fillRect );
+                    SDL_RenderDrawRect( &window.getRenderer(), &fillRect );*/
+
 
                     timeStep = timeStep / 1000.f;
                     player.render(timeStep);

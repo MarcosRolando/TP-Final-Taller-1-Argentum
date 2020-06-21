@@ -21,14 +21,19 @@ void Selector::verifyTileSelection(int xClick, int yClick, int playerX,
                                    int playerY) {
     //Veo si clickeo adentro del mapa
     if (xClick>20 && xClick<1044 && yClick>236 && yClick < 876){
-        tileX = (xClick - 20) / TILE_WIDTH;
-        tileY = (yClick - 236) / TILE_HEIGHT;
+        /*tileX = (xClick - 20) / TILE_WIDTH;
+        tileY = (yClick - 236) / TILE_HEIGHT;*/
 
-        //Me fijo si esta en los extremos del mapa y por lo tanto su hay un
-        // desfase de la camara
+        //Esto es cuando no esta en los extremos
         int playerXTile = playerX/TILE_WIDTH;
         int playerYTile = playerY/TILE_HEIGHT;
-        if ((playerXTile > 3 && playerXTile < 96)) {
+        int relativeXTile = (xClick - 20 + 50) / TILE_WIDTH;
+        int relativeYTile = (yClick - 236 - 12) / TILE_HEIGHT;//El -236 es
+        // por el
+        // minichat
+        tileX = playerXTile + (relativeXTile - 4);
+        tileY = playerYTile + (relativeYTile - 2);
+        /*if ((playerXTile > 3 && playerXTile < 96)) {
             //El -20 es por el marco del mapa. El 50 es para el
             // desfase de la camara.
             int relativeXTile = (xClick - 20 + 50) / TILE_WIDTH;
@@ -37,7 +42,22 @@ void Selector::verifyTileSelection(int xClick, int yClick, int playerX,
         if ((playerYTile > 1 && playerYTile < 98)){
             int relativeYTile = (yClick - 236) / TILE_HEIGHT;//El -236 es por el minichat
             tileY = playerYTile + (relativeYTile - 2);
+        }*/
+
+        //Me fijo los extremos
+        if (playerXTile < 4){
+            tileX = (xClick - 20) / TILE_WIDTH;
         }
+        if (playerXTile > 95){
+            tileX = 92 + ((xClick - 20) / TILE_WIDTH);
+        }
+        if (playerYTile < 2){
+            tileY = (yClick - 236) / TILE_HEIGHT;
+        }
+        if (playerYTile > 97){
+            tileY = 95 + ((yClick - 236) / TILE_HEIGHT);
+        }
+
     }
 }
 
@@ -65,6 +85,30 @@ int Selector::getSelectedTileX() const {
 
 int Selector::getSelectedTileY() const {
     return tileY;
+}
+
+int Selector::getSelectedTileXToRender(int xPlayer) const {
+    int playerXTile = xPlayer/TILE_WIDTH;
+    int cameraOffset = 0,tileXOffset = -(xPlayer / TILE_WIDTH);
+    if (playerXTile > 3 && playerXTile < 96){
+        cameraOffset = 50;
+        tileXOffset = -(xPlayer / TILE_WIDTH) + 4;
+    }
+    if (playerXTile >= 96){
+        cameraOffset = 0;
+        tileXOffset = -(xPlayer / TILE_WIDTH) + 4;
+    }
+
+    return (tileX + tileXOffset) * 128 - cameraOffset;
+}
+
+int Selector::getSelectedTileYToRender(int yPlayer) const {
+    int cameraOffset = 0, tileYOffset = 0;
+    if ((yPlayer)/TILE_HEIGHT > 2 && (yPlayer)/TILE_HEIGHT < 98){
+        cameraOffset = 12;
+        tileYOffset = -(yPlayer / TILE_HEIGHT) + 2;
+    }
+    return (tileY + tileYOffset) * 128 + cameraOffset;
 }
 
 

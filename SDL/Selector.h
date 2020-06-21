@@ -16,11 +16,13 @@ public:
     void verifyInventorySlotSelection(int clickX, int clickY);
     int getInventorySlotX() const;
     int getInventorySlotY() const;
-    ~Selector();
-
     int getSelectedTileX() const;
-
     int getSelectedTileY() const;
+    int getSelectedTileXToRender(int xPlayer) const;//Estas son para debugging, despues
+    // vemos si las dejamos para el juego
+    int getSelectedTileYToRender(int yPlayer) const;
+
+    ~Selector();
 };
 
 
