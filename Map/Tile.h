@@ -20,6 +20,7 @@ private:
     std::shared_ptr<Entity> entity;
     std::list<std::shared_ptr<Item>> items;
     bool isOccupable{};
+    bool isFromCity;
     FloorType floor;
 
 private:
@@ -28,7 +29,7 @@ private:
 public:
     //Inicializa el tile, dependiendo tel tipo de piso que reciba seteara el
     //tile como ocupable o no ocupable
-    explicit Tile(FloorType floor);
+    explicit Tile(bool isFromCity, FloorType floor);
 
     //Constructor por movimiento, intercambia las entities de las tiles
     //El tile se queda con la entity de other, y other con la del tile que
