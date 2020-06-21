@@ -123,3 +123,8 @@ void Player::restoreMana(unsigned int amount) {
         stats.restoreMana(amount);
     }
 }
+
+void Player::update(double timeStep) {
+    Entity::update(timeStep); /*actualiza movimiento*/
+
+}

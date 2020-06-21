@@ -26,6 +26,9 @@ Configuration::Configuration() {
 
     fileReader.loadPotionData(potionData);
 
+    fileReader.loadMonsterSpawnData(maxMonsterAmount, timeBetweenMonsterSpawns,
+                                    monsterSpawnAmount);
+
     criticalAttackChance = fileReader.loadCritAttackChance();
     dodgeChance = fileReader.loadDodgeChance();
 
@@ -84,4 +87,16 @@ unsigned int Configuration::configMaxLevelDif() const{
 
 unsigned int Configuration::configPlayerVisionRange() const {
     return playerVisionRange;
+}
+
+unsigned int Configuration::configTimeBetweenMonsterSpawns() const {
+    return timeBetweenMonsterSpawns;
+}
+
+unsigned int Configuration::configMaxMonsterAmount() const {
+    return maxMonsterAmount;
+}
+
+unsigned int Configuration::configMonsterSpawnAmount() const {
+    return monsterSpawnAmount;
 }

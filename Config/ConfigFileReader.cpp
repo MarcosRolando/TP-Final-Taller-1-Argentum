@@ -174,3 +174,12 @@ void Config::ConfigFileReader::_getPotionData(PotionData& stats, Json::Value&
     stats.recoveryValue = currPotion["RecoveryValue"].asUInt();
     stats.price = currPotion["Price"].asUInt();
 }
+
+void Config::ConfigFileReader::loadMonsterSpawnData(unsigned int &maxMonsterAmount,
+                                               unsigned int &timeBetweenMonsterSpawns,
+                                               unsigned int &monsterSpawnAmount) {
+    Json::Value& data = obj["MonsterSpawnData"];
+    maxMonsterAmount = data["MaxAmount"].asUInt();
+    timeBetweenMonsterSpawns = data["TimeBetweenSpawns"].asUInt();
+    monsterSpawnAmount = data["SpawnAmount"].asUInt();
+}

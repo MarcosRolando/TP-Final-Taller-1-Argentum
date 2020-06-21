@@ -28,6 +28,10 @@ private:
     unsigned int newbieLevel;
     unsigned int maxLevelDif;
 
+    unsigned int timeBetweenMonsterSpawns;
+    unsigned int monsterSpawnAmount;
+    unsigned int maxMonsterAmount;
+
     unsigned int playerVisionRange;
 
 public:
@@ -56,6 +60,9 @@ public:
     unsigned int configNewbieLevel() const;
     unsigned int configMaxLevelDif() const;
     unsigned int configPlayerVisionRange() const;
+    unsigned int configTimeBetweenMonsterSpawns() const;
+    unsigned int configMaxMonsterAmount() const;
+    unsigned int configMonsterSpawnAmount() const;
 
 private:
     Configuration();

@@ -60,6 +60,8 @@ public:
     //Restaura hasta amount cantidad de mana, sin pasarse de la cantidad maxima
     void restoreMana(unsigned int amount);
 
+    void update(double timeStep) override;
+
 private:
     void _dropItems();
 };

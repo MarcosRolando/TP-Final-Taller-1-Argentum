@@ -116,7 +116,7 @@ Monster::Monster(Game &_game, const Map& _map, Coordinate initialPosition,
                  Entity(initialPosition),
                  timeBetweenActions(Configuration::getInstance().configMonsterStats(_type).reactionSpeed),
                  stats(_type), map(_map), game(_game) {
-    timer = time(nullptr);
+    elapsedTime = 0;
     type = _type;
 }
 

@@ -117,6 +117,10 @@ namespace Config {
 
         ~ConfigFileReader();
 
+        void loadMonsterSpawnData(unsigned int &maxMonsterAmount,
+                                  unsigned int &timeBetweenMonsterSpawns,
+                                  unsigned int &monsterSpawnAmount);
+
     private:
         static void
         _getModifiers(Modifiers &modifier, Json::Value &currModifier);

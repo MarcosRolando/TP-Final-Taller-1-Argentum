@@ -18,7 +18,7 @@ class Item;
 class Monster: public Entity {
 private:
     const unsigned int timeBetweenActions;
-    unsigned long timer;
+    unsigned int elapsedTime;
     MonsterStats stats;
     GameType::Monster type;
 
