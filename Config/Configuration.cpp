@@ -29,6 +29,8 @@ Configuration::Configuration() {
     fileReader.loadMonsterSpawnData(maxMonsterAmount, timeBetweenMonsterSpawns,
                                     monsterSpawnAmount);
 
+    initialMerchantGold = fileReader.loadInitialMerchantGold();
+
     criticalAttackChance = fileReader.loadCritAttackChance();
     dodgeChance = fileReader.loadDodgeChance();
 
@@ -99,4 +101,8 @@ unsigned int Configuration::configMaxMonsterAmount() const {
 
 unsigned int Configuration::configMonsterSpawnAmount() const {
     return monsterSpawnAmount;
+}
+
+unsigned int Configuration::configInitialMerchantGold() const {
+    return initialMerchantGold;
 }

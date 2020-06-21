@@ -185,3 +185,7 @@ void Config::ConfigFileReader::loadMonsterSpawnData(unsigned int &maxMonsterAmou
     timeBetweenMonsterSpawns = data["TimeBetweenSpawns"].asUInt();
     monsterSpawnAmount = data["SpawnAmount"].asUInt();
 }
+
+unsigned int Config::ConfigFileReader::loadInitialMerchantGold() {
+    return obj["InitialMerchantGold"].asUInt();
+}

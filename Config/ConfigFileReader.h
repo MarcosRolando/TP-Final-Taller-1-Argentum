@@ -121,6 +121,8 @@ namespace Config {
                                   unsigned int &timeBetweenMonsterSpawns,
                                   unsigned int &monsterSpawnAmount);
 
+        unsigned int loadInitialMerchantGold();
+
     private:
         static void
         _getModifiers(Modifiers &modifier, Json::Value &currModifier);

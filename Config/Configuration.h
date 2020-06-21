@@ -32,6 +32,8 @@ private:
     unsigned int monsterSpawnAmount;
     unsigned int maxMonsterAmount;
 
+    unsigned int initialMerchantGold;
+
     unsigned int playerVisionRange;
 
 public:
@@ -53,6 +55,7 @@ public:
     Config::PotionData configPotionData(GameType::Potion potion) const;
 
     Config::GoldModifiers configGoldModifiers() const;
+
     Config::XPModifiers configXPModifiers() const;
 
     float configCriticalAttackChance() const;
@@ -63,6 +66,7 @@ public:
     unsigned int configTimeBetweenMonsterSpawns() const;
     unsigned int configMaxMonsterAmount() const;
     unsigned int configMonsterSpawnAmount() const;
+    unsigned int configInitialMerchantGold() const;
 
 private:
     Configuration();
