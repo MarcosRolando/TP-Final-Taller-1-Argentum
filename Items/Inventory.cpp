@@ -3,11 +3,7 @@
 //
 
 #include "Inventory.h"
-#include "Defense/Head/NoHelmet.h"
-#include "Attack/Fist.h"
 #include "../Map/Coordinate.h"
-#include "Defense/Chest/CommonClothing.h"
-#include "Defense/Shield/NoShield.h"
 
 #define INVENTORY_SIZE 16
 
