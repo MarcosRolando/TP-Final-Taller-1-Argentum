@@ -25,7 +25,6 @@ void Game::_repopulateMap(double timePassed) {
             Coordinate monsterPosition = map.getMonsterCoordinate();
             monstersFactory.storeRandomMonster(*this, map, monster, monsterPosition);
             monsters.push_back(monster);
-            //map.addMonster(std::move(monster));
             map.addEntity(monsterPosition, std::static_pointer_cast<Entity>(monster));
         }
     }
