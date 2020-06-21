@@ -30,9 +30,10 @@ void Minichat::handleEvent(SDL_Event &e) {
         SDL_GetMouseState( &x, &y );
         //Chequeo si hizo click en el minichat
         //Esto rompe en pantalla completa. Ver con marcos como hacer
-        focusOnMinichat = x >= mPosition.x && ( x < mPosition.x +
-                DEFAULT_MINICHAT_WIDTH ) && ( y >= mPosition.y ) && ( y <=
-                        mPosition.y + DEFAULT_MINICHAT_HEIGHT );
+        focusOnMinichat = x >= mPosition.x && ( (float)x < (float)(mPosition.x +
+                DEFAULT_MINICHAT_WIDTH) ) && ( y >=
+                        mPosition.y )
+                        && ( y <= (mPosition.y + DEFAULT_MINICHAT_HEIGHT));
 
 
 

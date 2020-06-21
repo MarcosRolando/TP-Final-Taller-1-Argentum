@@ -124,6 +124,10 @@ void Window::handleEvent(SDL_Event& e) {
         } else {
             //SDL_SetWindowSize(mWindow, mWidth, mHeight);
             SDL_SetWindowFullscreen(mWindow, SDL_TRUE);
+            mWidth = 1600;
+            mHeight = 1024;
+            SDL_SetWindowSize(mWindow, mWidth, mHeight);//Esto capaz no hay q
+            // hacerlo
             mFullScreen = true;
             mMinimized = false;
         }
@@ -169,4 +173,12 @@ bool Window::isMinimized() const {
 
 void Window::setViewport(Viewports viewport){
     SDL_RenderSetViewport(renderer, &viewports.at(viewport));
+}
+
+int Window::getWidth() const {
+    return mWidth;
+}
+
+int Window::getHeight() const {
+    return mHeight;
 }

@@ -101,7 +101,8 @@ int main(int argc, char* args[]) {
 
         //Event handler
         SDL_Event e;
-        int xClick = 0, yClick = 0;
+        int xClick = 0, yClick = 0;//Lo dejo para debugging pero va a haber q
+        // sacarlo creo
         int xPlayer, yPlayer;
         //While application is running
         while( !quit )
@@ -121,9 +122,10 @@ int main(int argc, char* args[]) {
 
                 if( e.type == SDL_MOUSEBUTTONDOWN )
                 {
-                    SDL_GetMouseState(&xClick, &yClick );
-                    selector.verifyTileSelection(xClick, yClick, xPlayer, yPlayer);
-                }
+                    SDL_GetMouseState(&xClick, &yClick);
+                }//DEBUGGING
+
+                selector.handleEvent(e, xPlayer, yPlayer, window);
 
                 minichat.handleEvent(e);
 
@@ -193,7 +195,6 @@ int main(int argc, char* args[]) {
 
                     //Inventory
                     window.setViewport(InventoryViewport);
-                    selector.verifyInventorySlotSelection(xClick, yClick);
                     inventoryGui.updateGold(1000);
                     inventoryGui.render(selector.getInventorySlotX(),
                             selector.getInventorySlotY());
@@ -202,11 +203,14 @@ int main(int argc, char* args[]) {
                     playerInfo.updatePosition(xPlayer / TILE_WIDTH,
                             yPlayer / TILE_HEIGHT);
 
-                    clickPos.updateText("ClickXTile: " + std::to_string(
+                    /*clickPos.updateText("ClickXTile: " + std::to_string(
                             (int) selector.getSelectedTileX()) + "   " + "ClickYTile: " +
                                         std::to_string((int) selector
-                                                .getSelectedTileY()));
-                    clickPos.render(100,100, {0xFF,0xFF,0xFF});
+                                                .getSelectedTileY()));*/
+                    clickPos.updateText("ClickX: " + std::to_string(xClick) +
+                    "   ClickY: " + std::to_string(yClick));
+
+                    clickPos.render(150,100, {0xFF,0xFF,0xFF});
 
                     //PlayerInfo
                     window.setViewport(PlayerInfoViewport);

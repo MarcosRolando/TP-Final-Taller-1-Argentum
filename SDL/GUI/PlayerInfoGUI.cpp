@@ -73,7 +73,7 @@ void PlayerInfoGUI::updatePosition(int x, int y) {
 
     info.updateText("MyX: " + std::to_string(x) + "   " + "MyY: " +
                         std::to_string(y));
-    info.render(150,875,{0xFF,0xFF,0xFF});//x e y son relativos al viewport
+    info.render(200,880,{0xFF,0xFF,0xFF});//x e y son relativos al viewport
     // del Inventario
 }
 

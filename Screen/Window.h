@@ -55,8 +55,8 @@ public:
 
     void show();
 
-    int getWidth();
-    int getHeight();
+    int getWidth() const;
+    int getHeight() const;
 
     ~Window();
 
