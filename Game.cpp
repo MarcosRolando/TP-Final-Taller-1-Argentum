@@ -32,6 +32,19 @@ void Game::_repopulateMap(double timePassed) {
 }
 
 
+void Game::_executeQueueOperations() {
+    MoveCommand aux;
+    while (!eventQueue.empty()) {
+        aux = eventQueue.front();
+        eventQueue.pop();
+        map.moveEntity(aux.initialPosition, aux.finalPosition);
+        //TOMAR EN CUENTA QUE VAMOS A TENER QUE ENCOLAR
+        //CADA MOVIMIENTO REALIZADO PARA MANDARSELO A LOS CLIENTES
+        //PARA ESTO ESTA EL BOOL DEL STRUCT
+    }
+}
+
+
 /////////////////////////////////PUBLIC//////////////////////////
 
 AttackResult Game::attackPosition(int damage, unsigned int level, bool isAPlayer,
@@ -49,15 +62,6 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 
 void Game::requestMove(Coordinate initialPosition, Coordinate finalPosition) {
     if (map.isPlaceAvailable(finalPosition)) {
-        /*
-        std::string command;
-        command.push_back(COMMAND_TYPE_MOVE);
-        command += "," + std::to_string(initialPosition.iPosition);
-        command += "," + std::to_string(initialPosition.jPosition);
-        command += "," + std::to_string(finalPosition.iPosition);
-        command += "," + std::to_string(finalPosition.jPosition);
-        eventQueue.push(std::move(command));
-        */
         eventQueue.push({initialPosition, finalPosition, false});
     }
 }
