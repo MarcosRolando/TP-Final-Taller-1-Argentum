@@ -56,6 +56,7 @@ public:
 
     void update(double timeStep) override;
 
+    //Indica si el monstruo esta muerto, retorna true si lo esta, sino retorna false
     bool isDead() const;
 };
 

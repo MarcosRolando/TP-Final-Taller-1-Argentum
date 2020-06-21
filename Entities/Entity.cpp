@@ -20,7 +20,7 @@ void Entity::setPosition(Coordinate coordinate) {
     currentPosition = coordinate;
 }
 
-Coordinate Entity::getPosition() {
+Coordinate Entity::getPosition() const {
     return currentPosition;
 }
 
