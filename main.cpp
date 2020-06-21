@@ -101,7 +101,6 @@ int main(int argc, char* args[]) {
 
         //Event handler
         SDL_Event e;
-        int xClick = 0, yClick = 0;//Lo dejo para debugging pero va a haber q
         // sacarlo creo
         int xPlayer, yPlayer;
         //While application is running
@@ -120,14 +119,9 @@ int main(int argc, char* args[]) {
                     quit = true;
                 }
 
-                if( e.type == SDL_MOUSEBUTTONDOWN )
-                {
-                    SDL_GetMouseState(&xClick, &yClick);
-                }//DEBUGGING
-
                 selector.handleEvent(e, xPlayer, yPlayer, window);
 
-                minichat.handleEvent(e);
+                minichat.handleEvent(e, window);
 
                 window.handleEvent(e);
 
@@ -175,12 +169,11 @@ int main(int argc, char* args[]) {
                     float timeStep = moveTime.getTicks();
                     timeElapsed += timeStep;
 
-
-                    //Outline del tile seleccionado
-                    int xToRender = selector.getSelectedTileXToRender(xPlayer);
-                    int yToRender = selector.getSelectedTileYToRender(yPlayer);
-
-                    SDL_Rect fillRect = {xToRender, yToRender,128, 128};
+                    //Outline del tile seleccionado. Ver si lo ponemos en Map
+                    SDL_Rect fillRect = {selector.getSelectedTileXToRender
+                                         (xPlayer),
+                                         selector.getSelectedTileYToRender(yPlayer),
+                                         128, 128};
                     SDL_SetRenderDrawColor(&window.getRenderer(), 0xFF,
                                            0x00, 0x00, 0xFF);
                     SDL_RenderDrawRect( &window.getRenderer(), &fillRect );
@@ -203,12 +196,9 @@ int main(int argc, char* args[]) {
                     playerInfo.updatePosition(xPlayer / TILE_WIDTH,
                             yPlayer / TILE_HEIGHT);
 
-                    /*clickPos.updateText("ClickXTile: " + std::to_string(
-                            (int) selector.getSelectedTileX()) + "   " + "ClickYTile: " +
-                                        std::to_string((int) selector
-                                                .getSelectedTileY()));*/
-                    clickPos.updateText("ClickX: " + std::to_string(xClick) +
-                    "   ClickY: " + std::to_string(yClick));
+                    clickPos.updateText("ClickX: " + std::to_string(selector.getSelectedTileX()) +
+                    "   ClickY: " + std::to_string(selector.getSelectedTileY
+                    ()));//Debugging
 
                     clickPos.render(150,100, {0xFF,0xFF,0xFF});
 
