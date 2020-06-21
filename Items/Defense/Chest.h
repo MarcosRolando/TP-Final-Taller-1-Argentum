@@ -6,7 +6,7 @@
 #define ARGENTUM_CHEST_H
 
 
-#include "../Clothing.h"
+#include "Clothing.h"
 
 class Chest: public Clothing {
 public:

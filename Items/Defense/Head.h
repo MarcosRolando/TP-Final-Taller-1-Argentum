@@ -6,7 +6,7 @@
 #define ARGENTUM_HEAD_H
 
 
-#include "../Clothing.h"
+#include "Clothing.h"
 
 class Head: public Clothing {
 public:
