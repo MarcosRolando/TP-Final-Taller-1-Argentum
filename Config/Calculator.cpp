@@ -102,3 +102,15 @@ int Calculator::getRandomInt(int minRange, int maxRange) {
     std::uniform_int_distribution<int> dist(minRange, maxRange);
     return dist(generator);
 }
+
+int Calculator::lifeRecovered(unsigned int recoveryRate, double timeStep) {
+    return static_cast<int>(static_cast<double>(recoveryRate) * timeStep);
+}
+
+int Calculator::manaRecoveredNoMeditation(double timeStep) {
+
+}
+
+int Calculator::manaRecoveredWithMeditation(double timeStep) {
+
+}

@@ -38,7 +38,9 @@ void Config::ConfigFileReader::loadClassModifiers(std::unordered_map<Class, Modi
     Modifiers currMods{};
     for (auto & classModifier : classModifiers) {
        _getModifiers(currMods, classModifier);
-       mods.emplace(classes.at(classModifier["Name"].asString()), currMods);
+        currMods.meditationRate = classModifiers["MeditationRate"].asUInt();
+        currMods.recoveryRate = 0;
+        mods.emplace(classes.at(classModifier["Name"].asString()), currMods);
     }
 }
 
@@ -47,6 +49,8 @@ void Config::ConfigFileReader::loadRaceModifiers(std::unordered_map<Race, Modifi
     Modifiers currMods{};
     for (auto & raceModifier : raceModifiers) {
         _getModifiers(currMods, raceModifier);
+        currMods.recoveryRate = raceModifier["RecoveryRate"].asUInt();
+        currMods.meditationRate = 0;
         mods.emplace(races.at(raceModifier["Name"].asString()), currMods);
     }
 }
@@ -134,8 +138,6 @@ void Config::ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& c
     modifier.intelligence = currModifier["Intelligence"].asUInt();
     modifier.agility = currModifier["Agility"].asUInt();
     modifier.strength = currModifier["Strength"].asUInt();
-    modifier.meditationRate = currModifier["MeditationRate"].asUInt();
-    modifier.recoveryRate = currModifier["RecoveryRate"].asUInt();
 }
 
 void Config::ConfigFileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMonster){

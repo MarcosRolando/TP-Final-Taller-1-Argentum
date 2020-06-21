@@ -23,8 +23,6 @@ PlayerStats::PlayerStats(Race _race, Class _class, unsigned int _level, unsigned
     agility = classModifier.agility + raceModifier.agility;
     strength = classModifier.strength + raceModifier.strength;
     isMeditating = false;
-    generalTimer = time(nullptr);
-    meditationTimer = generalTimer;
     experience = _experience;
     level = _level;
     maxLife = Calculator::calculateMaxLife(constitution, classLifeMultiplier, raceLifeMultiplier, level);
@@ -98,7 +96,7 @@ int PlayerStats::getCurrentLife() const {
 }
 
 void PlayerStats::restoreLife(unsigned int amount) {
-    currentLife += amount;
+    currentLife += static_cast<int>(amount);
     if (currentLife > maxLife) {
         currentLife = maxLife;
     }
@@ -113,4 +111,12 @@ void PlayerStats::restoreMana(unsigned int amount) {
 
 bool PlayerStats::isDead() const {
     return getCurrentLife() == 0;
+}
+
+void PlayerStats::update(double timeStep) {
+    if (currentLife < maxLife) {
+        if (isMeditating) {
+
+        }
+    }
 }

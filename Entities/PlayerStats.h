@@ -9,10 +9,13 @@
 
 //Clase que maneja el recibimiento de ataques, Player y Monster le delegan
 //operaciones cuando deben modificar sus stats
+
+struct  {
+
+};
+
 class PlayerStats {
 private:
-    unsigned int generalTimer;
-    unsigned int meditationTimer;
     bool isMeditating;
 
     unsigned int constitution;
@@ -56,6 +59,8 @@ public:
     void restoreMana(unsigned int amount);
 
     bool isDead() const;
+
+    void update(double timeStep);
 
 private:
     void _increaseStats();
