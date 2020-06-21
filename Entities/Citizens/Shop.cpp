@@ -4,8 +4,7 @@
 
 #include "Shop.h"
 #include "../Player.h"
-
-#define INITIAL_GOLD 10000 //todo PASAR ESTE VALOR A CONFIG
+#include "../../Config/Configuration.h"
 
 Shop::Shop() {
     sellingMultiplier = 1;
@@ -13,7 +12,8 @@ Shop::Shop() {
 }
 
 Shop::Shop(const std::unordered_map<std::string, unsigned int> &initialItemsAmounts,
-           float buyingMultiplier, float sellingMultiplier): storage(initialItemsAmounts, INITIAL_GOLD) {
+           float buyingMultiplier, float sellingMultiplier):
+           storage(initialItemsAmounts, Configuration::getInstance().configInitialMerchantGold()) {
 }
 
 Shop &Shop::operator=(Shop &&other) noexcept {
