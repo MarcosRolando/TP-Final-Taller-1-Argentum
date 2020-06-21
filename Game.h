@@ -25,13 +25,6 @@ struct MoveCommand {
 class Game {
 private:
     Map map;
-
-    /*
-    //Guarda strings que le indican a game que debera hacer. Se guardan con el
-    //siguiente formato: comando,parametro1,parametro2
-    //movimiento: M,coordenadaInicialx,coordenadaInicialy,coordenadaFinalx,coordenadaFinaly
-    std::queue<std::string> eventQueue;
-    */
     std::queue<MoveCommand> eventQueue;
 
     unsigned int monsterCreationRate;
