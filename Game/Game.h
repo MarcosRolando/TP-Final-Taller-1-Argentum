@@ -37,6 +37,8 @@ private:
 
 private:
 
+    void _removeEntities();
+
     void _updateMonsters(double timeStep);
 
     //CUANDO SE IMPLEMENTE ESTO VAMOS A TENER QUE TOMAR EN CUENTA QUE VAMOS A TENER QUE ENCOLAR
