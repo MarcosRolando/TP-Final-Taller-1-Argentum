@@ -27,7 +27,7 @@ public:
 
     bool isMonsterTarget() override;
 
-    //IMPLEMENTAR
+    //Ataca el lugar especificado en target
     void attack(Coordinate target);
 
     //Si hay lugar en el inventario del player entonces se apropia del item y
@@ -50,8 +50,10 @@ public:
     //hace nada
     void useItem(int itemPosition);
 
+    //Ataca al player, retorna el danio ocasionado y el xp ganado
     AttackResult attacked(int damage, unsigned int attackerLevel, bool isAPlayer) override;
 
+    //Retorna el nombre del player
     const std::string& getNickname() const;
 
     //Restaura hasta amount cantidad de vida, sin pasarse de la cantidad maxima
@@ -60,7 +62,11 @@ public:
     //Restaura hasta amount cantidad de mana, sin pasarse de la cantidad maxima
     void restoreMana(unsigned int amount);
 
+    //Actualiza al player acorde a su estado actual (moviendo, meditando, etc)
     void update(double timeStep) override;
+
+    //Hace que el player comience a meditar
+    void meditate();
 
 private:
     void _dropItems();

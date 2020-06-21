@@ -35,11 +35,12 @@ public:
 
     static bool isCritical();
 
-    static int lifeRecovered(unsigned int recoveryRate, double timeStep);
+    static int lifeRecovered(unsigned int recoveryRate, double timeElpased);
 
-    int manaRecoveredNoMeditation(double timeStep);
+    static unsigned int manaRecoveredNoMeditation(unsigned int recoveryRate, double timeElpased);
 
-    int manaRecoveredWithMeditation(double timeStep);
+    static unsigned int manaRecoveredWithMeditation(unsigned int meditationRate,
+                                           unsigned int intelligence, double timeElpased);
 
 private:
     static float _getRandomFloat(float minRange, float maxRange);

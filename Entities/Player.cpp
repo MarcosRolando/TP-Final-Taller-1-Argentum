@@ -24,11 +24,13 @@ Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsig
 }
 
 void Player::attack(Coordinate target) {
+    stats.stopMeditating();
     if (!stats.isDead()) {
         int weaponDamage;
         weaponDamage = inventory.getWeaponDamage(currentPosition, target);
         int totalDamage = stats.getTotalDamage(weaponDamage);
-        AttackResult result = game.attackPosition(totalDamage, stats.getLevel(), true, target);
+        AttackResult result = game.attackPosition(totalDamage, stats.getLevel(),
+                                                true, target);
         stats.increaseExperience(result.experience);
         //todo ver el tema de guardar el danio ocasionado
     }
@@ -37,7 +39,8 @@ void Player::attack(Coordinate target) {
 void Player::_dropItems() {
     if (!stats.isDead()) {
         std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();
-        int goldDropped = gold - Calculator::calculateMaxSafeGold(stats.getLevel());
+        int goldDropped = static_cast<int>(gold -
+                        Calculator::calculateMaxSafeGold(stats.getLevel()));
         goldDropped = std::max(goldDropped, 0);
         gold -= goldDropped;
         if (goldDropped > 0) {
@@ -48,6 +51,7 @@ void Player::_dropItems() {
 }
 
 AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPlayer) {
+    stats.stopMeditating();
     unsigned int newbieLevel = Configuration::getInstance().configNewbieLevel();
     if (isAPlayer && ( stats.getLevel() <= newbieLevel || attackerLevel <= newbieLevel) ) {
         return {0, 0};
@@ -56,11 +60,11 @@ AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPl
         unsigned int defense = inventory.getDefense();
         int totalDamage = stats.modifyLife(damage, attackerLevel, defense, isAPlayer);
         unsigned int experience = Calculator::calculateAttackXP(totalDamage,
-                                                                attackerLevel, stats.getLevel());
+                                    attackerLevel, stats.getLevel());
         if (stats.getCurrentLife() == 0 && totalDamage > 0) {
             _dropItems();
             experience += Calculator::calculateKillXP(attackerLevel,
-                                                      stats.getLevel(), stats.getMaxLife());
+                    stats.getLevel(), stats.getMaxLife());
         }
         return {totalDamage, experience};
     }
@@ -72,6 +76,7 @@ bool Player::isMonsterTarget() {
 }
 
 bool Player::spendGold(unsigned int amount) {
+    stats.stopMeditating();
     if ((!stats.isDead()) && (amount <= gold)) {
         gold -= amount;
         return true;
@@ -88,6 +93,7 @@ void Player::receiveGold(unsigned int amount) {
 }
 
 bool Player::storeItem(std::shared_ptr<Item> &&item) {
+    stats.stopMeditating();
     if (!stats.isDead()) {
         return inventory.addItem(std::move(item));
     }
@@ -95,6 +101,7 @@ bool Player::storeItem(std::shared_ptr<Item> &&item) {
 }
 
 std::shared_ptr<Item> Player::removeItem(const std::string &itemName) {
+    stats.stopMeditating();
     if (!stats.isDead()) {
         return inventory.removeItem(itemName);
     }
@@ -103,6 +110,7 @@ std::shared_ptr<Item> Player::removeItem(const std::string &itemName) {
 }
 
 void Player::useItem(int itemPosition) {
+    stats.stopMeditating();
     if (!stats.isDead()) {
         inventory.useItem(*this, itemPosition);
     }
@@ -124,7 +132,11 @@ void Player::restoreMana(unsigned int amount) {
     }
 }
 
+void Player::meditate() {
+    stats.startMeditating();
+}
+
 void Player::update(double timeStep) {
     Entity::update(timeStep); /*actualiza movimiento*/
-    stats.update(timeStep);
+    stats.update(timeStep); /*actualiza la vida y manda en base al tiempo/meditacion*/
 }

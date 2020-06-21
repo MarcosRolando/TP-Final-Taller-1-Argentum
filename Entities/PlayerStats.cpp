@@ -8,6 +8,8 @@
 #include "../Config/Configuration.h"
 #include <algorithm>
 
+const double TIME_FOR_RECOVERY = 3000.0; //3 seconds (timeStep is in miliseconds) //todo poder modificarlo desde el archivo
+
 using namespace GameType;
 
 PlayerStats::PlayerStats(Race _race, Class _class, unsigned int _level, unsigned int _experience) {
@@ -23,6 +25,7 @@ PlayerStats::PlayerStats(Race _race, Class _class, unsigned int _level, unsigned
     agility = classModifier.agility + raceModifier.agility;
     strength = classModifier.strength + raceModifier.strength;
     isMeditating = false;
+    timeElapsed = 0;
     experience = _experience;
     level = _level;
     maxLife = Calculator::calculateMaxLife(constitution, classLifeMultiplier, raceLifeMultiplier, level);
@@ -30,6 +33,8 @@ PlayerStats::PlayerStats(Race _race, Class _class, unsigned int _level, unsigned
     currentLife = maxLife;
     currentMana = maxMana;
     nextLevelExperience = Calculator::calculateNextLevelXP(level);
+    recoveryRate = raceModifier.recoveryRate;
+    meditationRate = classModifier.meditationRate;
 }
 
 int PlayerStats::getTotalDamage(int weaponDamage) const {
@@ -114,9 +119,26 @@ bool PlayerStats::isDead() const {
 }
 
 void PlayerStats::update(double timeStep) {
-    if (currentLife < maxLife) {
+    timeElapsed += timeStep;
+    if (timeElapsed >= TIME_FOR_RECOVERY) {
+        currentLife += Calculator::lifeRecovered(recoveryRate, timeElapsed);
+        if (currentLife > maxLife) currentLife = maxLife;
         if (isMeditating) {
-
+            currentMana += Calculator::manaRecoveredNoMeditation(recoveryRate,
+                                                                timeElapsed);
+        } else {
+            currentMana += Calculator::manaRecoveredWithMeditation(meditationRate,
+                                                        intelligence, timeElapsed);
         }
+        if (currentMana >= maxMana) currentMana = maxMana;
+        timeElapsed = 0.0;
     }
+}
+
+void PlayerStats::startMeditating() {
+    isMeditating = true;
+}
+
+void PlayerStats::stopMeditating() {
+    isMeditating = false;
 }

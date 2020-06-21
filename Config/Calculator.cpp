@@ -103,14 +103,16 @@ int Calculator::getRandomInt(int minRange, int maxRange) {
     return dist(generator);
 }
 
-int Calculator::lifeRecovered(unsigned int recoveryRate, double timeStep) {
-    return static_cast<int>(static_cast<double>(recoveryRate) * timeStep);
+int Calculator::lifeRecovered(unsigned int recoveryRate, double timeElpased) {
+    return static_cast<int>(static_cast<double>(recoveryRate) * timeElpased);
 }
 
-int Calculator::manaRecoveredNoMeditation(double timeStep) {
-
+unsigned int Calculator::manaRecoveredNoMeditation(unsigned int recoveryRate, double timeElpased) {
+    return static_cast<int>(static_cast<double>(recoveryRate) * timeElpased);
 }
 
-int Calculator::manaRecoveredWithMeditation(double timeStep) {
+unsigned int Calculator::manaRecoveredWithMeditation(unsigned int meditationRate,
+                                        unsigned int intelligence, double timeElpased) {
 
+    return static_cast<int>(static_cast<double>(meditationRate * intelligence) * timeElpased);
 }
