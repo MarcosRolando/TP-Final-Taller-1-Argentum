@@ -10,7 +10,7 @@
 class CommonClothing : public Chest {
 public :
     CommonClothing();
-    bool isDefault() override;
+    bool isDefault() const override;
 };
 
 

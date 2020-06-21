@@ -10,6 +10,6 @@ NoShield::NoShield(): Shield(Configuration::getInstance().configClothingData(NO_
 
 }
 
-bool NoShield::isDefault() {
+bool NoShield::isDefault() const {
     return true;
 }

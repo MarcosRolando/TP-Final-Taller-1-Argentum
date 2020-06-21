@@ -13,6 +13,10 @@ enum EquipmentPlace{
     EQUIPMENT_PLACE_SHIELD
 };
 
+enum ItemType {
+    ITEM_TYPE_GOLD, ITEM_TYPE_WEAPON, ITEM_TYPE_CLOTHING, ITEM_TYPE_POTION
+};
+
 class Player;
 
 //Clase interfaz de la que heredan todos los items
@@ -22,8 +26,9 @@ private:
     //El id esta asocioado al tipo de item que es, estos se repiten entre los distintos
     //tipos de items. Ej: Se puede tener un arma y un escudo con el mismo id, pero se
     //diferencian por ser uno un arma y otro un escudo
-    //unsigned int id;
 
+    unsigned int id;
+    ItemType type;
     const std::string& name;
     unsigned int price;
 public:

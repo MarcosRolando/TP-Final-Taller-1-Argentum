@@ -14,13 +14,14 @@ private:
     unsigned int maxDefense;
 public:
     //explicit Clothing(unsigned int minDefense, unsigned int maxDefense, std::string name);
-    explicit Clothing(const Config::ClothingData& stats);
+    //explicit Clothing(const Config::ClothingData& stats);
+    explicit Clothing(GameType::Clothing clothing);
 
-    unsigned int getDefense();
+    unsigned int getDefense() const;
 
     //Esta funcion existe para que cuando el player muera y tire todos sus items
     //sepa reconocer los default y no los tire
-    virtual bool isDefault();
+    virtual bool isDefault() const;
 
     //virtual EquipmentPlace use(Player& player) = 0;
     virtual ~Clothing() = default;

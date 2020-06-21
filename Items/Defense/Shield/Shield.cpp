@@ -12,8 +12,13 @@ Shield::Shield(unsigned int minDefense, unsigned int maxDefense) :
 
 }
 */
-
+/*
 Shield::Shield(const ClothingData& stats): Clothing(stats) {
+
+}
+*/
+
+Shield::Shield(GameType::Clothing clothing): Clothing(clothing) {
 
 }
 

@@ -13,7 +13,13 @@ Chest::Chest(unsigned int minDefense, unsigned int maxDefense) : Clothing(
 }
 */
 
+/*
 Chest::Chest(const ClothingData& stats) : Clothing(stats) {
+
+}
+*/
+
+Chest::Chest(GameType::Clothing clothing) : Clothing(clothing) {
 
 }
 

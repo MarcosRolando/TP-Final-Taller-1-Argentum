@@ -7,7 +7,8 @@
 
 
 #include "../Item.h"
-#include "../../Config/Configuration.h"
+#include "../../Config/GameEnums.h"
+//#include "../../Config/Configuration.h"
 
 struct Coordinate;
 
@@ -23,7 +24,8 @@ private:
     void _initializeData(int minDamage, int maxDamage,
                          unsigned int _manaConsumption, unsigned int _range);
 public:
-    explicit Weapon(const Config::WeaponData& stats);
+    //explicit Weapon(const Config::WeaponData& stats);
+    explicit Weapon(GameType::Weapon weapon);
 
 
     //VER SI SE HACE QUE EN VEZ DE RETORNAR 0 TIRE UNA EXCEPCION
