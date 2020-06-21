@@ -25,9 +25,12 @@ private:
 
     unsigned int monsterCreationRate;
     unsigned int maxNumberOfMonsters;
-    double spawnTimer;
-    double spawnInterval;
+    unsigned int spawnTimer;
+    unsigned int  spawnInterval;
     MonstersFactory monstersFactory;
+
+    std::list<std::shared_ptr<Monster>> monsters;
+
 private:
     void _executeQueueOperations();
     void _repopulateMap(double timePassed);

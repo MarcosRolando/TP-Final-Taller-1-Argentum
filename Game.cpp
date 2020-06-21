@@ -13,13 +13,15 @@ void Game::_repopulateMap(double timePassed) {
         unsigned int monstersToCreate = monsterCreationRate;
         std::shared_ptr<Monster> monster;
         spawnTimer = 0;
-        if ((monstersToCreate + /*CANTIDAD DE MONSTUOS*/) > /*CANTIDAD DE MONSTUOS*/) {
-            monstersToCreate = /*CANTIDAD DE MONSTUOS*/ - monstersToCreate;
+        if ((monstersToCreate + monsters.size()) > maxNumberOfMonsters) {
+            monstersToCreate = maxNumberOfMonsters - monsters.size();
         }
         for (unsigned int i = 0; i < monstersToCreate; ++i) {
-            //AGREGAR MONSTRUO AL MAPA
-            monstersFactory.storeRandomMonster(this, map, monster, /*HACER QUE MAP DEVUELVA LA COORDENADA ASI INICIALIZO CON ESO AL MOSNTRUO*/);
-            map.addMonster(std::move(monster));
+            Coordinate monsterPosition = map.getMonsterCoordinate();
+            monstersFactory.storeRandomMonster(*this, map, monster, monsterPosition);
+            monsters.push_back(monster);
+            //map.addMonster(std::move(monster));
+            map.addEntity(monsterPosition, std::static_pointer_cast<Entity>(monster));
         }
     }
 }

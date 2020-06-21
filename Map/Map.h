@@ -82,7 +82,8 @@ public:
     //si la coordenada es invalida tira invalid_argument y no se apropia del puntero
     void addItemsToTile(std::shared_ptr<Item>&& item, Coordinate position);
 
-    void addMonster(std::shared_ptr<Monster>&& monster);
+    //Retorna una coordenada aleatoria en la que puede ponerse un monstruo
+    Coordinate getMonsterCoordinate(/*std::shared_ptr<Monster>&& monster*/);
 };
 
 
