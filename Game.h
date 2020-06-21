@@ -27,6 +27,10 @@ private:
     unsigned int monsterCreationRate;
     unsigned int maxNumberOfMonsters;
 
+private:
+    void _executeQueueOperations();
+    void _repopulateMap();
+
 public:
     AttackResult attackPosition(int damage, unsigned int level,
                             Coordinate coordinate);
@@ -44,7 +48,7 @@ public:
     //Esta funcion encola la accion de mover un entity de initial a finalPosition
     void requestMove(Coordinate initialPosition, Coordinate finalPosition);
 
-    void clearEventQueue();
+    void update();
 };
 
 

@@ -5,6 +5,15 @@
 #include "Game.h"
 #include "AttackResult.h"
 
+/////////////////////////////////PRIVATE//////////////////////////
+
+void Game::_repopulateMap() {
+
+}
+
+
+/////////////////////////////////PUBLIC//////////////////////////
+
 AttackResult Game::attackPosition(int damage, unsigned int level,
                                     Coordinate coordinate) {
     return map.attackTile(damage, level, coordinate);
@@ -28,4 +37,8 @@ void Game::requestMove(Coordinate initialPosition, Coordinate finalPosition) {
         command += "," + std::to_string(finalPosition.jPosition);
         eventQueue.push(std::move(command));
     }
+}
+
+void Game::update() {
+
 }

@@ -44,7 +44,7 @@ void Storage::storeItem(std::shared_ptr<Item> &&item) {
 
 void Storage::retreiveItem(const std::string& itemName, Player &player) {
     if (storedItems.count(itemName) == 1) {
-        if (!player.storeItem(std::move(storedItems[itemName].front()))) { //todo VER SI ACA NO DEBERIAMOS USAR AT EN VEZ DE []
+        if (!player.storeItem(std::move(storedItems.at(itemName).front()))) {
             return;
         }
         storedItems[itemName].pop_front();
