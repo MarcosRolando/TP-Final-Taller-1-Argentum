@@ -3,11 +3,22 @@
 //
 
 #include "Game.h"
-#include "AttackResult.h"
-#include "Entities/Entity.h"
-#include "Entities/Monster.h"
+#include "../AttackResult.h"
+#include "../Entities/Entity.h"
+#include "../Entities/Monster.h"
 
 /////////////////////////////////PRIVATE//////////////////////////
+
+
+class ShouldMonsterBeRemoved {
+private:
+
+public:
+    ShouldMonsterBeRemoved(std::list<Coordinate>& monstersToRemove);
+};
+
+
+
 
 //Carga hasta monsterCreationRate monstruos nuevos cada cierto invervalo de tiempo
 //Si la cantidad que se desea crear sobrepasa la cantidad maxima, entonces crea hasta

@@ -8,8 +8,8 @@
 #include <unordered_map>
 #include <vector>
 #include <memory>
-#include "Config/GameEnums.h"
-#include "Map/Coordinate.h"
+#include "../Config/GameEnums.h"
+#include "../Map/Coordinate.h"
 
 class Monster;
 class Game;

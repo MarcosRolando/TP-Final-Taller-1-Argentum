@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "../Config/Calculator.h"
 #include "../AttackResult.h"
-#include "../Game.h"
+#include "../Game/Game.h"
 #include "../Items/Miscellaneous/Gold.h"
 #include "../Config/Configuration.h"
 

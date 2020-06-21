@@ -6,8 +6,8 @@
 
 #include "MonstersFactory.h"
 
-#include "Entities/Monster.h"
-#include "Config/Calculator.h"
+#include "../Entities/Monster.h"
+#include "../Config/Calculator.h"
 
 
 ////////////////////////////////////PRIVATE///////////////////////////

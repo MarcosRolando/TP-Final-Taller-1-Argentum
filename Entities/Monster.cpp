@@ -5,7 +5,7 @@
 #include "Monster.h"
 #include "../Config/Calculator.h"
 #include "../Items/ItemsFactory.h"
-#include "../Game.h"
+#include "../Game/Game.h"
 #include "../AttackResult.h"
 #include "../Config/Configuration.h"
 

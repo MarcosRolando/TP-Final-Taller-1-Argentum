@@ -4,7 +4,7 @@
 
 #include "Entity.h"
 #include "../AttackResult.h"
-#include "../Game.h"
+#include "../Game/Game.h"
 
 const unsigned int DISTANCE_TO_MOVE = 500;
 
