@@ -92,6 +92,7 @@ enum TextureID {
     MagicMissile,
     Heal,
     Background
+    MainMenu
 };
 
 class TextureRepository {

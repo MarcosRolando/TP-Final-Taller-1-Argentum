@@ -87,6 +87,7 @@
 #define MAGIC_MISSILE_PATH "../Images/Spells/MagicMissile.png"
 #define HEAL_PATH "../Images/Spells/Heal.png"
 #define BACKGROUND_PATH "../Images/UI/Background.png"
+#define MAIN_MENU_PATH "../Images/UI/MainMenuTest.png"
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
     _loadClothing();
@@ -103,6 +104,8 @@ TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer
 void TextureRepository::_loadUI() {
     _setImage(Background, BACKGROUND_PATH, 1495, 937, 0
             , 0, 1, {-1, -1, -1});
+    _setImage(MainMenu, MAIN_MENU_PATH, 1494, 934, 0,
+            0, 1, {-1, -1, -1});
 }
 
 void TextureRepository::_loadSpells() {

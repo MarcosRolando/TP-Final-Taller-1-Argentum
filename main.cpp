@@ -105,7 +105,8 @@ int main(int argc, char* args[]) {
 
         //Event handler
         SDL_Event e;
-        // sacarlo creo
+
+
         int xPlayer, yPlayer;
         //While application is running
         while( !quit )
@@ -113,7 +114,6 @@ int main(int argc, char* args[]) {
             //Esto capaz lo cambiamos de lugar despues
             xPlayer = player.getXPosition();
             yPlayer = player.getYPosition();
-            SDL_StartTextInput();
             //Handle events on queue
             while( SDL_PollEvent( &e ) != 0 )
             {
@@ -150,7 +150,7 @@ int main(int argc, char* args[]) {
                             minichat.queueText(a);
                             player.move(RIGHT);
                             break;
-                        case SDLK_SPACE:
+                        case SDLK_SPACE://Esto es para probar pausar la musica
                             if (!soundPlayer.isMusicPlaying()) {
                                 soundPlayer.pauseMusic();
                             } else {
@@ -228,7 +228,6 @@ int main(int argc, char* args[]) {
                     SDL_RenderFillRect( &window.getRenderer(), &fillRect);*/
                 }
             }
-            SDL_StopTextInput();
         }
 	} catch (TPException& e) {
 	    std::cerr << e.what() << std::endl;

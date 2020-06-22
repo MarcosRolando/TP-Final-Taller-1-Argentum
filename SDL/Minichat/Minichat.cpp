@@ -39,23 +39,26 @@ void Minichat::handleEvent(SDL_Event &e, Window& window) {
 
         focusOnMinichat = _isInsideMinichat(x, y);
 
-    } else if( e.type == SDL_TEXTINPUT ) {
         if (focusOnMinichat){
-            std::string newInput = e.text.text;
-            if (input.getTextLength() < MAX_TEXT_LEN)
-                input.appendText(newInput);
+            SDL_StartTextInput();
         }
+
+    } else if( e.type == SDL_TEXTINPUT ) {
+            std::string newInput = e.text.text;
+            if (input.getTextLength() < MAX_TEXT_LEN) input.appendText(newInput);
     } else if( e.type == SDL_KEYDOWN ) {
-        if (e.key.keysym.sym == SDLK_BACKSPACE && input.getTextLength() > 8
-        && focusOnMinichat) {//Va un 8 asi no borro la parte fija que dice
-            // Accion
+        if (e.key.keysym.sym == SDLK_BACKSPACE && input.getTextLength() > 8) {
+            //Va un 8 asi no borro la parte fija que dice Accion
 
             //borro letra
             input.eraseText();
-        } else if (e.key.keysym.sym == SDLK_RETURN && focusOnMinichat ){
+        } else if (e.key.keysym.sym == SDLK_RETURN){
             //Procesar el comando que escribio el user
             input.updateText("Accion:/ ");
         }
+    }
+    if (!focusOnMinichat){
+        SDL_StopTextInput();
     }
 }
 
