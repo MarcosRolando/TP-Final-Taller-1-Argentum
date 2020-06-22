@@ -13,6 +13,9 @@
 #include "../Config/GameEnums.h"
 #include "../Entities/Monster.h"
 #include "../Entities/Player.h"
+#include "../Items/Defense/Chest.h"
+#include "../Items/Defense/Head.h"
+#include "../Items/Defense/Shield.h"
 
 //////////////////////////////PRIVATE/////////////////////////////
 
@@ -222,11 +225,53 @@ void Map::test(Game& game, std::list<std::shared_ptr<Monster>>& monsters) {
             tiles[i].emplace_back(false, FLOOR_TYPE_GRASS);
         }
     }
-    std::shared_ptr<Monster> monster(new Monster(game, *this,
-                            {0,0}, GameType::SKELETON));
-    std::shared_ptr<Player> player(new Player(game, GameType::HUMAN,
-            GameType::WARRIOR, 1, 0, {1, 2}, "agusputo"));
-    monsters.push_front(monster);
-    tiles[0][0].addEntity(std::move(monster));
-    tiles[1][2].addEntity(std::move(player));
+    std::shared_ptr<Monster> monster1(new Monster(game, *this,
+                            {0,0}, GameType::SPIDER));
+    std::shared_ptr<Monster> monster2(new Monster(game, *this,
+                                                 {3,2}, GameType::GOBLIN));
+    std::shared_ptr<Monster> monster3(new Monster(game, *this,
+                                                 {5,5}, GameType::ZOMBIE));
+
+    std::shared_ptr<Player> player1(new Player(game, GameType::HUMAN,
+            GameType::WIZARD, 3, 0, {1, 2}, "agusputo"));
+    std::shared_ptr<Item> armour(new Chest(GameType::PLATE_ARMOR));
+    std::shared_ptr<Item> helmet(new Head(GameType::IRON_HELMET));
+    std::shared_ptr<Item> shield(new Shield(GameType::IRON_SHIELD));
+    player1->storeItem(std::move(armour));
+    player1->storeItem(std::move(helmet));
+    player1->storeItem(std::move(shield));
+    player1->useItem(0);
+    player1->useItem(1);
+    player1->useItem(2);
+    std::shared_ptr<Player> player2(new Player(game, GameType::HUMAN,
+                                              GameType::WIZARD, 3, 0, {2, 2}, "agusputo"));
+    armour.reset(new Chest(GameType::PLATE_ARMOR));
+    helmet.reset(new Head(GameType::IRON_HELMET));
+    shield.reset(new Shield(GameType::IRON_SHIELD));
+    player2->storeItem(std::move(armour));
+    player2->storeItem(std::move(helmet));
+    player2->storeItem(std::move(shield));
+    player2->useItem(0);
+    player2->useItem(1);
+    player2->useItem(2);
+    std::shared_ptr<Player> player3(new Player(game, GameType::HUMAN,
+                                              GameType::WIZARD, 3, 0, {4, 5}, "agusputo"));
+    armour.reset(new Chest(GameType::PLATE_ARMOR));
+    helmet.reset(new Head(GameType::IRON_HELMET));
+    shield.reset(new Shield(GameType::IRON_SHIELD));
+    player3->storeItem(std::move(armour));
+    player3->storeItem(std::move(helmet));
+    player3->storeItem(std::move(shield));
+    player3->useItem(0);
+    player3->useItem(1);
+    player3->useItem(2);
+    monsters.push_front(monster1);
+    monsters.push_front(monster2);
+    monsters.push_front(monster3);
+    tiles[0][0].addEntity(std::move(monster1));
+    tiles[3][2].addEntity(std::move(monster2));
+    tiles[5][5].addEntity(std::move(monster3));
+    tiles[1][2].addEntity(std::move(player1));
+    tiles[2][2].addEntity(std::move(player2));
+    tiles[4][5].addEntity(std::move(player3));
 }

@@ -6,8 +6,6 @@
 #include "../AttackResult.h"
 #include "../Game/Game.h"
 
-#include <iostream>
-
 const unsigned int DISTANCE_TO_MOVE = 500;
 
 Entity::Entity(Coordinate initialPosition) {
@@ -90,7 +88,6 @@ void Entity::update(double timeStep) {
             movement.movedDistance = DISTANCE_TO_MOVE;
             movement.isMoving = false;
         }
-        std::cout << movement.movedDistance << std::endl;
     }
 }
 

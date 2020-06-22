@@ -21,10 +21,10 @@ public:
 
     //Esta funcion existe para que cuando el player muera y tire todos sus items
     //sepa reconocer los default y no los tire
-    virtual bool isDefault() const;
+    virtual bool isDefault() const = 0;
 
     //virtual EquipmentPlace use(Player& player) = 0;
-    virtual ~Clothing() = default;
+    ~Clothing() override = default;
 };
 
 

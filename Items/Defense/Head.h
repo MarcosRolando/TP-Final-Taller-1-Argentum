@@ -15,6 +15,8 @@ public:
     explicit Head(GameType::Clothing clothing);
 
     EquipmentPlace use(Player& player) override;
+
+    bool isDefault() const override;
 };
 
 

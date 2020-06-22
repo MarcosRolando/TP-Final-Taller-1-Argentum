@@ -15,6 +15,8 @@ public:
     explicit Shield(GameType::Clothing clothing);
 
     EquipmentPlace use(Player& player) override;
+
+    bool isDefault() const override;
 };
 
 

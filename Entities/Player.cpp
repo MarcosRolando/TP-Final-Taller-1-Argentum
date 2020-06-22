@@ -38,17 +38,15 @@ void Player::attack(Coordinate target) {
 }
 
 void Player::_dropItems() {
-    if (!stats.isDead()) {
-        std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();
-        int goldDropped = static_cast<int>(gold -
-                        Calculator::calculateMaxSafeGold(stats.getLevel()));
-        goldDropped = std::max(goldDropped, 0);
-        gold -= goldDropped;
-        if (goldDropped > 0) {
-            items.emplace_back(new Gold(goldDropped));
-        }
-        game.dropItems(std::move(items), currentPosition);
+    std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();
+    int goldDropped = static_cast<int>(gold -
+                                       Calculator::calculateMaxSafeGold(stats.getLevel()));
+    goldDropped = std::max(goldDropped, 0);
+    gold -= goldDropped;
+    if (goldDropped > 0) {
+        items.emplace_back(new Gold(goldDropped));
     }
+    game.dropItems(std::move(items), currentPosition);
 }
 
 AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPlayer) {

@@ -15,6 +15,8 @@ public:
     explicit Chest(GameType::Clothing clothing);
 
     EquipmentPlace use(Player& player) override;
+
+    bool isDefault() const override;
 };
 
 

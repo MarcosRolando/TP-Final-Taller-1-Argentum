@@ -23,6 +23,8 @@ void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int
         if (weaponPtrAux) {
             if (!equippedWeapon->isDefault()) {
                 items[itemPosition] = std::move(equippedWeapon);
+            } else {
+                items[itemPosition] = nullptr;
             }
             equippedWeapon = std::move(weaponPtrAux);
         }
@@ -32,6 +34,8 @@ void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int
         if (clothingPtrAux) {
             if (!clothingEquipment.at(equipmentPlace)->isDefault()) {
                 items[itemPosition] = std::move(clothingEquipment.at(equipmentPlace));
+            } else {
+                items[itemPosition] = nullptr;
             }
             clothingEquipment.at(equipmentPlace) = std::move(clothingPtrAux);
         }
@@ -40,8 +44,12 @@ void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int
 
 //////////////////////////////PUBLIC/////////////////////////////
 
-Inventory::Inventory(): items(INVENTORY_SIZE, nullptr){
+Inventory::Inventory() : items(INVENTORY_SIZE, nullptr) {
     storedItemsamount = 0;
+    clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new Head(GameType::NO_HELMET));
+    clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new Chest(GameType::COMMON_CLOTHING));
+    clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new Shield(GameType::NO_SHIELD));
+    equippedWeapon.reset(new Weapon(GameType::FIST));
 }
 
 bool Inventory::addItem(std::shared_ptr<Item> &&item) {

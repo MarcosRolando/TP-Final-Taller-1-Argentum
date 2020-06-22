@@ -10,6 +10,7 @@ Clothing::Clothing(GameType::Clothing clothing): Item(ITEM_TYPE_CLOTHING,
                                                     Configuration::getInstance().configClothingData(clothing).name,
                                                       Configuration::getInstance().configClothingData(clothing).price) {
     Config::ClothingData stats = Configuration::getInstance().configClothingData(clothing);
+    id = clothing;
     minDefense = stats.minDefense;
     maxDefense = stats.maxDefense;
 }
@@ -20,7 +21,4 @@ unsigned int Clothing::getDefense() const {
                                     static_cast<int>(maxDefense));
 }
 
-bool Clothing::isDefault() const {
-    return false;
-}
 

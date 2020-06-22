@@ -9,6 +9,8 @@
 
 #define FRAME_TIME 33
 
+#include <iostream>
+
 using namespace std::chrono;
 
 void Argentum::execute() {
@@ -28,6 +30,7 @@ void Argentum::execute() {
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();
+        std::cout << lastFrameTime << std::endl;
         if (lastFrameTime < FRAME_TIME) {
             usleep((FRAME_TIME - lastFrameTime) * 1000);
             lastFrameTime = FRAME_TIME;
