@@ -151,3 +151,29 @@ bool MapTests::testAddedGoldToMap() {
     map.addItemsToTile(std::move(gold), {1, 1});
     return Configuration::getInstance().configGetGoldName() == map.tiles[1][1].items.front()->getName();
 }
+
+bool MapTests::testAddedMultipleGoldsToMapWithList() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    std::list<std::shared_ptr<Item>> items;
+    items.emplace_back(new Gold(1000));
+    items.emplace_back(new Gold(1000));
+    map.addItemsToTile(std::move(items), {1, 1});
+    return (Configuration::getInstance().configGetGoldName() == map.tiles[1][1].items.front()->getName()) &&
+           (Configuration::getInstance().configGetGoldName() == map.tiles[1][1].items.back()->getName());
+}
+
+bool MapTests::testAddedMultipleGoldsToMapWithoutList() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    std::shared_ptr<Gold> gold(new Gold(1000));
+    map.addItemsToTile(std::move(gold), {1, 1});
+    gold.reset(new Gold(1000));
+    map.addItemsToTile(std::move(gold), {1, 1});
+    return (Configuration::getInstance().configGetGoldName() == map.tiles[1][1].items.front()->getName()) &&
+           (Configuration::getInstance().configGetGoldName() == map.tiles[1][1].items.back()->getName());
+}

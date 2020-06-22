@@ -17,6 +17,8 @@ public:
     static bool testMixedCityAndUnavailableTiles();
     static bool testAddedItemsToMap();
     static bool testAddedGoldToMap();
+    static bool testAddedMultipleGoldsToMapWithList();
+    static bool testAddedMultipleGoldsToMapWithoutList();
 };
 
 
