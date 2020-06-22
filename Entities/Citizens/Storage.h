@@ -14,6 +14,8 @@
 class Item;
 class Player;
 
+class EntityTests;
+
 //Clase utilizada para guardar instancias de items, se guardan las instancias
 //y no cantidades de cada item ya que de esa forma no se debe estar creando y
 //copiando cada vez que se retira algun item. Esto permite ademas extensibilidad
@@ -39,6 +41,9 @@ class Storage {
 private:
     unsigned int storedGold;
     std::unordered_map<std::string, std::list<std::shared_ptr<Item>>> storedItems;
+
+    friend EntityTests;
+
 public:
 
     Storage();
