@@ -15,15 +15,15 @@ private:
     Text input;
     std::list<Text> texts;
     SDL_Renderer& renderer;
-    SDL_Point mPosition;
     bool focusOnMinichat;
 public:
     Minichat(Font& font, SDL_Renderer& renderer);
     void handleEvent( SDL_Event& e, Window& window);
+    void queueText(std::string &newText);
     void render();
     ~Minichat();
 
-    void queueText(std::string &newText);
+    bool _isInsideMinichat(int xClick, int yClick);
 };
 
 

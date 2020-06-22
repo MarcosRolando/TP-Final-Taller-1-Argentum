@@ -3,7 +3,7 @@
 //
 
 #include "ConfigFileReader.h"
-#include "SDL/TPException.h"
+#include "../SDL/TPException.h"
 
 ConfigFileReader::ConfigFileReader(const std::string& path) {
     file.open(path);

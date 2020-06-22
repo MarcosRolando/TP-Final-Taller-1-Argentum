@@ -17,7 +17,6 @@ private:
 public:
     Selector();
     void handleEvent(SDL_Event &e, int playerX, int playerY, Window& window);
-
     int getInventorySlotX() const;
     int getInventorySlotY() const;
     int getSelectedTileX() const;
@@ -30,7 +29,6 @@ public:
 private:
     void _verifyTileSelection(int playerX, int playerY);
     void _verifyInventorySlotSelection();
-
     bool _isInsideRect(int left, int right, int top, int bottom) const;
 };
 

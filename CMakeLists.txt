@@ -13,8 +13,8 @@ add_subdirectory(Character)
 
 add_executable(argentum main.cpp SDL/TPException.cpp SDL/TPException.h
 SDL/Sound/SoundRepository.cpp SDL/Sound/SoundRepository.h SDL/Text/Font.cpp SDL/Text/Font.h
-        ConfigFileReader.cpp ConfigFileReader.h Configuration.cpp
-Configuration.h SDL/Sound/Sound.cpp SDL/Sound/Sound.h Calculator.cpp Calculator.h
+        Configuration/ConfigFileReader.cpp Configuration/ConfigFileReader.h Configuration/Configuration.cpp
+        Configuration/Configuration.h SDL/Sound/Sound.cpp SDL/Sound/Sound.h Configuration/Calculator.cpp Configuration/Calculator.h
 Map/Tile.cpp Map/Tile.h Map/Map.cpp Map/Map.h Character/Player.cpp
 Character/Player.h Timer.cpp Timer.h GameConstants.h Character/NPC.cpp
 Character/NPC.h Direction.h Character/Entity.cpp Character/Entity.h

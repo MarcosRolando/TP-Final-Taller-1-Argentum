@@ -29,12 +29,9 @@ public:
     void updateSkills(unsigned int strength, unsigned int agility,
                       unsigned int intelligence, unsigned int constitution);
 
-
 private:
-    void _renderInfo(unsigned int infoCurr, unsigned int infoTotal, int xOffset,
-                     unsigned int barLen, SDL_Color color);
-
-
+    void _renderInfoBar(unsigned int infoCurr, unsigned int infoTotal, int xOffset,
+                        unsigned int barLen, SDL_Color color);
 };
 
 

@@ -99,8 +99,9 @@ void PlayerInventoryGUI::_drawEquipableOutlines() {
 }
 
 void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
-    //Ver si tengo q chequear tamaño
-    inventoryTextures.push_back(&repo.getTexture(texture));
+    if (inventoryTextures.size() < INVENTORY_SIZE) {
+        inventoryTextures.push_back(&repo.getTexture(texture));
+    }
 }
 
 void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item) {

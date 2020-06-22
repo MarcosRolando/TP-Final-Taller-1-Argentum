@@ -10,15 +10,24 @@
 #define DEFAULT_MAP_TOP 236
 #define DEFAULT_MAP_BOTTOM 876
 
+#define CAMERA_X_OFFSET 50
+#define CAMERA_Y_OFFSET 12
+
+#define DEFAULT_INVENTORY_LEFT 1122
+#define DEFAULT_INVENTORY_RIGHT 1434
+#define DEFAULT_INVENTORY_TOP 260
+#define DEFAULT_INVENTORY_BOTTOM 548
+
+#define INVENTORY_SLOT_WIDTH 78
+#define INVENTORY_SLOT_HEIGHT 72
+
+
+
 Selector::Selector() {
     inventorySlotX = -1;
     inventorySlotY = -1;
     tileX = -1;
     tileY = -1;
-}
-
-Selector::~Selector() {
-
 }
 
 void Selector::handleEvent(SDL_Event &e,int playerX, int playerY, Window& window){
@@ -42,25 +51,22 @@ void Selector::_verifyTileSelection(int playerX, int playerY) {
         //Esto es cuando no esta en los extremos
         int playerXTile = playerX/TILE_WIDTH;
         int playerYTile = playerY/TILE_HEIGHT;
-        int relativeXTile = (clickX - 20 + 50) / TILE_WIDTH;//El -20
-        // es el offset del marco. EL -50 es el offset de la camara
-        int relativeYTile = (clickY - 236 - 12) / TILE_HEIGHT;//El -236 es
-        //el offset del minichat. El -12 es el offset de la camara
+        int relativeXTile = (clickX - DEFAULT_MAP_LEFT + CAMERA_X_OFFSET) / TILE_WIDTH;
+        int relativeYTile = (clickY - DEFAULT_MAP_TOP - CAMERA_Y_OFFSET) /TILE_HEIGHT;
         tileX = playerXTile + (relativeXTile - 4);
         tileY = playerYTile + (relativeYTile - 2);
 
         //Me fijo los extremos
+        //Izquierda
         if (playerXTile < 4){
-            tileX = (clickX - 20) / TILE_WIDTH;
-        }
-        if (playerXTile > 95){
-            tileX = 92 + ((clickX - 20) / TILE_WIDTH);
+            tileX = (clickX - DEFAULT_MAP_LEFT) / TILE_WIDTH;
+        } else if (playerXTile > 95){
+            tileX = 92 + ((clickX - DEFAULT_MAP_LEFT) / TILE_WIDTH);
         }
         if (playerYTile < 3){
-            tileY = (clickY - 236) / TILE_HEIGHT;
-        }
-        if (playerYTile > 97){
-            tileY = 95 + ((clickY - 236) / TILE_HEIGHT);
+            tileY = (clickY - DEFAULT_MAP_TOP) / TILE_HEIGHT;
+        }else if (playerYTile > 97){
+            tileY = 95 + ((clickY - DEFAULT_MAP_TOP) / TILE_HEIGHT);
         }
 
     }
@@ -68,9 +74,10 @@ void Selector::_verifyTileSelection(int playerX, int playerY) {
 
 void Selector::_verifyInventorySlotSelection() {
     //Veo si clickeo adentro del inventario
-    if (clickX > 1122 && clickX < 1434 && clickY > 260 && clickY < 548){
-        inventorySlotX = (clickX-1122)/78;//78=slot width
-        inventorySlotY = (clickY-260)/72;//72=slot height
+    if (_isInsideRect(DEFAULT_INVENTORY_LEFT, DEFAULT_INVENTORY_RIGHT,
+            DEFAULT_INVENTORY_TOP, DEFAULT_INVENTORY_BOTTOM)){
+        inventorySlotX = (clickX - DEFAULT_INVENTORY_LEFT)/INVENTORY_SLOT_WIDTH;
+        inventorySlotY = (clickY - DEFAULT_INVENTORY_TOP)/INVENTORY_SLOT_HEIGHT;
     }
 }
 
@@ -96,7 +103,7 @@ int Selector::getSelectedTileXToRender(int xPlayer) const {
     int playerXTile = xPlayer/TILE_WIDTH;
     int cameraOffset = 0,tileXOffset = 0;
     if (playerXTile > 3 && playerXTile < 96){
-        cameraOffset = 50;
+        cameraOffset = CAMERA_X_OFFSET;
         tileXOffset = -playerXTile + 4;
     }
     if (playerXTile > 95){
@@ -109,7 +116,7 @@ int Selector::getSelectedTileYToRender(int yPlayer) const {
     int playerYTile = yPlayer/TILE_WIDTH;
     int cameraOffset = 0, tileYOffset = 0;
     if (playerYTile > 2 && playerYTile < 98){
-        cameraOffset = 12;
+        cameraOffset = CAMERA_Y_OFFSET;
         tileYOffset = -(yPlayer / TILE_HEIGHT) + 2;
     }
     if (playerYTile >= 98){
@@ -121,3 +128,6 @@ int Selector::getSelectedTileYToRender(int yPlayer) const {
 bool Selector::_isInsideRect(int left, int right, int top, int bottom) const{
     return (clickX > left && clickX < right && clickY > top && clickY < bottom);
 }
+
+
+Selector::~Selector() {}

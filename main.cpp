@@ -118,11 +118,8 @@ int main(int argc, char* args[]) {
                 {
                     quit = true;
                 }
-
                 selector.handleEvent(e, xPlayer, yPlayer, window);
-
                 minichat.handleEvent(e, window);
-
                 window.handleEvent(e);
 
                 std::string a = " ";//Para probar lo del minichat

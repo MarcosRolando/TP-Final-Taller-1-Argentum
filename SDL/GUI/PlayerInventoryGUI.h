@@ -19,7 +19,6 @@ enum EquippedItems{
 
 class PlayerInventoryGUI {
 private:
-    //Capaz le tengo q agregar un text
     Text text;
     TextureRepository& repo;
     SDL_Renderer& renderer;
