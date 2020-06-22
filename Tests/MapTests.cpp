@@ -104,10 +104,6 @@ bool MapTests::testMixedCityAndUnavailableTiles() {
 }
 
 bool MapTests::testAddedItemsToMap() {
-    //Agrega el item al tile que se encuentra en la coordenada recibida apropiandose del shared_ptr,
-    //si la coordenada es invalida tira invalid_argument y no se apropia del puntero
-    void addItemsToTile(std::shared_ptr<Item>&& item, Coordinate position);
-
     Map map;
     int mapXSize = 50;
     int mapYSize = 50;
@@ -139,12 +135,45 @@ bool MapTests::testAddedItemsToMap() {
     int i = 0;
     for (const auto & item: map.tiles[1][1].items) {
         if (itemsNames[i] != item->getName()) {
-            std::cout << "El valor de i es: " << i << std::endl;
-            std::cout << "El valor del vector es: " << itemsNames[i] << std::endl;
-            std::cout << "El valor de la lista es: " << item->getName() << std::endl;
             return false;
         }
         i++;
     }
     return true;
+}
+
+bool MapTests::testAddedGoldToMap() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    std::shared_ptr<Gold> gold(new Gold(1000));
+    map.addItemsToTile(std::move(gold), {1, 1});
+    return Configuration::getInstance().configGetGoldName() == map.tiles[1][1].items.front()->getName();
+}
+
+bool MapTests::testAddedMultipleGoldsToMapWithList() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    std::list<std::shared_ptr<Item>> items;
+    items.emplace_back(new Gold(1000));
+    items.emplace_back(new Gold(1000));
+    map.addItemsToTile(std::move(items), {1, 1});
+    return (Configuration::getInstance().configGetGoldName() == map.tiles[1][1].items.front()->getName()) &&
+           (Configuration::getInstance().configGetGoldName() == map.tiles[1][1].items.back()->getName());
+}
+
+bool MapTests::testAddedMultipleGoldsToMapWithoutList() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    std::shared_ptr<Gold> gold(new Gold(1000));
+    map.addItemsToTile(std::move(gold), {1, 1});
+    gold.reset(new Gold(1000));
+    map.addItemsToTile(std::move(gold), {1, 1});
+    return (Configuration::getInstance().configGetGoldName() == map.tiles[1][1].items.front()->getName()) &&
+           (Configuration::getInstance().configGetGoldName() == map.tiles[1][1].items.back()->getName());
 }

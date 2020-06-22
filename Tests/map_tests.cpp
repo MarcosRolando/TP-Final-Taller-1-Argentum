@@ -20,3 +20,15 @@ TEST_CASE("Test Mixed City And Unavailable Tiles") {
 TEST_CASE("Test Added Items To Map") {
     REQUIRE(MapTests::testAddedItemsToMap());
 }
+
+TEST_CASE("Test Added Gold To Map") {
+    REQUIRE(MapTests::testAddedGoldToMap());
+}
+
+TEST_CASE("Test Added Multiple Golds To Map With List") {
+    REQUIRE(MapTests::testAddedMultipleGoldsToMapWithList());
+}
+
+TEST_CASE("Test Added Multiple Golds To Map Without List") {
+    REQUIRE(MapTests::testAddedMultipleGoldsToMapWithoutList());
+}
