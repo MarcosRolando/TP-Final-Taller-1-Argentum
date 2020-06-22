@@ -7,7 +7,10 @@
 
 
 class MapTests {
-
+public:
+    static bool testAvailableMapHasAvailableTiles();
+    static bool testCityMapHasCityTiles();
+    static bool testMixedCityAndUnavailableTiles();
 };
 
 

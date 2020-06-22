@@ -9,7 +9,6 @@
 #include "../Items/Defense/Chest.h"
 #include "../Items/Defense/Head.h"
 #include "../Items/Defense/Shield.h"
-#include "../Config/GameEnums.h"
 
 bool ItemTests::testInitialValues() {
     std::string name = "Mi nombre es Item!";
@@ -23,12 +22,7 @@ bool ItemTests::testInitialValues() {
 
 bool ItemTests::testAreNonGoldItemsGold() {
     Chest armour(GameType::PLATE_ARMOR);
-    Head helmet(GameType::IRON_HELMET);
-    Shield shield(GameType::TURTLE_SHIELD);
-    bool status = armour.isGold();
-    status = status || helmet.isGold();
-    status = status || shield.isGold();
-    return !status;
+    return false;
 }
 
 bool ItemTests::testIsGoldItemGold() {
