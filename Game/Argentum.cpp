@@ -16,7 +16,6 @@ void Argentum::execute() {
 
     //ACA SE TIRA THREAD PARA RECIBIR LA Q QUE CIERRA EL SERVER
 
-
     high_resolution_clock::time_point time1;
     high_resolution_clock::time_point time2;
     duration<double, std::milli> timeStep{};

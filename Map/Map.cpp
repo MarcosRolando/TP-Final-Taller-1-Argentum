@@ -7,7 +7,6 @@
 #include <memory>
 #include "Map.h"
 #include "../AttackResult.h"
-#include "Tile.h"
 #include "../Config/Calculator.h"
 
 //////////////////////////////PRIVATE/////////////////////////////
@@ -30,12 +29,12 @@ bool Map::_areCoordinatesEqual(Coordinate a, Coordinate b){
 }
 
 void Map::_buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topRight, Coordinate& bottomLeft) const {
-    Coordinate aux;
-    aux.iPosition = center.iPosition - range;
-    aux.jPosition = center.jPosition - range;
+    Coordinate aux{};
+    aux.iPosition = static_cast<int>(center.iPosition - range);
+    aux.jPosition = static_cast<int>(center.jPosition - range);
     topRight = _getValidCoordinate(aux);
-    aux.iPosition = center.iPosition + range;
-    aux.jPosition = center.jPosition + range;
+    aux.iPosition = static_cast<int>(center.iPosition + range);
+    aux.jPosition = static_cast<int>(center.jPosition + range);
     bottomLeft = _getValidCoordinate(aux);
 }
 
@@ -62,8 +61,8 @@ void Map::_storeAdjacentPositions(
         std::priority_queue<PointAndDistance, std::vector<PointAndDistance>,
                             InverseCoordinateDistance>& nodes,
         Coordinate destination) const {
-    Coordinate topRight, bottomLeft;
-    PointAndDistance aux;
+    Coordinate topRight{}, bottomLeft{};
+    PointAndDistance aux{};
     _buildSearchRegion(refference.point, 1, topRight, bottomLeft);
     for (int i = topRight.iPosition; i < bottomLeft.iPosition; ++i) {
         for (int j = topRight.jPosition; j < bottomLeft.jPosition; ++j) {
@@ -104,7 +103,7 @@ AttackResult Map::attackTile(int damage, unsigned int level, bool isAPlayer,
 }
 
 void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const {
-    Coordinate topRight, bottomLeft, aux;
+    Coordinate topRight{}, bottomLeft{}, aux{};
     _buildSearchRegion(center, range, topRight, bottomLeft);
     for (int i = topRight.iPosition; i < bottomLeft.iPosition; ++i) {
         for (int j = topRight.jPosition; j < bottomLeft.jPosition; ++j) {
@@ -127,7 +126,7 @@ bool Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::l
     //Key:Posicion, Dato: distancia
     std::unordered_map<Coordinate, unsigned int> distances;
 
-    PointAndDistance aux;
+    PointAndDistance aux{};
     aux.point = currentPosition;
     aux.distance = 0;
     nodes.push(aux);
@@ -209,4 +208,14 @@ Coordinate Map::getMonsterCoordinate(/*std::shared_ptr<Monster>&& monster*/) {
     }
     //tiles[xPosition][yPosition].addEntity(std::static_pointer_cast<Entity>(monster));
     return {static_cast<int>(xPosition), static_cast<int>(yPosition)};
+}
+
+
+Map::Map() {
+    for (int i = 0; i < 100; ++i) {
+        tiles.emplace_back();
+        for (int j = 0; j < 100; ++j) {
+            tiles[i].emplace_back(false, FLOOR_TYPE_GRASS);
+        }
+    }
 }

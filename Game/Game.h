@@ -47,6 +47,9 @@ private:
     void _repopulateMap(double timePassed);
 
 public:
+
+    Game();
+
     AttackResult attackPosition(int damage, unsigned int level, bool isAPlayer,
                             Coordinate coordinate);
 

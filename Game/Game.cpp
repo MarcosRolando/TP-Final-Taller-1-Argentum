@@ -95,3 +95,10 @@ void Game::update(double timeStep) {
 
     _removeEntities();
 }
+
+Game::Game() {
+    monsterCreationRate = 5;
+    maxNumberOfMonsters = 50;
+    spawnInterval = 100;
+    spawnTimer = 0;
+}
