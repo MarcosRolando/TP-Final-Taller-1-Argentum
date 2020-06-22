@@ -14,7 +14,7 @@ Config::ConfigFileReader::ConfigFileReader(const std::string& path) :
     monsters{{"Skeleton", SKELETON}, {"Zombie", ZOMBIE},{"Spider", SPIDER}, {"Goblin", GOBLIN}},
     weapons{{"Longsword", LONGSWORD},{"Axe", AXE}, {"Warhammer", WARHAMMER},
             {"AshRod", ASH_ROD}, {"ElvenFlute", ELVEN_FLUTE}, {"LinkedStaff", LINKED_STAFF},
-            {"SimpleBow", SIMPLE_BOW}, {"CompoundBow", COMPOSITE_BOW}, {"GnarledStaff", GNARLED_STAFF},
+            {"SimpleBow", SIMPLE_BOW}, {"CompositeBow", COMPOSITE_BOW}, {"GnarledStaff", GNARLED_STAFF},
             {"Fist", FIST}},
     clothing{{"CommonClothing", COMMON_CLOTHING},{"LeatherArmor", LEATHER_ARMOR}, {"PlateArmor", PLATE_ARMOR},
             {"BlueTunic", BLUE_TUNIC}, {"Hood", HOOD}, {"IronHelmet", IRON_HELMET},

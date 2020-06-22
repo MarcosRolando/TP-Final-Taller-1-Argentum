@@ -9,6 +9,8 @@
 #include "../Items/Defense/Chest.h"
 #include "../Items/Defense/Head.h"
 #include "../Items/Defense/Shield.h"
+#include "../Items/Miscellaneous/HealthPotion.h"
+#include "../Items/Miscellaneous/ManaPotion.h"
 
 bool ItemTests::testInitialValues() {
     std::string name = "Mi nombre es Item!";
@@ -33,4 +35,53 @@ bool ItemTests::testAreNonGoldItemsGold() {
 bool ItemTests::testIsGoldItemGold() {
     Gold gold(100);
     return (gold.isGold());
+}
+
+bool ItemTests::testCorrectItemsNames() {
+    Chest chest1(GameType::COMMON_CLOTHING);
+    if (chest1.getName() != "CommonClothing") return false;
+    Chest chest2(GameType::LEATHER_ARMOR);
+    if (chest2.getName() != "LeatherArmor") return false;
+    Chest chest3(GameType::PLATE_ARMOR);
+    if (chest3.getName() != "PlateArmor") return false;
+    Chest chest4(GameType::BLUE_TUNIC);
+    if (chest4.getName() != "BlueTunic") return false;
+    Head helmet1(GameType::HOOD);
+    if (helmet1.getName() != "Hood") return false;
+    Head helmet2(GameType::IRON_HELMET);
+    if (helmet2.getName() != "IronHelmet") return false;
+    Head helmet3(GameType::MAGIC_HAT);
+    if (helmet3.getName() != "MagicHat") return false;
+    Head helmet4(GameType::NO_HELMET);
+    if (helmet4.getName() != "NoHelmet") return false;
+    Shield shield1(GameType::IRON_SHIELD);
+    if (shield1.getName() != "IronShield") return false;
+    Shield shield2(GameType::TURTLE_SHIELD);
+    if (shield2.getName() != "TurtleShield") return false;
+    Shield shield3(GameType::NO_SHIELD);
+    if (shield3.getName() != "NoShield") return false;
+    Weapon weapon1(GameType::LONGSWORD);
+    if (weapon1.getName() != "Longsword") return false;
+    Weapon weapon2(GameType::AXE);
+    if (weapon2.getName() != "Axe") return false;
+    Weapon weapon3(GameType::WARHAMMER);
+    if (weapon3.getName() != "Warhammer") return false;
+    Weapon weapon4(GameType::ASH_ROD);
+    if (weapon4.getName() != "AshRod") return false;
+    Weapon weapon5(GameType::ELVEN_FLUTE);
+    if (weapon5.getName() != "ElvenFlute") return false;
+    Weapon weapon6(GameType::LINKED_STAFF);
+    if (weapon6.getName() != "LinkedStaff") return false;
+    Weapon weapon7(GameType::SIMPLE_BOW);
+    if (weapon7.getName() != "SimpleBow") return false;
+    Weapon weapon8(GameType::COMPOSITE_BOW);
+    if (weapon8.getName() != "CompositeBow") return false;
+    Weapon weapon9(GameType::GNARLED_STAFF);
+    if (weapon9.getName() != "GnarledStaff") return false;
+    Weapon weapon10(GameType::FIST);
+    if (weapon10.getName() != "Fist") return false;
+    HealthPotion potion1;
+    if (potion1.getName() != "HealthPotion") return false;
+    ManaPotion potion2;
+    return !(potion2.getName() != "ManaPotion");
 }

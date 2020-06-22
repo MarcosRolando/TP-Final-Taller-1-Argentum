@@ -16,3 +16,7 @@ TEST_CASE("It Is Not Gold Test") {
 TEST_CASE("It Is Gold Test") {
     REQUIRE(ItemTests::testIsGoldItemGold());
 }
+
+TEST_CASE("Load All Items Names Correctly Test") {
+    REQUIRE(ItemTests::testCorrectItemsNames());
+}
