@@ -9,10 +9,15 @@
 #include "../Entity.h"
 #include "Shop.h"
 
+class EntityTests;
+
 class Trader: Entity {
 private:
     //Storage storage;
     Shop shop;
+
+    friend EntityTests;
+
 public:
     explicit Trader(Coordinate initialPosition);
 

@@ -10,11 +10,17 @@
 
 class Player;
 
+class EntityTests;
+
+
 class Shop {
 private:
     float buyingMultiplier{};
     float sellingMultiplier{};
     Storage storage;
+
+    friend EntityTests;
+
 public:
 
     Shop();

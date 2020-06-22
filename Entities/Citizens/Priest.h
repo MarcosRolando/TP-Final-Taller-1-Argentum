@@ -9,9 +9,14 @@
 #include "Shop.h"
 #include "../Entity.h"
 
+class EntityTests;
+
 class Priest: Entity {
 private:
     Shop shop;
+
+    friend EntityTests;
+
 public:
     explicit Priest(Coordinate initialPosition);
 
