@@ -37,7 +37,7 @@ bool ItemTests::testIsGoldItemGold() {
     return (gold.isGold());
 }
 
-bool ItemTests::testCorrectItemsNames() {
+bool ItemTests::_testCorrectItemsNamesClothing() {
     Chest chest1(GameType::COMMON_CLOTHING);
     if (chest1.getName() != "CommonClothing") return false;
     Chest chest2(GameType::LEATHER_ARMOR);
@@ -45,7 +45,10 @@ bool ItemTests::testCorrectItemsNames() {
     Chest chest3(GameType::PLATE_ARMOR);
     if (chest3.getName() != "PlateArmor") return false;
     Chest chest4(GameType::BLUE_TUNIC);
-    if (chest4.getName() != "BlueTunic") return false;
+    return !(chest4.getName() != "BlueTunic");
+}
+
+bool ItemTests::_testCorrectItemsNamesHelmets() {
     Head helmet1(GameType::HOOD);
     if (helmet1.getName() != "Hood") return false;
     Head helmet2(GameType::IRON_HELMET);
@@ -53,13 +56,19 @@ bool ItemTests::testCorrectItemsNames() {
     Head helmet3(GameType::MAGIC_HAT);
     if (helmet3.getName() != "MagicHat") return false;
     Head helmet4(GameType::NO_HELMET);
-    if (helmet4.getName() != "NoHelmet") return false;
+    return !(helmet4.getName() != "NoHelmet");
+}
+
+bool ItemTests::_testCorrectItemsNamesShields() {
     Shield shield1(GameType::IRON_SHIELD);
     if (shield1.getName() != "IronShield") return false;
     Shield shield2(GameType::TURTLE_SHIELD);
     if (shield2.getName() != "TurtleShield") return false;
     Shield shield3(GameType::NO_SHIELD);
-    if (shield3.getName() != "NoShield") return false;
+    return !(shield3.getName() != "NoShield");
+}
+
+bool ItemTests::_testCorrectItemsNamesWeapons() {
     Weapon weapon1(GameType::LONGSWORD);
     if (weapon1.getName() != "Longsword") return false;
     Weapon weapon2(GameType::AXE);
@@ -79,9 +88,21 @@ bool ItemTests::testCorrectItemsNames() {
     Weapon weapon9(GameType::GNARLED_STAFF);
     if (weapon9.getName() != "GnarledStaff") return false;
     Weapon weapon10(GameType::FIST);
-    if (weapon10.getName() != "Fist") return false;
+    return !(weapon10.getName() != "Fist");
+}
+
+bool ItemTests::_testCorrectItemsNamesPotions() {
     HealthPotion potion1;
     if (potion1.getName() != "HealthPotion") return false;
     ManaPotion potion2;
     return !(potion2.getName() != "ManaPotion");
+}
+
+bool ItemTests::testCorrectItemsNames() {
+    bool status = _testCorrectItemsNamesClothing();
+    status = status && _testCorrectItemsNamesHelmets();
+    status = status && _testCorrectItemsNamesPotions();
+    status = status && _testCorrectItemsNamesShields();
+    status = status && _testCorrectItemsNamesWeapons();
+    return status;
 }

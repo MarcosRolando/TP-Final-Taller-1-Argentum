@@ -11,6 +11,13 @@ public:
     static bool testAreNonGoldItemsGold();
     static bool testIsGoldItemGold();
     static bool testCorrectItemsNames();
+
+private:
+    static bool _testCorrectItemsNamesHelmets();
+    static bool _testCorrectItemsNamesWeapons();
+    static bool _testCorrectItemsNamesPotions();
+    static bool _testCorrectItemsNamesShields();
+    static bool _testCorrectItemsNamesClothing();
 };
 
 

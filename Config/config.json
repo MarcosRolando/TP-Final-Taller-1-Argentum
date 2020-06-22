@@ -1,0 +1,340 @@
+{
+  "Race" : [
+    {
+      "Name" : "Human",
+      "Life": 7,
+      "Mana" : 3,
+      "Constitution" : 5,
+      "Strength" : 5,
+      "Intelligence" : 5,
+      "Agility" : 5,
+      "MeditationRate": 3,
+      "RecoveryRate" : 6
+    },
+    {
+      "Name" : "Elf",
+      "Life": 3,
+      "Mana" : 8,
+      "Constitution" : 3,
+      "Strength" : 3,
+      "Intelligence" : 9,
+      "Agility" : 8,
+      "MeditationRate": 7,
+      "RecoveryRate" : 5
+    },
+    {
+      "Name" : "Dwarf",
+      "Life": 8,
+      "Mana" : 2,
+      "Constitution" : 8,
+      "Strength" : 9,
+      "Intelligence" : 5,
+      "Agility" : 3,
+      "MeditationRate": 2,
+      "RecoveryRate" : 7
+    },
+    {
+      "Name" : "Gnome",
+      "Life": 5,
+      "Mana" : 5,
+      "Constitution" : 7,
+      "Strength" : 4,
+      "Intelligence" : 8,
+      "Agility" : 2,
+      "MeditationRate": 5,
+      "RecoveryRate" : 4
+    }
+  ],
+  "Class" : [
+    {
+      "Name" : "Wizard",
+      "Life": 5,
+      "Mana" : 10,
+      "Constitution" : 3,
+      "Strength" : 2,
+      "Intelligence" : 9,
+      "Agility" : 3,
+      "MeditationRate": 8,
+      "RecoveryRate" : 5
+    },
+    {
+      "Name" : "Cleric",
+      "Life": 7,
+      "Mana" : 7,
+      "Constitution" : 6,
+      "Strength" : 6,
+      "Intelligence" : 8,
+      "Agility" : 5,
+      "MeditationRate": 5,
+      "RecoveryRate" : 3
+    },
+    {
+      "Name" : "Paladin",
+      "Life": 8,
+      "Mana" : 6,
+      "Constitution" : 8,
+      "Strength" : 7,
+      "Intelligence" : 5,
+      "Agility" : 7,
+      "MeditationRate": 5,
+      "RecoveryRate" : 7
+    },
+    {
+      "Name" : "Warrior",
+      "Life": 9,
+      "Mana" : 0,
+      "Constitution" : 8,
+      "Strength" : 8,
+      "Intelligence" : 3,
+      "Agility" : 7,
+      "MeditationRate": 5,
+      "RecoveryRate" : 8
+    }
+  ],
+
+  "Monster" : [
+    {
+      "Name" : "Skeleton",
+      "Life" : 100,
+      "Damage" : 100,
+      "VisionRange" : 5,
+      "LevelMin" : 1,
+      "LevelMax" : 10,
+      "Constitution" : 8,
+      "Strength" : 8,
+      "Intelligence" : 3,
+      "Agility" : 7,
+      "ReactionSpeed": 2,
+      "Speed" : 2
+    },
+    {
+      "Name" : "Zombie",
+      "Life" : 100,
+      "Damage" : 100,
+      "VisionRange" : 3,
+      "LevelMin" : 1,
+      "LevelMax" : 10,
+      "Constitution" : 8,
+      "Strength" : 8,
+      "Intelligence" : 3,
+      "Agility" : 7,
+      "ReactionSpeed": 2,
+      "Speed" : 2
+    },
+    {
+      "Name" : "Spider",
+      "Life" : 100,
+      "Damage" : 100,
+      "VisionRange" : 8,
+      "LevelMin" : 1,
+      "LevelMax" : 10,
+      "Constitution" : 8,
+      "Strength" : 8,
+      "Intelligence" : 3,
+      "Agility" : 7,
+      "ReactionSpeed": 2,
+      "Speed" : 2
+    },
+    {
+      "Name" : "Goblin",
+      "Life" : 100,
+      "Damage" : 100,
+      "VisionRange" : 5,
+      "LevelMin" : 1,
+      "LevelMax" : 10,
+      "Constitution" : 8,
+      "Strength" : 8,
+      "Intelligence" : 3,
+      "Agility" : 7,
+      "ReactionSpeed": 2,
+      "Speed" : 2
+    }
+  ],
+
+  "Weapon" : [
+    {
+      "Name" : "Longsword",
+      "MinDmg" : 2,
+      "MaxDmg" : 5,
+      "Range" : 1,
+      "ManaConsumption" : 0,
+      "Price" : 100
+    },
+    {
+      "Name" : "Axe",
+      "MinDmg" : 4,
+      "MaxDmg" : 5,
+      "Range" : 1,
+      "ManaConsumption" : 0,
+      "Price" : 100
+    },
+    {
+      "Name" : "Warhammer",
+      "MinDmg" : 1,
+      "MaxDmg" : 9,
+      "Range" : 1,
+      "ManaConsumption" : 0,
+      "Price" : 100
+    },
+    {
+      "Name" : "AshRod",
+      "MinDmg" : 2,
+      "MaxDmg" : 4,
+      "Range" : 5,
+      "ManaConsumption" : 5,
+      "Price" : 100
+    },
+    {
+      "Name" : "ElvenFlute",
+      "MinDmg" : 0,
+      "MaxDmg" : 0,
+      "Range" : 5,
+      "ManaConsumption" : 100,
+      "Price" : 100
+    },
+    {
+      "Name" : "LinkedStaff",
+      "MinDmg" : 8,
+      "MaxDmg" : 20,
+      "Range" : 5,
+      "ManaConsumption" : 30,
+      "Price" : 100
+    },
+    {
+      "Name" : "SimpleBow",
+      "MinDmg" : 1,
+      "MaxDmg" : 4,
+      "Range" : 10,
+      "ManaConsumption" : 0,
+      "Price" : 100
+    },
+    {
+      "Name" : "CompositeBow",
+      "MinDmg" : 4,
+      "MaxDmg" : 16,
+      "Range" : 10,
+      "ManaConsumption" : 0,
+      "Price" : 100
+    },
+    {
+      "Name": "GnarledStaff",
+      "MinDmg": 4,
+      "MaxDmg": 16,
+      "Range": 10,
+      "ManaConsumption": 0,
+      "Price": 100
+    },
+    {
+      "Name": "Fist",
+      "MinDmg": 1,
+      "MaxDmg": 1,
+      "Range": 1,
+      "ManaConsumption": 0,
+      "Price": 0
+    }
+  ],
+
+  "Clothing" : [
+    {
+      "Name": "CommonClothing",
+      "MinDefense": 0,
+      "MaxDefense": 0,
+      "Price" : 0
+    },
+    {
+      "Name": "LeatherArmor",
+      "MinDefense": 2,
+      "MaxDefense": 6,
+      "Price" : 100
+    },
+    {
+      "Name": "PlateArmor",
+      "MinDefense": 15,
+      "MaxDefense": 30,
+      "Price" : 100
+    },
+    {
+      "Name": "BlueTunic",
+      "MinDefense": 6,
+      "MaxDefense": 10,
+      "Price" : 100
+    },
+    {
+      "Name": "Hood",
+      "MinDefense": 1,
+      "MaxDefense": 4,
+      "Price" : 100
+    },
+    {
+      "Name": "IronHelmet",
+      "MinDefense":4,
+      "MaxDefense": 8,
+      "Price" : 100
+    },
+    {
+      "Name": "TurtleShield",
+      "MinDefense": 1,
+      "MaxDefense": 2,
+      "Price" : 100
+    },
+    {
+      "Name": "IronShield",
+      "MinDefense": 1,
+      "MaxDefense": 4,
+      "Price" : 100
+    },
+    {
+      "Name": "MagicHat",
+      "MinDefense": 4,
+      "MaxDefense": 12,
+      "Price" : 100
+    },
+    {
+      "Name": "NoHelmet",
+      "MinDefense": 0,
+      "MaxDefense": 0,
+      "Price" : 0
+    },
+    {
+      "Name": "NoShield",
+      "MinDefense": 0,
+      "MaxDefense": 0,
+      "Price" : 0
+    }
+  ],
+
+  "GoldModifiers" : {
+    "MinRange" : 0,
+    "MaxRange" : 0.2,
+    "MaxSafeGoldFactor" : 100,
+    "MaxGoldLevelModifier" : 1.1
+  },
+
+  "Potion" : [
+    {
+      "Name": "HealthPotion",
+      "RecoveryValue": 100,
+      "Price": 100
+    },
+    {
+      "Name": "ManaPotion",
+      "RecoveryValue": 100,
+      "Price": 100
+    }
+  ],
+
+  "XPModifiers" : {
+    "NextLevelFactor" : 1000,
+    "NextLevelModifier" : 1.8,
+    "MinKillXPModifier" : 0,
+    "MaxKillXPModifier" : 0.1,
+    "AttackXPModifier" : 10,
+    "KillXPModifier" : 10
+  },
+
+  "PlayerVisionRange" : 5,
+  "CritAttackProb" : 0.1,
+  "DodgeProb" : 0.1,
+  "NewbieLevel" : 12,
+  "MaxLevelDif" : 10
+}
