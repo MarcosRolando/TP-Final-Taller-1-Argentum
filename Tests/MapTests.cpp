@@ -6,14 +6,21 @@
 
 #include "../Map/Map.h"
 #include "../Map/Tile.h"
+#include "../Items/Miscellaneous/Gold.h"
+#include "../Items/Miscellaneous/HealthPotion.h"
+#include "../Items/Miscellaneous/ManaPotion.h"
+#include "../Items/Defense/Head.h"
+#include "../Items/Defense/Shield.h"
+#include "../Items/Defense/Chest.h"
+#include "../Items/Attack/Weapon.h"
 
 ////////////////////////PUBLIC/////////////////////////
 
-void MapTests::_fillEmptyMap(Map &map, int iSize, int jSize) {
+void MapTests::_fillEmptyMap(Map &map, int iSize, int jSize, bool isCity) {
     for (int i = 0; i < iSize; ++i) {
         map.tiles.emplace_back();
         for (int j = 0; j < jSize; ++j) {
-            map.tiles[i].emplace_back(false, FLOOR_TYPE_GRASS);
+            map.tiles[i].emplace_back(isCity, FLOOR_TYPE_GRASS);
         }
     }
 }
@@ -39,7 +46,7 @@ bool MapTests::testCityMapHasCityTiles() {
     Map map;
     int mapXSize = 50;
     int mapYSize = 50;
-    _fillEmptyMap(map, mapXSize, mapYSize);
+    _fillEmptyMap(map, mapXSize, mapYSize, true);
     for (int i = 0; i < mapXSize; ++i) {
         for (int j = 0; j < mapYSize; ++j) {
             if (!map.tiles[i][j].isInCity()) {
@@ -96,7 +103,7 @@ bool MapTests::testMixedCityAndUnavailableTiles() {
     return true;
 }
 
-bool MapTests::testAddedItemToMap() {
+bool MapTests::testAddedItemsToMap() {
     //Agrega el item al tile que se encuentra en la coordenada recibida apropiandose del shared_ptr,
     //si la coordenada es invalida tira invalid_argument y no se apropia del puntero
     void addItemsToTile(std::shared_ptr<Item>&& item, Coordinate position);
@@ -105,7 +112,36 @@ bool MapTests::testAddedItemToMap() {
     int mapXSize = 50;
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
+    std::list<std::shared_ptr<Item>> items;
+    items.emplace_back(new Gold(5));
+    items.emplace_back(new HealthPotion());
+    items.emplace_back(new ManaPotion());
+    items.emplace_back(new Head(GameType::MAGIC_HAT));
+    items.emplace_back(new Head(GameType::NO_HELMET));
+    items.emplace_back(new Shield(GameType::IRON_SHIELD));
+    items.emplace_back(new Chest(GameType::PLATE_ARMOR));
+    items.emplace_back(new Chest(GameType::COMMON_CLOTHING));
+    items.emplace_back(new Weapon(GameType::LONGSWORD));
+    items.emplace_back(new Weapon(GameType::FIST));
 
+    Configuration& config = Configuration::getInstance();
 
-    return false;
+    std::vector<std::string> itemsNames = {"Gold", config.configPotionData(GameType::HEALTH_POTION).name,
+                                         config.configPotionData(GameType::MANA_POTION).name,
+                                         config.configClothingData(GameType::MAGIC_HAT).name,
+                                         config.configClothingData(GameType::NO_HELMET).name,
+                                         config.configClothingData(GameType::IRON_SHIELD).name,
+                                         config.configClothingData(GameType::PLATE_ARMOR).name,
+                                         config.configClothingData(GameType::COMMON_CLOTHING).name,
+                                         config.configWeaponData(GameType::LONGSWORD).name,
+                                         config.configWeaponData(GameType::FIST).name};
+    map.addItemsToTile(std::move(items), {1, 1});
+    int i = 0;
+    for (const auto & item: map.tiles[1][1].items) {
+        if (itemsNames[i] != item->getName()) {
+            return false;
+        }
+        i++;
+    }
+    return true;
 }
