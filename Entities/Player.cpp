@@ -110,8 +110,7 @@ std::shared_ptr<Item> Player::removeItem(const std::string &itemName) {
         stats.stopMeditating();
         return inventory.removeItem(itemName);
     }
-    std::shared_ptr<Item> aux;
-    return aux;
+    return nullptr;
 }
 
 void Player::useItem(int itemPosition) {

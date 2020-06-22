@@ -18,5 +18,5 @@ bool EntityTests::testStoreItem() {
     std::shared_ptr<Item> item(new Weapon(GameType::LONGSWORD));
     player.storeItem(std::move(item));
     return (player.removeItem(config.configWeaponData(GameType::LONGSWORD).name)->getName()
-                            == config.configWeaponData(GameType::LONGSWORD).name);
+            == config.configWeaponData(GameType::LONGSWORD).name);
 }
