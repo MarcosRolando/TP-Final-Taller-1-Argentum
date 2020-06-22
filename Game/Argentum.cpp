@@ -31,7 +31,7 @@ void Argentum::execute() {
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();
         if (lastFrameTime < FRAME_TIME) {
-            usleep((FRAME_TIME - timeStep.count()) * 1000);
+            usleep((FRAME_TIME - lastFrameTime) * 1000);
             lastFrameTime = FRAME_TIME;
         }
     }
