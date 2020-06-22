@@ -62,7 +62,7 @@ void Config::ConfigFileReader::loadWeaponData(std::unordered_map<Weapon, WeaponD
     WeaponData currStats{};
     for (auto & weaponStat : weaponsStats) {
         _getWeaponData(currStats, weaponStat);
-        stats.emplace(weapons.at(weaponStat["Type"].asString()), currStats);
+        stats.emplace(weapons.at(weaponStat["Name"].asString()), currStats);
     }
 }
 
@@ -71,7 +71,7 @@ void Config::ConfigFileReader::loadClothingData(std::unordered_map<Clothing, Clo
     ClothingData currStats{};
     for (auto & clothingStat : clothingsStats) {
         _getClothingData(currStats, clothingStat);
-        stats.emplace(clothing.at(clothingStat["Type"].asString()), currStats);
+        stats.emplace(clothing.at(clothingStat["Name"].asString()), currStats);
     }
 }
 

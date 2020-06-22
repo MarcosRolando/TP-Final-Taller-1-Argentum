@@ -39,35 +39,35 @@ Configuration::Configuration() {
     playerVisionRange = fileReader.loadPlayerVisionRange();
 }
 
-Config::Modifiers Configuration::configClassModifiers(Class _class) const{
+const Config::Modifiers& Configuration::configClassModifiers(Class _class) const {
     return classModifiers.at(_class);
 }
 
-Config::Modifiers Configuration::configRaceModifiers(Race race) const{
+const Config::Modifiers& Configuration::configRaceModifiers(Race race) const{
     return raceModifiers.at(race);
 }
 
-Config::MonsterStats Configuration::configMonsterStats(Monster monster) const{
+const Config::MonsterStats& Configuration::configMonsterStats(Monster monster) const{
     return monsterStats.at(monster);
 }
 
-Config::WeaponData Configuration::configWeaponData(Weapon weapon) const{
+const Config::WeaponData& Configuration::configWeaponData(Weapon weapon) const{
     return weaponData.at(weapon);
 }
 
-Config::ClothingData Configuration::configClothingData(Clothing clothes) const{
+const Config::ClothingData& Configuration::configClothingData(Clothing clothes) const{
     return clothingData.at(clothes);
 }
 
-Config::GoldModifiers Configuration::configGoldModifiers() const{
+const Config::GoldModifiers& Configuration::configGoldModifiers() const{
     return goldModifiers;
 }
 
-Config::XPModifiers Configuration::configXPModifiers() const{
+const Config::XPModifiers& Configuration::configXPModifiers() const{
     return xpModifiers;
 }
 
-Config::PotionData Configuration::configPotionData(Potion potion) const{
+const Config::PotionData& Configuration::configPotionData(Potion potion) const{
     return potionData.at(potion);
 }
 

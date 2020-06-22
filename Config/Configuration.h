@@ -42,21 +42,21 @@ public:
 
     static Configuration& getInstance();
 
-    Config::Modifiers configClassModifiers(GameType::Class _class) const;
+    const Config::Modifiers& configClassModifiers(GameType::Class _class) const;
 
-    Config::Modifiers configRaceModifiers(GameType::Race race) const;
+    const Config::Modifiers& configRaceModifiers(GameType::Race race) const;
 
-    Config::MonsterStats configMonsterStats(GameType::Monster monster) const;
+    const Config::MonsterStats& configMonsterStats(GameType::Monster monster) const;
 
-    Config::WeaponData configWeaponData(GameType::Weapon weapon) const;
+    const Config::WeaponData& configWeaponData(GameType::Weapon weapon) const;
 
-    Config::ClothingData configClothingData(GameType::Clothing clothes) const;
+    const Config::ClothingData& configClothingData(GameType::Clothing clothes) const;
 
-    Config::PotionData configPotionData(GameType::Potion potion) const;
+    const Config::PotionData& configPotionData(GameType::Potion potion) const;
 
-    Config::GoldModifiers configGoldModifiers() const;
+    const Config::GoldModifiers& configGoldModifiers() const;
 
-    Config::XPModifiers configXPModifiers() const;
+    const Config::XPModifiers& configXPModifiers() const;
 
     float configCriticalAttackChance() const;
     float configDodgeChance() const;

@@ -47,8 +47,6 @@ bool MapTests::testCityMapHasCityTiles() {
     return true;
 }
 
-#include <iostream>
-
 bool MapTests::testMixedCityAndUnavailableTiles() {
     Map map;
     int mapXSize = 50;
@@ -72,23 +70,11 @@ bool MapTests::testMixedCityAndUnavailableTiles() {
         for (int j = 0; j < mapYSize; ++j) {
             isCity = map.tiles[i][j].isInCity();
             isGrass = map.tiles[i][j].isAvailable();
-            if (j % 2 == 0) {
-                if (!isCity) {
-                    return false;
-                }
-            } else {
-                if (isCity) {
-                    return false;
-                }
+            if ((j % 2 == 0) == !isCity) {
+                return false;
             }
-            if (j % 3 == 0) {
-                if (isGrass) {
-                    return false;
-                }
-            } else {
-                if (!isGrass) {
-                    return false;
-                }
+            if ((j % 3 != 0) == isGrass) {
+                return false;
             }
         }
     }

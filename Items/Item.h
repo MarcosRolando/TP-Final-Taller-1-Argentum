@@ -35,7 +35,7 @@ private:
     friend ItemTests;
 
 protected:
-    unsigned int id;
+    unsigned int id{};
 
 public:
     //Constructor que copia el nombre recibido en el item para almacenarlo
