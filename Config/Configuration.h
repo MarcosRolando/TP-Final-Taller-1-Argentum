@@ -28,9 +28,9 @@ private:
     unsigned int newbieLevel;
     unsigned int maxLevelDif;
 
-    unsigned int timeBetweenMonsterSpawns;
-    unsigned int monsterSpawnAmount;
-    unsigned int maxMonsterAmount;
+    unsigned int timeBetweenMonsterSpawns{};
+    unsigned int monsterSpawnAmount{};
+    unsigned int maxMonsterAmount{};
 
     unsigned int initialMerchantGold;
 

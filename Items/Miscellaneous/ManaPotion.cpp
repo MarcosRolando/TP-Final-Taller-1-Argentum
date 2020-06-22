@@ -7,13 +7,6 @@
 
 using namespace GameType;
 
-/*
-class Player {
-public:
-    void restoreMana(unsigned int amount);
-};
-*/
-
 ManaPotion::ManaPotion(): Potion(Configuration::getInstance().configPotionData(MANA_POTION)) {
 
 }

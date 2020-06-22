@@ -4,21 +4,6 @@
 
 #include "Chest.h"
 
-using namespace Config;
-
-/*
-Chest::Chest(unsigned int minDefense, unsigned int maxDefense) : Clothing(
-             minDefense, maxDefense, "Remera") {
-
-}
-*/
-
-/*
-Chest::Chest(const ClothingData& stats) : Clothing(stats) {
-
-}
-*/
-
 Chest::Chest(GameType::Clothing clothing) : Clothing(clothing) {
 
 }

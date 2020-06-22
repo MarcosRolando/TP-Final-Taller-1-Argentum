@@ -26,14 +26,16 @@ private:
     //El id esta asocioado al tipo de item que es, estos se repiten entre los distintos
     //tipos de items. Ej: Se puede tener un arma y un escudo con el mismo id, pero se
     //diferencian por ser uno un arma y otro un escudo
-
-    unsigned int id;
     ItemType type;
     const std::string& name;
     unsigned int price;
+
+protected:
+    unsigned int id;
+
 public:
     //Constructor que copia el nombre recibido en el item para almacenarlo
-    Item(const std::string& name, unsigned int price);
+    Item(ItemType _type, const std::string& name, unsigned int price);
 
     //Constructor que se apropia del nombre del item
     //Item(std::string&& name, unsigned int price);

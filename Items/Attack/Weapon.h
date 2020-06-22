@@ -8,7 +8,6 @@
 
 #include "../Item.h"
 #include "../../Config/GameEnums.h"
-//#include "../../Config/Configuration.h"
 
 struct Coordinate;
 
@@ -43,7 +42,7 @@ public:
 
     //Esta funcion existe para que cuando el juegador muera y tire todos sus
     //items no tire los default
-    virtual bool isDefault();
+    bool isDefault();
 
     ~Weapon() override;
 };

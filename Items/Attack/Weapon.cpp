@@ -29,15 +29,10 @@ void Weapon::_initializeData(int _minDamage, int _maxDamage, unsigned int _manaC
 
 
 //////////////////////////////////////PUBLIC//////////////////////
-/*
-Weapon::Weapon(const Config::WeaponData& stats): Item(stats.name, stats.price) {
-    _initializeData(stats.minDmg, stats.maxDmg, stats.manaConsumption, stats.range);
-}
-*/
-
-Weapon::Weapon(GameType::Weapon weapon): Item(Configuration::getInstance().configWeaponData(weapon).name,
+Weapon::Weapon(GameType::Weapon weapon): Item(ITEM_TYPE_WEAPON, Configuration::getInstance().configWeaponData(weapon).name,
                                               Configuration::getInstance().configWeaponData(weapon).price) {
     Config::WeaponData stats = Configuration::getInstance().configWeaponData(weapon);
+    id = weapon;
     _initializeData(stats.minDmg, stats.maxDmg, stats.manaConsumption, stats.range);
 }
 
@@ -59,6 +54,6 @@ EquipmentPlace Weapon::use(Player &player) {
 Weapon::~Weapon() = default;
 
 bool Weapon::isDefault() {
-    return false;
+    return (id == GameType::FIST);
 }
 

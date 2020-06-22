@@ -18,7 +18,7 @@ public:
 
     EquipmentPlace use(Player& player) override;
 
-    unsigned int getamount();
+    unsigned int getamount() const;
 
     bool isGold() const override;
 };

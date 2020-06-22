@@ -5,26 +5,14 @@
 #include "ItemsFactory.h"
 
 #include "../Config/Configuration.h"
-#include "Defense/Chest/BlueTunic.h"
-#include "Defense/Chest/LeatherArmor.h"
-#include "Defense/Chest/PlateArmor.h"
-#include "Defense/Head/Hood.h"
-#include "Defense/Head/IronHelmet.h"
-#include "Defense/Head/MagicHat.h"
-#include "Defense/Shield/IronShield.h"
-#include "Defense/Shield/TurtleShield.h"
-#include "Attack/AshRod.h"
-#include "Attack/CompositeBow.h"
-#include "Attack/ElvenFlute.h"
-#include "Attack/GnarledStaff.h"
-#include "Attack/LinkedStaff.h"
-#include "Attack/Longsword.h"
-#include "Attack/SimpleBow.h"
-#include "Attack/Warhammer.h"
 #include "../Config/Calculator.h"
 #include "Miscellaneous/Gold.h"
 #include "Miscellaneous/ManaPotion.h"
 #include "Miscellaneous/HealthPotion.h"
+#include "Defense/Chest.h"
+#include "Defense/Head.h"
+#include "Defense/Shield.h"
+#include "Attack/Weapon.h"
 
 
 ///////////////////////////PRIVATE//////////////////////////////////
@@ -235,7 +223,7 @@ ItemsFactory &ItemsFactory::getInstance() {
     return factory;
 }
 
-void ItemsFactory::storeItemInstance(std::string itemName, std::shared_ptr<Item> &item) {
+void ItemsFactory::storeItemInstance(const std::string& itemName, std::shared_ptr<Item> &item) {
     /*
     if (itemsCreators.count(itemName) == 1) {
         itemsCreators.at(itemName)(item);

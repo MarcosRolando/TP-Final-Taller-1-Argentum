@@ -5,22 +5,9 @@
 #include "Clothing.h"
 #include "../../Config/Calculator.h"
 
-/*
-Clothing::Clothing(unsigned int _minDefense, unsigned int _maxDefense, std::string name):
-                   Item(name) {
-    minDefense = _minDefense;
-    maxDefense = _maxDefense;
-}
-*/
 
-/*
-Clothing::Clothing(const Config::ClothingData& stats): Item(stats.name, stats.price) {
-    minDefense = stats.minDefense;
-    maxDefense = stats.maxDefense;
-}
-*/
-
-Clothing::Clothing(GameType::Clothing clothing): Item(Configuration::getInstance().configClothingData(clothing).name,
+Clothing::Clothing(GameType::Clothing clothing): Item(ITEM_TYPE_CLOTHING,
+                                                    Configuration::getInstance().configClothingData(clothing).name,
                                                       Configuration::getInstance().configClothingData(clothing).price) {
     Config::ClothingData stats = Configuration::getInstance().configClothingData(clothing);
     minDefense = stats.minDefense;
@@ -29,7 +16,8 @@ Clothing::Clothing(GameType::Clothing clothing): Item(Configuration::getInstance
 
 
 unsigned int Clothing::getDefense() const {
-    return Calculator::getRandomInt(minDefense, maxDefense);
+    return Calculator::getRandomInt(static_cast<int>(minDefense),
+                                    static_cast<int>(maxDefense));
 }
 
 bool Clothing::isDefault() const {

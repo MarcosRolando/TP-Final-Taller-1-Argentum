@@ -54,7 +54,7 @@ public:
 
     //Guarda una instancia del item pedido en item, si el nombre del item pasado
     //no existe entonces tira la exepcion out_of_range
-    void storeItemInstance(std::string itemName, std::shared_ptr<Item>& item);
+    void storeItemInstance(const std::string& itemName, std::shared_ptr<Item>& item);
 
     //Almacena un item aleatorio en item, goldMultiplier es el valor por el que se
     //multiplica el porcentaje de oro a generar (del 0 al 20%)

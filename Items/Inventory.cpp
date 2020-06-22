@@ -4,6 +4,10 @@
 
 #include "Inventory.h"
 #include "../Map/Coordinate.h"
+#include "../Items/Attack/Weapon.h"
+#include "../Items/Defense/Chest.h"
+#include "../Items/Defense/Head.h"
+#include "../Items/Defense/Shield.h"
 
 #define INVENTORY_SIZE 16
 
@@ -103,10 +107,10 @@ void Inventory::_dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItem
     if (!equippedWeapon->isDefault()) {
         droppedItems.push_back(std::move(equippedWeapon));
     }
-    clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new NoHelmet());
-    clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new CommonClothing());
-    clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new NoShield());
-    equippedWeapon.reset(new Fist());
+    clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new Head(GameType::NO_HELMET));
+    clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new Chest(GameType::COMMON_CLOTHING));
+    clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new Shield(GameType::NO_SHIELD));
+    equippedWeapon.reset(new Weapon(GameType::FIST));
 }
 
 std::list<std::shared_ptr<Item>> Inventory::dropAllItems() {
