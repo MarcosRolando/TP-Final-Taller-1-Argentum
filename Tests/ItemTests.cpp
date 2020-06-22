@@ -22,7 +22,12 @@ bool ItemTests::testInitialValues() {
 
 bool ItemTests::testAreNonGoldItemsGold() {
     Chest armour(GameType::PLATE_ARMOR);
-    return false;
+    Head helmet(GameType::IRON_HELMET);
+    Shield shield(GameType::TURTLE_SHIELD);
+    bool status = armour.isGold();
+    status = (status || helmet.isGold());
+    status = (status || shield.isGold());
+    return (!status);
 }
 
 bool ItemTests::testIsGoldItemGold() {
