@@ -15,9 +15,9 @@ Config::ConfigFileReader::ConfigFileReader(const std::string& path) :
     weapons{{"Longsword", LONGSWORD},{"Axe", AXE}, {"Warhammer", WARHAMMER},
             {"AshRod", ASH_ROD}, {"ElvenFlute", ELVEN_FLUTE}, {"LinkedStaff", LINKED_STAFF},
             {"SimpleBow", SIMPLE_BOW}, {"CompoundBow", COMPOSITE_BOW}, {"GnarledStaff", GNARLED_STAFF}},
-    clothing{{"Longsword", COMMON_CLOTHING},{"Axe", LEATHER_ARMOR}, {"Warhammer", PLATE_ARMOR},
-            {"AshRod", BLUE_TUNIC}, {"ElvenFlute", HOOD}, {"LinkedStaff", IRON_HELMET},
-            {"SimpleBow", TURTLE_SHIELD}, {"CompoundBow", IRON_SHIELD}, {"GnarledStaff", MAGIC_HAT}},
+    clothing{{"CommonClothing", COMMON_CLOTHING},{"LeatherArmor", LEATHER_ARMOR}, {"PlateArmor", PLATE_ARMOR},
+            {"BlueTunic", BLUE_TUNIC}, {"Hood", HOOD}, {"IronHelmet", IRON_HELMET},
+            {"TurtleShield", TURTLE_SHIELD}, {"IronShield", IRON_SHIELD}, {"MagicHat", MAGIC_HAT}},
     potions {{"HealthPotion", HEALTH_POTION}, {"ManaPotion", MANA_POTION}} {
 
     file.open(path);
@@ -38,7 +38,7 @@ void Config::ConfigFileReader::loadClassModifiers(std::unordered_map<Class, Modi
     Modifiers currMods{};
     for (auto & classModifier : classModifiers) {
        _getModifiers(currMods, classModifier);
-        currMods.meditationRate = classModifiers["MeditationRate"].asUInt();
+        currMods.meditationRate = classModifier["MeditationRate"].asUInt();
         currMods.recoveryRate = 0;
         mods.emplace(classes.at(classModifier["Name"].asString()), currMods);
     }
@@ -132,7 +132,7 @@ unsigned int Config::ConfigFileReader::loadPlayerVisionRange() {
 }
 
 void Config::ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
-    modifier.lifeMultiplier = currModifier["life"].asUInt();
+    modifier.lifeMultiplier = currModifier["Life"].asUInt();
     modifier.manaMultiplier = currModifier["Mana"].asUInt();
     modifier.constitution = currModifier["Constitution"].asUInt();
     modifier.intelligence = currModifier["Intelligence"].asUInt();
@@ -141,7 +141,7 @@ void Config::ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& c
 }
 
 void Config::ConfigFileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMonster){
-    stats.life = currMonster["life"].asUInt();
+    stats.life = currMonster["Life"].asUInt();
     stats.damage = currMonster["Damage"].asUInt();
     stats.rangeOfVision = currMonster["VisionRange"].asUInt();
     stats.minLevel = currMonster["LevelMin"].asUInt();
