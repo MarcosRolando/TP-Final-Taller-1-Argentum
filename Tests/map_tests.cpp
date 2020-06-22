@@ -17,3 +17,7 @@ TEST_CASE("Test City Map Has City Tiles") {
 TEST_CASE("Test Mixed City And Unavailable Tiles") {
     REQUIRE(MapTests::testMixedCityAndUnavailableTiles());
 }
+
+TEST_CASE("Test Added Items To Map") {
+    REQUIRE(MapTests::testAddedItemsToMap());
+}

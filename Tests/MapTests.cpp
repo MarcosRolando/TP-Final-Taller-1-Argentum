@@ -4,6 +4,7 @@
 
 #include "MapTests.h"
 
+#include <iostream>
 #include "../Map/Map.h"
 #include "../Map/Tile.h"
 #include "../Items/Miscellaneous/Gold.h"
@@ -139,6 +140,9 @@ bool MapTests::testAddedItemsToMap() {
     int i = 0;
     for (const auto & item: map.tiles[1][1].items) {
         if (itemsNames[i] != item->getName()) {
+            std::cout << "El valor de i es: " << i << std::endl;
+            std::cout << "El valor del vector es: " << itemsNames[i] << std::endl;
+            std::cout << "El valor de la lista es: " << item->getName() << std::endl;
             return false;
         }
         i++;
