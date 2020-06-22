@@ -7,16 +7,24 @@
 #include "../Map/Map.h"
 #include "../Map/Tile.h"
 
+////////////////////////PUBLIC/////////////////////////
+
+void MapTests::_fillEmptyMap(Map &map, int iSize, int jSize) {
+    for (int i = 0; i < iSize; ++i) {
+        map.tiles.emplace_back();
+        for (int j = 0; j < jSize; ++j) {
+            map.tiles[i].emplace_back(false, FLOOR_TYPE_GRASS);
+        }
+    }
+}
+
+////////////////////////PUBLIC/////////////////////////
+
 bool MapTests::testAvailableMapHasAvailableTiles() {
     Map map;
     int mapXSize = 50;
     int mapYSize = 50;
-    for (int i = 0; i < mapXSize; ++i) {
-        map.tiles.emplace_back();
-        for (int j = 0; j < mapYSize; ++j) {
-            map.tiles[i].emplace_back(false, FLOOR_TYPE_GRASS);
-        }
-    }
+    _fillEmptyMap(map, mapXSize, mapYSize);
     for (int i = 0; i < mapXSize; ++i) {
         for (int j = 0; j < mapYSize; ++j) {
             if (!map.tiles[i][j].isAvailable()) {
@@ -31,12 +39,7 @@ bool MapTests::testCityMapHasCityTiles() {
     Map map;
     int mapXSize = 50;
     int mapYSize = 50;
-    for (int i = 0; i < mapXSize; ++i) {
-        map.tiles.emplace_back();
-        for (int j = 0; j < mapYSize; ++j) {
-            map.tiles[i].emplace_back(true, FLOOR_TYPE_GRASS);
-        }
-    }
+    _fillEmptyMap(map, mapXSize, mapYSize);
     for (int i = 0; i < mapXSize; ++i) {
         for (int j = 0; j < mapYSize; ++j) {
             if (!map.tiles[i][j].isInCity()) {
@@ -79,4 +82,18 @@ bool MapTests::testMixedCityAndUnavailableTiles() {
         }
     }
     return true;
+}
+
+bool MapTests::testAddedItemToMap() {
+    //Agrega el item al tile que se encuentra en la coordenada recibida apropiandose del shared_ptr,
+    //si la coordenada es invalida tira invalid_argument y no se apropia del puntero
+    void addItemsToTile(std::shared_ptr<Item>&& item, Coordinate position);
+
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+
+
+    return false;
 }
