@@ -74,7 +74,7 @@ void Map::_storeAdjacentPositions(
             aux.point.iPosition = i;
             aux.point.jPosition = j;
             aux.distance = _getDistance(refference.point, aux.point);
-            if ((aux.distance == 1) && (tiles[i][j].isAvailable())) {
+            if ((aux.distance == 1) && ((tiles[i][j].isAvailable()) || tiles[i][j].hasMonsterTarget())) {
                 aux.distance += refference.distance + _getDistance(aux.point, destination);
                 if ((distances.count(aux.point) == 0) ||
                     (distances.at(aux.point) > aux.distance)) {

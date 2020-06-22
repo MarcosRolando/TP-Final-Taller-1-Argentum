@@ -90,6 +90,7 @@ void Game::requestMove(Coordinate initialPosition, Coordinate finalPosition) {
 void Game::update(double timeStep) {
     _repopulateMap(timeStep);
     _updateMonsters(timeStep);
+    _executeQueueOperations();
 
     //AGREGAR UPDATE DE PLAYERS CONECTADOS
 
@@ -97,8 +98,8 @@ void Game::update(double timeStep) {
 }
 
 Game::Game() {
-    monsterCreationRate = 5;
-    maxNumberOfMonsters = 50;
+    monsterCreationRate = 20;
+    maxNumberOfMonsters = 300;
     spawnInterval = 100;
     spawnTimer = 0;
     map.test(*this, monsters);

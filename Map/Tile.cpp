@@ -29,6 +29,8 @@ void Tile::moveEntity(Tile&& otherTile, Coordinate position) {
     this->entity = std::move(otherTile.entity);
     otherTile.entity = nullptr;
     entity->startMovementInterpolation(position);
+    isOccupable = false;
+    otherTile.isOccupable = true;
 }
 
 void Tile::addEntity(std::shared_ptr<Entity>&& received_entity) {
