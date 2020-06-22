@@ -12,6 +12,8 @@
 #include "../Items/Miscellaneous/HealthPotion.h"
 #include "../Items/Miscellaneous/ManaPotion.h"
 
+Configuration& config = Configuration::getInstance();
+
 bool ItemTests::testInitialValues() {
     std::string name = "Mi nombre es Item!";
     unsigned int price = 100;
@@ -39,63 +41,63 @@ bool ItemTests::testIsGoldItemGold() {
 
 bool ItemTests::_testCorrectItemsNamesClothing() {
     Chest chest1(GameType::COMMON_CLOTHING);
-    if (chest1.getName() != "CommonClothing") return false;
+    if (chest1.getName() != config.configClothingData(GameType::COMMON_CLOTHING).name) return false;
     Chest chest2(GameType::LEATHER_ARMOR);
-    if (chest2.getName() != "LeatherArmor") return false;
+    if (chest2.getName() != config.configClothingData(GameType::LEATHER_ARMOR).name) return false;
     Chest chest3(GameType::PLATE_ARMOR);
-    if (chest3.getName() != "PlateArmor") return false;
+    if (chest3.getName() != config.configClothingData(GameType::PLATE_ARMOR).name) return false;
     Chest chest4(GameType::BLUE_TUNIC);
-    return !(chest4.getName() != "BlueTunic");
+    return !(chest4.getName() != config.configClothingData(GameType::BLUE_TUNIC).name);
 }
 
 bool ItemTests::_testCorrectItemsNamesHelmets() {
     Head helmet1(GameType::HOOD);
-    if (helmet1.getName() != "Hood") return false;
+    if (helmet1.getName() != config.configClothingData(GameType::HOOD).name) return false;
     Head helmet2(GameType::IRON_HELMET);
-    if (helmet2.getName() != "IronHelmet") return false;
+    if (helmet2.getName() != config.configClothingData(GameType::IRON_HELMET).name) return false;
     Head helmet3(GameType::MAGIC_HAT);
-    if (helmet3.getName() != "MagicHat") return false;
+    if (helmet3.getName() != config.configClothingData(GameType::MAGIC_HAT).name) return false;
     Head helmet4(GameType::NO_HELMET);
-    return !(helmet4.getName() != "NoHelmet");
+    return !(helmet4.getName() != config.configClothingData(GameType::NO_HELMET).name);
 }
 
 bool ItemTests::_testCorrectItemsNamesShields() {
     Shield shield1(GameType::IRON_SHIELD);
-    if (shield1.getName() != "IronShield") return false;
+    if (shield1.getName() != config.configClothingData(GameType::IRON_SHIELD).name) return false;
     Shield shield2(GameType::TURTLE_SHIELD);
-    if (shield2.getName() != "TurtleShield") return false;
+    if (shield2.getName() != config.configClothingData(GameType::TURTLE_SHIELD).name) return false;
     Shield shield3(GameType::NO_SHIELD);
-    return !(shield3.getName() != "NoShield");
+    return !(shield3.getName() != config.configClothingData(GameType::NO_SHIELD).name);
 }
 
 bool ItemTests::_testCorrectItemsNamesWeapons() {
     Weapon weapon1(GameType::LONGSWORD);
-    if (weapon1.getName() != "Longsword") return false;
+    if (weapon1.getName() != config.configWeaponData(GameType::LONGSWORD).name) return false;
     Weapon weapon2(GameType::AXE);
-    if (weapon2.getName() != "Axe") return false;
+    if (weapon2.getName() != config.configWeaponData(GameType::AXE).name) return false;
     Weapon weapon3(GameType::WARHAMMER);
-    if (weapon3.getName() != "Warhammer") return false;
+    if (weapon3.getName() != config.configWeaponData(GameType::WARHAMMER).name) return false;
     Weapon weapon4(GameType::ASH_ROD);
-    if (weapon4.getName() != "AshRod") return false;
+    if (weapon4.getName() != config.configWeaponData(GameType::ASH_ROD).name) return false;
     Weapon weapon5(GameType::ELVEN_FLUTE);
-    if (weapon5.getName() != "ElvenFlute") return false;
+    if (weapon5.getName() != config.configWeaponData(GameType::ELVEN_FLUTE).name) return false;
     Weapon weapon6(GameType::LINKED_STAFF);
-    if (weapon6.getName() != "LinkedStaff") return false;
+    if (weapon6.getName() != config.configWeaponData(GameType::LINKED_STAFF).name) return false;
     Weapon weapon7(GameType::SIMPLE_BOW);
-    if (weapon7.getName() != "SimpleBow") return false;
+    if (weapon7.getName() != config.configWeaponData(GameType::SIMPLE_BOW).name) return false;
     Weapon weapon8(GameType::COMPOSITE_BOW);
-    if (weapon8.getName() != "CompositeBow") return false;
+    if (weapon8.getName() != config.configWeaponData(GameType::COMPOSITE_BOW).name) return false;
     Weapon weapon9(GameType::GNARLED_STAFF);
-    if (weapon9.getName() != "GnarledStaff") return false;
+    if (weapon9.getName() != config.configWeaponData(GameType::GNARLED_STAFF).name) return false;
     Weapon weapon10(GameType::FIST);
-    return !(weapon10.getName() != "Fist");
+    return !(weapon10.getName() != config.configWeaponData(GameType::FIST).name);
 }
 
 bool ItemTests::_testCorrectItemsNamesPotions() {
     HealthPotion potion1;
-    if (potion1.getName() != "HealthPotion") return false;
+    if (potion1.getName() != config.configPotionData(GameType::HEALTH_POTION).name) return false;
     ManaPotion potion2;
-    return !(potion2.getName() != "ManaPotion");
+    return !(potion2.getName() != config.configPotionData(GameType::MANA_POTION).name);
 }
 
 bool ItemTests::testCorrectItemsNames() {
