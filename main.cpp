@@ -106,6 +106,45 @@ int main(int argc, char* args[]) {
         //Event handler
         SDL_Event e;
 
+        //MainMenu Test
+        Texture& mainMenu = repo.getTexture(MainMenu);
+        Text mainMenuText(UIFont, window.getRenderer());
+        bool inMainMenu = true;
+        SDL_Color color = {0x00,0x00,0x00};
+        while (inMainMenu){
+            while (SDL_PollEvent(&e) != 0){
+                if (e.type == SDL_QUIT){
+                    return 0;
+                }
+                if (e.type == SDL_MOUSEMOTION){
+                    int x = 0, y = 0;
+                    //Get mouse position
+                    //int x, y;
+                    SDL_GetMouseState( &x, &y );
+                    if (x>50 && x<185 && y>100 && y < 125){
+                        color = {0xFF,0x00,0x00};
+                    } else {
+                        color = {0x00,0x00,0x00};
+                    }
+                } else if (e.type == SDL_MOUSEBUTTONDOWN){
+                    int x = 0, y = 0;
+                    //Get mouse position
+                    //int x, y;
+                    SDL_GetMouseState( &x, &y );
+                    if (x>50 && x<185 && y>100 && y < 125){
+                        inMainMenu = false;
+                    }
+                }
+            }
+            window.clear();
+            window.setViewport(ScreenViewport);
+            mainMenu.render(0,0);
+            mainMenuText.updateText("Start Game");
+            mainMenuText.render(50, 100, color);
+            window.show();
+
+        }
+
 
         int xPlayer, yPlayer;
         //While application is running
