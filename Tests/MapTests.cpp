@@ -82,7 +82,7 @@ bool MapTests::testMixedCityAndUnavailableTiles() {
                     return false;
                 }
             }
-            if (j % 3 != 0) {
+            if (j % 3 == 0) {
                 if (isGrass) {
                     return false;
                 }
