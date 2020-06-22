@@ -33,7 +33,7 @@ private:
     Coordinate _getValidCoordinate(Coordinate coordinate) const;
     static void _storePath(Coordinate initialPosition, Coordinate desiredPosition, const std::unordered_map<Coordinate,
                            Coordinate>& parentsAndChilds, std::list<Coordinate>& path);
-    void _buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topRight, Coordinate& bottomLeft) const;
+    void _buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topLeft, Coordinate& bottomRight) const;
     static bool _areCoordinatesEqual(Coordinate a, Coordinate b);
 public:
 

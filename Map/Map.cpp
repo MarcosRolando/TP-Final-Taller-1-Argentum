@@ -33,14 +33,14 @@ bool Map::_areCoordinatesEqual(Coordinate a, Coordinate b){
     return (a.iPosition == b.iPosition) && (a.jPosition == b.jPosition);
 }
 
-void Map::_buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topRight, Coordinate& bottomLeft) const {
+void Map::_buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topLeft, Coordinate& bottomRight) const {
     Coordinate aux{};
     aux.iPosition = static_cast<int>(center.iPosition - range);
     aux.jPosition = static_cast<int>(center.jPosition - range);
-    topRight = _getValidCoordinate(aux);
+    topLeft = _getValidCoordinate(aux);
     aux.iPosition = static_cast<int>(center.iPosition + range);
     aux.jPosition = static_cast<int>(center.jPosition + range);
-    bottomLeft = _getValidCoordinate(aux);
+    bottomRight = _getValidCoordinate(aux);
 }
 
 Coordinate Map::_getValidCoordinate(Coordinate coordinate) const {
@@ -66,11 +66,11 @@ void Map::_storeAdjacentPositions(
         std::priority_queue<PointAndDistance, std::vector<PointAndDistance>,
                             InverseCoordinateDistance>& nodes,
         Coordinate destination) const {
-    Coordinate topRight{}, bottomLeft{};
+    Coordinate topLeft{}, bottomRight{};
     PointAndDistance aux{};
-    _buildSearchRegion(refference.point, 1, topRight, bottomLeft);
-    for (int i = topRight.iPosition; i < bottomLeft.iPosition; ++i) {
-        for (int j = topRight.jPosition; j < bottomLeft.jPosition; ++j) {
+    _buildSearchRegion(refference.point, 1, topLeft, bottomRight);
+    for (int i = topLeft.iPosition; i < bottomRight.iPosition; ++i) {
+        for (int j = topLeft.jPosition; j < bottomRight.jPosition; ++j) {
             aux.point.iPosition = i;
             aux.point.jPosition = j;
             aux.distance = _getDistance(refference.point, aux.point);
