@@ -69,8 +69,8 @@ void Map::_storeAdjacentPositions(
     Coordinate topLeft{}, bottomRight{};
     PointAndDistance aux{};
     _buildSearchRegion(refference.point, 1, topLeft, bottomRight);
-    for (int i = topLeft.iPosition; i < bottomRight.iPosition; ++i) {
-        for (int j = topLeft.jPosition; j < bottomRight.jPosition; ++j) {
+    for (int i = topLeft.iPosition; i <= bottomRight.iPosition; ++i) {
+        for (int j = topLeft.jPosition; j <= bottomRight.jPosition; ++j) {
             aux.point.iPosition = i;
             aux.point.jPosition = j;
             aux.distance = _getDistance(refference.point, aux.point);
