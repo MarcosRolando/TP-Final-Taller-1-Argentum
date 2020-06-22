@@ -10,6 +10,9 @@
 #include "Entity.h"
 #include "PlayerStats.h"
 
+#include "../Tests/EntityTests.h"
+
+
 class Game;
 
 class Player: public Entity {
@@ -19,6 +22,8 @@ private:
     unsigned int gold;
     Game& game;
     std::string nickname;
+
+    friend EntityTests;
 
 public:
     Player(Game& _game, GameType::Race _race, GameType::Class _class, unsigned int _level,

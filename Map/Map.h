@@ -13,6 +13,8 @@
 #include "InverseCoordinateDistance.h"
 #include "Tile.h"
 
+#include "../Tests/MapTests.h"
+
 struct AttackResult;
 class Item;
 class Entity;
@@ -20,7 +22,9 @@ class Monster;
 
 class Map {
 private:
+
     std::vector<std::vector<Tile>> tiles;
+    friend MapTests;
 
 private:
     void _storeAdjacentPositions(PointAndDistance refference,

@@ -8,7 +8,13 @@
 
 #include "Clothing.h"
 
+#include "../../Tests/ItemTests.h"
+
+
 class Head: public Clothing {
+private:
+    friend ItemTests;
+
 public:
     //Head(unsigned int minDefense, unsigned int maxDefense);
     //explicit Head(const Config::ClothingData& stats);

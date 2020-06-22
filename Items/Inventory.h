@@ -12,6 +12,9 @@
 #include <list>
 #include "Item.h"
 
+#include "../Tests/ItemTests.h"
+
+
 class Weapon;
 class Player;
 class Clothing;
@@ -25,6 +28,8 @@ private:
     std::vector<std::shared_ptr<Item>> items;
     std::unordered_map<EquipmentPlace, std::shared_ptr<Clothing>> clothingEquipment;
     std::shared_ptr<Weapon> equippedWeapon;
+
+    friend ItemTests;
 
 private:
     void _manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);

@@ -9,6 +9,8 @@
 #include <memory>
 #include <vector>
 
+#include "../Tests/ItemTests.h"
+
 class Item;
 
 typedef void (*objectCreator) (std::shared_ptr<Item>&);
@@ -17,6 +19,9 @@ class ItemsFactory {
 private:
     std::unordered_map<std::string, objectCreator> itemsCreators;
     std::vector<const std::string*> itemsNames;
+
+    friend ItemTests;
+
 private:
     ItemsFactory();
 

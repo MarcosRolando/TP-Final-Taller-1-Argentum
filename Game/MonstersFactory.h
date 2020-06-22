@@ -11,6 +11,9 @@
 #include "../Config/GameEnums.h"
 #include "../Map/Coordinate.h"
 
+#include "../Tests/GameTests.h"
+
+
 class Monster;
 class Game;
 class Map;
@@ -22,6 +25,9 @@ class MonstersFactory {
 private:
     std::unordered_map<GameType::Monster, monsterCreator> monsterCreators;
     std::vector<GameType::Monster> existingMonsters;
+
+    friend GameTests;
+
 private:
     static void _storeSpider(Game& game, Map& map, Coordinate initialPosition,
                              std::shared_ptr<Monster>& monster);

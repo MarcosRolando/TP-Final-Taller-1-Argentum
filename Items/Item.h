@@ -8,6 +8,9 @@
 #include <string>
 #include <memory>
 
+#include "../Tests/ItemTests.h"
+
+
 enum EquipmentPlace{
     EQUIPMENT_PLACE_NONE, EQUIPMENT_PLACE_HEAD, EQUIPMENT_PLACE_CHEST, EQUIPMENT_PLACE_WEAPON,
     EQUIPMENT_PLACE_SHIELD
@@ -29,6 +32,8 @@ private:
     ItemType type;
     const std::string& name;
     unsigned int price;
+
+    friend ItemTests;
 
 protected:
     unsigned int id;

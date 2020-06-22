@@ -10,6 +10,8 @@
 #include "FloorType.h"
 #include "../Entities/Entity.h"
 
+#include "../Tests/MapTests.h"
+
 class Item;
 struct AttackResult;
 struct ProductData;
@@ -22,6 +24,8 @@ private:
     bool isOccupable{};
     bool isFromCity;
     FloorType floor;
+
+    friend MapTests;
 
 public:
     //Inicializa el tile, dependiendo tel tipo de piso que reciba seteara el

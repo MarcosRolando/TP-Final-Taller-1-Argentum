@@ -8,10 +8,15 @@
 
 #include "../Item.h"
 
+#include "../../Tests/ItemTests.h"
+
+
 //Clase que representa un puniado de oro en el piso
 class Gold: public Item {
 private:
     unsigned int amount;
+
+    friend ItemTests;
 
 public:
     explicit Gold(unsigned int amount);

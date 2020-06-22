@@ -9,9 +9,15 @@
 #include "../Item.h"
 #include "../../Config/Configuration.h"
 
+#include "../../Tests/ItemTests.h"
+
+
 class Potion: public Item {
 protected:
     unsigned int recoveryValue;
+
+    friend ItemTests;
+
 public:
     explicit Potion(const Config::PotionData& data);
     //explicit Potion(GameType::Potion potion);

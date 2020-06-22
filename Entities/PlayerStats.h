@@ -7,6 +7,8 @@
 
 #include "../Config/GameEnums.h"
 
+#include "../Tests/EntityTests.h"
+
 //Clase que maneja el recibimiento de ataques, Player y Monster le delegan
 //operaciones cuando deben modificar sus stats
 
@@ -39,6 +41,8 @@ private:
     int currentLife;
     unsigned int maxMana;
     int maxLife;
+
+    friend EntityTests;
 
 public:
     PlayerStats(GameType::Race _race, GameType::Class _class, unsigned int _level, unsigned int _experience);

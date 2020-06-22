@@ -11,6 +11,9 @@
 #include "MonsterStats.h"
 #include "../Config/GameEnums.h"
 
+#include "../Tests/EntityTests.h"
+
+
 class Game;
 class Map;
 class Item;
@@ -30,6 +33,9 @@ private:
     //modificarlo
     const Map& map;
     Game& game;
+
+    friend EntityTests;
+
 private:
     static unsigned int _getDistance(Coordinate a, Coordinate b);
 

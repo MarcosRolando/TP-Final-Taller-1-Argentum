@@ -9,6 +9,9 @@
 #include "../Item.h"
 #include "../../Config/GameEnums.h"
 
+#include "../../Tests/ItemTests.h"
+
+
 struct Coordinate;
 
 class Weapon : public Item {
@@ -17,6 +20,8 @@ private:
     int maxDamage{};
     unsigned int attackRange{};
     unsigned int manaConsumption{};
+
+    friend ItemTests;
 
 private:
     bool _isTargetReachable(Coordinate attackPosition, Coordinate attackedPosition) const;

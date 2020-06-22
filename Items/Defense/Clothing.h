@@ -8,10 +8,16 @@
 #include "../Item.h"
 #include "../../Config/Configuration.h"
 
+#include "../../Tests/ItemTests.h"
+
+
 class Clothing : public Item {
 private:
     unsigned int minDefense;
     unsigned int maxDefense;
+
+    friend ItemTests;
+
 public:
     //explicit Clothing(unsigned int minDefense, unsigned int maxDefense, std::string name);
     //explicit Clothing(const Config::ClothingData& stats);

@@ -7,6 +7,9 @@
 
 #include "../Config/GameEnums.h"
 
+#include "../Tests/EntityTests.h"
+
+
 struct AttackResult;
 
 class MonsterStats {
@@ -21,6 +24,8 @@ private:
     int currentLife;
     int maxLife;
     unsigned int rangeOfVision;
+
+    friend EntityTests;
 
 public:
     explicit MonsterStats(GameType::Monster type);

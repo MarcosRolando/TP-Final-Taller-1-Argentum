@@ -8,7 +8,13 @@
 
 #include "Clothing.h"
 
+#include "../../Tests/ItemTests.h"
+
+
 class Shield: public Clothing {
+private:
+    friend ItemTests;
+
 public:
     //Shield(unsigned int minDefense, unsigned int maxDefense);
     //explicit Shield(const Config::ClothingData& stats);
