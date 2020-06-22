@@ -10,6 +10,7 @@ public:
     static bool testInitialValues();
     static bool testAreNonGoldItemsGold();
     static bool testIsGoldItemGold();
+    static bool testCorrectItemsNames();
 };
 
 
