@@ -42,7 +42,7 @@ void SoundRepository::_loadMusic(){
     }
 }
 
-void SoundRepository::playMusic() {
+/*void SoundRepository::playMusic() {
     if( Mix_PlayingMusic() == 0 ) {//Empieza musica si no habia
         Mix_PlayMusic(music, -1);
     } else if (Mix_PausedMusic() == 1) {//Resume musica si estaba en pausa
@@ -68,10 +68,18 @@ void SoundRepository::playSounds() {
         Mix_PlayChannel(-1, soundToPlay, 0);
         soundQueue.pop();
     }
-}
+}*/
 
 SoundRepository::~SoundRepository() {
     //Cierra el mixer
     Mix_Quit();
     SDL_Quit();//Esto iria en la clase SDL general
+}
+
+Mix_Music* SoundRepository::getMusic() {
+    return music;
+}
+
+Mix_Chunk* SoundRepository::getSound(SoundID id) {
+    return sounds.at(id).getSound();
 }

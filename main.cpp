@@ -13,6 +13,7 @@
 #include "Spells/Spell.h"
 #include "SDL/Minichat/Minichat.h"
 #include "SDL/Selector.h"
+#include "SDL/Sound/SoundPlayer.h"
 
 //Starts up SDL and creates window
 void init();
@@ -79,6 +80,11 @@ int main(int argc, char* args[]) {
 
         Text clickPos(UIFont, window.getRenderer());
 
+        SoundRepository soundRepo;
+        SoundPlayer soundPlayer(soundRepo);
+        soundPlayer.playMusic();
+
+
 
         //Main loop flag
         bool quit = false;
@@ -130,21 +136,32 @@ int main(int argc, char* args[]) {
                             a = "up";
                             minichat.queueText(a);
                             player.move(UP);
+                            soundPlayer.queueSound(StepDirt);
                             break;
                         case SDLK_DOWN:
                             a = "down";
                             minichat.queueText(a);
                             player.move(DOWN);
+                            soundPlayer.queueSound(StepDirt);
                             break;
                         case SDLK_LEFT:
                             a = "left";
                             minichat.queueText(a);
                             player.move(LEFT);
+                            soundPlayer.queueSound(StepDirt);
                             break;
                         case SDLK_RIGHT:
                             a = "right";
                             minichat.queueText(a);
                             player.move(RIGHT);
+                            soundPlayer.queueSound(StepDirt);
+                            break;
+                        case SDLK_SPACE:
+                            if (!soundPlayer.isMusicPlaying()) {
+                                soundPlayer.pauseMusic();
+                            } else {
+                                soundPlayer.playMusic();
+                            }
                             break;
                     }
                 }
@@ -209,6 +226,7 @@ int main(int argc, char* args[]) {
                     window.setViewport(MinichatViewport);
                     minichat.render();
                     window.show();
+                    soundPlayer.playSounds();
                     //Dejo esto comentado aca xq me sirve para ver los vewports
                     /*SDL_Rect fillRect = {0, 0, DEFAULT_MAP_WIDTH, 45};
                     SDL_SetRenderDrawColor(&window.getRenderer(), 0xFF,

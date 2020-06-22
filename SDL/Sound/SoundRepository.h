@@ -19,14 +19,19 @@ private:
 public:
     /* Constructor */
     SoundRepository();
+
+    Mix_Music* getMusic();
+
+    Mix_Chunk* getSound(SoundID id);
+
     /* Encola un sonido */
-    void queueSound(SoundID id);
-    /* Reproduce los sonidos que estan encolados */
+    /*void queueSound(SoundID id);
+    *//* Reproduce los sonidos que estan encolados *//*
     void playSounds();
-    /* Reproduce la musica */
+    *//* Reproduce la musica *//*
     void playMusic();
-    /* Pausa la musica */
-    void pauseMusic();
+    *//* Pausa la musica *//*
+    void pauseMusic();*/
     /* Destructor */
     ~SoundRepository();
 

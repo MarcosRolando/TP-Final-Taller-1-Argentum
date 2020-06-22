@@ -34,15 +34,6 @@ void PlayerInventoryGUI::render(int selectedSlotX) {
 }
 
 void PlayerInventoryGUI::_renderInventoryItems() {
-    //unsigned int size = inventoryTextures.size();
-    /*for (int i = 0; i < INVENTORY_SIZE; i += LINES) {
-        for (int j = 0; j < COLUMNS; ++j) {
-            if (i + j >= (int)size) break;
-            inventoryTextures[i + j]->render( INVENTORY_ITEMS_X_OFFSET +
-            (ITEM_WIDTH + 6) * j, INVENTORY_ITEMS_Y_OFFSET + (i/LINES) * (ITEM_HEIGHT - 1),
-                    0);
-        }
-    }*/
     int i = 0, j = 0; //los necesito para la posicion de renderizado
     for (auto & texture : inventoryTextures){
         texture->render(INVENTORY_ITEMS_X_OFFSET + (ITEM_WIDTH + 6) * j,
@@ -133,6 +124,9 @@ void PlayerInventoryGUI::removeInventoryItem(int inventorySlot) {
 
 void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item) {
     Texture* currTexture = &repo.getTexture(texture);
+    if(equippedTextures.count(item)){
+        equippedTextures.erase(item);
+    }
     equippedTextures.emplace(item, currTexture);
 }
 
