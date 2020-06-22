@@ -5,9 +5,11 @@
 #ifndef ARGENTUM_ITEMTESTS_H
 #define ARGENTUM_ITEMTESTS_H
 
-
 class ItemTests {
-
+public:
+    static bool testInitialValues();
+    static bool testAreNonGoldItemsGold();
+    static bool testIsGoldItemGold();
 };
 
 
