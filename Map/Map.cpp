@@ -138,7 +138,7 @@ bool Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::l
     while (!nodes.empty()) {
         aux = nodes.top();
         nodes.pop();
-        if (_areCoordinatesEqual(aux.point, currentPosition)) {
+        if (_areCoordinatesEqual(aux.point, desiredPosition)) {
             _storePath(currentPosition, desiredPosition, parentsAndChilds, path);
             return true;
         }
