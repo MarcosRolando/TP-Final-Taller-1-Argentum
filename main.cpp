@@ -84,8 +84,6 @@ int main(int argc, char* args[]) {
         SoundPlayer soundPlayer(soundRepo);
         soundPlayer.playMusic();
 
-
-
         //Main loop flag
         bool quit = false;
 
@@ -136,25 +134,21 @@ int main(int argc, char* args[]) {
                             a = "up";
                             minichat.queueText(a);
                             player.move(UP);
-                            soundPlayer.queueSound(StepDirt);
                             break;
                         case SDLK_DOWN:
                             a = "down";
                             minichat.queueText(a);
                             player.move(DOWN);
-                            soundPlayer.queueSound(StepDirt);
                             break;
                         case SDLK_LEFT:
                             a = "left";
                             minichat.queueText(a);
                             player.move(LEFT);
-                            soundPlayer.queueSound(StepDirt);
                             break;
                         case SDLK_RIGHT:
                             a = "right";
                             minichat.queueText(a);
                             player.move(RIGHT);
-                            soundPlayer.queueSound(StepDirt);
                             break;
                         case SDLK_SPACE:
                             if (!soundPlayer.isMusicPlaying()) {

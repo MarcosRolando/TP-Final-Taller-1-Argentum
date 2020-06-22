@@ -53,8 +53,8 @@ void Minichat::handleEvent(SDL_Event &e, Window& window) {
             //borro letra
             input.eraseText();
         } else if (e.key.keysym.sym == SDLK_RETURN && focusOnMinichat ){
-            input.updateText("Accion:/ ");
             //Procesar el comando que escribio el user
+            input.updateText("Accion:/ ");
         }
     }
 }
