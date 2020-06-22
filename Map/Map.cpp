@@ -122,7 +122,6 @@ void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordina
 }
 
 bool Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const {
-    std::vector<PointAndDistance> nodesVector;
     std::priority_queue<PointAndDistance, std::vector<PointAndDistance>, InverseCoordinateDistance> nodes;
 
     //Key: hijo, Dato: padre
