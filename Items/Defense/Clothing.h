@@ -8,8 +8,7 @@
 #include "../Item.h"
 #include "../../Config/Configuration.h"
 
-#include "../../Tests/ItemTests.h"
-
+class ItemTests;
 
 class Clothing : public Item {
 private:

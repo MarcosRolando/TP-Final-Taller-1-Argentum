@@ -9,8 +9,7 @@
 #include "../Item.h"
 #include "../../Config/Configuration.h"
 
-#include "../../Tests/ItemTests.h"
-
+class ItemTests;
 
 class Potion: public Item {
 protected:

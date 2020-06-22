@@ -8,8 +8,7 @@
 #include <string>
 #include <memory>
 
-#include "../Tests/ItemTests.h"
-
+class ItemTests;
 
 enum EquipmentPlace{
     EQUIPMENT_PLACE_NONE, EQUIPMENT_PLACE_HEAD, EQUIPMENT_PLACE_CHEST, EQUIPMENT_PLACE_WEAPON,

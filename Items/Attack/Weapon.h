@@ -9,8 +9,7 @@
 #include "../Item.h"
 #include "../../Config/GameEnums.h"
 
-#include "../../Tests/ItemTests.h"
-
+class ItemTests;
 
 struct Coordinate;
 

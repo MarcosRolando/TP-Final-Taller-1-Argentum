@@ -10,8 +10,7 @@
 #include "FloorType.h"
 #include "../Entities/Entity.h"
 
-#include "../Tests/MapTests.h"
-
+class MapTests;
 class Item;
 struct AttackResult;
 struct ProductData;

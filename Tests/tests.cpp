@@ -8,5 +8,5 @@
 TEST_CASE("Sin Mapa Test") {
     int x = 3;
     int y = 4;
-    REQUIRE((x + y) == 7);
+    REQUIRE((x + y) == 8);
 }

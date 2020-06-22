@@ -8,8 +8,7 @@
 
 #include "Clothing.h"
 
-#include "../../Tests/ItemTests.h"
-
+class ItemTests;
 
 class Shield: public Clothing {
 private:

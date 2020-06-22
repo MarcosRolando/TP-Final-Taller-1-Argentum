@@ -10,10 +10,8 @@
 #include "Entity.h"
 #include "PlayerStats.h"
 
-#include "../Tests/EntityTests.h"
-
-
 class Game;
+class EntityTests;
 
 class Player: public Entity {
 private:

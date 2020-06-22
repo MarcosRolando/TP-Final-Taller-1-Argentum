@@ -12,9 +12,7 @@
 #include <list>
 #include "Item.h"
 
-#include "../Tests/ItemTests.h"
-
-
+class ItemTests;
 class Weapon;
 class Player;
 class Clothing;

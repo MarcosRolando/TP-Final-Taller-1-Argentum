@@ -10,14 +10,13 @@
 #include "MonstersFactory.h"
 #include <queue>
 
-#include "../Tests/GameTests.h"
-
-
 /*
 enum CommandType: char {
     COMMAND_TYPE_MOVE = 'M'
 };
 */
+
+class GameTests;
 
 struct MoveCommand {
     Coordinate initialPosition;

@@ -7,9 +7,7 @@
 
 #include "../Config/GameEnums.h"
 
-#include "../Tests/EntityTests.h"
-
-
+class EntityTests;
 struct AttackResult;
 
 class MonsterStats {

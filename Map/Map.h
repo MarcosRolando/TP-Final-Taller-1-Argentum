@@ -13,12 +13,11 @@
 #include "InverseCoordinateDistance.h"
 #include "Tile.h"
 
-#include "../Tests/MapTests.h"
-
 struct AttackResult;
 class Item;
 class Entity;
 class Monster;
+class MapTests;
 
 class Map {
 private:

@@ -11,9 +11,7 @@
 #include "../Config/GameEnums.h"
 #include "../Map/Coordinate.h"
 
-#include "../Tests/GameTests.h"
-
-
+class GameTests;
 class Monster;
 class Game;
 class Map;

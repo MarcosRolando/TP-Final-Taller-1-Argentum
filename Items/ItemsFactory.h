@@ -9,9 +9,8 @@
 #include <memory>
 #include <vector>
 
-#include "../Tests/ItemTests.h"
-
 class Item;
+class ItemTests;
 
 typedef void (*objectCreator) (std::shared_ptr<Item>&);
 

@@ -11,12 +11,10 @@
 #include "MonsterStats.h"
 #include "../Config/GameEnums.h"
 
-#include "../Tests/EntityTests.h"
-
-
 class Game;
 class Map;
 class Item;
+class EntityTests;
 
 class Monster: public Entity {
 private:
