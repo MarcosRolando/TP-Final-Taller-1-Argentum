@@ -5,7 +5,6 @@
 #include <algorithm>
 #include "Game.h"
 #include "../AttackResult.h"
-#include "../Entities/Entity.h"
 #include "../Entities/Monster.h"
 #include "ShouldMonsterBeRemoved.h"
 

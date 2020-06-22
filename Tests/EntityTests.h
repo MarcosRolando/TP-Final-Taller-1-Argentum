@@ -7,7 +7,8 @@
 
 
 class EntityTests {
-
+public:
+    static bool testStoreItem();
 };
 
 

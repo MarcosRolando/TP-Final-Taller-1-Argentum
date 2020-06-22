@@ -19,7 +19,7 @@ add_executable(tests tests.cpp MapTests.cpp MapTests.h ItemTests.cpp
         ../Items/Miscellaneous/HealthPotion.h ../Items/Miscellaneous/Potion.cpp
         ../Items/Miscellaneous/Potion.h ../Entities/MonsterStats.cpp ../Entities/MonsterStats.h
         ../Config/GameEnums.h ../Game/Argentum.cpp ../Game/Argentum.h ../Game/MonstersFactory.cpp
-        ../Game/MonstersFactory.h ../Game/ShouldMonsterBeRemoved.cpp ../Game/ShouldMonsterBeRemoved.h map_tests.cpp)
+        ../Game/MonstersFactory.h ../Game/ShouldMonsterBeRemoved.cpp ../Game/ShouldMonsterBeRemoved.h map_tests.cpp entity_tests.cpp)
 
 target_compile_options (tests PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
         -O3 -ggdb -DDEBUG -fno-inline -ljsoncpp)

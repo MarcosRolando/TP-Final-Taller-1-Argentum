@@ -5,7 +5,6 @@
 #include "catch.hpp"
 #include "MapTests.h"
 
-
 TEST_CASE("Test Available Map Has Available Tiles") {
     REQUIRE(MapTests::testAvailableMapHasAvailableTiles());
 }

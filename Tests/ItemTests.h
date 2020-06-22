@@ -5,6 +5,8 @@
 #ifndef ARGENTUM_ITEMTESTS_H
 #define ARGENTUM_ITEMTESTS_H
 
+class Configuration;
+
 class ItemTests {
 public:
     static bool testInitialValues();
@@ -14,11 +16,11 @@ public:
     static bool testCorrectGoldAmount();
 
 private:
-    static bool _testCorrectItemsNamesHelmets();
-    static bool _testCorrectItemsNamesWeapons();
-    static bool _testCorrectItemsNamesPotions();
-    static bool _testCorrectItemsNamesShields();
-    static bool _testCorrectItemsNamesClothing();
+    static bool _testCorrectItemsNamesHelmets(Configuration& config);
+    static bool _testCorrectItemsNamesWeapons(Configuration& config);
+    static bool _testCorrectItemsNamesPotions(Configuration& config);
+    static bool _testCorrectItemsNamesShields(Configuration& config);
+    static bool _testCorrectItemsNamesClothing(Configuration& config);
 };
 
 

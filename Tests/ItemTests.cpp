@@ -12,8 +12,6 @@
 #include "../Items/Miscellaneous/HealthPotion.h"
 #include "../Items/Miscellaneous/ManaPotion.h"
 
-Configuration& config = Configuration::getInstance();
-
 bool ItemTests::testInitialValues() {
     std::string name = "Mi nombre es Item!";
     unsigned int price = 100;
@@ -39,7 +37,7 @@ bool ItemTests::testIsGoldItemGold() {
     return (gold.isGold());
 }
 
-bool ItemTests::_testCorrectItemsNamesClothing() {
+bool ItemTests::_testCorrectItemsNamesClothing(Configuration& config) {
     Chest chest1(GameType::COMMON_CLOTHING);
     if (chest1.getName() != config.configClothingData(GameType::COMMON_CLOTHING).name) return false;
     Chest chest2(GameType::LEATHER_ARMOR);
@@ -50,7 +48,7 @@ bool ItemTests::_testCorrectItemsNamesClothing() {
     return !(chest4.getName() != config.configClothingData(GameType::BLUE_TUNIC).name);
 }
 
-bool ItemTests::_testCorrectItemsNamesHelmets() {
+bool ItemTests::_testCorrectItemsNamesHelmets(Configuration& config) {
     Head helmet1(GameType::HOOD);
     if (helmet1.getName() != config.configClothingData(GameType::HOOD).name) return false;
     Head helmet2(GameType::IRON_HELMET);
@@ -61,7 +59,7 @@ bool ItemTests::_testCorrectItemsNamesHelmets() {
     return !(helmet4.getName() != config.configClothingData(GameType::NO_HELMET).name);
 }
 
-bool ItemTests::_testCorrectItemsNamesShields() {
+bool ItemTests::_testCorrectItemsNamesShields(Configuration& config) {
     Shield shield1(GameType::IRON_SHIELD);
     if (shield1.getName() != config.configClothingData(GameType::IRON_SHIELD).name) return false;
     Shield shield2(GameType::TURTLE_SHIELD);
@@ -70,7 +68,7 @@ bool ItemTests::_testCorrectItemsNamesShields() {
     return !(shield3.getName() != config.configClothingData(GameType::NO_SHIELD).name);
 }
 
-bool ItemTests::_testCorrectItemsNamesWeapons() {
+bool ItemTests::_testCorrectItemsNamesWeapons(Configuration& config) {
     Weapon weapon1(GameType::LONGSWORD);
     if (weapon1.getName() != config.configWeaponData(GameType::LONGSWORD).name) return false;
     Weapon weapon2(GameType::AXE);
@@ -93,7 +91,7 @@ bool ItemTests::_testCorrectItemsNamesWeapons() {
     return !(weapon10.getName() != config.configWeaponData(GameType::FIST).name);
 }
 
-bool ItemTests::_testCorrectItemsNamesPotions() {
+bool ItemTests::_testCorrectItemsNamesPotions(Configuration& config) {
     HealthPotion potion1;
     if (potion1.getName() != config.configPotionData(GameType::HEALTH_POTION).name) return false;
     ManaPotion potion2;
@@ -101,11 +99,12 @@ bool ItemTests::_testCorrectItemsNamesPotions() {
 }
 
 bool ItemTests::testCorrectItemsNames() {
-    bool status = _testCorrectItemsNamesClothing();
-    status = status && _testCorrectItemsNamesHelmets();
-    status = status && _testCorrectItemsNamesPotions();
-    status = status && _testCorrectItemsNamesShields();
-    status = status && _testCorrectItemsNamesWeapons();
+    Configuration& config = Configuration::getInstance();
+    bool status = _testCorrectItemsNamesClothing(config);
+    status = status && _testCorrectItemsNamesHelmets(config);
+    status = status && _testCorrectItemsNamesPotions(config);
+    status = status && _testCorrectItemsNamesShields(config);
+    status = status && _testCorrectItemsNamesWeapons(config);
     return status;
 }
 
