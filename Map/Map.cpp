@@ -9,6 +9,11 @@
 #include "../AttackResult.h"
 #include "../Config/Calculator.h"
 
+//todo ESTO ES DE PRUEBA
+#include "../Config/GameEnums.h"
+#include "../Entities/Monster.h"
+#include "../Entities/Player.h"
+
 //////////////////////////////PRIVATE/////////////////////////////
 
 //Retorna la distancia (siempre positiva) entre las dos coordenadas
@@ -211,11 +216,18 @@ Coordinate Map::getMonsterCoordinate(/*std::shared_ptr<Monster>&& monster*/) {
 }
 
 
-Map::Map() {
+void Map::test(Game& game, std::list<std::shared_ptr<Monster>>& monsters) {
     for (int i = 0; i < 100; ++i) {
         tiles.emplace_back();
         for (int j = 0; j < 100; ++j) {
             tiles[i].emplace_back(false, FLOOR_TYPE_GRASS);
         }
     }
+    std::shared_ptr<Monster> monster(new Monster(game, *this,
+                            {0,0}, GameType::SKELETON));
+    std::shared_ptr<Player> player(new Player(game, GameType::HUMAN,
+            GameType::WARRIOR, 1, 0, {1, 2}, "agusputo"));
+    monsters.push_front(monster);
+    tiles[0][0].addEntity(std::move(monster));
+    tiles[1][2].addEntity(std::move(player));
 }

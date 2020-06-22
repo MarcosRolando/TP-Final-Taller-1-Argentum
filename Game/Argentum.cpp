@@ -25,7 +25,6 @@ void Argentum::execute() {
 
         game.update(lastFrameTime);
 
-
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();

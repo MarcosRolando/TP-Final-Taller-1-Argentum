@@ -101,4 +101,5 @@ Game::Game() {
     maxNumberOfMonsters = 50;
     spawnInterval = 100;
     spawnTimer = 0;
+    map.test(*this, monsters);
 }

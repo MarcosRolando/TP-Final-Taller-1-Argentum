@@ -38,7 +38,7 @@ private:
 public:
 
     //Constructor de prueba
-    Map();
+    void test(Game& game, std::list<std::shared_ptr<Monster>>& monsters);
 
     //Ataca la tile y retorna cuanto danio le hizo al entity guardado y el
     // xp ganado, si no hay un etity devuelve 0 en ambos

@@ -104,8 +104,10 @@ void Monster::_move() {
     if (pathCache.empty()) {
         _storeNearestPlayerPathCache();
     }
-    Entity::move(game, _getMoveDirection());
-    pathCache.pop_front();
+    if (!pathCache.empty()) {
+        Entity::move(game, _getMoveDirection());
+        pathCache.pop_front();
+    }
 }
 
 
