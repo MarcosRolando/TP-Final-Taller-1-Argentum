@@ -187,8 +187,7 @@ int main(int argc, char* args[]) {
                     //Inventory
                     window.setViewport(InventoryViewport);
                     inventoryGui.updateGold(1000);
-                    inventoryGui.render(selector.getInventorySlotX(),
-                            selector.getInventorySlotY());
+                    inventoryGui.render(selector.getInventorySlot());
                     playerInfo.updateLevel(15);
                     playerInfo.updateSkills(20, 20, 20, 20);
                     playerInfo.updatePosition(xPlayer / TILE_WIDTH,
@@ -224,9 +223,6 @@ int main(int argc, char* args[]) {
 	} catch (...) {
 	    std::cerr << "No se que paso pero algo rompio xd" << std::endl;
 	}
-
-
-
 	//Free resources and close SDL
 	close();
 

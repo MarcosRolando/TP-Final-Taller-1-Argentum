@@ -81,13 +81,8 @@ void Selector::_verifyInventorySlotSelection() {
     }
 }
 
-int Selector::getInventorySlotX() const {
-    return inventorySlotX;
-}
-
-
-int Selector::getInventorySlotY() const {
-    return inventorySlotY;
+int Selector::getInventorySlot() const {
+    return inventorySlotX + (4 * inventorySlotY);
 }
 
 int Selector::getSelectedTileX() const {

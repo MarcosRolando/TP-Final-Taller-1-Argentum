@@ -17,8 +17,7 @@ private:
 public:
     Selector();
     void handleEvent(SDL_Event &e, int playerX, int playerY, Window& window);
-    int getInventorySlotX() const;
-    int getInventorySlotY() const;
+    int getInventorySlot() const;
     int getSelectedTileX() const;
     int getSelectedTileY() const;
     int getSelectedTileXToRender(int xPlayer) const;//Estas son para debugging, despues

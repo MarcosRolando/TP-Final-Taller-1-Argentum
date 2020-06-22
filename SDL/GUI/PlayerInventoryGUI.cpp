@@ -25,8 +25,8 @@ PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,
                                                              renderer(renderer) {
 }
 
-void PlayerInventoryGUI::render(int selectedSlotX, int selectedSlotY) {
-    _drawInventoryOutlines(selectedSlotX, selectedSlotY);
+void PlayerInventoryGUI::render(int selectedSlotX) {
+    _drawInventoryOutlines(selectedSlotX);
     _drawEquipableOutlines();
     _renderInventoryItems();
     _renderEquipableItems();
@@ -34,13 +34,24 @@ void PlayerInventoryGUI::render(int selectedSlotX, int selectedSlotY) {
 }
 
 void PlayerInventoryGUI::_renderInventoryItems() {
-    unsigned int size = inventoryTextures.size();
-    for (int i = 0; i < INVENTORY_SIZE; i += LINES) {
+    //unsigned int size = inventoryTextures.size();
+    /*for (int i = 0; i < INVENTORY_SIZE; i += LINES) {
         for (int j = 0; j < COLUMNS; ++j) {
             if (i + j >= (int)size) break;
             inventoryTextures[i + j]->render( INVENTORY_ITEMS_X_OFFSET +
             (ITEM_WIDTH + 6) * j, INVENTORY_ITEMS_Y_OFFSET + (i/LINES) * (ITEM_HEIGHT - 1),
                     0);
+        }
+    }*/
+    int i = 0, j = 0; //los necesito para la posicion de renderizado
+    for (auto & texture : inventoryTextures){
+        texture->render(INVENTORY_ITEMS_X_OFFSET + (ITEM_WIDTH + 6) * j,
+                INVENTORY_ITEMS_Y_OFFSET + (i/LINES) * (ITEM_HEIGHT - 1),0);
+        //Esto lo haria con un for pero la lista no tiene operator[]
+        ++j;
+        if (j > 3) {
+            i += LINES;
+            j = 0;
         }
     }
 }
@@ -62,8 +73,7 @@ void PlayerInventoryGUI::_renderEquipableItems() {
     }
 }
 
-void PlayerInventoryGUI::_drawInventoryOutlines(int selectedSlotX, int
-selectedSlotY) {
+void PlayerInventoryGUI::_drawInventoryOutlines(int selectedSlot) {
     SDL_Rect outlineRect;
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
@@ -72,7 +82,7 @@ selectedSlotY) {
                             ITEM_WIDTH + 6, ITEM_HEIGHT - 3 };
             SDL_SetRenderDrawColor(&renderer, 0x3f, 0x2a,
                                    0x14, 0xFF);
-            if (j == selectedSlotX && i == selectedSlotY){
+            if ((j + 4 * i) == selectedSlot){
                 SDL_SetRenderDrawColor(&renderer, 0xff, 0xff,
                                        0xff, 0xFF);
             }
@@ -101,6 +111,23 @@ void PlayerInventoryGUI::_drawEquipableOutlines() {
 void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
     if (inventoryTextures.size() < INVENTORY_SIZE) {
         inventoryTextures.push_back(&repo.getTexture(texture));
+    }
+}
+
+void PlayerInventoryGUI::removeInventoryItem(int inventorySlot) {
+    int i = 0, j = 0;
+    for (auto it = inventoryTextures.begin(); it != inventoryTextures.end(); ) {
+        //Esto lo haria con un for pero la lista no tiene operator[]
+        if (j > 3) {
+            i += LINES;
+            j = 0;
+        }
+        if ((j + i) == inventorySlot){
+            it = inventoryTextures.erase(it);
+        } else {
+            ++it;
+        }
+        ++j;
     }
 }
 

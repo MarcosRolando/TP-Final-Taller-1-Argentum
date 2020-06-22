@@ -7,7 +7,7 @@
 
 #include "../../Texture/TextureRepository.h"
 #include "../Text/Text.h"
-#include <vector>
+#include <list>
 #include <unordered_map>
 
 enum EquippedItems{
@@ -22,7 +22,8 @@ private:
     Text text;
     TextureRepository& repo;
     SDL_Renderer& renderer;
-    std::vector<Texture*> inventoryTextures;
+    //std::vector<Texture*> inventoryTextures;
+    std::list<Texture*> inventoryTextures;
     std::unordered_map<EquippedItems, Texture*> equippedTextures;
 
 public:
@@ -35,11 +36,13 @@ public:
 
     void updateGold(unsigned int gold);
 
-    void render(int selectedSlotX, int selectedSlotY);
+    void render(int selectedSlot);
+
+    void removeInventoryItem(int inventorySlot);
 
 private:
 
-    void _drawInventoryOutlines(int x, int y);
+    void _drawInventoryOutlines(int x);
 
     void _renderInventoryItems();
 
