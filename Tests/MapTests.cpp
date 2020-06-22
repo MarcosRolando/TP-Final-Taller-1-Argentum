@@ -6,7 +6,6 @@
 
 #include <iostream>
 #include "../Map/Map.h"
-#include "../Map/Tile.h"
 #include "../Items/Miscellaneous/Gold.h"
 #include "../Items/Miscellaneous/HealthPotion.h"
 #include "../Items/Miscellaneous/ManaPotion.h"
@@ -127,7 +126,7 @@ bool MapTests::testAddedItemsToMap() {
 
     Configuration& config = Configuration::getInstance();
 
-    std::vector<std::string> itemsNames = {"Gold", config.configPotionData(GameType::HEALTH_POTION).name,
+    std::vector<std::string> itemsNames = {config.configGetGoldName(), config.configPotionData(GameType::HEALTH_POTION).name,
                                          config.configPotionData(GameType::MANA_POTION).name,
                                          config.configClothingData(GameType::MAGIC_HAT).name,
                                          config.configClothingData(GameType::NO_HELMET).name,

@@ -33,6 +33,7 @@ private:
     unsigned int maxMonsterAmount{};
 
     unsigned int initialMerchantGold;
+    std::string goldName;
 
     unsigned int playerVisionRange;
 
@@ -67,6 +68,7 @@ public:
     unsigned int configMaxMonsterAmount() const;
     unsigned int configMonsterSpawnAmount() const;
     unsigned int configInitialMerchantGold() const;
+    const std::string &configGetGoldName() const;
 
 private:
     Configuration();

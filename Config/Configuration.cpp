@@ -37,6 +37,7 @@ Configuration::Configuration() {
     newbieLevel = fileReader.loadNewbieLevel();
     maxLevelDif = fileReader.loadmaxLevelDif();
     playerVisionRange = fileReader.loadPlayerVisionRange();
+    goldName = "Gold"; /*Lo guardamos por el tema de guardar las referencias a los nombres de los items*/
 }
 
 const Config::Modifiers& Configuration::configClassModifiers(Class _class) const {
@@ -105,4 +106,8 @@ unsigned int Configuration::configMonsterSpawnAmount() const {
 
 unsigned int Configuration::configInitialMerchantGold() const {
     return initialMerchantGold;
+}
+
+const std::string& Configuration::configGetGoldName() const {
+    return goldName;
 }

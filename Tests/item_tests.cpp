@@ -20,3 +20,7 @@ TEST_CASE("It Is Gold Test") {
 TEST_CASE("Load All Items Names Correctly Test") {
     REQUIRE(ItemTests::testCorrectItemsNames());
 }
+
+TEST_CASE("Correct Gold Amount Test") {
+    REQUIRE(ItemTests::testCorrectGoldAmount());
+}

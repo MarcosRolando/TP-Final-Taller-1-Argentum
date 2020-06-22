@@ -108,3 +108,9 @@ bool ItemTests::testCorrectItemsNames() {
     status = status && _testCorrectItemsNamesWeapons();
     return status;
 }
+
+bool ItemTests::testCorrectGoldAmount() {
+    unsigned int amount = 504;
+    Gold gold(amount);
+    return (amount == gold.getamount());
+}

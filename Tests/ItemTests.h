@@ -11,6 +11,7 @@ public:
     static bool testAreNonGoldItemsGold();
     static bool testIsGoldItemGold();
     static bool testCorrectItemsNames();
+    static bool testCorrectGoldAmount();
 
 private:
     static bool _testCorrectItemsNamesHelmets();
