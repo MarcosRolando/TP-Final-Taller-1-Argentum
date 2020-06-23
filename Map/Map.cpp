@@ -225,12 +225,9 @@ void Map::test(Game& game, std::list<std::shared_ptr<Monster>>& monsters) {
             tiles[i].emplace_back(false, FLOOR_TYPE_GRASS);
         }
     }
-    std::shared_ptr<Monster> monster1(new Monster(game, *this,
-                            {0,0}, GameType::SPIDER));
-    std::shared_ptr<Monster> monster2(new Monster(game, *this,
-                                                 {3,2}, GameType::GOBLIN));
-    std::shared_ptr<Monster> monster3(new Monster(game, *this,
-                                                 {5,5}, GameType::ZOMBIE));
+    std::shared_ptr<Monster> monster1(new Monster(game, {0,0}, GameType::SPIDER));
+    std::shared_ptr<Monster> monster2(new Monster(game, {3,2}, GameType::GOBLIN));
+    std::shared_ptr<Monster> monster3(new Monster(game, {5,5}, GameType::ZOMBIE));
 
     std::shared_ptr<Player> player1(new Player(game, GameType::HUMAN,
             GameType::WIZARD, 3, 0, {1, 2}, "agusputo"));

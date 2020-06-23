@@ -38,7 +38,7 @@ public:
 
     int getCurrentLife() const;
 
-    unsigned int getMaxLife() const;
+    int getMaxLife() const;
 
     unsigned int getAgility() const;
 

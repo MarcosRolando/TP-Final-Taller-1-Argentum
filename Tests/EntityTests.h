@@ -17,10 +17,10 @@ public:
     static bool testPlayerNickname();
     static bool testLifeAndManaRecovery();
     static bool testUnequipGear();
+    static bool testPlayerAttacksMonster();
 
 private:
     static bool _testUnequipWeapon(Game &game);
-
     static bool _testUnequipClothing(Game &game);
 };
 

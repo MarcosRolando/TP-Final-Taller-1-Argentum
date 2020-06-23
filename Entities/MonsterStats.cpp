@@ -55,7 +55,7 @@ int MonsterStats::getCurrentLife() const {
     return currentLife;
 }
 
-unsigned int MonsterStats::getMaxLife() const {
+int MonsterStats::getMaxLife() const {
     return maxLife;
 }
 

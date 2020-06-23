@@ -47,7 +47,7 @@ private:
 
 public:
 
-    Monster(Game& _game, const Map& map, Coordinate initialPositionunsigned,
+    Monster(Game& _game, Coordinate initialPositionunsigned,
             GameType::Monster _type);
 
 

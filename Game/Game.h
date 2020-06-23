@@ -71,6 +71,9 @@ public:
     //Esta funcion encola la accion de mover un entity de initial a finalPosition
     void requestMove(Coordinate initialPosition, Coordinate finalPosition);
 
+    //Retorna una referencia constante del mapa, util para los monstruos
+    const Map& getMap() const;
+
     void update(double timeStep);
 };
 

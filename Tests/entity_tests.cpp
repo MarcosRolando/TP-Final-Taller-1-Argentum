@@ -28,8 +28,13 @@ TEST_CASE("Correct Player Nickname Test") {
 TEST_CASE("Life And Mana Recovery By Player Test") {
     REQUIRE(EntityTests::testLifeAndManaRecovery());
 }
+
 TEST_CASE("Unequip Gear Test") {
     REQUIRE(EntityTests::testUnequipGear());
+}
+
+TEST_CASE("Player Attacks Monster And Damages It Test") {
+    REQUIRE(EntityTests::testPlayerAttacksMonster());
 }
 
 

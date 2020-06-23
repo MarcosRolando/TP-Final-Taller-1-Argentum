@@ -10,7 +10,8 @@
 #include "../Config/Configuration.h"
 #include "../Items/Miscellaneous/Gold.h"
 #include "../Items/Defense/Chest.h"
-
+#include "../AttackResult.h"
+#include "../Entities/Monster.h"
 
 bool EntityTests::testStoreItem() {
     Configuration& config = Configuration::getInstance();
@@ -119,4 +120,16 @@ bool EntityTests::testUnequipGear() {
     Game game;
     if (!_testUnequipWeapon(game)) return false;
     return _testUnequipClothing(game);
+}
+
+bool EntityTests::testPlayerAttacksMonster() {
+    Game game;
+    Player player(game, GameType::HUMAN, GameType::CLERIC,
+                  1, 0, {0, 0}, "ElPantuflas");
+    MonstersFactory factory;
+    std::shared_ptr<Monster> monster;
+    factory.storeRandomMonster(game, monster, {0, 1});
+    monster->stats.agility = 0; /*Para que no esquive el ataque*/
+    player.attack({0, 1});
+    return (monster->stats.getCurrentLife() != monster->stats.getMaxLife());
 }

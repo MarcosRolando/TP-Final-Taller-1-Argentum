@@ -12,20 +12,20 @@
 
 ////////////////////////////////////PRIVATE///////////////////////////
 
-void MonstersFactory::_storeSpider(Game& game, Map& map, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
-    monster.reset(new Monster(game, map, initialPosition, GameType::SPIDER));
+void MonstersFactory::_storeSpider(Game& game, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
+    monster.reset(new Monster(game, initialPosition, GameType::SPIDER));
 }
 
-void MonstersFactory::_storeSkeleton(Game& game, Map& map, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
-    monster.reset(new Monster(game, map, initialPosition, GameType::SKELETON));
+void MonstersFactory::_storeSkeleton(Game& game, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
+    monster.reset(new Monster(game, initialPosition, GameType::SKELETON));
 }
 
-void MonstersFactory::_storeZombie(Game& game, Map& map, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
-    monster.reset(new Monster(game, map, initialPosition, GameType::ZOMBIE));
+void MonstersFactory::_storeZombie(Game& game,Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
+    monster.reset(new Monster(game,initialPosition, GameType::ZOMBIE));
 }
 
-void MonstersFactory::_storeGoblin(Game& game, Map& map, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
-    monster.reset(new Monster(game, map, initialPosition, GameType::GOBLIN));
+void MonstersFactory::_storeGoblin(Game& game, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
+    monster.reset(new Monster(game, initialPosition, GameType::GOBLIN));
 }
 
 ////////////////////////////////////PUBLIC///////////////////////////
@@ -41,10 +41,10 @@ MonstersFactory::MonstersFactory() {
     }
 }
 
-void MonstersFactory::storeRandomMonster(Game& game, Map& map, std::shared_ptr<Monster> &monster,
+void MonstersFactory::storeRandomMonster(Game& game, std::shared_ptr<Monster> &monster,
                                          Coordinate initialPosition) {
     monsterCreators[existingMonsters[Calculator::getRandomInt(0, static_cast<int>(existingMonsters.size()) - 1)]]
-                                    (game, map, initialPosition, monster);
+                                    (game, initialPosition, monster);
 }
 
 

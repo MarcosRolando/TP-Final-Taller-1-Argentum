@@ -113,11 +113,11 @@ void Monster::_move() {
 
 ////////////////////////PUBLIC/////////////////////////
 
-Monster::Monster(Game &_game, const Map& _map, Coordinate initialPosition,
+Monster::Monster(Game &_game, Coordinate initialPosition,
                  GameType::Monster _type):
                  Entity(initialPosition),
                  timeBetweenActions(Configuration::getInstance().configMonsterStats(_type).reactionSpeed),
-                 stats(_type), map(_map), game(_game) {
+                 stats(_type), map(_game.getMap()), game(_game) {
     elapsedTime = 0;
     type = _type;
 }
