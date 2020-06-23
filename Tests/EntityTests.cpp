@@ -248,7 +248,7 @@ bool EntityTests::testPlayerSellsItem() {
     Priest priest({1, 1});
     std::shared_ptr<Item> weapon(new Weapon(GameType::LONGSWORD));
     player.storeItem(std::move(weapon));
-    trader.buy(player, "Longsword");
+    trader.sell(player, "Longsword");
     return (trader.shop.storage.storedItems.at("Longsword").front() != nullptr);
 }
 
