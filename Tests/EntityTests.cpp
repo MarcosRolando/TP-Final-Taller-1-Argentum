@@ -135,3 +135,22 @@ bool EntityTests::testPlayerAttacksMonster() {
     player.attack({0, 1});
     return (monster->stats.getCurrentLife() != monster->stats.getMaxLife());
 }
+
+bool EntityTests::testPlayerAttacksMonsterAndConsumesMana() {
+    Game game;
+    Player player(game, GameType::DWARF, GameType::CLERIC,
+                  50, 0, {0, 0}, "ElPantuflas");
+    MonstersFactory factory;
+    std::shared_ptr<Monster> monster;
+    factory.storeRandomMonster(game, monster);
+    monster->stats.agility = 0; /*Para que no esquive el ataque*/
+    monster->stats.constitution = 0; /*Para que no se defienda del ataque*/
+    game.map.addEntity({0, 1}, std::static_pointer_cast<Entity>(monster));
+    std::shared_ptr<Item> weapon(new Weapon(GameType::ASH_ROD));
+    player.storeItem(std::move(weapon));
+    player.useItem(0);
+    if (player.stats.getCurrentMana() != player.stats.maxMana) return false;
+    player.attack({0, 1});
+    if (monster->stats.getCurrentLife() == monster->stats.getMaxLife()) return false;
+    return (player.stats.getCurrentMana() != player.stats.maxMana);
+}

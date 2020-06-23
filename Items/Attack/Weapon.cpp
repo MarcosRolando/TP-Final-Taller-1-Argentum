@@ -36,15 +36,14 @@ Weapon::Weapon(GameType::Weapon weapon): Item(ITEM_TYPE_WEAPON, Configuration::g
     _initializeData(stats.minDmg, stats.maxDmg, stats.manaConsumption, stats.range);
 }
 
-//VER SI SE HACE QUE EN VEZ DE RETORNAR 0 TIRE UNA EXCEPCION
 int Weapon::getDamage(Coordinate attackPosition, Coordinate attackedPosition,
                     unsigned int& currentMana) const {
     if (!_isTargetReachable(attackPosition, attackedPosition) ||
         manaConsumption > currentMana ) {
         return 0;
     }
-   currentMana -= manaConsumption;
-   return Calculator::getRandomInt(minDamage, maxDamage);
+    currentMana -= manaConsumption;
+    return Calculator::getRandomInt(minDamage, maxDamage);
 }
 
 EquipmentPlace Weapon::use(Player &player) {

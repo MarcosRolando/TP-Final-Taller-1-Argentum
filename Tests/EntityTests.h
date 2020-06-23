@@ -18,6 +18,7 @@ public:
     static bool testLifeAndManaRecovery();
     static bool testUnequipGear();
     static bool testPlayerAttacksMonster();
+    static bool testPlayerAttacksMonsterAndConsumesMana();
 
 private:
     static bool _testUnequipWeapon(Game &game);

@@ -145,6 +145,6 @@ void PlayerStats::stopMeditating() {
     isMeditating = false;
 }
 
-unsigned int &PlayerStats::getCurrentMana() {
+unsigned int& PlayerStats::getCurrentMana() {
     return currentMana;
 }
