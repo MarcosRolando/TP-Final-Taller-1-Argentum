@@ -38,7 +38,7 @@ private:
 
 public:
     MonstersFactory();
-    void storeRandomMonster(Game& game, std::shared_ptr<Monster>& monster);
+    void storeRandomMonster(Game& game, std::shared_ptr<Monster>& monster, Coordinate initialPosition);
 };
 
 
