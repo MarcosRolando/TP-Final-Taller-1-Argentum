@@ -23,7 +23,7 @@ void Text::render(int x, int y, SDL_Color color){
 }
 
 Text::~Text() {
-
+    textTexture.free();//Esto capaz es la pedo xq Texture se libera en el destr
 }
 
 void Text::eraseText() {

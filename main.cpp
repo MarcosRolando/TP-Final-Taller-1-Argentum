@@ -14,6 +14,7 @@
 #include "SDL/Minichat/Minichat.h"
 #include "SDL/Selector.h"
 #include "SDL/Sound/SoundPlayer.h"
+#include "Screen/MainMenu.h"
 
 //Starts up SDL and creates window
 void init();
@@ -84,8 +85,13 @@ int main(int argc, char* args[]) {
         SoundPlayer soundPlayer(soundRepo);
         soundPlayer.playMusic();
 
+        //Me pide que le agregue class xq se confunde con el enum de texturas
+        class MainMenu mainMenu(repo.getTexture(MainMenu),window, UIFont);
+
         //Main loop flag
         bool quit = false;
+
+        mainMenu.loop(quit);
 
         //Prueba de llenado de inventario
         inventoryGui.addInventoryItem(BlueTunicDrop);
@@ -96,7 +102,6 @@ int main(int argc, char* args[]) {
         inventoryGui.addInventoryItem(LongSwordDrop);
         inventoryGui.addInventoryItem(HealthPotion);
 
-
         //LLeno los items equipables
         inventoryGui.addEquipableItem(LeatherArmorDrop, Armor);
         inventoryGui.addEquipableItem(WarHammerDrop, Weapon);
@@ -106,50 +111,10 @@ int main(int argc, char* args[]) {
         //Event handler
         SDL_Event e;
 
-        //MainMenu Test
-        Texture& mainMenu = repo.getTexture(MainMenu);
-        Text mainMenuText(UIFont, window.getRenderer());
-        bool inMainMenu = true;
-        SDL_Color color = {0x00,0x00,0x00};
-        while (inMainMenu){
-            while (SDL_PollEvent(&e) != 0){
-                if (e.type == SDL_QUIT){
-                    return 0;
-                }
-                if (e.type == SDL_MOUSEMOTION){
-                    int x = 0, y = 0;
-                    //Get mouse position
-                    //int x, y;
-                    SDL_GetMouseState( &x, &y );
-                    if (x>50 && x<185 && y>100 && y < 125){
-                        color = {0xFF,0x00,0x00};
-                    } else {
-                        color = {0x00,0x00,0x00};
-                    }
-                } else if (e.type == SDL_MOUSEBUTTONDOWN){
-                    int x = 0, y = 0;
-                    //Get mouse position
-                    //int x, y;
-                    SDL_GetMouseState( &x, &y );
-                    if (x>50 && x<185 && y>100 && y < 125){
-                        inMainMenu = false;
-                    }
-                }
-            }
-            window.clear();
-            window.setViewport(ScreenViewport);
-            mainMenu.render(0,0);
-            mainMenuText.updateText("Start Game");
-            mainMenuText.render(50, 100, color);
-            window.show();
-
-        }
-
-
-        int xPlayer, yPlayer;
         //While application is running
         while( !quit )
         {
+            int xPlayer, yPlayer;
             //Esto capaz lo cambiamos de lugar despues
             xPlayer = player.getXPosition();
             yPlayer = player.getYPosition();
