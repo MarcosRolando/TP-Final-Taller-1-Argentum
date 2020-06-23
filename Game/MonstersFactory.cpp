@@ -41,10 +41,9 @@ MonstersFactory::MonstersFactory() {
     }
 }
 
-void MonstersFactory::storeRandomMonster(Game& game, std::shared_ptr<Monster> &monster,
-                                         Coordinate initialPosition) {
+void MonstersFactory::storeRandomMonster(Game& game, std::shared_ptr<Monster> &monster) {
     monsterCreators[existingMonsters[Calculator::getRandomInt(0, static_cast<int>(existingMonsters.size()) - 1)]]
-                                    (game, initialPosition, monster);
+                                    (game, {0, 0}, monster);
 }
 
 

@@ -17,6 +17,7 @@ enum CommandType: char {
 */
 
 class GameTests;
+class EntityTests;
 
 struct MoveCommand {
     Coordinate initialPosition;
@@ -38,6 +39,7 @@ private:
     std::list<std::shared_ptr<Monster>> monsters;
 
     friend GameTests;
+    friend EntityTests;
 
 private:
 
