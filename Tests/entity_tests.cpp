@@ -9,3 +9,28 @@ TEST_CASE("Store Item In Player Inventory Test") {
     REQUIRE(EntityTests::testStoreItem());
 }
 
+TEST_CASE("Player Is Monster Target Test") {
+    REQUIRE(EntityTests::testIsMonsterTarget());
+}
+
+TEST_CASE("Gold Management By Player Test") {
+    REQUIRE(EntityTests::testSpendGold());
+}
+
+TEST_CASE("Item Management By Player Test") {
+    REQUIRE(EntityTests::testItemUse());
+}
+
+TEST_CASE("Correct Player Nickname Test") {
+    REQUIRE(EntityTests::testPlayerNickname());
+}
+
+TEST_CASE("Life And Mana Recovery By Player Test") {
+    REQUIRE(EntityTests::testLifeAndManaRecovery());
+}
+TEST_CASE("Unequip Gear Test") {
+    REQUIRE(EntityTests::testUnequipGear());
+}
+
+
+

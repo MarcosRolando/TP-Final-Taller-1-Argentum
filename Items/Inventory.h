@@ -13,6 +13,7 @@
 #include "Item.h"
 
 class ItemTests;
+class EntityTests;
 class Weapon;
 class Player;
 class Clothing;
@@ -28,6 +29,7 @@ private:
     std::shared_ptr<Weapon> equippedWeapon;
 
     friend ItemTests;
+    friend EntityTests;
 
 private:
     void _manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);
