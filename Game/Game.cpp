@@ -107,3 +107,23 @@ Game::Game() {
 const Map& Game::getMap() const {
     return map;
 }
+
+unsigned int Game::list(Player &player, std::list<ProductData> &products, Coordinate coordinate) {
+    return map.list(player, products, coordinate);
+}
+
+void Game::withdraw(Player &player, const std::string &itemName, Coordinate coordinate) {
+    map.withdraw(player, itemName, coordinate);
+}
+
+void Game::deposit(Player &player, const std::string &itemName, Coordinate coordinate) {
+    map.deposit(player, itemName, coordinate);
+}
+
+void Game::buy(Player &player, const std::string &itemName, Coordinate coordinate) {
+    map.buy(player, itemName, coordinate);
+}
+
+void Game::sell(Player &player, const std::string &itemName, Coordinate coordinate) {
+    map.sell(player, itemName, coordinate);
+}

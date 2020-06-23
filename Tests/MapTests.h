@@ -20,6 +20,7 @@ public:
     static bool testAddedMultipleGoldsToMapWithList();
     static bool testAddedMultipleGoldsToMapWithoutList();
     static bool testAddedMultipleItemsListsToMap();
+    static bool testListItemsOnSaleOnEmptyTile();
 };
 
 

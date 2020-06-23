@@ -77,6 +77,21 @@ public:
     const Map& getMap() const;
 
     void update(double timeStep);
+
+    //Delega el comportamiento a la entity que guarda, si es que guarda una
+    unsigned int list(Player& player, std::list<ProductData>& products, Coordinate coordinate);
+
+    //Delega el comportamiento a la entity que guarda, si es que guarda una
+    void withdraw(Player& player, const std::string& itemName, Coordinate coordinate);
+
+    //Delega el comportamiento a la entity que guarda, si es que guarda una
+    void deposit(Player& player, const std::string& itemName, Coordinate coordinate);
+
+    //Delega el comportamiento a la entity que guarda, si es que guarda una
+    void buy(Player& player, const std::string& itemName, Coordinate coordinate);
+
+    //Delega el comportamiento a la entity que guarda, si es que guarda una
+    void sell(Player& player, const std::string& itemName, Coordinate coordinate);
 };
 
 
