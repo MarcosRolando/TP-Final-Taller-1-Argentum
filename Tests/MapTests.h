@@ -21,6 +21,9 @@ public:
     static bool testAddedMultipleGoldsToMapWithoutList();
     static bool testAddedMultipleItemsListsToMap();
     static bool testListItemsOnSaleOnEmptyTile();
+    static bool testListItemsOnSaleOnEmptyMap();
+    static bool testGetTargetsOnEmptyMapReturnsEmptyList();
+    static bool testGetTargetsOnMapWithPlayerReturnsListWithOneElement();
 };
 
 

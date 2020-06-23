@@ -39,6 +39,7 @@ ItemsFactory::ItemsFactory() {
     itemsCreators[config.configWeaponData(GameType::LONGSWORD).name] = _storeLongsword;
     itemsCreators[config.configWeaponData(GameType::SIMPLE_BOW).name] = _storeSimpleBow;
     itemsCreators[config.configWeaponData(GameType::WARHAMMER).name] = _storeWarhammer;
+    itemsCreators[config.configWeaponData(GameType::AXE).name] = _storeAxe;
 
     itemsCreators[config.configPotionData(GameType::HEALTH_POTION).name] = _storeHealthPotion;
     itemsCreators[config.configPotionData(GameType::MANA_POTION).name] = _storeManaPotion;
@@ -190,6 +191,10 @@ void ItemsFactory::_storeWarhammer(std::shared_ptr<Item> &item) {
      */
     //item.reset(new Warhammer());
     item.reset(new Weapon(GameType::WARHAMMER));
+}
+
+void ItemsFactory::_storeAxe(std::shared_ptr<Item> &item) {
+    item.reset(new Weapon(GameType::AXE));
 }
 
 void ItemsFactory::_storeGold(std::shared_ptr<Item> &item, unsigned int amount) {

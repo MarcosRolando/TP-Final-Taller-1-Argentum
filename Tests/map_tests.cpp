@@ -40,3 +40,15 @@ TEST_CASE("Test Added Multiple Items Lists To Map") {
 TEST_CASE("Test List Items On Sale On Empty Tile") {
     REQUIRE(MapTests::testListItemsOnSaleOnEmptyTile());
 }
+
+TEST_CASE("Test List Items On Sale On Empty Map") {
+    REQUIRE(MapTests::testListItemsOnSaleOnEmptyMap());
+}
+
+TEST_CASE("Test Get Targets On Empty Map Returns Empty List") {
+    REQUIRE(MapTests::testGetTargetsOnEmptyMapReturnsEmptyList());
+}
+
+TEST_CASE("Test Get Targets On Map With Player Returns List With One Element") {
+    REQUIRE(MapTests::testGetTargetsOnMapWithPlayerReturnsListWithOneElement());
+}

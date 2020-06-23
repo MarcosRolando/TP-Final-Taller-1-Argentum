@@ -254,5 +254,50 @@ bool MapTests::testListItemsOnSaleOnEmptyTile() {
     Player player(game, GameType::HUMAN, GameType::WIZARD, 0, 0,
                   {0, 0}, "Name");
     map.list(player, products, {5, 5});
-    return products.size() == 0;
+    return products.empty();
+}
+
+bool MapTests::testListItemsOnSaleOnEmptyMap() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    std::list<ProductData> products;
+    Game game;
+    Player player(game, GameType::HUMAN, GameType::WIZARD, 0, 0,
+                  {0, 0}, "Name");
+    for (int i = 0; i < mapXSize; ++i) {
+        for (int j = 0; j < mapYSize; ++j) {
+            map.list(player, products, {i, j});
+            if (!products.empty()) {
+                return false;
+            }
+            products.clear();
+        }
+    }
+    return true;
+}
+
+bool MapTests::testGetTargetsOnEmptyMapReturnsEmptyList() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    std::vector<Coordinate> targets;
+    map.getTargets({25, 25}, 25, targets);
+    return targets.empty();
+}
+
+bool MapTests::testGetTargetsOnMapWithPlayerReturnsListWithOneElement() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    Game game;
+    std::shared_ptr<Player> player(new Player(game, GameType::HUMAN, GameType::WIZARD, 0, 0,
+                                          {0, 0}, "Name"));
+    map.addEntity({25, 25}, player);
+    std::vector<Coordinate> targets;
+    map.getTargets({25, 25}, 25, targets);
+    return (targets.size() == 1) && (targets[0].jPosition == 25) && (targets[0].iPosition == 25);
 }

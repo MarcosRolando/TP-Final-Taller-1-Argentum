@@ -43,8 +43,8 @@ private:
     static void _storeLongsword(std::shared_ptr<Item>& item);
     static void _storeSimpleBow(std::shared_ptr<Item>& item);
     static void _storeWarhammer(std::shared_ptr<Item>& item);
+    static void _storeAxe(std::shared_ptr<Item>& item);
 
-    //AGREGAR FUNCIONES PARA CREAR POCIONES
     static void _storeManaPotion(std::shared_ptr<Item>& item);
     static void _storeHealthPotion(std::shared_ptr<Item>& item);
 

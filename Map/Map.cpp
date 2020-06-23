@@ -36,14 +36,14 @@ bool Map::_areCoordinatesEqual(Coordinate a, Coordinate b){
     return (a.iPosition == b.iPosition) && (a.jPosition == b.jPosition);
 }
 
-void Map::_buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topLeft, Coordinate& bottomRight) const {
+void Map::_buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topRight, Coordinate& bottomLeft) const {
     Coordinate aux{};
     aux.iPosition = static_cast<int>(center.iPosition - range);
     aux.jPosition = static_cast<int>(center.jPosition - range);
-    topLeft = _getValidCoordinate(aux);
+    topRight = _getValidCoordinate(aux);
     aux.iPosition = static_cast<int>(center.iPosition + range);
     aux.jPosition = static_cast<int>(center.jPosition + range);
-    bottomRight = _getValidCoordinate(aux);
+    bottomLeft = _getValidCoordinate(aux);
 }
 
 Coordinate Map::_getValidCoordinate(Coordinate coordinate) const {
@@ -111,10 +111,10 @@ AttackResult Map::attackTile(int damage, unsigned int level, bool isAPlayer,
 }
 
 void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const {
-    Coordinate topRight{}, bottomLeft{}, aux{};
-    _buildSearchRegion(center, range, topRight, bottomLeft);
-    for (int i = topRight.iPosition; i < bottomLeft.iPosition; ++i) {
-        for (int j = topRight.jPosition; j < bottomLeft.jPosition; ++j) {
+    Coordinate topLeft{}, bottomRight{}, aux{};
+    _buildSearchRegion(center, range, topLeft, bottomRight);
+    for (int i = topLeft.iPosition; i < bottomRight.iPosition; ++i) {
+        for (int j = topLeft.jPosition; j < bottomRight.jPosition; ++j) {
             if (tiles[i][j].hasMonsterTarget()) {
                 aux.iPosition = i;
                 aux.jPosition = j;
