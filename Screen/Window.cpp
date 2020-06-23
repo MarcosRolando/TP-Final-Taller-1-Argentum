@@ -152,6 +152,8 @@ Window::~Window() {
     mKeyboardFocus = false;
     mWidth = 0;
     mHeight = 0;
+    renderer = nullptr;
+    mWindow = nullptr;
 }
 
 void Window::clear() {

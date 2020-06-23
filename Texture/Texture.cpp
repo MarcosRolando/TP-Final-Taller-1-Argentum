@@ -43,6 +43,8 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key, int xOff, in
         //Create texture from surface pixels
         newTexture = SDL_CreateTextureFromSurface(&renderer, loadedSurface);
         if (newTexture == nullptr) {
+            //Get rid of old loaded surface
+            SDL_FreeSurface(loadedSurface);
             throw TPException("Unable to create texture from %s! "
                                "SDL Error: %s\n", path.c_str(), SDL_GetError());
         } else {
