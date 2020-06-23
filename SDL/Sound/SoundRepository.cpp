@@ -45,6 +45,7 @@ void SoundRepository::_loadMusic(){
 
 SoundRepository::~SoundRepository() {
     //Cierra el mixer
+    Mix_FreeMusic( music );
     Mix_Quit();
     SDL_Quit();//Esto iria en la clase SDL general
 }
