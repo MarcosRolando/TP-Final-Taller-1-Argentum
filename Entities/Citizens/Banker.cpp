@@ -6,6 +6,7 @@
 #include <memory>
 #include "../../Items/Item.h"
 #include "Storage.h"
+#include "../../TPException.h"
 
 std::unordered_map<std::string, Storage> Banker::playersStorages;
 
@@ -28,12 +29,16 @@ void Banker::withdraw(Player &player, const std::string &itemName) {
     try {
         playersStorages.at(player.getNickname()).retreiveItem(itemName, player);
     } catch (...) {
-        //todo por default si no existe el player no crasheamos el juego, pero capaz conviene
+        throw TPException("Intentaron withdrawear un item de un player que no existia!");
     }
 }
 
 void Banker::deposit(Player &player, const std::string& itemName) {
-    playersStorages[player.getNickname()].storeItem(player.removeItem(itemName));
+    try {
+        playersStorages.at(player.getNickname()).storeItem(player.removeItem(itemName));
+    } catch(...) {
+        throw TPException("Intentaron depositar un item de un player que no existia!");
+    }
 }
 
 void Banker::addPlayerItems(const std::string& playerName, const std::unordered_map<std::string, unsigned int>

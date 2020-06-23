@@ -261,7 +261,8 @@ bool EntityTests::testPlayerDepositsAnItem() {
     Banker banker({0, 1});
     std::shared_ptr<Item> weapon(new Weapon(GameType::LONGSWORD));
     player.storeItem(std::move(weapon));
-    banker.withdraw(player, "Longsword"); /*No deberia hacer nada*/
+    std::unordered_map<std::string, unsigned int> aux;
+    Banker::addPlayerItems(player.getNickname(), aux, 0);
     banker.deposit(player, "Longsword");
     banker.deposit(player, "Longsword"); /*No deberia hacer nada*/
     if (player.inventory.items[0]) return false;
