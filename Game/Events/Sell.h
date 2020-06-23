@@ -6,7 +6,7 @@
 #define ARGENTUM_SELL_H
 
 
-class Sell {
+class Sell: public Event {
 
 };
 

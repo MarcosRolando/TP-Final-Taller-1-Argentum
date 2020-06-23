@@ -6,7 +6,9 @@
 #define ARGENTUM_MOVE_H
 
 
-class Move {
+#include "Event.h"
+
+class Move: public Event {
 
 };
 

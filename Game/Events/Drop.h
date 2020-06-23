@@ -6,7 +6,9 @@
 #define ARGENTUM_DROP_H
 
 
-class Drop {
+#include "Event.h"
+
+class Drop: public Event {
 
 };
 

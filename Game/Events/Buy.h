@@ -6,7 +6,9 @@
 #define ARGENTUM_BUY_H
 
 
-class Buy {
+#include "Event.h"
+
+class Buy: public Event {
 
 };
 

@@ -6,7 +6,9 @@
 #define ARGENTUM_DEPOSIT_H
 
 
-class Deposit {
+#include "Event.h"
+
+class Deposit: public Event {
 
 };
 

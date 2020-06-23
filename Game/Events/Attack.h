@@ -6,7 +6,9 @@
 #define ARGENTUM_ATTACK_H
 
 
-class Attack {
+#include "Event.h"
+
+class Attack: public Event {
 
 };
 

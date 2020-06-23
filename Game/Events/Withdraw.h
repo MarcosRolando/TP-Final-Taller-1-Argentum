@@ -6,7 +6,7 @@
 #define ARGENTUM_WITHDRAW_H
 
 
-class Withdraw {
+class Withdraw: public Event {
 
 };
 

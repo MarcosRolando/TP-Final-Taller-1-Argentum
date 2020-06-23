@@ -6,7 +6,9 @@
 #define ARGENTUM_LIST_H
 
 
-class List {
+#include "Event.h"
+
+class List: public Event {
 
 };
 
