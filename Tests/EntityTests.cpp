@@ -128,7 +128,7 @@ bool EntityTests::testPlayerAttacksMonster() {
                   1, 0, {0, 0}, "ElPantuflas");
     MonstersFactory factory;
     std::shared_ptr<Monster> monster;
-    factory.storeRandomMonster(game, monster, {0, 1});
+    factory.storeRandomMonster(game, monster);
     monster->stats.agility = 0; /*Para que no esquive el ataque*/
     monster->stats.constitution = 0; /*Para que no se defienda del ataque*/
     game.map.addEntity({0, 1}, std::static_pointer_cast<Entity>(monster));

@@ -38,7 +38,9 @@ private:
 
 public:
     MonstersFactory();
-    void storeRandomMonster(Game& game, std::shared_ptr<Monster>& monster, Coordinate initialPosition);
+
+    //Guarda en monster un monstruo aleatorio, la coordenada inicial es el {0, 0}
+    void storeRandomMonster(Game& game, std::shared_ptr<Monster>& monster);
 };
 
 
