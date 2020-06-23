@@ -20,6 +20,8 @@ public:
     static bool testPlayerAttacksMonster();
     static bool testPlayerAttacksMonsterAndConsumesMana();
     static bool testPlayerAttacksNewbieAndViceversa();
+    static bool testPlayerAttacksPlayerWithPastLevelDifferenceAndViceversa();
+    static bool testPlayersAttackEachOther();
 
 private:
     static bool _testUnequipWeapon(Game &game);

@@ -179,4 +179,52 @@ bool EntityTests::testPlayerAttacksNewbieAndViceversa() {
     return (player1->stats.getCurrentLife() == player1->stats.getMaxLife());
 }
 
+bool EntityTests::testPlayerAttacksPlayerWithPastLevelDifferenceAndViceversa() {
+    Game game;
+    std::shared_ptr<Player> player1(new Player(game, GameType::DWARF, GameType::CLERIC,
+                                               26, 0, {0, 0}, "SpicyChori"));
+    std::shared_ptr<Player> player2(new Player(game, GameType::DWARF, GameType::CLERIC,
+                                               15, 0, {0, 1}, "CrispyBurritos"));
+    std::shared_ptr<Entity> aux = player1;
+    game.map.addEntity({0, 0}, std::move(aux));
+    aux = player2;
+    game.map.addEntity({0, 1}, std::move(aux));
+    player1->stats.agility = 0; /*Para que no esquiven*/
+    player2->stats.agility = 0; /*Para que no esquiven*/
+    std::shared_ptr<Item> weapon(new Weapon(GameType::LONGSWORD));
+    player1->storeItem(std::move(weapon));
+    player1->useItem(0);
+    weapon.reset(new Weapon(GameType::WARHAMMER));
+    player2->storeItem(std::move(weapon));
+    player2->useItem(0);
+    player1->attack({0, 1});
+    player2->attack({0, 0});
+    if (player2->stats.getCurrentLife() != player2->stats.getMaxLife()) return false;
+    return (player1->stats.getCurrentLife() == player1->stats.getMaxLife());
+}
+
+bool EntityTests::testPlayersAttackEachOther() {
+    Game game;
+    std::shared_ptr<Player> player1(new Player(game, GameType::DWARF, GameType::CLERIC,
+                                               20, 0, {0, 0}, "SpicyChori"));
+    std::shared_ptr<Player> player2(new Player(game, GameType::DWARF, GameType::CLERIC,
+                                               15, 0, {0, 1}, "CrispyBurritos"));
+    std::shared_ptr<Entity> aux = player1;
+    game.map.addEntity({0, 0}, std::move(aux));
+    aux = player2;
+    game.map.addEntity({0, 1}, std::move(aux));
+    player1->stats.agility = 0; /*Para que no esquiven*/
+    player2->stats.agility = 0; /*Para que no esquiven*/
+    std::shared_ptr<Item> weapon(new Weapon(GameType::LONGSWORD));
+    player1->storeItem(std::move(weapon));
+    player1->useItem(0);
+    weapon.reset(new Weapon(GameType::WARHAMMER));
+    player2->storeItem(std::move(weapon));
+    player2->useItem(0);
+    player1->attack({0, 1});
+    player2->attack({0, 0});
+    if (player2->stats.getCurrentLife() == player2->stats.getMaxLife()) return false;
+    return (player1->stats.getCurrentLife() != player1->stats.getMaxLife());
+}
+
 

@@ -45,4 +45,12 @@ TEST_CASE("Player Attacks Newbie And Viceversa Test") {
     REQUIRE(EntityTests::testPlayerAttacksNewbieAndViceversa());
 }
 
+TEST_CASE("Player Attacks Player With Past Level Difference And Viceversa Test") {
+    REQUIRE(EntityTests::testPlayerAttacksPlayerWithPastLevelDifferenceAndViceversa());
+}
+
+TEST_CASE("Players Attack Each Other Test") {
+    REQUIRE(EntityTests::testPlayersAttackEachOther());
+}
+
 
