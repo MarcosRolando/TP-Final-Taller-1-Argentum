@@ -9,9 +9,13 @@
 #include "Event.h"
 #include "../../Map/Coordinate.h"
 
+class Player;
+class Monster;
+
 class Attack: public Event {
 public:
-    explicit Attack(Coordinate coordinate);
+    explicit Attack(Player& entity, Coordinate target);
+    explicit Attack(Monster& entity, Coordinate target);
 };
 
 

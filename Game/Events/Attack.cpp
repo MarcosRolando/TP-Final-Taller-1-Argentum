@@ -3,3 +3,7 @@
 //
 
 #include "Attack.h"
+
+Attack::Attack(Entity& entity, Coordinate target) {
+
+}
