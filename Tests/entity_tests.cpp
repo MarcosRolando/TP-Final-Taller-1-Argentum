@@ -61,4 +61,8 @@ TEST_CASE("Trader And Priest Buy Item From Player") {
     REQUIRE(EntityTests::testPlayerSellsItem());
 }
 
+TEST_CASE("Player Deposits And Withdraws An Item") {
+    REQUIRE(EntityTests::testPlayerDepositsAnItem());
+}
+
 

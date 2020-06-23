@@ -81,10 +81,12 @@ void Inventory::useItem(Player& player, unsigned int itemPosition) {
 std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
     std::shared_ptr<Item> returnItem(nullptr);
     for (auto & item : items) {
-        if (itemName == item->getName()) {
-            returnItem = std::move(item);
-            --storedItemsAmount;
-            break;
+        if (item) {
+            if (itemName == item->getName()) {
+                returnItem = std::move(item);
+                --storedItemsAmount;
+                break;
+            }
         }
     }
     return returnItem;

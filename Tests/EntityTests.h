@@ -24,6 +24,7 @@ public:
     static bool testPlayersAttackEachOther();
     static bool testMonsterAttacksPlayer();
     static bool testPlayerSellsItem();
+    static bool testPlayerDepositsAnItem();
 
 private:
     static bool _testUnequipWeapon(Game &game);

@@ -25,13 +25,15 @@ unsigned int Banker::list(const Player &player, std::list<ProductData> &products
 }
 
 void Banker::withdraw(Player &player, const std::string &itemName) {
-    playersStorages.at(player.getNickname()).retreiveItem(itemName, player);
-
+    try {
+        playersStorages.at(player.getNickname()).retreiveItem(itemName, player);
+    } catch (...) {
+        //todo por default si no existe el player no crasheamos el juego, pero capaz conviene
+    }
 }
 
 void Banker::deposit(Player &player, const std::string& itemName) {
-    //storage.storeItem(player.removeItem(itemName));
-    playersStorages.at(player.getNickname()).storeItem(player.removeItem(itemName));
+    playersStorages[player.getNickname()].storeItem(player.removeItem(itemName));
 }
 
 void Banker::addPlayerItems(const std::string& playerName, const std::unordered_map<std::string, unsigned int>
