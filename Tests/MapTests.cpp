@@ -177,3 +177,66 @@ bool MapTests::testAddedMultipleGoldsToMapWithoutList() {
     return (Configuration::getInstance().configGetGoldName() == map.tiles[1][1].items.front()->getName()) &&
            (Configuration::getInstance().configGetGoldName() == map.tiles[1][1].items.back()->getName());
 }
+
+bool MapTests::testAddedMultipleItemsListsToMap() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    std::list<std::shared_ptr<Item>> items;
+    items.emplace_back(new Gold(5));
+    items.emplace_back(new HealthPotion());
+    items.emplace_back(new ManaPotion());
+    items.emplace_back(new Head(GameType::MAGIC_HAT));
+    items.emplace_back(new Head(GameType::NO_HELMET));
+    items.emplace_back(new Shield(GameType::IRON_SHIELD));
+    items.emplace_back(new Chest(GameType::PLATE_ARMOR));
+    items.emplace_back(new Chest(GameType::COMMON_CLOTHING));
+    items.emplace_back(new Weapon(GameType::LONGSWORD));
+    items.emplace_back(new Weapon(GameType::FIST));
+
+    Configuration& config = Configuration::getInstance();
+    std::vector<std::string> itemsNames = {config.configGetGoldName(), config.configPotionData(GameType::HEALTH_POTION).name,
+                                           config.configPotionData(GameType::MANA_POTION).name,
+                                           config.configClothingData(GameType::MAGIC_HAT).name,
+                                           config.configClothingData(GameType::NO_HELMET).name,
+                                           config.configClothingData(GameType::IRON_SHIELD).name,
+                                           config.configClothingData(GameType::PLATE_ARMOR).name,
+                                           config.configClothingData(GameType::COMMON_CLOTHING).name,
+                                           config.configWeaponData(GameType::LONGSWORD).name,
+                                           config.configWeaponData(GameType::FIST).name,
+                                           config.configGetGoldName(), config.configPotionData(GameType::HEALTH_POTION).name,
+                                           config.configPotionData(GameType::MANA_POTION).name,
+                                           config.configClothingData(GameType::MAGIC_HAT).name,
+                                           config.configClothingData(GameType::NO_HELMET).name,
+                                           config.configClothingData(GameType::IRON_SHIELD).name,
+                                           config.configClothingData(GameType::PLATE_ARMOR).name,
+                                           config.configClothingData(GameType::COMMON_CLOTHING).name,
+                                           config.configWeaponData(GameType::LONGSWORD).name,
+                                           config.configWeaponData(GameType::FIST).name};
+
+    map.addItemsToTile(std::move(items), {1, 1});
+
+    items.clear();
+    items.emplace_back(new Gold(5));
+    items.emplace_back(new HealthPotion());
+    items.emplace_back(new ManaPotion());
+    items.emplace_back(new Head(GameType::MAGIC_HAT));
+    items.emplace_back(new Head(GameType::NO_HELMET));
+    items.emplace_back(new Shield(GameType::IRON_SHIELD));
+    items.emplace_back(new Chest(GameType::PLATE_ARMOR));
+    items.emplace_back(new Chest(GameType::COMMON_CLOTHING));
+    items.emplace_back(new Weapon(GameType::LONGSWORD));
+    items.emplace_back(new Weapon(GameType::FIST));
+    map.addItemsToTile(std::move(items), {1, 1});
+
+
+    int i = 0;
+    for (const auto & item: map.tiles[1][1].items) {
+        if (itemsNames[i] != item->getName()) {
+            return false;
+        }
+        i++;
+    }
+    return true;
+}
