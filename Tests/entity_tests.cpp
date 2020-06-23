@@ -41,3 +41,8 @@ TEST_CASE("Player Attacks Monster And Consumes Weapon Mana Test") {
     REQUIRE(EntityTests::testPlayerAttacksMonsterAndConsumesMana());
 }
 
+TEST_CASE("Player Attacks Newbie And Viceversa Test") {
+    REQUIRE(EntityTests::testPlayerAttacksNewbieAndViceversa());
+}
+
+
