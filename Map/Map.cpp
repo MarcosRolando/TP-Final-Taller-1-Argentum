@@ -150,10 +150,10 @@ bool Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::l
 }
 
 void Map::addEntity(Coordinate position, std::shared_ptr<Entity> &&entity) {
-    entity->setPosition(position);
     if (!_isCoordinateValid(position)) {
         throw (std::invalid_argument("Out of bounds coordinate"));
     }
+    entity->setPosition(position);
     tiles[position.iPosition][position.jPosition].addEntity(std::move(entity));
 }
 
