@@ -19,6 +19,7 @@ public:
     static bool testAddedGoldToMap();
     static bool testAddedMultipleGoldsToMapWithList();
     static bool testAddedMultipleGoldsToMapWithoutList();
+    static bool testAddedMultipleItemsListsToMap();
 };
 
 
