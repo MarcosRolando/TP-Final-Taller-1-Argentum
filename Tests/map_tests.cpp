@@ -36,3 +36,7 @@ TEST_CASE("Test Added Multiple Golds To Map Without List") {
 TEST_CASE("Test Added Multiple Items Lists To Map") {
     REQUIRE(MapTests::testAddedMultipleItemsListsToMap());
 }
+
+TEST_CASE("Test List Items On Sale On Empty Tile") {
+    REQUIRE(MapTests::testListItemsOnSaleOnEmptyTile());
+}

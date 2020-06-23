@@ -254,5 +254,5 @@ bool MapTests::testListItemsOnSaleOnEmptyTile() {
     Player player(game, GameType::HUMAN, GameType::WIZARD, 0, 0,
                   {0, 0}, "Name");
     map.list(player, products, {5, 5});
-    return false;
+    return products.size() == 0;
 }
