@@ -111,3 +111,18 @@ unsigned int Configuration::configInitialMerchantGold() const {
 const std::string& Configuration::configGetGoldName() const {
     return goldName;
 }
+
+const std::unordered_map<GameType::Weapon, Config::WeaponData> &
+                                Configuration::configAllWeaponsData() {
+    return weaponData;
+}
+
+const std::unordered_map<GameType::Clothing, Config::ClothingData> &
+                                Configuration::configAllClothingData() {
+    return clothingData;
+}
+
+const std::unordered_map<GameType::Potion, Config::PotionData> &
+                                Configuration::configAllPotionsData() {
+    return potionData;
+}

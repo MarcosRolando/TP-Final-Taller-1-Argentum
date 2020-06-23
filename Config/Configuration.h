@@ -59,6 +59,12 @@ public:
 
     const Config::XPModifiers& configXPModifiers() const;
 
+    const std::unordered_map<GameType::Weapon, Config::WeaponData>& configAllWeaponsData();
+
+    const std::unordered_map<GameType::Clothing, Config::ClothingData>& configAllClothingData();
+
+    const std::unordered_map<GameType::Potion, Config::PotionData>& configAllPotionsData();
+
     float configCriticalAttackChance() const;
     float configDodgeChance() const;
     unsigned int configNewbieLevel() const;
