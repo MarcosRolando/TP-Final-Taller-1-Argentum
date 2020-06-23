@@ -22,7 +22,7 @@ struct Coordinate;
 //Esta clase representa los items que almacena y tiene equipados el jugador
 class Inventory {
 private:
-    unsigned int storedItemsamount;
+    unsigned int storedItemsAmount;
     std::vector<std::shared_ptr<Item>> items;
     std::unordered_map<EquipmentPlace, std::shared_ptr<Clothing>> clothingEquipment;
     std::shared_ptr<Weapon> equippedWeapon;

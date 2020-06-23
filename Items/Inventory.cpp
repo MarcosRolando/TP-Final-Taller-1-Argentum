@@ -45,7 +45,7 @@ void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int
 //////////////////////////////PUBLIC/////////////////////////////
 
 Inventory::Inventory() : items(INVENTORY_SIZE, nullptr) {
-    storedItemsamount = 0;
+    storedItemsAmount = 0;
     clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new Head(GameType::NO_HELMET));
     clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new Chest(GameType::COMMON_CLOTHING));
     clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new Shield(GameType::NO_SHIELD));
@@ -53,7 +53,7 @@ Inventory::Inventory() : items(INVENTORY_SIZE, nullptr) {
 }
 
 bool Inventory::addItem(std::shared_ptr<Item> &&item) {
-    if ((storedItemsamount == items.size()) || !item) {
+    if ((storedItemsAmount == items.size()) || !item) {
         return false;
     }
     for (auto & i : items) {
@@ -62,13 +62,13 @@ bool Inventory::addItem(std::shared_ptr<Item> &&item) {
             break;
         }
     }
-    ++storedItemsamount;
+    ++storedItemsAmount;
     return true;
 }
 
 std::shared_ptr<Item> Inventory::removeItem(unsigned int itemPosition) {
     std::shared_ptr<Item> aux = std::move(items[itemPosition]);
-    --storedItemsamount;
+    --storedItemsAmount;
     return aux;
 }
 
@@ -80,13 +80,10 @@ void Inventory::useItem(Player& player, unsigned int itemPosition) {
 
 std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
     std::shared_ptr<Item> returnItem(nullptr);
-    std::hash<std::string> stringHash;
-    unsigned int itemNameHash = stringHash(itemName);
     for (auto & item : items) {
-        if ((stringHash(item->getName()) == itemNameHash) &&
-            (itemName == item->getName())) {
+        if (itemName == item->getName()) {
             returnItem = std::move(item);
-            --storedItemsamount;
+            --storedItemsAmount;
             break;
         }
     }
