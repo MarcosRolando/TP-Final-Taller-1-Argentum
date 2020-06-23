@@ -31,6 +31,10 @@ protected:
  public:
     explicit Entity(Coordinate initialPosition);
 
+    //Implementa el comportamiento realizado al atacar,
+    //debe ser modificado en las clases hijas de ser necesario
+    virtual void attack(Coordinate target);
+
     //Implementa el comportamiento realizado al ser atacado, por default
     //retorna 0, debe ser modificado en las clases hijas de ser necesario
     virtual AttackResult attacked(int damage, unsigned int level, bool isAPlayer);

@@ -31,7 +31,7 @@ public:
     bool isMonsterTarget() override;
 
     //Ataca el lugar especificado en target
-    void attack(Coordinate target);
+    void attack(Coordinate target) override;
 
     //Si hay lugar en el inventario del player entonces se apropia del item y
     //retorna true, sino no se apropia de el y retorna false

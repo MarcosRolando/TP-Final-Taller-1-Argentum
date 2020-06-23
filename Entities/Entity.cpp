@@ -94,3 +94,5 @@ void Entity::update(double timeStep) {
 bool Entity::isMoving() const {
     return movement.isMoving;
 }
+
+void Entity::attack(Coordinate target) {}
