@@ -226,6 +226,7 @@ void Map::test(Game& game, std::list<std::shared_ptr<Monster>>& monsters) {
             tiles[i].emplace_back(false, FLOOR_TYPE_GRASS);
         }
     }
+    /*
     std::shared_ptr<Monster> monster1(new Monster(game, {0,0}, GameType::SPIDER));
     std::shared_ptr<Monster> monster2(new Monster(game, {3,2}, GameType::GOBLIN));
     std::shared_ptr<Monster> monster3(new Monster(game, {5,5}, GameType::ZOMBIE));
@@ -272,6 +273,7 @@ void Map::test(Game& game, std::list<std::shared_ptr<Monster>>& monsters) {
     tiles[1][2].addEntity(std::move(player1));
     tiles[2][2].addEntity(std::move(player2));
     tiles[4][5].addEntity(std::move(player3));
+     */
 }
 
 unsigned int Map::list(Player &player, std::list<ProductData> &products, Coordinate coordinate) {

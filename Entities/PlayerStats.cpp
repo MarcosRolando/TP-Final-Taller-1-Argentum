@@ -70,15 +70,13 @@ void PlayerStats::increaseExperience(unsigned int _experience) {
 
 int PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defense,
                             bool isAPlayer) {
-
-    if (currentLife == 0) return 0;
     if (damage < 0) {
         currentLife += damage;
         if (currentLife > maxLife) currentLife = maxLife;
         return damage;
     } else {
         Configuration& config = Configuration::getInstance();
-        if (isAPlayer && std::abs(static_cast<int>(attackerLevel - level)) <
+        if (isAPlayer && std::abs(static_cast<int>(attackerLevel - level)) >
                          config.configMaxLevelDif()) {
             return 0;
         }
