@@ -10,6 +10,6 @@ EquipmentPlace Potion::use(Player &player) {
     return EQUIPMENT_PLACE_NONE;
 }
 
-Potion::Potion(const Config::PotionData& data): Item(ITEM_TYPE_POTION, data.name, data.price) {
+Potion::Potion(const Config::PotionData& data): Item(ITEM_TYPE_POTION, data.name/*, data.price*/) {
     recoveryValue = data.recoveryValue;
 }

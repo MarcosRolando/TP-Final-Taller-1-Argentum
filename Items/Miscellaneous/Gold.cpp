@@ -6,7 +6,7 @@
 #include "../../Config/Configuration.h"
 
 Gold::Gold(unsigned int amount): Item(ITEM_TYPE_GOLD,
-                    Configuration::getInstance().configGetGoldName(), 0){
+                    Configuration::getInstance().configGetGoldName()/*, 0*/){
     this->amount = amount;
 }
 

@@ -55,10 +55,18 @@ void Storage::retreiveItem(const std::string& itemName, Player &player) {
 }
 
 unsigned int Storage::getStorageData(std::list<ProductData> &products,
-                                        float priceMultiplier) const{
+                                     const std::unordered_map<std::string, unsigned int>& prices,
+                                     float priceMultiplier) const{
     for (const auto & storedItem : storedItems) {
         products.emplace_back(storedItem.second.front()->getName(), storedItem.second.size(),
-                        storedItem.second.front()->getPrice() * priceMultiplier);
+                              prices.at(storedItem.first) * priceMultiplier);
+    }
+    return storedGold;
+}
+
+unsigned int Storage::getStorageData(std::list<ProductData> &products) const {
+    for (const auto & storedItem : storedItems) {
+        products.emplace_back(storedItem.second.front()->getName(), storedItem.second.size(), 0);
     }
     return storedGold;
 }
@@ -67,9 +75,11 @@ bool Storage::isItemAvailable(const std::string &itemName) const {
     return storedItems.count(itemName) == 1;
 }
 
+/*
 unsigned int Storage::getItemPrice(const std::string &itemName) const {
     return storedItems.at(itemName).front()->getPrice();
 }
+*/
 
 void Storage::increaseGoldReserves(unsigned int amount) {
     storedGold += amount;

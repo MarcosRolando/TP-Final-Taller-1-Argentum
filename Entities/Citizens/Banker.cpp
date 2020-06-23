@@ -22,7 +22,7 @@ Banker::Banker(Coordinate initialPosition): Entity(initialPosition) {
 }
 
 unsigned int Banker::list(const Player &player, std::list<ProductData> &products) {
-    return playersStorages.at(player.getNickname()).getStorageData(products, 0);
+    return playersStorages.at(player.getNickname()).getStorageData(products);
 }
 
 void Banker::withdraw(Player &player, const std::string &itemName) {

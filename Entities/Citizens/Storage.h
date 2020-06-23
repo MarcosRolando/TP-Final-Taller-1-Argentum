@@ -67,14 +67,19 @@ public:
     //de oro que tiene almacenada storage
     //Multiplica el precio del item por priceMultiplier
     unsigned int getStorageData(std::list<ProductData>& products,
-                                   float priceMultiplier) const;
+                                const std::unordered_map<std::string, unsigned int>& prices,
+                                float priceMultiplier) const;
+
+    unsigned int getStorageData(std::list<ProductData>& products) const;
 
     //Indica si el item con el nombre indicado se encuentra guardado
     bool isItemAvailable(const std::string& itemName) const;
 
+    /*
     //Retorna el precio base del producto con el nombre recibido, si el nombre
     //es invalido se tira out_of_range
     unsigned int getItemPrice(const std::string& itemName) const;
+    */
 
     void increaseGoldReserves(unsigned int amount);
 

@@ -30,7 +30,7 @@ private:
     //diferencian por ser uno un arma y otro un escudo
     ItemType type;
     const std::string& name;
-    unsigned int price;
+    //unsigned int price;
 
     friend ItemTests;
 
@@ -39,7 +39,7 @@ protected:
 
 public:
     //Constructor que copia el nombre recibido en el item para almacenarlo
-    Item(ItemType _type, const std::string& name, unsigned int price);
+    Item(ItemType _type, const std::string& name/*, unsigned int price*/);
 
     //Constructor que se apropia del nombre del item
     //Item(std::string&& name, unsigned int price);

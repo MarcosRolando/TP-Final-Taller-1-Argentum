@@ -5,8 +5,8 @@
 #include "Item.h"
 #include <utility>
 
-Item::Item(ItemType _type, const std::string &_name, unsigned int _price): name(_name) {
-    price = _price;
+Item::Item(ItemType _type, const std::string &_name/*, unsigned int _price*/): name(_name) {
+    //price = _price;
     type = _type;
 }
 
@@ -18,9 +18,11 @@ const std::string &Item::getName() const {
     return name;
 }
 
+/*
 unsigned int Item::getPrice() const {
     return price;
 }
+*/
 
 bool Item::isGold() const {
     return false;

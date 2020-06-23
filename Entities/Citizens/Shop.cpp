@@ -14,7 +14,16 @@ Shop::Shop() {
 Shop::Shop(const std::unordered_map<std::string, unsigned int> &initialItemsAmounts,
            float buyingMultiplier, float sellingMultiplier):
            storage(initialItemsAmounts, Configuration::getInstance().configInitialMerchantGold()) {
-
+    Configuration& config = Configuration::getInstance();
+    for (const auto & weaponData: config.configAllWeaponsData()) {
+        prices[weaponData.second.name] = weaponData.second.price;
+    }
+    for (const auto & clothingData: config.configAllClothingData()) {
+        prices[clothingData.second.name] = clothingData.second.price;
+    }
+    for (const auto & potionData: config.configAllPotionsData()) {
+        prices[potionData.second.name] = potionData.second.price;
+    }
 }
 
 Shop &Shop::operator=(Shop &&other) noexcept {
@@ -31,13 +40,13 @@ Shop::Shop(Shop &&other) noexcept {
 }
 
 unsigned int Shop::list(const Player &player, std::list<ProductData> &products) {
-    return storage.getStorageData(products, buyingMultiplier);
+    return storage.getStorageData(products, prices, buyingMultiplier);
 }
 
 void Shop::buy(Player &player, const std::string &itemName) {
     unsigned int price;
     if (storage.isItemAvailable(itemName)) {
-        price = static_cast<unsigned int>(static_cast<float>(storage.getItemPrice(itemName))
+        price = static_cast<unsigned int>(static_cast<float>(prices[itemName])
                                                             * buyingMultiplier);
         if (player.spendGold(price)) {
             storage.increaseGoldReserves(price);
@@ -48,7 +57,7 @@ void Shop::buy(Player &player, const std::string &itemName) {
 
 void Shop::sell(Player &player, const std::string& itemName) {
     unsigned int price;
-    price = static_cast<unsigned int>(static_cast<float>(storage.getItemPrice(itemName))
+    price = static_cast<unsigned int>(static_cast<float>(prices[itemName])
                                       * sellingMultiplier);
     if (storage.decreaseGoldReserves(price)) {
         player.receiveGold(price);
