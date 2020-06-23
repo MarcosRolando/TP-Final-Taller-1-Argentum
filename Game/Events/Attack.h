@@ -7,9 +7,11 @@
 
 
 #include "Event.h"
+#include "../../Map/Coordinate.h"
 
 class Attack: public Event {
-
+public:
+    explicit Attack(Coordinate coordinate);
 };
 
 
