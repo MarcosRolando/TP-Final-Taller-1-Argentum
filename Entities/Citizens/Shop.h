@@ -18,6 +18,7 @@ private:
     float buyingMultiplier{};
     float sellingMultiplier{};
     Storage storage;
+    std::unordered_map<std::string, unsigned int> prices;
 
     friend EntityTests;
 

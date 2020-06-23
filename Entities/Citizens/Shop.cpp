@@ -14,6 +14,7 @@ Shop::Shop() {
 Shop::Shop(const std::unordered_map<std::string, unsigned int> &initialItemsAmounts,
            float buyingMultiplier, float sellingMultiplier):
            storage(initialItemsAmounts, Configuration::getInstance().configInitialMerchantGold()) {
+
 }
 
 Shop &Shop::operator=(Shop &&other) noexcept {
