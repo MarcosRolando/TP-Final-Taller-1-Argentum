@@ -13,6 +13,9 @@
 #include "../Items/Defense/Shield.h"
 #include "../Items/Defense/Chest.h"
 #include "../Items/Attack/Weapon.h"
+#include "../Entities/Player.h"
+#include "../Game/Game.h"
+#include "../Entities/Citizens/Storage.h"
 
 ////////////////////////PUBLIC/////////////////////////
 
@@ -239,4 +242,17 @@ bool MapTests::testAddedMultipleItemsListsToMap() {
         i++;
     }
     return true;
+}
+
+bool MapTests::testListItemsOnSaleOnEmptyTile() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    std::list<ProductData> products;
+    Game game;
+    Player player(game, GameType::HUMAN, GameType::WIZARD, 0, 0,
+                  {0, 0}, "Name");
+    map.list(player, products, {5, 5});
+    return false;
 }

@@ -273,3 +273,34 @@ void Map::test(Game& game, std::list<std::shared_ptr<Monster>>& monsters) {
     tiles[2][2].addEntity(std::move(player2));
     tiles[4][5].addEntity(std::move(player3));
 }
+
+unsigned int Map::list(Player &player, std::list<ProductData> &products, Coordinate coordinate) {
+    if (!_isCoordinateValid(coordinate)) {
+        return 0;
+    }
+    return tiles[coordinate.iPosition][coordinate.jPosition].list(player, products);
+}
+
+void Map::withdraw(Player &player, const std::string &itemName, Coordinate coordinate) {
+    if (_isCoordinateValid(coordinate)) {
+        tiles[coordinate.iPosition][coordinate.jPosition].withdraw(player, itemName);
+    }
+}
+
+void Map::deposit(Player &player, const std::string &itemName, Coordinate coordinate) {
+    if (_isCoordinateValid(coordinate)) {
+        tiles[coordinate.iPosition][coordinate.jPosition].deposit(player, itemName);
+    }
+}
+
+void Map::buy(Player &player, const std::string &itemName, Coordinate coordinate) {
+    if (_isCoordinateValid(coordinate)) {
+        tiles[coordinate.iPosition][coordinate.jPosition].deposit(player, itemName);
+    }
+}
+
+void Map::sell(Player &player, const std::string &itemName, Coordinate coordinate) {
+    if (_isCoordinateValid(coordinate)) {
+        tiles[coordinate.iPosition][coordinate.jPosition].sell(player, itemName);
+    }
+}
