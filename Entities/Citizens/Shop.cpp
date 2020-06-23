@@ -36,7 +36,8 @@ unsigned int Shop::list(const Player &player, std::list<ProductData> &products) 
 void Shop::buy(Player &player, const std::string &itemName) {
     unsigned int price;
     if (storage.isItemAvailable(itemName)) {
-        price = storage.getItemPrice(itemName) * buyingMultiplier;
+        price = static_cast<unsigned int>(static_cast<float>(storage.getItemPrice(itemName))
+                                                            * buyingMultiplier);
         if (player.spendGold(price)) {
             storage.increaseGoldReserves(price);
             storage.retreiveItem(itemName, player);
@@ -46,11 +47,10 @@ void Shop::buy(Player &player, const std::string &itemName) {
 
 void Shop::sell(Player &player, const std::string& itemName) {
     unsigned int price;
-    if (storage.isItemAvailable(itemName)) {
-        price = storage.getItemPrice(itemName) * sellingMultiplier;
-        if (storage.decreaseGoldReserves(price)) {
-            player.receiveGold(price);
-            storage.retreiveItem(itemName, player);
-        }
+    price = static_cast<unsigned int>(static_cast<float>(storage.getItemPrice(itemName))
+                                      * sellingMultiplier);
+    if (storage.decreaseGoldReserves(price)) {
+        player.receiveGold(price);
+        storage.storeItem(player.removeItem(itemName));
     }
 }

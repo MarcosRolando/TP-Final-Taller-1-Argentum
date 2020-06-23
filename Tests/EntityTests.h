@@ -22,6 +22,8 @@ public:
     static bool testPlayerAttacksNewbieAndViceversa();
     static bool testPlayerAttacksPlayerWithPastLevelDifferenceAndViceversa();
     static bool testPlayersAttackEachOther();
+    static bool testMonsterAttacksPlayer();
+    static bool testPlayerSellsItem();
 
 private:
     static bool _testUnequipWeapon(Game &game);

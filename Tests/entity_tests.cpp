@@ -53,4 +53,12 @@ TEST_CASE("Players Attack Each Other Test") {
     REQUIRE(EntityTests::testPlayersAttackEachOther());
 }
 
+TEST_CASE("Monster Attacks Player Test") {
+    REQUIRE(EntityTests::testMonsterAttacksPlayer());
+}
+
+TEST_CASE("Trader And Priest Buy Item From Player") {
+    REQUIRE(EntityTests::testPlayerSellsItem());
+}
+
 

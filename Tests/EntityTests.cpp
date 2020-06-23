@@ -12,6 +12,8 @@
 #include "../Items/Defense/Chest.h"
 #include "../AttackResult.h"
 #include "../Entities/Monster.h"
+#include "../Entities/Citizens/Priest.h"
+#include "../Entities/Citizens/Trader.h"
 
 bool EntityTests::testStoreItem() {
     Configuration& config = Configuration::getInstance();
@@ -130,7 +132,6 @@ bool EntityTests::testPlayerAttacksMonster() {
     std::shared_ptr<Monster> monster;
     factory.storeRandomMonster(game, monster);
     monster->stats.agility = 0; /*Para que no esquive el ataque*/
-    monster->stats.constitution = 0; /*Para que no se defienda del ataque*/
     game.map.addEntity({0, 1}, std::static_pointer_cast<Entity>(monster));
     player.attack({0, 1});
     return (monster->stats.getCurrentLife() != monster->stats.getMaxLife());
@@ -144,7 +145,6 @@ bool EntityTests::testPlayerAttacksMonsterAndConsumesMana() {
     std::shared_ptr<Monster> monster;
     factory.storeRandomMonster(game, monster);
     monster->stats.agility = 0; /*Para que no esquive el ataque*/
-    monster->stats.constitution = 0; /*Para que no se defienda del ataque*/
     game.map.addEntity({0, 1}, std::static_pointer_cast<Entity>(monster));
     std::shared_ptr<Item> weapon(new Weapon(GameType::ASH_ROD));
     player.storeItem(std::move(weapon));
@@ -225,6 +225,31 @@ bool EntityTests::testPlayersAttackEachOther() {
     player2->attack({0, 0});
     if (player2->stats.getCurrentLife() == player2->stats.getMaxLife()) return false;
     return (player1->stats.getCurrentLife() != player1->stats.getMaxLife());
+}
+
+bool EntityTests::testMonsterAttacksPlayer() {
+    Game game;
+    std::shared_ptr<Player> player(new Player(game, GameType::DWARF, GameType::CLERIC,
+            1, 0, {0, 0}, "CrispyBurritos"));
+    MonstersFactory factory;
+    std::shared_ptr<Monster> monster;
+    factory.storeRandomMonster(game, monster);
+    player->stats.agility = 0; /*Para que no esquive el ataque*/
+    game.map.addEntity({0, 1}, std::static_pointer_cast<Entity>(player));
+    monster->_tryToAttack();
+    return (player->stats.getCurrentLife() != player->stats.getMaxLife());
+}
+
+bool EntityTests::testPlayerSellsItem() {
+    Game game;
+    Player player(game, GameType::DWARF, GameType::CLERIC,
+            1, 0, {0, 0}, "CrispyBurritos");
+    Trader trader({0, 1});
+    Priest priest({1, 1});
+    std::shared_ptr<Item> weapon(new Weapon(GameType::LONGSWORD));
+    player.storeItem(std::move(weapon));
+    trader.buy(player, "Longsword");
+    return (trader.shop.storage.storedItems.at("Longsword").front() != nullptr);
 }
 
 
