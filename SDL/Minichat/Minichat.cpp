@@ -8,7 +8,8 @@
 #define MINICHAT_Y_OFFSET 15
 
 #define MAX_TEXT_LEN 93
-#define MAX_MSGS 7
+#define MAX_MSGS 15
+#define MAX_MSGS_TO_RENDER 8
 
 Minichat::Minichat(Font& font, SDL_Renderer& renderer) : minichatFont(font),
 input(font,renderer), renderer(renderer) {
@@ -21,6 +22,7 @@ input(font,renderer), renderer(renderer) {
     for (int i = 0; i < MAX_MSGS; ++i) {
         texts.emplace_back(font,renderer);
     }
+    firstToRender = 0;
 }
 
 void Minichat::handleEvent(SDL_Event &e, Window& window) {
@@ -56,6 +58,19 @@ void Minichat::handleEvent(SDL_Event &e, Window& window) {
             //Procesar el comando que escribio el user
             input.updateText("Accion:/ ");
         }
+    } else if (e.type == SDL_MOUSEWHEEL){
+        if(e.wheel.y > 0) // scroll up
+        {
+            firstToRender += 1;
+            if (firstToRender > MAX_MSGS)
+                firstToRender = MAX_MSGS;
+        }
+        else if(e.wheel.y < 0) // scroll down
+        {
+            firstToRender -= 1;
+            if (firstToRender < 0)
+                firstToRender = 0;
+        }
     }
     if (!focusOnMinichat){
         SDL_StopTextInput();
@@ -75,8 +90,12 @@ void Minichat::render(){
     //renderizo mensajes encolados. Prob haya una mejor forma de iterar esto
     int textNum = 0;
     for (auto & text : texts) {
-        text.render(0,140 - 20*textNum, SDL_Color{0xFF,0xFF,0xFF,0xFF});
+        if (textNum >= firstToRender){
+            text.render(0,140 - 20*(textNum - firstToRender), SDL_Color{0xFF,0xFF,0xFF,
+                                                           0xFF});
+        }
         textNum++;
+        if (textNum >= MAX_MSGS_TO_RENDER + firstToRender) break;
     }
 }
 

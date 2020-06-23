@@ -67,6 +67,4 @@ bool MainMenu::_isInsideRect(int x, int y, SDL_Rect rect){
     rect.y + rect.h));
 }
 
-MainMenu::~MainMenu(){
-    mainMenuBackground.free();
-}
+MainMenu::~MainMenu(){}
