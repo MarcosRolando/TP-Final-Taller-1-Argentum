@@ -7,6 +7,7 @@
 
 //Interfaz para encolar eventos para game
 class Event {
+public:
     virtual void operator()() = 0;
 };
 
