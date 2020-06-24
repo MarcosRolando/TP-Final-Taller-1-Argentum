@@ -21,7 +21,6 @@ class MapTests;
 
 class Map {
 private:
-
     std::vector<std::vector<Tile>> tiles;
     friend MapTests;
 

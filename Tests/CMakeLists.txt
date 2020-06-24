@@ -19,7 +19,15 @@ add_executable(tests tests.cpp MapTests.cpp MapTests.h ItemTests.cpp
         ../Items/Miscellaneous/HealthPotion.h ../Items/Miscellaneous/Potion.cpp
         ../Items/Miscellaneous/Potion.h ../Entities/MonsterStats.cpp ../Entities/MonsterStats.h
         ../Config/GameEnums.h ../Game/Argentum.cpp ../Game/Argentum.h ../Game/MonstersFactory.cpp
-        ../Game/MonstersFactory.h ../Game/ShouldMonsterBeRemoved.cpp ../Game/ShouldMonsterBeRemoved.h map_tests.cpp entity_tests.cpp)
+        ../Game/MonstersFactory.h ../Game/ShouldMonsterBeRemoved.cpp ../Game/ShouldMonsterBeRemoved.h
+        ../Game/Events/Event.cpp ../Game/Events/Event.h ../Game/Events/Attack.cpp ../Game/Events/Attack.h
+        ../Game/Events/Move.cpp ../Game/Events/Move.h ../Game/Events/List.cpp ../Game/Events/List.h
+        ../Game/Events/Withdraw.cpp ../Game/Events/Withdraw.h ../Game/Events/Deposit.cpp ../Game/Events/Deposit.h
+        ../Game/Events/Buy.cpp ../Game/Events/Buy.h ../Game/Events/Sell.cpp ../Game/Events/Sell.h
+        ../Game/Events/Drop.cpp ../Game/Events/Drop.h ../Entities/Citizens/ProductData.h
+        ../Entities/PlayerProxy.cpp ../Entities/PlayerProxy.cpp ../Entities/PlayerProxy.h
+        ../Game/Events/UseItem.cpp ../Game/Events/UseItem.h ../Game/Events/Unequip.cpp ../Game/Events/Unequip.h
+        map_tests.cpp entity_tests.cpp)
 
 target_compile_options (tests PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
         -O3 -ggdb -DDEBUG -fno-inline -ljsoncpp)
