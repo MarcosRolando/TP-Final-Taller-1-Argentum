@@ -7,8 +7,20 @@
 
 
 #include "Event.h"
+#include <string>
+#include "../../Map/Coordinate.h"
 
-class Deposit: public Event {
+class Player;
+
+class Deposit : public Event {
+private:
+    Player& player;
+    std::string itemName;
+    Coordinate npcPosition{};
+
+public:
+    Deposit(Player& player, std::string& _itemName, Coordinate _npcPosition);
+    void operator()();
 
 };
 
