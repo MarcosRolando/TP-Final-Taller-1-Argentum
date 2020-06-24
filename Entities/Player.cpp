@@ -164,3 +164,10 @@ void Player::unequip() {
         inventory.unequip();
     }
 }
+
+void Player::dropItem(unsigned int itemPosition) {
+    std::shared_ptr<Item> aux = inventory.removeItem(itemPosition);
+    if (aux) {
+        game.dropItems(std::move(aux), currentPosition);
+    }
+}
