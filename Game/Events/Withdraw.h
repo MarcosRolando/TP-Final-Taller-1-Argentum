@@ -19,7 +19,7 @@ private:
     Coordinate npcPosition{};
 
 public:
-    Withdraw(Player& player, std::string& _itemName, Coordinate _npcPosition);
+    Withdraw(Player& player, const std::string& _itemName, Coordinate _npcPosition);
     void operator()() override;
 };
 
