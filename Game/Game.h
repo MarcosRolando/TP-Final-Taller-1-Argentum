@@ -5,16 +5,18 @@
 #ifndef ARGENTUM_GAME_H
 #define ARGENTUM_GAME_H
 
-
+#include <memory>
+#include <queue>
 #include "../Map/Map.h"
 #include "MonstersFactory.h"
-#include <queue>
 
 /*
 enum CommandType: char {
     COMMAND_TYPE_MOVE = 'M'
 };
 */
+
+class Event;
 
 class GameTests;
 class EntityTests;
@@ -28,7 +30,7 @@ struct MoveCommand {
 class Game {
 private:
     Map map;
-    std::queue<MoveCommand> eventQueue;
+    std::queue<std::unique_ptr<Event>> eventQueue;
 
     unsigned int monsterCreationRate;
     unsigned int maxNumberOfMonsters;
@@ -94,6 +96,8 @@ public:
     void sell(Player& player, const std::string& itemName, Coordinate coordinate);
 
     void moveEntity(Coordinate initialPosition, Coordinate finalPosition);
+
+    void pushEvent(std::unique_ptr<Event>&& event);
 };
 
 
