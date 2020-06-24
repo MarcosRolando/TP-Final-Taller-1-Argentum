@@ -77,6 +77,10 @@ public:
     //Desequipa la ropa de equipment place
     void unequip(EquipmentPlace clothing);
 
+    //Compra el item de nombre itemName del npc en la posicion npcPosition, si no hay
+    //uno no hace nada
+    void buy(const std::string& itemName, Coordinate npcPosition);
+
     //Desequipa el arma
     void unequip();
 
