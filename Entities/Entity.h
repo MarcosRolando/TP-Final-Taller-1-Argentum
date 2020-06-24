@@ -71,7 +71,7 @@ protected:
 
     //Encola la accion de movimiento si el entity esta quieto,
     // la cual puede ser rechazada o aceptada
-    void move(Game& game, Direction moveDirection) const;
+    void requestMove(Game& game, Direction moveDirection) const;
 
     //Le asigna al jugador la posicion recibida
     void setPosition(Coordinate coordinate);
@@ -80,7 +80,7 @@ protected:
     Coordinate getPosition() const;
 
     //Le confirma a entity el request de movimiento para comenzar la interpolacion
-    void startMovementInterpolation(Coordinate newPosition);
+    void move(Coordinate newPosition);
 
     //Actualiza el estado de la entity, por ejemplo si se esta moviendo le
     //actualiza la interpolacion

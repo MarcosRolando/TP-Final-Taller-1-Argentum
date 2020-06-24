@@ -28,7 +28,7 @@ Tile::Tile(bool isFromCity, FloorType floor): entity(nullptr) {
 void Tile::moveEntity(Tile&& otherTile, Coordinate position) {
     this->entity = std::move(otherTile.entity);
     otherTile.entity = nullptr;
-    entity->startMovementInterpolation(position);
+    entity->move(position);
     isOccupable = false;
     otherTile.isOccupable = true;
 }

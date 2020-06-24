@@ -147,8 +147,8 @@ void Player::update(double timeStep) {
     stats.update(timeStep); /*actualiza la vida y manda en base al tiempo/meditacion*/
 }
 
-void Player::move(Direction direction) {
-    Entity::move(game, direction);
+void Player::requestMove(Direction direction) {
+    Entity::requestMove(game, direction);
 }
 
 void Player::unequip(EquipmentPlace clothing) {

@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "../AttackResult.h"
 #include "../Game/Game.h"
+#include "../Game/Events/Move.h"
 
 const unsigned int DISTANCE_TO_MOVE = 500;
 
@@ -52,30 +53,38 @@ void Entity::sell(Player &player, const std::string& itemName) {
     //DO NOTHING
 }
 
-void Entity::move(Game& game, Direction moveDirection) const {
+void Entity::requestMove(Game& game, Direction moveDirection) const {
     if (!isMoving()) {
         switch (moveDirection) {
             case DIRECTION_UP:
+                //todo encolar functor move
                 game.requestMove(currentPosition,
-                        {currentPosition.iPosition - 1, currentPosition.jPosition});
+                        {currentPosition.iPosition - 1,
+                         currentPosition.jPosition});
                 break;
             case DIRECTION_DOWN:
+                //todo encolar functor move
                 game.requestMove(currentPosition,
-                                 {currentPosition.iPosition + 1, currentPosition.jPosition});
+                                 {currentPosition.iPosition + 1,
+                                  currentPosition.jPosition});
                 break;
             case DIRECTION_RIGHT:
+                //todo encolar functor move
                 game.requestMove(currentPosition,
-                                 {currentPosition.iPosition, currentPosition.jPosition + 1});
+                                 {currentPosition.iPosition,
+                                  currentPosition.jPosition + 1});
                 break;
             case DIRECTION_LEFT:
+                //todo encolar functor move
                 game.requestMove(currentPosition,
-                                 {currentPosition.iPosition, currentPosition.jPosition - 1});
+                                 {currentPosition.iPosition,
+                                  currentPosition.jPosition - 1});
                 break;
         }
     }
 }
 
-void Entity::startMovementInterpolation(Coordinate newPosition) {
+void Entity::move(Coordinate newPosition) {
     currentPosition = newPosition;
     movement.isMoving = true;
     movement.movedDistance = 0;

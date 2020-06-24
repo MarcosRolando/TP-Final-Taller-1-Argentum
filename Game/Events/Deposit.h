@@ -20,7 +20,7 @@ private:
 
 public:
     Deposit(Player& player, std::string& _itemName, Coordinate _npcPosition);
-    void operator()();
+    void operator()() override;
 
 };
 

@@ -92,6 +92,8 @@ public:
 
     //Delega el comportamiento a la entity que guarda, si es que guarda una
     void sell(Player& player, const std::string& itemName, Coordinate coordinate);
+
+    void moveEntity(Coordinate initialPosition, Coordinate finalPosition);
 };
 
 
