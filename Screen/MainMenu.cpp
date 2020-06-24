@@ -25,6 +25,9 @@ void MainMenu::loop(bool& quit){
                 quit = true;
                 inMainMenu = false;
             }
+
+            window.handleEvent(e);
+
             if (e.type == SDL_MOUSEMOTION){
                 int x = 0, y = 0;
                 SDL_GetMouseState( &x, &y );
@@ -43,6 +46,8 @@ void MainMenu::loop(bool& quit){
             } else if (e.type == SDL_MOUSEBUTTONDOWN){
                 int x = 0, y = 0;
                 SDL_GetMouseState( &x, &y );
+                x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
+                y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
                 if (_isInsideRect(x,y,startGameButton.buttonEdges)){
                     inMainMenu = false;
                 } else if (_isInsideRect(x,y,exitButton.buttonEdges)){
