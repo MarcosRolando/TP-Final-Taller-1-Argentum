@@ -8,6 +8,7 @@
 #include "../Game/Game.h"
 #include "../AttackResult.h"
 #include "../Config/Configuration.h"
+#include "../Game/Events/Attack.h"
 
 #define MAX_NUMBER_OF_CACHED_NODES 4
 
@@ -68,8 +69,8 @@ bool Monster::_tryToAttack() {
     map.getTargets(currentPosition, stats.getRangeOfVision(), targets);
     for (auto & target : targets) {
         if (_getDistance(currentPosition, target) == 1) {
-
-
+            std::unique_ptr<Attack> attackFunction(new Attack(*this, target));
+            game.pushEvent(std::move(attackFunction));
             pathCache.clear();
             return true;
         }

@@ -7,6 +7,7 @@
 #include "../AttackResult.h"
 #include "../Entities/Monster.h"
 #include "ShouldMonsterBeRemoved.h"
+#include "Events/Event.h"
 
 /////////////////////////////////PRIVATE//////////////////////////
 
@@ -35,14 +36,12 @@ void Game::_repopulateMap(double timePassed) {
 
 
 void Game::_executeQueueOperations() {
-    MoveCommand aux{};
     while (!eventQueue.empty()) {
-        aux = eventQueue.front();
+        (*eventQueue.front())();
         eventQueue.pop();
-        map.moveEntity(aux.initialPosition, aux.finalPosition);
+
         //TOMAR EN CUENTA QUE VAMOS A TENER QUE ENCOLAR
-        //CADA MOVIMIENTO REALIZADO PARA MANDARSELO A LOS CLIENTES
-        //PARA ESTO ESTA EL BOOL DEL STRUCT
+        //CADA ACCION REALIZADA PARA MANDARSELA A LOS CLIENTES
     }
 }
 
