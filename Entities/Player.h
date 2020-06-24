@@ -80,6 +80,9 @@ public:
     //Desequipa el arma
     void unequip();
 
+    void dropItem(unsigned int itemPosition);
+
+
 private:
     void _dropItems();
 };

@@ -8,8 +8,17 @@
 
 #include "Event.h"
 
-class Drop: public Event {
+#include <string>
 
+class Player;
+
+class Drop: public Event {
+private:
+    Player& player;
+    unsigned int position;
+public:
+    Drop(Player& player, unsigned int position);
+    void operator()() override;
 };
 
 
