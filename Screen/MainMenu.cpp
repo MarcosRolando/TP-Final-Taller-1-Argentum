@@ -25,7 +25,7 @@ void MainMenu::loop(bool& quit){
                 quit = true;
                 inMainMenu = false;
             }
-
+            //Por si hago resize
             window.handleEvent(e);
 
             if (e.type == SDL_MOUSEMOTION){
