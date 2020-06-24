@@ -7,10 +7,20 @@
 
 
 #include "Event.h"
+#include <string>
+#include "../../Map/Coordinate.h"
 
-class Withdraw: public Event {
+class Player;
 
+class Withdraw : public Event {
+private:
+    Player& player;
+    std::string itemName;
+    Coordinate npcPosition{};
+
+public:
+    Withdraw(Player& player, std::string& _itemName, Coordinate _npcPosition);
+    void operator()() override;
 };
-
 
 #endif //ARGENTUM_WITHDRAW_H
