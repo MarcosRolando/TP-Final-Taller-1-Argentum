@@ -179,3 +179,15 @@ void Player::buyFrom(const std::string &itemName, Coordinate npcPosition) {
 void Player::sellTo(const std::string &itemName, Coordinate npcPosition) {
     game.sell(*this, itemName, npcPosition);
 }
+
+void Player::withdrawFrom(const std::string &itemName, Coordinate npcPosition) {
+    game.withdraw(*this, itemName, npcPosition);
+}
+
+void Player::listFrom(Coordinate npcPosition) {
+    std::list<ProductData> products;
+    game.list(*this, products, npcPosition);
+
+    //FALTA HACER QUE SE MANDE AL CLIENTE
+
+}

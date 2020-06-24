@@ -11,5 +11,5 @@ List::List(Player &_player, Coordinate _npcPosition) : player(_player) {
 
 //todo implementar metodo list en player
 void List::operator()() {
-    player.list(npcPosition);
+    player.listFrom(npcPosition);
 }

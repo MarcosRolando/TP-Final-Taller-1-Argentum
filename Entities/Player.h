@@ -85,6 +85,10 @@ public:
     //uno no hace nada
     void sellTo(const std::string& itemName, Coordinate npcPosition);
 
+    void withdrawFrom(const std::string& itemName, Coordinate npcPosition);
+
+    void listFrom(Coordinate npcPosition);
+
     //Desequipa el arma
     void unequip();
 
