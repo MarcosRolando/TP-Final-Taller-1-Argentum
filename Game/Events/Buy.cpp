@@ -10,7 +10,6 @@ Buy::Buy(Player &_player, const std::string &_itemName, Coordinate _npcPosition)
     npcPosition = _npcPosition;
 }
 
-//todo implementar metodo buy en player
 void Buy::operator()() {
     player.buyFrom(itemName, npcPosition);
 }

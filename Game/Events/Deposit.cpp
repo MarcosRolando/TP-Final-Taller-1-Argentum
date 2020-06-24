@@ -10,7 +10,6 @@ Deposit::Deposit(Player &_player, const std::string &_itemName, Coordinate _npcP
     npcPosition = _npcPosition;
 }
 
-//todo implementar metodo deposit en player
 void Deposit::operator()() {
     player.depositTo(itemName, npcPosition);
 }
