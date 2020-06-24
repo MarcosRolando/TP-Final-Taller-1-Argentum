@@ -10,6 +10,7 @@
 #include <list>
 #include <utility>
 #include <memory>
+#include "ProductData.h"
 
 class Item;
 class Player;
@@ -24,16 +25,7 @@ class EntityTests;
 
 //Cualquier tipo de item que sea guardado 0 veces no tiene un lugar en el unordered_map
 
-struct ProductData {
-    const std::string& name;
-    unsigned int stock; //Cantidad de instancias del item de nombre name guardadas
-    unsigned int price; //Precio de venta del item
 
-    ProductData(const std::string& _name, unsigned int _stock, unsigned int _price): name(_name) {
-        stock = _stock;
-        price = _price;
-    }
-};
 
 //Esta clase se encarga de manejar el stock de items, los guarda y maneja
 //su agregado y retiro

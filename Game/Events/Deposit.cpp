@@ -12,5 +12,5 @@ Deposit::Deposit(Player &_player, std::string &_itemName, Coordinate _npcPositio
 
 //todo implementar metodo deposit en player
 void Deposit::operator()() {
-    player.deposit(itemName, npcPosition);
+    player.depositTo(itemName, npcPosition);
 }

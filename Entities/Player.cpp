@@ -8,6 +8,7 @@
 #include "../Game/Game.h"
 #include "../Items/Miscellaneous/Gold.h"
 #include "../Config/Configuration.h"
+#include "Citizens/ProductData.h"
 
 using namespace GameType;
 
@@ -190,4 +191,8 @@ void Player::listFrom(Coordinate npcPosition) {
 
     //FALTA HACER QUE SE MANDE AL CLIENTE
 
+}
+
+void Player::depositTo(const std::string &itemName, Coordinate npcPosition) {
+    game.deposit(*this, itemName, npcPosition);
 }

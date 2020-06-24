@@ -89,6 +89,8 @@ public:
 
     void listFrom(Coordinate npcPosition);
 
+    void depositTo(const std::string& itemName, Coordinate npcPosition);
+
     //Desequipa el arma
     void unequip();
 
