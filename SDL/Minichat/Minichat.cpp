@@ -8,7 +8,7 @@
 #define MINICHAT_Y_OFFSET 15
 
 #define MAX_TEXT_LEN 93
-#define MAX_MSGS 15
+#define MAX_MSGS 24 //El maximo de mensajes qu ese van a ver al scrollear
 #define MAX_MSGS_TO_RENDER 8
 
 Minichat::Minichat(Font& font, SDL_Renderer& renderer) : minichatFont(font),
@@ -62,8 +62,8 @@ void Minichat::handleEvent(SDL_Event &e, Window& window) {
         if(e.wheel.y > 0) // scroll up
         {
             firstToRender += 1;
-            if (firstToRender > MAX_MSGS)
-                firstToRender = MAX_MSGS;
+            if (firstToRender > MAX_MSGS - MAX_MSGS_TO_RENDER)
+                firstToRender -= 1;
         }
         else if(e.wheel.y < 0) // scroll down
         {

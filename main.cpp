@@ -91,6 +91,19 @@ int main(int argc, char* args[]) {
         //Main loop flag
         bool quit = false;
 
+        SDL_Surface *surface = NULL;
+        SDL_Cursor *cursor = NULL;
+        surface = SDL_LoadBMP("../Images/UI/Baston.bmp");
+        if (!surface) {
+            return 0;
+        }
+        cursor = SDL_CreateColorCursor(surface, 0, 0);
+        if (!cursor) {
+            return 0;
+        }
+        SDL_SetCursor(cursor);
+
+
         mainMenu.loop(quit);
 
         //Prueba de llenado de inventario
