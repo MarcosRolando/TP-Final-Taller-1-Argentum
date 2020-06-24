@@ -53,34 +53,29 @@ void Entity::sell(Player &player, const std::string& itemName) {
     //DO NOTHING
 }
 
-void Entity::requestMove(Game& game, Direction moveDirection) const {
+void Entity::requestMove(Game& game, Direction moveDirection) {
     if (!isMoving()) {
+        std::unique_ptr<Move> event;
         switch (moveDirection) {
             case DIRECTION_UP:
-                std::unique_ptr<Move> event(new Move(game, *this, {currentPosition.iPosition - 1,
+                event.reset(new Move(game, *this, {currentPosition.iPosition - 1,
                                                                     currentPosition.jPosition} ));
-                game.pushEvent(game, *this, );
-                game.requestMove(currentPosition,
-                        {currentPosition.iPosition - 1,
-                         currentPosition.jPosition});
+                game.pushEvent(std::move(event));
                 break;
             case DIRECTION_DOWN:
-                //todo encolar functor move
-                game.requestMove(currentPosition,
-                                 {currentPosition.iPosition + 1,
-                                  currentPosition.jPosition});
+                event.reset(new Move(game, *this, {currentPosition.iPosition + 1,
+                                                                   currentPosition.jPosition} ));
+                game.pushEvent(std::move(event));
                 break;
             case DIRECTION_RIGHT:
-                //todo encolar functor move
-                game.requestMove(currentPosition,
-                                 {currentPosition.iPosition,
-                                  currentPosition.jPosition + 1});
+                event.reset(new Move(game, *this, {currentPosition.iPosition,
+                                                                   currentPosition.jPosition + 1} ));
+                game.pushEvent(std::move(event));
                 break;
             case DIRECTION_LEFT:
-                //todo encolar functor move
-                game.requestMove(currentPosition,
-                                 {currentPosition.iPosition,
-                                  currentPosition.jPosition - 1});
+                event.reset(new Move(game, *this, {currentPosition.iPosition,
+                                                   currentPosition.jPosition - 1} ));
+                game.pushEvent(std::move(event));
                 break;
         }
     }

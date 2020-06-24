@@ -10,16 +10,16 @@
 #include "../../Map/Coordinate.h"
 
 class Game;
-class Player;
+class Entity;
 
 class Move: public Event {
 private:
     Game& game;
-    Player& player;
+    Entity& entity;
     Coordinate destination{};
 
 public:
-    Move(Game& _game, Player& _player, Coordinate _destination);
+    Move(Game& _game, Entity& _entity, Coordinate _destination);
     void operator()() override;
 };
 

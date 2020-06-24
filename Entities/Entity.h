@@ -71,7 +71,7 @@ protected:
 
     //Encola la accion de movimiento si el entity esta quieto,
     // la cual puede ser rechazada o aceptada
-    void requestMove(Game& game, Direction moveDirection) const;
+    void requestMove(Game& game, Direction moveDirection);
 
     //Le asigna al jugador la posicion recibida
     void setPosition(Coordinate coordinate);

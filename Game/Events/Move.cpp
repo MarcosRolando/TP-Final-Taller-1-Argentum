@@ -3,14 +3,14 @@
 //
 
 #include "Move.h"
-#include "../../Entities/Player.h"
+#include "../../Entities/Entity.h"
 #include "../../Game/Game.h"
 
-Move::Move(Game &_game, Player &_player, Coordinate _destination) :
-                                                game(_game), player(_player) {
+Move::Move(Game &_game, Entity &_entity, Coordinate _destination) :
+                                                game(_game), entity(_entity) {
     destination = _destination;
 }
 
 void Move::operator()() {
-    game.moveEntity(player.getPosition(), destination);
+    game.moveEntity(entity.getPosition(), destination);
 }
