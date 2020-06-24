@@ -6,6 +6,8 @@
 #define ARGENTUM_SELL_H
 
 
+#include "Event.h"
+
 class Sell: public Event {
 
 };
