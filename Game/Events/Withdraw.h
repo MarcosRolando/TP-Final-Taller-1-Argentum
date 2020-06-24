@@ -6,6 +6,8 @@
 #define ARGENTUM_WITHDRAW_H
 
 
+#include "Event.h"
+
 class Withdraw: public Event {
 
 };
