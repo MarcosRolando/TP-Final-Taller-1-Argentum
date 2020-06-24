@@ -10,10 +10,11 @@
 
 class Player;
 
-class UseItem: Event {
+class UseItem : public Event {
 private:
     Player& player;
     int position;
+
 public:
     UseItem(Player& player, int position);
     void operator()() override;
