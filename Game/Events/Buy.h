@@ -7,9 +7,18 @@
 
 
 #include "Event.h"
+#include <string>
 
-class Buy: public Event {
+class Player;
 
+class Buy : public Event {
+private:
+    Player& player;
+    std::string itemName;
+
+public:
+    Buy(Player& player, std::string& _itemName);
+    void operator()();
 };
 
 

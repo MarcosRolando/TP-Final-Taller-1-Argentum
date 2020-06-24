@@ -3,7 +3,12 @@
 //
 
 #include "Attack.h"
+#include "../../Entities/Entity.h"
 
-Attack::Attack(Entity& entity, Coordinate target) {
+Attack::Attack(Entity& _entity, Coordinate _target) : entity(_entity) {
+    target = _target;
+}
 
+void Attack::operator()() {
+    entity.attack(target);
 }
