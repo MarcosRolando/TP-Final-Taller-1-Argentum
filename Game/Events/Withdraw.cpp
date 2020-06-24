@@ -10,7 +10,6 @@ Withdraw::Withdraw(Player &_player, std::string &_itemName, Coordinate _npcPosit
     npcPosition = _npcPosition;
 }
 
-//todo implementar metodo withdraw en player
 void Withdraw::operator()() {
     player.withdrawFrom(itemName, npcPosition);
 }
