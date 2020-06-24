@@ -81,6 +81,10 @@ public:
     //uno no hace nada
     void buyFrom(const std::string& itemName, Coordinate npcPosition);
 
+    //Vende el item de nombre itemName al npc en la posicion npcPosition, si no hay
+    //uno no hace nada
+    void sellTo(const std::string& itemName, Coordinate npcPosition);
+
     //Desequipa el arma
     void unequip();
 

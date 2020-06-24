@@ -7,9 +7,19 @@
 
 
 #include "Event.h"
+#include "../../Map/Coordinate.h"
+
+
+class Player;
 
 class Sell: public Event {
-
+private:
+    Player& player;
+    Coordinate position;
+    std::string& itemName;
+public:
+    Sell(Player& player, std::string& itemName, Coordinate position);
+    void operator()() override;
 };
 
 
