@@ -5,7 +5,7 @@
 #include "Buy.h"
 #include "../../Entities/Player.h"
 
-Buy::Buy(Player &_player, std::string &_itemName, Coordinate _npcPosition) : player(_player) {
+Buy::Buy(Player &_player, const std::string &_itemName, Coordinate _npcPosition) : player(_player) {
     itemName = _itemName;
     npcPosition = _npcPosition;
 }
