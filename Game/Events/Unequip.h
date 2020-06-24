@@ -9,7 +9,7 @@
 #include "Event.h"
 #include "../../Items/Defense/Clothing.h"
 
-class Unequip: Event {
+class Unequip : public Event {
 private:
     Player& player;
     EquipmentPlace equipment;

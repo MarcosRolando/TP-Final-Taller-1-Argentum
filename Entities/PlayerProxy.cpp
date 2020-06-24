@@ -13,6 +13,7 @@
 #include "../Entities/Player.h"
 #include "../Game/Events/Deposit.h"
 #include "../Game/Events/Drop.h"
+#include "../Game/Events/Unequip.h"
 #include "../Game/Events/UseItem.h"
 
 void PlayerProxy::attack(Coordinate target) {
@@ -59,12 +60,12 @@ void PlayerProxy::depositTo(std::string &&itemName, Coordinate npcPosition) {
 }
 
 void PlayerProxy::unequip() {
-    std::unique_ptr<Deposit> event(new Deposit(player, itemName, npcPosition));
+    std::unique_ptr<Unequip> event(new Unequip(player));
     game.pushEvent(std::move(event));
 }
 
 void PlayerProxy::unequip(EquipmentPlace clothing) {
-    std::unique_ptr<Deposit> event(new Deposit(player, itemName, npcPosition));
+    std::unique_ptr<Unequip> event(new Unequip(player, clothing));
     game.pushEvent(std::move(event));
 }
 
