@@ -230,13 +230,13 @@ bool EntityTests::testPlayersAttackEachOther() {
 bool EntityTests::testMonsterAttacksPlayer() {
     Game game;
     std::shared_ptr<Player> player(new Player(game, GameType::DWARF, GameType::CLERIC,
-            1, 0, {0, 0}, "CrispyBurritos"));
+            1, 0, {0, 1}, "CrispyBurritos"));
     MonstersFactory factory;
     std::shared_ptr<Monster> monster;
     factory.storeRandomMonster(game, monster);
     player->stats.agility = 0; /*Para que no esquive el ataque*/
     game.map.addEntity({0, 1}, std::static_pointer_cast<Entity>(player));
-    monster->_tryToAttack();
+    monster->attack({0, 1});
     return (player->stats.getCurrentLife() != player->stats.getMaxLife());
 }
 
