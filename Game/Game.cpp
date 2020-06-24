@@ -132,6 +132,6 @@ void Game::sell(Player &player, const std::string &itemName, Coordinate coordina
     map.sell(player, itemName, coordinate);
 }
 
-void Game::pushEvent(std::unique_ptr<Event> &&event) {
+void Game::pushEvent(std::unique_ptr<Event>&& event) {
     eventQueue.push(std::move(event));
 }
