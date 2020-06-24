@@ -68,7 +68,8 @@ bool Monster::_tryToAttack() {
     map.getTargets(currentPosition, stats.getRangeOfVision(), targets);
     for (auto & target : targets) {
         if (_getDistance(currentPosition, target) == 1) {
-            game.attackPosition(stats.getDamage(), stats.getLevel(), false, target);
+
+
             pathCache.clear();
             return true;
         }
@@ -150,5 +151,9 @@ void Monster::update(double timeStep) {
 
 bool Monster::isDead() const {
     return (stats.getCurrentLife() == 0);
+}
+
+void Monster::attack(Coordinate attackedPosition) {
+    game.attackPosition(stats.getDamage(), stats.getLevel(), false, attackedPosition);
 }
 
