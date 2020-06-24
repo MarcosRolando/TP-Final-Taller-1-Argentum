@@ -12,6 +12,8 @@
 #include "../Game/Events/List.h"
 #include "../Entities/Player.h"
 #include "../Game/Events/Deposit.h"
+#include "../Game/Events/Drop.h"
+#include "../Game/Events/UseItem.h"
 
 void PlayerProxy::attack(Coordinate target) {
     std::unique_ptr<Attack> event(new Attack(player, target));
@@ -19,7 +21,8 @@ void PlayerProxy::attack(Coordinate target) {
 }
 
 void PlayerProxy::useItem(int itemPosition) {
-
+    std::unique_ptr<UseItem> event(new UseItem(player, itemPosition));
+    game.pushEvent(std::move(event));
 }
 
 void PlayerProxy::meditate() {
@@ -57,5 +60,15 @@ void PlayerProxy::depositTo(std::string &&itemName, Coordinate npcPosition) {
 
 void PlayerProxy::unequip() {
     std::unique_ptr<Deposit> event(new Deposit(player, itemName, npcPosition));
+    game.pushEvent(std::move(event));
+}
+
+void PlayerProxy::unequip(EquipmentPlace clothing) {
+    std::unique_ptr<Deposit> event(new Deposit(player, itemName, npcPosition));
+    game.pushEvent(std::move(event));
+}
+
+void PlayerProxy::dropItem(unsigned int itemPosition) {
+    std::unique_ptr<Drop> event(new Drop(player, itemPosition));
     game.pushEvent(std::move(event));
 }
