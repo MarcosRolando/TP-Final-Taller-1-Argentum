@@ -172,6 +172,6 @@ void Player::dropItem(unsigned int itemPosition) {
     }
 }
 
-void Player::buy(const std::string &itemName, Coordinate npcPosition) {
+void Player::buyFrom(const std::string &itemName, Coordinate npcPosition) {
     game.buy(*this, itemName, npcPosition);
 }

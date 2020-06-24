@@ -79,7 +79,7 @@ public:
 
     //Compra el item de nombre itemName del npc en la posicion npcPosition, si no hay
     //uno no hace nada
-    void buy(const std::string& itemName, Coordinate npcPosition);
+    void buyFrom(const std::string& itemName, Coordinate npcPosition);
 
     //Desequipa el arma
     void unequip();

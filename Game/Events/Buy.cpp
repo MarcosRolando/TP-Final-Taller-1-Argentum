@@ -12,5 +12,5 @@ Buy::Buy(Player &_player, std::string &_itemName, Coordinate _npcPosition) : pla
 
 //todo implementar metodo buy en player
 void Buy::operator()() {
-    player.buy(itemName, npcPosition);
+    player.buyFrom(itemName, npcPosition);
 }
