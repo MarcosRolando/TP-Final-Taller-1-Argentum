@@ -69,12 +69,6 @@ public:
     //a la coordenada recibida
     void dropItems(std::shared_ptr<Item>&& item, Coordinate position);
 
-    //Le indica a game que se quiere mover un entity de initial a final position,
-    //initialPosition debe contener un entity, sino el comportamiento es indefinido,
-    //si finalPosition no es ocupable entonces no hace nada eventualmente
-    //Esta funcion encola la accion de mover un entity de initial a finalPosition
-    void requestMove(Coordinate initialPosition, Coordinate finalPosition);
-
     //Retorna una referencia constante del mapa, util para los monstruos
     const Map& getMap() const;
 

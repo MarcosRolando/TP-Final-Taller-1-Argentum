@@ -57,7 +57,9 @@ void Entity::requestMove(Game& game, Direction moveDirection) const {
     if (!isMoving()) {
         switch (moveDirection) {
             case DIRECTION_UP:
-                //todo encolar functor move
+                std::unique_ptr<Move> event(new Move(game, *this, {currentPosition.iPosition - 1,
+                                                                    currentPosition.jPosition} ));
+                game.pushEvent(game, *this, );
                 game.requestMove(currentPosition,
                         {currentPosition.iPosition - 1,
                          currentPosition.jPosition});
