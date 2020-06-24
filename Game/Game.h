@@ -9,6 +9,7 @@
 #include <queue>
 #include "../Map/Map.h"
 #include "MonstersFactory.h"
+#include "Events/Event.h"
 
 /*
 enum CommandType: char {
@@ -16,7 +17,6 @@ enum CommandType: char {
 };
 */
 
-class Event;
 
 class GameTests;
 class EntityTests;
