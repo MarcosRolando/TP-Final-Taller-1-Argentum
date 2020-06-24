@@ -51,20 +51,24 @@ void MainMenu::loop(bool& quit){
                 }
             }
         }
-        window.clear();
-        window.setViewport(ScreenViewport);
-        mainMenuBackground.render(0,0);
-        text.updateText("Start Game");
-        text.render(50, 100, startGameButton.color);
-        text.updateText("Exit");
-        text.render(50, 875, exitButton.color);
-        window.show();
+        _render();
     }
 }
 
 bool MainMenu::_isInsideRect(int x, int y, SDL_Rect rect){
     return ((x > rect.x) && (x < rect.x + rect.w) && (y > rect.y) && (y <
     rect.y + rect.h));
+}
+
+void MainMenu::_render(){
+    window.clear();
+    window.setViewport(ScreenViewport);
+    mainMenuBackground.render(0,0);
+    text.updateText("Start Game");
+    text.render(50, 100, startGameButton.color);
+    text.updateText("Exit");
+    text.render(50, 875, exitButton.color);
+    window.show();
 }
 
 MainMenu::~MainMenu(){}

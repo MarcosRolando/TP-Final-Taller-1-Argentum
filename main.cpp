@@ -91,9 +91,10 @@ int main(int argc, char* args[]) {
         //Main loop flag
         bool quit = false;
 
+        //Setea un cursor custom
         SDL_Surface *surface = NULL;
         SDL_Cursor *cursor = NULL;
-        surface = SDL_LoadBMP("../Images/UI/Baston.bmp");
+        surface = SDL_LoadBMP("../Images/UI/Cursor.bmp");
         if (!surface) {
             return 0;
         }
@@ -103,7 +104,7 @@ int main(int argc, char* args[]) {
         }
         SDL_SetCursor(cursor);
 
-
+        //Menu principal
         mainMenu.loop(quit);
 
         //Prueba de llenado de inventario

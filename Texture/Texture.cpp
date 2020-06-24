@@ -75,7 +75,7 @@ void Texture::free() {
 }
 
 void Texture::render(int x, int y, int spritePosition, double angle, int scale) {
-    //Set rendering space and render to screen
+    //Set rendering space and _render to screen
     SDL_Rect renderQuad = {x + xOffset, y + yOffset, mWidth, mHeight};
     SDL_Rect& clip = gSpriteClips.at(spritePosition);
 
@@ -124,7 +124,7 @@ void Texture::loadFromRenderedText(const std::string& textureText, SDL_Color
     SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str
             (), textColor);
     if( textSurface == nullptr ) {
-        throw TPException("Unable to render text surface! SDL_ttf Error:"
+        throw TPException("Unable to _render text surface! SDL_ttf Error:"
                            " %s\n", TTF_GetError());
     } else {
         //Create texture from surface pixels
@@ -143,7 +143,7 @@ void Texture::loadFromRenderedText(const std::string& textureText, SDL_Color
 }
 
 void Texture::renderText(int x, int y) {
-//Set rendering space and render to screen
+//Set rendering space and _render to screen
     SDL_Rect renderQuad = { x, y, mWidth, mHeight };
     //Render to screen
     SDL_RenderCopy(&renderer, mTexture, nullptr, &renderQuad);

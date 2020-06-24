@@ -16,7 +16,6 @@ private:
     std::list<Text> texts;
     SDL_Renderer& renderer;
     bool focusOnMinichat;
-
     int firstToRender;
 public:
     Minichat(Font& font, SDL_Renderer& renderer);

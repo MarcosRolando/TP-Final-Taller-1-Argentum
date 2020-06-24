@@ -27,6 +27,8 @@ public:
 
 private:
     bool _isInsideRect(int x, int y, SDL_Rect rect);
+
+    void _render();
 };
 
 
