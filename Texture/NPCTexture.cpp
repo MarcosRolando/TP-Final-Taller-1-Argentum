@@ -4,7 +4,7 @@
 
 #include "NPCTexture.h"
 
-NPCTexture::NPCTexture(TextureRepository& repo, ObjectID texture) : textureRepo(repo) {
+NPCTexture::NPCTexture(TextureRepository& repo, TextureID texture) : textureRepo(repo) {
     body = &textureRepo.getTexture(texture);
 }
 

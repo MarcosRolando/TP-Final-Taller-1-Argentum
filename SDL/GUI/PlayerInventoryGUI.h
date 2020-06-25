@@ -30,9 +30,9 @@ public:
     PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer, Font&
     font);
 
-    void addInventoryItem(ObjectID texture);
+    void addInventoryItem(TextureID texture);
 
-    void addEquipableItem(ObjectID texture, EquippedItems item);
+    void addEquipableItem(TextureID texture, EquippedItems item);
 
     void updateGold(unsigned int gold);
 

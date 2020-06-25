@@ -7,17 +7,102 @@
 
 #include <unordered_map>
 #include "Texture.h"
-#include "../Shared/ObjectID.h"
 
+enum TextureID {
+    Nothing, /*Lo uso para el equipo del Player*/
+    BlueTunic,
+    BlueTunicDrop,
+    CommonClothing,
+    CommonClothingDrop,
+    Hood,
+    HoodDrop,
+    IronHelmet,
+    IronHelmetDrop,
+    IronShield,
+    IronShieldDrop,
+    KingArmor,
+    KingArmorDrop,
+    LeatherArmor,
+    LeatherArmorDrop,
+    MagicHat,
+    MagicHatDrop,
+    PlateArmor,
+    PlateArmorDrop,
+    TurtleShield,
+    TurtleShieldDrop,
+    DwarfHead,
+    ElfHead,
+    GnomeHead,
+    HumanHead,
+    AshRod,
+    AshRodDrop,
+    Axe,
+    AxeDrop,
+    CompoundBow,
+    CompoundBowDrop,
+    ElvenFlute,
+    ElvenFluteDrop,
+    LinkedStaff,
+    LinkedStaffDrop,
+    GnarledStaff,
+    GnarledStaffDrop,
+    LongSword,
+    LongSwordDrop,
+    SimpleBow,
+    SimpleBowDrop,
+    WarHammer,
+    WarHammerDrop,
+    HealthPotion,
+    ManaPotion,
+    Grass,
+    PrettyGrass,
+    DeadGrass,
+    PrettyRoad,
+    Sand,
+    Water,
+    DarkWater,
+    Skeleton,
+    Goblin,
+    Zombie,
+    Spider,
+    Priest,
+    Trader,
+    Banker,
+    Guard,
+    Tree,
+    LongTree,
+    FatTree,
+    PalmTree,
+    DeadTree,
+    Bush,
+    DeadBush,
+    House1,
+    House2,
+    House3,
+    SunkenColumn,
+    SunkenShip,
+    BoneGuy,
+    BrokenRipStone,
+    DeadGuy,
+    VeryDeadGuy,
+    HangedGuy,
+    RipStone,
+    Explosion,
+    MagicArrow,
+    MagicMissile,
+    Heal,
+    Background,
+    MainMenu
+};
 
 class TextureRepository {
 private:
-    std::unordered_map<ObjectID, Texture> textures;
+    std::unordered_map<TextureID, Texture> textures;
     SDL_Renderer& renderer;
 
 public:
     explicit TextureRepository(SDL_Renderer& renderer);
-    Texture& getTexture(ObjectID texture);
+    Texture& getTexture(TextureID texture);
 
 private:
     void _loadClothing();
@@ -30,19 +115,19 @@ private:
     void _loadSpells();
     void _loadUI();
 
-    void _setImage(ObjectID ObjectID, std::string&& image,
+    void _setImage(TextureID TextureID, std::string&& image,
                     int width, int height, int xOffset = 0, int yOffset = 0, int scale = 1
                             , ColorKey_t key = {0, 0, 0});
-    void _setSpellImage(ObjectID ObjectID, std::string&& spellImage,
+    void _setSpellImage(TextureID TextureID, std::string&& spellImage,
                             int width, int height, int xOffset = 0, int yOffset = 0);
-    void _setNPCImage(ObjectID ObjectID, std::string&& npcImage, int width, int height
+    void _setNPCImage(TextureID TextureID, std::string&& npcImage, int width, int height
                                                 , int xOffset = 0, int yOffset = 0);
-    void _setBodyImage(ObjectID texture, std::string&& bodyImage);
-    void _setShieldImage(ObjectID ObjectID, std::string&& shieldImage);
-    void _setWeaponImage(ObjectID ObjectID, std::string&& weaponImage);
-    void _setTileImage(ObjectID ObjectID, std::string&& tileImage, bool individualTile);
-    void _setHeadImage(ObjectID ObjectID, std::string&& headImage);
-    void _setHelmetImage(ObjectID ObjectID, std::string&& helmetImage,
+    void _setBodyImage(TextureID texture, std::string&& bodyImage);
+    void _setShieldImage(TextureID TextureID, std::string&& shieldImage);
+    void _setWeaponImage(TextureID TextureID, std::string&& weaponImage);
+    void _setTileImage(TextureID TextureID, std::string&& tileImage, bool individualTile);
+    void _setHeadImage(TextureID TextureID, std::string&& headImage);
+    void _setHelmetImage(TextureID TextureID, std::string&& helmetImage,
                          int xOffset = 0, int yOffset = 0);
 
     static void _addBodySprites(Texture& texture, int y, bool lateralSide);
