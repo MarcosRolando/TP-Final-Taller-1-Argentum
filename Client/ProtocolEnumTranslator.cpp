@@ -29,31 +29,31 @@ void ProtocolEnumTranslator::_translateEntities(){
 }
 
 void ProtocolEnumTranslator::_translateFloorTypes() {
-    floorTypesMap.emplace(GameType::FloorType::GRASS0, Grass);
-    floorTypesMap.emplace(GameType::FloorType::GRASS1, Grass);
-    floorTypesMap.emplace(GameType::FloorType::GRASS2, Grass);
-    floorTypesMap.emplace(GameType::FloorType::GRASS3, Grass);
-    floorTypesMap.emplace(GameType::FloorType::SAND, Sand);
-    floorTypesMap.emplace(GameType::FloorType::WATER0, Water);
-    floorTypesMap.emplace(GameType::FloorType::WATER1, Water);
-    floorTypesMap.emplace(GameType::FloorType::WATER2, Water);
-    floorTypesMap.emplace(GameType::FloorType::WATER3, Water);
-    floorTypesMap.emplace(GameType::FloorType::PRETTY_ROAD0, PrettyRoad);
-    floorTypesMap.emplace(GameType::FloorType::PRETTY_ROAD1, PrettyRoad);
-    floorTypesMap.emplace(GameType::FloorType::PRETTY_ROAD2, PrettyRoad);
-    floorTypesMap.emplace(GameType::FloorType::PRETTY_ROAD3, PrettyRoad);
-    floorTypesMap.emplace(GameType::FloorType::PRETTY_GRASS0, PrettyGrass);
-    floorTypesMap.emplace(GameType::FloorType::PRETTY_GRASS1, PrettyGrass);
-    floorTypesMap.emplace(GameType::FloorType::PRETTY_GRASS2, PrettyGrass);
-    floorTypesMap.emplace(GameType::FloorType::PRETTY_GRASS3, PrettyGrass);
-    floorTypesMap.emplace(GameType::FloorType::DEAD_GRASS0, DeadGrass);
-    floorTypesMap.emplace(GameType::FloorType::DEAD_GRASS1, DeadGrass);
-    floorTypesMap.emplace(GameType::FloorType::DEAD_GRASS2, DeadGrass);
-    floorTypesMap.emplace(GameType::FloorType::DEAD_GRASS3, DeadGrass);
-    floorTypesMap.emplace(GameType::FloorType::DARK_WATER0, DarkWater);
-    floorTypesMap.emplace(GameType::FloorType::DARK_WATER1, DarkWater);
-    floorTypesMap.emplace(GameType::FloorType::DARK_WATER2, DarkWater);
-    floorTypesMap.emplace(GameType::FloorType::DARK_WATER3, DarkWater);
+    floorTypesMap.emplace(GameType::FloorType::GRASS0,FloorTypeTexture{Grass,0});
+    floorTypesMap.emplace(GameType::FloorType::GRASS1, FloorTypeTexture{Grass,1});
+    floorTypesMap.emplace(GameType::FloorType::GRASS2, FloorTypeTexture{Grass,2});
+    floorTypesMap.emplace(GameType::FloorType::GRASS3, FloorTypeTexture{Grass,3});
+    floorTypesMap.emplace(GameType::FloorType::SAND, FloorTypeTexture{Sand,0});
+    floorTypesMap.emplace(GameType::FloorType::WATER0, FloorTypeTexture{Water,0});
+    floorTypesMap.emplace(GameType::FloorType::WATER1, FloorTypeTexture{Water,1});
+    floorTypesMap.emplace(GameType::FloorType::WATER2, FloorTypeTexture{Water,2});
+    floorTypesMap.emplace(GameType::FloorType::WATER3, FloorTypeTexture{Water,3});
+    floorTypesMap.emplace(GameType::FloorType::PRETTY_ROAD0, FloorTypeTexture{PrettyRoad,0});
+    floorTypesMap.emplace(GameType::FloorType::PRETTY_ROAD1, FloorTypeTexture{PrettyRoad,1});
+    floorTypesMap.emplace(GameType::FloorType::PRETTY_ROAD2, FloorTypeTexture{PrettyRoad,2});
+    floorTypesMap.emplace(GameType::FloorType::PRETTY_ROAD3, FloorTypeTexture{PrettyRoad,3});
+    floorTypesMap.emplace(GameType::FloorType::PRETTY_GRASS0, FloorTypeTexture{PrettyGrass,0});
+    floorTypesMap.emplace(GameType::FloorType::PRETTY_GRASS1, FloorTypeTexture{PrettyGrass,1});
+    floorTypesMap.emplace(GameType::FloorType::PRETTY_GRASS2, FloorTypeTexture{PrettyGrass,2});
+    floorTypesMap.emplace(GameType::FloorType::PRETTY_GRASS3, FloorTypeTexture{PrettyGrass,3});
+    floorTypesMap.emplace(GameType::FloorType::DEAD_GRASS0, FloorTypeTexture{DeadGrass,0});
+    floorTypesMap.emplace(GameType::FloorType::DEAD_GRASS1, FloorTypeTexture{DeadGrass,1});
+    floorTypesMap.emplace(GameType::FloorType::DEAD_GRASS2, FloorTypeTexture{DeadGrass,2});
+    floorTypesMap.emplace(GameType::FloorType::DEAD_GRASS3, FloorTypeTexture{DeadGrass,3});
+    floorTypesMap.emplace(GameType::FloorType::DARK_WATER0, FloorTypeTexture{DarkWater,0});
+    floorTypesMap.emplace(GameType::FloorType::DARK_WATER1, FloorTypeTexture{DarkWater,1});
+    floorTypesMap.emplace(GameType::FloorType::DARK_WATER2, FloorTypeTexture{DarkWater,2});
+    floorTypesMap.emplace(GameType::FloorType::DARK_WATER3, FloorTypeTexture{DarkWater,3});
 }
 
 void ProtocolEnumTranslator::_translateStructures() {
@@ -172,34 +172,7 @@ TextureID ProtocolEnumTranslator::getPotionTexture(GameType::Potion potion){
 }
 
 FloorTypeTexture ProtocolEnumTranslator::getFloorTypeTexture(GameType::FloorType floorType) {
-    FloorTypeTexture floor{};
-    floor.texture = floorTypesMap.at(floorType);
-
-    if (floorType == GameType::FloorType::GRASS0 || floorType == GameType::FloorType::WATER0
-    || floorType == GameType::FloorType::PRETTY_ROAD0 || floorType == GameType::FloorType::PRETTY_GRASS0
-    || floorType == GameType::FloorType::DEAD_GRASS0 || floorType == GameType::FloorType::DARK_WATER0){
-        floor.index = 0;
-    }
-
-    if (floorType == GameType::FloorType::GRASS1 || floorType == GameType::FloorType::WATER1
-        || floorType == GameType::FloorType::PRETTY_ROAD1 || floorType == GameType::FloorType::PRETTY_GRASS1
-        || floorType == GameType::FloorType::DEAD_GRASS1 || floorType == GameType::FloorType::DARK_WATER1){
-        floor.index = 1;
-    }
-
-    if (floorType == GameType::FloorType::GRASS2 || floorType == GameType::FloorType::WATER2
-        || floorType == GameType::FloorType::PRETTY_ROAD2 || floorType == GameType::FloorType::PRETTY_GRASS2
-        || floorType == GameType::FloorType::DEAD_GRASS2 || floorType == GameType::FloorType::DARK_WATER2){
-        floor.index = 2;
-    }
-
-    if (floorType == GameType::FloorType::GRASS3 || floorType == GameType::FloorType::WATER3
-        || floorType == GameType::FloorType::PRETTY_ROAD3 || floorType == GameType::FloorType::PRETTY_GRASS3
-        || floorType == GameType::FloorType::DEAD_GRASS3 || floorType == GameType::FloorType::DARK_WATER3){
-        floor.index = 3;
-    }
-
-    return floor;
+    return floorTypesMap.at(floorType);
 }
 
 ProtocolEnumTranslator::~ProtocolEnumTranslator() {}

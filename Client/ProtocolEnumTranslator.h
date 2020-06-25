@@ -17,7 +17,7 @@ struct FloorTypeTexture{
 class ProtocolEnumTranslator {
 private:
     std::unordered_map<GameType::Entity,TextureID> entitiesMap;
-    std::unordered_map<GameType::FloorType,TextureID> floorTypesMap;
+    std::unordered_map<GameType::FloorType,FloorTypeTexture> floorTypesMap;
     std::unordered_map<GameType::Structure,TextureID> structuresMap;
     std::unordered_map<GameType::Race,TextureID> racesMap;
     std::unordered_map<GameType::Weapon,TextureID> weaponsMap;
