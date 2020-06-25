@@ -11,7 +11,7 @@
 
 class EntityTests;
 
-class Trader: Entity {
+class Trader: public Entity {
 private:
     //Storage storage;
     Shop shop;

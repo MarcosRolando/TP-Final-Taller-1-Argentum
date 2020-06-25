@@ -13,6 +13,7 @@ private:
     void restoreStat(Player& player) override;
 public:
     HealthPotion();
+    ~HealthPotion() override;
 };
 
 

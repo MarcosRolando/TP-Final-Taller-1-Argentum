@@ -13,3 +13,5 @@ EquipmentPlace Potion::use(Player &player) {
 Potion::Potion(const Config::PotionData& data): Item(ITEM_TYPE_POTION, data.name/*, data.price*/) {
     recoveryValue = data.recoveryValue;
 }
+
+Potion::~Potion() = default;

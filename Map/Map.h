@@ -39,7 +39,13 @@ private:
                            Coordinate>& parentsAndChilds, std::list<Coordinate>& path);
     void _buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topLeft, Coordinate& bottomRight) const;
     static bool _areCoordinatesEqual(Coordinate a, Coordinate b);
+    static void _initializeConstructorMaps(std::unordered_map<std::string, GameType::Entity>& entities,
+                                           std::unordered_map<std::string, GameType::Structure>& structures,
+                                           std::unordered_map<std::string, GameType::FloorType>& floors);
 public:
+
+    //Crea un mapa vacio, de 0x0
+    Map() = default;
 
     explicit Map(MapFileReader& mapFile);
 

@@ -41,7 +41,7 @@ void MapFileReader::_readIDs() {
     }
 }
 
-TileInfo MapFileReader::getTileInfo(int row, int column) {
+TileInfo MapFileReader::getTileInfo(unsigned int row, unsigned int column) {
     Json::Value& layers = obj["layers"];
     Json::Value& tileData = layers[0]["data"];
     TileInfo tile;

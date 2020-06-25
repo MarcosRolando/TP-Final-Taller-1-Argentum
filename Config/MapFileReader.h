@@ -30,7 +30,7 @@ private:
 
 public:
     explicit MapFileReader(const std::string& path);
-    TileInfo getTileInfo(int x, int y);
+    TileInfo getTileInfo(unsigned int x, unsigned int y);
     MapSize getMapDimensions() const;
     ~MapFileReader();
 

@@ -18,6 +18,7 @@
 #include "../Items/Defense/Head.h"
 #include "../Items/Defense/Shield.h"
 #include "../Config/MapFileReader.h"
+#include "../Entities/Citizens/CitizenFactory.h"
 
 //////////////////////////////PRIVATE/////////////////////////////
 
@@ -105,27 +106,74 @@ void Map::_storePath(Coordinate initialPosition, Coordinate desiredPosition,
 }
 
 
+void Map::_initializeConstructorMaps(
+        std::unordered_map<std::string, GameType::Entity> &entities,
+        std::unordered_map<std::string, GameType::Structure> &structures,
+        std::unordered_map<std::string, GameType::FloorType> &floors) {
+    entities ={{"Nothing", GameType::Entity::GUARD}, {"Priest", GameType::Entity::PRIEST},
+             {"Trader", GameType::Entity::TRADER}, {"Banker", GameType::Entity::BANKER}};
+    structures = {{"BoneGuy", GameType::Structure::BONE_GUY}, {"BrokenRipStone", GameType::Structure::BROKEN_RIP_STONE},
+            {"Bush", GameType::Structure::BUSH}, {"DeadBush", GameType::Structure::DEAD_BUSH},
+            {"DeadGuy", GameType::Structure::DEAD_GUY}, {"DeadTree", GameType::Structure::DEAD_TREE},
+            {"FatTree", GameType::Structure::FAT_TREE}, {"HangedGuy", GameType::Structure::HANGED_GUY},
+            {"House1", GameType::Structure::HOUSE1}, {"House2", GameType::Structure::HOUSE2},
+            {"House3", GameType::Structure::HOUSE3}, {"LongTree", GameType::Structure::LONG_TREE},
+            {"PalmTree", GameType::Structure::PALM_TREE}, {"RipStone", GameType::Structure::RIP_STONE},
+            {"Tree", GameType::Structure::TREE}, {"VeryDeadGuy", GameType::Structure::VERY_DEAD_GUY},
+            {"SunkenColumn", GameType::Structure::SUNKEN_COLUMN}, {"SunkenShip", GameType::Structure::SUNKEN_SHIP},
+            {"Nothing", GameType::Structure::NO_STRUCTURE}};
+
+    floors = {{"Grass0", GameType::FloorType::GRASS0}, {"Grass1", GameType::FloorType::GRASS1},
+            {"Grass2", GameType::FloorType::GRASS2}, {"Grass3", GameType::FloorType::GRASS3},
+            {"Sand", GameType::FloorType::SAND}, {"Water0", GameType::FloorType::WATER0},
+            {"Water1", GameType::FloorType::WATER1}, {"Water2", GameType::FloorType::WATER2},
+            {"Water3", GameType::FloorType::WATER3}, {"PrettyRoad0", GameType::FloorType::PRETTY_ROAD0},
+            {"PrettyRoad1", GameType::FloorType::PRETTY_ROAD1}, {"PrettyRoad2", GameType::FloorType::PRETTY_ROAD2},
+            {"PrettyRoad3", GameType::FloorType::PRETTY_ROAD3}, {"PrettyGrass0", GameType::FloorType::PRETTY_GRASS0},
+            {"PrettyGrass2", GameType::FloorType::PRETTY_GRASS1}, {"PrettyGrass2", GameType::FloorType::PRETTY_GRASS2},
+            {"PrettyGrass3", GameType::FloorType::PRETTY_GRASS3}, {"DeadGrass0", GameType::FloorType::DEAD_GRASS0},
+            {"DeadGrass1", GameType::FloorType::DEAD_GRASS1}, {"DeadGrass2", GameType::FloorType::DEAD_GRASS2},
+            {"DeadGrass3", GameType::FloorType::DEAD_GRASS3}, {"DarkWater0", GameType::FloorType::DARK_WATER0},
+            {"DarkWater1", GameType::FloorType::DARK_WATER1}, {"DarkWater2", GameType::FloorType::DARK_WATER2},
+            {"DarkWater3", GameType::FloorType::DARK_WATER3}, };
+}
+
+
 //////////////////////////////PUBLIC/////////////////////////////
 
 
-Map::Map(MapFileReader &mapFile) {
-    MapSize mapSize = mapFile.getMapDimensions();
-    tiles.resize(mapSize.height, std::vector<Tile>(mapSize.width));
-    for (const auto & line: tiles) {
-        for (const auto & tile: line) {
-            Tile aux();
 
+Map::Map(MapFileReader &mapFile) {
+    CitizenFactory citizenFactory;
+    MapSize mapSize = mapFile.getMapDimensions();
+    TileInfo aux{};
+    std::shared_ptr<Entity> citizen;
+    std::unordered_map<std::string, GameType::Entity> entities;
+    std::unordered_map<std::string, GameType::Structure> structures;
+    std::unordered_map<std::string, GameType::FloorType> floors;
+    _initializeConstructorMaps(entities, structures, floors);
+    tiles.resize(mapSize.height, std::vector<Tile>(mapSize.width));
+    for (unsigned int i = 0; i < tiles.size(); ++i) {
+        for (unsigned int j = 0; j < tiles[i].size(); ++j) {
+            aux = mapFile.getTileInfo(i, j);
+            if (aux.entityType == "Nothing") {
+                citizen.reset();
+            } else {
+                citizenFactory.storeCitizen(citizen, entities.at(aux.entityType), {i, j});
+                //FALTA GUARDAR EL SHARED_PTR EN GAME
+            }
+            //CAMBIAR, POR AHORA SE PONE TODO COMO OCUPABLE
+            Tile tile(true, false, floors.at(aux.tileType), structures
+                      .at(aux.structureType), std::move(citizen));
         }
     }
 }
-
 
 
 AttackResult Map::attackTile(int damage, unsigned int level, bool isAPlayer,
                              Coordinate coordinate) {
     return tiles[coordinate.iPosition][coordinate.jPosition].attacked(damage, level, isAPlayer);
 }
-
 
 void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const {
     Coordinate topLeft{}, bottomRight{}, aux{};
@@ -221,6 +269,7 @@ void Map::addItemsToTile(std::shared_ptr<Item> &&item, Coordinate position) {
     tiles[position.iPosition][position.jPosition].addItem(std::move(item));
 }
 
+
 Coordinate Map::getMonsterCoordinate(/*std::shared_ptr<Monster>&& monster*/) {
     //std::shared_ptr<Entity> aux;
     //aux.reset((Entity*)monster.get());
@@ -234,7 +283,6 @@ Coordinate Map::getMonsterCoordinate(/*std::shared_ptr<Monster>&& monster*/) {
     //tiles[xPosition][yPosition].addEntity(std::static_pointer_cast<Entity>(monster));
     return {static_cast<int>(xPosition), static_cast<int>(yPosition)};
 }
-
 
 void Map::test(Game& game, std::list<std::shared_ptr<Monster>>& monsters) {
     for (int i = 0; i < 100; ++i) {

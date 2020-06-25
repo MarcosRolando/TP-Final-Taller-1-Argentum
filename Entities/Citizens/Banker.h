@@ -14,7 +14,7 @@ class EntityTests;
 
 //Clase que se encarga de guardar todos los items que le otorgue el jugador
 //El jugador puede darle oro o items nuevos para que guarde o sacar oro o items
-class Banker : Entity {
+class Banker: public Entity {
 private:
     //Storage storage;
     static std::unordered_map<std::string, Storage> playersStorages;

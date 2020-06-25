@@ -14,3 +14,5 @@ ManaPotion::ManaPotion(): Potion(Configuration::getInstance().configPotionData(M
 void ManaPotion::restoreStat(Player &player) {
     player.restoreMana(recoveryValue);
 }
+
+ManaPotion::~ManaPotion() = default;

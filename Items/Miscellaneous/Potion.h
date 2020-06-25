@@ -26,6 +26,8 @@ public:
 
     //Debe llamar a la funcion de player que restaura el atributo correspondiente
     virtual void restoreStat(Player& player) = 0;
+
+    virtual ~Potion();
 };
 
 

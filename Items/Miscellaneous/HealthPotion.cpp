@@ -14,3 +14,5 @@ HealthPotion::HealthPotion(): Potion(Configuration::getInstance().configPotionDa
 void HealthPotion::restoreStat(Player &player) {
     player.restoreLife(recoveryValue);
 }
+
+HealthPotion::~HealthPotion() = default;

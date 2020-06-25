@@ -11,7 +11,7 @@
 
 class EntityTests;
 
-class Priest: Entity {
+class Priest: public Entity {
 private:
     Shop shop;
 

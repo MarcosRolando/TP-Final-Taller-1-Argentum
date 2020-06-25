@@ -14,6 +14,7 @@ private:
 
 public:
     ManaPotion();
+    ~ManaPotion() override;
 };
 
 

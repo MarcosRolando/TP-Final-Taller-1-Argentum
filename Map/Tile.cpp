@@ -14,19 +14,19 @@ MSGPACK_ADD_ENUM(GameType::Entity)
 
 
 
-Tile::Tile(bool isFromCity, GameType::FloorType floor, GameType::Structure structure): entity(nullptr) {
-    this->floor = floor;
-    this->isFromCity = isFromCity;
-    switch (floor) {
-        case GameType::FloorType::TREE:
-        case GameType::FloorType::WALL:
-            //TIENE QUE USARSE EL FALSE, ESTO ESTA PARA PROBAR AL PRINCIPIO
-            //isOccupable = false;
-            isOccupable = true;
-            break;
-        default:
-            isOccupable = true;
+Tile::Tile(bool _isOccupable, bool _isFromCity, GameType::FloorType _floor, GameType::Structure _structure,
+           std::shared_ptr<Entity>&& initialEntity): entity(nullptr) {
+    floor = _floor;
+    structure = _structure;
+    isFromCity = _isFromCity;
+    isOccupable = _isOccupable;
+
+    if (isOccupable && initialEntity) {
+        entity = std::move(initialEntity);
+        isOccupable = false;
     }
+
+    //FALTA AGREGAR ENTITY
 }
 
 void Tile::moveEntity(Tile&& otherTile, Coordinate position) {
