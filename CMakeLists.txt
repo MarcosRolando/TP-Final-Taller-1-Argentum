@@ -37,7 +37,8 @@ add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Atta
         Game/Events/UseItem.cpp Game/Events/UseItem.h Game/Events/Unequip.cpp Game/Events/Unequip.h
         Server/ServerProtocol.cpp Server/ServerProtocol.h
         Server/ClientHandler.cpp Server/ArgentumServer.cpp Server/ServerMonitor.cpp Server/ServerMonitor.cpp
-        Server/Socket.cpp Server/Thread.cpp Server/ArgentumServerSide.cpp Server/ClientAccepter.cpp Server/ClientAccepter.h)
+        Server/Socket.cpp Server/Thread.cpp Server/ArgentumServerSide.cpp Server/ClientAccepter.cpp Server/ClientAccepter.h
+        Config/MapFileReader.cpp)
 
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
