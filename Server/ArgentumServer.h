@@ -35,8 +35,6 @@ public:
 
 private:
     void _execute();
-    void _acceptConnections();
-    void _processConnections();
 };
 
 #endif //TP3_SERVER_H

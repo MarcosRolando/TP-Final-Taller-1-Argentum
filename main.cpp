@@ -2,14 +2,13 @@
 // Created by marcos on 6/3/20.
 //
 
-#include "Server/ArgentumServer.h"
+#include "Server/ArgentumServerSide.h"
 #include "TPException.h"
 #include <iostream>
 
-int main() {
+int main(int argc, char** argv) {
     try {
-        ArgentumServer game("8081");
-        game.connect();
+        ArgentumServerSide::run(argc, argv);
     } catch (TPException& e) {
         std::cerr << e.what() << std::endl;
     } catch (...) {

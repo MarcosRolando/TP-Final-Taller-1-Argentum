@@ -5,7 +5,7 @@
  * datos de ejecucion del ArgentumServer y, en caso de ser validos, instanciar al
  * ArgentumServer. Al cerrar el ArgentumServer imprime los resultados de las partidas*/
 
-class TP3ServerSide {
+class ArgentumServerSide {
 public:
     static int run(int argc, char** argv);
 };

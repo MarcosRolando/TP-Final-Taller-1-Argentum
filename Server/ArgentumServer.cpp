@@ -2,9 +2,8 @@
 #include <netdb.h>
 #include <algorithm>
 #include "ArgentumServer.h"
-#include "ClientHandler.h"
 #include "ServerMonitor.h"
-#include "../TPException.h"
+#include "ClientAccepter.h"
 #include <chrono>
 #include <atomic>
 #include <unistd.h>
@@ -16,44 +15,6 @@ using namespace std::chrono;
 
 const int MAX_LISTENERS = 10;
 
-/*Funcion que le paso a remove_if para que verifique si termino el cliente*/
-bool clientHasFinished(std::unique_ptr<ClientHandler>& client) {
-    if (client->hasFinished()) {
-        client->join();
-        return true;
-    }
-    return false;
-}
-
-void ArgentumServer::_acceptConnections() {
-    //unsigned int secretNumber;
-    while (!finished) {
-        try {
-            Socket peer = socket.accept();
-            /*
-            secretNumber = file.getNextNumber();
-            clients.emplace_back(new ClientHandler(std::move(peer),
-                                                                secretNumber));
-                                                                */
-            (*clients.back())();
-            clients.erase(std::remove_if(clients.begin(),
-                    clients.end(), clientHasFinished), clients.end());
-        } catch(TPException& e) {
-            if (!finished) throw e; /*Hubo un error externo*/
-        }
-    }
-}
-
-void ArgentumServer::_processConnections() {
-    ServerMonitor monitor(*this);
-    monitor();
-    _acceptConnections();
-    for (auto & client : clients) {
-        client->join();
-    }
-    monitor.join();
-}
-
 void ArgentumServer::forceFinish() {
     finished = true;
     socket.close();
@@ -62,17 +23,21 @@ void ArgentumServer::forceFinish() {
 void ArgentumServer::connect() {
     socket.bind(port);
     socket.maxListen(MAX_LISTENERS);
-    _processConnections();
+    _execute();
 }
 
 void ArgentumServer::_execute() {
     std::atomic<bool> keepRunning(true);
 
-    //ACA SE TIRA THREAD PARA RECIBIR LA Q QUE CIERRA EL SERVER
+    ServerMonitor monitor(*this);
+    monitor(); /*Espera la q para cerrar el server*/
+    ClientAccepter accepter(clients, socket, keepRunning);
+    accepter(); /*Acepta conexiones de clientes*/
 
     high_resolution_clock::time_point time1;
     high_resolution_clock::time_point time2;
     duration<double, std::milli> timeStep{};
+
     double lastFrameTime = 0;
     while (keepRunning) {
         time1 = high_resolution_clock::now();
@@ -88,4 +53,9 @@ void ArgentumServer::_execute() {
             lastFrameTime = FRAME_TIME;
         }
     }
+
+    for (auto & client : clients) {
+        client->join();
+    }
+    monitor.join(); /*Joineamos los threads*/
 }
