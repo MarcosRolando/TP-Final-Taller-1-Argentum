@@ -98,3 +98,7 @@ TEST_CASE("Test Sell Existent Item To Empty Tile Gets No Item") {
 TEST_CASE("Test Sell Existent Item To Empty Map Gets No Item") {
     REQUIRE(MapTests::testSellExistentItemToEmptyMapGetsNoItem());
 }
+
+TEST_CASE("Test Move Entity") {
+    REQUIRE(MapTests::testMoveEntity());
+}

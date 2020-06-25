@@ -36,6 +36,8 @@ public:
     static bool testBuyItemFromEmptyMapGetsNoItem();
     static bool testSellExistentItemToEmptyTileGetsNoItem();
     static bool testSellExistentItemToEmptyMapGetsNoItem();
+
+    static bool testMoveEntity();
 };
 
 

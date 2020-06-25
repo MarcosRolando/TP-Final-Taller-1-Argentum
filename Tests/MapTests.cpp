@@ -475,3 +475,16 @@ bool MapTests::testSellExistentItemToEmptyMapGetsNoItem() {
     return true;
 }
 
+bool MapTests::testMoveEntity() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    Game game;
+    std::shared_ptr<Monster> monster(new Monster(game, {25, 25}, GameType::SKELETON));
+    map.addEntity({25, 25}, std::move(monster));
+    map.moveEntity({25, 25}, {26, 26});
+    return map.isPlaceAvailable({25, 25}) && !map.isPlaceAvailable({26, 26});
+}
+
+
