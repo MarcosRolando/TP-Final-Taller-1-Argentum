@@ -6,8 +6,8 @@
 #include "../TPException.h"
 
 MapFileReader::MapFileReader(const std::string& path) {
-    width = 0;
-    height = 0;
+    mapDimensions.width = 0;
+    mapDimensions.height = 0;
     file.open(path);
     try {
         reader.parse(file, obj);
@@ -20,8 +20,8 @@ MapFileReader::MapFileReader(const std::string& path) {
 }
 
 void MapFileReader::_readMapSize() {
-    width = obj["width"].asInt();
-    height = obj["height"].asInt();
+    mapDimensions.width = obj["width"].asInt();
+    mapDimensions.height = obj["height"].asInt();
 }
 
 void MapFileReader::_readIDs() {
@@ -45,14 +45,20 @@ TileInfo MapFileReader::getTileInfo(int row, int column) {
     Json::Value& layers = obj["layers"];
     Json::Value& tileData = layers[0]["data"];
     TileInfo tile;
-    tile.tileType = mapElements.at(tileData[row*width + column].asInt());
+    tile.tileType = mapElements.at(tileData[row*mapDimensions.width + column].asInt());
     Json::Value& sData = layers[1]["data"];
-    tile.structureType = mapElements.at(sData[row*width + column].asInt());
+    tile.structureType = mapElements.at(sData[row*mapDimensions.width + column].asInt());
     Json::Value& eData = layers[2]["data"];
-    tile.entityType = mapElements.at(eData[row*width + column].asInt());
+    tile.entityType = mapElements.at(eData[row*mapDimensions.width + column].asInt());
     return tile;
 }
 
+
+
 MapFileReader::~MapFileReader() {
     file.close();
+}
+
+MapSize MapFileReader::getMapDimensions() const {
+    return mapDimensions;
 }

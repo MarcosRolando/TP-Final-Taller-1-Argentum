@@ -15,17 +15,23 @@ struct TileInfo {
     std::string entityType;
 };
 
+struct MapSize {
+    unsigned int width;
+    unsigned int height;
+};
+
 class MapFileReader {
 private:
     Json::Reader reader;
     Json::Value obj;
     std::ifstream file;
     std::unordered_map<int, std::string> mapElements;
-    int width, height;
+    MapSize mapDimensions{};
 
 public:
     explicit MapFileReader(const std::string& path);
     TileInfo getTileInfo(int x, int y);
+    MapSize getMapDimensions() const;
     ~MapFileReader();
 
 private:
