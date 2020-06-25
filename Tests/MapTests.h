@@ -32,6 +32,8 @@ public:
     static bool testWithdrawOnEmptyMapGetsNoItem();
     static bool testDepositExistantItemOnEmptyTileGetsNoItem();
     static bool testDepositExistantItemOnEmptyMapGetsNoItem();
+    static bool testBuyItemFromEmptyTileGetsNoItem();
+    static bool testBuyItemFromEmptyMapGetsNoItem();
 };
 
 

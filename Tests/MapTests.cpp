@@ -399,7 +399,40 @@ bool MapTests::testDepositExistantItemOnEmptyMapGetsNoItem() {
     player.storeItem(std::move(item));
     for (int i = 0; i < mapXSize; ++i) {
         for (int j = 0; j < mapYSize; ++j) {
+            map.deposit(player, "product", {5, 5});
             if (player.inventory.storedItemsAmount != 1) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
+bool MapTests::testBuyItemFromEmptyTileGetsNoItem() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    Game game;
+    Player player(game, GameType::HUMAN, GameType::WIZARD, 1, 0,
+                  {0, 0}, "Name");
+    map.buy(player, "product", {5, 5});
+    return player.inventory.storedItemsAmount == 0;
+}
+
+bool MapTests::testBuyItemFromEmptyMapGetsNoItem() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    Game game;
+    Player player(game, GameType::HUMAN, GameType::WIZARD, 1, 0,
+                  {0, 0}, "Name");
+    for (int i = 0; i < mapXSize; ++i) {
+        for (int j = 0; j < mapYSize; ++j) {
+            map.buy(player, "product", {5, 5});
+            if (player.inventory.storedItemsAmount != 0) {
                 return false;
             }
         }
