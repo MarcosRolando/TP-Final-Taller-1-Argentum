@@ -1,11 +1,10 @@
 #include <sys/socket.h>
 #include <netdb.h>
-#include <cstring>
 #include <algorithm>
 #include "Server.h"
 #include "ClientHandler.h"
 #include "ServerMonitor.h"
-#include "common_OSException.h"
+#include "../TPException.h"
 
 const int MAX_LISTENERS = 10;
 
@@ -19,17 +18,19 @@ bool clientHasFinished(std::unique_ptr<ClientHandler>& client) {
 }
 
 void Server::_acceptConnections() {
-    unsigned int secretNumber;
+    //unsigned int secretNumber;
     while (!finished) {
         try {
             Socket peer = socket.accept();
+            /*
             secretNumber = file.getNextNumber();
             clients.emplace_back(new ClientHandler(std::move(peer),
                                                                 secretNumber));
+                                                                */
             (*clients.back())();
             clients.erase(std::remove_if(clients.begin(),
                     clients.end(), clientHasFinished), clients.end());
-        } catch(OSException& e) {
+        } catch(TPException& e) {
             if (!finished) throw e; /*Hubo un error externo*/
         }
     }

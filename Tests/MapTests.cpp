@@ -294,7 +294,7 @@ bool MapTests::testGetTargetsOnMapWithPlayerReturnsListWithOneElement() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Game game;
-    std::shared_ptr<Player> player(new Player(game, GameType::HUMAN, GameType::WIZARD, 0, 0,
+    std::shared_ptr<Player> player(new Player(game, GameType::HUMAN, GameType::WIZARD, 1, 0,
                                           {25, 25}, "Name"));
     map.addEntity({25, 25}, player);
     std::vector<Coordinate> targets;

@@ -34,7 +34,11 @@ add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Atta
         Game/Events/Buy.cpp Game/Events/Buy.h Game/Events/Sell.cpp Game/Events/Sell.h
         Game/Events/Drop.cpp Game/Events/Drop.h Entities/Citizens/ProductData.h
         Entities/PlayerProxy.cpp Entities/PlayerProxy.cpp Entities/PlayerProxy.h
-        Game/Events/UseItem.cpp Game/Events/UseItem.h Game/Events/Unequip.cpp Game/Events/Unequip.h)
+        Game/Events/UseItem.cpp Game/Events/UseItem.h Game/Events/Unequip.cpp Game/Events/Unequip.h
+        Server/ServerProtocol.cpp Server/ServerProtocol.h
+        Server/ClientHandler.cpp Server/Server.cpp Server/ServerMonitor.cpp Server/ServerMonitor.cpp
+        Server/Socket.cpp Server/Thread.cpp Server/TP3ServerSide.cpp)
+
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
                         -O0 -ggdb -DDEBUG -fno-inline -ljsoncpp)

@@ -69,6 +69,7 @@ void Map::_storeAdjacentPositions(
         std::priority_queue<PointAndDistance, std::vector<PointAndDistance>,
                             InverseCoordinateDistance>& nodes,
         Coordinate destination) const {
+
     Coordinate topLeft{}, bottomRight{};
     PointAndDistance aux{};
     _buildSearchRegion(refference.point, 1, topLeft, bottomRight);

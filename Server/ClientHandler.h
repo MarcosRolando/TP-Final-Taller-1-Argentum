@@ -7,11 +7,12 @@
  * del protocolo, que guarda una instancia independiente del Juego de Adivinar
  * el Numero*/
 
-#include "server_ServerProtocol.h"
+#include "ServerProtocol.h"
 #include "Socket.h"
 #include "Thread.h"
 #include <vector>
 #include <utility>
+#include <atomic>
 
 class ClientHandler : public Thread {
 private:
@@ -21,7 +22,7 @@ private:
 
 public:
     ClientHandler(Socket&& socket, unsigned int secretNumber) :
-        socket(std::move(socket)), protocol(secretNumber), finished(false) {}
+        socket(std::move(socket)), finished(false) {}
     ClientHandler(const ClientHandler&) = delete;
     ClientHandler operator=(const ClientHandler&) = delete;
 

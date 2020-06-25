@@ -6,7 +6,6 @@
  * se encarga el Client Handler*/
 
 #include "Socket.h"
-#include "server_FileReader.h"
 #include <string>
 #include <atomic>
 #include <vector>
@@ -19,12 +18,11 @@ private:
     std::atomic<bool> finished;
     std::string port;
     Socket socket;
-    FileReader file;
     std::vector<std::unique_ptr<ClientHandler>> clients;
 
 public:
     Server(std::string&& port, std::string&& fileName) : finished(false),
-                            port(std::move(port)), file(std::move(fileName)) {}
+                            port(std::move(port)) {}
     Server(const Server&) = delete; /*Borro los constructores por copia*/
     Server operator=(const Server&) = delete;
 
@@ -35,7 +33,6 @@ public:
     void forceFinish();
 
 private:
-    struct addrinfo* _getAddresses() const;
     void _acceptConnections();
     void _processConnections();
 };

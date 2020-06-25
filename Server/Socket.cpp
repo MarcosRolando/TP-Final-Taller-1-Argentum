@@ -1,7 +1,7 @@
 #include "Socket.h"
 #include <netdb.h>
 #include <unistd.h>
-#include "common_OSException.h"
+#include "../TPException.h"
 #include <cstring>
 
 #define CONNECT_ERROR_MSG "Could not connect. "
@@ -24,7 +24,7 @@ struct addrinfo* Socket::_getAddresses(std::string* host, std::string* port) {
         hints.ai_flags = AI_PASSIVE; /*server*/
         s = getaddrinfo(nullptr, port->c_str(), &hints, &result);
     }
-    if (s != 0) throw OSException(GETADDRINFO_ERROR_MSG, gai_strerror(s));
+    if (s != 0) throw TPException(GETADDRINFO_ERROR_MSG, gai_strerror(s));
     return result;
 }
 
@@ -43,7 +43,7 @@ void Socket::connect(std::string& host, std::string& port) {
     }
     freeaddrinfo(addresses);
     if (rp == nullptr) {
-        throw OSException(CONNECT_ERROR_MSG);
+        throw TPException(CONNECT_ERROR_MSG);
     }
 }
 
@@ -65,14 +65,14 @@ void Socket::bind(std::string& port) {
     }
     freeaddrinfo(addresses);
     if (rp == nullptr) {
-        throw OSException(BIND_ERROR_MSG);
+        throw TPException(BIND_ERROR_MSG);
     }
 }
 
 Socket Socket::accept() const {
     int peerFd = ::accept(fd, nullptr, nullptr);
     if (peerFd == -1) {
-        throw OSException(ACCEPT_ERROR_MSG);
+        throw TPException(ACCEPT_ERROR_MSG);
     }
     return Socket(peerFd);
 }
@@ -83,7 +83,7 @@ void Socket::send(const char* message, size_t length) const {
 
     while (bytesSent < length) {
         s = ::send(fd, message + bytesSent, length - bytesSent, MSG_NOSIGNAL);
-        if (s < 1) throw OSException(SEND_ERROR_MSG);
+        if (s < 1) throw TPException(SEND_ERROR_MSG);
         bytesSent += s;
     }
 }
@@ -94,7 +94,7 @@ void Socket::receive(char* message, size_t length) const {
 
     while (bytesReceived < length) {
         s = recv(fd, message + bytesReceived, length - bytesReceived, 0);
-        if (s < 1) throw OSException(RECV_ERROR_MSG);
+        if (s < 1) throw TPException(RECV_ERROR_MSG);
         bytesReceived += s;
     }
 }
