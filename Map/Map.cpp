@@ -152,19 +152,20 @@ Map::Map(MapFileReader &mapFile) {
     std::unordered_map<std::string, GameType::Structure> structures;
     std::unordered_map<std::string, GameType::FloorType> floors;
     _initializeConstructorMaps(entities, structures, floors);
-    tiles.resize(mapSize.height, std::vector<Tile>(mapSize.width));
-    for (unsigned int i = 0; i < tiles.size(); ++i) {
-        for (unsigned int j = 0; j < tiles[i].size(); ++j) {
+    //tiles.resize(mapSize.height, std::vector<Tile>(mapSize.width));
+    for (unsigned int i = 0; i < mapSize.height; ++i) {
+        for (unsigned int j = 0; j < mapSize.width; ++j) {
             aux = mapFile.getTileInfo(i, j);
             if (aux.entityType == "Nothing") {
                 citizen.reset();
             } else {
-                citizenFactory.storeCitizen(citizen, entities.at(aux.entityType), {i, j});
+                citizenFactory.storeCitizen(citizen, entities.at(aux.entityType),
+                        {static_cast<int>(i), static_cast<int>(j)});
                 //FALTA GUARDAR EL SHARED_PTR EN GAME
             }
             //CAMBIAR, POR AHORA SE PONE TODO COMO OCUPABLE
-            Tile tile(true, false, floors.at(aux.tileType), structures
-                      .at(aux.structureType), std::move(citizen));
+            tiles[i].emplace_back(true, false, floors.at(aux.tileType), structures
+                    .at(aux.structureType), std::move(citizen));
         }
     }
 }
@@ -285,13 +286,13 @@ Coordinate Map::getMonsterCoordinate(/*std::shared_ptr<Monster>&& monster*/) {
 }
 
 void Map::test(Game& game, std::list<std::shared_ptr<Monster>>& monsters) {
+    /*
     for (int i = 0; i < 100; ++i) {
         tiles.emplace_back();
         for (int j = 0; j < 100; ++j) {
-            tiles[i].emplace_back(false, GameType::FloorType::GRASS);
+            tiles[i].emplace_back(false, GameType::FloorType::GRASS0);
         }
     }
-    /*
     std::shared_ptr<Monster> monster1(new Monster(game, {0,0}, GameType::SPIDER));
     std::shared_ptr<Monster> monster2(new Monster(game, {3,2}, GameType::GOBLIN));
     std::shared_ptr<Monster> monster3(new Monster(game, {5,5}, GameType::ZOMBIE));
