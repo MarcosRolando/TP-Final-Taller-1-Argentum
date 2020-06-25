@@ -3,7 +3,7 @@
 //
 
 #include "MapFileReader.h"
-#include "SDL/TPException.h"
+#include "TPException.h"
 
 MapFileReader::MapFileReader(const std::string& path) {
     width = 0;

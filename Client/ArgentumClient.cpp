@@ -1,9 +1,8 @@
 #include <netdb.h>
-#include "Client.h"
+#include "ArgentumClient.h"
 #include <cstring>
 #include "User.h"
-#include "common_TPException.h"
-#include "common_OSException.h"
+#include "../TPException.h"
 #include <string>
 #include <vector>
 #include <utility>
@@ -11,20 +10,19 @@
 
 void Client::_send() const {
     std::string command = User::getInput();
-    unsigned int bufferLength;
-    std::vector<char> buffer = ClientProtocol::translateCommand(
-                                            std::move(command), bufferLength);
-    socket.send(buffer.data(), bufferLength);
+    //unsigned int bufferLength;
+    //std::vector<char> buffer = ClientProtocol::translateCommand(std::move(command), bufferLength);
+    //socket.send(buffer.data(), bufferLength);
 }
 
 void Client::_receive() {
-    unsigned int bufferLength;
+    //unsigned int bufferLength;
     std::vector<char> response;
-    do {
+    /*do {
         response = protocol.responseBuffer(bufferLength);
         socket.receive(response.data(), bufferLength);
         protocol.processResponse(response);
-    } while (!protocol.finishedReceiving());
+    } while (!protocol.finishedReceiving());*/
     User::showMessage(response.data());
 }
 
@@ -36,7 +34,7 @@ void Client::_processConnection() {
         } catch(TPException& e) {
             User::showMessage(e.what());
         }
-        finished = protocol.hasFinished();
+        //finished = protocol.hasFinished();
     }
 }
 

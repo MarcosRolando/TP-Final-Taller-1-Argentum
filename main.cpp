@@ -1,6 +1,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
-#include "SDL/TPException.h"
+#include "TPException.h"
 #include <iostream>
 #include "Character/Player.h"
 #include "Character/NPC.h"

@@ -7,7 +7,7 @@
 #include <string>
 #include <iostream>
 
-#include "../TPException.h"
+#include "../../TPException.h"
 
 class Font {
 private:

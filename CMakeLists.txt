@@ -11,16 +11,23 @@ add_subdirectory(Texture)
 add_subdirectory(Map)
 add_subdirectory(Character)
 
-add_executable(argentum main.cpp SDL/TPException.cpp SDL/TPException.h
-SDL/Sound/SoundRepository.cpp SDL/Sound/SoundRepository.h SDL/Text/Font.cpp SDL/Text/Font.h
-        Configuration/ConfigFileReader.cpp Configuration/ConfigFileReader.h Configuration/Configuration.cpp
-        Configuration/Configuration.h SDL/Sound/Sound.cpp SDL/Sound/Sound.h Configuration/Calculator.cpp Configuration/Calculator.h
+add_executable(argentum main.cpp TPException.cpp TPException.h
+SDL/Sound/SoundRepository.cpp SDL/Sound/SoundRepository.h SDL/Text/Font.cpp
+SDL/Text/Font.h Configuration/ConfigFileReader.cpp Configuration/ConfigFileReader.h
+Configuration/Configuration.cpp Configuration/Configuration.h SDL/Sound/Sound.cpp
+SDL/Sound/Sound.h Configuration/Calculator.cpp Configuration/Calculator.h
 Map/Tile.cpp Map/Tile.h Map/Map.cpp Map/Map.h Character/Player.cpp
 Character/Player.h Timer.cpp Timer.h GameConstants.h Character/NPC.cpp
 Character/NPC.h Direction.h Character/Entity.cpp Character/Entity.h
 Screen/Window.cpp Screen/Window.h SDL/Text/Text.cpp SDL/Text/Text.h SDL/GUI/PlayerInfoGUI.cpp
-        SDL/GUI/PlayerInfoGUI.h SDL/GUI/PlayerInventoryGUI.cpp SDL/GUI/PlayerInventoryGUI.h
-        Spells/Spell.cpp Spells/Spell.h MapFileReader.cpp MapFileReader.h SDL/Minichat/Minichat.cpp SDL/Minichat/Minichat.h SDL/Selector.cpp SDL/Selector.h SDL/Sound/SoundPlayer.cpp SDL/Sound/SoundPlayer.h Screen/MainMenu.cpp Screen/MainMenu.h)
+SDL/GUI/PlayerInfoGUI.h SDL/GUI/PlayerInventoryGUI.cpp SDL/GUI/PlayerInventoryGUI.h
+Spells/Spell.cpp Spells/Spell.h MapFileReader.cpp MapFileReader.h SDL/Minichat/Minichat.cpp
+SDL/Minichat/Minichat.h SDL/Selector.cpp SDL/Selector.h SDL/Sound/SoundPlayer.cpp
+SDL/Sound/SoundPlayer.h Screen/MainMenu.cpp Screen/MainMenu.h
+Client/ClientProtocol.cpp Client/ClientProtocol.h Client/ArgentumClientSide.cpp
+Client/ArgentumClientSide.h Client/ArgentumClient.cpp Client/ArgentumClient.h
+Client/Socket.cpp Client/Socket.h Client/Thread.cpp Client/Thread.h
+Client/User.cpp Client/User.h)
 
 
 target_compile_options (argentum PUBLIC -std=c++11 -Wall -Werror -pedantic

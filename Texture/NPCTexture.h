@@ -6,7 +6,7 @@
 #define ARGENTUM_NPCTEXTURE_H
 
 #include "EntityTexture.h"
-#include "../SDL/TPException.h"
+#include "../TPException.h"
 #include "TextureRepository.h"
 
 class NPCTexture : public EntityTexture {

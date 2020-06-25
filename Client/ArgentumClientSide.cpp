@@ -1,5 +1,5 @@
 #include "ArgentumClientSide.h"
-#include "Client.h"
+#include "ArgentumClient.h"
 #include <iostream>
 
 #define INVALID_ARGUMENTS_MESSAGE "Error: argumentos invalidos."

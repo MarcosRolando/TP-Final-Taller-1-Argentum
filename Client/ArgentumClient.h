@@ -5,7 +5,7 @@
  * con el Server*/
 
 #include "Socket.h"
-#include "client_ClientProtocol.h"
+#include "ClientProtocol.h"
 #include <string>
 
 class Client {
