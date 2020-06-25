@@ -7,7 +7,7 @@
 
 #include <memory>
 #include <list>
-#include "FloorType.h"
+#include "../Config/GameEnums.h"
 #include "../Entities/Entity.h"
 
 class MapTests;
@@ -21,16 +21,16 @@ private:
     std::shared_ptr<Entity> entity;
     std::list<std::shared_ptr<Item>> items;
     bool isOccupable{};
-
     bool isFromCity;
-    FloorType floor;
+    GameType::FloorType floor;
+    GameType::FloorType structure{GameType::FloorType::TREE}; //todo esto deberia ser un enum separado de estructuras
 
     friend MapTests;
 
 public:
     //Inicializa el tile, dependiendo tel tipo de piso que reciba seteara el
     //tile como ocupable o no ocupable
-    explicit Tile(bool isFromCity, FloorType floor);
+    explicit Tile(bool isFromCity, GameType::FloorType floor);
 
     //El tile se queda con la entity de other y setea la de other en nullptr
     void moveEntity(Tile&& otherTile, Coordinate position);

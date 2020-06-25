@@ -24,7 +24,7 @@ void MapTests::_fillEmptyMap(Map &map, int iSize, int jSize, bool isCity) {
     for (int i = 0; i < iSize; ++i) {
         map.tiles.emplace_back();
         for (int j = 0; j < jSize; ++j) {
-            map.tiles[i].emplace_back(isCity, FLOOR_TYPE_GRASS);
+            map.tiles[i].emplace_back(isCity, GameType::FloorType::GRASS);
         }
     }
 }
@@ -67,15 +67,15 @@ bool MapTests::testMixedCityAndUnavailableTiles() {
     int mapYSize = 50;
     bool isCity;
     bool isGrass;
-    FloorType floorType;
+    GameType::FloorType floorType;
     for (int i = 0; i < mapXSize; ++i) {
         map.tiles.emplace_back();
         for (int j = 0; j < mapYSize; ++j) {
             isCity = (j % 2 == 0);
             if (j % 3 == 0) {
-                floorType = FLOOR_TYPE_WALL;
+                floorType = GameType::FloorType::WALL;
             } else {
-                floorType = FLOOR_TYPE_GRASS;
+                floorType = GameType::FloorType::GRASS;
             }
             map.tiles[i].emplace_back(isCity, floorType);
         }
@@ -116,25 +116,25 @@ bool MapTests::testAddedItemsToMap() {
     items.emplace_back(new Gold(5));
     items.emplace_back(new HealthPotion());
     items.emplace_back(new ManaPotion());
-    items.emplace_back(new Head(GameType::MAGIC_HAT));
-    items.emplace_back(new Head(GameType::NO_HELMET));
-    items.emplace_back(new Shield(GameType::IRON_SHIELD));
-    items.emplace_back(new Chest(GameType::PLATE_ARMOR));
-    items.emplace_back(new Chest(GameType::COMMON_CLOTHING));
-    items.emplace_back(new Weapon(GameType::LONGSWORD));
-    items.emplace_back(new Weapon(GameType::FIST));
+    items.emplace_back(new Head(GameType::Clothing::MAGIC_HAT));
+    items.emplace_back(new Head(GameType::Clothing::NO_HELMET));
+    items.emplace_back(new Shield(GameType::Clothing::IRON_SHIELD));
+    items.emplace_back(new Chest(GameType::Clothing::PLATE_ARMOR));
+    items.emplace_back(new Chest(GameType::Clothing::COMMON_CLOTHING));
+    items.emplace_back(new Weapon(GameType::Weapon::LONGSWORD));
+    items.emplace_back(new Weapon(GameType::Weapon::FIST));
 
     Configuration& config = Configuration::getInstance();
 
-    std::vector<std::string> itemsNames = {config.configGetGoldName(), config.configPotionData(GameType::HEALTH_POTION).name,
-                                         config.configPotionData(GameType::MANA_POTION).name,
-                                         config.configClothingData(GameType::MAGIC_HAT).name,
-                                         config.configClothingData(GameType::NO_HELMET).name,
-                                         config.configClothingData(GameType::IRON_SHIELD).name,
-                                         config.configClothingData(GameType::PLATE_ARMOR).name,
-                                         config.configClothingData(GameType::COMMON_CLOTHING).name,
-                                         config.configWeaponData(GameType::LONGSWORD).name,
-                                         config.configWeaponData(GameType::FIST).name};
+    std::vector<std::string> itemsNames = {config.configGetGoldName(), config.configPotionData(GameType::Potion::HEALTH_POTION).name,
+                                         config.configPotionData(GameType::Potion::MANA_POTION).name,
+                                         config.configClothingData(GameType::Clothing::MAGIC_HAT).name,
+                                         config.configClothingData(GameType::Clothing::NO_HELMET).name,
+                                         config.configClothingData(GameType::Clothing::IRON_SHIELD).name,
+                                         config.configClothingData(GameType::Clothing::PLATE_ARMOR).name,
+                                         config.configClothingData(GameType::Clothing::COMMON_CLOTHING).name,
+                                         config.configWeaponData(GameType::Weapon::LONGSWORD).name,
+                                         config.configWeaponData(GameType::Weapon::FIST).name};
     map.addItemsToTile(std::move(items), {1, 1});
     int i = 0;
     for (const auto & item: map.tiles[1][1].items) {

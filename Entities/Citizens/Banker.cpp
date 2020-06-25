@@ -17,7 +17,7 @@ public:
 };
 
 
-Banker::Banker(Coordinate initialPosition): Entity(initialPosition) {
+Banker::Banker(Coordinate initialPosition): Entity(GameType::BANKER, initialPosition) {
 
 }
 

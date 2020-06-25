@@ -226,7 +226,7 @@ void Map::test(Game& game, std::list<std::shared_ptr<Monster>>& monsters) {
     for (int i = 0; i < 100; ++i) {
         tiles.emplace_back();
         for (int j = 0; j < 100; ++j) {
-            tiles[i].emplace_back(false, FLOOR_TYPE_GRASS);
+            tiles[i].emplace_back(false, GameType::FloorType::GRASS);
         }
     }
     /*
@@ -311,7 +311,7 @@ void Map::sell(Player &player, const std::string &itemName, Coordinate coordinat
 }
 
 void Map::operator>>(std::stringstream &mapBuffer) const {
-    msgpack::type::tuple<int32_t , int32_t> mapSize;
+    msgpack::type::tuple<int32_t , int32_t> mapSize(tiles.size(), tiles[0].size());
     msgpack::pack(mapBuffer, mapSize);
     for (const auto & row : tiles) {
         for (const auto & tile : row) {

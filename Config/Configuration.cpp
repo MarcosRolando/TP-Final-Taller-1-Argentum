@@ -48,7 +48,7 @@ const Config::Modifiers& Configuration::configRaceModifiers(Race race) const{
     return raceModifiers.at(race);
 }
 
-const Config::MonsterStats& Configuration::configMonsterStats(Monster monster) const{
+const Config::MonsterStats& Configuration::configMonsterStats(GameType::Entity monster) const{
     return monsterStats.at(monster);
 }
 

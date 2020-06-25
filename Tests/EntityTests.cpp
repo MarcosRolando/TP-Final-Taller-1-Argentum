@@ -20,10 +20,10 @@ bool EntityTests::testStoreItem() {
     Game game;
     Player player(game, GameType::HUMAN, GameType::CLERIC,
             1, 0, {0, 0}, "ElPantuflas");
-    std::shared_ptr<Item> item(new Weapon(GameType::LONGSWORD));
+    std::shared_ptr<Item> item(new Weapon(GameType::Weapon::LONGSWORD));
     player.storeItem(std::move(item));
-    return (player.removeItem(config.configWeaponData(GameType::LONGSWORD).name)->getName()
-            == config.configWeaponData(GameType::LONGSWORD).name);
+    return (player.removeItem(config.configWeaponData(GameType::Weapon::LONGSWORD).name)->getName()
+            == config.configWeaponData(GameType::Weapon::LONGSWORD).name);
 }
 
 bool EntityTests::testIsMonsterTarget() {
@@ -55,14 +55,14 @@ bool EntityTests::testItemUse() {
                   1, 0, {0, 0}, "ElPantuflas");
     player.useItem(0); /*No deberia hacer nada*/
     if (player.inventory.equippedWeapon->getName() !=
-            config.configWeaponData(GameType::FIST).name) return false;
+            config.configWeaponData(GameType::Weapon::FIST).name) return false;
     player.useItem(15); /*No deberia hacer nada*/
     if (player.inventory.equippedWeapon->getName() !=
-        config.configWeaponData(GameType::FIST).name) return false;
-    std::shared_ptr<Item> item(new Weapon(GameType::LINKED_STAFF));
+        config.configWeaponData(GameType::Weapon::FIST).name) return false;
+    std::shared_ptr<Item> item(new Weapon(GameType::Weapon::LINKED_STAFF));
     player.storeItem(std::move(item));
     player.useItem(0); /*Deberia equiparse el LinkedStaff*/
-    return (player.inventory.equippedWeapon->getName() == config.configWeaponData(GameType::LINKED_STAFF).name);
+    return (player.inventory.equippedWeapon->getName() == config.configWeaponData(GameType::Weapon::LINKED_STAFF).name);
 }
 
 bool EntityTests::testPlayerNickname() {

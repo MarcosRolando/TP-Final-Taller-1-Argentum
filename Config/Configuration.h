@@ -13,7 +13,7 @@ class Configuration {
 private:
     std::unordered_map<GameType::Race, Config::Modifiers> raceModifiers{};
     std::unordered_map<GameType::Class, Config::Modifiers> classModifiers{};
-    std::unordered_map<GameType::Monster, Config::MonsterStats> monsterStats{};
+    std::unordered_map<GameType::Entity, Config::MonsterStats> monsterStats{};
     std::unordered_map<GameType::Weapon, Config::WeaponData> weaponData{};
     std::unordered_map<GameType::Clothing, Config::ClothingData> clothingData{};
     std::unordered_map<GameType::Potion, Config::PotionData> potionData{};
@@ -47,7 +47,7 @@ public:
 
     const Config::Modifiers& configRaceModifiers(GameType::Race race) const;
 
-    const Config::MonsterStats& configMonsterStats(GameType::Monster monster) const;
+    const Config::MonsterStats& configMonsterStats(GameType::Entity monster) const;
 
     const Config::WeaponData& configWeaponData(GameType::Weapon weapon) const;
 

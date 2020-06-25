@@ -4,23 +4,22 @@
 
 #include "Tile.h"
 #include <memory>
-#include "FloorType.h"
 #include "../AttackResult.h"
 #include "../TPException.h"
 #include <msgpack.hpp>
-#include "../Shared/ObjectID.h"
-MSGPACK_ADD_ENUM(ObjectID) /*Sin esto rompe el msgshit*/
 
+MSGPACK_ADD_ENUM(GameType::FloorType)
+MSGPACK_ADD_ENUM(GameType::Entity)
 ////////////////////////////////////////PUBLIC////////////////////////////////////////
 
 
 
-Tile::Tile(bool isFromCity, FloorType floor): entity(nullptr) {
+Tile::Tile(bool isFromCity, GameType::FloorType floor): entity(nullptr) {
     this->floor = floor;
     this->isFromCity = isFromCity;
     switch (floor) {
-        case FLOOR_TYPE_TREE:
-        case FLOOR_TYPE_WALL:
+        case GameType::FloorType::TREE:
+        case GameType::FloorType::WALL:
             isOccupable = false;
             break;
         default:
@@ -127,6 +126,11 @@ bool Tile::isInCity() const {
 }
 
 void Tile::operator>>(std::stringstream &mapBuffer) const {
-    msgpack::type::tuple<ObjectID, ObjectID, ObjectID> tileInfo; /*de izquierda a derecha es el tipo de piso, tipo de estructura y citizen*/
+    GameType::Entity entityType = GameType::NOTHING;
+    if (entity) {
+        entityType = entity->getType();
+    }
+    msgpack::type::tuple<GameType::FloorType,
+                GameType::FloorType, GameType::Entity> tileInfo(floor, structure, entityType); /*de izquierda a derecha es el tipo de piso, tipo de estructura y citizen*/
     msgpack::pack(mapBuffer, tileInfo);
 }

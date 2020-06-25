@@ -46,10 +46,10 @@ void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int
 
 Inventory::Inventory() : items(INVENTORY_SIZE, nullptr) {
     storedItemsAmount = 0;
-    clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new Head(GameType::NO_HELMET));
-    clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new Chest(GameType::COMMON_CLOTHING));
-    clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new Shield(GameType::NO_SHIELD));
-    equippedWeapon.reset(new Weapon(GameType::FIST));
+    clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new Head(GameType::Clothing::NO_HELMET));
+    clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new Chest(GameType::Clothing::COMMON_CLOTHING));
+    clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new Shield(GameType::Clothing::NO_SHIELD));
+    equippedWeapon.reset(new Weapon(GameType::Weapon::FIST));
 }
 
 bool Inventory::addItem(std::shared_ptr<Item> &&item) {
@@ -114,10 +114,10 @@ void Inventory::_dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItem
     if (!equippedWeapon->isDefault()) {
         droppedItems.push_back(std::move(equippedWeapon));
     }
-    clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new Head(GameType::NO_HELMET));
-    clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new Chest(GameType::COMMON_CLOTHING));
-    clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new Shield(GameType::NO_SHIELD));
-    equippedWeapon.reset(new Weapon(GameType::FIST));
+    clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new Head(GameType::Clothing::NO_HELMET));
+    clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new Chest(GameType::Clothing::COMMON_CLOTHING));
+    clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new Shield(GameType::Clothing::NO_SHIELD));
+    equippedWeapon.reset(new Weapon(GameType::Weapon::FIST));
 }
 
 std::list<std::shared_ptr<Item>> Inventory::dropAllItems() {

@@ -85,7 +85,7 @@ void Config::ConfigFileReader::loadPotionData(std::unordered_map<Potion, PotionD
 }
 
 
-void Config::ConfigFileReader::loadMonsterStats(std::unordered_map<Monster, MonsterStats>& stats) {
+void Config::ConfigFileReader::loadMonsterStats(std::unordered_map<GameType::Entity, MonsterStats>& stats) {
     Json::Value& monsterStats = obj["Monster"];
     MonsterStats currStats{};
     for (auto & monsterStat : monsterStats) {

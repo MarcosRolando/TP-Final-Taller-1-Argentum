@@ -11,7 +11,7 @@
 
 using namespace GameType;
 
-Trader::Trader(Coordinate initialPosition) : Entity(initialPosition) {
+Trader::Trader(Coordinate initialPosition) : Entity(GameType::TRADER, initialPosition) {
     Configuration& config = Configuration::getInstance();
     std::unordered_map<std::string, unsigned int> initialItemsAmounts;
 

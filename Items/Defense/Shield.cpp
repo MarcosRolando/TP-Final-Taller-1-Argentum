@@ -13,5 +13,5 @@ EquipmentPlace Shield::use(Player &player) {
 }
 
 bool Shield::isDefault() const {
-    return (id == GameType::NO_SHIELD);
+    return (static_cast<GameType::Clothing>(id) == GameType::Clothing::NO_SHIELD);
 }
