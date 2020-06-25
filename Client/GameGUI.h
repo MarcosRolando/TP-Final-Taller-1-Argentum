@@ -23,7 +23,7 @@ private:
 
 public:
     GameGUI();
-    void setMapSize();
+    void setMapSize(int rows, int columns);
     ~GameGUI();
 
 private:

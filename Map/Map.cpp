@@ -9,9 +9,9 @@
 
 Map::Map(TextureRepository& repo, SDL_Rect& camera) : textureRepo(repo), camera(camera) {
     this->camera = camera;
-    _setTiles();
+    //_setTiles();
 }
-
+/*
 void Map::_setTiles() {
     MapFileReader mapFile("../map.json");
 
@@ -87,7 +87,7 @@ void Map::_setTiles() {
         }
     }
 }
-
+*/
 void Map::renderGround() {
     for (int i = 0; i < (VISIBLE_VERTICAL_TILES + 1); ++i) {
         for (int j = 0; j < (VISIBLE_HORIZONTAL_TILES + 1); ++j) {
@@ -121,5 +121,13 @@ void Map::renderStructures() {
 void Map::renderNPCS(float timeStep) {
     for (auto & npc : npcs) {
         npc.render(timeStep);
+    }
+}
+
+void Map::setSize(int rows, int columns) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            tiles.emplace_back(j*TILE_WIDTH, i*TILE_HEIGHT);
+        }
     }
 }

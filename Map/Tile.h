@@ -13,7 +13,7 @@ class Tile {
 private:
     //The attributes of the tile
     SDL_Rect box{};
-    Texture& tileTexture;
+    Texture* tileTexture{nullptr};
     ItemDrop item;
     Structure structure;
     //The tile type
@@ -21,7 +21,9 @@ private:
 
 public:
     //Initializes position and type
-    Tile(int x, int y, int tileType, Texture& tileTexture, Texture* sTexture = nullptr);
+    Tile(int x, int y);
+
+    void loadTileData(Texture& _tileTexture, Texture* sTexture = nullptr, int tileType = 0);
 
     void setStructure(Texture& sTexture);
 

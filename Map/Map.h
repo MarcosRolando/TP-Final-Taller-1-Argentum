@@ -26,6 +26,7 @@ public:
     void renderGround();
     void renderStructures();
     void renderNPCS(float timeStep);
+    void setSize(int rows, int columns);
 
 private:
     void _setTiles();

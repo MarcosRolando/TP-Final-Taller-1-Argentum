@@ -6,10 +6,9 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-#include "../TPException.h"
 
-void GameGUI::setMapSize() {
-
+void GameGUI::setMapSize(int rows, int columns) {
+    map.setSize(rows, columns);
 }
 
 GameGUI::GameGUI() : repo(screen.getRenderer()), map(repo, camera),

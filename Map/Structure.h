@@ -14,7 +14,7 @@ private:
     Texture* sTexture;
 
 public:
-    Structure(int x, int y, Texture* sTexture);
+    Structure(int x, int y, Texture* sTexture = nullptr);
 
     void setTexture(Texture& texture);
 

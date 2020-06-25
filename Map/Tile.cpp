@@ -5,16 +5,14 @@
 #include "Tile.h"
 #include "../GameConstants.h"
 
-Tile::Tile(int x, int y, int tileType, Texture& tileTexture, Texture* sTexture)
-            : tileTexture(tileTexture), item(x, y), structure(x, y, sTexture) {
+Tile::Tile(int x, int y) : item(x, y), structure(x, y) {
     box = {x, y, TILE_WIDTH, TILE_HEIGHT};
-    //Get the tile type
-    type = tileType;
+    type = 0;
 }
 
 void Tile::renderGround(SDL_Rect& camera) {
     //If the tile is on screen
-    tileTexture.render(box.x - camera.x, box.y - camera.y, type);
+    tileTexture->render(box.x - camera.x, box.y - camera.y, type);
     item.render(camera);
 }
 
@@ -28,4 +26,12 @@ void Tile::setStructure(Texture& sTexture) {
 
 void Tile::renderStructure(SDL_Rect &camera) {
     structure.render(camera);
+}
+
+void Tile::loadTileData(Texture& _tileTexture, Texture* sTexture, int tileType) {
+    type = tileType;
+    tileTexture = &_tileTexture;
+    if (sTexture) {
+        structure.setTexture(*sTexture);
+    }
 }
