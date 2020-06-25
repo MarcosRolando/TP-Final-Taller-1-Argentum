@@ -12,7 +12,7 @@ namespace GameType {
         HUMAN, ELF, DWARF, GNOME
     };
 
-    enum Class {
+    enum Class { /*Esta no se envia en el protocolo*/
         WIZARD, CLERIC, PALADIN, WARRIOR
     };
 
