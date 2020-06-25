@@ -310,5 +310,9 @@ void Map::sell(Player &player, const std::string &itemName, Coordinate coordinat
 }
 
 void Map::operator>>(std::stringstream &mapBuffer) const {
-
+    for (const auto & row : tiles) {
+        for (const auto & tile : row) {
+            tile >> mapBuffer;
+        }
+    }
 }

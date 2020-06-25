@@ -7,6 +7,7 @@
 #include "FloorType.h"
 #include "../AttackResult.h"
 #include "../TPException.h"
+#include <msgpack.hpp>
 
 ////////////////////////////////////////PUBLIC////////////////////////////////////////
 
@@ -121,4 +122,8 @@ void Tile::addItem(std::list<std::shared_ptr<Item>>&& _items) {
 
 bool Tile::isInCity() const {
     return isFromCity;
+}
+
+void Tile::operator>>(std::stringstream &mapBuffer) {
+    msgpack::type::tuple<>
 }

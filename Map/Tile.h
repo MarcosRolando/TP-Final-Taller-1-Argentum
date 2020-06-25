@@ -21,6 +21,7 @@ private:
     std::shared_ptr<Entity> entity;
     std::list<std::shared_ptr<Item>> items;
     bool isOccupable{};
+
     bool isFromCity;
     FloorType floor;
 
@@ -83,7 +84,10 @@ public:
     //Delega el comportamiento a la entity que guarda, si es que guarda una
     void sell(Player& player, const std::string& itemName);
 
+    //Retorna si es de una city
     bool isInCity() const;
+
+    void operator>>(std::stringstream & mapBuffer);
 };
 
 
