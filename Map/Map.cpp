@@ -17,6 +17,7 @@
 #include "../Items/Defense/Chest.h"
 #include "../Items/Defense/Head.h"
 #include "../Items/Defense/Shield.h"
+#include "../Config/MapFileReader.h"
 
 //////////////////////////////PRIVATE/////////////////////////////
 
@@ -105,6 +106,19 @@ void Map::_storePath(Coordinate initialPosition, Coordinate desiredPosition,
 
 
 //////////////////////////////PUBLIC/////////////////////////////
+
+
+Map::Map(MapFileReader &mapFile) {
+    MapSize mapSize = mapFile.getMapDimensions();
+    tiles.resize(mapSize.height, std::vector<Tile>(mapSize.width));
+    for (const auto & line: tiles) {
+        for (const auto & tile: line) {
+            Tile aux();
+
+        }
+    }
+}
+
 
 
 AttackResult Map::attackTile(int damage, unsigned int level, bool isAPlayer,
@@ -319,3 +333,4 @@ void Map::operator>>(std::stringstream &mapBuffer) const {
         }
     }
 }
+

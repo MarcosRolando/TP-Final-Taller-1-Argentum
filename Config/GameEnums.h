@@ -35,7 +35,11 @@ namespace GameType {
         HEALTH_POTION, MANA_POTION
     };
 
-    enum class FloorType: int32_t {
+    enum FloorType: int32_t {
+        GRASS, SAND, WATER, DARK_WATER, DEAD_GRASS, PRETTY_GRASS, WALL, TREE
+    };
+
+    enum Structure: int32_t {
         GRASS, SAND, WATER, DARK_WATER, DEAD_GRASS, PRETTY_GRASS, WALL, TREE
     };
 }

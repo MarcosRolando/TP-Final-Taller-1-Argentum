@@ -17,6 +17,8 @@ struct AttackResult;
 class Item;
 class Entity;
 class Monster;
+class MapFileReader;
+
 class MapTests;
 
 class Map {
@@ -38,6 +40,8 @@ private:
     void _buildSearchRegion(Coordinate center, unsigned int range, Coordinate& topLeft, Coordinate& bottomRight) const;
     static bool _areCoordinatesEqual(Coordinate a, Coordinate b);
 public:
+
+    explicit Map(MapFileReader& mapFile);
 
     //Constructor de prueba
     void test(Game& game, std::list<std::shared_ptr<Monster>>& monsters);

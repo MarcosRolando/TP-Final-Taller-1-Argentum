@@ -20,7 +20,9 @@ Tile::Tile(bool isFromCity, GameType::FloorType floor): entity(nullptr) {
     switch (floor) {
         case GameType::FloorType::TREE:
         case GameType::FloorType::WALL:
-            isOccupable = false;
+            //TIENE QUE USARSE EL FALSE, ESTO ESTA PARA PROBAR AL PRINCIPIO
+            //isOccupable = false;
+            isOccupable = true;
             break;
         default:
             isOccupable = true;
