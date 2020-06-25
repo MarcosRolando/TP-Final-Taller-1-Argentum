@@ -6,8 +6,16 @@
 #define ARGENTUM_SERVERPROTOCOL_H
 
 
-class ServerProtocol {
+#include "../Map/Map.h"
+#include <msgpack.hpp>
+#include <sstream>
 
+class ServerProtocol {
+private:
+    std::stringstream mapBuffer;
+
+public:
+    void operator<<(const Map &map);
 };
 
 

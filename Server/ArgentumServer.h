@@ -13,6 +13,7 @@
 #include <memory>
 #include <utility>
 #include "../Game/Game.h"
+#include "ServerProtocol.h"
 
 class ArgentumServer {
 private:
@@ -20,10 +21,11 @@ private:
     std::atomic<bool> keepRunning{true};
     std::string port;
     Socket socket;
+    ServerProtocol protocol;
     std::vector<std::unique_ptr<ClientHandler>> clients;
 
 public:
-    explicit ArgentumServer(std::string&& port) : port(std::move(port)) {}
+    explicit ArgentumServer(std::string&& _port);
     ArgentumServer(const ArgentumServer&) = delete; /*Borro los constructores por copia*/
     ArgentumServer operator=(const ArgentumServer&) = delete;
 

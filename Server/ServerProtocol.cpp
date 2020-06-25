@@ -3,3 +3,7 @@
 //
 
 #include "ServerProtocol.h"
+
+void ServerProtocol::operator<<(const Map &map) {
+    map >> mapBuffer;
+}

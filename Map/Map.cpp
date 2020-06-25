@@ -308,3 +308,7 @@ void Map::sell(Player &player, const std::string &itemName, Coordinate coordinat
         tiles[coordinate.iPosition][coordinate.jPosition].sell(player, itemName);
     }
 }
+
+void Map::operator>>(std::stringstream &mapBuffer) const {
+
+}

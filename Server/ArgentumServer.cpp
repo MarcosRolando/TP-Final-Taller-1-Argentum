@@ -40,6 +40,7 @@ void ArgentumServer::_execute() {
         time1 = high_resolution_clock::now();
 
         game.update(lastFrameTime);
+        //protocol.notifyClients();
 
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
@@ -56,4 +57,9 @@ void ArgentumServer::_execute() {
     }
     monitor.join(); /*Joineamos los threads*/
     accepter.join();
+}
+
+ArgentumServer::ArgentumServer(std::string &&_port) {
+    port = std::move(_port);
+    protocol << game.getMap();
 }
