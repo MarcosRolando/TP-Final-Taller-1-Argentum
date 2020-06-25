@@ -33,8 +33,8 @@
 #define ASH_ROD_DROP_PATH "../Images/Items/AshRodDrop.png"
 #define AXE_PATH "../Images/Items/Axe.png"
 #define AXE_DROP_PATH "../Images/Items/AxeDrop.png"
-#define COMPOUND_BOW_PATH "../Images/Items/CompoundBow.png"
-#define COMPOUND_BOW_DROP_PATH "../Images/Items/CompoundBowDrop.png"
+#define COMPOUND_BOW_PATH "../Images/Items/CompositeBow.png"
+#define COMPOUND_BOW_DROP_PATH "../Images/Items/CompositeBowDrop.png"
 #define ELVEN_FLUTE_PATH "../Images/Items/ElvenFlute.png"
 #define ELVEN_FLUTE_DROP_PATH "../Images/Items/ElvenFluteDrop.png"
 #define LINKED_STAFF_PATH "../Images/Items/LinkedStaff.png"
@@ -133,7 +133,7 @@ void TextureRepository::_loadDrops() {
     _setImage(TurtleShieldDrop, TURTLE_SHIELD_DROP_PATH, 32, 32, 50, 45);
     _setImage(AshRodDrop, ASH_ROD_DROP_PATH, 32, 32, 35, 30, 2);
     _setImage(AxeDrop, AXE_DROP_PATH, 32, 32, 32, 30, 2);
-    _setImage(CompoundBowDrop, COMPOUND_BOW_DROP_PATH, 32, 32, 32, 30, 2);
+    _setImage(CompositeBowDrop, COMPOUND_BOW_DROP_PATH, 32, 32, 32, 30, 2);
     _setImage(ElvenFluteDrop, ELVEN_FLUTE_DROP_PATH, 32, 32, 32, 30, 2);
     _setImage(SimpleBowDrop, SIMPLE_BOW_DROP_PATH, 32, 32, 32, 30, 2);
     _setImage(WarHammerDrop, WAR_HAMMER_DROP_PATH, 32, 32, 32, 28, 2);
@@ -162,7 +162,7 @@ void TextureRepository::_loadHeads() {
 void TextureRepository::_loadWeapons() {
     _setWeaponImage(AshRod, ASH_ROD_PATH);
     _setWeaponImage(Axe, AXE_PATH);
-    _setWeaponImage(CompoundBow, COMPOUND_BOW_PATH);
+    _setWeaponImage(CompositeBow, COMPOUND_BOW_PATH);
     //_setWeaponImage(ElvenFlute, ELVEN_FLUTE_PATH); todo
     _setWeaponImage(LinkedStaff, LINKED_STAFF_PATH);
     _setWeaponImage(GnarledStaff, GNARLED_STAFF_PATH);

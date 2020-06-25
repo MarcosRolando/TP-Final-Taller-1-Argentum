@@ -95,3 +95,70 @@ void ClientProtocol::_translateStructures() {
     structuresMap.emplace(GameType::Structure::SUNKEN_COLUMN, SunkenColumn);
     structuresMap.emplace(GameType::Structure::SUNKEN_SHIP, SunkenShip);
 }
+
+void ClientProtocol::_translateRaces() {
+    racesMap.emplace(GameType::Race::HUMAN, HumanHead);
+    racesMap.emplace(GameType::Race::ELF, ElfHead);
+    racesMap.emplace(GameType::Race::DWARF, DwarfHead);
+    racesMap.emplace(GameType::Race::GNOME, GnomeHead);
+
+}
+
+void ClientProtocol::_translateWeapons() {
+    weaponsMap.emplace(GameType::Weapon::LONGSWORD, LongSword);
+    weaponsMap.emplace(GameType::Weapon::AXE, Axe);
+    weaponsMap.emplace(GameType::Weapon::WARHAMMER, WarHammer);
+    weaponsMap.emplace(GameType::Weapon::ASH_ROD, AshRod);
+    weaponsMap.emplace(GameType::Weapon::ELVEN_FLUTE, ElvenFlute);
+    weaponsMap.emplace(GameType::Weapon::LINKED_STAFF, LinkedStaff);
+    weaponsMap.emplace(GameType::Weapon::SIMPLE_BOW, SimpleBow);
+    weaponsMap.emplace(GameType::Weapon::COMPOSITE_BOW, CompositeBow);
+    weaponsMap.emplace(GameType::Weapon::GNARLED_STAFF, GnarledStaff);
+    weaponsMap.emplace(GameType::Weapon::FIST, Nothing);
+}
+
+void ClientProtocol::_translateWeaponDrops() {
+    weaponDropsMap.emplace(GameType::Weapon::LONGSWORD, LongSwordDrop);
+    weaponDropsMap.emplace(GameType::Weapon::AXE, AxeDrop);
+    weaponDropsMap.emplace(GameType::Weapon::WARHAMMER, WarHammerDrop);
+    weaponDropsMap.emplace(GameType::Weapon::ASH_ROD, AshRodDrop);
+    weaponDropsMap.emplace(GameType::Weapon::ELVEN_FLUTE, ElvenFluteDrop);
+    weaponDropsMap.emplace(GameType::Weapon::LINKED_STAFF, LinkedStaffDrop);
+    weaponDropsMap.emplace(GameType::Weapon::SIMPLE_BOW, SimpleBowDrop);
+    weaponDropsMap.emplace(GameType::Weapon::COMPOSITE_BOW, CompositeBowDrop);
+    weaponDropsMap.emplace(GameType::Weapon::GNARLED_STAFF, GnarledStaffDrop);
+    weaponDropsMap.emplace(GameType::Weapon::FIST, Nothing);
+}
+
+void ClientProtocol::_translateClothing() {
+    clothingMap.emplace(GameType::Clothing::COMMON_CLOTHING, CommonClothing);
+    clothingMap.emplace(GameType::Clothing::LEATHER_ARMOR, LeatherArmor);
+    clothingMap.emplace(GameType::Clothing::PLATE_ARMOR, PlateArmor);
+    clothingMap.emplace(GameType::Clothing::BLUE_TUNIC, BlueTunic);
+    clothingMap.emplace(GameType::Clothing::HOOD, Hood);
+    clothingMap.emplace(GameType::Clothing::IRON_HELMET, IronHelmet);
+    clothingMap.emplace(GameType::Clothing::TURTLE_SHIELD, TurtleShield);
+    clothingMap.emplace(GameType::Clothing::IRON_SHIELD, IronShield);
+    clothingMap.emplace(GameType::Clothing::MAGIC_HAT, MagicHat);
+    clothingMap.emplace(GameType::Clothing::NO_HELMET, Nothing);
+    clothingMap.emplace(GameType::Clothing::NO_SHIELD, Nothing);
+}
+
+void ClientProtocol::_translateClothingDrops() {
+    clothingDropsMap.emplace(GameType::Clothing::COMMON_CLOTHING,CommonClothingDrop);
+    clothingDropsMap.emplace(GameType::Clothing::LEATHER_ARMOR, LeatherArmorDrop);
+    clothingDropsMap.emplace(GameType::Clothing::PLATE_ARMOR, PlateArmorDrop);
+    clothingDropsMap.emplace(GameType::Clothing::BLUE_TUNIC, BlueTunicDrop);
+    clothingDropsMap.emplace(GameType::Clothing::HOOD, HoodDrop);
+    clothingDropsMap.emplace(GameType::Clothing::IRON_HELMET, IronHelmetDrop);
+    clothingDropsMap.emplace(GameType::Clothing::TURTLE_SHIELD, TurtleShieldDrop);
+    clothingDropsMap.emplace(GameType::Clothing::IRON_SHIELD, IronShieldDrop);
+    clothingDropsMap.emplace(GameType::Clothing::MAGIC_HAT, MagicHatDrop);
+    clothingDropsMap.emplace(GameType::Clothing::NO_HELMET, Nothing);
+    clothingDropsMap.emplace(GameType::Clothing::NO_SHIELD, Nothing);
+}
+
+void ClientProtocol::_translatePotions() {
+    potionsMap.emplace(GameType::Potion::HEALTH_POTION, HealthPotion);
+    potionsMap.emplace(GameType::Potion::MANA_POTION, ManaPotion);
+}
