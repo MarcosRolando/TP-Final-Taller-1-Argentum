@@ -10,6 +10,7 @@
 
 MSGPACK_ADD_ENUM(GameType::FloorType)
 MSGPACK_ADD_ENUM(GameType::Entity)
+MSGPACK_ADD_ENUM(GameType::Structure)
 ////////////////////////////////////////PUBLIC////////////////////////////////////////
 
 
@@ -128,11 +129,11 @@ bool Tile::isInCity() const {
 }
 
 void Tile::operator>>(std::stringstream &mapBuffer) const {
-    GameType::Entity entityType = GameType::NOTHING;
+    GameType::Entity entityType = GameType::Entity::NOTHING;
     if (entity) {
         entityType = entity->getType();
     }
     msgpack::type::tuple<GameType::FloorType,
-                GameType::FloorType, GameType::Entity> tileInfo(floor, structure, entityType); /*de izquierda a derecha es el tipo de piso, tipo de estructura y citizen*/
+                GameType::Structure, GameType::Entity> tileInfo(floor, structure, entityType); /*de izquierda a derecha es el tipo de piso, tipo de estructura y citizen*/
     msgpack::pack(mapBuffer, tileInfo);
 }
