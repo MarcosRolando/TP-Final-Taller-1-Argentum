@@ -170,7 +170,7 @@ Map::Map(MapFileReader &mapFile) {
             if (floors.count(aux.tileType) == 0) {
                 std::cout << "No existe el tile: " << aux.tileType << std::endl;
             }
-            if ((floors.count(aux.structureType) == 0) && (aux.structureType != "Nothing")) {
+            if ((structures.count(aux.structureType) == 0) && (aux.structureType != "Nothing")) {
                 std::cout << "No existe la estructura: " << aux.structureType << std::endl;
             }
 
