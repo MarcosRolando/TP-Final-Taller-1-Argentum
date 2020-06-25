@@ -28,7 +28,7 @@ void Tile::renderStructure(SDL_Rect &camera) {
     structure.render(camera);
 }
 
-void Tile::loadTileData(Texture& _tileTexture, Texture* sTexture, int tileType) {
+void Tile::loadData(Texture& _tileTexture, Texture* sTexture, int tileType) {
     type = tileType;
     tileTexture = &_tileTexture;
     if (sTexture) {

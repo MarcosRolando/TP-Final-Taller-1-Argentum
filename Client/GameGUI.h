@@ -24,10 +24,11 @@ private:
 public:
     GameGUI();
     void setMapSize(int rows, int columns);
-    ~GameGUI();
 
-private:
-    static void _initializeSDL();
+    void loadTileData(int i, int j, TextureID floor, TextureID structure,
+                      TextureID entity);
+
+    void render();
 };
 
 

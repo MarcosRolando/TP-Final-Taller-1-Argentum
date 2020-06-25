@@ -26,10 +26,16 @@ void ClientProtocol::receiveMapInfo() {
     int rows = std::get<0>(mapSize);
     int columns = std::get<1>(mapSize);
     game.setMapSize(rows, columns);
-    for (int i = 0; i < rows*columns; ++i) {
-        handler = msgpack::unpack(str.data(), str.size(), offset);
-        msgpack::type::tuple<GameType::FloorType, GameType::Structure, GameType::Entity> tileInfo;
-        std::cout << handler.get() << std::endl;
-        handler->convert(tileInfo);
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            handler = msgpack::unpack(str.data(), str.size(), offset);
+            msgpack::type::tuple<GameType::FloorType, GameType::Structure, GameType::Entity> tileInfo;
+            handler->convert(tileInfo);
+            game.loadTileData(i, j, floorTypesMap.at(std::get<0>(tileInfo)),
+                    structuresMap.at(std::get<1>(tileInfo)), entitiesMap.at(std::get<2>(tileInfo)));
+        }
+    }
+    while (1) {
+        game.render();
     }
 }
