@@ -8,6 +8,8 @@
 #include "../AttackResult.h"
 #include "../TPException.h"
 #include <msgpack.hpp>
+#include "../Shared/ObjectID.h"
+MSGPACK_ADD_ENUM(ObjectID) /*Sin esto rompe el msgshit*/
 
 ////////////////////////////////////////PUBLIC////////////////////////////////////////
 
@@ -124,6 +126,7 @@ bool Tile::isInCity() const {
     return isFromCity;
 }
 
-void Tile::operator>>(std::stringstream &mapBuffer) {
-    msgpack::type::tuple<>
+void Tile::operator>>(std::stringstream &mapBuffer) const {
+    msgpack::type::tuple<ObjectID, ObjectID, ObjectID> tileInfo; /*de izquierda a derecha es el tipo de piso, tipo de estructura y citizen*/
+    msgpack::pack(mapBuffer, tileInfo);
 }

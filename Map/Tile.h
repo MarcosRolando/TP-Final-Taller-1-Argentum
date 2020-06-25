@@ -87,7 +87,7 @@ public:
     //Retorna si es de una city
     bool isInCity() const;
 
-    void operator>>(std::stringstream & mapBuffer);
+    void operator>>(std::stringstream & mapBuffer) const;
 };
 
 

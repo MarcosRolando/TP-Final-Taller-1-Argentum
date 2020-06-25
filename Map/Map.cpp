@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "../AttackResult.h"
 #include "../Config/Calculator.h"
+#include <msgpack.hpp>
 
 //todo ESTO ES DE PRUEBA
 #include "../Config/GameEnums.h"
@@ -310,6 +311,8 @@ void Map::sell(Player &player, const std::string &itemName, Coordinate coordinat
 }
 
 void Map::operator>>(std::stringstream &mapBuffer) const {
+    msgpack::type::tuple<int32_t , int32_t> mapSize;
+    msgpack::pack(mapBuffer, mapSize);
     for (const auto & row : tiles) {
         for (const auto & tile : row) {
             tile >> mapBuffer;
