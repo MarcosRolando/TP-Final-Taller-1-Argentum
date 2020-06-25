@@ -30,10 +30,12 @@ public:
     static bool testListOnEmptyMapReturnsEmptyList();
     static bool testWithdrawOnEmptyTileGetsNoItem();
     static bool testWithdrawOnEmptyMapGetsNoItem();
-    static bool testDepositExistantItemOnEmptyTileGetsNoItem();
-    static bool testDepositExistantItemOnEmptyMapGetsNoItem();
+    static bool testDepositExistentItemOnEmptyTileGetsNoItem();
+    static bool testDepositExistentItemOnEmptyMapGetsNoItem();
     static bool testBuyItemFromEmptyTileGetsNoItem();
     static bool testBuyItemFromEmptyMapGetsNoItem();
+    static bool testSellExistentItemToEmptyTileGetsNoItem();
+    static bool testSellExistentItemToEmptyMapGetsNoItem();
 };
 
 

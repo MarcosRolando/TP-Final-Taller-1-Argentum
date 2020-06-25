@@ -76,11 +76,11 @@ TEST_CASE("Test Withdraw On Empty Map Gets No Item") {
 
 
 TEST_CASE("Test Deposit Existant Item On Empty Tile Gets No Item") {
-    REQUIRE(MapTests::testDepositExistantItemOnEmptyTileGetsNoItem());
+    REQUIRE(MapTests::testDepositExistentItemOnEmptyTileGetsNoItem());
 }
 
 TEST_CASE("Test Deposit Existant Item On Empty Map Gets No Item") {
-    REQUIRE(MapTests::testDepositExistantItemOnEmptyMapGetsNoItem());
+    REQUIRE(MapTests::testDepositExistentItemOnEmptyMapGetsNoItem());
 }
 
 TEST_CASE("Test Buy Item From Empty Tile Gets No Item") {
@@ -89,4 +89,12 @@ TEST_CASE("Test Buy Item From Empty Tile Gets No Item") {
 
 TEST_CASE("Test Buy Item From Empty Map Gets No Item") {
     REQUIRE(MapTests::testBuyItemFromEmptyMapGetsNoItem());
+}
+
+TEST_CASE("Test Sell Existent Item To Empty Tile Gets No Item") {
+    REQUIRE(MapTests::testSellExistentItemToEmptyTileGetsNoItem());
+}
+
+TEST_CASE("Test Sell Existent Item To Empty Map Gets No Item") {
+    REQUIRE(MapTests::testSellExistentItemToEmptyMapGetsNoItem());
 }
