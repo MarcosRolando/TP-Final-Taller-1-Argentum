@@ -12,7 +12,7 @@ void GameGUI::setMapSize(int rows, int columns) {
 }
 
 GameGUI::GameGUI() : repo(screen.getRenderer()), map(repo, camera),
-                    minichat(screen.getRenderer()){}
+                    minichat(screen.getRenderer()) {}
 
 void GameGUI::loadTileData(int i, int j, TextureID floor, TextureID structure,
                                                             TextureID entity) {
