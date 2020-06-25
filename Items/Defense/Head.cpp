@@ -13,5 +13,5 @@ EquipmentPlace Head::use(Player &player) {
 }
 
 bool Head::isDefault() const {
-    return (id == GameType::NO_HELMET);
+    return (static_cast<GameType::Clothing>(id) == GameType::Clothing::NO_HELMET);
 }

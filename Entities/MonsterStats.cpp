@@ -7,7 +7,7 @@
 #include "../Config/Calculator.h"
 #include "../AttackResult.h"
 
-MonsterStats::MonsterStats(GameType::Monster type) {
+MonsterStats::MonsterStats(GameType::Entity type) {
     Configuration& config = Configuration::getInstance();
     Config::MonsterStats stats = config.configMonsterStats(type);
     level = Calculator::getRandomInt(static_cast<int>(stats.minLevel),

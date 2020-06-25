@@ -5,8 +5,10 @@
 #ifndef ARGENTUM_GAMEENUMS_H
 #define ARGENTUM_GAMEENUMS_H
 
+#include <cinttypes>
+
 namespace GameType {
-    enum Race {
+    enum Race : int32_t {
         HUMAN, ELF, DWARF, GNOME
     };
 
@@ -14,23 +16,27 @@ namespace GameType {
         WIZARD, CLERIC, PALADIN, WARRIOR
     };
 
-    enum Monster {
-        SKELETON, ZOMBIE, SPIDER, GOBLIN
+    enum Entity: int32_t {
+        SKELETON, ZOMBIE, SPIDER, GOBLIN, BANKER, GUARD, TRADER, PRIEST, PLAYER, NOTHING
     };
 
-    enum Weapon {
+    enum Weapon: int32_t {
         LONGSWORD, AXE, WARHAMMER, ASH_ROD, ELVEN_FLUTE, LINKED_STAFF,
         SIMPLE_BOW, COMPOSITE_BOW, GNARLED_STAFF, FIST
     };
 
-    enum Clothing {
+    enum Clothing: int32_t {
         COMMON_CLOTHING, LEATHER_ARMOR, PLATE_ARMOR, BLUE_TUNIC, HOOD,
         IRON_HELMET, TURTLE_SHIELD, IRON_SHIELD, MAGIC_HAT, NO_HELMET,
         NO_SHIELD
     };
 
-    enum Potion {
+    enum Potion: int32_t {
         HEALTH_POTION, MANA_POTION
+    };
+
+    enum class FloorType: int32_t {
+        GRASS, SAND, WATER, DARK_WATER, DEAD_GRASS, PRETTY_GRASS, WALL, TREE
     };
 }
 

@@ -9,12 +9,13 @@
 
 const unsigned int DISTANCE_TO_MOVE = 500;
 
-Entity::Entity(Coordinate initialPosition) {
+Entity::Entity(GameType::Entity _type, Coordinate initialPosition) {
     currentPosition.iPosition = initialPosition.iPosition;
     currentPosition.jPosition = initialPosition.jPosition;
     movement.movedDistance = 0;
     movement.isMoving = false;
     speed = 2;
+    type = _type;
 }
 
 void Entity::setPosition(Coordinate coordinate) {
@@ -102,3 +103,7 @@ bool Entity::isMoving() const {
 }
 
 void Entity::attack(Coordinate target) {}
+
+GameType::Entity Entity::getType() const {
+    return type;
+}

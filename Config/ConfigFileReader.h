@@ -81,7 +81,7 @@ namespace Config {
         std::ifstream file;
         std::unordered_map<std::string, GameType::Class> classes;
         std::unordered_map<std::string, GameType::Race> races;
-        std::unordered_map<std::string, GameType::Monster> monsters;
+        std::unordered_map<std::string, GameType::Entity> monsters;
         std::unordered_map<std::string, GameType::Weapon> weapons;
         std::unordered_map<std::string, GameType::Clothing> clothing;
         std::unordered_map<std::string, GameType::Potion> potions;
@@ -93,7 +93,7 @@ namespace Config {
 
         void loadRaceModifiers(std::unordered_map<GameType::Race, Modifiers> &mods);
 
-        void loadMonsterStats(std::unordered_map<GameType::Monster, MonsterStats> &stats);
+        void loadMonsterStats(std::unordered_map<GameType::Entity, MonsterStats> &stats);
 
         void loadWeaponData(std::unordered_map<GameType::Weapon, WeaponData> &stats);
 

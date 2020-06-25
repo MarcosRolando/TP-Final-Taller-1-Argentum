@@ -33,7 +33,7 @@ Weapon::Weapon(GameType::Weapon weapon): Item(ITEM_TYPE_WEAPON,
                                               Configuration::getInstance().configWeaponData(weapon).name/*,
                                               Configuration::getInstance().configWeaponData(weapon).price*/) {
     Config::WeaponData stats = Configuration::getInstance().configWeaponData(weapon);
-    id = weapon;
+    id = static_cast<unsigned int>(weapon);
     _initializeData(stats.minDmg, stats.maxDmg, stats.manaConsumption, stats.range);
 }
 
@@ -54,6 +54,6 @@ EquipmentPlace Weapon::use(Player &player) {
 Weapon::~Weapon() = default;
 
 bool Weapon::isDefault() {
-    return (id == GameType::FIST);
+    return (static_cast<GameType::Weapon>(id) == GameType::Weapon::FIST);
 }
 

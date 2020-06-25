@@ -21,8 +21,8 @@ typedef void (*monsterCreator)(Game& game, Coordinate initialPosition,
 
 class MonstersFactory {
 private:
-    std::unordered_map<GameType::Monster, monsterCreator> monsterCreators;
-    std::vector<GameType::Monster> existingMonsters;
+    std::unordered_map<GameType::Entity, monsterCreator> monsterCreators;
+    std::vector<GameType::Entity> existingMonsters;
 
     friend GameTests;
 

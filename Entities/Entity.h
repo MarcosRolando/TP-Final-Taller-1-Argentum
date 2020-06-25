@@ -10,6 +10,7 @@
 #include <list>
 #include "MoveDirection.h"
 #include <chrono>
+#include "../Config/GameEnums.h"
 
 struct ProductData;
 struct AttackResult;
@@ -25,11 +26,12 @@ class Player;
 class Entity {
 protected:
     Coordinate currentPosition{};
+    GameType::Entity type;
     Movement movement{};
     unsigned int speed;
 
  public:
-    explicit Entity(Coordinate initialPosition);
+    Entity(GameType::Entity _type, Coordinate initialPosition);
 
     //Implementa el comportamiento realizado al atacar,
     //debe ser modificado en las clases hijas de ser necesario
@@ -88,6 +90,8 @@ protected:
 
     //Retorna si el entity esta o no en movimiento (lo uso en monster)
     bool isMoving() const;
+
+    GameType::Entity getType() const;
 
     virtual ~Entity() = default;
 };

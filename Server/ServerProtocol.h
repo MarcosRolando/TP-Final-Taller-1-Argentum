@@ -8,11 +8,10 @@
 
 #include "../Map/Map.h"
 #include <msgpack.hpp>
-#include <sstream>
 
 class ServerProtocol {
 private:
-    std::stringstream mapBuffer;
+    std::vector<char> mapBuffer;
 
 public:
     void operator<<(const Map &map);

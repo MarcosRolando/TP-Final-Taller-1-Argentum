@@ -26,7 +26,7 @@ private:
     friend EntityTests;
 
 public:
-    explicit MonsterStats(GameType::Monster type);
+    explicit MonsterStats(GameType::Entity type);
 
     unsigned int getRangeOfVision() const;
 
