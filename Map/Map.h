@@ -81,14 +81,18 @@ public:
 
     //Agrega los items de la lista al tile al tile que se encuentra en la coordenada recibida apropiandose de la lista,
     //si la coordenada es invalida tira invalid_argument y no se apropia del puntero
+    //Se pueden guardar smart_pointers que contengan nullptr, pero no se deberia hacer, el chequeo
+    //de si se esta guardando null o no tiene que venir de afuera
     void addItemsToTile(std::list<std::shared_ptr<Item>>&& items, Coordinate position);
 
     //Agrega el item al tile que se encuentra en la coordenada recibida apropiandose del shared_ptr,
     //si la coordenada es invalida tira invalid_argument y no se apropia del puntero
+    //Se pueden guardar smart_pointers que contengan nullptr, pero no se deberia hacer, el chequeo
+    //de si se esta guardando null o no tiene que venir de afuera
     void addItemsToTile(std::shared_ptr<Item>&& item, Coordinate position);
 
     //Retorna una coordenada aleatoria en la que puede ponerse un monstruo
-    Coordinate getMonsterCoordinate(/*std::shared_ptr<Monster>&& monster*/);
+    Coordinate getMonsterCoordinate();
 
     //Delega el comportamiento a la entity que guarda, si es que guarda una
     unsigned int list(Player& player, std::list<ProductData>& products, Coordinate coordinate);

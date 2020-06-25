@@ -487,4 +487,14 @@ bool MapTests::testMoveEntity() {
     return map.isPlaceAvailable({25, 25}) && !map.isPlaceAvailable({26, 26});
 }
 
+bool MapTests::testRemoveEntityOnEmptyTileLeavesNoEntity() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    Game game;
+    map.removeEntity({5, 5});
+    return map.isPlaceAvailable({5, 5});
+}
+
 
