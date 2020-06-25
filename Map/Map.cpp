@@ -108,12 +108,12 @@ void Map::renderStructures() {
         for (int j = -1; j < (VISIBLE_HORIZONTAL_TILES + 3); ++j) {
             float x = (float)camera.x + (float)j * TILE_WIDTH;
             float y = (float)camera.y + (float)i * TILE_HEIGHT;
-            if (x >= LEVEL_WIDTH) continue;
-            if (y >= LEVEL_HEIGHT) continue;
+            if (x >= LEVEL_WIDTH || x < 0) continue;
+            if (y >= LEVEL_HEIGHT || y < 0) continue;
             int xTile = floor(x / TILE_WIDTH);
             int yTile = floor(y / TILE_HEIGHT);
             int tile = yTile*TOTAL_HORIZONTAL_TILES + xTile;
-            tiles[tile].renderStructure(camera);
+            tiles.at(tile).renderStructure(camera);
         }
     }
 }
@@ -135,5 +135,9 @@ void Map::setSize(int rows, int columns) {
 void Map::loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure,
                        TextureID entity) {
     int tile = i*TOTAL_HORIZONTAL_TILES + j;
-    tiles[tile].loadData(textureRepo.getTexture(floor.texture), &textureRepo.getTexture(structure), floor.index);
+    if (structure != Nothing) {
+        tiles[tile].loadData(textureRepo.getTexture(floor.texture), &textureRepo.getTexture(structure), floor.index);
+    } else {
+        tiles[tile].loadData(textureRepo.getTexture(floor.texture), nullptr, floor.index);
+    }
 }

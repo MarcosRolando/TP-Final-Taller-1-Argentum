@@ -20,5 +20,6 @@ void GameGUI::render() {
     screen.clear();
     screen.setViewport(MapViewport);
     map.renderGround();
+    map.renderStructures();
     screen.show();
 }
