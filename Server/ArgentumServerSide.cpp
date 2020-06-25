@@ -3,7 +3,7 @@
 #include <iostream>
 
 #define INVALID_ARGUMENTS_MESSAGE "Error: argumentos invalidos."
-#define ARGUMENT_AMOUNT 3
+#define ARGUMENT_AMOUNT 2
 #define ERROR 1
 #define SUCCESS 0
 

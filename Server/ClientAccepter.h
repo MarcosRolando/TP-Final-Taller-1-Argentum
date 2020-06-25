@@ -17,12 +17,12 @@ class ClientAccepter : public Thread {
 private:
     std::vector<std::unique_ptr<ClientHandler>>& clients;
     Socket& serverSocket;
-    std::atomic<bool>& finished;
+    std::atomic<bool>& keepRunning;
 
 public:
     ClientAccepter(std::vector<std::unique_ptr<ClientHandler>>& _clients,
-                    Socket& _serverSocket, std::atomic<bool>& _finished) :
-                    clients(_clients), serverSocket(_serverSocket), finished(_finished) {}
+                    Socket& _serverSocket, std::atomic<bool>& _keepRunning) :
+                    clients(_clients), serverSocket(_serverSocket), keepRunning(_keepRunning) {}
 
     void run() override;
 };

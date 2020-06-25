@@ -3,19 +3,18 @@
 //
 
 #include "ClientAccepter.h"
-#include <iostream>
 #include "Socket.h"
 #include "ClientHandler.h"
 
 void ClientAccepter::run() {
-    while (!finished) {
+    while (keepRunning) {
         try {
             Socket peer = serverSocket.accept();
             clients.emplace_back(new ClientHandler(std::move(peer),
                                                                 0));
             (*clients.back())();
         } catch(...) {
-            std::cerr << "Algo rompio bro!" << std::endl;
+            //nothing
         }
     }
 }

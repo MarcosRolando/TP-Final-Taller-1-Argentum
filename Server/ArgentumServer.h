@@ -17,13 +17,13 @@
 class ArgentumServer {
 private:
     Game game;
-    std::atomic<bool> finished;
+    std::atomic<bool> keepRunning{true};
     std::string port;
     Socket socket;
     std::vector<std::unique_ptr<ClientHandler>> clients;
 
 public:
-    explicit ArgentumServer(std::string&& port) : finished(false), port(std::move(port)) {}
+    explicit ArgentumServer(std::string&& port) : port(std::move(port)) {}
     ArgentumServer(const ArgentumServer&) = delete; /*Borro los constructores por copia*/
     ArgentumServer operator=(const ArgentumServer&) = delete;
 

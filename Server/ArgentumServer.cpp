@@ -5,7 +5,6 @@
 #include "ServerMonitor.h"
 #include "ClientAccepter.h"
 #include <chrono>
-#include <atomic>
 #include <unistd.h>
 #include <iostream>
 
@@ -16,7 +15,7 @@ using namespace std::chrono;
 const int MAX_LISTENERS = 10;
 
 void ArgentumServer::forceFinish() {
-    finished = true;
+    keepRunning = false;
     socket.close();
 }
 
@@ -27,8 +26,6 @@ void ArgentumServer::connect() {
 }
 
 void ArgentumServer::_execute() {
-    std::atomic<bool> keepRunning(true);
-
     ServerMonitor monitor(*this);
     monitor(); /*Espera la q para cerrar el server*/
     ClientAccepter accepter(clients, socket, keepRunning);
@@ -58,4 +55,5 @@ void ArgentumServer::_execute() {
         client->join();
     }
     monitor.join(); /*Joineamos los threads*/
+    accepter.join();
 }
