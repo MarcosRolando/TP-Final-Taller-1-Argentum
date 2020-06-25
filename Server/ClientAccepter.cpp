@@ -10,8 +10,7 @@ void ClientAccepter::run() {
     while (keepRunning) {
         try {
             Socket peer = serverSocket.accept();
-            clients.emplace_back(new ClientHandler(std::move(peer),
-                                                                0));
+            clients.emplace_back(new ClientHandler(std::move(peer), protocol));
             (*clients.back())();
         } catch(...) {
             //nothing

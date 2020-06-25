@@ -1,7 +1,10 @@
 #include "ClientHandler.h"
 #include "../TPException.h"
+#include "ServerProtocol.h"
 
 void ClientHandler::run() {
+    _sendMapInfoToClient();
+    /*
     while (!finished) {
         try {
             std::vector<char> message;
@@ -9,11 +12,11 @@ void ClientHandler::run() {
             _receive(message, bufferLength);
             _send(message, bufferLength);
         } catch(TPException& e) {
-            finished = true; /*Hubo algun error con el cliente*/
-                            /*corto la conexion*/
-        }
+            finished = true; //Hubo algun error con el cliente corto la conexion
+        //}
         //if (!finished) finished = protocol.hasFinished();
     }
+    */
 }
 
 void ClientHandler::_receive(std::vector<char>& message,
@@ -35,6 +38,11 @@ void ClientHandler::_send(std::vector<char>& message,
 
 bool ClientHandler::hasFinished() const {
     return finished;
+}
+
+void ClientHandler::_sendMapInfoToClient() {
+    const std::vector<char>& mapInfo = protocol.getMapInfo();
+    socket.send(mapInfo.data(), mapInfo.size());
 }
 
 

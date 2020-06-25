@@ -28,7 +28,7 @@ void ArgentumServer::connect() {
 void ArgentumServer::_execute() {
     ServerMonitor monitor(*this);
     monitor(); /*Espera la q para cerrar el server*/
-    ClientAccepter accepter(clients, socket, keepRunning);
+    ClientAccepter accepter(clients, protocol, socket, keepRunning);
     accepter(); /*Acepta conexiones de clientes*/
 
     high_resolution_clock::time_point time1;

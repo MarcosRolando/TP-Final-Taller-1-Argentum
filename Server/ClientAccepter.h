@@ -10,19 +10,22 @@
 #include "Thread.h"
 #include <atomic>
 
+class ServerProtocol;
 class Socket;
 class ClientHandler;
 
 class ClientAccepter : public Thread {
 private:
     std::vector<std::unique_ptr<ClientHandler>>& clients;
+    ServerProtocol& protocol;
     Socket& serverSocket;
     std::atomic<bool>& keepRunning;
 
 public:
-    ClientAccepter(std::vector<std::unique_ptr<ClientHandler>>& _clients,
+    ClientAccepter(std::vector<std::unique_ptr<ClientHandler>>& _clients, ServerProtocol& _protocol,
                     Socket& _serverSocket, std::atomic<bool>& _keepRunning) :
-                    clients(_clients), serverSocket(_serverSocket), keepRunning(_keepRunning) {}
+                    clients(_clients), protocol(_protocol),
+                    serverSocket(_serverSocket), keepRunning(_keepRunning) {}
 
     void run() override;
 };

@@ -6,23 +6,24 @@
  * subservidor) y lo dispara en un nuevo thread. Esta clase guarda una instancia
  * del protocolo, que guarda una instancia independiente del Juego de Adivinar
  * el Numero*/
-
-#include "ServerProtocol.h"
 #include "Socket.h"
 #include "Thread.h"
 #include <vector>
 #include <utility>
 #include <atomic>
 
+class ServerProtocol;
+
 class ClientHandler : public Thread {
 private:
     Socket socket;
-    ServerProtocol protocol;
     std::atomic<bool> finished;
+    ServerProtocol& protocol;
 
 public:
-    ClientHandler(Socket&& socket, unsigned int secretNumber) :
-        socket(std::move(socket)), finished(false) {}
+    ClientHandler(Socket&& socket, ServerProtocol& _protocol) :
+        socket(std::move(socket)), finished(false), protocol(_protocol) {}
+
     ClientHandler(const ClientHandler&) = delete;
     ClientHandler operator=(const ClientHandler&) = delete;
 
@@ -35,6 +36,7 @@ private:
     void run() override;
     void _receive(std::vector<char>& message, unsigned int& bufferLength);
     void _send(std::vector<char>& message, unsigned int& bufferLength);
+    void _sendMapInfoToClient();
 };
 
 

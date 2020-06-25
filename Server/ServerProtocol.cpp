@@ -17,3 +17,7 @@ void ServerProtocol::operator<<(const Map &map) {
     std::string auxStr = aux.str();
     std::copy(auxStr.begin(), auxStr.end(), std::back_inserter(mapBuffer));
 }
+
+const std::vector<char> &ServerProtocol::getMapInfo() const {
+    return mapBuffer;
+}
