@@ -23,6 +23,7 @@ private:
     Selector selector;
     PlayerInfoGUI infoGUI;
     PlayerInventoryGUI inventoryGUI;
+    Texture& background;//Esto capaz es mejor ponerlo en window u otra clase
 
 public:
     GameGUI();
