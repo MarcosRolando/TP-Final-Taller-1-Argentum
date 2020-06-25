@@ -154,6 +154,7 @@ Map::Map(MapFileReader &mapFile) {
     _initializeConstructorMaps(entities, structures, floors);
     //tiles.resize(mapSize.height, std::vector<Tile>(mapSize.width));
     for (unsigned int i = 0; i < mapSize.height; ++i) {
+        tiles.emplace_back();
         for (unsigned int j = 0; j < mapSize.width; ++j) {
             aux = mapFile.getTileInfo(i, j);
             if (aux.entityType == "Nothing") {

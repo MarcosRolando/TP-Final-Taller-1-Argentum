@@ -17,7 +17,7 @@
 
 bool EntityTests::testStoreItem() {
     Configuration& config = Configuration::getInstance();
-    Game game;
+    Game game(MapFileReader);
     Player player(game, GameType::HUMAN, GameType::CLERIC,
             1, 0, {0, 0}, "ElPantuflas");
     std::shared_ptr<Item> item(new Weapon(GameType::Weapon::LONGSWORD));
