@@ -18,7 +18,7 @@ add_executable(tests tests.cpp MapTests.cpp MapTests.h ItemTests.cpp
         ../Items/Miscellaneous/ManaPotion.h ../Items/Miscellaneous/HealthPotion.cpp
         ../Items/Miscellaneous/HealthPotion.h ../Items/Miscellaneous/Potion.cpp
         ../Items/Miscellaneous/Potion.h ../Entities/MonsterStats.cpp ../Entities/MonsterStats.h
-        ../Config/GameEnums.h ../Game/Argentum.cpp ../Game/Argentum.h ../Game/MonstersFactory.cpp
+        ../Config/GameEnums.h ../Game/MonstersFactory.cpp
         ../Game/MonstersFactory.h ../Game/ShouldMonsterBeRemoved.cpp ../Game/ShouldMonsterBeRemoved.h
         ../Game/Events/Event.cpp ../Game/Events/Event.h ../Game/Events/Attack.cpp ../Game/Events/Attack.h
         ../Game/Events/Move.cpp ../Game/Events/Move.h ../Game/Events/List.cpp ../Game/Events/List.h

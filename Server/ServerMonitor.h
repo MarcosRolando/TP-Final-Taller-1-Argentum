@@ -3,15 +3,15 @@
 
 /*Esta clase es la que chequea cuando cerrar el server*/
 
-#include "Server.h"
+#include "ArgentumServer.h"
 #include "Thread.h"
 
 class ServerMonitor : public Thread {
 private:
-    Server& server;
+    ArgentumServer& server;
 
 public:
-    explicit ServerMonitor(Server& server) : server(server) {}
+    explicit ServerMonitor(ArgentumServer& server) : server(server) {}
 
 private:
     /*Implementa la funcion run heredada de Thread, la cual para esta clase

@@ -12,19 +12,20 @@
 #include "ClientHandler.h"
 #include <memory>
 #include <utility>
+#include "../Game/Game.h"
 
-class Server {
+class ArgentumServer {
 private:
+    Game game;
     std::atomic<bool> finished;
     std::string port;
     Socket socket;
     std::vector<std::unique_ptr<ClientHandler>> clients;
 
 public:
-    Server(std::string&& port, std::string&& fileName) : finished(false),
-                            port(std::move(port)) {}
-    Server(const Server&) = delete; /*Borro los constructores por copia*/
-    Server operator=(const Server&) = delete;
+    explicit ArgentumServer(std::string&& port) : finished(false), port(std::move(port)) {}
+    ArgentumServer(const ArgentumServer&) = delete; /*Borro los constructores por copia*/
+    ArgentumServer operator=(const ArgentumServer&) = delete;
 
     /*Levanta el servidor en el puerto pedido en el constructor*/
     void connect();
@@ -33,6 +34,7 @@ public:
     void forceFinish();
 
 private:
+    void _execute();
     void _acceptConnections();
     void _processConnections();
 };

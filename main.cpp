@@ -2,14 +2,14 @@
 // Created by marcos on 6/3/20.
 //
 
-#include "Game/Argentum.h"
+#include "Server/ArgentumServer.h"
 #include "TPException.h"
 #include <iostream>
 
 int main() {
     try {
-        Argentum game;
-        game.execute();
+        ArgentumServer game("8081");
+        game.connect();
     } catch (TPException& e) {
         std::cerr << e.what() << std::endl;
     } catch (...) {

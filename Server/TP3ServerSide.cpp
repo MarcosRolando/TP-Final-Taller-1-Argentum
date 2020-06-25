@@ -1,5 +1,5 @@
 #include "TP3ServerSide.h"
-#include "Server.h"
+#include "ArgentumServer.h"
 #include <iostream>
 
 #define INVALID_ARGUMENTS_MESSAGE "Error: argumentos invalidos."
@@ -13,7 +13,7 @@ int TP3ServerSide::run(int argc, char** argv) {
         return ERROR;
     }
     try {
-        Server server(argv[1], argv[2]);
+        ArgentumServer server(argv[1], argv[2]);
         server.connect();
         //Game::showResults();
     } catch(std::exception& e) {

@@ -1,10 +1,18 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <algorithm>
-#include "Server.h"
+#include "ArgentumServer.h"
 #include "ClientHandler.h"
 #include "ServerMonitor.h"
 #include "../TPException.h"
+#include <chrono>
+#include <atomic>
+#include <unistd.h>
+#include <iostream>
+
+#define FRAME_TIME 33 /*ms que tarda en actualizarse el juego*/
+
+using namespace std::chrono;
 
 const int MAX_LISTENERS = 10;
 
@@ -17,7 +25,7 @@ bool clientHasFinished(std::unique_ptr<ClientHandler>& client) {
     return false;
 }
 
-void Server::_acceptConnections() {
+void ArgentumServer::_acceptConnections() {
     //unsigned int secretNumber;
     while (!finished) {
         try {
@@ -36,7 +44,7 @@ void Server::_acceptConnections() {
     }
 }
 
-void Server::_processConnections() {
+void ArgentumServer::_processConnections() {
     ServerMonitor monitor(*this);
     monitor();
     _acceptConnections();
@@ -46,13 +54,38 @@ void Server::_processConnections() {
     monitor.join();
 }
 
-void Server::forceFinish() {
+void ArgentumServer::forceFinish() {
     finished = true;
     socket.close();
 }
 
-void Server::connect() {
+void ArgentumServer::connect() {
     socket.bind(port);
     socket.maxListen(MAX_LISTENERS);
     _processConnections();
+}
+
+void ArgentumServer::_execute() {
+    std::atomic<bool> keepRunning(true);
+
+    //ACA SE TIRA THREAD PARA RECIBIR LA Q QUE CIERRA EL SERVER
+
+    high_resolution_clock::time_point time1;
+    high_resolution_clock::time_point time2;
+    duration<double, std::milli> timeStep{};
+    double lastFrameTime = 0;
+    while (keepRunning) {
+        time1 = high_resolution_clock::now();
+
+        game.update(lastFrameTime);
+
+        time2 = high_resolution_clock::now();
+        timeStep = time2 - time1;
+        lastFrameTime = timeStep.count();
+        std::cout << lastFrameTime << std::endl;
+        if (lastFrameTime < FRAME_TIME) {
+            usleep((FRAME_TIME - lastFrameTime) * 1000);
+            lastFrameTime = FRAME_TIME;
+        }
+    }
 }
