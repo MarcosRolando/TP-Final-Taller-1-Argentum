@@ -99,7 +99,7 @@ void PlayerInventoryGUI::_drawEquipableOutlines() {
 
 }
 
-void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
+void PlayerInventoryGUI::addInventoryItem(ObjectID texture) {
     if (inventoryTextures.size() < INVENTORY_SIZE) {
         inventoryTextures.push_back(&repo.getTexture(texture));
     }
@@ -122,7 +122,7 @@ void PlayerInventoryGUI::removeInventoryItem(int inventorySlot) {
     }
 }
 
-void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item) {
+void PlayerInventoryGUI::addEquipableItem(ObjectID texture, EquippedItems item) {
     Texture* currTexture = &repo.getTexture(texture);
     if(equippedTextures.count(item)){
         equippedTextures.erase(item);

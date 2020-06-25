@@ -15,7 +15,7 @@ private:
     Texture* body;
 
 public:
-    explicit NPCTexture(TextureRepository& repo, TextureID texture);
+    explicit NPCTexture(TextureRepository& repo, ObjectID texture);
 
     void renderFront(int x, int y, int frame) override;
     void renderBack(int x, int y, int frame) override;

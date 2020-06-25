@@ -11,11 +11,11 @@
 #include "TextureRepository.h"
 
 struct PlayerEquipment {
-    TextureID helmet;
-    TextureID head;
-    TextureID body;
-    TextureID shield;
-    TextureID weapon;
+    ObjectID helmet;
+    ObjectID head;
+    ObjectID body;
+    ObjectID shield;
+    ObjectID weapon;
 };
 
 class PlayerTexture : public EntityTexture {

@@ -27,7 +27,7 @@ SDL/Sound/SoundPlayer.h Screen/MainMenu.cpp Screen/MainMenu.h
 Client/ClientProtocol.cpp Client/ClientProtocol.h Client/ArgentumClientSide.cpp
 Client/ArgentumClientSide.h Client/ArgentumClient.cpp Client/ArgentumClient.h
 Client/Socket.cpp Client/Socket.h Client/Thread.cpp Client/Thread.h
-Client/User.cpp Client/User.h)
+Client/User.cpp Client/User.h Shared/ObjectID.h)
 
 
 target_compile_options (argentum PUBLIC -std=c++11 -Wall -Werror -pedantic
