@@ -11,7 +11,7 @@ void GameGUI::setMapSize(int rows, int columns) {
 GameGUI::GameGUI() : repo(screen.getRenderer()), map(repo, camera),
                     minichat(screen.getRenderer()), infoGUI(screen.getRenderer())
                     ,inventoryGUI(repo, screen.getRenderer()),
-                    background(repo.getTexture(Background)){
+                    background(repo.getTexture(Background)) {
 }
 
 void GameGUI::loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure,
