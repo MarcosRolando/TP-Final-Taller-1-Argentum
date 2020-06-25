@@ -14,6 +14,8 @@
 
 class ItemTests;
 class EntityTests;
+class MapTests;
+
 class Weapon;
 class Player;
 class Clothing;
@@ -30,6 +32,7 @@ private:
 
     friend ItemTests;
     friend EntityTests;
+    friend MapTests;
 
 private:
     void _manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);

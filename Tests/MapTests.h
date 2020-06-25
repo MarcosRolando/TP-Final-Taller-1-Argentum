@@ -20,11 +20,18 @@ public:
     static bool testAddedMultipleGoldsToMapWithList();
     static bool testAddedMultipleGoldsToMapWithoutList();
     static bool testAddedMultipleItemsListsToMap();
-    static bool testListItemsOnSaleOnEmptyTile();
-    static bool testListItemsOnSaleOnEmptyMap();
     static bool testGetTargetsOnEmptyMapReturnsEmptyList();
     static bool testGetTargetsOnMapWithPlayerReturnsListWithOneElement();
     static bool testGetTargetsOnMapWithDeadPlayerReturnsEmptyList();
+    static bool testPositionWithPlayerIsOccupied();
+    static bool testPositionWithMonsterIsOccupied();
+
+    static bool testListOnEmptyTileReturnsEmptyList();
+    static bool testListOnEmptyMapReturnsEmptyList();
+    static bool testWithdrawOnEmptyTileGetsNoItem();
+    static bool testWithdrawOnEmptyMapGetsNoItem();
+    static bool testDepositExistantItemOnEmptyTileGetsNoItem();
+    static bool testDepositExistantItemOnEmptyMapGetsNoItem();
 };
 
 

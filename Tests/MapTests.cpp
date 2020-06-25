@@ -14,6 +14,7 @@
 #include "../Items/Defense/Chest.h"
 #include "../Items/Attack/Weapon.h"
 #include "../Entities/Player.h"
+#include "../Entities/Monster.h"
 #include "../Game/Game.h"
 #include "../Entities/Citizens/Storage.h"
 
@@ -244,39 +245,6 @@ bool MapTests::testAddedMultipleItemsListsToMap() {
     return true;
 }
 
-bool MapTests::testListItemsOnSaleOnEmptyTile() {
-    Map map;
-    int mapXSize = 50;
-    int mapYSize = 50;
-    _fillEmptyMap(map, mapXSize, mapYSize);
-    std::list<ProductData> products;
-    Game game;
-    Player player(game, GameType::HUMAN, GameType::WIZARD, 0, 0,
-                  {0, 0}, "Name");
-    map.list(player, products, {5, 5});
-    return products.empty();
-}
-
-bool MapTests::testListItemsOnSaleOnEmptyMap() {
-    Map map;
-    int mapXSize = 50;
-    int mapYSize = 50;
-    _fillEmptyMap(map, mapXSize, mapYSize);
-    std::list<ProductData> products;
-    Game game;
-    Player player(game, GameType::HUMAN, GameType::WIZARD, 0, 0,
-                  {0, 0}, "Name");
-    for (int i = 0; i < mapXSize; ++i) {
-        for (int j = 0; j < mapYSize; ++j) {
-            map.list(player, products, {i, j});
-            if (!products.empty()) {
-                return false;
-            }
-            products.clear();
-        }
-    }
-    return true;
-}
 
 bool MapTests::testGetTargetsOnEmptyMapReturnsEmptyList() {
     Map map;
@@ -315,4 +283,126 @@ bool MapTests::testGetTargetsOnMapWithDeadPlayerReturnsEmptyList() {
     std::vector<Coordinate> targets;
     map.getTargets({25, 25}, 25, targets);
     return targets.empty();
+}
+
+bool MapTests::testPositionWithPlayerIsOccupied() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    Game game;
+    std::shared_ptr<Player> player(new Player(game, GameType::HUMAN, GameType::WIZARD, 1, 0,
+                                              {25, 25}, "Name"));
+    map.addEntity({25, 25}, std::move(player));
+    return !map.tiles[25][25].isAvailable();
+}
+
+bool MapTests::testPositionWithMonsterIsOccupied() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    Game game;
+    std::shared_ptr<Monster> monster(new Monster(game, {25, 25}, GameType::SKELETON));
+    map.addEntity({25, 25}, std::move(monster));
+    return !map.tiles[25][25].isAvailable();
+}
+
+bool MapTests::testListOnEmptyTileReturnsEmptyList() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    std::list<ProductData> products;
+    Game game;
+    Player player(game, GameType::HUMAN, GameType::WIZARD, 1, 0,
+                  {0, 0}, "Name");
+    map.list(player, products, {5, 5});
+    return products.empty();
+}
+
+bool MapTests::testListOnEmptyMapReturnsEmptyList() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    std::list<ProductData> products;
+    Game game;
+    Player player(game, GameType::HUMAN, GameType::WIZARD, 1, 0,
+                  {0, 0}, "Name");
+    for (int i = 0; i < mapXSize; ++i) {
+        for (int j = 0; j < mapYSize; ++j) {
+            map.list(player, products, {i, j});
+            if (!products.empty()) {
+                return false;
+            }
+            products.clear();
+        }
+    }
+    return true;
+}
+
+bool MapTests::testWithdrawOnEmptyTileGetsNoItem() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    Game game;
+    Player player(game, GameType::HUMAN, GameType::WIZARD, 1, 0,
+                  {0, 0}, "Name");
+    map.withdraw(player, "product", {5, 5});
+    return player.inventory.storedItemsAmount == 0;
+}
+
+bool MapTests::testWithdrawOnEmptyMapGetsNoItem() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    Game game;
+    Player player(game, GameType::HUMAN, GameType::WIZARD, 1, 0,
+                  {0, 0}, "Name");
+    for (int i = 0; i < mapXSize; ++i) {
+        for (int j = 0; j < mapYSize; ++j) {
+            map.withdraw(player, "product", {i, j});
+            if (player.inventory.storedItemsAmount != 0) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool MapTests::testDepositExistantItemOnEmptyTileGetsNoItem() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    Game game;
+    Player player(game, GameType::HUMAN, GameType::WIZARD, 1, 0,
+                  {0, 0}, "Name");
+    std::shared_ptr<Item> item(new Weapon(GameType::GNARLED_STAFF));
+    player.storeItem(std::move(item));
+    map.deposit(player, "product", {5, 5});
+    return player.inventory.storedItemsAmount == 1;
+}
+
+bool MapTests::testDepositExistantItemOnEmptyMapGetsNoItem() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    Game game;
+    Player player(game, GameType::HUMAN, GameType::WIZARD, 1, 0,
+                  {0, 0}, "Name");
+    std::shared_ptr<Item> item(new Weapon(GameType::GNARLED_STAFF));
+    player.storeItem(std::move(item));
+    for (int i = 0; i < mapXSize; ++i) {
+        for (int j = 0; j < mapYSize; ++j) {
+            if (player.inventory.storedItemsAmount != 1) {
+                return false;
+            }
+        }
+    }
+    return true;
 }

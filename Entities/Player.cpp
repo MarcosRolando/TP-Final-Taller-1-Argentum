@@ -93,7 +93,7 @@ void Player::receiveGold(unsigned int amount) {
 }
 
 bool Player::storeItem(std::shared_ptr<Item> &&item) {
-    if (!stats.isDead()) {
+    if ((!stats.isDead()) && (item)) {
         stats.stopMeditating();
         if (item->isGold()) {
             std::shared_ptr<Gold> aux = std::dynamic_pointer_cast<Gold>(item);

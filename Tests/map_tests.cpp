@@ -38,11 +38,11 @@ TEST_CASE("Test Added Multiple Items Lists To Map") {
 }
 
 TEST_CASE("Test List Items On Sale On Empty Tile") {
-    REQUIRE(MapTests::testListItemsOnSaleOnEmptyTile());
+    REQUIRE(MapTests::testListOnEmptyTileReturnsEmptyList());
 }
 
 TEST_CASE("Test List Items On Sale On Empty Map") {
-    REQUIRE(MapTests::testListItemsOnSaleOnEmptyMap());
+    REQUIRE(MapTests::testListOnEmptyMapReturnsEmptyList());
 }
 
 TEST_CASE("Test Get Targets On Empty Map Returns Empty List") {
@@ -55,4 +55,30 @@ TEST_CASE("Test Get Targets On Map With Player Returns List With One Element") {
 
 TEST_CASE("Test Get Targets On Map With Dead Player Returns Empty List") {
     REQUIRE(MapTests::testGetTargetsOnMapWithDeadPlayerReturnsEmptyList());
+}
+
+TEST_CASE("Test Position With Player Is Occupied") {
+    REQUIRE(MapTests::testPositionWithPlayerIsOccupied());
+}
+
+TEST_CASE("Test Position With Monster Is Occupied") {
+    REQUIRE(MapTests::testPositionWithMonsterIsOccupied());
+}
+
+
+TEST_CASE("Test Withdraw On Empty Tile Gets No Item") {
+    REQUIRE(MapTests::testWithdrawOnEmptyTileGetsNoItem());
+}
+
+TEST_CASE("Test Withdraw On Empty Map Gets No Item") {
+    REQUIRE(MapTests::testWithdrawOnEmptyMapGetsNoItem());
+}
+
+
+TEST_CASE("Test Deposit Existant Item On Empty Tile Gets No Item") {
+    REQUIRE(MapTests::testDepositExistantItemOnEmptyTileGetsNoItem());
+}
+
+TEST_CASE("Test Deposit Existant Item On Empty Map Gets No Item") {
+    REQUIRE(MapTests::testDepositExistantItemOnEmptyMapGetsNoItem());
 }
