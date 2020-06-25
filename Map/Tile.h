@@ -23,7 +23,7 @@ private:
     bool isOccupable{};
     bool isFromCity;
     GameType::FloorType floor;
-    GameType::FloorType structure{GameType::FloorType::TREE}; //todo esto deberia ser un enum separado de estructuras
+    GameType::Structure structure{GameType::Structure::TREE};
 
     friend MapTests;
 
