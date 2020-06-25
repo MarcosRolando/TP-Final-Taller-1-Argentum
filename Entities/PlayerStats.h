@@ -8,6 +8,7 @@
 #include "../Config/GameEnums.h"
 
 class EntityTests;
+class MapTests;
 
 class PlayerStats {
 private:
@@ -35,6 +36,7 @@ private:
     int maxLife;
 
     friend EntityTests;
+    friend MapTests;
 
 public:
     PlayerStats(GameType::Race _race, GameType::Class _class, unsigned int _level, unsigned int _experience);

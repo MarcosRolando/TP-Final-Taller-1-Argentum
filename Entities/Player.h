@@ -12,6 +12,7 @@
 
 class Game;
 class EntityTests;
+class MapTests;
 
 class Player: public Entity {
 private:
@@ -22,6 +23,7 @@ private:
     std::string nickname;
 
     friend EntityTests;
+    friend MapTests;
 
 public:
     //El nivel minimo debe ser 1, sino tendra vida 0

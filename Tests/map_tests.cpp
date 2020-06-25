@@ -52,3 +52,7 @@ TEST_CASE("Test Get Targets On Empty Map Returns Empty List") {
 TEST_CASE("Test Get Targets On Map With Player Returns List With One Element") {
     REQUIRE(MapTests::testGetTargetsOnMapWithPlayerReturnsListWithOneElement());
 }
+
+TEST_CASE("Test Get Targets On Map With Dead Player Returns Empty List") {
+    REQUIRE(MapTests::testGetTargetsOnMapWithDeadPlayerReturnsEmptyList());
+}

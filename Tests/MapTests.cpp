@@ -301,3 +301,18 @@ bool MapTests::testGetTargetsOnMapWithPlayerReturnsListWithOneElement() {
     map.getTargets({25, 25}, 25, targets);
     return (targets.size() == 1) && (targets[0].jPosition == 25) && (targets[0].iPosition == 25);
 }
+
+bool MapTests::testGetTargetsOnMapWithDeadPlayerReturnsEmptyList() {
+    Map map;
+    int mapXSize = 50;
+    int mapYSize = 50;
+    _fillEmptyMap(map, mapXSize, mapYSize);
+    Game game;
+    std::shared_ptr<Player> player(new Player(game, GameType::HUMAN, GameType::WIZARD, 1, 0,
+                                              {25, 25}, "Name"));
+    player->stats.currentLife = 0;
+    map.addEntity({25, 25}, player);
+    std::vector<Coordinate> targets;
+    map.getTargets({25, 25}, 25, targets);
+    return targets.empty();
+}
