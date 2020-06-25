@@ -19,6 +19,7 @@ enum EquippedItems{
 
 class PlayerInventoryGUI {
 private:
+    Font textFont;
     Text text;
     TextureRepository& repo;
     SDL_Renderer& renderer;
@@ -27,8 +28,7 @@ private:
     std::unordered_map<EquippedItems, Texture*> equippedTextures;
 
 public:
-    PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer, Font&
-    font);
+    PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer);
 
     void addInventoryItem(TextureID texture);
 

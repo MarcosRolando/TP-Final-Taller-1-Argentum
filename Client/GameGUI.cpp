@@ -9,7 +9,8 @@ void GameGUI::setMapSize(int rows, int columns) {
 }
 
 GameGUI::GameGUI() : repo(screen.getRenderer()), map(repo, camera),
-                    minichat(screen.getRenderer()) {}
+                    minichat(screen.getRenderer()), infoGUI(screen.getRenderer())
+                    ,inventoryGUI(repo, screen.getRenderer()) {}
 
 void GameGUI::loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure,
                                                             TextureID entity) {
@@ -17,9 +18,23 @@ void GameGUI::loadTileData(int i, int j, FloorTypeTexture floor, TextureID struc
 }
 
 void GameGUI::render() {
+    Texture& background = repo.getTexture(Background);
     screen.clear();
+    //Mapa
     screen.setViewport(MapViewport);
     map.renderGround();
     map.renderStructures();
+    background.render(0, 0);
+    //Inventario
+    screen.setViewport(InventoryViewport);
+    inventoryGUI.render(selector.getInventorySlot());
+    //PlayerInfo
+    screen.setViewport(PlayerInfoViewport);
+    infoGUI.updateHealth(20000, 20000);
+    infoGUI.updateMana(9800, 10000);
+    infoGUI.updateXP(150000, 800000);
+    //Minichat
+    screen.setViewport(MinichatViewport);
+    minichat.render();
     screen.show();
 }

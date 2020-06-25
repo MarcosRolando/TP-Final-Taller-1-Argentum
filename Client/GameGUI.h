@@ -11,7 +11,8 @@
 #include "../Map/Map.h"
 #include "../SDL/Minichat/Minichat.h"
 #include "../SDL/Selector.h"
-
+#include "../SDL/GUI/PlayerInventoryGUI.h"
+#include "../SDL/GUI/PlayerInfoGUI.h"
 class GameGUI {
 private:
     Window screen;
@@ -20,6 +21,8 @@ private:
     Map map;
     Minichat minichat;
     Selector selector;
+    PlayerInfoGUI infoGUI;
+    PlayerInventoryGUI inventoryGUI;
 
 public:
     GameGUI();

@@ -19,10 +19,11 @@
 #define INVENTORY_OUTLINES_Y_OFFSET 260
 
 
-PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,
-                                       SDL_Renderer &renderer, Font& font) :
-                                            text(font,renderer), repo(repo),
+PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &renderer) :
+                                        textFont("../SDL/Text/medieval.ttf", 25),
+                                            text(textFont,renderer), repo(repo),
                                                              renderer(renderer) {
+
 }
 
 void PlayerInventoryGUI::render(int selectedSlotX) {
