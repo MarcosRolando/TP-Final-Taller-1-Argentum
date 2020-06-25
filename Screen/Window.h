@@ -38,12 +38,6 @@ public:
     //Intializes internals
     Window();
 
-    //Creates window
-    void _createWindow();
-
-    //Creates renderer from internal window
-    void _createRenderer();
-
     SDL_Renderer& getRenderer();
 
     //Handles window events
@@ -60,9 +54,15 @@ public:
 
     ~Window();
 
-    void _createViewports();
-
     void setViewport(Viewports viewport);
+
+private:
+    void _createViewports();
+    //Creates window
+    void _createWindow();
+    //Creates renderer from internal window
+    void _createRenderer();
+    static void _initializeSDL();
 };
 
 #endif //ARGENTUM_WINDOW_H

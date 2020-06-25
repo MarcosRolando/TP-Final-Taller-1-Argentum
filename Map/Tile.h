@@ -23,7 +23,7 @@ public:
     //Initializes position and type
     Tile(int x, int y);
 
-    void loadTileData(Texture& _tileTexture, Texture* sTexture = nullptr, int tileType = 0);
+    void loadData(Texture& _tileTexture, Texture* sTexture = nullptr, int tileType = 0);
 
     void setStructure(Texture& sTexture);
 

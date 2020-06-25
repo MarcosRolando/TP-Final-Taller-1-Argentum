@@ -5,6 +5,9 @@
 #include "Window.h"
 #include "../GameConstants.h"
 #include "../TPException.h"
+#include <iostream>
+#include <SDL.h>
+#include <SDL_image.h>
 
 Window::Window() {
     //Initialize non-existant window
@@ -19,6 +22,23 @@ Window::Window() {
     _createWindow();
     _createRenderer();
     _createViewports();
+}
+
+void Window::_initializeSDL() {
+    //Initialize SDL
+    if(SDL_Init(SDL_INIT_VIDEO) < 0) {
+        throw TPException("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+    } else {
+        //Set texture filtering to linear
+        if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "MipmapLinearNearest")) {
+            std::cerr << "Warning: Linear texture filtering not enabled!" << std::endl;
+        }
+        //Initialize PNG loading
+        int imgFlags = IMG_INIT_PNG;
+        if(!(IMG_Init(imgFlags) & imgFlags)) {
+            throw TPException("SDL_image could not initialize! SDL_mage Error: %s\n", IMG_GetError() );
+        }
+    }
 }
 
 void Window::_createViewports(){
@@ -154,6 +174,8 @@ Window::~Window() {
     mHeight = 0;
     renderer = nullptr;
     mWindow = nullptr;
+    IMG_Quit();
+    SDL_Quit();
 }
 
 void Window::clear() {
