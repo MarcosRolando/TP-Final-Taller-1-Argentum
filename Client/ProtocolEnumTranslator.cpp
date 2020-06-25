@@ -75,6 +75,7 @@ void ProtocolEnumTranslator::_translateStructures() {
     structuresMap.emplace(GameType::Structure::VERY_DEAD_GUY, VeryDeadGuy);
     structuresMap.emplace(GameType::Structure::SUNKEN_COLUMN, SunkenColumn);
     structuresMap.emplace(GameType::Structure::SUNKEN_SHIP, SunkenShip);
+    structuresMap.emplace(GameType::Structure::NO_STRUCTURE, Nothing);
 }
 
 void ProtocolEnumTranslator::_translateRaces() {
