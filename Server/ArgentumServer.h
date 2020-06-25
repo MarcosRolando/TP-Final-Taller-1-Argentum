@@ -25,7 +25,7 @@ private:
     std::vector<std::unique_ptr<ClientHandler>> clients;
 
 public:
-    explicit ArgentumServer(std::string&& _port);
+    explicit ArgentumServer(std::string&& _port, const std::string& mapFilePath);
     ArgentumServer(const ArgentumServer&) = delete; /*Borro los constructores por copia*/
     ArgentumServer operator=(const ArgentumServer&) = delete;
 

@@ -56,7 +56,7 @@ private:
 
 public:
 
-    Game();
+    Game(MapFileReader&& mapFile);
 
     AttackResult attackPosition(int damage, unsigned int level, bool isAPlayer,
                             Coordinate coordinate);

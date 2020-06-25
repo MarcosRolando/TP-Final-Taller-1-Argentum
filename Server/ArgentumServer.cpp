@@ -4,6 +4,7 @@
 #include "ArgentumServer.h"
 #include "ServerMonitor.h"
 #include "ClientAccepter.h"
+#include "../Config/MapFileReader.h"
 #include <chrono>
 #include <unistd.h>
 #include <iostream>
@@ -59,7 +60,7 @@ void ArgentumServer::_execute() {
     accepter.join();
 }
 
-ArgentumServer::ArgentumServer(std::string &&_port) {
+ArgentumServer::ArgentumServer(std::string &&_port, const std::string& mapFilePath): game(MapFileReader(mapFilePath)) {
     port = std::move(_port);
     protocol << game.getMap();
 }
