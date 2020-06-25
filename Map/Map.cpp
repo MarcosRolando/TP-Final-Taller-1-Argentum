@@ -130,7 +130,7 @@ void Map::_initializeConstructorMaps(
             {"Water3", GameType::FloorType::WATER3}, {"PrettyRoad0", GameType::FloorType::PRETTY_ROAD0},
             {"PrettyRoad1", GameType::FloorType::PRETTY_ROAD1}, {"PrettyRoad2", GameType::FloorType::PRETTY_ROAD2},
             {"PrettyRoad3", GameType::FloorType::PRETTY_ROAD3}, {"PrettyGrass0", GameType::FloorType::PRETTY_GRASS0},
-            {"PrettyGrass2", GameType::FloorType::PRETTY_GRASS1}, {"PrettyGrass2", GameType::FloorType::PRETTY_GRASS2},
+            {"PrettyGrass1", GameType::FloorType::PRETTY_GRASS1}, {"PrettyGrass2", GameType::FloorType::PRETTY_GRASS2},
             {"PrettyGrass3", GameType::FloorType::PRETTY_GRASS3}, {"DeadGrass0", GameType::FloorType::DEAD_GRASS0},
             {"DeadGrass1", GameType::FloorType::DEAD_GRASS1}, {"DeadGrass2", GameType::FloorType::DEAD_GRASS2},
             {"DeadGrass3", GameType::FloorType::DEAD_GRASS3}, {"DarkWater0", GameType::FloorType::DARK_WATER0},
