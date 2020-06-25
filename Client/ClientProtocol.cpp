@@ -19,5 +19,5 @@ void ClientProtocol::receiveMapInfo() {
     std::size_t offset = 0;
     msgpack::object_handle oh = msgpack::unpack(str.data(), str.size(), offset);
     msgpack::type::tuple<int32_t, int32_t> mapSize;
-    game.setMapSize(mapSize.get<0>(), mapSize.get<1>());
+    game.setMapSize(std::get<0>(mapSize), std::get<1>(mapSize));
 }
