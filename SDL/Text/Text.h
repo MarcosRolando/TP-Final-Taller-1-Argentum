@@ -16,6 +16,7 @@ private:
     Font& font;
     std::string text;
     Texture textTexture;
+
 public:
     Text(Font& font, SDL_Renderer& renderer);
 

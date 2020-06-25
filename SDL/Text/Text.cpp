@@ -22,7 +22,7 @@ void Text::render(int x, int y, SDL_Color color){
     textTexture.renderText(x, y);
 }
 
-Text::~Text() {}
+Text::~Text() = default;
 
 void Text::eraseText() {
     text.pop_back();

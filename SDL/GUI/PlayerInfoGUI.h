@@ -9,12 +9,13 @@
 
 class PlayerInfoGUI {
 private:
+    Font infoFont;
     Text info;
     SDL_Renderer& renderer;
     int xPosition, yPosition;
 
 public:
-    PlayerInfoGUI(Font& font, SDL_Renderer& renderer);
+    explicit PlayerInfoGUI(SDL_Renderer& renderer);
 
     void updateHealth(unsigned int currHealth, unsigned int totalHealth);
 

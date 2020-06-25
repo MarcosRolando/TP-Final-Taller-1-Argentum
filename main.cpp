@@ -57,7 +57,6 @@ int main(int argc, char* args[]) {
 	//Start up SDL and create window
 	try {
         init();
-        //Level camera
         Window window;
         Timer moveTime;
         TextureRepository repo(window.getRenderer());

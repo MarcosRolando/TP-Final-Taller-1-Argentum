@@ -11,8 +11,8 @@
 #define MAX_MSGS 24 //El maximo de mensajes qu ese van a ver al scrollear
 #define MAX_MSGS_TO_RENDER 8
 
-Minichat::Minichat(Font& font, SDL_Renderer& renderer) : minichatFont(font),
-input(font,renderer), renderer(renderer) {
+Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/font.ttf", 20),
+                                input(minichatFont,renderer), renderer(renderer) {
     focusOnMinichat = false;
     input.updateText("Accion:/ ");//Pongo el Accion:/ aca xq me parece al
     // pedo crear un text solo para eso, pero capaz tengo q hacerlo por el
@@ -20,7 +20,7 @@ input(font,renderer), renderer(renderer) {
 
     //LLeno el vector con mensajes vacios
     for (int i = 0; i < MAX_MSGS; ++i) {
-        texts.emplace_back(font,renderer);
+        texts.emplace_back(minichatFont,renderer);
     }
     firstToRender = 0;
 }
