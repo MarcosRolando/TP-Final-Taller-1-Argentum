@@ -30,7 +30,7 @@ private:
 public:
     //Inicializa el tile, dependiendo tel tipo de piso que reciba seteara el
     //tile como ocupable o no ocupable
-    explicit Tile(bool isFromCity, GameType::FloorType floor);
+    explicit Tile(bool isFromCity, GameType::FloorType floor, GameType::Structure structure);
 
     //El tile se queda con la entity de other y setea la de other en nullptr
     void moveEntity(Tile&& otherTile, Coordinate position);

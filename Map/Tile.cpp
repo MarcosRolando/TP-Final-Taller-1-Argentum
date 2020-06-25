@@ -14,7 +14,7 @@ MSGPACK_ADD_ENUM(GameType::Entity)
 
 
 
-Tile::Tile(bool isFromCity, GameType::FloorType floor): entity(nullptr) {
+Tile::Tile(bool isFromCity, GameType::FloorType floor, GameType::Structure structure): entity(nullptr) {
     this->floor = floor;
     this->isFromCity = isFromCity;
     switch (floor) {
