@@ -135,13 +135,14 @@ void Map::_initializeConstructorMaps(
             {"DeadGrass1", GameType::FloorType::DEAD_GRASS1}, {"DeadGrass2", GameType::FloorType::DEAD_GRASS2},
             {"DeadGrass3", GameType::FloorType::DEAD_GRASS3}, {"DarkWater0", GameType::FloorType::DARK_WATER0},
             {"DarkWater1", GameType::FloorType::DARK_WATER1}, {"DarkWater2", GameType::FloorType::DARK_WATER2},
-            {"DarkWater3", GameType::FloorType::DARK_WATER3}, };
+            {"DarkWater3", GameType::FloorType::DARK_WATER3}};
 }
 
 
 //////////////////////////////PUBLIC/////////////////////////////
 
 
+#include <iostream>
 
 Map::Map(MapFileReader &mapFile) {
     CitizenFactory citizenFactory;
@@ -165,6 +166,14 @@ Map::Map(MapFileReader &mapFile) {
                 //FALTA GUARDAR EL SHARED_PTR EN GAME
             }
             //CAMBIAR, POR AHORA SE PONE TODO COMO OCUPABLE
+
+            if (floors.count(aux.tileType) == 0) {
+                std::cout << "No existe el tile: " << aux.tileType << std::endl;
+            }
+            if ((floors.count(aux.structureType) == 0) && (aux.structureType != "Nothing")) {
+                std::cout << "No existe la estructura: " << aux.structureType << std::endl;
+            }
+
             tiles[i].emplace_back(true, false, floors.at(aux.tileType), structures
                     .at(aux.structureType), std::move(citizen));
         }
