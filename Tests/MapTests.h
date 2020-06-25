@@ -24,6 +24,7 @@ public:
     static bool testListItemsOnSaleOnEmptyMap();
     static bool testGetTargetsOnEmptyMapReturnsEmptyList();
     static bool testGetTargetsOnMapWithPlayerReturnsListWithOneElement();
+    static bool testGetTargetsOnMapWithDeadPlayerReturnsEmptyList();
 };
 
 
