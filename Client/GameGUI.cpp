@@ -3,9 +3,6 @@
 //
 
 #include "GameGUI.h"
-#include <iostream>
-#include <SDL.h>
-#include <SDL_image.h>
 
 void GameGUI::setMapSize(int rows, int columns) {
     map.setSize(rows, columns);
@@ -14,7 +11,7 @@ void GameGUI::setMapSize(int rows, int columns) {
 GameGUI::GameGUI() : repo(screen.getRenderer()), map(repo, camera),
                     minichat(screen.getRenderer()) {}
 
-void GameGUI::loadTileData(int i, int j, TextureID floor, TextureID structure,
+void GameGUI::loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure,
                                                             TextureID entity) {
     map.loadTileData(i , j , floor, structure, entity);
 }

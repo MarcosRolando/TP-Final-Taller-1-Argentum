@@ -25,7 +25,7 @@ public:
     GameGUI();
     void setMapSize(int rows, int columns);
 
-    void loadTileData(int i, int j, TextureID floor, TextureID structure,
+    void loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure,
                       TextureID entity);
 
     void render();

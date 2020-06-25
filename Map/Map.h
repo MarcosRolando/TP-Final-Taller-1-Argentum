@@ -13,6 +13,7 @@
 #include "../Texture/TextureRepository.h"
 #include "Structure.h"
 #include "../Character/NPC.h"
+#include "../Client/ProtocolEnumTranslator.h"
 
 class Map {
 private:
@@ -28,7 +29,7 @@ public:
     void renderNPCS(float timeStep);
     void setSize(int rows, int columns);
 
-    void loadTileData(int i, int j, TextureID floor, TextureID structure,
+    void loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure,
                       TextureID entity);
 
 private:

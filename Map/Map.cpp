@@ -132,8 +132,8 @@ void Map::setSize(int rows, int columns) {
     }
 }
 
-void Map::loadTileData(int i, int j, TextureID floor, TextureID structure,
+void Map::loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure,
                        TextureID entity) {
     int tile = i*TOTAL_HORIZONTAL_TILES + j;
-    tiles[tile].loadData(textureRepo.getTexture(floor), &textureRepo.getTexture(structure));
+    tiles[tile].loadData(textureRepo.getTexture(floor.texture), &textureRepo.getTexture(structure), floor.index);
 }
