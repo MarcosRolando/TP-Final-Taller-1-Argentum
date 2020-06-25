@@ -5,7 +5,7 @@
  * datos de ejecucion del Cliente y, en caso de ser validos, instanciar al
  * Cliente*/
 
-class TP3ClientSide {
+class ArgentumClientSide {
 public:
     static int run(int argc, char** argv);
 };

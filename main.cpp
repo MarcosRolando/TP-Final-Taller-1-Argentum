@@ -52,7 +52,7 @@ void close() {
 	SDL_Quit();
 }
 
-
+/*
 int main(int argc, char* args[]) {
 	//Start up SDL and create window
 	try {
@@ -116,7 +116,7 @@ int main(int argc, char* args[]) {
         inventoryGui.addInventoryItem(LongSwordDrop);
         inventoryGui.addInventoryItem(HealthPotion);
 
-        //LLeno los items equipables
+        //Lleno los items equipables
         inventoryGui.addEquipableItem(LeatherArmorDrop, Armor);
         inventoryGui.addEquipableItem(WarHammerDrop, Weapon);
         inventoryGui.addEquipableItem(IronHelmetDrop, Helmet);
@@ -240,10 +240,10 @@ int main(int argc, char* args[]) {
                     window.show();
                     soundPlayer.playSounds();
                     //Dejo esto comentado aca xq me sirve para ver los vewports
-                    /*SDL_Rect fillRect = {0, 0, DEFAULT_MAP_WIDTH, 45};
+                    //SDL_Rect fillRect = {0, 0, DEFAULT_MAP_WIDTH, 45};
                     SDL_SetRenderDrawColor(&window.getRenderer(), 0xFF,
                                            0x00, 0x00, 0xFF);
-                    SDL_RenderFillRect( &window.getRenderer(), &fillRect);*/
+                    SDL_RenderFillRect( &window.getRenderer(), &fillRect);
                 }
             }
         }
@@ -256,4 +256,9 @@ int main(int argc, char* args[]) {
 	close();
 
 	return 0;
+}
+*/
+#include "Client/ArgentumClientSide.h"
+int main(int argc, char** argv) {
+    return ArgentumClientSide::run(argc, argv);
 }

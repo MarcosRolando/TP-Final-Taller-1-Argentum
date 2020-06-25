@@ -27,6 +27,8 @@ void Client::_receive() {
 }
 
 void Client::_processConnection() {
+    protocol.receiveMapInfo();
+    /*
     while (!finished) {
         try {
             _send();
@@ -36,6 +38,7 @@ void Client::_processConnection() {
         }
         //finished = protocol.hasFinished();
     }
+    */
 }
 
 void Client::connect() {
