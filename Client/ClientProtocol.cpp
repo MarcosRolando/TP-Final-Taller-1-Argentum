@@ -19,5 +19,12 @@ void ClientProtocol::receiveMapInfo() {
     std::size_t offset = 0;
     msgpack::object_handle oh = msgpack::unpack(str.data(), str.size(), offset);
     msgpack::type::tuple<int32_t, int32_t> mapSize;
-    game.setMapSize(std::get<0>(mapSize), std::get<1>(mapSize));
+    oh->convert(mapSize);
+    int rows = std::get<0>(mapSize);
+    int columns = std::get<1>(mapSize);
+    game.setMapSize(rows, columns);
+    for (int i = 0; i < rows*columns; ++i) {
+        oh = msgpack::unpack(str.data(), str.size(), offset);
+        msgpack::type::tuple<int32_t, int32_t> tileInfo;
+    }
 }
