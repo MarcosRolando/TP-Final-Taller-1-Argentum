@@ -6,6 +6,10 @@
 #include "../AttackResult.h"
 #include "../Game/Game.h"
 #include "../Game/Events/Move.h"
+#include <msgpack.hpp>
+
+MSGPACK_ADD_ENUM(GameType::ID)
+MSGPACK_ADD_ENUM(GameType::Entity)
 
 const unsigned int DISTANCE_TO_MOVE = 500;
 
@@ -106,4 +110,11 @@ void Entity::attack(Coordinate target) {}
 
 GameType::Entity Entity::getType() const {
     return type;
+}
+
+void Entity::operator>>(std::stringstream& buffer) {
+    msgpack::type::tuple<GameType::ID, GameType::Entity,
+    uint32_t, uint32_t> data(GameType::ID::ENTITY, type, currentPosition.iPosition,
+                                                        currentPosition.jPosition);
+    msgpack::pack(buffer, data);
 }

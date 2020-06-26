@@ -8,6 +8,10 @@
 #include <cinttypes>
 
 namespace GameType {
+    enum ID: int32_t {
+        ENTITY, ITEM
+    };
+
     enum Race : int32_t {
         HUMAN, ELF, DWARF, GNOME
     };

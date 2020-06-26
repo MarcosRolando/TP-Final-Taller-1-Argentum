@@ -93,6 +93,8 @@ protected:
 
     GameType::Entity getType() const;
 
+    virtual void operator>>(std::stringstream& buffer);
+
     virtual ~Entity() = default;
 };
 
