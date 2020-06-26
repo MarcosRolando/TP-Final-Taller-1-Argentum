@@ -17,7 +17,7 @@ PlayerInfoGUI::PlayerInfoGUI(SDL_Renderer &renderer) : infoFont("../SDL/Text/med
 
 
 void PlayerInfoGUI::updateHealth(uint32_t currHealth){
-    health = currHealth;
+    health = currHealth;//Ver que pasa si me mandan una vida mayor a la total
 }
 
 void PlayerInfoGUI::updateTotalHealth(uint32_t _totalHealth){
@@ -68,7 +68,7 @@ void PlayerInfoGUI::render(){
     _renderInfoBar(xp, nextLevelXP, XP_BAR_X_OFFSET, 265,{0x00, 0x66, 0x00});
 }
 
-void PlayerInfoGUI::updateLevel(uint32_t newLevel) {
+/*void PlayerInfoGUI::updateLevel(uint32_t newLevel) {
     info.updateText(std::to_string(newLevel));
     info.render(70, 50, SDL_Color{0xFF,0xFF,0xFF});
 }
@@ -93,6 +93,6 @@ void PlayerInfoGUI::updatePosition(int32_t x, int32_t y) {
     info.updateText("MyX: " + std::to_string(x) + "   " + "MyY: " +
                     std::to_string(y));
     info.render(200, 880, {0xFF, 0xFF, 0xFF});
-}
+}*/
 
 

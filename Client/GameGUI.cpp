@@ -20,7 +20,6 @@ void GameGUI::loadTileData(int i, int j, FloorTypeTexture floor, TextureID struc
 }
 
 void GameGUI::render() {
-    //Texture& background = repo.getTexture(Background);
     screen.clear();
     screen.setViewport(ScreenViewport);
     background.render(0, 0);
@@ -34,9 +33,6 @@ void GameGUI::render() {
     inventoryGUI.render(selector.getInventorySlot());
     //PlayerInfo
     screen.setViewport(PlayerInfoViewport);
-    /*infoGUI.updateHealth(20000, 20000);
-    infoGUI.updateMana(9800, 10000);
-    infoGUI.updateXP(150000, 800000);*/
     infoGUI.render();
     //Minichat
     screen.setViewport(MinichatViewport);

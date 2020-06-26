@@ -17,15 +17,21 @@ enum EquippedItems{
     Shield,
 };
 
+struct PlayerInfo {
+    uint32_t level, gold;
+    uint32_t constitution, strength, agility, intelligence;
+    uint32_t xPos, yPos;
+};
+
 class PlayerInventoryGUI {
 private:
     Font textFont;
     Text text;
     TextureRepository& repo;
     SDL_Renderer& renderer;
-    //std::vector<Texture*> inventoryTextures;
     std::list<Texture*> inventoryTextures;
     std::unordered_map<EquippedItems, Texture*> equippedTextures;
+    PlayerInfo pInfo{};
 
 public:
     PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer);
@@ -39,6 +45,14 @@ public:
     void render(int selectedSlot);
 
     void removeInventoryItem(int inventorySlot);
+
+    void updateLevel(uint32_t newLevel);
+    void updatePosition(int32_t x, int32_t y);
+    void updateStrength(uint32_t strength);
+    void updateConstitution(uint32_t constitution);
+    void updateAgility(uint32_t agility);
+    void updateIntelligence(uint32_t intelligence);
+
 
 private:
 

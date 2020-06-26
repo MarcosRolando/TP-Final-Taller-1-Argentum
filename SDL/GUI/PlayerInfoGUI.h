@@ -20,21 +20,17 @@ public:
 
     void updateHealth(uint32_t currHealth);
     void updateTotalHealth(uint32_t _totalHealth);
-
     void updateMana(uint32_t currMana);
     void updateTotalMana(uint32_t _totalMana);
-
     void updateXP(uint32_t currXP);
     void updateNextLevelXP(uint32_t _nextLevelXP);
-
-    void updateLevel(uint32_t newLevel);
-
-    void updatePosition(int32_t x, int32_t y);
-
-    void updateSkills(uint32_t strength, uint32_t agility,
-                      uint32_t intelligence, uint32_t constitution);
-
     void render();
+
+
+    /*void updateLevel(uint32_t newLevel);
+    void updatePosition(int32_t x, int32_t y);
+    void updateSkills(uint32_t strength, uint32_t agility,
+                      uint32_t intelligence, uint32_t constitution);*/
 
 private:
     void _renderInfoBar(uint32_t infoCurr, uint32_t infoTotal, int32_t xOffset,

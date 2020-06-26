@@ -23,7 +23,7 @@ PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &ren
                                         textFont("../SDL/Text/medieval.ttf", 25),
                                             text(textFont,renderer), repo(repo),
                                                              renderer(renderer) {
-
+    pInfo = {1,100,1,1,1,1,0,0};
 }
 
 void PlayerInventoryGUI::render(int selectedSlotX) {
@@ -132,11 +132,79 @@ void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item)
 }
 
 void PlayerInventoryGUI::updateGold(unsigned int gold) {
-    text.updateText("GOLD: " + std::to_string(gold));
-    text.render(160, 565, SDL_Color{0xFF,0xFF,0x00});
+    /*text.updateText("GOLD: " + std::to_string(gold));
+    text.render(160, 565, SDL_Color{0xFF,0xFF,0x00});*/
+    pInfo.gold = gold;
+}
+
+void PlayerInventoryGUI::updateLevel(uint32_t newLevel) {
+    /*info.updateText(std::to_string(newLevel));
+    info.render(70, 50, SDL_Color{0xFF,0xFF,0xFF});*/
+    pInfo.level = newLevel;
+}
+
+void PlayerInventoryGUI::updateStrength(uint32_t strength){
+    /*info.updateText("STRENGTH : " + std::to_string(strength));
+    info.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});*/
+    pInfo.strength = strength;
+
+    /*info.updateText("CONSTITUTION : " + std::to_string(constitution));
+    info.render(40, 700, SDL_Color{0xFF,0xFF,0xFF});
+
+    info.updateText("INTELLIGENCE : " + std::to_string(intelligence));
+    info.render(40, 740, SDL_Color{0xFF,0xFF,0xFF});
+
+    info.updateText("AGILITY : " + std::to_string(agility));
+    info.render(40, 780, SDL_Color{0xFF,0xFF,0xFF});*/
+}
+
+void PlayerInventoryGUI::updateAgility(uint32_t agility) {
+    /*info.updateText("STRENGTH : " + std::to_string(strength));
+    info.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});*/
+    pInfo.agility = agility;
+}
+
+void PlayerInventoryGUI::updateConstitution(uint32_t constitution) {
+    /*info.updateText("STRENGTH : " + std::to_string(strength));
+    info.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});*/
+    pInfo.constitution = constitution;
+}
+
+void PlayerInventoryGUI::updateIntelligence(uint32_t intelligence) {
+    /*info.updateText("STRENGTH : " + std::to_string(strength));
+    info.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});*/
+    pInfo.intelligence = intelligence;
+}
+
+
+void PlayerInventoryGUI::updatePosition(int32_t x, int32_t y) {
+    pInfo.xPos = x;
+    pInfo.yPos = y;
 }
 
 void PlayerInventoryGUI::_renderText() {
     text.updateText("INVENTORY");
     text.render(160, 225, SDL_Color{0xFF,0xFF,0xFF});
+
+    text.updateText("GOLD: " + std::to_string(pInfo.gold));
+    text.render(160, 565, SDL_Color{0xFF,0xFF,0x00});
+
+    text.updateText(std::to_string(pInfo.level));
+    text.render(70, 50, SDL_Color{0xFF,0xFF,0xFF});
+
+    text.updateText("STRENGTH : " + std::to_string(pInfo.strength));
+    text.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});
+
+    text.updateText("CONSTITUTION : " + std::to_string(pInfo.constitution));
+    text.render(40, 700, SDL_Color{0xFF,0xFF,0xFF});
+
+    text.updateText("INTELLIGENCE : " + std::to_string(pInfo.intelligence));
+    text.render(40, 740, SDL_Color{0xFF,0xFF,0xFF});
+
+    text.updateText("AGILITY : " + std::to_string(pInfo.agility));
+    text.render(40, 780, SDL_Color{0xFF,0xFF,0xFF});
+
+    text.updateText("MyX: " + std::to_string(pInfo.xPos) + "   " + "MyY: " +
+                    std::to_string(pInfo.yPos));
+    text.render(200, 880, {0xFF, 0xFF, 0xFF});
 }
