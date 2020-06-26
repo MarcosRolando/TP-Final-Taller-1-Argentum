@@ -8,13 +8,16 @@
 #include <memory>
 #include <list>
 #include "ClientHandler.h"
+#include <mutex>
 
 class ClientsMonitor {
 private:
+    std::mutex mutex;
     std::list<std::unique_ptr<ClientHandler>> clients;
 
 public:
-    ClientsMonitor(Socket&& accepter);
+    void pushClient(Socket&& peer, ServerProtocol& protocol);
+    void join();
 };
 
 
