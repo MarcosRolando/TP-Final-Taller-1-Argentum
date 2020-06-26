@@ -34,9 +34,10 @@ void GameGUI::render() {
     inventoryGUI.render(selector.getInventorySlot());
     //PlayerInfo
     screen.setViewport(PlayerInfoViewport);
-    infoGUI.updateHealth(20000, 20000);
+    /*infoGUI.updateHealth(20000, 20000);
     infoGUI.updateMana(9800, 10000);
-    infoGUI.updateXP(150000, 800000);
+    infoGUI.updateXP(150000, 800000);*/
+    infoGUI.render();
     //Minichat
     screen.setViewport(MinichatViewport);
     minichat.render();

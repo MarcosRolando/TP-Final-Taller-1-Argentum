@@ -12,27 +12,33 @@ private:
     Font infoFont;
     Text info;
     SDL_Renderer& renderer;
-    int xPosition, yPosition;
+    uint32_t totalHealth, totalMana, nextLevelXP;
+    uint32_t health, mana, xp;
 
 public:
     explicit PlayerInfoGUI(SDL_Renderer& renderer);
 
-    void updateHealth(unsigned int currHealth, unsigned int totalHealth);
+    void updateHealth(uint32_t currHealth);
+    void updateTotalHealth(uint32_t _totalHealth);
 
-    void updateMana(unsigned int currMana, unsigned int totalMana);
+    void updateMana(uint32_t currMana);
+    void updateTotalMana(uint32_t _totalMana);
 
-    void updateXP(unsigned int currXP, unsigned int nextLevelXP);
+    void updateXP(uint32_t currXP);
+    void updateNextLevelXP(uint32_t _nextLevelXP);
 
-    void updateLevel(unsigned int newLevel);
+    void updateLevel(uint32_t newLevel);
 
-    void updatePosition(int x, int y);
+    void updatePosition(int32_t x, int32_t y);
 
-    void updateSkills(unsigned int strength, unsigned int agility,
-                      unsigned int intelligence, unsigned int constitution);
+    void updateSkills(uint32_t strength, uint32_t agility,
+                      uint32_t intelligence, uint32_t constitution);
+
+    void render();
 
 private:
-    void _renderInfoBar(unsigned int infoCurr, unsigned int infoTotal, int xOffset,
-                        unsigned int barLen, SDL_Color color);
+    void _renderInfoBar(uint32_t infoCurr, uint32_t infoTotal, int32_t xOffset,
+                        uint32_t barLen, SDL_Color color);
 };
 
 
