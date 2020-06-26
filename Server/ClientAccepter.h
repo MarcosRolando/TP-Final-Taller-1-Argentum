@@ -5,7 +5,7 @@
 #ifndef ARGENTUM_CLIENTACCEPTER_H
 #define ARGENTUM_CLIENTACCEPTER_H
 
-#include <vector>
+#include <list>
 #include <memory>
 #include "Thread.h"
 #include <atomic>
@@ -16,13 +16,13 @@ class ClientHandler;
 
 class ClientAccepter : public Thread {
 private:
-    std::vector<std::unique_ptr<ClientHandler>>& clients;
+    std::list<std::unique_ptr<ClientHandler>>& clients;
     ServerProtocol& protocol;
     Socket& serverSocket;
     std::atomic<bool>& keepRunning;
 
 public:
-    ClientAccepter(std::vector<std::unique_ptr<ClientHandler>>& _clients, ServerProtocol& _protocol,
+    ClientAccepter(std::list<std::unique_ptr<ClientHandler>>& _clients, ServerProtocol& _protocol,
                     Socket& _serverSocket, std::atomic<bool>& _keepRunning) :
                     clients(_clients), protocol(_protocol),
                     serverSocket(_serverSocket), keepRunning(_keepRunning) {}

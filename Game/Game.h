@@ -10,6 +10,7 @@
 #include "../Map/Map.h"
 #include "MonstersFactory.h"
 #include "Events/Event.h"
+#include "../Server/ClientHandler.h"
 
 /*
 enum CommandType: char {
@@ -39,6 +40,7 @@ private:
     MonstersFactory monstersFactory;
 
     std::list<std::shared_ptr<Monster>> monsters;
+    std::list<std::unique_ptr<ClientHandler>>& clients;
 
     friend GameTests;
     friend EntityTests;
@@ -56,7 +58,7 @@ private:
 
 public:
 
-    Game(MapFileReader&& mapFile);
+    Game(MapFileReader&& mapFile, std::list<std::unique_ptr<ClientHandler>>& clients);
 
     AttackResult attackPosition(int damage, unsigned int level, bool isAPlayer,
                             Coordinate coordinate);

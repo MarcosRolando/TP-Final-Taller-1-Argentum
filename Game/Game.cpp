@@ -93,7 +93,8 @@ void Game::update(double timeStep) {
     _removeEntities();
 }
 
-Game::Game(MapFileReader&& mapFile): map(mapFile) {
+Game::Game(MapFileReader&& mapFile, std::list<std::unique_ptr<ClientHandler>>& _clients):
+                                    map(mapFile), clients(_clients) {
     monsterCreationRate = 20;
     maxNumberOfMonsters = 300;
     spawnInterval = 100;

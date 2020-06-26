@@ -383,7 +383,7 @@ void Map::sell(Player &player, const std::string &itemName, Coordinate coordinat
     }
 }
 
-void Map::operator>>(std::stringstream &mapBuffer) const {
+void Map::operator >>(std::stringstream &mapBuffer) const {
     msgpack::type::tuple<int32_t , int32_t> mapSize(tiles.size(), tiles[0].size());
     msgpack::pack(mapBuffer, mapSize);
     for (const auto & row : tiles) {

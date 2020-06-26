@@ -17,26 +17,27 @@
 
 class ArgentumServer {
 private:
-    Game game;
+    //Game game;
     std::atomic<bool> keepRunning{true};
-    std::string port;
+    //std::string port;
     Socket socket;
     ServerProtocol protocol;
-    std::vector<std::unique_ptr<ClientHandler>> clients;
+    std::list<std::unique_ptr<ClientHandler>> clients;
 
 public:
-    explicit ArgentumServer(std::string&& _port, const std::string& mapFilePath);
+    explicit ArgentumServer(/*std::string&& _port, const std::string& mapFilePath*/);
     ArgentumServer(const ArgentumServer&) = delete; /*Borro los constructores por copia*/
     ArgentumServer operator=(const ArgentumServer&) = delete;
 
     /*Levanta el servidor en el puerto pedido en el constructor*/
-    void connect();
+    /*Levanta el servidor en el puerto recibido*/
+    void connect(std::string&& _port, const std::string& mapFilePath);
 
     /*Hace que el servidor deje de aceptar nuevos clientes*/
     void forceFinish();
 
 private:
-    void _execute();
+    void _execute(const std::string& mapFilePath);
 };
 
 #endif //TP3_SERVER_H
