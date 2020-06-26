@@ -6,6 +6,7 @@
 
 #include "Socket.h"
 #include "ClientProtocol.h"
+#include "GameGUI.h"
 #include <string>
 
 class Client {
@@ -14,6 +15,7 @@ private:
     Socket socket;
     ClientProtocol protocol;
     bool finished;
+    GameGUI game;
 
 public:
     Client(std::string&& host, std::string&& port) : host(host), port(port),

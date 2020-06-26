@@ -27,7 +27,10 @@ void Client::_receive() {
 }
 
 void Client::_processConnection() {
-    protocol.receiveMapInfo();
+    protocol.receiveMapInfo(game);
+    while (1){
+        game.render();
+    }
     /*
     while (!finished) {
         try {

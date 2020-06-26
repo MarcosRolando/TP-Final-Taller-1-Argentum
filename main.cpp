@@ -72,10 +72,10 @@ int main(int argc, char* args[]) {
         Map map(repo, camera);
         Font UIFont("../SDL/Text/medieval.ttf", 25);
         Font minichatFont("../SDL/Text/font.ttf", 20);
-        PlayerInfoGUI playerInfo(UIFont, window.getRenderer());
-        PlayerInventoryGUI inventoryGui(repo, window.getRenderer(), UIFont);
+        PlayerInfoGUI playerInfo(window.getRenderer());
+        PlayerInventoryGUI inventoryGui(repo, window.getRenderer());
         //Buscar una buena font para el minichat
-        Minichat minichat(minichatFont, window.getRenderer());
+        Minichat minichat(window.getRenderer());
         Selector selector;
 
         Text clickPos(UIFont, window.getRenderer());
@@ -104,22 +104,7 @@ int main(int argc, char* args[]) {
         SDL_SetCursor(cursor);
 
         //Menu principal
-        mainMenu.loop(quit);
-
-        //Prueba de llenado de inventario
-        inventoryGui.addInventoryItem(BlueTunicDrop);
-        inventoryGui.addInventoryItem(CommonClothingDrop);
-        inventoryGui.addInventoryItem(KingArmorDrop);
-        inventoryGui.addInventoryItem(MagicHatDrop);
-        inventoryGui.addInventoryItem(PlateArmorDrop);
-        inventoryGui.addInventoryItem(LongSwordDrop);
-        inventoryGui.addInventoryItem(HealthPotion);
-
-        //Lleno los items equipables
-        inventoryGui.addEquipableItem(LeatherArmorDrop, Armor);
-        inventoryGui.addEquipableItem(WarHammerDrop, Weapon);
-        inventoryGui.addEquipableItem(IronHelmetDrop, Helmet);
-        inventoryGui.addEquipableItem(TurtleShieldDrop, Shield);
+        //mainMenu.loop(quit);
 
         //Event handler
         SDL_Event e;
@@ -216,10 +201,6 @@ int main(int argc, char* args[]) {
                     window.setViewport(InventoryViewport);
                     inventoryGui.updateGold(1000);
                     inventoryGui.render(selector.getInventorySlot());
-                    playerInfo.updateLevel(15);
-                    playerInfo.updateSkills(20, 20, 20, 20);
-                    playerInfo.updatePosition(xPlayer / TILE_WIDTH,
-                            yPlayer / TILE_HEIGHT);
 
                     clickPos.updateText("ClickX: " + std::to_string(selector.getSelectedTileX()) +
                     "   ClickY: " + std::to_string(selector.getSelectedTileY
@@ -229,9 +210,6 @@ int main(int argc, char* args[]) {
 
                     //PlayerInfo
                     window.setViewport(PlayerInfoViewport);
-                    playerInfo.updateHealth(20000, 20000);
-                    playerInfo.updateMana(9800, 10000);
-                    playerInfo.updateXP(150000, 800000);
 
                     //Minichat
                     window.setViewport(MinichatViewport);
@@ -255,8 +233,8 @@ int main(int argc, char* args[]) {
 	close();
 
 	return 0;
-}
-*/
+}*/
+
 #include "Client/ArgentumClientSide.h"
 int main(int argc, char** argv) {
     return ArgentumClientSide::run(argc, argv);

@@ -13,7 +13,7 @@ MSGPACK_ADD_ENUM(GameType::FloorType)
 MSGPACK_ADD_ENUM(GameType::Structure)
 MSGPACK_ADD_ENUM(GameType::Entity)
 
-void ClientProtocol::receiveMapInfo() {
+void ClientProtocol::receiveMapInfo(GameGUI& game) {
     uint32_t msgLength;
     socket.receive((char*)(&msgLength), sizeof(msgLength));
     msgLength = ntohl(msgLength);
@@ -38,7 +38,7 @@ void ClientProtocol::receiveMapInfo() {
                     test.getEntityTexture(std::get<2>(tileInfo)));
         }
     }
-    while (1) {
+    /*while (1) {
         game.render();
-    }
+    }*/
 }

@@ -41,6 +41,7 @@ public:
     void updateGold(unsigned int gold);
     void updateLevel(uint32_t newLevel);
     void updatePosition(int32_t x, int32_t y);
+    //Capaz conviene hacer una que le sume 1 a todas las skills y listo
     void updateStrength(uint32_t strength);
     void updateConstitution(uint32_t constitution);
     void updateAgility(uint32_t agility);

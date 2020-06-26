@@ -13,12 +13,12 @@ class Socket;
 
 class ClientProtocol {
 private:
-    GameGUI game;
+    //GameGUI game;
     Socket& socket;
 
 public:
     explicit ClientProtocol(Socket& _socket) : socket(_socket){}
-    void receiveMapInfo();
+    void receiveMapInfo(GameGUI& game);
 };
 
 

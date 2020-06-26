@@ -68,7 +68,6 @@ void Selector::_verifyTileSelection(int playerX, int playerY) {
         }else if (playerYTile > 97){
             tileY = 95 + ((clickY - DEFAULT_MAP_TOP) / TILE_HEIGHT);
         }
-
     }
 }
 
