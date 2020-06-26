@@ -11,7 +11,7 @@ void ServerProtocol::operator<<(const Map &map) {
     uint32_t msgLength = aux.str().size();
     msgLength = htonl(msgLength); /*Enviamos la longitud en big endian 4 bytes*/
     mapBuffer.resize(sizeof(uint32_t));
-    for (int i = 0; i < sizeof(uint32_t); ++i) {
+    for (int i = 0; i < static_cast<int>(sizeof(uint32_t)); ++i) {
         mapBuffer[i] = *(reinterpret_cast<char *>(&msgLength) + i);
     }
     std::string auxStr = aux.str();

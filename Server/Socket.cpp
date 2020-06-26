@@ -11,7 +11,7 @@
 #define RECV_ERROR_MSG "Error in recv: "
 #define GETADDRINFO_ERROR_MSG "Error in getaddrinfo: %s"
 
-struct addrinfo* Socket::_getAddresses(std::string* host, std::string* port) {
+struct addrinfo* Socket::_getAddresses(std::string* host, const std::string* port) {
     struct addrinfo hints{}, *result;
     int s; /*Para verificar errores*/
     memset(&hints, 0, sizeof(struct addrinfo));
@@ -47,7 +47,7 @@ void Socket::connect(std::string& host, std::string& port) {
     }
 }
 
-void Socket::bind(std::string& port) {
+void Socket::bind(const std::string& port) {
     struct addrinfo* addresses = _getAddresses(nullptr, &port);
     struct addrinfo* rp;
     int val = 1;

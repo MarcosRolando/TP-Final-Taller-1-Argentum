@@ -22,7 +22,7 @@ public:
     Socket accept() const;
 
     /*Bindea a un socket*/
-    void bind(std::string& port);
+    void bind(const std::string& port);
 
     /*Setea la cantidad maxima de clientes que se tendran en espera*/
     void maxListen(int max) const;
@@ -40,7 +40,7 @@ public:
 
 private:
     explicit Socket(int fd) : fd(fd) {}
-    static struct addrinfo* _getAddresses(std::string* host, std::string* port);
+    static struct addrinfo* _getAddresses(std::string* host, const std::string* port);
 };
 
 

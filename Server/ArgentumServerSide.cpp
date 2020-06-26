@@ -15,8 +15,8 @@ int ArgentumServerSide::run(int argc, char** argv) {
         return ERROR;
     }
     try {
-        ArgentumServer server(argv[PORT_ARG_INDEX], argv[MAP_PATH_ARG_INDEX]);
-        server.connect();
+        ArgentumServer server(/*argv[PORT_ARG_INDEX], argv[MAP_PATH_ARG_INDEX]*/);
+        server.connect(argv[PORT_ARG_INDEX], argv[MAP_PATH_ARG_INDEX]);
     } catch(std::exception& e) {
         std::cerr << e.what() << std::endl;
         return ERROR;

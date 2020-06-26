@@ -31,7 +31,7 @@ public:
 
     /*Levanta el servidor en el puerto pedido en el constructor*/
     /*Levanta el servidor en el puerto recibido*/
-    void connect(std::string&& _port, const std::string& mapFilePath);
+    void connect(const std::string& _port, const std::string& mapFilePath);
 
     /*Hace que el servidor deje de aceptar nuevos clientes*/
     void forceFinish();
