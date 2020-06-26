@@ -14,6 +14,7 @@
 #include <utility>
 #include "../Game/Game.h"
 #include "ServerProtocol.h"
+#include "ClientsMonitor.h"
 
 class ArgentumServer {
 private:
@@ -22,7 +23,7 @@ private:
     //std::string port;
     Socket socket;
     ServerProtocol protocol;
-    std::list<std::unique_ptr<ClientHandler>> clients;
+    ClientsMonitor clients;
 
 public:
     explicit ArgentumServer(/*std::string&& _port, const std::string& mapFilePath*/);

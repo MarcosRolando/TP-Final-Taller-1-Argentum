@@ -56,9 +56,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         }
     }
 
-    for (auto & client : clients) {
-        client->join();
-    }
+    clients.join();
     monitor.join(); /*Joineamos los threads*/
     accepter.join();
 }

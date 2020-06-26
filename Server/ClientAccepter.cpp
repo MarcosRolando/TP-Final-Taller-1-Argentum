@@ -5,13 +5,13 @@
 #include "ClientAccepter.h"
 #include "Socket.h"
 #include "ClientHandler.h"
+#include "ClientsMonitor.h"
 
 void ClientAccepter::run() {
     while (keepRunning) {
         try {
             Socket peer = serverSocket.accept();
-            clients.emplace_back(new ClientHandler(std::move(peer), protocol));
-            (*clients.back())();
+            clients.pushClient(std::move(peer), protocol);
         } catch(...) {
             //nothing
         }
