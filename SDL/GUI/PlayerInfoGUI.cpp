@@ -40,6 +40,17 @@ void PlayerInfoGUI::updateNextLevelXP(uint32_t _nextLevelXP){
     nextLevelXP = _nextLevelXP;
 }
 
+void PlayerInfoGUI::render(){
+    info.updateText("HEALTH: " + std::to_string(health) + "/" + std::to_string(totalHealth));
+    _renderInfoBar(health, totalHealth, HEALTH_BAR_X_OFFSET, 265,{0x99, 0x00,0x00});
+
+    info.updateText("MANA: " + std::to_string(mana) + "/" + std::to_string(totalMana));
+    _renderInfoBar(mana, totalMana, MANA_BAR_X_OFFSET, 250,{0x00, 0x33, 0x66});
+
+    info.updateText("XP: " + std::to_string(xp) + "/" + std::to_string(nextLevelXP));
+    _renderInfoBar(xp, nextLevelXP, XP_BAR_X_OFFSET, 265,{0x00, 0x66, 0x00});
+}
+
 void PlayerInfoGUI::_renderInfoBar(uint32_t infoCurr, uint32_t infoTotal,
                                    int32_t xOffset, uint32_t barLen, SDL_Color color){
     float healthBar = barLen * ((float)infoCurr/(float)infoTotal);
@@ -56,43 +67,3 @@ void PlayerInfoGUI::_renderInfoBar(uint32_t infoCurr, uint32_t infoTotal,
     //Texto de la barra
     info.render(xOffset, 10, SDL_Color{0xFF,0xFF,0xFF});
 }
-
-void PlayerInfoGUI::render(){
-    info.updateText("HEALTH: " + std::to_string(health) + "/" + std::to_string(totalHealth));
-    _renderInfoBar(health, totalHealth, HEALTH_BAR_X_OFFSET, 265,{0x99, 0x00,0x00});
-
-    info.updateText("MANA: " + std::to_string(mana) + "/" + std::to_string(totalMana));
-    _renderInfoBar(mana, totalMana, MANA_BAR_X_OFFSET, 250,{0x00, 0x33, 0x66});
-
-    info.updateText("XP: " + std::to_string(xp) + "/" + std::to_string(nextLevelXP));
-    _renderInfoBar(xp, nextLevelXP, XP_BAR_X_OFFSET, 265,{0x00, 0x66, 0x00});
-}
-
-/*void PlayerInfoGUI::updateLevel(uint32_t newLevel) {
-    info.updateText(std::to_string(newLevel));
-    info.render(70, 50, SDL_Color{0xFF,0xFF,0xFF});
-}
-
-void PlayerInfoGUI::updateSkills(uint32_t strength, uint32_t agility,
-                                 uint32_t intelligence, uint32_t constitution){
-    info.updateText("STRENGTH : " + std::to_string(strength));
-    info.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});
-
-    info.updateText("CONSTITUTION : " + std::to_string(constitution));
-    info.render(40, 700, SDL_Color{0xFF,0xFF,0xFF});
-
-    info.updateText("INTELLIGENCE : " + std::to_string(intelligence));
-    info.render(40, 740, SDL_Color{0xFF,0xFF,0xFF});
-
-    info.updateText("AGILITY : " + std::to_string(agility));
-    info.render(40, 780, SDL_Color{0xFF,0xFF,0xFF});
-}
-
-void PlayerInfoGUI::updatePosition(int32_t x, int32_t y) {
-
-    info.updateText("MyX: " + std::to_string(x) + "   " + "MyY: " +
-                    std::to_string(y));
-    info.render(200, 880, {0xFF, 0xFF, 0xFF});
-}*/
-
-

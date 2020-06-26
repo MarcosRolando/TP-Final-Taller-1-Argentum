@@ -35,36 +35,25 @@ private:
 
 public:
     PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer);
-
     void addInventoryItem(TextureID texture);
-
     void addEquipableItem(TextureID texture, EquippedItems item);
-
-    void updateGold(unsigned int gold);
-
-    void render(int selectedSlot);
-
     void removeInventoryItem(int inventorySlot);
-
+    void updateGold(unsigned int gold);
     void updateLevel(uint32_t newLevel);
     void updatePosition(int32_t x, int32_t y);
     void updateStrength(uint32_t strength);
     void updateConstitution(uint32_t constitution);
     void updateAgility(uint32_t agility);
     void updateIntelligence(uint32_t intelligence);
-
+    void render(int selectedSlot);
 
 private:
-
     void _drawInventoryOutlines(int x);
-
     void _renderInventoryItems();
-
     void _drawEquipableOutlines();
-
     void _renderEquipableItems();
-
     void _renderText();
+    void _renderSkills();
 };
 
 

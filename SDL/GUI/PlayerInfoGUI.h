@@ -26,12 +26,6 @@ public:
     void updateNextLevelXP(uint32_t _nextLevelXP);
     void render();
 
-
-    /*void updateLevel(uint32_t newLevel);
-    void updatePosition(int32_t x, int32_t y);
-    void updateSkills(uint32_t strength, uint32_t agility,
-                      uint32_t intelligence, uint32_t constitution);*/
-
 private:
     void _renderInfoBar(uint32_t infoCurr, uint32_t infoTotal, int32_t xOffset,
                         uint32_t barLen, SDL_Color color);

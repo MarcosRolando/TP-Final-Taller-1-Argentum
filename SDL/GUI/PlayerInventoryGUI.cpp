@@ -26,6 +26,67 @@ PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &ren
     pInfo = {1,100,1,1,1,1,0,0};
 }
 
+void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
+    if (inventoryTextures.size() < INVENTORY_SIZE) {
+        inventoryTextures.push_back(&repo.getTexture(texture));
+    }
+}
+
+void PlayerInventoryGUI::removeInventoryItem(int inventorySlot) {
+    int i = 0, j = 0;
+    for (auto it = inventoryTextures.begin(); it != inventoryTextures.end(); ) {
+        //Esto lo haria con un for pero la lista no tiene operator[]
+        if (j > 3) {
+            i += LINES;
+            j = 0;
+        }
+        if ((j + i) == inventorySlot){
+            it = inventoryTextures.erase(it);
+        } else {
+            ++it;
+        }
+        ++j;
+    }
+}
+
+void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item) {
+    Texture* currTexture = &repo.getTexture(texture);
+    if(equippedTextures.count(item)){
+        equippedTextures.erase(item);
+    }
+    equippedTextures.emplace(item, currTexture);
+}
+
+void PlayerInventoryGUI::updateGold(unsigned int gold) {
+    pInfo.gold = gold;
+}
+
+void PlayerInventoryGUI::updateLevel(uint32_t newLevel) {
+    pInfo.level = newLevel;
+}
+
+void PlayerInventoryGUI::updateStrength(uint32_t strength){
+    pInfo.strength = strength;
+}
+
+void PlayerInventoryGUI::updateAgility(uint32_t agility) {
+    pInfo.agility = agility;
+}
+
+void PlayerInventoryGUI::updateConstitution(uint32_t constitution) {
+    pInfo.constitution = constitution;
+}
+
+void PlayerInventoryGUI::updateIntelligence(uint32_t intelligence) {
+    pInfo.intelligence = intelligence;
+}
+
+
+void PlayerInventoryGUI::updatePosition(int32_t x, int32_t y) {
+    pInfo.xPos = x;
+    pInfo.yPos = y;
+}
+
 void PlayerInventoryGUI::render(int selectedSlotX) {
     _drawInventoryOutlines(selectedSlotX);
     _drawEquipableOutlines();
@@ -34,11 +95,42 @@ void PlayerInventoryGUI::render(int selectedSlotX) {
     _renderText();
 }
 
+void PlayerInventoryGUI::_renderText() {
+    text.updateText("INVENTORY");
+    text.render(160, 225, SDL_Color{0xFF,0xFF,0xFF});
+
+    text.updateText("GOLD: " + std::to_string(pInfo.gold));
+    text.render(160, 565, SDL_Color{0xFF,0xFF,0x00});
+
+    text.updateText(std::to_string(pInfo.level));
+    text.render(70, 50, SDL_Color{0xFF,0xFF,0xFF});
+
+    _renderSkills();
+
+    text.updateText("MyX: " + std::to_string(pInfo.xPos) + "   " + "MyY: " +
+                    std::to_string(pInfo.yPos));
+    text.render(200, 880, {0xFF, 0xFF, 0xFF});
+}
+
+void PlayerInventoryGUI::_renderSkills(){
+    text.updateText("STRENGTH : " + std::to_string(pInfo.strength));
+    text.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});
+
+    text.updateText("CONSTITUTION : " + std::to_string(pInfo.constitution));
+    text.render(40, 700, SDL_Color{0xFF,0xFF,0xFF});
+
+    text.updateText("INTELLIGENCE : " + std::to_string(pInfo.intelligence));
+    text.render(40, 740, SDL_Color{0xFF,0xFF,0xFF});
+
+    text.updateText("AGILITY : " + std::to_string(pInfo.agility));
+    text.render(40, 780, SDL_Color{0xFF,0xFF,0xFF});
+}
+
 void PlayerInventoryGUI::_renderInventoryItems() {
     int i = 0, j = 0; //los necesito para la posicion de renderizado
     for (auto & texture : inventoryTextures){
         texture->render(INVENTORY_ITEMS_X_OFFSET + (ITEM_WIDTH + 6) * j,
-                INVENTORY_ITEMS_Y_OFFSET + (i/LINES) * (ITEM_HEIGHT - 1),0);
+                        INVENTORY_ITEMS_Y_OFFSET + (i/LINES) * (ITEM_HEIGHT - 1),0);
         //Esto lo haria con un for pero la lista no tiene operator[]
         ++j;
         if (j > 3) {
@@ -98,113 +190,4 @@ void PlayerInventoryGUI::_drawEquipableOutlines() {
         SDL_RenderDrawRect( &renderer, &outlineRect );
     }
 
-}
-
-void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
-    if (inventoryTextures.size() < INVENTORY_SIZE) {
-        inventoryTextures.push_back(&repo.getTexture(texture));
-    }
-}
-
-void PlayerInventoryGUI::removeInventoryItem(int inventorySlot) {
-    int i = 0, j = 0;
-    for (auto it = inventoryTextures.begin(); it != inventoryTextures.end(); ) {
-        //Esto lo haria con un for pero la lista no tiene operator[]
-        if (j > 3) {
-            i += LINES;
-            j = 0;
-        }
-        if ((j + i) == inventorySlot){
-            it = inventoryTextures.erase(it);
-        } else {
-            ++it;
-        }
-        ++j;
-    }
-}
-
-void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item) {
-    Texture* currTexture = &repo.getTexture(texture);
-    if(equippedTextures.count(item)){
-        equippedTextures.erase(item);
-    }
-    equippedTextures.emplace(item, currTexture);
-}
-
-void PlayerInventoryGUI::updateGold(unsigned int gold) {
-    /*text.updateText("GOLD: " + std::to_string(gold));
-    text.render(160, 565, SDL_Color{0xFF,0xFF,0x00});*/
-    pInfo.gold = gold;
-}
-
-void PlayerInventoryGUI::updateLevel(uint32_t newLevel) {
-    /*info.updateText(std::to_string(newLevel));
-    info.render(70, 50, SDL_Color{0xFF,0xFF,0xFF});*/
-    pInfo.level = newLevel;
-}
-
-void PlayerInventoryGUI::updateStrength(uint32_t strength){
-    /*info.updateText("STRENGTH : " + std::to_string(strength));
-    info.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});*/
-    pInfo.strength = strength;
-
-    /*info.updateText("CONSTITUTION : " + std::to_string(constitution));
-    info.render(40, 700, SDL_Color{0xFF,0xFF,0xFF});
-
-    info.updateText("INTELLIGENCE : " + std::to_string(intelligence));
-    info.render(40, 740, SDL_Color{0xFF,0xFF,0xFF});
-
-    info.updateText("AGILITY : " + std::to_string(agility));
-    info.render(40, 780, SDL_Color{0xFF,0xFF,0xFF});*/
-}
-
-void PlayerInventoryGUI::updateAgility(uint32_t agility) {
-    /*info.updateText("STRENGTH : " + std::to_string(strength));
-    info.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});*/
-    pInfo.agility = agility;
-}
-
-void PlayerInventoryGUI::updateConstitution(uint32_t constitution) {
-    /*info.updateText("STRENGTH : " + std::to_string(strength));
-    info.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});*/
-    pInfo.constitution = constitution;
-}
-
-void PlayerInventoryGUI::updateIntelligence(uint32_t intelligence) {
-    /*info.updateText("STRENGTH : " + std::to_string(strength));
-    info.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});*/
-    pInfo.intelligence = intelligence;
-}
-
-
-void PlayerInventoryGUI::updatePosition(int32_t x, int32_t y) {
-    pInfo.xPos = x;
-    pInfo.yPos = y;
-}
-
-void PlayerInventoryGUI::_renderText() {
-    text.updateText("INVENTORY");
-    text.render(160, 225, SDL_Color{0xFF,0xFF,0xFF});
-
-    text.updateText("GOLD: " + std::to_string(pInfo.gold));
-    text.render(160, 565, SDL_Color{0xFF,0xFF,0x00});
-
-    text.updateText(std::to_string(pInfo.level));
-    text.render(70, 50, SDL_Color{0xFF,0xFF,0xFF});
-
-    text.updateText("STRENGTH : " + std::to_string(pInfo.strength));
-    text.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});
-
-    text.updateText("CONSTITUTION : " + std::to_string(pInfo.constitution));
-    text.render(40, 700, SDL_Color{0xFF,0xFF,0xFF});
-
-    text.updateText("INTELLIGENCE : " + std::to_string(pInfo.intelligence));
-    text.render(40, 740, SDL_Color{0xFF,0xFF,0xFF});
-
-    text.updateText("AGILITY : " + std::to_string(pInfo.agility));
-    text.render(40, 780, SDL_Color{0xFF,0xFF,0xFF});
-
-    text.updateText("MyX: " + std::to_string(pInfo.xPos) + "   " + "MyY: " +
-                    std::to_string(pInfo.yPos));
-    text.render(200, 880, {0xFF, 0xFF, 0xFF});
 }

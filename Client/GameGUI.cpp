@@ -23,6 +23,7 @@ void GameGUI::render() {
     screen.clear();
     screen.setViewport(ScreenViewport);
     background.render(0, 0);
+
     //Mapa
     screen.setViewport(MapViewport);
     map.renderGround();
@@ -31,9 +32,11 @@ void GameGUI::render() {
     //Inventario
     screen.setViewport(InventoryViewport);
     inventoryGUI.render(selector.getInventorySlot());
+
     //PlayerInfo
     screen.setViewport(PlayerInfoViewport);
     infoGUI.render();
+
     //Minichat
     screen.setViewport(MinichatViewport);
     minichat.render();
