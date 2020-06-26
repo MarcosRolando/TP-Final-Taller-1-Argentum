@@ -32,7 +32,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     ClientAccepter accepter(clients, protocol, socket, keepRunning);
     accepter(); /*Acepta conexiones de clientes*/
 
-    Game game(MapFileReader(mapFilePath));
+    Game game((MapFileReader(mapFilePath)), clients);
     protocol << game.getMap();
 
     high_resolution_clock::time_point time1;
