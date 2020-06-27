@@ -396,7 +396,7 @@ void Map::operator>>(std::stringstream &mapBuffer) const {
 void Map::getCurrentState(std::stringstream &data) const {
     for (const auto & row : tiles) {
         for (const auto & tile : row) {
-            tile >> data;
+            tile.storeTileData(data);
         }
     }
 }

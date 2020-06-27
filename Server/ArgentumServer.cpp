@@ -27,13 +27,13 @@ void ArgentumServer::connect(const std::string& _port, const std::string& mapFil
 }
 
 void ArgentumServer::_execute(const std::string& mapFilePath) {
+    Game game((MapFileReader(mapFilePath)), clients);
+    ServerProtocol protocol(game.getMap());
+
     ServerMonitor monitor(*this);
     monitor(); /*Espera la q para cerrar el server*/
     ClientAccepter accepter(clients, protocol, socket, keepRunning);
     accepter(); /*Acepta conexiones de clientes*/
-
-    Game game((MapFileReader(mapFilePath)), clients);
-    protocol << game.getMap();
 
     high_resolution_clock::time_point time1;
     high_resolution_clock::time_point time2;
@@ -61,7 +61,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     accepter.join();
 }
 
-ArgentumServer::ArgentumServer(/*std::string &&_port, const std::string& mapFilePath*/)/*: game(MapFileReader(mapFilePath))*/ {
+ArgentumServer::ArgentumServer() {
     //port = std::move(_port);
     //protocol << game.getMap();
 }

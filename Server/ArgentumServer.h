@@ -18,11 +18,8 @@
 
 class ArgentumServer {
 private:
-    //Game game;
     std::atomic<bool> keepRunning{true};
-    //std::string port;
     Socket socket;
-    ServerProtocol protocol;
     ClientsMonitor clients;
 
 public:

@@ -139,7 +139,7 @@ void Tile::operator>>(std::stringstream &mapBuffer) const {
     msgpack::pack(mapBuffer, tileInfo);
 }
 
-void Tile::storeTileData(std::stringstream &data) {
+void Tile::storeTileData(std::stringstream &data) const {
     if ((entity) && (!entity->isCitizen())) {
         *entity >> data;
     }

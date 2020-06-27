@@ -13,9 +13,13 @@ class ServerProtocol {
 private:
     std::vector<char> mapBuffer;
     std::unordered_map<std::string, std::vector<char>> playersData; //(nickname, data)
+    const Map &map;
+
+private:
+    void _loadBytes(std::vector<char> buffer, void* data, unsigned int size);
 
 public:
-    void operator<<(const Map &map);
+    explicit ServerProtocol(const Map &map);
     const std::vector<char>& getMapInfo() const;
     std::vector<char> getCurrentState();
 };
