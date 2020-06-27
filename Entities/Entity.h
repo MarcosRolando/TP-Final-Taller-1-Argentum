@@ -29,9 +29,10 @@ protected:
     GameType::Entity type;
     Movement movement{};
     unsigned int speed;
+    std::string nickname;
 
  public:
-    Entity(GameType::Entity _type, Coordinate initialPosition);
+    Entity(GameType::Entity _type, Coordinate initialPosition, std::string&& _nickname);
 
     //Implementa el comportamiento realizado al atacar,
     //debe ser modificado en las clases hijas de ser necesario

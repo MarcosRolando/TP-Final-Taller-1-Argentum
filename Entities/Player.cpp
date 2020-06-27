@@ -18,9 +18,10 @@ MSGPACK_ADD_ENUM(GameType::Race)
 ////////////////////////////////////PUBLIC///////////////////////////////
 
 Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsigned int _experience
-                , Coordinate _initialPosition, const std::string& _nickname):
-               Entity(GameType::Entity::PLAYER, _initialPosition), stats(_race, _class, _level, _experience),
-               game(_game){
+                , Coordinate _initialPosition, std::string&& _nickname):
+               Entity(GameType::Entity::PLAYER, _initialPosition, std::move(_nickname)),
+               stats(_race, _class, _level, _experience),
+               game(_game) {
     nickname = _nickname;
     race = _race;
     gold = 0; //todo habria que recibir la cantidad de oro tambien,
