@@ -45,4 +45,8 @@ void ClientHandler::_sendMapInfoToClient() {
     socket.send(mapInfo.data(), mapInfo.size());
 }
 
+void ClientHandler::update() {
+    //todo
+}
+
 
