@@ -8,6 +8,7 @@
 #include "ClientProtocol.h"
 #include "GameGUI.h"
 #include <string>
+#include "ClientEventHandler.h"
 
 class Client {
 private:

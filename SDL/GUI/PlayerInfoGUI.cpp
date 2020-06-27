@@ -7,13 +7,11 @@
 
 PlayerInfoGUI::PlayerInfoGUI(SDL_Renderer &renderer) : infoFont("../SDL/Text/medieval.ttf", 25),
                                                     info(infoFont, renderer), renderer(renderer) {
-    /*totalHealth = 100;
-    totalMana = 100;
-    nextLevelXP = 100;
-    health = totalHealth;
-    mana = totalMana;
-    xp = nextLevelXP;*/
-    pInfo = {};
+    pInfo = {100,100,100,
+             50,50,50,
+             1,
+             1,1,1,1,
+             0,0};
 }
 
 
