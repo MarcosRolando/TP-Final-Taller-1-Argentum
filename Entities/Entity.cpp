@@ -121,6 +121,6 @@ void Entity::operator>>(std::stringstream& buffer) {
 }
 
 bool Entity::isCitizen() {
-    return (type != GameType::Entity::BANKER) && (type != GameType::Entity::TRADER) &&
-           (type != GameType::Entity::PRIEST);
+    return (type == GameType::Entity::BANKER) || (type == GameType::Entity::TRADER) ||
+           (type == GameType::Entity::PRIEST);
 }
