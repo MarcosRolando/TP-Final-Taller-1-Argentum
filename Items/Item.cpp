@@ -32,7 +32,7 @@ void Item::loadDropItemData(std::stringstream &buffer, uint32_t i, uint32_t j) c
     msgpack::pack(buffer, data);
 }
 
-void Item::loadEquippedData(std::stringstream &buffer) {
+void Item::loadEquippedItemData(std::stringstream &buffer) {
     msgpack::type::tuple<GameType::ItemType, int32_t> data(type, id);
     msgpack::pack(buffer, data);
 }
