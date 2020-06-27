@@ -14,8 +14,8 @@ GameGUI::GameGUI() : repo(screen.getRenderer()), map(repo, camera),
                     background(repo.getTexture(Background)) {
 }
 
-void GameGUI::loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure,
-                                                            TextureID entity) {
+void GameGUI::loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor,
+                                TextureID structure, TextureID entity) {
     map.loadTileData(i , j , floor, structure, entity);
 }
 
@@ -58,4 +58,8 @@ Selector &GameGUI::getSelector() {
 
 PlayerInfoGUI &GameGUI::getPlayerInfo() {
     return infoGUI;
+}
+
+void GameGUI::addEntity(TextureID type, unsigned int i, unsigned int j) {
+    map.addEntity(type, i, j);
 }

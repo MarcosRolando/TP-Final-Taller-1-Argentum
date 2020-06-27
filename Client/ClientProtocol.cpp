@@ -57,7 +57,9 @@ void ClientProtocol::_receiveCurrentGameState() {
         handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
         msgpack::type::tuple<GameType::ID, GameType::Entity, unsigned int, unsigned int> info;
         handler->convert(info);
-        //todo agregarlos al mapa
+        //todo ver si es un entity o un item y agregarlo como corresponda
+        game.addEntity(translator.getEntityTexture(std::get<1>(info)),
+                                std::get<2>(info), std::get<3>(info));
     }
 }
 

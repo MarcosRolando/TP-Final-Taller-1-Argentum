@@ -132,9 +132,9 @@ void Map::setSize(int rows, int columns) {
     }
 }
 
-void Map::loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure,
+void Map::loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, TextureID structure,
                        TextureID entity) {
-    int tile = i*TOTAL_HORIZONTAL_TILES + j;
+    unsigned int tile = i*TOTAL_HORIZONTAL_TILES + j;
     if (structure != Nothing) {
         tiles[tile].loadData(textureRepo.getTexture(floor.texture),
                 &textureRepo.getTexture(structure), floor.index);
@@ -143,6 +143,10 @@ void Map::loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure
                 nullptr, floor.index);
     }
     if (entity != Nothing) {
-        npcs.emplace_back(textureRepo, camera, j*TILE_WIDTH, i*TILE_HEIGHT, entity);
+        addEntity(entity, i, j);
     }
+}
+
+void Map::addEntity(TextureID entity, unsigned int i, unsigned int j) {
+    npcs.emplace_back(textureRepo, camera, j*TILE_WIDTH, i*TILE_HEIGHT, entity);
 }

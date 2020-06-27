@@ -29,8 +29,10 @@ public:
     void renderNPCS(float timeStep);
     void setSize(int rows, int columns);
 
-    void loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure,
+    void loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, TextureID structure,
                       TextureID entity);
+
+    void addEntity(TextureID entity, unsigned int i, unsigned int j);
 
 private:
     void _setTiles();

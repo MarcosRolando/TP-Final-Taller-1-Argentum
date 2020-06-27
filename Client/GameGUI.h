@@ -29,8 +29,10 @@ public:
     GameGUI();
     void setMapSize(int rows, int columns);
 
-    void loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure,
+    void loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, TextureID structure,
                       TextureID entity);
+
+    void addEntity(TextureID type, unsigned int i, unsigned int j);
 
     Window& getWindow();
     Minichat& getMinichat();
