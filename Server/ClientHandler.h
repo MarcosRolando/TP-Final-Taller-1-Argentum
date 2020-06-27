@@ -8,6 +8,7 @@
  * el Numero*/
 #include "Socket.h"
 #include "Thread.h"
+#include "../Entities/PlayerProxy.h"
 #include <queue>
 #include <vector>
 #include <mutex>
@@ -23,6 +24,7 @@ private:
     ServerProtocol& protocol;
     std::queue<std::string> requestsQueue;
     std::mutex m;
+    //PlayerProxy player;
 
 public:
     ClientHandler(Socket&& socket, ServerProtocol& _protocol) :

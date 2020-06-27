@@ -14,9 +14,12 @@ class ClientsMonitor {
 private:
     std::mutex mutex;
     std::list<std::unique_ptr<ClientHandler>> clients;
+    std::list<std::unique_ptr<ClientHandler>> waitingList;
 
 public:
-    void pushClient(Socket&& peer, ServerProtocol& protocol);
+    //void pushClient(Socket&& peer, ServerProtocol& protocol);
+    void pushToWaitingList(Socket &&peer, ServerProtocol &protocol);
+    void mergeWaitingClients();
     void update();
     void eraseDisconnectedClients();
     void join();

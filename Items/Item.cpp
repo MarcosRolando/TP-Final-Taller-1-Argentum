@@ -25,7 +25,7 @@ bool Item::isGold() const {
 }
 
 void Item::operator>>(std::stringstream &buffer) const {
-    msgpack::type::tuple<GameType::ID, GameType::ItemType, unsigned int> /*El cliente tendra que chequear el ItemType e interpretar el id con el enum que corresponda*/
+    msgpack::type::tuple<GameType::ID, GameType::ItemType, uint32_t> /*El cliente tendra que chequear el ItemType e interpretar el id con el enum que corresponda*/
             data(GameType::ITEM, type, id);
     msgpack::pack(buffer, data);
 }
