@@ -6,7 +6,7 @@
 #include "../../Config/Calculator.h"
 
 
-Clothing::Clothing(GameType::Clothing clothing): Item(ITEM_TYPE_CLOTHING,
+Clothing::Clothing(GameType::Clothing clothing): Item(GameType::ITEM_TYPE_CLOTHING,
                                                     Configuration::getInstance().configClothingData(clothing).name/*,
                                                       Configuration::getInstance().configClothingData(clothing).price*/) {
     Config::ClothingData stats = Configuration::getInstance().configClothingData(clothing);

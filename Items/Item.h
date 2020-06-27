@@ -7,6 +7,7 @@
 
 #include <string>
 #include <memory>
+#include "../Config/GameEnums.h"
 
 class ItemTests;
 
@@ -28,18 +29,18 @@ private:
     //El id esta asocioado al tipo de item que es, estos se repiten entre los distintos
     //tipos de items. Ej: Se puede tener un arma y un escudo con el mismo id, pero se
     //diferencian por ser uno un arma y otro un escudo
-    ItemType type;
+    GameType::ItemType type;
     const std::string& name;
     //unsigned int price;
 
     friend ItemTests;
 
 protected:
-    unsigned int id{};
+    int32_t id{};
 
 public:
     //Constructor que copia el nombre recibido en el item para almacenarlo
-    Item(ItemType _type, const std::string& name/*, unsigned int price*/);
+    Item(GameType::ItemType _type, const std::string& name);
 
     //Constructor que se apropia del nombre del item
     //Item(std::string&& name, unsigned int price);
@@ -52,6 +53,8 @@ public:
     const std::string& getName() const;
 
     virtual bool isGold() const;
+
+    void operator>>(std::stringstream& buffer) const;
 
     virtual ~Item() = default;
 };
