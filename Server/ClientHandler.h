@@ -34,6 +34,8 @@ public:
     /*Retorna si el ha terminado de comunicarse con su cliente*/
     bool hasFinished() const;
 
+    void update();
+
 private:
     /*Implementa el metodo virtual run de Thread, que sera el metodo ejecutado
     * por el thread*/
