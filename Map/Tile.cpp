@@ -6,6 +6,7 @@
 #include <memory>
 #include "../AttackResult.h"
 #include "../TPException.h"
+#include "../Items/Item.h"
 #include <msgpack.hpp>
 
 MSGPACK_ADD_ENUM(GameType::FloorType)
@@ -143,6 +144,6 @@ void Tile::storeTileData(std::stringstream &data) {
         *entity >> data;
     }
     for (const auto & item: items) {
-        (*item) >> data;
+        *item >> data;
     }
 }
