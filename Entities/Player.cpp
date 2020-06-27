@@ -13,7 +13,7 @@
 
 using namespace GameType;
 
-MSGPACK_ADD_ENUM(Race)
+MSGPACK_ADD_ENUM(GameType::Race)
 
 ////////////////////////////////////PUBLIC///////////////////////////////
 
@@ -205,5 +205,9 @@ void Player::operator>>(std::stringstream &buffer) {
     Entity::operator>>(buffer);
     msgpack::type::tuple<Race> data(race);
     msgpack::pack(buffer, data);
+<<<<<<< HEAD
     //inventory
+=======
+    inventory.storeEquippedItems(buffer);
+>>>>>>> bfac884facdf1d261781913d25f2d18ae3e8be28
 }
