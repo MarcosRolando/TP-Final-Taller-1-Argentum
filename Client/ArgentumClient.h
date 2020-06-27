@@ -15,7 +15,7 @@ private:
     Socket socket;
     ClientProtocol protocol;
     bool finished;
-    GameGUI game;
+    //GameGUI game;
 
 public:
     Client(std::string&& host, std::string&& port) : host(host), port(port),

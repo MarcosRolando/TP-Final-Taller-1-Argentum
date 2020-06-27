@@ -7,6 +7,7 @@
 
 #include "../../Texture/TextureRepository.h"
 #include "../Text/Text.h"
+#include "PlayerInfoGUI.h"
 #include <list>
 #include <unordered_map>
 
@@ -17,12 +18,6 @@ enum EquippedItems{
     Shield,
 };
 
-struct PlayerInfo {
-    uint32_t level, gold;
-    uint32_t constitution, strength, agility, intelligence;
-    uint32_t xPos, yPos;
-};
-
 class PlayerInventoryGUI {
 private:
     Font textFont;
@@ -31,21 +26,22 @@ private:
     SDL_Renderer& renderer;
     std::list<Texture*> inventoryTextures;
     std::unordered_map<EquippedItems, Texture*> equippedTextures;
-    PlayerInfo pInfo{};
+    PlayerInfoGUI& pInfo;
+    uint32_t gold;
 
 public:
-    PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer);
+    PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer, PlayerInfoGUI& playerInfo);
     void addInventoryItem(TextureID texture);
     void addEquipableItem(TextureID texture, EquippedItems item);
     void removeInventoryItem(int inventorySlot);
     void updateGold(unsigned int gold);
-    void updateLevel(uint32_t newLevel);
+    /*void updateLevel(uint32_t newLevel);
     void updatePosition(int32_t x, int32_t y);
     //Capaz conviene hacer una que le sume 1 a todas las skills y listo
     void updateStrength(uint32_t strength);
     void updateConstitution(uint32_t constitution);
     void updateAgility(uint32_t agility);
-    void updateIntelligence(uint32_t intelligence);
+    void updateIntelligence(uint32_t intelligence);*/
     void render(int selectedSlot);
 
 private:

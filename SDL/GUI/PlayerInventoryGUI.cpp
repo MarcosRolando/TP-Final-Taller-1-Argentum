@@ -19,11 +19,12 @@
 #define INVENTORY_OUTLINES_Y_OFFSET 260
 
 
-PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &renderer) :
-                                        textFont("../SDL/Text/medieval.ttf", 25),
+PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &renderer,
+                                       PlayerInfoGUI& playerInfo) :
+                                       textFont("../SDL/Text/medieval.ttf", 25),
                                             text(textFont,renderer), repo(repo),
-                                                             renderer(renderer) {
-    pInfo = {1,100,1,1,1,1,0,0};
+                                            renderer(renderer), pInfo(playerInfo) {
+    gold = 0;
 }
 
 void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
@@ -57,11 +58,11 @@ void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item)
     equippedTextures.emplace(item, currTexture);
 }
 
-void PlayerInventoryGUI::updateGold(unsigned int gold) {
-    pInfo.gold = gold;
+void PlayerInventoryGUI::updateGold(unsigned int _gold) {
+    gold = _gold;
 }
 
-void PlayerInventoryGUI::updateLevel(uint32_t newLevel) {
+/*void PlayerInventoryGUI::updateLevel(uint32_t newLevel) {
     pInfo.level = newLevel;
 }
 
@@ -85,7 +86,7 @@ void PlayerInventoryGUI::updateIntelligence(uint32_t intelligence) {
 void PlayerInventoryGUI::updatePosition(int32_t x, int32_t y) {
     pInfo.xPos = x;
     pInfo.yPos = y;
-}
+}*/
 
 void PlayerInventoryGUI::render(int selectedSlotX) {
     _drawInventoryOutlines(selectedSlotX);
@@ -99,30 +100,30 @@ void PlayerInventoryGUI::_renderText() {
     text.updateText("INVENTORY");
     text.render(160, 225, SDL_Color{0xFF,0xFF,0xFF});
 
-    text.updateText("GOLD: " + std::to_string(pInfo.gold));
+    text.updateText("GOLD: " + std::to_string(gold));
     text.render(160, 565, SDL_Color{0xFF,0xFF,0x00});
 
-    text.updateText(std::to_string(pInfo.level));
+    text.updateText(std::to_string(pInfo.getLevel()));
     text.render(70, 50, SDL_Color{0xFF,0xFF,0xFF});
 
     _renderSkills();
 
-    text.updateText("MyX: " + std::to_string(pInfo.xPos) + "   " + "MyY: " +
-                    std::to_string(pInfo.yPos));
+    text.updateText("MyX: " + std::to_string(pInfo.getXPos()) + "   " + "MyY: " +
+                    std::to_string(pInfo.getYPos()));
     text.render(200, 880, {0xFF, 0xFF, 0xFF});
 }
 
 void PlayerInventoryGUI::_renderSkills(){
-    text.updateText("STRENGTH : " + std::to_string(pInfo.strength));
+    text.updateText("STRENGTH : " + std::to_string(pInfo.getStrength()));
     text.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});
 
-    text.updateText("CONSTITUTION : " + std::to_string(pInfo.constitution));
+    text.updateText("CONSTITUTION : " + std::to_string(pInfo.getConstitution()));
     text.render(40, 700, SDL_Color{0xFF,0xFF,0xFF});
 
-    text.updateText("INTELLIGENCE : " + std::to_string(pInfo.intelligence));
+    text.updateText("INTELLIGENCE : " + std::to_string(pInfo.getIntelligence()));
     text.render(40, 740, SDL_Color{0xFF,0xFF,0xFF});
 
-    text.updateText("AGILITY : " + std::to_string(pInfo.agility));
+    text.updateText("AGILITY : " + std::to_string(pInfo.getAgility()));
     text.render(40, 780, SDL_Color{0xFF,0xFF,0xFF});
 }
 

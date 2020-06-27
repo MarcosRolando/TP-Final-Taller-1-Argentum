@@ -32,6 +32,11 @@ public:
     void loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure,
                       TextureID entity);
 
+    Window& getWindow();
+    Minichat& getMinichat();
+    Selector& getSelector();
+    PlayerInfoGUI& getPlayerInfo();
+
     void render();
 };
 

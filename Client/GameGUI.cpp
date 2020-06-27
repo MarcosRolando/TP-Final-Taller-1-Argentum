@@ -10,7 +10,7 @@ void GameGUI::setMapSize(int rows, int columns) {
 
 GameGUI::GameGUI() : repo(screen.getRenderer()), map(repo, camera),
                     minichat(screen.getRenderer()), infoGUI(screen.getRenderer())
-                    ,inventoryGUI(repo, screen.getRenderer()),
+                    ,inventoryGUI(repo, screen.getRenderer(), infoGUI),
                     background(repo.getTexture(Background)) {
 }
 
@@ -41,4 +41,20 @@ void GameGUI::render() {
     screen.setViewport(MinichatViewport);
     minichat.render();
     screen.show();
+}
+
+Window& GameGUI::getWindow() {
+    return screen;
+}
+
+Minichat &GameGUI::getMinichat() {
+    return minichat;
+}
+
+Selector &GameGUI::getSelector() {
+    return selector;
+}
+
+PlayerInfoGUI &GameGUI::getPlayerInfo() {
+    return infoGUI;
 }

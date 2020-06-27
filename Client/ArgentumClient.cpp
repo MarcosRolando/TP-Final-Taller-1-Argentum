@@ -27,6 +27,7 @@ void Client::_receive() {
 }
 
 void Client::_processConnection() {
+    GameGUI game;
     //Aca falta lo del main menu y la seleccion de server/player etc
     protocol.receiveMapInfo(game);
     while (1){
