@@ -26,18 +26,20 @@ std::vector<char> ServerProtocol::getCurrentState() {
     std::vector<char> buffer;
     std::stringstream data;
     map.getCurrentState(data);
-    uint32_t msgLength = ntohl(data.str().size());
+    uint32_t msgLength = htonl(data.str().size());
     buffer.resize(sizeof(uint32_t));
     _loadBytes(buffer, &msgLength, sizeof(uint32_t));
     std::string auxString = data.str();
-    std::copy(auxString.begin(), auxString.end(), std::back_inserter(mapBuffer));
+    std::copy(auxString.begin(), auxString.end(), std::back_inserter(buffer));
+    char* aux = buffer.data();
+    std::cout << aux;
     return buffer;
 }
 
 ///////////////////////////////PRIVATE/////////////////////////////
 
-void ServerProtocol::_loadBytes(std::vector<char> buffer, void* data, unsigned int size) {
+void ServerProtocol::_loadBytes(std::vector<char>& buffer, void* data, unsigned int size) {
     for (unsigned int i = 0; i < size; ++i) {
-        buffer[i] = *(reinterpret_cast<char *>(&data) + i);
+        buffer[i] = *(reinterpret_cast<char *>(data) + i);
     }
 }

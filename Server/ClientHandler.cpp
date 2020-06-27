@@ -9,7 +9,7 @@
 void ClientHandler::run() {
     _sendMapInfoToClient();
     std::vector<char> data = protocol.getCurrentState();
-
+    socket.send(data.data(), data.size());
     /*
     std::unique_lock<std::mutex> lk(m);
     //std::vector<char> buffer;

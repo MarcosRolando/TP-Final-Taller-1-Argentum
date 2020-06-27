@@ -16,7 +16,7 @@ private:
     const Map &map;
 
 private:
-    void _loadBytes(std::vector<char> buffer, void* data, unsigned int size);
+    static void _loadBytes(std::vector<char>& buffer, void* data, unsigned int size);
 
 public:
     explicit ServerProtocol(const Map &map);
