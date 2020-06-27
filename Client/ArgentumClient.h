@@ -5,7 +5,6 @@
  * con el Server*/
 
 #include "Socket.h"
-#include "ClientProtocol.h"
 #include "GameGUI.h"
 #include <string>
 #include "ClientEventHandler.h"
@@ -14,13 +13,10 @@ class Client {
 private:
     std::string host, port;
     Socket socket;
-    ClientProtocol protocol;
     bool finished;
-    //GameGUI game;
 
 public:
-    Client(std::string&& host, std::string&& port) : host(host), port(port),
-                                        protocol(socket), finished(false) {}
+    Client(std::string&& host, std::string&& port) : host(host), port(port), finished(false) {}
     Client(const Client&) = delete; /*Borro los constructores por copia*/
     Client operator=(const Client&) = delete;
 

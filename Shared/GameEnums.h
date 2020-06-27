@@ -8,16 +8,24 @@
 #include <cinttypes>
 
 namespace GameType {
+    enum ID: int32_t {
+        ENTITY, ITEM
+    };
+
     enum Race : int32_t {
         HUMAN, ELF, DWARF, GNOME
     };
 
-    enum Class { /*Esta no se envia en el protocolo*/
+    enum Class {
         WIZARD, CLERIC, PALADIN, WARRIOR
     };
 
     enum Entity: int32_t {
         SKELETON, ZOMBIE, SPIDER, GOBLIN, BANKER, GUARD, TRADER, PRIEST, PLAYER, NOTHING
+    };
+
+    enum ItemType: int32_t {
+        ITEM_TYPE_GOLD, ITEM_TYPE_WEAPON, ITEM_TYPE_CLOTHING, ITEM_TYPE_POTION
     };
 
     enum Weapon: int32_t {

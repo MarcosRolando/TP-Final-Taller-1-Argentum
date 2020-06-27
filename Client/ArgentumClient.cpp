@@ -1,12 +1,12 @@
 #include <netdb.h>
 #include "ArgentumClient.h"
+#include "ClientProtocol.h"
 #include <cstring>
 #include "User.h"
 #include "../TPException.h"
 #include <string>
 #include <vector>
 #include <utility>
-#include <SDL_thread.h> //Ver si va en otro lugar
 
 
 void Client::_send() const {
@@ -29,8 +29,8 @@ void Client::_receive() {
 
 void Client::_processConnection() {
     GameGUI game;
+    ClientProtocol protocol(game, socket);
     bool quit = false;
-    protocol.receiveMapInfo(game);
     ClientEventHandler eventHandler(quit, game);
     //Aca falta lo del main menu y la seleccion de server/player etc
 
