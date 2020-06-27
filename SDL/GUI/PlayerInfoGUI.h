@@ -20,7 +20,7 @@ private:
     Font infoFont;
     Text info;
     SDL_Renderer& renderer;
-    PlayerInfo pInfo;
+    PlayerInfo pInfo{};
 public:
     explicit PlayerInfoGUI(SDL_Renderer& renderer);
 

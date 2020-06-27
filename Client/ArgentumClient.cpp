@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include <SDL_thread.h> //Ver si va en otro lugar
 
 
 void Client::_send() const {
@@ -28,11 +29,16 @@ void Client::_receive() {
 
 void Client::_processConnection() {
     GameGUI game;
-    //Aca falta lo del main menu y la seleccion de server/player etc
+    bool quit = false;
     protocol.receiveMapInfo(game);
-    while (1){
+    ClientEventHandler eventHandler(quit, game);
+    //Aca falta lo del main menu y la seleccion de server/player etc
+
+    while (!quit){
         game.render();
     }
+
+    eventHandler.join();
     /*
     while (!finished) {
         try {

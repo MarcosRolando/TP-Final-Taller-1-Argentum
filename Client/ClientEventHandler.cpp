@@ -9,10 +9,9 @@ void ClientEventHandler::run() {
     Window& window = game.getWindow();
     Minichat& minichat = game.getMinichat();
     Selector& selector = game.getSelector();
-
+    int xPlayer, yPlayer;
     //While application is running
     while (!quit) {
-        int xPlayer, yPlayer;
         //Esto capaz lo cambiamos de lugar despues
         xPlayer = game.getPlayerInfo().getXPos();
         yPlayer = game.getPlayerInfo().getYPos();
