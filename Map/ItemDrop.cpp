@@ -3,9 +3,10 @@
 //
 
 #include "ItemDrop.h"
+#include "../GameConstants.h"
 
-ItemDrop::ItemDrop(int x, int y) : sTexture(nullptr) {
-    box = {x, y, 0, 0};
+ItemDrop::ItemDrop(Coordinate position) : sTexture(nullptr) {
+    box = {position.j*TILE_WIDTH, position.i*TILE_HEIGHT, 0, 0};
 }
 
 void ItemDrop::render(SDL_Rect& camera) {

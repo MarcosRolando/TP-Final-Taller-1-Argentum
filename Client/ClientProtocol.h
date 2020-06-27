@@ -30,7 +30,7 @@ private:
     void _processAddEntity(msgpack::object_handle &handler, std::size_t& offset);
     void _processAddItem(msgpack::object_handle &handler, std::size_t& offset);
     void _processAddPlayer(msgpack::type::tuple<GameType::Entity,
-            std::string, uint32_t, uint32_t>& entityData, msgpack::object_handle& handler,
+            std::string, int32_t, int32_t>& entityData, msgpack::object_handle& handler,
             std::size_t& offset);
 };
 

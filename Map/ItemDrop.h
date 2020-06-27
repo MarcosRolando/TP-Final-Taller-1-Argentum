@@ -6,6 +6,7 @@
 #define ARGENTUM_ITEMDROP_H
 
 #include "../Texture/Texture.h"
+#include "Coordinate.h"
 
 class ItemDrop {
 private:
@@ -14,7 +15,7 @@ private:
     Texture* sTexture;
 
 public:
-    ItemDrop(int x, int y);
+    ItemDrop(Coordinate position);
 
     void render(SDL_Rect& camera);
 

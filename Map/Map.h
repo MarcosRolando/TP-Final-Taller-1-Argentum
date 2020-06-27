@@ -12,21 +12,15 @@
 #include <vector>
 #include "../Texture/TextureRepository.h"
 #include "Structure.h"
-#include "../Character/NPC.h"
 #include "../Client/ProtocolEnumTranslator.h"
 #include "../Texture/PlayerEquipment.h"
-
-struct Coordinate {
-    unsigned int i;
-    unsigned int j;
-};
 
 class Map {
 private:
     TextureRepository& textureRepo;
     std::vector<Tile> tiles;
     SDL_Rect& camera;
-    //std::unordered_map<std::string, Co> entities
+    std::unordered_map<std::string, Coordinate> entities;
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera);

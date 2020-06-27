@@ -5,10 +5,12 @@
 #ifndef ARGENTUM_TILE_H
 #define ARGENTUM_TILE_H
 
-#include "../Texture/Texture.h"
+#include "../Texture/TextureRepository.h"
 #include "ItemDrop.h"
 #include "Structure.h"
 #include "../Character/Entity.h"
+#include "Coordinate.h"
+#include <memory>
 
 class Tile {
 private:
@@ -17,13 +19,13 @@ private:
     Texture* tileTexture{nullptr};
     ItemDrop item;
     Structure structure;
-    Entity* entity{nullptr};
+    std::unique_ptr<Entity> entity{nullptr};
     //The tile type
     int type;
 
 public:
     //Initializes position and type
-    Tile(int x, int y);
+    explicit Tile(Coordinate position);
 
     void loadData(Texture& _tileTexture, Texture* sTexture = nullptr, int tileType = 0);
 
@@ -37,6 +39,8 @@ public:
     void renderStructure(SDL_Rect& camera);
 
     void addItemDrop(Texture& itemTexture);
+
+    void addEntity(std::unique_ptr<Entity> _entity);
 };
 
 

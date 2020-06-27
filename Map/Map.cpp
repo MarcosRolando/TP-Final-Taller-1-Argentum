@@ -6,6 +6,8 @@
 #include <fstream>
 #include "../GameConstants.h"
 #include "../MapFileReader.h"
+#include "../Character/NPC.h"
+#include "../Character/Player.h"
 
 Map::Map(TextureRepository& repo, SDL_Rect& camera) : textureRepo(repo), camera(camera) {
     this->camera = camera;
@@ -129,7 +131,7 @@ void Map::renderNPCS(float timeStep) {
 void Map::setSize(int rows, int columns) {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
-            tiles.emplace_back(j*TILE_WIDTH, i*TILE_HEIGHT);
+            tiles.emplace_back(Coordinate{i, j});
         }
     }
 }
@@ -150,15 +152,18 @@ void Map::loadTileData(Coordinate position, FloorTypeTexture floor, TextureID st
 }
 
 void Map::addNPC(TextureID entity, std::string&& nickname, Coordinate position) {
-    /*
-    npcs.emplace_back(textureRepo, camera, position.j*TILE_WIDTH,
-            position.i*TILE_HEIGHT, entity); //todo cambiar el vector por un unordered map
-            */
+    int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
+    tiles[tile].addEntity(std::unique_ptr<Entity>(new NPC(textureRepo,
+            camera, position.j*TILE_WIDTH,position.i*TILE_HEIGHT, entity)));
+    entities.emplace(nickname, position);
 }
 
 void Map::addPlayer(PlayerEquipment equipment, std::string&& nickname,
                                                             Coordinate position) {
-    //todo
+    int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
+    tiles[tile].addEntity(std::unique_ptr<Entity>(new Player(textureRepo,
+            camera, position.j*TILE_WIDTH,position.i*TILE_HEIGHT, equipment)));
+    entities.emplace(nickname, position);
 }
 
 void Map::loadTileItem(Coordinate position, TextureID itemTexture) {

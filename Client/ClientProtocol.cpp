@@ -23,11 +23,11 @@ void ClientProtocol::_loadMap() {
     msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t, int32_t> mapSize;
     handler->convert(mapSize);
-    unsigned int rows = std::get<0>(mapSize);
-    unsigned int columns = std::get<1>(mapSize);
+    int rows = std::get<0>(mapSize);
+    int columns = std::get<1>(mapSize);
     game.setMapSize(rows, columns);
-    for (unsigned int i = 0; i < rows; ++i) {
-        for (unsigned int j = 0; j < columns; ++j) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
             handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
             msgpack::type::tuple<GameType::FloorType, GameType::Structure, GameType::Entity> tileInfo;
             handler->convert(tileInfo);
@@ -75,7 +75,7 @@ ClientProtocol::ClientProtocol(GameGUI &_game, Socket &_socket) : game(_game), s
 void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_t& offset) {
     TextureID itemTexture = Nothing;
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    msgpack::type::tuple<GameType::ItemType, int32_t, uint32_t, uint32_t> itemData;
+    msgpack::type::tuple<GameType::ItemType, int32_t, int32_t , int32_t> itemData;
     handler->convert(itemData);
     GameType::ItemType itemType = std::get<0>(itemData);
 
@@ -96,7 +96,7 @@ void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_
 
 void ClientProtocol::_processAddEntity(msgpack::object_handle &handler, std::size_t& offset) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    msgpack::type::tuple<GameType::Entity, std::string, uint32_t, uint32_t> entityData;
+    msgpack::type::tuple<GameType::Entity, std::string, int32_t , int32_t> entityData;
     handler->convert(entityData);
     if (std::get<0>(entityData) != GameType::PLAYER) {
         game.addNPC(translator.getEntityTexture(std::get<0>(entityData)),
@@ -108,7 +108,7 @@ void ClientProtocol::_processAddEntity(msgpack::object_handle &handler, std::siz
 }
 
 void ClientProtocol::_processAddPlayer(msgpack::type::tuple<GameType::Entity,
-        std::string, uint32_t, uint32_t>& entityData, msgpack::object_handle& handler,
+        std::string, int32_t , int32_t>& entityData, msgpack::object_handle& handler,
         std::size_t& offset) {
 
     PlayerEquipment equipment{};

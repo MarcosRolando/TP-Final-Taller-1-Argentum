@@ -5,8 +5,8 @@
 #include "Tile.h"
 #include "../GameConstants.h"
 
-Tile::Tile(int x, int y) : item(x, y), structure(x, y) {
-    box = {x, y, TILE_WIDTH, TILE_HEIGHT};
+Tile::Tile(Coordinate position) : item(position), structure(position) {
+    box = {position.j*TILE_WIDTH, position.i*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT};
     type = 0;
 }
 
@@ -38,4 +38,8 @@ void Tile::loadData(Texture& _tileTexture, Texture* sTexture, int tileType) {
 
 void Tile::loadItem(Texture& _itemTexture) {
     item.setItem(_itemTexture);
+}
+
+void Tile::addEntity(std::unique_ptr<Entity> _entity) {
+    entity = std::move(_entity);
 }

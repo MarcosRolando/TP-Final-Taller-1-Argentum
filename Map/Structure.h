@@ -6,6 +6,7 @@
 #define ARGENTUM_STRUCTURE_H
 
 #include "../Texture/Texture.h"
+#include "Coordinate.h"
 
 class Structure {
 private:
@@ -14,7 +15,7 @@ private:
     Texture* sTexture;
 
 public:
-    Structure(int x, int y, Texture* sTexture = nullptr);
+    Structure(Coordinate position, Texture* sTexture = nullptr);
 
     void setTexture(Texture& texture);
 

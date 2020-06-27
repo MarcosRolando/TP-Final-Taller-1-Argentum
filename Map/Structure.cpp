@@ -5,12 +5,12 @@
 #include "Structure.h"
 #include "../GameConstants.h"
 
-Structure::Structure(int x, int y, Texture* sTexture) : sTexture(sTexture) {
+Structure::Structure(Coordinate position, Texture* sTexture) : sTexture(sTexture) {
     if (sTexture != nullptr) {
         SpriteDimensions_t dimensions = sTexture->getSpriteDimensions();
-        box = {x, y, dimensions.width, dimensions.height};
+        box = {position.j*TILE_WIDTH, position.i*TILE_HEIGHT, dimensions.width, dimensions.height};
     } else {
-        box = {x, y, 0, 0};
+        box = {position.j*TILE_WIDTH, position.i*TILE_HEIGHT, 0, 0};
     }
 }
 
