@@ -13,6 +13,10 @@ MSGPACK_ADD_ENUM(GameType::ID)
 MSGPACK_ADD_ENUM(GameType::FloorType)
 MSGPACK_ADD_ENUM(GameType::Structure)
 MSGPACK_ADD_ENUM(GameType::Entity)
+MSGPACK_ADD_ENUM(GameType::Weapon)
+MSGPACK_ADD_ENUM(GameType::Clothing)
+MSGPACK_ADD_ENUM(GameType::Potion)
+MSGPACK_ADD_ENUM(GameType::ItemType)
 
 void ClientProtocol::_loadMap() {
     std::size_t offset = 0;
@@ -74,6 +78,7 @@ void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_
     msgpack::type::tuple<GameType::ItemType, int32_t, uint32_t, uint32_t> itemData;
     handler->convert(itemData);
     GameType::ItemType itemType = std::get<0>(itemData);
+
     if (itemType == GameType::ITEM_TYPE_WEAPON) {
         itemTexture = translator.getWeaponDropTexture(
                 static_cast<GameType::Weapon>(std::get<1>(itemData)));
@@ -81,6 +86,7 @@ void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_
     } else if (itemType == GameType::ITEM_TYPE_CLOTHING) {
         itemTexture = translator.getClothingDropTexture(
                 static_cast<GameType::Clothing>(std::get<1>(itemData)));
+
     } else if (itemType == GameType::ITEM_TYPE_POTION) {
         itemTexture = translator.getPotionTexture(
                 static_cast<GameType::Potion>(std::get<1>(itemData)));
