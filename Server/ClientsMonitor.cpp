@@ -15,3 +15,9 @@ void ClientsMonitor::join() {
         client->join();
     }
 }
+
+void ClientsMonitor::update() {
+    for (auto & client : clients) {
+        client->update();
+    }
+}

@@ -15,7 +15,7 @@ enum EquipmentPlace{
     EQUIPMENT_PLACE_SHIELD
 };
 
-enum ItemType {
+enum ItemType: int32_t {
     ITEM_TYPE_GOLD, ITEM_TYPE_WEAPON, ITEM_TYPE_CLOTHING, ITEM_TYPE_POTION
 };
 
@@ -50,8 +50,6 @@ public:
     virtual EquipmentPlace use(Player& player);
 
     const std::string& getName() const;
-
-    unsigned int getPrice() const;
 
     virtual bool isGold() const;
 

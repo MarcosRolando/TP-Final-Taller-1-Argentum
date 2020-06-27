@@ -9,8 +9,11 @@
 #include "../Items/Miscellaneous/Gold.h"
 #include "../Config/Configuration.h"
 #include "Citizens/ProductData.h"
+#include <msgpack.hpp>
 
 using namespace GameType;
+
+MSGPACK_ADD_ENUM(GameType::ID)
 
 ////////////////////////////////////PUBLIC///////////////////////////////
 
@@ -19,6 +22,7 @@ Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsig
                Entity(GameType::Entity::PLAYER, _initialPosition), stats(_race, _class, _level, _experience),
                game(_game){
     nickname = _nickname;
+    race = _race;
     gold = 0; //todo habria que recibir la cantidad de oro tambien,
                 //todo o pasar por referencia la clase que maneje el archivo de
                 //todo persistencia directamente
@@ -195,4 +199,11 @@ void Player::listFrom(Coordinate npcPosition) {
 
 void Player::depositTo(const std::string &itemName, Coordinate npcPosition) {
     game.deposit(*this, itemName, npcPosition);
+}
+
+void Player::operator>>(std::stringstream &buffer) {
+    Entity::operator>>(buffer);
+    msgpack::type::tuple<Race> data(race);
+    msgpack::pack(buffer, data);
+    inventory
 }

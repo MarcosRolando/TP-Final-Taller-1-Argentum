@@ -17,6 +17,8 @@ private:
 
 public:
     void pushClient(Socket&& peer, ServerProtocol& protocol);
+    void update();
+    void eraseDisconnectedClients();
     void join();
 };
 

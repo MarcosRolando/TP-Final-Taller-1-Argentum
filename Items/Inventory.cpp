@@ -3,6 +3,8 @@
 //
 
 #include "Inventory.h"
+
+#include <msgpack.hpp>
 #include "../Map/Coordinate.h"
 #include "../Items/Attack/Weapon.h"
 #include "../Items/Defense/Chest.h"
@@ -149,4 +151,9 @@ void Inventory::unequip() {
             break;
         }
     }
+}
+
+void Inventory::storeEquippedItems(std::stringstream &buffer) {
+    msgpack::type::tuple<Clothing, Clothing, Clothing, Weapon> data(race); //head, chest, shield
+    msgpack::pack(buffer, data);
 }

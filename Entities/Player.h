@@ -16,6 +16,7 @@ class MapTests;
 
 class Player: public Entity {
 private:
+    GameType::Race race;
     Inventory inventory;
     PlayerStats stats;
     unsigned int gold;
@@ -99,6 +100,8 @@ public:
     void unequip();
 
     void dropItem(unsigned int itemPosition);
+
+    void operator>>(std::stringstream& buffer) override;
 
 
 private:

@@ -72,6 +72,8 @@ public:
 
     void unequip();
 
+    void storeEquippedItems(std::stringstream& buffer);
+
 private:
     void _dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems);
 };
