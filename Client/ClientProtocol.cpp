@@ -41,4 +41,8 @@ void ClientProtocol::receiveMapInfo(GameGUI& game) {
     /*while (1) {
         game.render();
     }*/
+    /*RECIBIMOS EL ESTADO ACTUAL DEL JUEGO*/
+    socket.receive((char*)(&msgLength), sizeof(msgLength));
+    msgLength = ntohl(msgLength);
+    std::cout << msgLength << std::endl;
 }
