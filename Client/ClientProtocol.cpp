@@ -62,6 +62,8 @@ void ClientProtocol::_receiveCurrentGameState() {
         handler->convert(id);
         if (std::get<0>(id) == GameType::ITEM) {
             _processAddItem(handler, offset);
+        } else if (std::get<0>(id) == GameType::ENTITY) {
+            _processAddEntity(handler, offset);
         }
     }
 }
@@ -92,6 +94,20 @@ void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_
                 static_cast<GameType::Potion>(std::get<1>(itemData)));
     }
     game.loadTileItem(std::get<2>(itemData), std::get<3>(itemData), itemTexture);
+}
+
+void ClientProtocol::_processAddEntity(msgpack::object_handle &handler, std::size_t& offset) {
+    ProtocolEnumTranslator translator;
+    TextureID itemTexture = Nothing;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::type::tuple<GameType::Entity, std::string, uint32_t, uint32_t> entityData;
+    handler->convert(entityData);
+    if (std::get<0>(entityData) != GameType::PLAYER) {
+        game.addEntity(translator.getEntityTexture(std::get<0>(entityData)),
+                std::move(std::get<1>(entityData)), std::get<2>(entityData), std::get<3>(entityData));
+    } else {
+
+    }
 }
 
 

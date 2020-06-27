@@ -31,11 +31,11 @@ public:
     void setSize(int rows, int columns);
 
     void loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, TextureID structure,
-                      TextureID entity);
+                      TextureID entity, std::string&& npcNickname = std::string());
 
     void loadTileItem(unsigned int i, unsigned int j,TextureID itemTexture);
 
-    void addEntity(TextureID entity, unsigned int i, unsigned int j);
+    void addEntity(TextureID entity, std::string&& nickname, unsigned int i, unsigned int j);
 
 private:
     void _setTiles();

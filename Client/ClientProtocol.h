@@ -25,7 +25,7 @@ private:
     void _receiveMapInfo();
     void _loadMap();
     void _receiveCurrentGameState();
-
+    void _processAddEntity(msgpack::object_handle &handler, std::size_t& offset);
     void _processAddItem(msgpack::object_handle &handler, std::size_t& offset);
 };
 

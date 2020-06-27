@@ -32,7 +32,7 @@ public:
                       TextureID entity);
     void loadTileItem(unsigned int i, unsigned int j, TextureID itemTexture);
 
-    void addEntity(TextureID type, unsigned int i, unsigned int j);
+    void addEntity(TextureID type, std::string&& nickname, unsigned int i, unsigned int j);
 
     Window& getWindow();
     Minichat& getMinichat();

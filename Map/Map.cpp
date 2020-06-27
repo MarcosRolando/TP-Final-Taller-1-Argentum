@@ -133,7 +133,7 @@ void Map::setSize(int rows, int columns) {
 }
 
 void Map::loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, TextureID structure,
-                       TextureID entity) {
+                       TextureID entity, std::string&& npcNickname) {
     unsigned int tile = i*TOTAL_HORIZONTAL_TILES + j;
     if (structure != Nothing) {
         tiles[tile].loadData(textureRepo.getTexture(floor.texture),
@@ -143,12 +143,12 @@ void Map::loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, T
                 nullptr, floor.index);
     }
     if (entity != Nothing) {
-        addEntity(entity, i, j);
+        addEntity(entity, std::move(npcNickname), i, j);
     }
 }
 
-void Map::addEntity(TextureID entity, unsigned int i, unsigned int j) {
-    npcs.emplace_back(textureRepo, camera, j*TILE_WIDTH, i*TILE_HEIGHT, entity);
+void Map::addEntity(TextureID entity, std::string&& nickname, unsigned int i, unsigned int j) {
+    npcs.emplace_back(textureRepo, camera, j*TILE_WIDTH, i*TILE_HEIGHT, entity); //todo cambiar el vector por un unordered map
 }
 
 void Map::loadTileItem(unsigned int i, unsigned int j,TextureID itemTexture) {
