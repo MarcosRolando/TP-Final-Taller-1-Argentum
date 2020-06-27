@@ -136,8 +136,13 @@ void Map::loadTileData(int i, int j, FloorTypeTexture floor, TextureID structure
                        TextureID entity) {
     int tile = i*TOTAL_HORIZONTAL_TILES + j;
     if (structure != Nothing) {
-        tiles[tile].loadData(textureRepo.getTexture(floor.texture), &textureRepo.getTexture(structure), floor.index);
+        tiles[tile].loadData(textureRepo.getTexture(floor.texture),
+                &textureRepo.getTexture(structure), floor.index);
     } else {
-        tiles[tile].loadData(textureRepo.getTexture(floor.texture), nullptr, floor.index);
+        tiles[tile].loadData(textureRepo.getTexture(floor.texture),
+                nullptr, floor.index);
+    }
+    if (entity != Nothing) {
+        npcs.emplace_back(textureRepo, camera, j*TILE_WIDTH, i*TILE_HEIGHT, entity);
     }
 }

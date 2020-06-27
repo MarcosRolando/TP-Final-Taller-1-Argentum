@@ -9,6 +9,7 @@
 #include "../Shared/GameEnums.h"
 #include "ProtocolEnumTranslator.h"
 
+MSGPACK_ADD_ENUM(GameType::ID)
 MSGPACK_ADD_ENUM(GameType::FloorType)
 MSGPACK_ADD_ENUM(GameType::Structure)
 MSGPACK_ADD_ENUM(GameType::Entity)
@@ -51,7 +52,13 @@ void ClientProtocol::_receiveCurrentGameState() {
     socket.receive(buffer.data(), msgLength);
     std::size_t offset = 0;
     msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-
+    ProtocolEnumTranslator translator;
+    while (offset < msgLength) {
+        handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+        msgpack::type::tuple<GameType::ID, GameType::Entity, unsigned int, unsigned int> info;
+        handler->convert(info);
+        //todo agregarlos al mapa
+    }
 }
 
 ClientProtocol::ClientProtocol(GameGUI &_game, Socket &_socket) : game(_game), socket(_socket) {
