@@ -13,6 +13,9 @@
 #include "../SDL/Selector.h"
 #include "../SDL/GUI/PlayerInventoryGUI.h"
 #include "../SDL/GUI/PlayerInfoGUI.h"
+#include "../Texture/PlayerEquipment.h"
+
+
 class GameGUI {
 private:
     Window screen;
@@ -28,11 +31,11 @@ private:
 public:
     GameGUI();
     void setMapSize(int rows, int columns);
-    void loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, TextureID structure,
+    void loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
                       TextureID entity);
-    void loadTileItem(unsigned int i, unsigned int j, TextureID itemTexture);
-
-    void addEntity(TextureID type, std::string&& nickname, unsigned int i, unsigned int j);
+    void loadTileItem(Coordinate position, TextureID itemTexture);
+    void addNPC(TextureID type, std::string&& nickname, Coordinate position);
+    void addPlayer(PlayerEquipment equipment, std::string&& nickname, Coordinate position);
 
     Window& getWindow();
     Minichat& getMinichat();

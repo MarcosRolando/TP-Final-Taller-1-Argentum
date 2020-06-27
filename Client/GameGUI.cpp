@@ -14,9 +14,9 @@ GameGUI::GameGUI() : repo(screen.getRenderer()), map(repo, camera),
                     background(repo.getTexture(Background)) {
 }
 
-void GameGUI::loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor,
+void GameGUI::loadTileData(Coordinate position, FloorTypeTexture floor,
                                 TextureID structure, TextureID entity) {
-    map.loadTileData(i , j , floor, structure, entity);
+    map.loadTileData(position, floor, structure, entity);
 }
 
 void GameGUI::render() {
@@ -60,12 +60,16 @@ PlayerInfoGUI &GameGUI::getPlayerInfo() {
     return infoGUI;
 }
 
-void GameGUI::addEntity(TextureID type, std::string&& nickname, unsigned int i,
-                                                            unsigned int j) {
-    map.addEntity(type, std::move(nickname), i, j);
+void GameGUI::addNPC(TextureID type, std::string&& nickname, Coordinate position) {
+    map.addNPC(type, std::move(nickname), position);
 }
 
-void GameGUI::loadTileItem(unsigned int i, unsigned int j, TextureID itemTexture) {
-    map.loadTileItem(i, j, itemTexture);
+void GameGUI::loadTileItem(Coordinate position, TextureID itemTexture) {
+    map.loadTileItem(position, itemTexture);
+}
+
+void GameGUI::addPlayer(PlayerEquipment equipment, std::string &&nickname,
+                        Coordinate position) {
+    map.addPlayer(equipment, std::move(nickname), position);
 }
 

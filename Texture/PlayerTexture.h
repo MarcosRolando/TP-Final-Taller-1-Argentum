@@ -9,14 +9,7 @@
 #include "EntityTexture.h"
 #include "../TPException.h"
 #include "TextureRepository.h"
-
-struct PlayerEquipment {
-    TextureID helmet;
-    TextureID head;
-    TextureID body;
-    TextureID shield;
-    TextureID weapon;
-};
+#include "PlayerEquipment.h"
 
 class PlayerTexture : public EntityTexture {
 private:

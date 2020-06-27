@@ -7,7 +7,8 @@
 
 #include "../Shared/GameEnums.h"
 #include <vector>
-#include <msgpack/v1/object.hpp>
+#include <msgpack.hpp>
+#include "ProtocolEnumTranslator.h"
 
 class GameGUI;
 class Socket;
@@ -17,6 +18,7 @@ private:
     GameGUI& game;
     Socket& socket;
     std::vector<char> buffer;
+    ProtocolEnumTranslator translator;
 
 public:
     ClientProtocol(GameGUI& _game, Socket& _socket);
@@ -27,6 +29,9 @@ private:
     void _receiveCurrentGameState();
     void _processAddEntity(msgpack::object_handle &handler, std::size_t& offset);
     void _processAddItem(msgpack::object_handle &handler, std::size_t& offset);
+    void _processAddPlayer(msgpack::type::tuple<GameType::Entity,
+            std::string, uint32_t, uint32_t>& entityData, msgpack::object_handle& handler,
+            std::size_t& offset);
 };
 
 

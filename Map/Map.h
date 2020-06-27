@@ -14,14 +14,19 @@
 #include "Structure.h"
 #include "../Character/NPC.h"
 #include "../Client/ProtocolEnumTranslator.h"
+#include "../Texture/PlayerEquipment.h"
+
+struct Coordinate {
+    unsigned int i;
+    unsigned int j;
+};
 
 class Map {
 private:
     TextureRepository& textureRepo;
     std::vector<Tile> tiles;
     SDL_Rect& camera;
-    std::vector<NPC> npcs;
-    //std::unordered_map<nickname, coordenada> entities
+    //std::unordered_map<std::string, Co> entities
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera);
@@ -30,12 +35,14 @@ public:
     void renderNPCS(float timeStep);
     void setSize(int rows, int columns);
 
-    void loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, TextureID structure,
+    void loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
                       TextureID entity, std::string&& npcNickname = std::string());
 
-    void loadTileItem(unsigned int i, unsigned int j,TextureID itemTexture);
+    void loadTileItem(Coordinate position, TextureID itemTexture);
 
-    void addEntity(TextureID entity, std::string&& nickname, unsigned int i, unsigned int j);
+    void addNPC(TextureID entity, std::string&& nickname, Coordinate position);
+
+    void addPlayer(PlayerEquipment equipment, std::string &&nickname, Coordinate position);
 
 private:
     void _setTiles();

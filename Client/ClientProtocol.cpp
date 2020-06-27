@@ -5,11 +5,11 @@
 #include "ClientProtocol.h"
 #include "GameGUI.h"
 #include "Socket.h"
-#include <msgpack.hpp>
 #include "../Shared/GameEnums.h"
-#include "ProtocolEnumTranslator.h"
+#include "../Texture/PlayerEquipment.h"
 
 MSGPACK_ADD_ENUM(GameType::ID)
+MSGPACK_ADD_ENUM(GameType::Race)
 MSGPACK_ADD_ENUM(GameType::FloorType)
 MSGPACK_ADD_ENUM(GameType::Structure)
 MSGPACK_ADD_ENUM(GameType::Entity)
@@ -23,16 +23,15 @@ void ClientProtocol::_loadMap() {
     msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t, int32_t> mapSize;
     handler->convert(mapSize);
-    int rows = std::get<0>(mapSize);
-    int columns = std::get<1>(mapSize);
+    unsigned int rows = std::get<0>(mapSize);
+    unsigned int columns = std::get<1>(mapSize);
     game.setMapSize(rows, columns);
-    ProtocolEnumTranslator translator;
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < columns; ++j) {
+    for (unsigned int i = 0; i < rows; ++i) {
+        for (unsigned int j = 0; j < columns; ++j) {
             handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
             msgpack::type::tuple<GameType::FloorType, GameType::Structure, GameType::Entity> tileInfo;
             handler->convert(tileInfo);
-            game.loadTileData(i, j, translator.getFloorTypeTexture(std::get<0>(tileInfo)),
+            game.loadTileData({i, j}, translator.getFloorTypeTexture(std::get<0>(tileInfo)),
                               translator.getStructureTexture(std::get<1>(tileInfo)),
                               translator.getEntityTexture(std::get<2>(tileInfo)));
         }
@@ -74,7 +73,6 @@ ClientProtocol::ClientProtocol(GameGUI &_game, Socket &_socket) : game(_game), s
 }
 
 void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_t& offset) {
-    ProtocolEnumTranslator translator;
     TextureID itemTexture = Nothing;
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<GameType::ItemType, int32_t, uint32_t, uint32_t> itemData;
@@ -93,21 +91,53 @@ void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_
         itemTexture = translator.getPotionTexture(
                 static_cast<GameType::Potion>(std::get<1>(itemData)));
     }
-    game.loadTileItem(std::get<2>(itemData), std::get<3>(itemData), itemTexture);
+    game.loadTileItem({std::get<2>(itemData), std::get<3>(itemData)}, itemTexture);
 }
 
 void ClientProtocol::_processAddEntity(msgpack::object_handle &handler, std::size_t& offset) {
-    ProtocolEnumTranslator translator;
-    TextureID itemTexture = Nothing;
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<GameType::Entity, std::string, uint32_t, uint32_t> entityData;
     handler->convert(entityData);
     if (std::get<0>(entityData) != GameType::PLAYER) {
-        game.addEntity(translator.getEntityTexture(std::get<0>(entityData)),
-                std::move(std::get<1>(entityData)), std::get<2>(entityData), std::get<3>(entityData));
+        game.addNPC(translator.getEntityTexture(std::get<0>(entityData)),
+                std::move(std::get<1>(entityData)), {std::get<2>(entityData),
+                        std::get<3>(entityData)});
     } else {
-
+        _processAddPlayer(entityData, handler, offset);
     }
+}
+
+void ClientProtocol::_processAddPlayer(msgpack::type::tuple<GameType::Entity,
+        std::string, uint32_t, uint32_t>& entityData, msgpack::object_handle& handler,
+        std::size_t& offset) {
+
+    PlayerEquipment equipment{};
+    std::string nickname = std::get<1>(entityData);
+    Coordinate position = {std::get<2>(entityData), std::get<3>(entityData)};
+    msgpack::type::tuple<GameType::Race> playerRace;
+    msgpack::type::tuple<int32_t> item;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(playerRace);
+    equipment.head = translator.getRaceTexture(
+            static_cast<GameType::Race>(std::get<0>(playerRace))); //todo ver si hago funcion privada para la ropa
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(item); /*Recibo en orden el helmet, armor, shield y weapon*/
+    equipment.helmet = translator.getClothingTexture(
+                        static_cast<GameType::Clothing>(std::get<0>(item)));
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(item);
+    equipment.body = translator.getClothingTexture(
+            static_cast<GameType::Clothing>(std::get<0>(item)));
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(item);
+    equipment.shield = translator.getClothingTexture(
+            static_cast<GameType::Clothing>(std::get<0>(item)));
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(item);
+    equipment.weapon = translator.getWeaponTexture(
+            static_cast<GameType::Weapon>(std::get<0>(item)));
+
+    game.addPlayer(equipment, std::move(nickname), position);
 }
 
 

@@ -119,9 +119,11 @@ void Map::renderStructures() {
 }
 
 void Map::renderNPCS(float timeStep) {
+    /*
     for (auto & npc : npcs) {
         npc.render(timeStep);
     }
+     */
 }
 
 void Map::setSize(int rows, int columns) {
@@ -132,9 +134,9 @@ void Map::setSize(int rows, int columns) {
     }
 }
 
-void Map::loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, TextureID structure,
+void Map::loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
                        TextureID entity, std::string&& npcNickname) {
-    unsigned int tile = i*TOTAL_HORIZONTAL_TILES + j;
+    unsigned int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     if (structure != Nothing) {
         tiles[tile].loadData(textureRepo.getTexture(floor.texture),
                 &textureRepo.getTexture(structure), floor.index);
@@ -143,15 +145,25 @@ void Map::loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, T
                 nullptr, floor.index);
     }
     if (entity != Nothing) {
-        addEntity(entity, std::move(npcNickname), i, j);
+        addNPC(entity, std::move(npcNickname), position);
     }
 }
 
-void Map::addEntity(TextureID entity, std::string&& nickname, unsigned int i, unsigned int j) {
-    npcs.emplace_back(textureRepo, camera, j*TILE_WIDTH, i*TILE_HEIGHT, entity); //todo cambiar el vector por un unordered map
+void Map::addNPC(TextureID entity, std::string&& nickname, Coordinate position) {
+    /*
+    npcs.emplace_back(textureRepo, camera, position.j*TILE_WIDTH,
+            position.i*TILE_HEIGHT, entity); //todo cambiar el vector por un unordered map
+            */
 }
 
-void Map::loadTileItem(unsigned int i, unsigned int j,TextureID itemTexture) {
-    unsigned int tile = i*TOTAL_HORIZONTAL_TILES + j;
+void Map::addPlayer(PlayerEquipment equipment, std::string&& nickname,
+                                                            Coordinate position) {
+    //todo
+}
+
+void Map::loadTileItem(Coordinate position, TextureID itemTexture) {
+    unsigned int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     tiles[tile].loadItem(textureRepo.getTexture(itemTexture));
 }
+
+
