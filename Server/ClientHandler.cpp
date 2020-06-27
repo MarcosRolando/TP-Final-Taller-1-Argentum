@@ -1,22 +1,22 @@
 #include "ClientHandler.h"
 #include "../TPException.h"
 #include "ServerProtocol.h"
+#include <vector>
+#include <cstdint>
+
+#define MAX_NUMBER_OF_MESSAGES_STORED 3
 
 void ClientHandler::run() {
     _sendMapInfoToClient();
+
     /*
+    std::unique_lock<std::mutex> lk(m);
+    //std::vector<char> buffer;
+
     while (!finished) {
-        try {
-            std::vector<char> message;
-            unsigned int bufferLength;
-            _receive(message, bufferLength);
-            _send(message, bufferLength);
-        } catch(TPException& e) {
-            finished = true; //Hubo algun error con el cliente corto la conexion
-        //}
-        //if (!finished) finished = protocol.hasFinished();
+        //socket.receive(buffer, sizeof(unit32_t));
     }
-    */
+*/
 }
 
 void ClientHandler::_receive(std::vector<char>& message,

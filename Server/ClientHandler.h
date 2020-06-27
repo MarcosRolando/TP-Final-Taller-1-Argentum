@@ -8,7 +8,9 @@
  * el Numero*/
 #include "Socket.h"
 #include "Thread.h"
+#include <queue>
 #include <vector>
+#include <mutex>
 #include <utility>
 #include <atomic>
 
@@ -19,6 +21,8 @@ private:
     Socket socket;
     std::atomic<bool> finished;
     ServerProtocol& protocol;
+    std::queue<std::string> requestsQueue;
+    std::mutex m;
 
 public:
     ClientHandler(Socket&& socket, ServerProtocol& _protocol) :

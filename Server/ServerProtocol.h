@@ -17,6 +17,7 @@ private:
 public:
     void operator<<(const Map &map);
     const std::vector<char>& getMapInfo() const;
+    std::vector<char> getCurrentState();
 };
 
 

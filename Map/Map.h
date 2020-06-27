@@ -120,6 +120,8 @@ public:
     void sell(Player& player, const std::string& itemName, Coordinate coordinate);
 
     void operator>>(std::stringstream& mapBuffer) const;
+
+    void getCurrentState(std::stringstream& data) const;
 };
 
 

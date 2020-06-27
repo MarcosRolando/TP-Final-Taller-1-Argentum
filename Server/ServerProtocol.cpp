@@ -21,3 +21,9 @@ void ServerProtocol::operator<<(const Map &map) {
 const std::vector<char> &ServerProtocol::getMapInfo() const {
     return mapBuffer;
 }
+
+std::vector<char> ServerProtocol::getCurrentState() {
+    std::vector<char> buffer;
+    std::stringstream data;
+    return buffer;
+}

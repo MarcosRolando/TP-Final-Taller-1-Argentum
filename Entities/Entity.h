@@ -96,6 +96,8 @@ protected:
     virtual void operator>>(std::stringstream& buffer);
 
     virtual ~Entity() = default;
+
+    bool isCitizen();
 };
 
 

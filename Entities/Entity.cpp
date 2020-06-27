@@ -6,6 +6,7 @@
 #include "../AttackResult.h"
 #include "../Game/Game.h"
 #include "../Game/Events/Move.h"
+#include "../Config/GameEnums.h"
 #include <msgpack.hpp>
 
 MSGPACK_ADD_ENUM(GameType::ID)
@@ -117,4 +118,9 @@ void Entity::operator>>(std::stringstream& buffer) {
     uint32_t, uint32_t> data(GameType::ID::ENTITY, type, currentPosition.iPosition,
                                                         currentPosition.jPosition);
     msgpack::pack(buffer, data);
+}
+
+bool Entity::isCitizen() {
+    return (type != GameType::Entity::BANKER) && (type != GameType::Entity::TRADER) &&
+           (type != GameType::Entity::PRIEST);
 }

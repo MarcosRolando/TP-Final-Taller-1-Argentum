@@ -137,3 +137,12 @@ void Tile::operator>>(std::stringstream &mapBuffer) const {
                 GameType::Structure, GameType::Entity> tileInfo(floor, structure, entityType); /*de izquierda a derecha es el tipo de piso, tipo de estructura y citizen*/
     msgpack::pack(mapBuffer, tileInfo);
 }
+
+void Tile::storeTileData(std::stringstream &data) {
+    if ((entity) && (!entity->isCitizen())) {
+        *entity >> data;
+    }
+    for (const auto & item: items) {
+        (*item) >> data;
+    }
+}
