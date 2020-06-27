@@ -150,3 +150,8 @@ void Map::loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, T
 void Map::addEntity(TextureID entity, unsigned int i, unsigned int j) {
     npcs.emplace_back(textureRepo, camera, j*TILE_WIDTH, i*TILE_HEIGHT, entity);
 }
+
+void Map::loadTileItem(unsigned int i, unsigned int j,TextureID itemTexture) {
+    unsigned int tile = i*TOTAL_HORIZONTAL_TILES + j;
+    tiles[tile].loadItem(textureRepo.getTexture(itemTexture));
+}

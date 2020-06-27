@@ -28,9 +28,9 @@ private:
 public:
     GameGUI();
     void setMapSize(int rows, int columns);
-
     void loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, TextureID structure,
                       TextureID entity);
+    void loadTileItem(unsigned int i, unsigned int j, TextureID itemTexture);
 
     void addEntity(TextureID type, unsigned int i, unsigned int j);
 

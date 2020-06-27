@@ -31,14 +31,14 @@ void Client::_processConnection() {
     GameGUI game;
     ClientProtocol protocol(game, socket);
     bool quit = false;
-    ClientEventHandler eventHandler(quit, game);
+    //ClientEventHandler eventHandler(quit, game);
     //Aca falta lo del main menu y la seleccion de server/player etc
 
     while (!quit){
         game.render();
     }
 
-    eventHandler.join();
+    //eventHandler.join();
     /*
     while (!finished) {
         try {

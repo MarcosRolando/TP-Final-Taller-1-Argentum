@@ -21,6 +21,7 @@ private:
     std::vector<Tile> tiles;
     SDL_Rect& camera;
     std::vector<NPC> npcs;
+    //std::unordered_map<nickname, coordenada> entities
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera);
@@ -31,6 +32,8 @@ public:
 
     void loadTileData(unsigned int i, unsigned int j, FloorTypeTexture floor, TextureID structure,
                       TextureID entity);
+
+    void loadTileItem(unsigned int i, unsigned int j,TextureID itemTexture);
 
     void addEntity(TextureID entity, unsigned int i, unsigned int j);
 

@@ -52,20 +52,40 @@ void ClientProtocol::_receiveCurrentGameState() {
     socket.receive(buffer.data(), msgLength);
     std::size_t offset = 0;
     msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    ProtocolEnumTranslator translator;
     while (offset < msgLength) {
         handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-        msgpack::type::tuple<GameType::ID, GameType::Entity, unsigned int, unsigned int> info;
-        handler->convert(info);
-        //todo ver si es un entity o un item y agregarlo como corresponda
-        game.addEntity(translator.getEntityTexture(std::get<1>(info)),
-                                std::get<2>(info), std::get<3>(info));
+        msgpack::type::tuple<GameType::ID> id;
+        handler->convert(id);
+        if (std::get<0>(id) == GameType::ITEM) {
+            _processAddItem(handler, offset);
+        }
     }
 }
 
 ClientProtocol::ClientProtocol(GameGUI &_game, Socket &_socket) : game(_game), socket(_socket) {
     _receiveMapInfo();
     _receiveCurrentGameState();
+}
+
+void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_t& offset) {
+    ProtocolEnumTranslator translator;
+    TextureID itemTexture = Nothing;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::type::tuple<GameType::ItemType, int32_t, uint32_t, uint32_t> itemData;
+    handler->convert(itemData);
+    GameType::ItemType itemType = std::get<0>(itemData);
+    if (itemType == GameType::ITEM_TYPE_WEAPON) {
+        itemTexture = translator.getWeaponDropTexture(
+                static_cast<GameType::Weapon>(std::get<1>(itemData)));
+
+    } else if (itemType == GameType::ITEM_TYPE_CLOTHING) {
+        itemTexture = translator.getClothingDropTexture(
+                static_cast<GameType::Clothing>(std::get<1>(itemData)));
+    } else if (itemType == GameType::ITEM_TYPE_POTION) {
+        itemTexture = translator.getPotionTexture(
+                static_cast<GameType::Potion>(std::get<1>(itemData)));
+    }
+    game.loadTileItem(std::get<2>(itemData), std::get<3>(itemData), itemTexture);
 }
 
 

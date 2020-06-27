@@ -63,3 +63,8 @@ PlayerInfoGUI &GameGUI::getPlayerInfo() {
 void GameGUI::addEntity(TextureID type, unsigned int i, unsigned int j) {
     map.addEntity(type, i, j);
 }
+
+void GameGUI::loadTileItem(unsigned int i, unsigned int j, TextureID itemTexture) {
+    map.loadTileItem(i, j, itemTexture);
+}
+

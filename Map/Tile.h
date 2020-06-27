@@ -8,6 +8,7 @@
 #include "../Texture/Texture.h"
 #include "ItemDrop.h"
 #include "Structure.h"
+#include "../Character/Entity.h"
 
 class Tile {
 private:
@@ -16,6 +17,7 @@ private:
     Texture* tileTexture{nullptr};
     ItemDrop item;
     Structure structure;
+    Entity* entity{nullptr};
     //The tile type
     int type;
 
@@ -24,6 +26,8 @@ public:
     Tile(int x, int y);
 
     void loadData(Texture& _tileTexture, Texture* sTexture = nullptr, int tileType = 0);
+
+    void loadItem(Texture& _itemTexture);
 
     void setStructure(Texture& sTexture);
 

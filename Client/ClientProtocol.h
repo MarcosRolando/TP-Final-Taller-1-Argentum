@@ -7,6 +7,7 @@
 
 #include "../Shared/GameEnums.h"
 #include <vector>
+#include <msgpack/v1/object.hpp>
 
 class GameGUI;
 class Socket;
@@ -24,6 +25,8 @@ private:
     void _receiveMapInfo();
     void _loadMap();
     void _receiveCurrentGameState();
+
+    void _processAddItem(msgpack::object_handle &handler, std::size_t& offset);
 };
 
 

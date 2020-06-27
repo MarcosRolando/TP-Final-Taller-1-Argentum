@@ -35,3 +35,7 @@ void Tile::loadData(Texture& _tileTexture, Texture* sTexture, int tileType) {
         structure.setTexture(*sTexture);
     }
 }
+
+void Tile::loadItem(Texture& _itemTexture) {
+    item.setItem(_itemTexture);
+}
