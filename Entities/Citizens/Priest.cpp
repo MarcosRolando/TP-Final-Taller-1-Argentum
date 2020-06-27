@@ -12,7 +12,7 @@ using namespace GameType;
 #define BUYING_PRICE_MULTIPLIER 1.25
 #define SELLING_PRICE_MULTIPLIER 0.75
 
-Priest::Priest(Coordinate initialPosition): Entity(GameType::PRIEST, initialPosition) {
+Priest::Priest(Coordinate initialPosition): Entity(GameType::PRIEST, initialPosition, "Priest") {
     Configuration& config = Configuration::getInstance();
     std::unordered_map<std::string, unsigned int> initialItemsAmounts;
     initialItemsAmounts[config.configWeaponData(LINKED_STAFF).name] = INITIAL_WEAPONS_AMOUNT;

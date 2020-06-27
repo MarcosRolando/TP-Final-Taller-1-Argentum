@@ -3,21 +3,25 @@
 //
 
 #include "Banker.h"
+
 #include <memory>
+#include "../Player.h"
 #include "../../Items/Item.h"
 #include "Storage.h"
 #include "../../TPException.h"
 
 std::unordered_map<std::string, Storage> Banker::playersStorages;
 
+/*
 class Player {
 public:
     const std::string& getNickname() const;
     std::shared_ptr<Item> removeItem(const std::string& itemName);
 };
+*/
 
-
-Banker::Banker(Coordinate initialPosition): Entity(GameType::BANKER, initialPosition) {
+Banker::Banker(Coordinate initialPosition): Entity(GameType::BANKER,
+                                                   initialPosition, "Banker") {
 
 }
 

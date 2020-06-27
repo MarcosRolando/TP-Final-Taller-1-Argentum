@@ -24,15 +24,19 @@ struct Movement {
 class Player;
 
 class Entity {
+private:
+    static unsigned int availableId;
+    std::string nickname;
+
 protected:
     Coordinate currentPosition{};
     GameType::Entity type;
     Movement movement{};
     unsigned int speed;
-    std::string nickname;
 
  public:
-    Entity(GameType::Entity _type, Coordinate initialPosition, std::string&& _nickname);
+    Entity(GameType::Entity _type, Coordinate initialPosition, std::string&& _nicknamePrefix,
+           bool isPrefixUnique = false);
 
     //Implementa el comportamiento realizado al atacar,
     //debe ser modificado en las clases hijas de ser necesario
@@ -99,6 +103,8 @@ protected:
     virtual ~Entity() = default;
 
     bool isCitizen();
+
+    const std::string& getNickname();
 };
 
 

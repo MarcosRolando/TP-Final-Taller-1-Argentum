@@ -19,10 +19,9 @@ MSGPACK_ADD_ENUM(GameType::Race)
 
 Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsigned int _experience
                 , Coordinate _initialPosition, std::string&& _nickname):
-               Entity(GameType::Entity::PLAYER, _initialPosition, std::move(_nickname)),
+               Entity(GameType::Entity::PLAYER, _initialPosition, std::move(_nickname), true),
                stats(_race, _class, _level, _experience),
                game(_game) {
-    nickname = _nickname;
     race = _race;
     gold = 0; //todo habria que recibir la cantidad de oro tambien,
                 //todo o pasar por referencia la clase que maneje el archivo de
@@ -127,7 +126,7 @@ void Player::useItem(int itemPosition) {
 }
 
 const std::string &Player::getNickname() const {
-    return nickname;
+    return getNickname();
 }
 
 void Player::restoreLife(unsigned int amount) {

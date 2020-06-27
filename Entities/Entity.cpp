@@ -14,14 +14,21 @@ MSGPACK_ADD_ENUM(GameType::Entity)
 
 const unsigned int DISTANCE_TO_MOVE = 500;
 
-Entity::Entity(GameType::Entity _type, Coordinate initialPosition, std::string&& _nickname) {
+unsigned int Entity::availableId = 0;
+
+Entity::Entity(GameType::Entity _type, Coordinate initialPosition, std::string&& _nicknamePrefix,
+               bool isPrefixUnique /*= false*/) {
     currentPosition.iPosition = initialPosition.iPosition;
     currentPosition.jPosition = initialPosition.jPosition;
     movement.movedDistance = 0;
     movement.isMoving = false;
     speed = 2;
     type = _type;
-    nickname = std::move(_nickname);
+    nickname = std::move(_nicknamePrefix);
+    if (!isPrefixUnique) {
+        nickname += std::to_string(availableId);
+        availableId++;
+    }
 }
 
 void Entity::setPosition(Coordinate coordinate) {
@@ -127,4 +134,8 @@ void Entity::operator>>(std::stringstream& buffer) {
 bool Entity::isCitizen() {
     return (type == GameType::Entity::BANKER) || (type == GameType::Entity::TRADER) ||
            (type == GameType::Entity::PRIEST);
+}
+
+const std::string &Entity::getNickname() {
+    return nickname;
 }

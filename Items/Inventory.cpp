@@ -153,8 +153,8 @@ void Inventory::unequip() {
 }
 
 void Inventory::storeEquippedItems(std::stringstream &buffer) {
-    for (const auto & clothing: clothingEquipment) {
-        (*clothing.second).loadEquippedItemData(buffer);
-    }
-    (*equippedWeapon).loadEquippedItemData(buffer);
+    clothingEquipment[EQUIPMENT_PLACE_HEAD]->loadEquippedItemData(buffer);
+    clothingEquipment[EQUIPMENT_PLACE_CHEST]->loadEquippedItemData(buffer);
+    clothingEquipment[EQUIPMENT_PLACE_SHIELD]->loadEquippedItemData(buffer);
+    equippedWeapon->loadEquippedItemData(buffer);
 }

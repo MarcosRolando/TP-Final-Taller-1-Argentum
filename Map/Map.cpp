@@ -81,7 +81,9 @@ void Map::_storeAdjacentPositions(
             aux.point.iPosition = i;
             aux.point.jPosition = j;
             aux.distance = _getDistance(refference.point, aux.point);
-            if ((aux.distance == 1) && ((tiles[i][j].isAvailable()) || tiles[i][j].hasMonsterTarget())) {
+            //if ((la posicion es alcanzable o tiene un jugador) y no esta en una ciudad)
+            if ((((aux.distance == 1) && tiles[i][j].isAvailable()) ||
+                tiles[i][j].hasMonsterTarget()) && !tiles[i][j].isInCity()) {
                 aux.distance += refference.distance + _getDistance(aux.point, destination);
                 if ((distances.count(aux.point) == 0) ||
                     (distances.at(aux.point) > aux.distance)) {
@@ -191,7 +193,7 @@ void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordina
     _buildSearchRegion(center, range, topLeft, bottomRight);
     for (int i = topLeft.iPosition; i <= bottomRight.iPosition; ++i) {
         for (int j = topLeft.jPosition; j <= bottomRight.jPosition; ++j) {
-            if (tiles[i][j].hasMonsterTarget()) {
+            if (tiles[i][j].hasMonsterTarget() && !tiles[i][j].isInCity()) {
                 aux.iPosition = i;
                 aux.jPosition = j;
                 targets.push_back(aux);
@@ -394,9 +396,9 @@ void Map::operator>>(std::stringstream &mapBuffer) const {
 }
 
 void Map::getCurrentState(std::stringstream &data) const {
-    for (const auto & row : tiles) {
-        for (const auto & tile : row) {
-            tile.storeTileData(data);
+    for (unsigned int i = 0; i < tiles.size(); ++i) {
+        for (unsigned int j = 0; j < tiles[i].size(); ++j) {
+            tiles[i][j].storeTileData(data, i, j);
         }
     }
 }

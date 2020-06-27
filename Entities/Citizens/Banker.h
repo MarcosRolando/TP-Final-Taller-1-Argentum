@@ -16,7 +16,6 @@ class EntityTests;
 //El jugador puede darle oro o items nuevos para que guarde o sacar oro o items
 class Banker: public Entity {
 private:
-    //Storage storage;
     static std::unordered_map<std::string, Storage> playersStorages;
 
     friend EntityTests;

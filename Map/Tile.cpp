@@ -144,6 +144,6 @@ void Tile::storeTileData(std::stringstream &data, uint32_t i, uint32_t j) const 
         *entity >> data;
     }
     for (const auto & item: items) {
-        item->loadDropData(data, i, j);
+        item->loadDropItemData(data, i, j);
     }
 }
