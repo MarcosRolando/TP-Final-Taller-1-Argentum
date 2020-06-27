@@ -21,7 +21,6 @@ private:
     PlayerStats stats;
     unsigned int gold;
     Game& game;
-    std::string nickname;
 
     friend EntityTests;
     friend MapTests;
@@ -29,7 +28,7 @@ private:
 public:
     //El nivel minimo debe ser 1, sino tendra vida 0
     Player(Game& _game, GameType::Race _race, GameType::Class _class, unsigned int _level,
-           unsigned int _experience, Coordinate _initialPosition, const std::string& nickname);
+           unsigned int _experience, Coordinate _initialPosition, std::string&& nickname);
 
     //Indica si el jugador es target de un monster, un jugador es un target si esta vivo, si
     //esta muerto no lo es

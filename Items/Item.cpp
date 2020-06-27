@@ -24,8 +24,15 @@ bool Item::isGold() const {
     return false;
 }
 
-void Item::operator>>(std::stringstream &buffer) const {
-    msgpack::type::tuple<GameType::ID, GameType::ItemType, uint32_t> /*El cliente tendra que chequear el ItemType e interpretar el id con el enum que corresponda*/
-            data(GameType::ITEM, type, id);
+void Item::loadDropItemData(std::stringstream &buffer, uint32_t i, uint32_t j) const {
+    msgpack::type::tuple<GameType::ID> idType(GameType::ITEM);
+    msgpack::type::tuple<GameType::ItemType, int32_t, uint32_t, uint32_t>
+                                        data(type, id, i, j);
+    msgpack::pack(buffer, idType);
+    msgpack::pack(buffer, data);
+}
+
+void Item::loadEquippedItemData(std::stringstream &buffer) {
+    msgpack::type::tuple<GameType::ItemType, int32_t> data(type, id);
     msgpack::pack(buffer, data);
 }

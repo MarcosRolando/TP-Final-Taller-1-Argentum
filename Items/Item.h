@@ -54,7 +54,9 @@ public:
 
     virtual bool isGold() const;
 
-    void operator>>(std::stringstream& buffer) const;
+    void loadDropItemData(std::stringstream& buffer, uint32_t i, uint32_t j) const;
+
+    void loadEquippedItemData(std::stringstream& buffer);
 
     virtual ~Item() = default;
 };

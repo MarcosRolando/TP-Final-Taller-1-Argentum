@@ -14,13 +14,14 @@ MSGPACK_ADD_ENUM(GameType::Entity)
 
 const unsigned int DISTANCE_TO_MOVE = 500;
 
-Entity::Entity(GameType::Entity _type, Coordinate initialPosition) {
+Entity::Entity(GameType::Entity _type, Coordinate initialPosition, std::string&& _nickname) {
     currentPosition.iPosition = initialPosition.iPosition;
     currentPosition.jPosition = initialPosition.jPosition;
     movement.movedDistance = 0;
     movement.isMoving = false;
     speed = 2;
     type = _type;
+    nickname = std::move(_nickname);
 }
 
 void Entity::setPosition(Coordinate coordinate) {
@@ -109,14 +110,17 @@ bool Entity::isMoving() const {
 
 void Entity::attack(Coordinate target) {}
 
+
 GameType::Entity Entity::getType() const {
     return type;
 }
 
 void Entity::operator>>(std::stringstream& buffer) {
-    msgpack::type::tuple<GameType::ID, GameType::Entity,
-    uint32_t, uint32_t> data(GameType::ID::ENTITY, type, currentPosition.iPosition,
+    msgpack::type::tuple<GameType::ID> idType(GameType::ID::ENTITY);
+    msgpack::type::tuple<GameType::Entity, std::string, uint32_t, uint32_t>
+                                            data(type, nickname, currentPosition.iPosition,
                                                         currentPosition.jPosition);
+    msgpack::pack(buffer, idType);
     msgpack::pack(buffer, data);
 }
 
