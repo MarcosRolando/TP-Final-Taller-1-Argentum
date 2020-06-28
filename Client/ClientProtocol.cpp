@@ -67,9 +67,20 @@ void ClientProtocol::_receiveCurrentGameState() {
     }
 }
 
+void ClientProtocol::_receivePlayerInfo(){
+    uint32_t msgLength;
+    socket.receive((char*)(&msgLength), sizeof(msgLength));
+    msgLength = ntohl(msgLength);
+    buffer.resize(msgLength);
+    socket.receive(buffer.data(), msgLength);
+    std::size_t offset = 0;
+    msgpack::object_handle handler;
+}
+
 ClientProtocol::ClientProtocol(GameGUI &_game, Socket &_socket) : game(_game), socket(_socket) {
     _receiveMapInfo();
     _receiveCurrentGameState();
+    _receivePlayerInfo();
 }
 
 void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_t& offset) {
