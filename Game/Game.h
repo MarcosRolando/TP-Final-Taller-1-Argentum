@@ -58,6 +58,9 @@ private:
 
 public:
 
+    //Este constructor debe ser utilizado unicamente para las pruebas
+    Game(ClientsMonitor&& clientAux = ClientsMonitor());
+
     Game(MapFileReader&& mapFile, ClientsMonitor& clients);
 
     AttackResult attackPosition(int damage, unsigned int level, bool isAPlayer,

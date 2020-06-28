@@ -24,7 +24,7 @@ void MapTests::_fillEmptyMap(Map &map, int iSize, int jSize, bool isCity) {
     for (int i = 0; i < iSize; ++i) {
         map.tiles.emplace_back();
         for (int j = 0; j < jSize; ++j) {
-            map.tiles[i].emplace_back(isCity, GameType::FloorType::GRASS);
+            map.tiles[i].emplace_back(isCity, GameType::FloorType::GRASS0);
         }
     }
 }
@@ -75,7 +75,7 @@ bool MapTests::testMixedCityAndUnavailableTiles() {
             if (j % 3 == 0) {
                 floorType = GameType::FloorType::WALL;
             } else {
-                floorType = GameType::FloorType::GRASS;
+                floorType = GameType::FloorType::GRASS0;
             }
             map.tiles[i].emplace_back(isCity, floorType);
         }

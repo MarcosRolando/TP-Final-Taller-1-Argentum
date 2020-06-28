@@ -18,7 +18,7 @@ bool ItemTests::testInitialValues() {
     Item item(GameType::ITEM_TYPE_CLOTHING, name/*, price*/);
     bool status = (item.getName() == name);
     //status = status && (item.getPrice() == price);
-    status = status && (item.type == ITEM_TYPE_CLOTHING);
+    status = status && (item.type == GameType::ITEM_TYPE_CLOTHING);
     return status;
 }
 

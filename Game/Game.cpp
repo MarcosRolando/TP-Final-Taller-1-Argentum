@@ -136,3 +136,7 @@ void Game::sell(Player &player, const std::string &itemName, Coordinate coordina
 void Game::pushEvent(std::unique_ptr<Event>&& event) {
     eventQueue.push(std::move(event));
 }
+
+Game::Game(ClientsMonitor&& clientAux /*= ClientsMonitor()*/): clients(clientAux) {
+
+}
