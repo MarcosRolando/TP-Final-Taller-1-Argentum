@@ -91,7 +91,9 @@ void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_
         itemTexture = translator.getPotionTexture(
                 static_cast<GameType::Potion>(std::get<1>(itemData)));
     }
-    game.loadTileItem({std::get<2>(itemData), std::get<3>(itemData)}, itemTexture);
+    if (itemTexture != Nothing) {
+        game.loadTileItem({std::get<2>(itemData), std::get<3>(itemData)}, itemTexture);
+    }
 }
 
 void ClientProtocol::_processAddEntity(msgpack::object_handle &handler, std::size_t& offset) {
