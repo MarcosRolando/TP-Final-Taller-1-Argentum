@@ -18,6 +18,12 @@ MSGPACK_ADD_ENUM(GameType::Clothing)
 MSGPACK_ADD_ENUM(GameType::Potion)
 MSGPACK_ADD_ENUM(GameType::ItemType)
 
+ClientProtocol::ClientProtocol(GameGUI &_game, Socket &_socket) : game(_game), socket(_socket) {
+    _receiveMapInfo();
+    _receiveCurrentGameState();
+    _receivePlayerInfo();
+}
+
 void ClientProtocol::_loadMap() {
     std::size_t offset = 0;
     msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
@@ -39,7 +45,7 @@ void ClientProtocol::_loadMap() {
 }
 
 void ClientProtocol::_receiveMapInfo() {
-    uint32_t msgLength;
+    int32_t msgLength;
     socket.receive((char*)(&msgLength), sizeof(msgLength));
     msgLength = ntohl(msgLength);
     buffer.resize(msgLength);
@@ -48,14 +54,14 @@ void ClientProtocol::_receiveMapInfo() {
 }
 
 void ClientProtocol::_receiveCurrentGameState() {
-    uint32_t msgLength;
+    int32_t msgLength;
     socket.receive((char*)(&msgLength), sizeof(msgLength));
     msgLength = ntohl(msgLength);
     buffer.resize(msgLength);
     socket.receive(buffer.data(), msgLength);
     std::size_t offset = 0;
     msgpack::object_handle handler;
-    while (offset < msgLength) {
+    while (offset < static_cast<size_t>(msgLength)) {
         handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
         msgpack::type::tuple<GameType::ID> id;
         handler->convert(id);
@@ -67,20 +73,60 @@ void ClientProtocol::_receiveCurrentGameState() {
     }
 }
 
+void ClientProtocol::_processAddInventoryItems(msgpack::object_handle& handler,
+        size_t offset){
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::type::tuple<int32_t> gold;
+    handler->convert();
+    game.getPlayerInventory().updateGold(std::get<0>(gold));
+    //Aca recibe los items del inventario
+}
+
+void ClientProtocol::_addXPData(msgpack::object_handle&handler, size_t offset){
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::type::tuple<int32_t, int32_t, int32_t> xpData;
+    handler->convert();
+    game.getPlayerInfo().updateXP(std::get<0>(xpData));
+    game.getPlayerInfo().updateNextLevelXP(std::get<1>(xpData));
+    game.getPlayerInfo().updateLevel(std::get<2>(xpData));
+}
+
+void ClientProtocol::_addHealthData(msgpack::object_handle&handler, size_t offset){
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::type::tuple<int32_t, int32_t> healthData;
+    handler->convert();
+    game.getPlayerInfo().updateHealth(std::get<0>(healthData));
+    game.getPlayerInfo().updateTotalHealth(std::get<1>(healthData));
+}
+
+void ClientProtocol::_addManaData(msgpack::object_handle&handler, size_t offset){
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::type::tuple<int32_t, int32_t> manaData;
+    handler->convert();
+    game.getPlayerInfo().updateMana(std::get<0>(manaData));
+    game.getPlayerInfo().updateTotalMana(std::get<1>(manaData));
+}
+
+void ClientProtocol::_processAddPlayerData(msgpack::object_handle&handler, size_t offset){
+    _addXPData(handler, offset);
+    _addHealthData(handler, offset);
+    _addManaData(handler, offset);
+}
+
 void ClientProtocol::_receivePlayerInfo(){
-    uint32_t msgLength;
+    int32_t msgLength;
     socket.receive((char*)(&msgLength), sizeof(msgLength));
     msgLength = ntohl(msgLength);
     buffer.resize(msgLength);
     socket.receive(buffer.data(), msgLength);
     std::size_t offset = 0;
-    msgpack::object_handle handler;
-}
-
-ClientProtocol::ClientProtocol(GameGUI &_game, Socket &_socket) : game(_game), socket(_socket) {
-    _receiveMapInfo();
-    _receiveCurrentGameState();
-    _receivePlayerInfo();
+    msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::type::tuple<GameType::ID> id;
+    handler->convert(id);
+    if (std::get<0>(id) == GameType::PLAYER_DATA){
+        _processAddInventoryItems(handler, offset);
+        //_processAddPlayerData(handler, offset);
+    }
 }
 
 void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_t& offset) {

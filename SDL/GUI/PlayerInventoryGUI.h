@@ -27,18 +27,18 @@ private:
     std::list<Texture*> inventoryTextures;
     std::unordered_map<EquippedItems, Texture*> equippedTextures;
     PlayerInfoGUI& pInfo;
-    uint32_t gold;
+    int32_t gold;
 
 public:
     PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer, PlayerInfoGUI& playerInfo);
     void addInventoryItem(TextureID texture);
     void addEquipableItem(TextureID texture, EquippedItems item);
-    void removeInventoryItem(int inventorySlot);
-    void updateGold(unsigned int gold);
-    void render(int selectedSlot);
+    void removeInventoryItem(int32_t inventorySlot);
+    void updateGold(int32_t gold);
+    void render(int32_t selectedSlot);
 
 private:
-    void _drawInventoryOutlines(int x);
+    void _drawInventoryOutlines(int32_t x);
     void _renderInventoryItems();
     void _drawEquipableOutlines();
     void _renderEquipableItems();

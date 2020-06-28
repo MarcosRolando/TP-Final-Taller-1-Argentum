@@ -33,7 +33,7 @@ void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
     }
 }
 
-void PlayerInventoryGUI::removeInventoryItem(int inventorySlot) {
+void PlayerInventoryGUI::removeInventoryItem(int32_t inventorySlot) {
     int i = 0, j = 0;
     for (auto it = inventoryTextures.begin(); it != inventoryTextures.end(); ) {
         //Esto lo haria con un for pero la lista no tiene operator[]
@@ -58,37 +58,11 @@ void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item)
     equippedTextures.emplace(item, currTexture);
 }
 
-void PlayerInventoryGUI::updateGold(unsigned int _gold) {
+void PlayerInventoryGUI::updateGold(int32_t _gold) {
     gold = _gold;
 }
 
-/*void PlayerInventoryGUI::updateLevel(uint32_t newLevel) {
-    pInfo.level = newLevel;
-}
-
-void PlayerInventoryGUI::updateStrength(uint32_t strength){
-    pInfo.strength = strength;
-}
-
-void PlayerInventoryGUI::updateAgility(uint32_t agility) {
-    pInfo.agility = agility;
-}
-
-void PlayerInventoryGUI::updateConstitution(uint32_t constitution) {
-    pInfo.constitution = constitution;
-}
-
-void PlayerInventoryGUI::updateIntelligence(uint32_t intelligence) {
-    pInfo.intelligence = intelligence;
-}
-
-
-void PlayerInventoryGUI::updatePosition(int32_t x, int32_t y) {
-    pInfo.xPos = x;
-    pInfo.yPos = y;
-}*/
-
-void PlayerInventoryGUI::render(int selectedSlotX) {
+void PlayerInventoryGUI::render(int32_t selectedSlotX) {
     _drawInventoryOutlines(selectedSlotX);
     _drawEquipableOutlines();
     _renderInventoryItems();
@@ -158,7 +132,7 @@ void PlayerInventoryGUI::_renderEquipableItems() {
     }
 }
 
-void PlayerInventoryGUI::_drawInventoryOutlines(int selectedSlot) {
+void PlayerInventoryGUI::_drawInventoryOutlines(int32_t selectedSlot) {
     SDL_Rect outlineRect;
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {

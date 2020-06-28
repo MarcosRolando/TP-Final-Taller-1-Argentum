@@ -41,6 +41,7 @@ public:
     Minichat& getMinichat();
     Selector& getSelector();
     PlayerInfoGUI& getPlayerInfo();
+    PlayerInventoryGUI& getPlayerInventory();
 
     void render();
 };

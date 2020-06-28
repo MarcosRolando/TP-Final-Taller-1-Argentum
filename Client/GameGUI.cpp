@@ -73,3 +73,7 @@ void GameGUI::addPlayer(PlayerEquipment equipment, std::string &&nickname,
     map.addPlayer(equipment, std::move(nickname), position);
 }
 
+PlayerInventoryGUI &GameGUI::getPlayerInventory() {
+    return inventoryGUI;
+}
+
