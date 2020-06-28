@@ -70,7 +70,7 @@ void PlayerInfoGUI::render(){
     _renderInfoBar(pInfo.health, pInfo.totalHealth, HEALTH_BAR_X_OFFSET, 265,{0x99, 0x00,0x00});
 
     info.updateText("MANA: " + std::to_string(pInfo.mana) + "/" + std::to_string(pInfo.totalMana));
-    _renderInfoBar(pInfo.mana, pInfo.totalMana, MANA_BAR_X_OFFSET, 250,{0x00, 0x33, 0x66});
+    _renderInfoBar(pInfo.mana, pInfo.totalMana, MANA_BAR_X_OFFSET, 265,{0x00, 0x33, 0x66});
 
     info.updateText("XP: " + std::to_string(pInfo.xp) + "/" + std::to_string(pInfo.nextLevelXP));
     _renderInfoBar(pInfo.xp, pInfo.nextLevelXP, XP_BAR_X_OFFSET, 265,{0x00, 0x66, 0x00});
@@ -78,10 +78,13 @@ void PlayerInfoGUI::render(){
 
 void PlayerInfoGUI::_renderInfoBar(int32_t infoCurr, int32_t infoTotal,
                                    int32_t xOffset, int32_t barLen, SDL_Color color){
-    float healthBar = barLen * ((float)infoCurr/(float)infoTotal);
+    float bar = 0;
+    if (infoTotal != 0){
+        bar = barLen * ((float)infoCurr / (float)infoTotal);
+    }
 
     //Barra
-    SDL_Rect fillRect = {xOffset, 10, (int)healthBar, BAR_HEIGHT};
+    SDL_Rect fillRect = {xOffset, 10, (int)bar, BAR_HEIGHT};
     SDL_SetRenderDrawColor(&renderer, color.r, color.g, color.b, 0xFF);
     SDL_RenderFillRect( &renderer, &fillRect);
 

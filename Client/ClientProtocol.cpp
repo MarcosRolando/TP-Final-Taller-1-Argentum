@@ -21,7 +21,7 @@ MSGPACK_ADD_ENUM(GameType::ItemType)
 ClientProtocol::ClientProtocol(GameGUI &_game, Socket &_socket) : game(_game), socket(_socket) {
     _receiveMapInfo();
     _receiveCurrentGameState();
-    _receivePlayerInfo();
+   //_receivePlayerInfo();
 }
 
 void ClientProtocol::_loadMap() {
@@ -69,65 +69,53 @@ void ClientProtocol::_receiveCurrentGameState() {
             _processAddItem(handler, offset);
         } else if (std::get<0>(id) == GameType::ENTITY) {
             _processAddEntity(handler, offset);
+        } else if (std::get<0>(id) == GameType::PLAYER_DATA) {
+            _processAddInventoryItems(handler, offset);
+            _processAddPlayerData(handler, offset);
         }
     }
 }
 
 void ClientProtocol::_processAddInventoryItems(msgpack::object_handle& handler,
-        size_t offset){
+        size_t& offset) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t> gold;
-    handler->convert();
+    handler->convert(gold);
     game.getPlayerInventory().updateGold(std::get<0>(gold));
     //Aca recibe los items del inventario
 }
 
-void ClientProtocol::_addXPData(msgpack::object_handle&handler, size_t offset){
+void ClientProtocol::_addXPData(msgpack::object_handle& handler, size_t& offset) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t, int32_t, int32_t> xpData;
-    handler->convert();
+    handler->convert(xpData);
     game.getPlayerInfo().updateXP(std::get<0>(xpData));
     game.getPlayerInfo().updateNextLevelXP(std::get<1>(xpData));
     game.getPlayerInfo().updateLevel(std::get<2>(xpData));
 }
 
-void ClientProtocol::_addHealthData(msgpack::object_handle&handler, size_t offset){
+void ClientProtocol::_addHealthData(msgpack::object_handle&handler, size_t& offset) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t, int32_t> healthData;
-    handler->convert();
+    handler->convert(healthData);
     game.getPlayerInfo().updateHealth(std::get<0>(healthData));
     game.getPlayerInfo().updateTotalHealth(std::get<1>(healthData));
 }
 
-void ClientProtocol::_addManaData(msgpack::object_handle&handler, size_t offset){
+void ClientProtocol::_addManaData(msgpack::object_handle&handler, size_t& offset) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t, int32_t> manaData;
-    handler->convert();
+    handler->convert(manaData);
     game.getPlayerInfo().updateMana(std::get<0>(manaData));
     game.getPlayerInfo().updateTotalMana(std::get<1>(manaData));
 }
 
-void ClientProtocol::_processAddPlayerData(msgpack::object_handle&handler, size_t offset){
+void ClientProtocol::_processAddPlayerData(msgpack::object_handle&handler, size_t& offset) {
     _addXPData(handler, offset);
-    _addHealthData(handler, offset);
     _addManaData(handler, offset);
+    _addHealthData(handler, offset);
 }
 
-void ClientProtocol::_receivePlayerInfo(){
-    int32_t msgLength;
-    socket.receive((char*)(&msgLength), sizeof(msgLength));
-    msgLength = ntohl(msgLength);
-    buffer.resize(msgLength);
-    socket.receive(buffer.data(), msgLength);
-    std::size_t offset = 0;
-    msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    msgpack::type::tuple<GameType::ID> id;
-    handler->convert(id);
-    if (std::get<0>(id) == GameType::PLAYER_DATA){
-        _processAddInventoryItems(handler, offset);
-        //_processAddPlayerData(handler, offset);
-    }
-}
 
 void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_t& offset) {
     TextureID itemTexture = Nothing;
