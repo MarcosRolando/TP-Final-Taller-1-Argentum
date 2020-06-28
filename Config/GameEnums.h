@@ -9,7 +9,7 @@
 
 namespace GameType {
     enum ID: int32_t {
-        ENTITY, ITEM
+        ENTITY, ITEM, PLAYER_DATA
     };
 
     enum Race : int32_t {

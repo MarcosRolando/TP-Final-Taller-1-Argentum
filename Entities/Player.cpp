@@ -14,6 +14,7 @@
 using namespace GameType;
 
 MSGPACK_ADD_ENUM(GameType::Race)
+MSGPACK_ADD_ENUM(GameType::ID)
 
 ////////////////////////////////////PUBLIC///////////////////////////////
 
@@ -209,6 +210,8 @@ void Player::operator>>(std::stringstream &buffer) {
 }
 
 void Player::storeAllRelevantData(std::stringstream& buffer) {
+    msgpack::type::tuple<GameType::ID> messageTypeData(PLAYER_DATA);
+    msgpack::pack(buffer, messageTypeData);
     msgpack::type::tuple<int32_t> data(gold);
     msgpack::pack(buffer, data);
     inventory.storeAllData(buffer);
