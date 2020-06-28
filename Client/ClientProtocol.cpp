@@ -54,7 +54,7 @@ void ClientProtocol::_receiveCurrentGameState() {
     buffer.resize(msgLength);
     socket.receive(buffer.data(), msgLength);
     std::size_t offset = 0;
-    msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::object_handle handler;
     while (offset < msgLength) {
         handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
         msgpack::type::tuple<GameType::ID> id;
