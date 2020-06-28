@@ -136,6 +136,6 @@ bool Entity::isCitizen() {
            (type == GameType::Entity::PRIEST);
 }
 
-const std::string &Entity::getNickname() {
+const std::string &Entity::getNickname() const {
     return nickname;
 }

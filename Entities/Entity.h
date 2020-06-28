@@ -104,7 +104,7 @@ protected:
 
     bool isCitizen();
 
-    const std::string& getNickname();
+    const std::string& getNickname() const;
 };
 
 

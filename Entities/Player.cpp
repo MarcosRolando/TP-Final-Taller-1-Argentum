@@ -127,7 +127,7 @@ void Player::useItem(int itemPosition) {
 }
 
 const std::string &Player::getNickname() const {
-    return getNickname();
+    return Entity::getNickname();
 }
 
 void Player::restoreLife(unsigned int amount) {
