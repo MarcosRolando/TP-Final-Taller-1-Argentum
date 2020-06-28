@@ -57,10 +57,7 @@ void Inventory::_dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItem
     if (!equippedWeapon->isDefault()) {
         droppedItems.push_back(std::move(equippedWeapon));
     }
-    clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new Head(GameType::Clothing::NO_HELMET));
-    clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new Chest(GameType::Clothing::COMMON_CLOTHING));
-    clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new Shield(GameType::Clothing::NO_SHIELD));
-    equippedWeapon.reset(new Weapon(GameType::Weapon::FIST));
+    _restoreDefaultEquipment();
 }
 
 
@@ -68,6 +65,23 @@ void Inventory::_storeNullItemData(std::stringstream &buffer) {
     msgpack::type::tuple<GameType::ItemType, int32_t> data(GameType::ITEM_TYPE_NONE, 0);
     msgpack::pack(buffer, data);
 }
+
+
+void Inventory::_restoreDefaultEquipment() {
+    if (!clothingEquipment[EQUIPMENT_PLACE_HEAD]) {
+        clothingEquipment[EQUIPMENT_PLACE_HEAD].reset(new Head(GameType::Clothing::NO_HELMET));
+    }
+    if (!clothingEquipment[EQUIPMENT_PLACE_CHEST]) {
+        clothingEquipment[EQUIPMENT_PLACE_CHEST].reset(new Chest(GameType::Clothing::COMMON_CLOTHING));
+    }
+    if (!clothingEquipment[EQUIPMENT_PLACE_SHIELD]) {
+        clothingEquipment[EQUIPMENT_PLACE_SHIELD].reset(new Shield(GameType::Clothing::NO_SHIELD));
+    }
+    if (!equippedWeapon) {
+        equippedWeapon.reset(new Weapon(GameType::Weapon::FIST));
+    }
+}
+
 
 //////////////////////////////PUBLIC/////////////////////////////
 
