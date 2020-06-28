@@ -8,17 +8,9 @@
 #include "Map.h"
 #include "../AttackResult.h"
 #include "../Config/Calculator.h"
-#include <msgpack.hpp>
-
-//todo ESTO ES DE PRUEBA
-#include "../Config/GameEnums.h"
-#include "../Entities/Monster.h"
-#include "../Entities/Player.h"
-#include "../Items/Defense/Chest.h"
-#include "../Items/Defense/Head.h"
-#include "../Items/Defense/Shield.h"
-#include "../Config/MapFileReader.h"
 #include "../Entities/Citizens/CitizenFactory.h"
+#include "../Config/MapFileReader.h"
+#include <msgpack.hpp>
 
 //////////////////////////////PRIVATE/////////////////////////////
 
