@@ -175,4 +175,4 @@ FloorTypeTexture ProtocolEnumTranslator::getFloorTypeTexture(GameType::FloorType
     return floorTypesMap.at(floorType);
 }
 
-ProtocolEnumTranslator::~ProtocolEnumTranslator() {}
+ProtocolEnumTranslator::~ProtocolEnumTranslator() = default;
