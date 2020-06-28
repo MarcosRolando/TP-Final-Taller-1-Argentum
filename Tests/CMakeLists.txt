@@ -27,7 +27,9 @@ add_executable(tests tests.cpp MapTests.cpp MapTests.h ItemTests.cpp
         ../Game/Events/Drop.cpp ../Game/Events/Drop.h ../Entities/Citizens/ProductData.h
         ../Entities/PlayerProxy.cpp ../Entities/PlayerProxy.cpp ../Entities/PlayerProxy.h
         ../Game/Events/UseItem.cpp ../Game/Events/UseItem.h ../Game/Events/Unequip.cpp ../Game/Events/Unequip.h
-        map_tests.cpp entity_tests.cpp)
+        map_tests.cpp entity_tests.cpp ../Server/ClientHandler.h ../Server/ClientHandler.cpp ../Server/Socket.h
+        ../Server/Socket.cpp ../Config/MapFileReader.h ../Config/MapFileReader.cpp ../Entities/Citizens/CitizenFactory.h
+        ../Entities/Citizens/CitizenFactory.cpp ../Server/ServerProtocol.h ../Server/ServerProtocol.cpp)
 
 target_compile_options (tests PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
         -O3 -ggdb -DDEBUG -fno-inline -ljsoncpp)

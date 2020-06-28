@@ -5,6 +5,7 @@
 #include "MapTests.h"
 
 #include <iostream>
+#include <memory>
 #include "../Map/Map.h"
 #include "../Items/Miscellaneous/Gold.h"
 #include "../Items/Miscellaneous/HealthPotion.h"
@@ -24,7 +25,9 @@ void MapTests::_fillEmptyMap(Map &map, int iSize, int jSize, bool isCity) {
     for (int i = 0; i < iSize; ++i) {
         map.tiles.emplace_back();
         for (int j = 0; j < jSize; ++j) {
-            map.tiles[i].emplace_back(isCity, GameType::FloorType::GRASS0);
+            map.tiles[i].emplace_back(true, isCity, GameType::FloorType::GRASS0,
+                                      GameType::Structure::NO_STRUCTURE,
+                                      std::shared_ptr<Entity>(nullptr));
         }
     }
 }
@@ -66,24 +69,22 @@ bool MapTests::testMixedCityAndUnavailableTiles() {
     int mapXSize = 50;
     int mapYSize = 50;
     bool isCity;
-    bool isGrass;
-    GameType::FloorType floorType;
+    bool isAvailable;
+    bool isOccupable;
     for (int i = 0; i < mapXSize; ++i) {
         map.tiles.emplace_back();
         for (int j = 0; j < mapYSize; ++j) {
             isCity = (j % 2 == 0);
-            if (j % 3 == 0) {
-                floorType = GameType::FloorType::WALL;
-            } else {
-                floorType = GameType::FloorType::GRASS0;
-            }
-            map.tiles[i].emplace_back(isCity, floorType);
+            isOccupable = j % 3 == 0;
+            map.tiles[i].emplace_back(isOccupable, isCity, GameType::FloorType::GRASS0,
+                  GameType::Structure::NO_STRUCTURE,
+                  std::shared_ptr<Entity>(nullptr));
         }
     }
     for (int i = 0; i < mapXSize; ++i) {
         for (int j = 0; j < mapYSize; ++j) {
             isCity = map.tiles[i][j].isInCity();
-            isGrass = map.tiles[i][j].isAvailable();
+            isAvailable = map.tiles[i][j].isAvailable();
             if (j % 2 == 0) {
                 if (!isCity) {
                     return false;
@@ -94,11 +95,11 @@ bool MapTests::testMixedCityAndUnavailableTiles() {
                 }
             }
             if (j % 3 == 0) {
-                if (isGrass) {
+                if (isAvailable) {
                     return false;
                 }
             } else {
-                if (!isGrass) {
+                if (!isAvailable) {
                     return false;
                 }
             }
