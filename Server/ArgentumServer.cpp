@@ -53,7 +53,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();
         //std::cout << lastFrameTime << std::endl;
-        if (FRAME_TIME - lastFrameTime > TIME_FOR_CLIENTS_INITIALIZATION) {
+        if ((FRAME_TIME - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
             clients.mergeWaitingClients();
         }
         time2 = high_resolution_clock::now();

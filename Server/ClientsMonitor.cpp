@@ -27,7 +27,7 @@ void ClientsMonitor::update() {
 
 void ClientsMonitor::pushToWaitingList(Socket &&peer, ServerProtocol &protocol) {
     std::lock_guard<std::mutex> lock(mutex);
-    clients.emplace_back(new ClientHandler(std::move(peer), protocol));
+    waitingList.emplace_back(new ClientHandler(std::move(peer), protocol));
 }
 
 void ClientsMonitor::mergeWaitingClients() {
