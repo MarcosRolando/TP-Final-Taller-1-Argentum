@@ -10,6 +10,7 @@
 
 enum TextureID {
     Nothing, /*Lo uso para el equipo del Player*/
+    PlayerGhost,
     BlueTunic,
     BlueTunicDrop,
     CommonClothing,

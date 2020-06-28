@@ -5,6 +5,7 @@
 #include "TextureRepository.h"
 #include "../GameConstants.h"
 
+#define PLAYER_GHOST_PATH "../Images/Miscellaneous/PlayerGhost.png"
 #define BLUE_TUNIC_PATH "../Images/Clothing/BlueTunic.png"
 #define BLUE_TUNIC_DROP_PATH "../Images/Clothing/BlueTunicDrop.png"
 #define COMMON_CLOTHING_PATH "../Images/Clothing/CommonClothing.png"
@@ -211,6 +212,7 @@ void TextureRepository::_loadNPCS() {
     _setNPCImage(Trader, TRADER_PATH, 24, 48,37, 33);
     _setNPCImage(Banker, BANKER_PATH, 25, 45, 37, 33);
     _setNPCImage(Guard, GUARD_PATH, 28, 52, 37, 33);
+    _setNPCImage(PlayerGhost, PLAYER_GHOST_PATH, 47, 71, 37, 33); /*tiene el mismo formato*/
 }
 
 void TextureRepository::_setImage(TextureID TextureID, std::string&& image,

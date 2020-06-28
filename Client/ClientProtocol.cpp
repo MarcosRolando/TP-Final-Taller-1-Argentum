@@ -70,6 +70,7 @@ void ClientProtocol::_receiveCurrentGameState() {
 ClientProtocol::ClientProtocol(GameGUI &_game, Socket &_socket) : game(_game), socket(_socket) {
     _receiveMapInfo();
     _receiveCurrentGameState();
+    game.addPlayer({Nothing, HumanHead, CommonClothing, Nothing, Nothing}, "s", {0, 2});
 }
 
 void ClientProtocol::_processAddItem(msgpack::object_handle &handler, std::size_t& offset) {

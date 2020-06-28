@@ -5,10 +5,14 @@
 #include "Player.h"
 
 Player::Player(TextureRepository& repo, SDL_Rect& camera, float x, float y, PlayerEquipment& images) :
-        Entity(camera, x, y), pTexture(repo, images) {}
+        Entity(camera, x, y), pTexture(repo, images), ghostTexture(repo, PlayerGhost) {}
 
 void Player::render(float timeStep) {
     Entity::updatePosition(timeStep);
     Entity::updateCamera();
-    Entity::render(pTexture);
+    if (!isDead) {
+        Entity::render(pTexture);
+    } else {
+        Entity::render(ghostTexture);
+    }
 }

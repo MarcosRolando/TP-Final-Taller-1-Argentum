@@ -7,10 +7,13 @@
 
 #include "Entity.h"
 #include "../Texture/PlayerTexture.h"
+#include "../Texture/NPCTexture.h"
 
 class Player : public Entity {
 private:
     PlayerTexture pTexture;
+    NPCTexture ghostTexture;
+    bool isDead{false};
 
 public:
     Player(TextureRepository& repo, SDL_Rect& camera, float x, float y,
