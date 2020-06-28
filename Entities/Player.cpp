@@ -79,7 +79,7 @@ bool Player::isMonsterTarget() {
     return !stats.isDead();
 }
 
-bool Player::spendGold(unsigned int amount) {
+bool Player::spendGold(int amount) {
     stats.stopMeditating();
     if ((!stats.isDead()) && (amount <= gold)) {
         gold -= amount;
@@ -206,4 +206,11 @@ void Player::operator>>(std::stringstream &buffer) {
     msgpack::type::tuple<Race> data(race);
     msgpack::pack(buffer, data);
     inventory.storeEquippedItems(buffer);
+}
+
+void Player::storeAllRelevantData(std::stringstream& buffer) {
+    msgpack::type::tuple<int32_t> data(gold);
+    msgpack::pack(buffer, data);
+    inventory.storeAllData(buffer);
+    stats.storeAllRelevantData(buffer);
 }

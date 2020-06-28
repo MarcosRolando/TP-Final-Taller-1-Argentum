@@ -25,7 +25,7 @@ namespace GameType {
     };
 
     enum ItemType: int32_t {
-        ITEM_TYPE_GOLD, ITEM_TYPE_WEAPON, ITEM_TYPE_CLOTHING, ITEM_TYPE_POTION
+        ITEM_TYPE_GOLD, ITEM_TYPE_WEAPON, ITEM_TYPE_CLOTHING, ITEM_TYPE_POTION, ITEM_TYPE_NONE
     };
 
     enum Weapon: int32_t {

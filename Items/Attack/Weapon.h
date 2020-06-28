@@ -18,7 +18,7 @@ private:
     int minDamage{};
     int maxDamage{};
     unsigned int attackRange{};
-    unsigned int manaConsumption{};
+    int manaConsumption{};
 
     friend ItemTests;
 
@@ -40,7 +40,7 @@ public:
     //Podria recibir la distancia, pero esto permite encapsular la forma de
     //calcular la distancia en la Weapon
     int getDamage(Coordinate attackPosition, Coordinate attackedPosition,
-                  unsigned int& currentMana) const;
+                  int32_t& currentMana) const;
 
     EquipmentPlace use(Player& player) override;
 

@@ -19,7 +19,7 @@ private:
     GameType::Race race;
     Inventory inventory;
     PlayerStats stats;
-    unsigned int gold;
+    int32_t gold;
     Game& game;
 
     friend EntityTests;
@@ -48,7 +48,7 @@ public:
     //Intenta reducir en amount la cantidad de oro que guarda, si esta es menor
     //que amount entonces no la reduce y retorna false, sino la reduce y retorna
     //true
-    bool spendGold(unsigned int amount);
+    bool spendGold(int amount);
 
     //Incrementa el oro del Player en cantidad amount
     void receiveGold(unsigned int amount);
@@ -102,6 +102,7 @@ public:
 
     void operator>>(std::stringstream& buffer) override;
 
+    void storeAllRelevantData(std::stringstream& buffer);
 
 private:
     void _dropItems();

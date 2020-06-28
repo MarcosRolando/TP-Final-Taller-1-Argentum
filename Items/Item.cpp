@@ -36,3 +36,8 @@ void Item::loadEquippedItemData(std::stringstream &buffer) {
     msgpack::type::tuple<int32_t> data(id);
     msgpack::pack(buffer, data);
 }
+
+void Item::loadTypeAndId(std::stringstream &buffer) {
+    msgpack::type::tuple<GameType::ItemType, int32_t> data(type, id);
+    msgpack::pack(buffer, data);
+}

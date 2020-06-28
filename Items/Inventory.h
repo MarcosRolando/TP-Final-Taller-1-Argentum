@@ -36,6 +36,8 @@ private:
 
 private:
     void _manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);
+    void _dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems);
+    static void _storeNullItemData(std::stringstream& buffer);
 
 public:
     Inventory();
@@ -60,7 +62,7 @@ public:
 
     //Retorna el danio generado por el arma en el rango de ella
     int getWeaponDamage(Coordinate currentPosition, Coordinate target,
-                        unsigned int& currentMana) const;
+                        int32_t& currentMana) const;
 
     //Retorna la defensa total provista por la armadura equipada (casco, chest, shield)
     unsigned int getDefense();
@@ -74,8 +76,8 @@ public:
 
     void storeEquippedItems(std::stringstream& buffer);
 
-private:
-    void _dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems);
+    void storeAllData(std::stringstream& buffer);
+
 };
 
 
