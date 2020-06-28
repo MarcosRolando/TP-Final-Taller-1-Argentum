@@ -213,4 +213,5 @@ void Player::storeAllRelevantData(std::stringstream& buffer) {
     msgpack::pack(buffer, data);
     inventory.storeAllData(buffer);
     stats.storeAllRelevantData(buffer);
+    stats.storeLifeStatus(buffer);
 }

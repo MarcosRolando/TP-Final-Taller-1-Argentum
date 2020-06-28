@@ -155,6 +155,12 @@ void PlayerStats::storeAllRelevantData(std::stringstream& buffer) const {
     msgpack::pack(buffer, xpData);
     msgpack::type::tuple<int32_t, int32_t> manaData(currentMana, maxMana);
     msgpack::pack(buffer, manaData);
-    msgpack::type::tuple<int32_t, int32_t, bool> lifeData(currentLife, maxLife, !isDead());
+    msgpack::type::tuple<int32_t, int32_t> lifeData(currentLife, maxLife);
     msgpack::pack(buffer, lifeData);
+    storeLifeStatus(buffer);
+}
+
+void PlayerStats::storeLifeStatus(std::stringstream& buffer) const {
+    msgpack::type::tuple<bool> Data(!isDead());
+    msgpack::pack(buffer, Data);
 }
