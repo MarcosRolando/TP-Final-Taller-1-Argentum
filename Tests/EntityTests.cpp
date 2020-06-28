@@ -17,8 +17,9 @@
 
 bool EntityTests::testStoreItem() {
     Configuration& config = Configuration::getInstance();
-    Game game(MapFileReader);
-    Player player(game, GameType::HUMAN, GameType::CLERIC, 1, 0, {0, 0}, "ElPantuflas");
+    Game game;
+    Player player(reinterpret_cast<Game &>(game), GameType::HUMAN, GameType::CLERIC,
+            1, 0, {0, 0}, "ElPantuflas");
     std::shared_ptr<Item> item(new Weapon(GameType::Weapon::LONGSWORD));
     player.storeItem(std::move(item));
     return (player.removeItem(config.configWeaponData(GameType::Weapon::LONGSWORD).name)->getName()
@@ -79,7 +80,7 @@ bool EntityTests::testLifeAndManaRecovery() {
     player.stats.currentLife -= 10;
     player.restoreLife(55);
     if (player.stats.getCurrentLife() != life) return false;
-    unsigned int mana = player.stats.getCurrentMana();
+    int32_t mana = player.stats.getCurrentMana();
     player.stats.currentMana -= 10;
     player.restoreMana(55);
     return player.stats.getCurrentMana() == mana;
