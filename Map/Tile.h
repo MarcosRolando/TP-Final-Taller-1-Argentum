@@ -38,6 +38,8 @@ public:
 
     void renderStructure(SDL_Rect& camera);
 
+    void renderEntity(float timeStep);
+
     void addItemDrop(Texture& itemTexture);
 
     void addEntity(std::unique_ptr<Entity> _entity);

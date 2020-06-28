@@ -43,3 +43,9 @@ void Tile::loadItem(Texture& _itemTexture) {
 void Tile::addEntity(std::unique_ptr<Entity> _entity) {
     entity = std::move(_entity);
 }
+
+void Tile::renderEntity(float timeStep) {
+    if (entity) {
+        entity->render(timeStep);
+    }
+}
