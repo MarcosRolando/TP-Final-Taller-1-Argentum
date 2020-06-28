@@ -62,7 +62,7 @@ public:
 
     //Retorna el danio generado por el arma en el rango de ella
     int getWeaponDamage(Coordinate currentPosition, Coordinate target,
-                        unsigned int& currentMana) const;
+                        int32_t& currentMana) const;
 
     //Retorna la defensa total provista por la armadura equipada (casco, chest, shield)
     unsigned int getDefense();

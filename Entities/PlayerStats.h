@@ -5,6 +5,8 @@
 #ifndef ARGENTUM_PLAYERSTATS_H
 #define ARGENTUM_PLAYERSTATS_H
 
+#include <sstream>
+#include <cstdint>
 #include "../Config/GameEnums.h"
 
 class EntityTests;
@@ -15,25 +17,25 @@ private:
     bool isMeditating;
     double timeElapsed;
 
-    unsigned int constitution;
-    unsigned int intelligence;
-    unsigned int agility;
-    unsigned int strength;
+    int32_t constitution;
+    int32_t  intelligence;
+    int32_t  agility;
+    int32_t  strength;
 
-    unsigned int classLifeMultiplier;
-    unsigned int raceLifeMultiplier;
-    unsigned int classManaMultiplier;
-    unsigned int raceManaMultiplier;
-    unsigned int recoveryRate;
-    unsigned int meditationRate;
+    int32_t  classLifeMultiplier;
+    int32_t  raceLifeMultiplier;
+    int32_t  classManaMultiplier;
+    int32_t  raceManaMultiplier;
+    int32_t  recoveryRate;
+    int32_t  meditationRate;
 
-    unsigned int experience;
-    unsigned int nextLevelExperience;
-    unsigned int level;
-    unsigned int currentMana;
-    int currentLife;
-    unsigned int maxMana;
-    int maxLife;
+    int32_t  experience;
+    int32_t  nextLevelExperience;
+    int32_t  level;
+    int32_t  currentMana;
+    int32_t  currentLife;
+    int32_t  maxMana;
+    int32_t  maxLife;
 
     friend EntityTests;
     friend MapTests;
@@ -78,7 +80,9 @@ public:
     //Hace que el player deje de estar en modo meditacion
     void stopMeditating();
 
-    unsigned int &getCurrentMana();
+    int32_t& getCurrentMana();
+
+    void storeAllRelevantData(std::stringstream& buffer) const;
 
 private:
     void _increaseStats();

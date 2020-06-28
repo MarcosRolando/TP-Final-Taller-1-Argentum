@@ -38,7 +38,7 @@ Weapon::Weapon(GameType::Weapon weapon): Item(GameType::ITEM_TYPE_WEAPON,
 }
 
 int Weapon::getDamage(Coordinate attackPosition, Coordinate attackedPosition,
-                    unsigned int& currentMana) const {
+                    int32_t& currentMana) const {
     if (!_isTargetReachable(attackPosition, attackedPosition) ||
         manaConsumption > currentMana ) {
         return 0;

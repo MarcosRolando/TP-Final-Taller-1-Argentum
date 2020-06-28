@@ -7,6 +7,9 @@
 #include "../Config/Calculator.h"
 #include "../Config/Configuration.h"
 #include <algorithm>
+#include <msgpack.hpp>
+
+//MSGPACK_ADD_ENUM(GameType::Race)
 
 const double TIME_FOR_RECOVERY = 3000.0; //3 seconds (timeStep is in miliseconds) //todo poder modificarlo desde el archivo
 
@@ -143,6 +146,15 @@ void PlayerStats::stopMeditating() {
     isMeditating = false;
 }
 
-unsigned int& PlayerStats::getCurrentMana() {
+int32_t& PlayerStats::getCurrentMana() {
     return currentMana;
+}
+
+void PlayerStats::storeAllRelevantData(std::stringstream& buffer) const {
+    msgpack::type::tuple<int32_t, int32_t, int32_t> xpData(experience, nextLevelExperience, level);
+    msgpack::pack(buffer, xpData);
+    msgpack::type::tuple<int32_t, int32_t> manaData(currentMana, maxMana);
+    msgpack::pack(buffer, manaData);
+    msgpack::type::tuple<int32_t, int32_t> lifeData(currentLife, maxLife);
+    msgpack::pack(buffer, lifeData);
 }

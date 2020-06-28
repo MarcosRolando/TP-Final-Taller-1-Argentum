@@ -212,4 +212,5 @@ void Player::storeAllRelevantData(std::stringstream& buffer) {
     msgpack::type::tuple<int32_t> data(gold);
     msgpack::pack(buffer, data);
     inventory.storeAllData(buffer);
+    stats.storeAllRelevantData(buffer);
 }

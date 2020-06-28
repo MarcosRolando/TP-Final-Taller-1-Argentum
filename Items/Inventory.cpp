@@ -40,6 +40,7 @@ void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int
                 items[itemPosition] = std::move(clothingEquipment.at(equipmentPlace));
             } else {
                 items[itemPosition] = nullptr;
+                storedItemsAmount--;
             }
             clothingEquipment.at(equipmentPlace) = std::move(clothingPtrAux);
         }
@@ -119,7 +120,7 @@ std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
 }
 
 int Inventory::getWeaponDamage(Coordinate currentPosition, Coordinate target,
-                                unsigned int& currentMana) const {
+                                int32_t& currentMana) const {
     return equippedWeapon->getDamage(currentPosition, target, currentMana);
 }
 
