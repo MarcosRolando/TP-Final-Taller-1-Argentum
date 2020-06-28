@@ -9,6 +9,9 @@
 #include "../Items/Defense/Chest.h"
 #include "../Items/Defense/Head.h"
 #include "../Items/Defense/Shield.h"
+#include <msgpack.hpp>
+
+MSGPACK_ADD_ENUM(GameType::ItemType)
 
 #define INVENTORY_SIZE 16
 
@@ -41,6 +44,28 @@ void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int
             clothingEquipment.at(equipmentPlace) = std::move(clothingPtrAux);
         }
     }
+}
+
+
+void Inventory::_dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems) {
+    for (auto & armour : clothingEquipment) {
+        if (!armour.second->isDefault()) {
+            droppedItems.push_back(std::move(armour.second));
+        }
+    }
+    if (!equippedWeapon->isDefault()) {
+        droppedItems.push_back(std::move(equippedWeapon));
+    }
+    clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new Head(GameType::Clothing::NO_HELMET));
+    clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new Chest(GameType::Clothing::COMMON_CLOTHING));
+    clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new Shield(GameType::Clothing::NO_SHIELD));
+    equippedWeapon.reset(new Weapon(GameType::Weapon::FIST));
+}
+
+
+void Inventory::_storeNullItemData(std::stringstream &buffer) {
+    msgpack::type::tuple<GameType::ItemType, int32_t> data(GameType::ITEM_TYPE_NONE, 0);
+    msgpack::pack(buffer, data);
 }
 
 //////////////////////////////PUBLIC/////////////////////////////
@@ -106,21 +131,6 @@ unsigned int Inventory::getDefense() {
     return defense;
 }
 
-void Inventory::_dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems) {
-    for (auto & armour : clothingEquipment) {
-        if (!armour.second->isDefault()) {
-            droppedItems.push_back(std::move(armour.second));
-        }
-    }
-    if (!equippedWeapon->isDefault()) {
-        droppedItems.push_back(std::move(equippedWeapon));
-    }
-    clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new Head(GameType::Clothing::NO_HELMET));
-    clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new Chest(GameType::Clothing::COMMON_CLOTHING));
-    clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new Shield(GameType::Clothing::NO_SHIELD));
-    equippedWeapon.reset(new Weapon(GameType::Weapon::FIST));
-}
-
 std::list<std::shared_ptr<Item>> Inventory::dropAllItems() {
     std::list<std::shared_ptr<Item>> droppedItems;
     for (int i = 0; i < INVENTORY_SIZE; ++i) {
@@ -158,3 +168,15 @@ void Inventory::storeEquippedItems(std::stringstream &buffer) {
     clothingEquipment[EQUIPMENT_PLACE_SHIELD]->loadEquippedItemData(buffer);
     equippedWeapon->loadEquippedItemData(buffer);
 }
+
+void Inventory::storeAllData(std::stringstream &buffer) {
+    storeEquippedItems(buffer);
+    for (const auto & item: items) {
+        if (item) {
+            item->loadTypeAndId(buffer);
+        } else {
+            _storeNullItemData(buffer);
+        }
+    }
+}
+

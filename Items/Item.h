@@ -16,10 +16,6 @@ enum EquipmentPlace{
     EQUIPMENT_PLACE_SHIELD
 };
 
-enum ItemType: int32_t {
-    ITEM_TYPE_GOLD, ITEM_TYPE_WEAPON, ITEM_TYPE_CLOTHING, ITEM_TYPE_POTION
-};
-
 class Player;
 
 //Clase interfaz de la que heredan todos los items
@@ -57,6 +53,8 @@ public:
     void loadDropItemData(std::stringstream& buffer, uint32_t i, uint32_t j) const;
 
     void loadEquippedItemData(std::stringstream& buffer);
+
+    void loadTypeAndId(std::stringstream& buffer);
 
     virtual ~Item() = default;
 };

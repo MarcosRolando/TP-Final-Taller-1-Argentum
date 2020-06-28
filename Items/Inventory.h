@@ -36,6 +36,8 @@ private:
 
 private:
     void _manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);
+    void _dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems);
+    static void _storeNullItemData(std::stringstream& buffer);
 
 public:
     Inventory();
@@ -74,8 +76,8 @@ public:
 
     void storeEquippedItems(std::stringstream& buffer);
 
-private:
-    void _dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems);
+    void storeAllData(std::stringstream& buffer);
+
 };
 
 
