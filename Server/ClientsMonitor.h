@@ -10,6 +10,8 @@
 #include "ClientHandler.h"
 #include <mutex>
 
+class PlayerLoader;
+
 class ClientsMonitor {
 private:
     std::mutex mutex;
@@ -18,7 +20,7 @@ private:
 
 public:
     //void pushClient(Socket&& peer, ServerProtocol& protocol);
-    void pushToWaitingList(Socket &&peer, ServerProtocol &protocol);
+    void pushToWaitingList(Socket &&peer, ServerProtocol &protocol, PlayerLoader& loader);
     void mergeWaitingClients();
     void update();
     void eraseDisconnectedClients();

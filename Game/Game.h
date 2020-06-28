@@ -97,6 +97,8 @@ public:
     void moveEntity(Coordinate initialPosition, Coordinate finalPosition);
 
     void pushEvent(std::unique_ptr<Event>&& event);
+
+    Player& loadPlayer(/*recibo un struct con los datos o algo*/);
 };
 
 

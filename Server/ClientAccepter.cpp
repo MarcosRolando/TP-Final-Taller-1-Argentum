@@ -11,7 +11,7 @@ void ClientAccepter::run() {
     while (keepRunning) {
         try {
             Socket peer = serverSocket.accept();
-            clients.pushToWaitingList(std::move(peer), protocol);
+            clients.pushToWaitingList(std::move(peer), protocol, loader);
         } catch(...) {
             //nothing
         }

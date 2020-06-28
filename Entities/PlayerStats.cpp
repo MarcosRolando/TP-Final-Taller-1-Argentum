@@ -157,7 +157,6 @@ void PlayerStats::storeAllRelevantData(std::stringstream& buffer) const {
     msgpack::pack(buffer, manaData);
     msgpack::type::tuple<int32_t, int32_t> lifeData(currentLife, maxLife);
     msgpack::pack(buffer, lifeData);
-    storeLifeStatus(buffer);
 }
 
 void PlayerStats::storeLifeStatus(std::stringstream& buffer) const {

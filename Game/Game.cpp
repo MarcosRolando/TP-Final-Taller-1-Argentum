@@ -100,13 +100,6 @@ Game::Game(MapFileReader&& mapFile, ClientsMonitor& _clients): map(mapFile), cli
     maxNumberOfMonsters = 300;
     spawnInterval = 100;
     spawnTimer = 0;
-    map.test(*this, monsters);
-
-
-    //BORRAR ESTAS ULTIMAS LINEAS
-    std::shared_ptr<Player> playeraso(new Player(*this, GameType::Race::HUMAN, GameType::Class::WARRIOR, 500, 68
-                                   , {1, 3}, "Alguien"));
-    map.addEntity({1, 3}, std::move(playeraso));
 }
 
 const Map& Game::getMap() const {
@@ -139,4 +132,14 @@ void Game::pushEvent(std::unique_ptr<Event>&& event) {
 
 Game::Game(ClientsMonitor&& clientAux /*= ClientsMonitor()*/): clients(clientAux) {
 
+}
+
+Player& Game::loadPlayer() {
+    map.removeEntity({1, 3});
+    std::shared_ptr<Player> playeraso(new Player(*this, GameType::Race::GNOME, GameType::Class::WIZARD
+            , 15, 100000
+            , {1, 3}, "Manolas"));
+    Player& player = *playeraso;
+    map.addEntity({1, 3}, std::move(playeraso));
+    return player;
 }

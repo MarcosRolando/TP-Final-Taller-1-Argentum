@@ -25,9 +25,9 @@ void ClientsMonitor::update() {
     }
 }
 
-void ClientsMonitor::pushToWaitingList(Socket &&peer, ServerProtocol &protocol) {
+void ClientsMonitor::pushToWaitingList(Socket &&peer, ServerProtocol &protocol, PlayerLoader& loader) {
     std::lock_guard<std::mutex> lock(mutex);
-    waitingList.emplace_back(new ClientHandler(std::move(peer), protocol));
+    waitingList.emplace_back(new ClientHandler(std::move(peer), protocol, loader));
 }
 
 void ClientsMonitor::mergeWaitingClients() {

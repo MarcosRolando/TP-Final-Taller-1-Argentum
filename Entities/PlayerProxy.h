@@ -32,7 +32,7 @@ public:
     void unequip();
     void unequip(EquipmentPlace clothing);
     void dropItem(unsigned int itemPosition);
-
+    const Player& getPlayer() const;
 };
 
 

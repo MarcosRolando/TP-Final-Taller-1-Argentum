@@ -102,7 +102,7 @@ public:
 
     void operator>>(std::stringstream& buffer) override;
 
-    void storeAllRelevantData(std::stringstream& buffer);
+    void storeAllRelevantData(std::stringstream& buffer) const;
 
 private:
     void _dropItems();

@@ -75,9 +75,9 @@ public:
 
     void unequip();
 
-    void storeEquippedItems(std::stringstream& buffer);
+    void storeEquippedItems(std::stringstream& buffer) const;
 
-    void storeAllData(std::stringstream& buffer);
+    void storeAllData(std::stringstream& buffer) const;
 
 };
 

@@ -9,6 +9,8 @@
 #include "../Map/Map.h"
 #include <msgpack.hpp>
 
+class PlayerProxy;
+
 class ServerProtocol {
 private:
     std::vector<char> mapBuffer;
@@ -21,7 +23,7 @@ private:
 public:
     explicit ServerProtocol(const Map &map);
     const std::vector<char>& getMapInfo() const;
-    std::vector<char> getCurrentState();
+    std::vector<char> getCurrentState(PlayerProxy& proxyPlayer);
 };
 
 

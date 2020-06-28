@@ -1,14 +1,15 @@
 #include "ClientHandler.h"
-#include "../TPException.h"
+#include "../Entities/PlayerProxy.h"
 #include "ServerProtocol.h"
+#include "PlayerLoader.h"
 #include <vector>
-#include <cstdint>
 
 #define MAX_NUMBER_OF_MESSAGES_STORED 3
 
 void ClientHandler::run() {
+    PlayerProxy player = loader.getPlayer();
     _sendMapInfoToClient();
-    std::vector<char> data = protocol.getCurrentState();
+    std::vector<char> data = protocol.getCurrentState(player);
     socket.send(data.data(), data.size());
     /*
     std::unique_lock<std::mutex> lk(m);

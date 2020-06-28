@@ -73,3 +73,7 @@ void PlayerProxy::dropItem(unsigned int itemPosition) {
     std::unique_ptr<Drop> event(new Drop(player, itemPosition));
     game.pushEvent(std::move(event));
 }
+
+const Player &PlayerProxy::getPlayer() const {
+    return player;
+}

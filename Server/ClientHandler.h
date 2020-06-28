@@ -8,7 +8,6 @@
  * el Numero*/
 #include "Socket.h"
 #include "Thread.h"
-#include "../Entities/PlayerProxy.h"
 #include <queue>
 #include <vector>
 #include <mutex>
@@ -16,19 +15,20 @@
 #include <atomic>
 
 class ServerProtocol;
+class PlayerLoader;
 
 class ClientHandler : public Thread {
 private:
     Socket socket;
     std::atomic<bool> finished;
     ServerProtocol& protocol;
+    PlayerLoader& loader;
     std::queue<std::string> requestsQueue;
     std::mutex m;
-    //PlayerProxy player;
 
 public:
-    ClientHandler(Socket&& socket, ServerProtocol& _protocol) :
-        socket(std::move(socket)), finished(false), protocol(_protocol) {}
+    ClientHandler(Socket&& socket, ServerProtocol& _protocol, PlayerLoader& _loader) :
+        socket(std::move(socket)), finished(false), protocol(_protocol), loader(_loader) {}
 
     ClientHandler(const ClientHandler&) = delete;
     ClientHandler operator=(const ClientHandler&) = delete;

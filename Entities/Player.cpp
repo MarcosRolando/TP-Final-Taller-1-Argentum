@@ -206,15 +206,15 @@ void Player::operator>>(std::stringstream &buffer) {
     Entity::operator>>(buffer);
     msgpack::type::tuple<Race> data(race);
     msgpack::pack(buffer, data);
+    stats.storeLifeStatus(buffer);
     inventory.storeEquippedItems(buffer);
 }
 
-void Player::storeAllRelevantData(std::stringstream& buffer) {
+void Player::storeAllRelevantData(std::stringstream& buffer) const {
     msgpack::type::tuple<GameType::ID> messageTypeData(PLAYER_DATA);
     msgpack::pack(buffer, messageTypeData);
     msgpack::type::tuple<int32_t> data(gold);
     msgpack::pack(buffer, data);
     inventory.storeAllData(buffer);
     stats.storeAllRelevantData(buffer);
-    stats.storeLifeStatus(buffer);
 }

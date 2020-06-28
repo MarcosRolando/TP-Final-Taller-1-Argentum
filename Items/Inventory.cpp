@@ -177,14 +177,14 @@ void Inventory::unequip() {
     }
 }
 
-void Inventory::storeEquippedItems(std::stringstream &buffer) {
-    clothingEquipment[EQUIPMENT_PLACE_HEAD]->loadEquippedItemData(buffer);
-    clothingEquipment[EQUIPMENT_PLACE_CHEST]->loadEquippedItemData(buffer);
-    clothingEquipment[EQUIPMENT_PLACE_SHIELD]->loadEquippedItemData(buffer);
+void Inventory::storeEquippedItems(std::stringstream &buffer) const {
+    clothingEquipment.at(EQUIPMENT_PLACE_HEAD)->loadEquippedItemData(buffer);
+    clothingEquipment.at(EQUIPMENT_PLACE_CHEST)->loadEquippedItemData(buffer);
+    clothingEquipment.at(EQUIPMENT_PLACE_SHIELD)->loadEquippedItemData(buffer);
     equippedWeapon->loadEquippedItemData(buffer);
 }
 
-void Inventory::storeAllData(std::stringstream &buffer) {
+void Inventory::storeAllData(std::stringstream &buffer) const {
     storeEquippedItems(buffer);
     for (const auto & item: items) {
         if (item) {

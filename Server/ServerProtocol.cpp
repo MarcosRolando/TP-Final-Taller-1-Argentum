@@ -4,6 +4,8 @@
 
 #include "ServerProtocol.h"
 #include <iostream>
+#include "../Entities/PlayerProxy.h"
+#include "../Entities/Player.h"
 
 ///////////////////////////////PUBLIC/////////////////////////////
 
@@ -22,10 +24,12 @@ const std::vector<char> &ServerProtocol::getMapInfo() const {
     return mapBuffer;
 }
 
-std::vector<char> ServerProtocol::getCurrentState() {
+std::vector<char> ServerProtocol::getCurrentState(PlayerProxy& proxyPlayer) {
+    const Player& player = proxyPlayer.getPlayer();
     std::vector<char> buffer;
     std::stringstream data;
     map.getCurrentState(data);
+    player.storeAllRelevantData(data);
     uint32_t msgLength = htonl(data.str().size());
     buffer.resize(sizeof(uint32_t));
     _loadBytes(buffer, &msgLength, sizeof(uint32_t));
