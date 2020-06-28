@@ -143,7 +143,7 @@ void Tile::storeTileData(std::stringstream &data, uint32_t i, uint32_t j) const 
     if ((entity) && (!entity->isCitizen())) {
         *entity >> data;
     }
-    for (const auto & item: items) {
-        item->loadDropItemData(data, i, j);
+    if (!items.empty()) {
+        items.front()->loadDropItemData(data, i, j);
     }
 }
