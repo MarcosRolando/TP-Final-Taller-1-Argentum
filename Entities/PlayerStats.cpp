@@ -163,6 +163,6 @@ void PlayerStats::storeAllRelevantData(std::stringstream& buffer) const {
 }
 
 void PlayerStats::storeLifeStatus(std::stringstream& buffer) const {
-    msgpack::type::tuple<bool> isAlive(isDead());
+    msgpack::type::tuple<bool> isAlive(!isDead());
     msgpack::pack(buffer, isAlive);
 }
