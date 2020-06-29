@@ -3,7 +3,7 @@
 //
 
 #include "ClientEventHandler.h"
-#include "EventBlockingQueue.h"
+#include "BlockingQueue.h"
 #include <msgpack.hpp>
 #include "Socket.h"
 

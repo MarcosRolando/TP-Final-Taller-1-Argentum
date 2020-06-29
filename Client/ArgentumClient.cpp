@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 #include <utility>
-#include "EventBlockingQueue.h"
+#include "BlockingQueue.h"
 #include <SDL_mixer.h>
 
 #define FREQUENCY 44100
@@ -35,14 +35,13 @@ void Client::_processConnection() {
     bool quit = false;
     GameGUI game;
     Window& window = game.getWindow();
-    EventBlockingQueue events;
+    BlockingQueue<std::unique_ptr<SDL_Event>> events;
     ClientProtocol protocol(game, socket);
     ClientEventHandler eventHandler(socket, quit, game, events);
     eventHandler();
     //Aca falta lo del main menu y la seleccion de server/player etc
     std::unique_ptr<SDL_Event> event(new SDL_Event());
     while (!quit) {
-
         while(SDL_PollEvent(event.get()) != 0) {
             if (!window.handleEvent(*event)) {
                 events.push(std::move(event));

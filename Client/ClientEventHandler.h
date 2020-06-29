@@ -9,8 +9,8 @@
 #include "Thread.h"
 #include "GameGUI.h"
 #include <sstream>
+#include "BlockingQueue.h"
 
-class EventBlockingQueue;
 class Socket;
 
 class ClientEventHandler : public Thread {
@@ -18,11 +18,12 @@ private:
     Socket& socket;
     bool& quit;
     GameGUI& game;
-    EventBlockingQueue& events;
+    BlockingQueue<std::unique_ptr<SDL_Event>>& events;
     std::stringstream msgBuffer;
 
 public:
-    ClientEventHandler(Socket& _socket, bool& quit, GameGUI& game, EventBlockingQueue& _events)
+    ClientEventHandler(Socket& _socket, bool& quit, GameGUI& game,
+                            BlockingQueue<std::unique_ptr<SDL_Event>>& _events)
                         : socket(_socket), quit(quit), game(game), events(_events) {};
     void run() override;
 

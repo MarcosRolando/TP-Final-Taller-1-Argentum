@@ -30,7 +30,7 @@ Client/Socket.cpp Client/Socket.h Client/Thread.cpp Client/Thread.h
 Client/User.cpp Client/User.h Client/GameGUI.cpp Client/GameGUI.h
         Shared/GameEnums.h Client/ProtocolEnumTranslator.cpp
         Client/ProtocolEnumTranslator.h Client/ClientEventHandler.cpp Client/ClientEventHandler.h
-        Client/EventBlockingQueue.cpp)
+        Client/BlockingQueue.h)
 
 
 target_compile_options (argentum PUBLIC -std=c++11 -Wall -Werror -pedantic
