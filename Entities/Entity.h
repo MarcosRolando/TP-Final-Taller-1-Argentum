@@ -82,7 +82,7 @@ protected:
 
     //Encola la accion de movimiento si el entity esta quieto,
     // la cual puede ser rechazada o aceptada
-    void requestMove(Game& game, GameType::Direction moveDirection);
+    //void requestMove(Game& game, GameType::Direction moveDirection);
 
     //Le asigna al jugador la posicion recibida
     void setPosition(Coordinate coordinate);
@@ -108,9 +108,11 @@ protected:
 
     bool isCitizen();
 
-    const std::string& getNickname() const;
+    virtual const std::string& getNickname() const;
 
-    int32_t executeDisplacement(int32_t displacement);
+    int32_t executeDisplacement(int32_t displacement, bool& hasFinished);
+
+    virtual Coordinate getFinalCoordinate(GameType::Direction direction);
 };
 
 

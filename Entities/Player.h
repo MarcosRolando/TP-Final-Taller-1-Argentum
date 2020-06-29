@@ -61,7 +61,7 @@ public:
     AttackResult attacked(int damage, unsigned int attackerLevel, bool isAPlayer) override;
 
     //Retorna el nombre del player
-    const std::string& getNickname() const;
+    //const std::string& getNickname() const;
 
     //Restaura hasta amount cantidad de vida, sin pasarse de la cantidad maxima
     void restoreLife(unsigned int amount);
@@ -76,7 +76,7 @@ public:
     void meditate();
 
     //Notifica al juego la intencion de moverse del player
-    void requestMove(GameType::Direction direction);
+    //void requestMove(GameType::Direction direction);
 
     //Desequipa la ropa de equipment place
     void unequip(EquipmentPlace clothing);

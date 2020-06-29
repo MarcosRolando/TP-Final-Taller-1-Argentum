@@ -24,7 +24,6 @@ private:
     std::atomic<bool> hasDataToSend;
     ServerProtocol& protocol;
     PlayerLoader& loader;
-    std::queue<std::string> requestsQueue;
     std::mutex m;
 
 public:

@@ -15,15 +15,28 @@
 #include "../Game/Events/Drop.h"
 #include "../Game/Events/Unequip.h"
 #include "../Game/Events/UseItem.h"
+#include "../Game/Events/Move.h"
+
+#define MAX_EVENTS_STORED 3
 
 void PlayerProxy::attack(Coordinate target) {
+    /*
     std::unique_ptr<Attack> event(new Attack(player, target));
     game.pushEvent(std::move(event));
+    */
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new Attack(player, target));
+    }
 }
 
 void PlayerProxy::useItem(int itemPosition) {
+    /*
     std::unique_ptr<UseItem> event(new UseItem(player, itemPosition));
     game.pushEvent(std::move(event));
+    */
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new UseItem(player, itemPosition));
+    }
 }
 
 void PlayerProxy::meditate() {
@@ -31,47 +44,60 @@ void PlayerProxy::meditate() {
 }
 
 void PlayerProxy::move(GameType::Direction direction) {
+    /*
     player.requestMove(direction);
+    */
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new Move(game, player, direction));
+    }
 }
 
 void PlayerProxy::buyFrom(std::string &&itemName, Coordinate npcPosition) {
-    std::unique_ptr<Buy> event(new Buy(player, itemName, npcPosition));
-    game.pushEvent(std::move(event));
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new Buy(player, itemName, npcPosition));
+    }
 }
 
 void PlayerProxy::sellTo(std::string &&itemName, Coordinate npcPosition) {
-    std::unique_ptr<Sell> event(new Sell(player, itemName, npcPosition));
-    game.pushEvent(std::move(event));
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new Sell(player, itemName, npcPosition));
+    }
 }
 
 void PlayerProxy::withdrawFrom(std::string &&itemName, Coordinate npcPosition) {
-    std::unique_ptr<Withdraw> event(new Withdraw(player, itemName, npcPosition));
-    game.pushEvent(std::move(event));
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new Withdraw(player, itemName, npcPosition));
+    }
 }
 
 void PlayerProxy::listFrom(Coordinate npcPosition) {
-    std::unique_ptr<List> event(new List(player, npcPosition));
-    game.pushEvent(std::move(event));
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new List(player, npcPosition));
+    }
 }
 
 void PlayerProxy::depositTo(std::string &&itemName, Coordinate npcPosition) {
-    std::unique_ptr<Deposit> event(new Deposit(player, itemName, npcPosition));
-    game.pushEvent(std::move(event));
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new Deposit(player, itemName, npcPosition));
+    }
 }
 
 void PlayerProxy::unequip() {
-    std::unique_ptr<Unequip> event(new Unequip(player));
-    game.pushEvent(std::move(event));
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new Unequip(player));
+    }
 }
 
 void PlayerProxy::unequip(EquipmentPlace clothing) {
-    std::unique_ptr<Unequip> event(new Unequip(player, clothing));
-    game.pushEvent(std::move(event));
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new Unequip(player, clothing));
+    }
 }
 
 void PlayerProxy::dropItem(unsigned int itemPosition) {
-    std::unique_ptr<Drop> event(new Drop(player, itemPosition));
-    game.pushEvent(std::move(event));
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new Drop(player, itemPosition));
+    }
 }
 
 const Player &PlayerProxy::getPlayer() const {

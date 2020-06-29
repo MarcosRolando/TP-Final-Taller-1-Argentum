@@ -69,6 +69,7 @@ void Entity::sell(Player &player, const std::string& itemName) {
     //DO NOTHING
 }
 
+/*
 void Entity::requestMove(Game& game, GameType::Direction moveDirection) {
     if (!isMoving()) {
         std::unique_ptr<Move> event;
@@ -96,6 +97,7 @@ void Entity::requestMove(Game& game, GameType::Direction moveDirection) {
         }
     }
 }
+*/
 
 void Entity::move(Coordinate newPosition) {
     currentPosition = newPosition;
@@ -147,13 +149,32 @@ const std::string &Entity::getNickname() const {
     return nickname;
 }
 
-int32_t Entity::executeDisplacement(int32_t displacement) {
+int32_t Entity::executeDisplacement(int32_t displacement, bool& hasFinished) {
     int32_t realDisplacement = displacement;
     movement.movedDistance += displacement;
+    hasFinished = false;
     if (movement.movedDistance >= DISTANCE_TO_MOVE) {
         realDisplacement = movement.movedDistance - DISTANCE_TO_MOVE;
         movement.movedDistance = DISTANCE_TO_MOVE;
         movement.isMoving = false;
+        hasFinished = true;
     }
     return realDisplacement;
+}
+
+Coordinate Entity::getFinalCoordinate(GameType::Direction moveDirection) {
+    if (!isMoving()) {
+        std::unique_ptr<Move> event;
+        switch (moveDirection) {
+            case GameType::DIRECTION_UP:
+                return {currentPosition.iPosition - 1, currentPosition.jPosition};
+            case GameType::DIRECTION_DOWN:
+                return {currentPosition.iPosition + 1, currentPosition.jPosition};
+            case GameType::DIRECTION_RIGHT:
+                return {currentPosition.iPosition, currentPosition.jPosition + 1};
+            case GameType::DIRECTION_LEFT:
+                return {currentPosition.iPosition, currentPosition.jPosition - 1};
+        }
+    }
+    return {-1, -1};
 }

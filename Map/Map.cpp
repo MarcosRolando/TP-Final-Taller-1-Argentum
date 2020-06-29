@@ -161,12 +161,14 @@ Map::Map(MapFileReader &mapFile) {
             }
             //CAMBIAR, POR AHORA SE PONE TODO COMO OCUPABLE
 
+            /*
             if (floors.count(aux.tileType) == 0) {
                 std::cout << "No existe el tile: " << aux.tileType << std::endl;
             }
             if ((structures.count(aux.structureType) == 0) && (aux.structureType != "Nothing")) {
                 std::cout << "No existe la estructura: " << aux.structureType << std::endl;
             }
+            */
 
             tiles[i].emplace_back(true, false, floors.at(aux.tileType), structures
                     .at(aux.structureType), std::move(citizen));
@@ -241,18 +243,18 @@ void Map::removeEntity(Coordinate position) {
     tiles[position.iPosition][position.jPosition].removeEntity();
 }
 
-bool Map::moveEntity(Coordinate startingPosition, Coordinate finalPosition) {
+void Map::moveEntity(Coordinate startingPosition, Coordinate finalPosition) {
     if ((!_isCoordinateValid(startingPosition)) ||
         (!_isCoordinateValid(finalPosition))) {
-        throw (std::invalid_argument("Out of bounds coordinate"));
+        //throw (std::invalid_argument("Out of bounds coordinate"));
+        return;
     }
     if (!tiles[finalPosition.iPosition][finalPosition.jPosition].isAvailable()) {
-        return false;
+        return;
     }
     Tile& tile = tiles[finalPosition.iPosition][finalPosition.jPosition];
     tile.moveEntity(std::move(tiles[startingPosition.iPosition][startingPosition.jPosition]),
                         finalPosition);
-    return true;
 }
 
 bool Map::isPlaceAvailable(Coordinate position) const {

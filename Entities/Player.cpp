@@ -126,9 +126,11 @@ void Player::useItem(int itemPosition) {
     }
 }
 
+/*
 const std::string &Player::getNickname() const {
     return Entity::getNickname();
 }
+*/
 
 void Player::restoreLife(unsigned int amount) {
     if (!stats.isDead()) {
@@ -153,9 +155,11 @@ void Player::update(double timeStep) {
     stats.update(timeStep); /*actualiza la vida y manda en base al tiempo/meditacion*/
 }
 
+/*
 void Player::requestMove(GameType::Direction direction) {
     Entity::requestMove(game, direction);
 }
+*/
 
 void Player::unequip(EquipmentPlace clothing) {
     if (!stats.isDead()) {

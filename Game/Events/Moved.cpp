@@ -22,8 +22,10 @@ void Moved::operator()(ServerProtocol &protocol) {
     std::stringstream data;
     msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::MOVED);
     msgpack::pack(data, messageTypeData);
-    msgpack::type::tuple<GameType::Direction, int32_t, std::string>
-                        eventData(direction, entity.executeDisplacement(displacement), entity.getNickname());
+    bool hasFinishedMoving;
+    int32_t realDisplacement = entity.executeDisplacement(displacement, hasFinishedMoving);
+    msgpack::type::tuple<GameType::Direction, int32_t, std::string, bool>
+                        eventData(direction, realDisplacement, entity.getNickname(), hasFinishedMoving);
     msgpack::pack(data, eventData);
     protocol.addToGeneralData(data);
 }

@@ -9,6 +9,7 @@
 #include "../AttackResult.h"
 #include "../Config/Configuration.h"
 #include "../Game/Events/Attack.h"
+#include "../Game/Events/Move.h"
 
 #define MAX_NUMBER_OF_CACHED_NODES 4
 
@@ -107,7 +108,8 @@ void Monster::_move() {
         _storeNearestPlayerPathCache();
     }
     if (!pathCache.empty()) {
-        Entity::requestMove(game, _getMoveDirection());
+        //Entity::requestMove(game, _getMoveDirection());
+        game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, _getMoveDirection())));
         pathCache.pop_front();
     }
 }

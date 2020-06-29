@@ -6,7 +6,9 @@
 #define ARGENTUM_PLAYERPROXY_H
 
 #include <string>
+#include <queue>
 #include "../Items/Inventory.h"
+#include "../Game/Events/Event.h"
 
 class Player;
 class Game;
@@ -16,6 +18,7 @@ class PlayerProxy {
 private:
     Game& game;
     Player& player;
+    std::queue<std::unique_ptr<Event>> storedEvents;
 
 public:
     explicit PlayerProxy(Game& _game, Player& _player) : game(_game), player(_player) {}
@@ -32,6 +35,8 @@ public:
     void unequip(EquipmentPlace clothing);
     void dropItem(unsigned int itemPosition);
     const Player& getPlayer() const;
+
+    void giveEventsToGame();
 };
 
 
