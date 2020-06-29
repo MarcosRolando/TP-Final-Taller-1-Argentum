@@ -5,8 +5,6 @@
 #ifndef ARGENTUM_SOUND_H
 #define ARGENTUM_SOUND_H
 
-#include <SDL.h>
-#include <SDL_image.h>
 #include <SDL_mixer.h>
 #include <string>
 

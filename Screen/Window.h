@@ -62,7 +62,6 @@ private:
     void _createWindow();
     //Creates renderer from internal window
     void _createRenderer();
-    static void _initializeSDL();
 };
 
 #endif //ARGENTUM_WINDOW_H

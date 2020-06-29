@@ -5,7 +5,6 @@
 #include <iostream>
 #include <unordered_map>
 #include <queue>
-
 #include "../../TPException.h"
 #include "Sound.h"
 
@@ -14,7 +13,7 @@ enum SoundID {Attack, Explotion, Punch, StepDirt};
 class SoundRepository {
 private:
     std::unordered_map<SoundID, Sound> sounds;
-    Mix_Music* music;
+    Mix_Music* music{};
 public:
     /* Constructor */
     SoundRepository();
@@ -27,7 +26,6 @@ public:
     ~SoundRepository();
 
 private:
-    void _init();
     void _loadSounds();
     void _loadMusic();
 };

@@ -1,26 +1,11 @@
 #include "SoundRepository.h"
 #include <unistd.h>
-#define FREQUENCY 44100
-#define CHUNKSIZE 2048
 
 #define QUEUE_SIZE 3
 
 SoundRepository::SoundRepository() {
-    _init();
     _loadSounds();
     _loadMusic();
-}
-
-void SoundRepository::_init() {
-    if( SDL_Init(SDL_INIT_AUDIO ) < 0 ) {//Esto iria en una clase SDL general
-        throw TPException("SDL could not initialize! SDL Error: %s\n",
-                          SDL_GetError() );
-    }
-    if( Mix_OpenAudio(FREQUENCY, MIX_DEFAULT_FORMAT, 2,
-                                                CHUNKSIZE) < 0 ){
-        throw TPException("SDL_mixer could not initialize!"
-                           " SDL_mixer Error: %s\n", Mix_GetError());
-    }
 }
 
 void SoundRepository::_loadSounds(){
@@ -45,9 +30,7 @@ void SoundRepository::_loadMusic(){
 
 SoundRepository::~SoundRepository() {
     //Cierra el mixer
-    Mix_FreeMusic( music );
-    Mix_Quit();
-    SDL_Quit();//Esto iria en la clase SDL general
+    Mix_FreeMusic(music);
 }
 
 Mix_Music* SoundRepository::getMusic() {
