@@ -72,7 +72,7 @@ void ClientHandler::_sendMapInfoToClient() {
 void ClientHandler::_addMessageToQueue() {
     std::unique_lock<std::mutex> lk(m);
     uint32_t messageLen;
-    socket.receive(reinterpret_cast<char *>&messageLen, sizeof(uint32_t));
+    socket.receive(reinterpret_cast<char *>(&messageLen), sizeof(uint32_t));
     std::vector<char> buffer(ntohl(messageLen));
 }
 
