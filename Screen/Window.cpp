@@ -175,6 +175,7 @@ Window::~Window() {
     renderer = nullptr;
     mWindow = nullptr;
     IMG_Quit();
+    TTF_Quit();
     SDL_Quit();
 }
 
