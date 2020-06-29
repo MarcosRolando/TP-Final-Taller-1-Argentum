@@ -126,6 +126,7 @@ bool EntityTests::testUnequipGear() {
 
 bool EntityTests::testPlayerAttacksMonster() {
     Game game;
+    _fillEmptyMap(game.map, 10, 10, false);
     Player player(game, GameType::HUMAN, GameType::CLERIC,
                   1, 0, {0, 0}, "ElPantuflas");
     MonstersFactory factory;
@@ -139,6 +140,7 @@ bool EntityTests::testPlayerAttacksMonster() {
 
 bool EntityTests::testPlayerAttacksMonsterAndConsumesMana() {
     Game game;
+    _fillEmptyMap(game.map, 10, 10, false);
     Player player(game, GameType::DWARF, GameType::CLERIC,
                   50, 0, {0, 0}, "ElPantuflas");
     MonstersFactory factory;
@@ -154,9 +156,10 @@ bool EntityTests::testPlayerAttacksMonsterAndConsumesMana() {
     if (monster->stats.getCurrentLife() == monster->stats.getMaxLife()) return false;
     return (player.stats.getCurrentMana() != player.stats.maxMana);
 }
-#include <iostream>
+
 bool EntityTests::testPlayerAttacksNewbieAndViceversa() {
     Game game;
+    _fillEmptyMap(game.map, 10, 10, false);
     std::shared_ptr<Player> player1(new Player(game, GameType::DWARF, GameType::CLERIC,
                   13, 0, {0, 0}, "SpicyChori"));
     std::shared_ptr<Player> player2(new Player(game, GameType::DWARF, GameType::CLERIC,
@@ -181,6 +184,7 @@ bool EntityTests::testPlayerAttacksNewbieAndViceversa() {
 
 bool EntityTests::testPlayerAttacksPlayerWithPastLevelDifferenceAndViceversa() {
     Game game;
+    _fillEmptyMap(game.map, 10, 10, false);
     std::shared_ptr<Player> player1(new Player(game, GameType::DWARF, GameType::CLERIC,
                                                26, 0, {0, 0}, "SpicyChori"));
     std::shared_ptr<Player> player2(new Player(game, GameType::DWARF, GameType::CLERIC,
@@ -205,6 +209,7 @@ bool EntityTests::testPlayerAttacksPlayerWithPastLevelDifferenceAndViceversa() {
 
 bool EntityTests::testPlayersAttackEachOther() {
     Game game;
+    _fillEmptyMap(game.map, 10, 10, false);
     std::shared_ptr<Player> player1(new Player(game, GameType::DWARF, GameType::CLERIC,
                                                20, 0, {0, 0}, "SpicyChori"));
     std::shared_ptr<Player> player2(new Player(game, GameType::DWARF, GameType::CLERIC,
@@ -229,6 +234,7 @@ bool EntityTests::testPlayersAttackEachOther() {
 
 bool EntityTests::testMonsterAttacksPlayer() {
     Game game;
+    _fillEmptyMap(game.map, 10, 10, false);
     std::shared_ptr<Player> player(new Player(game, GameType::DWARF, GameType::CLERIC,
             1, 0, {0, 1}, "CrispyBurritos"));
     MonstersFactory factory;
@@ -249,9 +255,8 @@ bool EntityTests::testPlayerSellsItem() {
     player.storeItem(std::move(weapon));
     trader.shop.storage.storedItems.at("Longsword").clear();
     if (!trader.shop.storage.storedItems.at("Longsword").empty()) return false;
-    //trader.sell(player, "Longsword"); //todo terminar la prueba cuando agus arregle lo del precio del shop
-    return true;
-    //return (!trader.shop.storage.storedItems.at("Longsword").empty());
+    trader.sell(player, "Longsword");
+    return (!trader.shop.storage.storedItems.at("Longsword").empty());
 }
 
 bool EntityTests::testPlayerDepositsAnItem() {
@@ -268,6 +273,17 @@ bool EntityTests::testPlayerDepositsAnItem() {
     if (player.inventory.items[0]) return false;
     banker.withdraw(player, "Longsword");
     return (player.inventory.items[0]->getName() == "Longsword");
+}
+
+void EntityTests::_fillEmptyMap(Map &map, int iSize, int jSize, bool isCity) {
+    for (int i = 0; i < iSize; ++i) {
+        map.tiles.emplace_back();
+        for (int j = 0; j < jSize; ++j) {
+            map.tiles[i].emplace_back(true, isCity, GameType::FloorType::GRASS0,
+                                      GameType::Structure::NO_STRUCTURE,
+                                      std::shared_ptr<Entity>(nullptr));
+        }
+    }
 }
 
 

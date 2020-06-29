@@ -18,12 +18,14 @@ class Item;
 class Entity;
 class Monster;
 class MapFileReader;
-
+class EntityTests;
 class MapTests;
 
 class Map {
 private:
     std::vector<std::vector<Tile>> tiles;
+
+    friend EntityTests;
     friend MapTests;
 
 private:

@@ -29,6 +29,7 @@ public:
 private:
     static bool _testUnequipWeapon(Game &game);
     static bool _testUnequipClothing(Game &game);
+    static void _fillEmptyMap(Map &map, int iSize, int jSize, bool isCity);
 };
 
 
