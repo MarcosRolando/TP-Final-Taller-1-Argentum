@@ -27,14 +27,15 @@ PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &ren
     gold = 0;
 }
 
-void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
-    if (inventoryTextures.size() < INVENTORY_SIZE) {
+void PlayerInventoryGUI::addInventoryItem(TextureID texture, int32_t slot) {
+    /*if (inventoryTextures.size() < INVENTORY_SIZE) {
         inventoryTextures.emplace_back(&repo.getTexture(texture));
-    }
+    }*/ //Esto es con la lista
+    inventoryTextures[slot] = &repo.getTexture(texture);
 }
 
 void PlayerInventoryGUI::removeInventoryItem(int32_t inventorySlot) {
-    int i = 0, j = 0;
+    /*int i = 0, j = 0;
     for (auto it = inventoryTextures.begin(); it != inventoryTextures.end(); ) {
         //Esto lo haria con un for pero la lista no tiene operator[]
         if (j > 3) {
@@ -47,7 +48,8 @@ void PlayerInventoryGUI::removeInventoryItem(int32_t inventorySlot) {
             ++it;
         }
         ++j;
-    }
+    }*///Esto es con la lista
+    inventoryTextures.erase(inventoryTextures.begin() + inventorySlot);//Ver si esto funciona
 }
 
 void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item) {
@@ -104,7 +106,7 @@ void PlayerInventoryGUI::_renderSkills(){
 }
 
 void PlayerInventoryGUI::_renderInventoryItems() {
-    int i = 0, j = 0; //los necesito para la posicion de renderizado
+    /*int i = 0, j = 0; //los necesito para la posicion de renderizado
     for (auto & texture : inventoryTextures){
         texture->render(INVENTORY_ITEMS_X_OFFSET + (ITEM_WIDTH + 6) * j,
                         INVENTORY_ITEMS_Y_OFFSET + (i/LINES) * (ITEM_HEIGHT - 1),0);
@@ -113,6 +115,13 @@ void PlayerInventoryGUI::_renderInventoryItems() {
         if (j > 3) {
             i += LINES;
             j = 0;
+        }
+    }*///Esto es con la lsita
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; ++j) {
+            inventoryTextures[4*i + j]->render(INVENTORY_ITEMS_X_OFFSET + (ITEM_WIDTH + 6) * j,
+                                             INVENTORY_ITEMS_Y_OFFSET +(i/LINES) *
+                                             (ITEM_HEIGHT - 1),0);
         }
     }
 }

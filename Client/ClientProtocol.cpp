@@ -172,12 +172,12 @@ void ClientProtocol::_fillInventory(size_t& offset){
         msgpack::type::tuple<GameType::ItemType, int32_t> item;
         handler->convert(item);
         if (static_cast<GameType::ItemType>(std::get<0>(item)) != GameType::ITEM_TYPE_NONE){
-            _addItem(std::get<0>(item), std::get<1>(item));
+            _addItem(std::get<0>(item), std::get<1>(item), i);
         }
     }
 }
 
-void ClientProtocol::_addItem(GameType::ItemType type, int32_t id){
+void ClientProtocol::_addItem(GameType::ItemType type, int32_t id, int position){
     TextureID texture;
     switch (type) {
         case GameType::ITEM_TYPE_WEAPON:
@@ -195,7 +195,7 @@ void ClientProtocol::_addItem(GameType::ItemType type, int32_t id){
         default:
             break;
     }
-    game.getPlayerInventory().addInventoryItem(texture);
+    game.getPlayerInventory().addInventoryItem(texture, position);
 }
 
 void ClientProtocol::_processAddPlayerData(size_t& offset) {

@@ -44,7 +44,7 @@ private://No se si todas las q estan aca son private
     void _addClothing(size_t &offset, EquippedItems item);
     void _addWeapon(size_t &offset);
     void _fillInventory(size_t &offset);
-    void _addItem(GameType::ItemType type, int32_t id);
+    void _addItem(GameType::ItemType type, int32_t id, int position);
     void _addSkills(size_t &offset);
     void _addPosition(size_t &offset);
 };
