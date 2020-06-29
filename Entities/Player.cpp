@@ -206,7 +206,7 @@ void Player::operator>>(std::stringstream &buffer) {
     Entity::operator>>(buffer);
     msgpack::type::tuple<Race> data(race);
     msgpack::pack(buffer, data);
-    stats.storeLifeStatus(buffer);
+    //stats.storeLifeStatus(buffer);
     inventory.storeEquippedItems(buffer);
 }
 
