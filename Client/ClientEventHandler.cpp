@@ -5,32 +5,38 @@
 #include "ClientEventHandler.h"
 #include "EventBlockingQueue.h"
 #include <msgpack.hpp>
+#include "Socket.h"
+
+MSGPACK_ADD_ENUM(GameType::Direction)
+MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 
 void ClientEventHandler::run() {
     Selector& selector = game.getSelector();
     Minichat& minichat = game.getMinichat();
     Window& window = game.getWindow();
 
-    while (!quit) {
-        std::unique_ptr<SDL_Event> e = events.pop();
-        if (e) { /*Si terminamos cerramos la cola entonces devuelve nullptr*/
-            if (e->type == SDL_QUIT) {
-                quit = true;
-                break;
-            }
-            selector.handleEvent(*e, game.getPlayerInfo().getXPos(),
-                                 game.getPlayerInfo().getYPos(), window);
-            minichat.handleEvent(*e, game.getWindow());
+    try {
+        while (!quit) {
+            std::unique_ptr<SDL_Event> e = events.pop();
+            if (e) { /*Si terminamos cerramos la cola entonces devuelve nullptr*/
+                if (e->type == SDL_QUIT) {
+                    quit = true;
+                    break;
+                }
+                selector.handleEvent(*e, game.getPlayerInfo().getXPos(),
+                                     game.getPlayerInfo().getYPos(), window);
+                minichat.handleEvent(*e, game.getWindow());
 
-            if (e->type == SDL_KEYDOWN && e->key.repeat == 0) {
-                _handleMoveKeys(*e);
+                if (e->type == SDL_KEYDOWN && e->key.repeat == 0) {
+                    _handleMoveKeys(*e);
+                }
+            }
+            if (msgBuffer.rdbuf()->in_avail() != 0) { /*Nos cargaron un mensaje*/
+                _sendMessage();
             }
         }
-        if (msgBuffer.rdbuf()->in_avail() != 0) { /*Nos cargaron un mensaje*/
-            std::string aux = msgBuffer.str();
-            uint32_t length = htonl(aux.size());
-            std::vector<char> buffer
-        }
+    } catch (...) {
+        //do nothing
     }
 }
 
@@ -60,3 +66,20 @@ void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
             break;
     }
 }
+void ClientEventHandler::_loadBytes(std::vector<char>& buffer, void* data, unsigned int size) {
+    for (unsigned int i = 0; i < size; ++i) {
+        buffer[i] = *(reinterpret_cast<char *>(data) + i);
+    }
+}
+
+void ClientEventHandler::_sendMessage() {
+    std::string aux = msgBuffer.str();
+    uint32_t length = htonl(aux.size());
+    std::vector<char> buffer(sizeof(uint32_t));
+    _loadBytes(buffer, &length, sizeof(uint32_t));
+    std::copy(aux.begin(), aux.end(), std::back_inserter(buffer));
+    socket.send(buffer.data(), buffer.size());
+    msgBuffer.str(""); /*Reseteo el stringstream*/
+    msgBuffer.clear();
+}
+

@@ -37,7 +37,7 @@ void Client::_processConnection() {
     Window& window = game.getWindow();
     EventBlockingQueue events;
     ClientProtocol protocol(game, socket);
-    ClientEventHandler eventHandler(quit, game, events);
+    ClientEventHandler eventHandler(socket, quit, game, events);
     eventHandler();
     //Aca falta lo del main menu y la seleccion de server/player etc
     std::unique_ptr<SDL_Event> event(new SDL_Event());

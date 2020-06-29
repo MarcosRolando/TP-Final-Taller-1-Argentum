@@ -11,20 +11,27 @@
 #include <sstream>
 
 class EventBlockingQueue;
+class Socket;
 
 class ClientEventHandler : public Thread {
 private:
+    Socket& socket;
     bool& quit;
     GameGUI& game;
     EventBlockingQueue& events;
     std::stringstream msgBuffer;
 
 public:
-    ClientEventHandler(bool& quit, GameGUI& game, EventBlockingQueue& _events)
-                        : quit(quit), game(game), events(_events) {};
+    ClientEventHandler(Socket& _socket, bool& quit, GameGUI& game, EventBlockingQueue& _events)
+                        : socket(_socket), quit(quit), game(game), events(_events) {};
     void run() override;
 
+private:
     void _handleMoveKeys(SDL_Event& e);
+
+    void _loadBytes(std::vector<char>& buffer, void* data, unsigned int size);
+
+    void _sendMessage();
 };
 
 
