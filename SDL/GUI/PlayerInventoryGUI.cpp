@@ -25,30 +25,16 @@ PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &ren
                                             text(textFont,renderer), repo(repo),
                                             renderer(renderer), pInfo(playerInfo) {
     gold = 0;
+    for (int i = 0; i < INVENTORY_SIZE; ++i) {//Inicializo el vector con nullptr
+        inventoryTextures.push_back(nullptr);
+    }
 }
 
 void PlayerInventoryGUI::addInventoryItem(TextureID texture, int32_t slot) {
-    /*if (inventoryTextures.size() < INVENTORY_SIZE) {
-        inventoryTextures.emplace_back(&repo.getTexture(texture));
-    }*/ //Esto es con la lista
     inventoryTextures[slot] = &repo.getTexture(texture);
 }
 
 void PlayerInventoryGUI::removeInventoryItem(int32_t inventorySlot) {
-    /*int i = 0, j = 0;
-    for (auto it = inventoryTextures.begin(); it != inventoryTextures.end(); ) {
-        //Esto lo haria con un for pero la lista no tiene operator[]
-        if (j > 3) {
-            i += LINES;
-            j = 0;
-        }
-        if ((j + i) == inventorySlot){
-            it = inventoryTextures.erase(it);
-        } else {
-            ++it;
-        }
-        ++j;
-    }*///Esto es con la lista
     inventoryTextures.erase(inventoryTextures.begin() + inventorySlot);//Ver si esto funciona
 }
 
@@ -106,22 +92,13 @@ void PlayerInventoryGUI::_renderSkills(){
 }
 
 void PlayerInventoryGUI::_renderInventoryItems() {
-    /*int i = 0, j = 0; //los necesito para la posicion de renderizado
-    for (auto & texture : inventoryTextures){
-        texture->render(INVENTORY_ITEMS_X_OFFSET + (ITEM_WIDTH + 6) * j,
-                        INVENTORY_ITEMS_Y_OFFSET + (i/LINES) * (ITEM_HEIGHT - 1),0);
-        //Esto lo haria con un for pero la lista no tiene operator[]
-        ++j;
-        if (j > 3) {
-            i += LINES;
-            j = 0;
-        }
-    }*///Esto es con la lsita
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; ++j) {
-            inventoryTextures[4*i + j]->render(INVENTORY_ITEMS_X_OFFSET + (ITEM_WIDTH + 6) * j,
-                                             INVENTORY_ITEMS_Y_OFFSET +(i/LINES) *
-                                             (ITEM_HEIGHT - 1),0);
+            if (inventoryTextures[4*i + j] != nullptr){
+                inventoryTextures[4*i + j]->render(INVENTORY_ITEMS_X_OFFSET +
+                                        (ITEM_WIDTH + 6) * j,INVENTORY_ITEMS_Y_OFFSET
+                                        +(i/LINES) * (ITEM_HEIGHT - 1),0);
+            }
         }
     }
 }
