@@ -49,7 +49,6 @@ void Game::moveEntity(Coordinate initialPosition, Coordinate finalPosition) {
     map.moveEntity(initialPosition, finalPosition);
 }
 
-
 void Game::_updateMonsters(double timeStep) {
     for (const auto & monster: monsters) {
         monster->update(timeStep);
