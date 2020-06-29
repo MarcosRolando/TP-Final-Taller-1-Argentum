@@ -1,8 +1,10 @@
 #include "ClientHandler.h"
+
+#include <vector>
+#include <mutex>
 #include "../Entities/PlayerProxy.h"
 #include "ServerProtocol.h"
 #include "PlayerLoader.h"
-#include <vector>
 
 #define MAX_NUMBER_OF_MESSAGES_STORED 3
 
@@ -65,6 +67,13 @@ void ClientHandler::_sendUpdateDataToClient() {
 void ClientHandler::_sendMapInfoToClient() {
     const std::vector<char>& mapInfo = protocol.getMapInfo();
     socket.send(mapInfo.data(), mapInfo.size());
+}
+
+void ClientHandler::_addMessageToQueue() {
+    std::unique_lock<std::mutex> lk(m);
+    uint32_t messageLen;
+    socket.receive(reinterpret_cast<char *>&messageLen, sizeof(uint32_t));
+    std::vector<char> buffer(ntohl(messageLen));
 }
 
 

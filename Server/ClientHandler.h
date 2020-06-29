@@ -49,6 +49,7 @@ private:
     void _send(std::vector<char>& message, unsigned int& bufferLength);
     void _sendMapInfoToClient();
     void _sendUpdateDataToClient();
+    void _addMessageToQueue();
 };
 
 
