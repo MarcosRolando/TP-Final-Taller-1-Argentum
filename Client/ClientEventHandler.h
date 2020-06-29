@@ -9,12 +9,12 @@
 #include "Thread.h"
 #include "GameGUI.h"
 
-class ClientEventHandler : public Thread{
+class ClientEventHandler : public Thread {
 private:
     bool& quit;//Ver si dejo esto aca
     GameGUI& game;
 public:
-    ClientEventHandler(bool& quit, GameGUI& game) : quit(quit), game(game){};
+    ClientEventHandler(bool& quit, GameGUI& game) : quit(quit), game(game) {};
     void run() override;
     ~ClientEventHandler();
 };
