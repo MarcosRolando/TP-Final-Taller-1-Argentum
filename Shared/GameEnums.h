@@ -17,6 +17,10 @@ namespace GameType {
         ENTITY, ITEM, PLAYER_DATA
     };
 
+    enum EventID: int32_t {
+        MOVED, ATTACK, UNEQUIP, USE_ITEM
+    };
+
     enum Race : int32_t {
         HUMAN, ELF, DWARF, GNOME
     };
@@ -59,6 +63,10 @@ namespace GameType {
         BONE_GUY, BROKEN_RIP_STONE, BUSH, DEAD_BUSH, DEAD_GUY, DEAD_TREE,
         FAT_TREE, HANGED_GUY, HOUSE1, HOUSE2, HOUSE3, LONG_TREE, PALM_TREE,
         RIP_STONE, TREE, VERY_DEAD_GUY, SUNKEN_COLUMN, SUNKEN_SHIP, NO_STRUCTURE
+    };
+
+    enum Direction : int32_t {
+        DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT
     };
 }
 
