@@ -35,9 +35,9 @@ void Game::_repopulateMap(double timePassed) {
 }
 
 
-void Game::_executeQueueOperations() {
+void Game::_executeQueueOperations(ServerProtocol& protocol) {
     while (!eventQueue.empty()) {
-        (*eventQueue.front())();
+        (*eventQueue.front())(protocol);
         eventQueue.pop();
 
         //TOMAR EN CUENTA QUE VAMOS A TENER QUE ENCOLAR
@@ -82,10 +82,11 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
     map.addItemsToTile(std::move(item), position);
 }
 
-void Game::update(double timeStep) {
+void Game::update(double timeStep, ServerProtocol& protocol) {
     _repopulateMap(timeStep);
     _updateMonsters(timeStep);
-    _executeQueueOperations();
+    //_updatePlayers(timeStep, protocol);
+    _executeQueueOperations(protocol);
 
     //AGREGAR UPDATE DE PLAYERS CONECTADOS
 

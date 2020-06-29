@@ -53,7 +53,7 @@ private:
 
     //CUANDO SE IMPLEMENTE ESTO VAMOS A TENER QUE TOMAR EN CUENTA QUE VAMOS A TENER QUE ENCOLAR
     //CADA MOVIMIENTO REALIZADO PARA MANDARSELO A LOS CLIENTES
-    void _executeQueueOperations();
+    void _executeQueueOperations(ServerProtocol& protocol);
     void _repopulateMap(double timePassed);
 
 public:
@@ -77,7 +77,7 @@ public:
     //Retorna una referencia constante del mapa, util para los monstruos
     const Map& getMap() const;
 
-    void update(double timeStep);
+    void update(double timeStep, ServerProtocol& protocol);
 
     //Delega el comportamiento a la entity que guarda, si es que guarda una
     unsigned int list(Player& player, std::list<ProductData>& products, Coordinate coordinate);
