@@ -4,6 +4,7 @@
 
 #include "ClientEventHandler.h"
 #include "EventBlockingQueue.h"
+#include <msgpack.hpp>
 
 void ClientEventHandler::run() {
     Selector& selector = game.getSelector();
@@ -17,24 +18,28 @@ void ClientEventHandler::run() {
                 quit = true;
                 break;
             }
-            std::string a = " ";
             selector.handleEvent(*e, game.getPlayerInfo().getXPos(),
                                  game.getPlayerInfo().getYPos(), window);
             minichat.handleEvent(*e, game.getWindow());
 
             if (e->type == SDL_KEYDOWN && e->key.repeat == 0) {
-                switch (e->key.keysym.sym) {
-                    case SDLK_UP:
-                        break;
-                    case SDLK_DOWN:
-                        break;
-                    case SDLK_LEFT:
-                        break;
-                    case SDLK_RIGHT:
-                        break;
-                }
+                _handleMoveKeys(*e);
 
             }
         }
+    }
+}
+
+void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
+    switch (e.key.keysym.sym) {
+        case SDLK_UP:
+            msgpack::type::tuple<GameType::PlayerEvent, >
+            break;
+        case SDLK_DOWN:
+            break;
+        case SDLK_LEFT:
+            break;
+        case SDLK_RIGHT:
+            break;
     }
 }

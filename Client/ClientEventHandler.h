@@ -21,6 +21,8 @@ public:
     ClientEventHandler(bool& quit, GameGUI& game, EventBlockingQueue& _events)
                         : quit(quit), game(game), events(_events) {};
     void run() override;
+
+    static void _handleMoveKeys(SDL_Event& e);
 };
 
 

@@ -8,6 +8,11 @@
 #include <cinttypes>
 
 namespace GameType {
+
+    enum PlayerEvent : int32_t {
+        MOVE
+    };
+
     enum ID: int32_t {
         ENTITY, ITEM, PLAYER_DATA
     };
