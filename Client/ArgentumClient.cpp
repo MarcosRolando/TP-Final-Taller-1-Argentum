@@ -34,17 +34,19 @@ void Client::_receive() {
 void Client::_processConnection() {
     bool quit = false;
     GameGUI game;
+    Window& window = game.getWindow();
     EventBlockingQueue events;
     ClientProtocol protocol(game, socket);
     ClientEventHandler eventHandler(quit, game, events);
     eventHandler();
     //Aca falta lo del main menu y la seleccion de server/player etc
     std::unique_ptr<SDL_Event> event(new SDL_Event());
-
     while (!quit) {
         while(SDL_PollEvent(event.get()) != 0) {
-            events.push(std::move(event));
-            event.reset(new SDL_Event());
+            if (!window.handleEvent(*event)) {
+                events.push(std::move(event));
+                event.reset(new SDL_Event());
+            }
         }
         game.render();
     }

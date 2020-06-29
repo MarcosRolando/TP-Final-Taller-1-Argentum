@@ -40,8 +40,8 @@ public:
 
     SDL_Renderer& getRenderer();
 
-    //Handles window events
-    void handleEvent(SDL_Event& e);
+    //Handles window events, returns true if it was handled, false otherwise
+    bool handleEvent(SDL_Event& e);
 
     bool isMinimized() const;
 

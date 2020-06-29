@@ -6,6 +6,9 @@
 #include "EventBlockingQueue.h"
 
 void ClientEventHandler::run() {
+    Selector& selector = game.getSelector();
+    Minichat& minichat = game.getMinichat();
+    Window& window = game.getWindow();
 
     while (!quit) {
         std::unique_ptr<SDL_Event> event = events.pop();
@@ -14,11 +17,10 @@ void ClientEventHandler::run() {
                 quit = true;
                 break;
             }
+            selector.handleEvent(*event, game.getPlayerInfo().getXPos(),
+                                game.getPlayerInfo().getYPos(), window);
+            minichat.handleEvent(*event, game.getWindow());
             /*
-            selector.handleEvent(e, xPlayer, yPlayer, window);
-            minichat.handleEvent(e, game.getWindow());
-            window.handleEvent(e);
-
             if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
                  switch (e.key.keysym.sym) {
                      case SDLK_UP:

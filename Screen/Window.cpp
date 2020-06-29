@@ -63,8 +63,9 @@ void Window::_createRenderer() {
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 }
 
-void Window::handleEvent(SDL_Event& e) {
+bool Window::handleEvent(SDL_Event& e) {
     //Window event occured
+    bool handled = false;
     if (e.type == SDL_WINDOWEVENT) {
         switch (e.window.event) {
             //Get new dimensions and repaint on window size change
@@ -115,6 +116,7 @@ void Window::handleEvent(SDL_Event& e) {
                 mMinimized = false;
                 break;
         }
+        handled = true;
     }
         //Enter exit full screen on return key
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_F1) {
@@ -142,6 +144,8 @@ void Window::handleEvent(SDL_Event& e) {
         SDL_RestoreWindow(mWindow);
         SDL_SetWindowSize(mWindow, mWidth, mHeight);
     }
+
+    return handled;
 }
 
 SDL_Renderer& Window::getRenderer() {
