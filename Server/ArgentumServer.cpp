@@ -46,9 +46,12 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         time1 = high_resolution_clock::now();
 
         game.update(lastFrameTime, protocol);
-        //protocol.notifyClients();
 
+
+        protocol.buildGeneralDataBuffer();
+        clients.communicateResult();
         //Aca se borran los clientes desconectados
+
 
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;

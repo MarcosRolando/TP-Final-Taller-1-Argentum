@@ -21,6 +21,7 @@ class ClientHandler : public Thread {
 private:
     Socket socket;
     std::atomic<bool> finished;
+    std::atomic<bool> hasDataToSend;
     ServerProtocol& protocol;
     PlayerLoader& loader;
     std::queue<std::string> requestsQueue;
@@ -38,6 +39,8 @@ public:
 
     void update();
 
+    void sendUpdateData();
+
 private:
     /*Implementa el metodo virtual run de Thread, que sera el metodo ejecutado
     * por el thread*/
@@ -45,6 +48,7 @@ private:
     void _receive(std::vector<char>& message, unsigned int& bufferLength);
     void _send(std::vector<char>& message, unsigned int& bufferLength);
     void _sendMapInfoToClient();
+    void _sendUpdateDataToClient();
 };
 
 

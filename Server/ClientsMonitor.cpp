@@ -19,11 +19,13 @@ void ClientsMonitor::join() {
 }
 
 void ClientsMonitor::update() {
-    std::lock_guard<std::mutex> lock(mutex);
+    //std::lock_guard<std::mutex> lock(mutex);
     for (auto & client : clients) {
         client->update();
     }
 }
+
+
 
 void ClientsMonitor::pushToWaitingList(Socket &&peer, ServerProtocol &protocol, PlayerLoader& loader) {
     std::lock_guard<std::mutex> lock(mutex);
@@ -37,4 +39,10 @@ void ClientsMonitor::mergeWaitingClients() {
         (*clients.back())();
     }
     waitingList.clear();
+}
+
+void ClientsMonitor::communicateResult() {
+    for (auto & client: clients) {
+        client->sendUpdateData();
+    }
 }

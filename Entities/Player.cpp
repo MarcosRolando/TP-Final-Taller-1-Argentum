@@ -159,14 +159,14 @@ void Player::requestMove(GameType::Direction direction) {
 
 void Player::unequip(EquipmentPlace clothing) {
     if (!stats.isDead()) {
-        stats.startMeditating();
+        stats.stopMeditating();
         inventory.unequip(clothing);
     }
 }
 
 void Player::unequip() {
     if (!stats.isDead()) {
-        stats.startMeditating();
+        stats.stopMeditating();
         inventory.unequip();
     }
 }

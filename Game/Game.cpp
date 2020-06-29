@@ -8,6 +8,7 @@
 #include "../Entities/Monster.h"
 #include "ShouldMonsterBeRemoved.h"
 #include "Events/Event.h"
+#include "../Server/ServerProtocol.h"
 
 /////////////////////////////////PRIVATE//////////////////////////
 
@@ -91,6 +92,8 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
     //AGREGAR UPDATE DE PLAYERS CONECTADOS
 
     _removeEntities();
+
+
 }
 
 #include "../Entities/Player.h" //todo volar esto al carajo, es de prueba

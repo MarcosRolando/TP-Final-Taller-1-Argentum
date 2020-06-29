@@ -11,14 +11,19 @@ void ClientHandler::run() {
     _sendMapInfoToClient();
     std::vector<char> data = protocol.getCurrentState(player);
     socket.send(data.data(), data.size());
-    /*
-    std::unique_lock<std::mutex> lk(m);
+
+    //std::unique_lock<std::mutex> lk(m);
     //std::vector<char> buffer;
 
     while (!finished) {
         //socket.receive(buffer, sizeof(unit32_t));
+
+        if (hasDataToSend) {
+            socket.send();
+            hasDataToSend = false;
+        }
+
     }
-*/
 }
 
 void ClientHandler::_receive(std::vector<char>& message,
@@ -42,13 +47,21 @@ bool ClientHandler::hasFinished() const {
     return finished;
 }
 
+void ClientHandler::update() {
+    //todo
+}
+
+void ClientHandler::sendUpdateData() {
+    hasDataToSend = true;
+}
+
+void ClientHandler::_sendUpdateDataToClient() {
+    socket.send(protocol.getGeneralData());
+}
+
 void ClientHandler::_sendMapInfoToClient() {
     const std::vector<char>& mapInfo = protocol.getMapInfo();
     socket.send(mapInfo.data(), mapInfo.size());
-}
-
-void ClientHandler::update() {
-    //todo
 }
 
 

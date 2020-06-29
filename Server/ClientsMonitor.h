@@ -24,6 +24,7 @@ public:
     void mergeWaitingClients();
     void update();
     void eraseDisconnectedClients();
+    void communicateResult();
     void join();
 };
 
