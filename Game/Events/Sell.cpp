@@ -10,6 +10,6 @@ Sell::Sell(Player &player, const std::string& _itemName, Coordinate _position):
     position = _position;
 }
 
-void Sell::operator()() {
+void Sell::operator()(ServerProtocol& protocol) {
     player.sellTo(itemName, position);
 }

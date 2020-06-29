@@ -9,6 +9,6 @@ List::List(Player &_player, Coordinate _npcPosition) : player(_player) {
     npcPosition = _npcPosition;
 }
 
-void List::operator()() {
+void List::operator()(ServerProtocol& protocol) {
     player.listFrom(npcPosition);
 }

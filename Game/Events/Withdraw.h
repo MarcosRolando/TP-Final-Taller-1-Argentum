@@ -20,7 +20,7 @@ private:
 
 public:
     Withdraw(Player& player, const std::string& _itemName, Coordinate _npcPosition);
-    void operator()() override;
+    void operator()(ServerProtocol& protocol) override;
 };
 
 #endif //ARGENTUM_WITHDRAW_H

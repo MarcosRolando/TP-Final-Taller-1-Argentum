@@ -9,6 +9,6 @@ Attack::Attack(Entity& _entity, Coordinate _target) : entity(_entity) {
     target = _target;
 }
 
-void Attack::operator()() {
+void Attack::operator()(ServerProtocol& protocol) {
     entity.attack(target);
 }

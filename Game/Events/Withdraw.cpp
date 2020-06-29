@@ -10,6 +10,6 @@ Withdraw::Withdraw(Player &_player, const std::string &_itemName, Coordinate _np
     npcPosition = _npcPosition;
 }
 
-void Withdraw::operator()() {
+void Withdraw::operator()(ServerProtocol& protocol) {
     player.withdrawFrom(itemName, npcPosition);
 }

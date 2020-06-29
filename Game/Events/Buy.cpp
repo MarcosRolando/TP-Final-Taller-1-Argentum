@@ -10,6 +10,6 @@ Buy::Buy(Player &_player, const std::string &_itemName, Coordinate _npcPosition)
     npcPosition = _npcPosition;
 }
 
-void Buy::operator()() {
+void Buy::operator()(ServerProtocol& protocol) {
     player.buyFrom(itemName, npcPosition);
 }

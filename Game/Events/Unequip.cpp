@@ -13,7 +13,7 @@ Unequip::Unequip(Player &player): player(player) {
     equipment = EQUIPMENT_PLACE_WEAPON;
 }
 
-void Unequip::operator()() {
+void Unequip::operator()(ServerProtocol& protocol) {
     if (equipment == EQUIPMENT_PLACE_WEAPON) {
         player.unequip();
     } else {

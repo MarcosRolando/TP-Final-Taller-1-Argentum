@@ -17,7 +17,7 @@ private:
 public:
     Unequip(Player& player, EquipmentPlace equipment);
     explicit Unequip(Player& player);
-    void operator()() override;
+    void operator()(ServerProtocol& protocol) override;
 };
 
 

@@ -20,7 +20,7 @@ private:
 
 public:
     Move(Game& _game, Entity& _entity, Coordinate _destination);
-    void operator()() override;
+    void operator()(ServerProtocol& protocol) override;
 };
 
 
