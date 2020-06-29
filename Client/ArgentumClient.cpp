@@ -42,6 +42,7 @@ void Client::_processConnection() {
     //Aca falta lo del main menu y la seleccion de server/player etc
     std::unique_ptr<SDL_Event> event(new SDL_Event());
     while (!quit) {
+
         while(SDL_PollEvent(event.get()) != 0) {
             if (!window.handleEvent(*event)) {
                 events.push(std::move(event));
@@ -52,17 +53,6 @@ void Client::_processConnection() {
     }
 
     eventHandler.join();
-    /*
-    while (!finished) {
-        try {
-            _send();
-            _receive();
-        } catch(TPException& e) {
-            User::showMessage(e.what());
-        }
-        //finished = protocol.hasFinished();
-    }
-    */
 }
 
 void Client::connect() {
