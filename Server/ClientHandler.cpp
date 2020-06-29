@@ -19,7 +19,7 @@ void ClientHandler::run() {
         //socket.receive(buffer, sizeof(unit32_t));
 
         if (hasDataToSend) {
-            socket.send();
+            _sendUpdateDataToClient();
             hasDataToSend = false;
         }
 
@@ -56,7 +56,10 @@ void ClientHandler::sendUpdateData() {
 }
 
 void ClientHandler::_sendUpdateDataToClient() {
-    socket.send(protocol.getGeneralData());
+    const std::vector<char>& generalData = protocol.getGeneralData();
+    socket.send(generalData.data(), generalData.size());
+
+    //ACA SE MANDA LA INFORMACION GENERAL DE PLAYER
 }
 
 void ClientHandler::_sendMapInfoToClient() {

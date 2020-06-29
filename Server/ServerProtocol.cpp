@@ -42,7 +42,7 @@ void ServerProtocol::addToGeneralData(std::stringstream &data) {
     generalData << data.str();
 }
 
-const std::vector<char>& ServerProtocol::getGeneralData(std::vector<char>& length) {
+const std::vector<char>& ServerProtocol::getGeneralData() {
     return generalDataBuffer;
 }
 

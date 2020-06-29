@@ -36,7 +36,7 @@ public:
     //que guarda la informacion general
     void buildGeneralDataBuffer();
 
-    const std::vector<char>& getGeneralData(std::vector<char>& length);
+    const std::vector<char>& getGeneralData();
 };
 
 
