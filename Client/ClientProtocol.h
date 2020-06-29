@@ -27,6 +27,7 @@ private:
     void _receiveMapInfo();
     void _loadMap();
     void _receiveCurrentGameState();
+    //Meter handler y offset en la clase para no mandarlo siempre
     void _processAddEntity(msgpack::object_handle &handler, std::size_t& offset);
     void _processAddItem(msgpack::object_handle &handler, std::size_t& offset);
     void _processAddPlayer(msgpack::type::tuple<GameType::Entity,
@@ -37,6 +38,11 @@ private:
     void _addManaData(msgpack::object_handle &handler, size_t& offset);
     void _addHealthData(msgpack::object_handle &handler, size_t& offset);
     void _addXPData(msgpack::object_handle &handler, size_t& offset);
+    void _addEquippedItems(msgpack::object_handle &handler, size_t &offset);
+    void _addClothing(msgpack::object_handle &handler, size_t &offset);
+    void _addWeapon(msgpack::object_handle &handler, size_t &offset);
+    void _fillInventory(msgpack::object_handle &handler, size_t &offset);
+    void _addItem(msgpack::object_handle &handler, size_t &offset);
 };
 
 

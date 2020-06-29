@@ -29,7 +29,7 @@ PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &ren
 
 void PlayerInventoryGUI::addInventoryItem(TextureID texture) {
     if (inventoryTextures.size() < INVENTORY_SIZE) {
-        inventoryTextures.push_back(&repo.getTexture(texture));
+        inventoryTextures.emplace_back(&repo.getTexture(texture));
     }
 }
 

@@ -21,7 +21,6 @@ MSGPACK_ADD_ENUM(GameType::ItemType)
 ClientProtocol::ClientProtocol(GameGUI &_game, Socket &_socket) : game(_game), socket(_socket) {
     _receiveMapInfo();
     _receiveCurrentGameState();
-   //_receivePlayerInfo();
 }
 
 void ClientProtocol::_loadMap() {
@@ -76,6 +75,73 @@ void ClientProtocol::_receiveCurrentGameState() {
     }
 }
 
+void ClientProtocol::_addClothing(msgpack::object_handle& handler,
+                                size_t& offset){
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::type::tuple<int32_t> equippedClothing;
+    handler->convert(equippedClothing);
+    translator.getClothingDropTexture(static_cast<GameType::Clothing>
+                                      (std::get<0>(equippedClothing)));
+}
+
+void ClientProtocol::_addWeapon(msgpack::object_handle& handler,
+                                  size_t& offset){
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::type::tuple<int32_t> equippedClothing;
+    handler->convert(equippedClothing);
+    translator.getWeaponDropTexture(static_cast<GameType::Weapon>
+                                      (std::get<0>(equippedClothing)));
+}
+
+void ClientProtocol::_addItem(msgpack::object_handle& handler,
+                              size_t& offset){
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::type::tuple<GameType::ItemType, int32_t> item;
+    handler->convert(item);
+    GameType::ItemType type = std::get<0>(item);
+    TextureID texture;
+    switch (type) {
+        case GameType::ITEM_TYPE_WEAPON:
+            texture = translator.getWeaponDropTexture(static_cast<GameType::Weapon>
+                                                            (std::get<1>(item)));
+            break;
+        case GameType::ITEM_TYPE_CLOTHING:
+            texture = translator.getClothingDropTexture(static_cast<GameType::Clothing>
+                                                            (std::get<1>(item)));
+            break;
+        case GameType::ITEM_TYPE_POTION:
+            texture = translator.getPotionTexture(static_cast<GameType::Potion>
+                                                            (std::get<1>(item)));
+            break;
+        default:
+            //Capaz aca puedo ver cuando recibe ITEM_TYPE_NONE
+            break;
+    }
+    game.getPlayerInventory().addInventoryItem(texture);
+}
+
+void ClientProtocol::_fillInventory(msgpack::object_handle& handler,
+                                    size_t& offset){
+    for (int i = 0; i < 16; ++i) {
+        handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+        msgpack::type::tuple<GameType::ItemType, int32_t> item;
+        handler->convert(item);
+        if (static_cast<GameType::ItemType>(std::get<0>(item)) != GameType::ITEM_TYPE_NONE){
+            _addItem(handler, offset);
+        } else {
+            //
+        }
+    }
+}
+
+void ClientProtocol::_addEquippedItems(msgpack::object_handle& handler,
+                                       size_t& offset){
+    _addClothing(handler, offset);//Esto carga el helmet
+    _addClothing(handler, offset);//Esto carga la armadura
+    _addClothing(handler, offset);//Esto carga el shield
+    _addWeapon(handler, offset);
+}
+
 void ClientProtocol::_processAddInventoryItems(msgpack::object_handle& handler,
         size_t& offset) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
@@ -83,6 +149,8 @@ void ClientProtocol::_processAddInventoryItems(msgpack::object_handle& handler,
     handler->convert(gold);
     game.getPlayerInventory().updateGold(std::get<0>(gold));
     //Aca recibe los items del inventario
+    _addEquippedItems(handler, offset);
+    _fillInventory(handler, offset);
 }
 
 void ClientProtocol::_addXPData(msgpack::object_handle& handler, size_t& offset) {
