@@ -5,11 +5,14 @@
 #include "Entity.h"
 #include "../GameConstants.h"
 
+const unsigned int TILE_DISTANCE_IN_METERS = 500;
+const float SERVER_UPDATE_TIME = 33.f; /*in miliseconds*/
+
 Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
-    movedOffset = 0;
+    distanceMoved = 0;
     currentFrame = 0;
-    moveDirection = STILL;
-    lastDirection = STILL;
+    moveDirection = GameType::DIRECTION_STILL;
+    lastDirection = GameType::DIRECTION_STILL;
     xPosition = x;
     yPosition = y;
     width = (float)TILE_WIDTH/2;
@@ -19,39 +22,39 @@ Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
 void Entity::updatePosition(float timeStep) {
     //Calculate time step
     float offset = SPEED*timeStep;
-    if (moveDirection != STILL) {
-        if ( (movedOffset + offset) >= (float)TILE_WIDTH) {
-            offset = TILE_WIDTH - movedOffset;
-            movedOffset = TILE_WIDTH;
+    if (moveDirection != GameType::DIRECTION_STILL) {
+        if ( (distanceMoved + offset) >= (float)TILE_WIDTH) {
+            offset = TILE_WIDTH - distanceMoved;
+            distanceMoved = TILE_WIDTH;
         } else {
-            movedOffset += offset;
+            distanceMoved += offset;
         }
         switch (moveDirection) {
-            case UP:
+            case GameType::DIRECTION_UP:
                 yPosition -= offset;
                 break;
-            case DOWN:
+            case GameType::DIRECTION_DOWN:
                 yPosition += offset;
                 break;
-            case RIGHT:
+            case GameType::DIRECTION_RIGHT:
                 xPosition += offset;
                 break;
-            case LEFT:
+            case GameType::DIRECTION_LEFT:
                 xPosition -= offset;
                 break;
-            case STILL:
+            case GameType::DIRECTION_STILL:
                 //do nothing
                 break;
         }
     }
-    if (movedOffset >= TILE_WIDTH) {
+    if (distanceMoved >= TILE_WIDTH) {
         currentFrame = 0;
         lastDirection = moveDirection;
-        moveDirection = STILL;
-        movedOffset = 0;
+        moveDirection = GameType::DIRECTION_STILL;
+        distanceMoved = 0;
     } else {
         for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
-            if (movedOffset < ((float)TILE_WIDTH/6 * (float)(i+1))) {
+            if (distanceMoved < ((float)TILE_WIDTH/6 * (float)(i+1))) {
                 currentFrame = i;
                 break;
             }
@@ -90,23 +93,23 @@ bool Entity::_checkCollision(SDL_Rect a, SDL_Rect b) {
 void Entity::render(EntityTexture& eTexture) {
     if (_checkCollision(camera, {(int)xPosition, (int)yPosition, (int)width, (int)height})) {
         switch (moveDirection) {
-            case UP:
+            case GameType::DIRECTION_UP:
                 eTexture.renderBack((int)(xPosition) - camera.x,
                                     (int)(yPosition) - camera.y, currentFrame);
                 break;
-            case DOWN:
+            case GameType::DIRECTION_DOWN:
                 eTexture.renderFront((int)(xPosition) - camera.x,
                                      (int)(yPosition) - camera.y, currentFrame);
                 break;
-            case RIGHT:
+            case GameType::DIRECTION_RIGHT:
                 eTexture.renderRight((int)(xPosition) - camera.x,
                                      (int)(yPosition) - camera.y, currentFrame);
                 break;
-            case LEFT:
+            case GameType::DIRECTION_LEFT:
                 eTexture.renderLeft((int)(xPosition) - camera.x,
                                     (int)(yPosition) - camera.y, currentFrame);
                 break;
-            case STILL:
+            case GameType::DIRECTION_STILL:
                 _renderLastDirection(eTexture);
         }
     };
@@ -114,23 +117,23 @@ void Entity::render(EntityTexture& eTexture) {
 
 void Entity::_renderLastDirection(EntityTexture& eTexture) {
     switch (lastDirection) {
-        case UP:
+        case GameType::DIRECTION_UP:
             eTexture.renderBack((int)(xPosition) - camera.x,
                                 (int)(yPosition) - camera.y, 0);
             break;
-        case DOWN:
+        case GameType::DIRECTION_DOWN:
             eTexture.renderFront((int)(xPosition) - camera.x,
                                  (int)(yPosition) - camera.y, 0);
             break;
-        case RIGHT:
+        case GameType::DIRECTION_RIGHT:
             eTexture.renderRight((int)(xPosition) - camera.x,
                                  (int)(yPosition) - camera.y, 0);
             break;
-        case LEFT:
+        case GameType::DIRECTION_LEFT:
             eTexture.renderLeft((int)(xPosition) - camera.x,
                                 (int)(yPosition) - camera.y, 0);
             break;
-        case STILL:
+        case GameType::DIRECTION_STILL:
             eTexture.renderFront((int)(xPosition) - camera.x,
                                  (int)(yPosition) - camera.y, 0);
     }
@@ -156,15 +159,31 @@ void Entity::updateCamera() {
     }
 }
 
-void Entity::move(Direction direction) {
-    if (moveDirection == STILL) moveDirection = direction;
+void Entity::move(GameType::Direction direction, unsigned int distanceTravelled) {
+    if (distanceToMove > distanceMoved) { /*Esto es por si por algun motivo no llegue a interpolarlo a la posicion de destino a tiempo*/
+        _modifyPosition(moveDirection, distanceToMove - distanceMoved);
+    }
+    moveDirection = direction;
+    distanceToMove = static_cast<float>(TILE_WIDTH) *
+            static_cast<float>(distanceTravelled) / static_cast<float>(TILE_DISTANCE_IN_METERS);
+    distancePerMilisecond = distanceToMove / SERVER_UPDATE_TIME;
 }
 
-float Entity::getXPosition(){ //Estas capaz despues las tenemos q sacar, ahora
-    // las uso para probar
-    return xPosition;
-}
-
-float Entity::getYPosition(){
-    return yPosition;
+void Entity::_modifyPosition(GameType::Direction direction, float distance) {
+    switch (direction) {
+        case GameType::DIRECTION_UP:
+            yPosition -= distance;
+            break;
+        case GameType::DIRECTION_DOWN:
+            yPosition += distance;
+            break;
+        case GameType::DIRECTION_LEFT:
+            xPosition -= distance;
+            break;
+        case GameType::DIRECTION_RIGHT:
+            xPosition += distance;
+            break;
+        case GameType::DIRECTION_STILL:
+            //do nothing
+    }
 }

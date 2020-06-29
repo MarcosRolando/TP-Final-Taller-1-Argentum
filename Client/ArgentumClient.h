@@ -30,7 +30,7 @@ private:
     void _receive();
     void _processConnection();
     static void _initializeSDL();
-    void _closeSDL();
+    static void _closeSDL();
 };
 
 

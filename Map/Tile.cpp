@@ -49,3 +49,9 @@ void Tile::renderEntity(float timeStep) {
         entity->render(timeStep);
     }
 }
+
+void Tile::moveEntity(GameType::Direction direction, unsigned int distanceTravelled) {
+    if (entity) {
+        entity->move(direction, distanceTravelled);
+    }
+}

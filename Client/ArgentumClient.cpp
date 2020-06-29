@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 #include <utility>
-#include "BlockingQueue.h"
+#include "BlockingQueue.hpp"
 #include <SDL_mixer.h>
 
 #define FREQUENCY 44100

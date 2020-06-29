@@ -11,6 +11,7 @@
 #include "../Character/Entity.h"
 #include "Coordinate.h"
 #include <memory>
+#include "../Shared/GameEnums.h"
 
 class Tile {
 private:
@@ -43,6 +44,8 @@ public:
     void addItemDrop(Texture& itemTexture);
 
     void addEntity(std::unique_ptr<Entity> _entity);
+
+    void moveEntity(GameType::Direction direction, unsigned int distanceTravelled);
 };
 
 

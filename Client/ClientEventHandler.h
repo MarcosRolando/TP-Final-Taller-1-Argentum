@@ -9,7 +9,7 @@
 #include "Thread.h"
 #include "GameGUI.h"
 #include <sstream>
-#include "BlockingQueue.h"
+#include "BlockingQueue.hpp"
 
 class Socket;
 

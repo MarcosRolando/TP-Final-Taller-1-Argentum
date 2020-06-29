@@ -39,8 +39,9 @@ public:
     void addPlayer(PlayerEquipment equipment, bool isAlive, std::string &&nickname,
             Coordinate position);
 
-private:
-    void _setTiles();
+    /*Desplaza a la entidad en la direccion recibida y comienza su interpolacion interna para que se vea fluido*/
+    void moveEntity(std::string& nickname, GameType::Direction direction,
+            unsigned int distanceTraveled, bool reachedDestination);
 };
 
 
