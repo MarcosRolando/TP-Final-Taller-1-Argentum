@@ -147,7 +147,6 @@ Player& Game::loadPlayer() {
     player.storeItem(std::shared_ptr<Item>(new Weapon(GameType::COMPOSITE_BOW)));
     player.storeItem(std::shared_ptr<Item>(new Head(GameType::HOOD)));
     player.useItem(1);
-    player.useItem(0);
     map.addEntity({1, 4}, std::move(playeraso));
     return player;
 }
