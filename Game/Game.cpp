@@ -138,15 +138,16 @@ Game::Game(ClientsMonitor&& clientAux /*= ClientsMonitor()*/): clients(clientAux
 #include "../Items/Defense/Head.h"
 #include "../Items/Attack/Weapon.h"
 Player& Game::loadPlayer() {
-    map.removeEntity({1, 3});
+    map.removeEntity({1, 4});
     std::shared_ptr<Player> playeraso(new Player(*this, GameType::Race::GNOME, GameType::Class::WIZARD
             , 15, 100000
-            , {1, 3}, "Manolas"));
+            , {1, 4}, "Manolas"));
     Player& player = *playeraso;
     player.storeItem(std::shared_ptr<Item>(new Chest(GameType::PLATE_ARMOR)));
     player.storeItem(std::shared_ptr<Item>(new Weapon(GameType::COMPOSITE_BOW)));
     player.storeItem(std::shared_ptr<Item>(new Head(GameType::HOOD)));
     player.useItem(1);
-    map.addEntity({1, 3}, std::move(playeraso));
+    player.useItem(0);
+    map.addEntity({1, 4}, std::move(playeraso));
     return player;
 }

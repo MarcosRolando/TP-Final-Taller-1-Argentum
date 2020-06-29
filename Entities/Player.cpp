@@ -206,7 +206,7 @@ void Player::operator>>(std::stringstream &buffer) {
     Entity::operator>>(buffer);
     msgpack::type::tuple<Race> data(race);
     msgpack::pack(buffer, data);
-    //stats.storeLifeStatus(buffer);
+    stats.storeLifeStatus(buffer);
     inventory.storeEquippedItems(buffer);
 }
 
@@ -217,4 +217,7 @@ void Player::storeAllRelevantData(std::stringstream& buffer) const {
     msgpack::pack(buffer, data);
     inventory.storeAllData(buffer);
     stats.storeAllRelevantData(buffer);
+    msgpack::type::tuple<int32_t, int32_t> position(currentPosition.iPosition,
+                                                currentPosition.jPosition);
+    msgpack::pack(buffer, position);
 }

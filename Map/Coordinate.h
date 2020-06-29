@@ -10,8 +10,8 @@
 
 //Struct auxiliar para facilitar el paso de coordenadas, debido a esto no
 //tiene ningun comportamiento y sus atributos son publicos
-struct Coordinate{
-    int iPosition;
+struct Coordinate {
+    int iPosition; //todo ver si lo cambiamos a int32 xq estamos mandando esto
     int jPosition;
 };
 
