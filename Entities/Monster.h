@@ -42,7 +42,7 @@ private:
 
     void _move();
 
-    Direction _getMoveDirection();
+    GameType::Direction _getMoveDirection();
 
 public:
 

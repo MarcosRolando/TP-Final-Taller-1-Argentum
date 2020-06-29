@@ -15,6 +15,9 @@ class ServerProtocol {
 private:
     std::vector<char> mapBuffer;
     std::unordered_map<std::string, std::vector<char>> playersData; //(nickname, data)
+    //std::vector<char> generalData;
+    std::stringstream generalData;
+    std::vector<char> generalDataBuffer;
     const Map &map;
 
 private:
@@ -24,6 +27,16 @@ public:
     explicit ServerProtocol(const Map &map);
     const std::vector<char>& getMapInfo() const;
     std::vector<char> getCurrentState(PlayerProxy& proxyPlayer);
+
+    //Agrega la informacion del stringstream al buffer que contiene la informacion
+    //general que se mandara a todos los clientes
+    void addToGeneralData(std::stringstream& data);
+
+    //Arma el mensaje a mandar con la informacion general, resetea el stringstream
+    //que guarda la informacion general
+    void buildGeneralDataBuffer();
+
+    const std::vector<char>& getGeneralData(std::vector<char>& length);
 };
 
 

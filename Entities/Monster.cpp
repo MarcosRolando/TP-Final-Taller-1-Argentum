@@ -78,18 +78,18 @@ bool Monster::_tryToAttack() {
     return false;
 }
 
-Direction Monster::_getMoveDirection() {
+GameType::Direction Monster::_getMoveDirection() {
     Coordinate destiny = pathCache.front();
     Coordinate difference = {destiny.iPosition - currentPosition.iPosition,
                              destiny.jPosition - currentPosition.jPosition};
     if (difference.iPosition  == 1) {
-        return DIRECTION_DOWN;
+        return GameType::DIRECTION_DOWN;
     } else if (difference.iPosition == -1) {
-        return DIRECTION_UP;
+        return GameType::DIRECTION_UP;
     } else if (difference.jPosition == -1) {
-        return DIRECTION_LEFT;
+        return GameType::DIRECTION_LEFT;
     } else {
-        return DIRECTION_RIGHT;
+        return GameType::DIRECTION_RIGHT;
     }
 }
 

@@ -14,7 +14,7 @@ add_executable(tests tests.cpp MapTests.cpp MapTests.h ItemTests.cpp
         ../Items/ItemsFactory.cpp ../Items/ItemsFactory.h ../Config/Configuration.cpp ../Config/ConfigFileReader.cpp
         ../Config/Calculator.cpp
         ../AttackResult.h
-        ../TPException.cpp ../Entities/MoveDirection.h ../Items/Miscellaneous/ManaPotion.cpp
+        ../TPException.cpp ../Items/Miscellaneous/ManaPotion.cpp
         ../Items/Miscellaneous/ManaPotion.h ../Items/Miscellaneous/HealthPotion.cpp
         ../Items/Miscellaneous/HealthPotion.h ../Items/Miscellaneous/Potion.cpp
         ../Items/Miscellaneous/Potion.h ../Entities/MonsterStats.cpp ../Entities/MonsterStats.h

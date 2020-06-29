@@ -30,7 +30,7 @@ void PlayerProxy::meditate() {
     player.meditate();
 }
 
-void PlayerProxy::move(Direction direction) {
+void PlayerProxy::move(GameType::Direction direction) {
     player.requestMove(direction);
 }
 

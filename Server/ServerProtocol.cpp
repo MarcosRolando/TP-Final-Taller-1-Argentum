@@ -30,14 +30,29 @@ std::vector<char> ServerProtocol::getCurrentState(PlayerProxy& proxyPlayer) {
     std::stringstream data;
     map.getCurrentState(data);
     player.storeAllRelevantData(data);
-    uint32_t msgLength = htonl(data.str().size());
+    std::string auxString = data.str();
+    uint32_t msgLength = htonl(auxString.size());
     buffer.resize(sizeof(uint32_t));
     _loadBytes(buffer, &msgLength, sizeof(uint32_t));
-    std::string auxString = data.str();
     std::copy(auxString.begin(), auxString.end(), std::back_inserter(buffer));
-    char* aux = buffer.data();
-    std::cout << aux;
     return buffer;
+}
+
+void ServerProtocol::addToGeneralData(std::stringstream &data) {
+    generalData << data.str();
+}
+
+const std::vector<char>& ServerProtocol::getGeneralData(std::vector<char>& length) {
+    return generalDataBuffer;
+}
+
+void ServerProtocol::buildGeneralDataBuffer() {
+    std::string auxString = generalData.str();
+    uint32_t msgLength = htonl(auxString.size());
+    generalDataBuffer.resize(sizeof(uint32_t));
+    _loadBytes(generalDataBuffer, &msgLength, sizeof(uint32_t));
+    std::copy(auxString.begin(), auxString.end(), std::back_inserter(generalDataBuffer));
+    generalData.clear();
 }
 
 ///////////////////////////////PRIVATE/////////////////////////////

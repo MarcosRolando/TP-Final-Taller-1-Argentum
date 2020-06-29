@@ -7,6 +7,7 @@
 #include "../Game/Game.h"
 #include "../Game/Events/Move.h"
 #include "../Config/GameEnums.h"
+#include "../Game/Events/Moved.h"
 #include <msgpack.hpp>
 
 MSGPACK_ADD_ENUM(GameType::ID)
@@ -22,6 +23,7 @@ Entity::Entity(GameType::Entity _type, Coordinate initialPosition, std::string&&
     currentPosition.jPosition = initialPosition.jPosition;
     movement.movedDistance = 0;
     movement.isMoving = false;
+    movement.direction = GameType::DIRECTION_UP;
     speed = 2;
     type = _type;
     nickname = std::move(_nicknamePrefix);
@@ -67,26 +69,26 @@ void Entity::sell(Player &player, const std::string& itemName) {
     //DO NOTHING
 }
 
-void Entity::requestMove(Game& game, Direction moveDirection) {
+void Entity::requestMove(Game& game, GameType::Direction moveDirection) {
     if (!isMoving()) {
         std::unique_ptr<Move> event;
         switch (moveDirection) {
-            case DIRECTION_UP:
+            case GameType::DIRECTION_UP:
                 event.reset(new Move(game, *this, {currentPosition.iPosition - 1,
                                                                     currentPosition.jPosition} ));
                 game.pushEvent(std::move(event));
                 break;
-            case DIRECTION_DOWN:
+            case GameType::DIRECTION_DOWN:
                 event.reset(new Move(game, *this, {currentPosition.iPosition + 1,
                                                                    currentPosition.jPosition} ));
                 game.pushEvent(std::move(event));
                 break;
-            case DIRECTION_RIGHT:
+            case GameType::DIRECTION_RIGHT:
                 event.reset(new Move(game, *this, {currentPosition.iPosition,
                                                                    currentPosition.jPosition + 1} ));
                 game.pushEvent(std::move(event));
                 break;
-            case DIRECTION_LEFT:
+            case GameType::DIRECTION_LEFT:
                 event.reset(new Move(game, *this, {currentPosition.iPosition,
                                                    currentPosition.jPosition - 1} ));
                 game.pushEvent(std::move(event));
@@ -103,11 +105,16 @@ void Entity::move(Coordinate newPosition) {
 
 void Entity::update(double timeStep) {
     if (movement.isMoving) {
+        std::shared_ptr<Moved> event(new Moved(*this, movement.direction,
+                                       static_cast<unsigned int>(timeStep) * speed));
+
+        /*
         movement.movedDistance += static_cast<unsigned int>(timeStep) * speed;
         if (movement.movedDistance >= DISTANCE_TO_MOVE) {
             movement.movedDistance = DISTANCE_TO_MOVE;
             movement.isMoving = false;
         }
+        */
     }
 }
 
@@ -138,4 +145,15 @@ bool Entity::isCitizen() {
 
 const std::string &Entity::getNickname() const {
     return nickname;
+}
+
+int32_t Entity::executeDisplacement(int32_t displacement) {
+    int32_t realDisplacement = displacement;
+    movement.movedDistance += displacement;
+    if (movement.movedDistance >= DISTANCE_TO_MOVE) {
+        realDisplacement = movement.movedDistance - DISTANCE_TO_MOVE;
+        movement.movedDistance = DISTANCE_TO_MOVE;
+        movement.isMoving = false;
+    }
+    return realDisplacement;
 }

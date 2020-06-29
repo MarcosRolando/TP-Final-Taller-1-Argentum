@@ -76,7 +76,7 @@ public:
     void meditate();
 
     //Notifica al juego la intencion de moverse del player
-    void requestMove(Direction direction);
+    void requestMove(GameType::Direction direction);
 
     //Desequipa la ropa de equipment place
     void unequip(EquipmentPlace clothing);

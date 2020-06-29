@@ -22,7 +22,7 @@ add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Atta
         Items/ItemsFactory.cpp Items/ItemsFactory.h Config/Configuration.cpp Config/ConfigFileReader.cpp
         Config/Calculator.cpp
         AttackResult.h
-        TPException.cpp Entities/MoveDirection.h Items/Miscellaneous/ManaPotion.cpp
+        TPException.cpp Items/Miscellaneous/ManaPotion.cpp
         Items/Miscellaneous/ManaPotion.h Items/Miscellaneous/HealthPotion.cpp
         Items/Miscellaneous/HealthPotion.h Items/Miscellaneous/Potion.cpp
         Items/Miscellaneous/Potion.h Entities/MonsterStats.cpp Entities/MonsterStats.h
@@ -38,7 +38,7 @@ add_executable(argentum main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Atta
         Server/ServerProtocol.cpp Server/ServerProtocol.h
         Server/ClientHandler.cpp Server/ArgentumServer.cpp Server/ServerMonitor.cpp Server/ServerMonitor.cpp
         Server/Socket.cpp Server/Thread.cpp Server/ArgentumServerSide.cpp Server/ClientAccepter.cpp Server/ClientAccepter.h
-        Config/MapFileReader.cpp Entities/Citizens/CitizenFactory.cpp Entities/Citizens/CitizenFactory.h Server/ClientsMonitor.cpp Server/ClientsMonitor.h Server/PlayerLoader.cpp Server/PlayerLoader.h)
+        Config/MapFileReader.cpp Entities/Citizens/CitizenFactory.cpp Entities/Citizens/CitizenFactory.h Server/ClientsMonitor.cpp Server/ClientsMonitor.h Server/PlayerLoader.cpp Server/PlayerLoader.h Game/Events/Moved.cpp Game/Events/Moved.h)
 
 
 target_compile_options (argentum PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors

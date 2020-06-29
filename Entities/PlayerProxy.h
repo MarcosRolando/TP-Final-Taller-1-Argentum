@@ -6,7 +6,6 @@
 #define ARGENTUM_PLAYERPROXY_H
 
 #include <string>
-#include "MoveDirection.h"
 #include "../Items/Inventory.h"
 
 class Player;
@@ -23,7 +22,7 @@ public:
     void attack(Coordinate target);
     void useItem(int itemPosition);
     void meditate();
-    void move(Direction direction);
+    void move(GameType::Direction direction);
     void buyFrom(std::string&& itemName, Coordinate npcPosition);
     void sellTo(std::string&& itemName, Coordinate npcPosition);
     void withdrawFrom(std::string&& itemName, Coordinate npcPosition);

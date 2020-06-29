@@ -8,7 +8,6 @@
 
 #include "../Map/Coordinate.h"
 #include <list>
-#include "MoveDirection.h"
 #include <chrono>
 #include "../Config/GameEnums.h"
 
@@ -19,6 +18,9 @@ class Game;
 struct Movement {
     bool isMoving{};
     unsigned int movedDistance{};
+
+    //Esta direccion solo tiene sentido si se setea que se esta moviendo el entity
+    GameType::Direction direction;
 };
 
 class Player;
@@ -27,6 +29,8 @@ class Entity {
 private:
     static unsigned int availableId;
     std::string nickname;
+
+
 
 protected:
     Coordinate currentPosition{};
@@ -78,7 +82,7 @@ protected:
 
     //Encola la accion de movimiento si el entity esta quieto,
     // la cual puede ser rechazada o aceptada
-    void requestMove(Game& game, Direction moveDirection);
+    void requestMove(Game& game, GameType::Direction moveDirection);
 
     //Le asigna al jugador la posicion recibida
     void setPosition(Coordinate coordinate);
@@ -105,6 +109,8 @@ protected:
     bool isCitizen();
 
     const std::string& getNickname() const;
+
+    int32_t executeDisplacement(int32_t displacement);
 };
 
 
