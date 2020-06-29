@@ -51,11 +51,13 @@ void PlayerInventoryGUI::removeInventoryItem(int32_t inventorySlot) {
 }
 
 void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item) {
-    Texture* currTexture = &repo.getTexture(texture);
-    if(equippedTextures.count(item)){
-        equippedTextures.erase(item);
+    if (texture != Nothing){
+        Texture* currTexture = &repo.getTexture(texture);
+        /*if(equippedTextures.count(item)){
+            equippedTextures.erase(item);
+        }*/ //Ver si hay que poner esto o lo maneja el server
+        equippedTextures.emplace(item, currTexture);
     }
-    equippedTextures.emplace(item, currTexture);
 }
 
 void PlayerInventoryGUI::updateGold(int32_t _gold) {

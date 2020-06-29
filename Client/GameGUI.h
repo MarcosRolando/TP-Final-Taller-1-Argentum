@@ -35,7 +35,8 @@ public:
                       TextureID entity);
     void loadTileItem(Coordinate position, TextureID itemTexture);
     void addNPC(TextureID type, std::string&& nickname, Coordinate position);
-    void addPlayer(PlayerEquipment equipment, std::string&& nickname, Coordinate position);
+    void addPlayer(PlayerEquipment equipment, bool isAlive, std::string&& nickname,
+            Coordinate position);
 
     Window& getWindow();
     Minichat& getMinichat();

@@ -165,11 +165,11 @@ void Map::addNPC(TextureID entity, std::string&& nickname, Coordinate position) 
     entities.emplace(nickname, position);
 }
 
-void Map::addPlayer(PlayerEquipment equipment, std::string&& nickname,
+void Map::addPlayer(PlayerEquipment equipment, bool isAlive, std::string&& nickname,
                                                             Coordinate position) {
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     tiles[tile].addEntity(std::unique_ptr<Entity>(new Player(textureRepo,
-            camera, position.j*TILE_WIDTH,position.i*TILE_HEIGHT, equipment)));
+            camera, position.j*TILE_WIDTH,position.i*TILE_HEIGHT, equipment, isAlive)));
     entities.emplace(nickname, position);
 }
 

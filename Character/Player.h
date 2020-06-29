@@ -13,11 +13,12 @@ class Player : public Entity {
 private:
     PlayerTexture pTexture;
     NPCTexture ghostTexture;
-    bool isDead{false};
+    bool isAlive{true};
 
 public:
     Player(TextureRepository& repo, SDL_Rect& camera, float x, float y,
-                                                    PlayerEquipment& images);
+                                                    PlayerEquipment& images,
+                                                    bool _isAlive = true);
     void render(float timeStep) override;
 };
 

@@ -36,7 +36,8 @@ public:
 
     void addNPC(TextureID entity, std::string&& nickname, Coordinate position);
 
-    void addPlayer(PlayerEquipment equipment, std::string &&nickname, Coordinate position);
+    void addPlayer(PlayerEquipment equipment, bool isAlive, std::string &&nickname,
+            Coordinate position);
 
 private:
     void _setTiles();

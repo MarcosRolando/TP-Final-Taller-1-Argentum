@@ -68,9 +68,9 @@ void GameGUI::loadTileItem(Coordinate position, TextureID itemTexture) {
     map.loadTileItem(position, itemTexture);
 }
 
-void GameGUI::addPlayer(PlayerEquipment equipment, std::string &&nickname,
+void GameGUI::addPlayer(PlayerEquipment equipment, bool isAlive, std::string &&nickname,
                         Coordinate position) {
-    map.addPlayer(equipment, std::move(nickname), position);
+    map.addPlayer(equipment, isAlive, std::move(nickname), position);
 }
 
 PlayerInventoryGUI &GameGUI::getPlayerInventory() {

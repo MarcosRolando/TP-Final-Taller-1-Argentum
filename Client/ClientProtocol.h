@@ -5,6 +5,7 @@
 #ifndef ARGENTUM_CLIENTPROTOCOL_H
 #define ARGENTUM_CLIENTPROTOCOL_H
 
+#include "../SDL/GUI/PlayerInventoryGUI.h"//para el equippeditems enum
 #include "../Shared/GameEnums.h"
 #include <vector>
 #include <msgpack.hpp>
@@ -39,10 +40,14 @@ private:
     void _addHealthData(msgpack::object_handle &handler, size_t& offset);
     void _addXPData(msgpack::object_handle &handler, size_t& offset);
     void _addEquippedItems(msgpack::object_handle &handler, size_t &offset);
-    void _addClothing(msgpack::object_handle &handler, size_t &offset);
+    void _addClothing(msgpack::object_handle &handler, size_t &offset, EquippedItems item);
     void _addWeapon(msgpack::object_handle &handler, size_t &offset);
     void _fillInventory(msgpack::object_handle &handler, size_t &offset);
-    void _addItem(msgpack::object_handle &handler, size_t &offset);
+    void _addItem(GameType::ItemType type, int32_t id);
+
+    void _addSkills(msgpack::object_handle &handler, size_t &offset);
+
+    void _addPosition(msgpack::object_handle &handler, size_t &offset);
 };
 
 
