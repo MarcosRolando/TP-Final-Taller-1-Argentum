@@ -18,7 +18,7 @@ private:
     unsigned int position;
 public:
     Drop(Player& player, unsigned int position);
-    void operator()() override;
+    void operator()(ServerProtocol& protocol) override;
 };
 
 

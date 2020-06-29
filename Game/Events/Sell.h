@@ -19,7 +19,7 @@ private:
     std::string itemName;
 public:
     Sell(Player& player, const std::string& itemName, Coordinate position);
-    void operator()() override;
+    void operator()(ServerProtocol& protocol) override;
 };
 
 

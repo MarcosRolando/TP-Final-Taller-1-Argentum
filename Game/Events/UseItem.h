@@ -17,7 +17,7 @@ private:
 
 public:
     UseItem(Player& player, int position);
-    void operator()() override;
+    void operator()(ServerProtocol& protocol) override;
 };
 
 

@@ -20,7 +20,7 @@ private:
 
 public:
     Buy(Player& player, const std::string& _itemName, Coordinate _npcPosition);
-    void operator()() override;
+    void operator()(ServerProtocol& protocol) override;
 };
 
 

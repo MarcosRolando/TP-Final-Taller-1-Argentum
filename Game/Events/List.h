@@ -19,7 +19,7 @@ private:
 
 public:
     List(Player& player, Coordinate _npcPosition);
-    void operator()() override;
+    void operator()(ServerProtocol& protocol) override;
 };
 
 

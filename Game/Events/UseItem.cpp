@@ -9,6 +9,6 @@ UseItem::UseItem(Player &player, int _position): player(player) {
     position = _position;
 }
 
-void UseItem::operator()() {
+void UseItem::operator()(ServerProtocol& protocol) {
     player.useItem(position);
 }

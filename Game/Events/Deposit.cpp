@@ -10,6 +10,6 @@ Deposit::Deposit(Player &_player, const std::string &_itemName, Coordinate _npcP
     npcPosition = _npcPosition;
 }
 
-void Deposit::operator()() {
+void Deposit::operator()(ServerProtocol& protocol) {
     player.depositTo(itemName, npcPosition);
 }

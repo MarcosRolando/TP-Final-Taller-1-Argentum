@@ -18,7 +18,7 @@ private:
 
 public:
     Attack(Entity& _entity, Coordinate _target);
-    void operator()() override;
+    void operator()(ServerProtocol& protocol) override;
 };
 
 

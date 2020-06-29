@@ -11,6 +11,6 @@ Move::Move(Game &_game, Entity &_entity, Coordinate _destination) :
     destination = _destination;
 }
 
-void Move::operator()() {
+void Move::operator()(ServerProtocol& protocol) {
     game.moveEntity(entity.getPosition(), destination);
 }

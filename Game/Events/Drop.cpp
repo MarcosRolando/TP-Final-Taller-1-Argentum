@@ -10,6 +10,6 @@ Drop::Drop(Player &player, unsigned int _position): player(player) {
     position = _position;
 }
 
-void Drop::operator()() {
+void Drop::operator()(ServerProtocol& protocol) {
     player.dropItem(position);
 }
