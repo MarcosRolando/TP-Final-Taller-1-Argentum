@@ -20,38 +20,21 @@ Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
 }
 
 void Entity::updatePosition(float timeStep) {
-    //Calculate time step
-    float offset = SPEED*timeStep;
+    float offset = distancePerMilisecond*timeStep; //Calculate distanced move, offset es un auxiliar
     if (moveDirection != GameType::DIRECTION_STILL) {
-        if ( (distanceMoved + offset) >= (float)TILE_WIDTH) {
-            offset = TILE_WIDTH - distanceMoved;
-            distanceMoved = TILE_WIDTH;
+        if ( (distanceMoved + offset) >= distanceToMove) {
+            offset = distanceToMove - distanceMoved;
+            distanceMoved = distanceToMove;
         } else {
             distanceMoved += offset;
         }
-        switch (moveDirection) {
-            case GameType::DIRECTION_UP:
-                yPosition -= offset;
-                break;
-            case GameType::DIRECTION_DOWN:
-                yPosition += offset;
-                break;
-            case GameType::DIRECTION_RIGHT:
-                xPosition += offset;
-                break;
-            case GameType::DIRECTION_LEFT:
-                xPosition -= offset;
-                break;
-            case GameType::DIRECTION_STILL:
-                //do nothing
-                break;
-        }
+        _modifyPosition(moveDirection, offset);
     }
-    if (distanceMoved >= TILE_WIDTH) {
+    if (distanceMoved >= TILE_WIDTH) { /*Reinicio la animacion*/
         currentFrame = 0;
         lastDirection = moveDirection;
         moveDirection = GameType::DIRECTION_STILL;
-        distanceMoved = 0;
+        distanceMoved = 0; //todo capaz caga algo con el server, no deberia igual
     } else {
         for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
             if (distanceMoved < ((float)TILE_WIDTH/6 * (float)(i+1))) {
@@ -185,5 +168,6 @@ void Entity::_modifyPosition(GameType::Direction direction, float distance) {
             break;
         case GameType::DIRECTION_STILL:
             //do nothing
+            break;
     }
 }
