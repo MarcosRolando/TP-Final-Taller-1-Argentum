@@ -10,14 +10,14 @@
 #include <queue>
 #include <SDL_events.h>
 
-class BlockingQueue {
+class EventBlockingQueue {
 private:
     std::queue<std::unique_ptr<SDL_Event>> queue; //todo preguntarle a fefo si usar el heap o copiar 300 bytes para cada evento
     std::mutex mtx;
     std::condition_variable cv;
     bool finishedAdding;
 public:
-    BlockingQueue();
+    EventBlockingQueue();
     void push(std::unique_ptr<SDL_Event> element);
     std::unique_ptr<SDL_Event> pop();
     bool empty();

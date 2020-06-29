@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 #include <utility>
-
+#include "EventBlockingQueue.h"
 
 void Client::_send() const {
     std::string command = User::getInput();
@@ -28,17 +28,24 @@ void Client::_receive() {
 }
 
 void Client::_processConnection() {
-    GameGUI game;
-    ClientProtocol protocol(game, socket);
     bool quit = false;
-    //ClientEventHandler eventHandler(quit, game);
+    GameGUI game;
+    EventBlockingQueue events;
+    ClientProtocol protocol(game, socket);
+    ClientEventHandler eventHandler(quit, game, events);
+    eventHandler();
     //Aca falta lo del main menu y la seleccion de server/player etc
+    std::unique_ptr<SDL_Event> event(new SDL_Event());
 
-    while (!quit){
+    while (!quit) {
+        while(SDL_PollEvent(event.get()) != 0) {
+            events.push(std::move(event));
+            event.reset(new SDL_Event());
+        }
         game.render();
     }
 
-    //eventHandler.join();
+    eventHandler.join();
     /*
     while (!finished) {
         try {

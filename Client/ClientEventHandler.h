@@ -9,14 +9,18 @@
 #include "Thread.h"
 #include "GameGUI.h"
 
+class EventBlockingQueue;
+
 class ClientEventHandler : public Thread {
 private:
-    bool& quit;//Ver si dejo esto aca
+    bool& quit;
     GameGUI& game;
+    EventBlockingQueue& events;
+
 public:
-    ClientEventHandler(bool& quit, GameGUI& game) : quit(quit), game(game) {};
+    ClientEventHandler(bool& quit, GameGUI& game, EventBlockingQueue& _events)
+                        : quit(quit), game(game), events(_events) {};
     void run() override;
-    ~ClientEventHandler();
 };
 
 
