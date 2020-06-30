@@ -27,8 +27,7 @@ Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/font.ttf"
 
 void Minichat::handleEvent(SDL_Event &e, Window& window) {
     //If mouse event happened
-
-    if( e.type == SDL_MOUSEBUTTONDOWN )
+    /*if( e.type == SDL_MOUSEBUTTONDOWN )
     {
         int x = 0, y = 0;
         //Get mouse position
@@ -43,6 +42,8 @@ void Minichat::handleEvent(SDL_Event &e, Window& window) {
 
         if (focusOnMinichat){
             SDL_StartTextInput();
+        } else {
+            SDL_StopTextInput();
         }
 
     } else if( e.type == SDL_TEXTINPUT ) {
@@ -51,7 +52,6 @@ void Minichat::handleEvent(SDL_Event &e, Window& window) {
     } else if( e.type == SDL_KEYDOWN ) {
         if (e.key.keysym.sym == SDLK_BACKSPACE && input.getTextLength() > 8) {
             //Va un 8 asi no borro la parte fija que dice Accion
-
             //borro letra
             input.eraseText();
         } else if (e.key.keysym.sym == SDLK_RETURN){
@@ -71,9 +71,58 @@ void Minichat::handleEvent(SDL_Event &e, Window& window) {
             if (firstToRender < 0)
                 firstToRender = 0;
         }
+    }*/
+}
+
+void Minichat::handleReturnKey() {
+    //Procesar el comando que escribio el user
+    input.updateText("Accion:/ ");
+}
+
+void Minichat::handleBackspace() {
+    if (input.getTextLength() > 8) {
+        //Va un 8 asi no borro la parte fija que dice Accion
+        //borro una letra
+        input.eraseText();
     }
-    if (!focusOnMinichat){
+}
+
+void Minichat::handleTextInput(SDL_Event &e) {
+    std::string newInput = e.text.text;
+    if (input.getTextLength() < MAX_TEXT_LEN) input.appendText(newInput);
+}
+
+void Minichat::handleMouseButtonDown(Window& window) {
+    int x = 0, y = 0;
+    //Get mouse position
+    //int x, y;
+    SDL_GetMouseState( &x, &y );
+    //Chequeo si hizo click en el minichat
+    //Escalo la posicion del click por si cambia el tamaño de la pantalla
+    x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
+    y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
+
+    focusOnMinichat = _isInsideMinichat(x, y);
+
+    if (focusOnMinichat){
+        SDL_StartTextInput();
+    } else {
         SDL_StopTextInput();
+    }
+}
+
+void Minichat::handleMouseWheel(SDL_Event& e){
+    if(e.wheel.y > 0) // scroll up
+    {
+        firstToRender += 1;
+        if (firstToRender > MAX_MSGS - MAX_MSGS_TO_RENDER)
+            firstToRender -= 1;
+    }
+    else if(e.wheel.y < 0) // scroll down
+    {
+        firstToRender -= 1;
+        if (firstToRender < 0)
+            firstToRender = 0;
     }
 }
 

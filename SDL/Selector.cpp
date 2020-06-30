@@ -31,6 +31,7 @@ Selector::Selector() {
 }
 
 void Selector::handleEvent(SDL_Event &e,int playerX, int playerY, Window& window){
+    //Creo q puedo sacar que reciba &e
     SDL_GetMouseState(&clickX, &clickY);
     //Escalo la posicion de click
     clickX = (float)clickX *
