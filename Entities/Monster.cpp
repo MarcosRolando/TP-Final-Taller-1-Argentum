@@ -109,7 +109,8 @@ void Monster::_move() {
     }
     if (!pathCache.empty()) {
         //Entity::requestMove(game, _getMoveDirection());
-        game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, _getMoveDirection())));
+        movement.direction = _getMoveDirection();
+        game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
         pathCache.pop_front();
     }
 }
