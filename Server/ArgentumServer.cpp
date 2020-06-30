@@ -8,7 +8,6 @@
 #include "PlayerLoader.h"
 #include <chrono>
 #include <unistd.h>
-#include <iostream>
 
 #define FRAME_TIME 33 /*ms que tarda en actualizarse el juego*/
 #define TIME_FOR_CLIENTS_INITIALIZATION 3 //ms dejados para mandarle la data inicial a los clientes

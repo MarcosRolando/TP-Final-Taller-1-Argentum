@@ -11,10 +11,6 @@
 #include "../Game/Events/Attack.h"
 #include "../Game/Events/Move.h"
 
-
-#include <iostream>
-
-
 #define MAX_NUMBER_OF_CACHED_NODES 4
 
 ////////////////////////PRIVATE////////////////////////
@@ -60,12 +56,6 @@ void Monster::_storeNearestPlayerPathCache() {
                 aux.clear();
             }
         }
-
-        if (nearestTargetIndex >= allPaths.size()) {
-            std::cout << "Estas accediendo a cualquier indice pedazo de pelotudo, el indice es " <<
-            nearestTargetIndex << " y el tamanio es " << allPaths.size() <<  std::endl;
-        }
-
         pathCache = std::move(allPaths[nearestTargetIndex]);
         if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
             pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
