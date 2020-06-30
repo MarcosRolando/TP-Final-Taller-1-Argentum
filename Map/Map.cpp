@@ -4,8 +4,8 @@
 
 #include "Map.h"
 #include <fstream>
+#include <algorithm>
 #include "../GameConstants.h"
-#include "../MapFileReader.h"
 #include "../Character/NPC.h"
 #include "../Character/Player.h"
 
@@ -43,7 +43,7 @@ void Map::renderStructures() {
     }
 }
 
-void Map::renderNPCS(float timeStep) {
+void Map::renderNPCS() {
     for (int i = -1; i < (VISIBLE_VERTICAL_TILES + 3); ++i) {
         for (int j = -1; j < (VISIBLE_HORIZONTAL_TILES + 3); ++j) {
             float x = (float)camera.x + (float)j * TILE_WIDTH;
@@ -53,7 +53,7 @@ void Map::renderNPCS(float timeStep) {
             int xTile = floor(x / TILE_WIDTH);
             int yTile = floor(y / TILE_HEIGHT);
             int tile = yTile*TOTAL_HORIZONTAL_TILES + xTile;
-            tiles.at(tile).renderEntity(timeStep);
+            tiles.at(tile).renderEntity();
         }
     }
 }
@@ -106,7 +106,7 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
 
     Coordinate entityPosition = entities.at(nickname);
     int tile = entityPosition.i * TOTAL_HORIZONTAL_TILES + entityPosition.j;
-    tiles[tile].moveEntity(direction, distanceTravelled);
+    tiles[tile].moveEntity(direction, distanceTravelled, movingEntities);
     if (reachedDestination) {
         std::unique_ptr<Entity> entity = tiles[tile].getEntity();
         entityPosition = _calculateNewTile(entityPosition, direction);
@@ -136,4 +136,16 @@ Coordinate Map::_calculateNewTile(Coordinate position, GameType::Direction direc
             break;
     }
     return position;
+}
+
+bool _finishedMoving(const Entity* entity) {
+    return entity->finishedMoving();
+}
+
+void Map::updateInterpolation(float timeStep) {
+    for (auto & entity : movingEntities) {
+        entity->updatePosition(timeStep);
+    }
+    movingEntities.erase(std::remove_if(movingEntities.begin(), movingEntities.end(),
+                                        _finishedMoving), movingEntities.end());
 }

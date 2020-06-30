@@ -144,7 +144,8 @@ void Entity::updateCamera() {
     }
 }
 
-void Entity::move(GameType::Direction direction, unsigned int distanceTravelled) {
+void Entity::move(GameType::Direction direction, unsigned int distanceTravelled,
+                  std::list<Entity *> &movingEntities) {
     if (distanceToMove > currentDistanceMoved) { //Esto es por si por algun motivo no llegue a interpolarlo a la posicion de destino a tiempo
         _modifyPosition(moveDirection, distanceToMove - currentDistanceMoved);
         totalDistanceMoved += (distanceToMove - currentDistanceMoved);
@@ -154,6 +155,7 @@ void Entity::move(GameType::Direction direction, unsigned int distanceTravelled)
     distanceToMove = static_cast<float>(TILE_WIDTH) *
             static_cast<float>(distanceTravelled) / static_cast<float>(TILE_DISTANCE_IN_METERS);
     distancePerMilisecond = distanceToMove / SERVER_UPDATE_TIME;
+    movingEntities.emplace_back(this);
     //_modifyPosition(direction, distanceToMove);
 }
 
@@ -175,4 +177,8 @@ void Entity::_modifyPosition(GameType::Direction direction, float distance) {
             //do nothing
             break;
     }
+}
+
+bool Entity::finishedMoving() const {
+    return (distanceToMove == currentDistanceMoved);
 }

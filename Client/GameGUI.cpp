@@ -20,6 +20,7 @@ void GameGUI::loadTileData(Coordinate position, FloorTypeTexture floor,
 }
 
 void GameGUI::render(float timeStep) {
+    map.updateInterpolation(timeStep);
     screen.clear();
     screen.setViewport(ScreenViewport);
     background.render(0, 0);
@@ -27,7 +28,7 @@ void GameGUI::render(float timeStep) {
     //Mapa
     screen.setViewport(MapViewport);
     map.renderGround();
-    map.renderNPCS(timeStep);
+    map.renderNPCS();
     map.renderStructures();
 
     //Inventario

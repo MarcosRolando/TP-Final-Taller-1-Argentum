@@ -7,6 +7,7 @@
 
 #include "../Texture/EntityTexture.h"
 #include "../Shared/GameEnums.h"
+#include <list>
 
 /*Clase Abstracta*/
 
@@ -22,11 +23,14 @@ private:
 
 public:
     Entity(SDL_Rect& camera, float x, float y);
-    void move(GameType::Direction direction, unsigned int distanceTravelled);
+    void move(GameType::Direction direction, unsigned int distanceTravelled,
+              std::list<Entity *> &movingEntities);
     void render(EntityTexture& eTexture);
-    virtual void render(float timeStep) = 0;
+    virtual void render() = 0;
     void updatePosition(float stepTime);
     void updateCamera();
+
+    bool finishedMoving() const;
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);
