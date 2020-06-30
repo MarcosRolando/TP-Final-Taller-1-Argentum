@@ -24,6 +24,7 @@ void UpdateReceiver::run() {
             _processUpdate(msgLength);
             updates.deliverUpdate();
         } catch (...) {
+            //do nothing
         }
     }
 }
