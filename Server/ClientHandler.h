@@ -36,7 +36,7 @@ public:
     /*Retorna si el ha terminado de comunicarse con su cliente*/
     bool hasFinished() const;
 
-    void update();
+    void update(double timeStep);
 
     void sendUpdateData();
 

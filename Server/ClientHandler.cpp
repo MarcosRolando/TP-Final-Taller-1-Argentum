@@ -8,6 +8,9 @@
 
 #define MAX_NUMBER_OF_MESSAGES_STORED 3
 
+MSGPACK_ADD_ENUM(GameType::PlayerEvent)
+MSGPACK_ADD_ENUM(GameType::Direction)
+
 ///////////////////////////////PUBLIC///////////////////////////////
 
 ClientHandler::ClientHandler(Socket &&socket, ServerProtocol &_protocol, PlayerLoader &_loader) :
@@ -47,7 +50,16 @@ void ClientHandler::run() {
 }
 
 void ClientHandler::_processClientAction(std::vector<char>& data) {
-    msgpack::type::tuple<GameType::P
+    std::size_t offset = 0;
+    msgpack::type::tuple<GameType::PlayerEvent> event;
+    msgpack::object_handle handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(event);
+    if (std::get<0>(event) == GameType::MOVE) {
+        msgpack::type::tuple<GameType::Direction> moveInfo;
+        handler = msgpack::unpack(data.data(), data.size(), offset);
+        handler->convert(moveInfo);
+        player.move(std::get<0>(moveInfo));
+    }
 }
 
 void ClientHandler::_receive(std::vector<char>& message,
@@ -71,9 +83,9 @@ bool ClientHandler::hasFinished() const {
     return finished;
 }
 
-void ClientHandler::update() {
+void ClientHandler::update(double timeStep) {
     std::unique_lock<std::mutex> lk(m);
-    player.giveEventsToGame();
+    player.giveEventsToGame(timeStep);
 }
 
 void ClientHandler::sendUpdateData() {

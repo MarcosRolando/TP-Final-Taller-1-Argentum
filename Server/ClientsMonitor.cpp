@@ -18,10 +18,10 @@ void ClientsMonitor::join() {
     }
 }
 
-void ClientsMonitor::update() {
+void ClientsMonitor::update(double timeStep) {
     //std::lock_guard<std::mutex> lock(mutex);
     for (auto & client : clients) {
-        client->update();
+        client->update(timeStep);
     }
 }
 

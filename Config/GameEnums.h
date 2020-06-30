@@ -8,6 +8,11 @@
 #include <cinttypes>
 
 namespace GameType {
+
+    enum PlayerEvent : int32_t {
+        MOVE
+    };
+
     enum ID: int32_t {
         ENTITY, ITEM, PLAYER_DATA
     };
@@ -60,8 +65,8 @@ namespace GameType {
         RIP_STONE, TREE, VERY_DEAD_GUY, SUNKEN_COLUMN, SUNKEN_SHIP, NO_STRUCTURE
     };
 
-    enum Direction {
-        DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT
+    enum Direction : int32_t {
+        DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT, DIRECTION_STILL
     };
 }
 

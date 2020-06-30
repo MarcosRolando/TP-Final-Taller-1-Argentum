@@ -22,7 +22,7 @@ public:
     //void pushClient(Socket&& peer, ServerProtocol& protocol);
     void pushToWaitingList(Socket &&peer, ServerProtocol &protocol, PlayerLoader& loader);
     void mergeWaitingClients();
-    void update();
+    void update(double timeStep);
     void eraseDisconnectedClients();
     void communicateResult();
     void join();

@@ -41,7 +41,7 @@ public:
     void dropItem(unsigned int itemPosition);
     const Player& getPlayer() const;
 
-    void giveEventsToGame();
+    void giveEventsToGame(double timeStep);
 
 private:
     void executeMove(PlayerProxy&& other);
