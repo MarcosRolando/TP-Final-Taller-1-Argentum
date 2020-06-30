@@ -5,6 +5,7 @@
 #include "../Entities/PlayerProxy.h"
 #include "ServerProtocol.h"
 #include "PlayerLoader.h"
+#include <iostream>
 
 #define MAX_NUMBER_OF_MESSAGES_STORED 3
 
@@ -39,8 +40,8 @@ void ClientHandler::run() {
             _processClientAction(data);
         }
 
-    } catch(...) {
-
+    } catch(std::exception& e) {
+        std::cerr << e.what() << std::endl;
     }
 }
 

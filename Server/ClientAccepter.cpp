@@ -6,14 +6,15 @@
 #include "Socket.h"
 #include "ClientHandler.h"
 #include "ClientsMonitor.h"
+#include <iostream>
 
 void ClientAccepter::run() {
     while (keepRunning) {
         try {
             Socket peer = serverSocket.accept();
             clients.pushToWaitingList(std::move(peer), protocol, loader);
-        } catch(...) {
-            //nothing
+        } catch(std::exception& e) {
+            std::cerr << e.what() << std::endl;
         }
     }
 }

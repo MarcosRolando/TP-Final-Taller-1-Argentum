@@ -197,8 +197,6 @@ Map::Map(MapFileReader &mapFile) {
                     .at(aux.structureType), std::move(citizen));
         }
     }
-
-
 }
 
 
