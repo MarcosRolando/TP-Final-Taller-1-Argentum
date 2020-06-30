@@ -47,14 +47,7 @@ Coordinate Monster::_getNearestPosition(Coordinate refference, std::vector<Coord
 void Monster::_storeNearestPlayerPathCache() {
     unsigned int nearestTargetIndex = 0;
     std::vector<Coordinate> positions;
-
-    std::cout << "Voy a pedir targets" << std::endl;
-
     map.getTargets(currentPosition, stats.getRangeOfVision(), positions);
-
-    std::cout << "Pedi targets" << std::endl;
-
-
     if (!positions.empty()) {
         std::vector<std::list<Coordinate>> allPaths/*(positions.size())*/;
         std::list<Coordinate> aux;
@@ -67,6 +60,9 @@ void Monster::_storeNearestPlayerPathCache() {
                 aux.clear();
             }
         }
+
+        std::cout << "asdfasdasdasd" << std::endl;
+
         pathCache = std::move(allPaths[nearestTargetIndex]);
         if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
             pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
