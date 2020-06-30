@@ -44,33 +44,18 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     double lastFrameTime = 0;
     while (keepRunning) {
         time1 = high_resolution_clock::now();
-
-        std::cout << "Entro a hacer game.update" << std::endl;
-
-
         game.update(lastFrameTime, protocol);
-
-
-        std::cout << "Termine de hacer game.update" << std::endl;
-
         protocol.buildGeneralDataBuffer();
         clients.sendGameUpdate();
         //Aca se borran los clientes desconectados
-
-        std::cout << "Termine de hacer clients.sendGameUpdate" << std::endl;
-
 
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();
         //std::cout << lastFrameTime << std::endl;
         if ((FRAME_TIME - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
-            std::cout << "Entre al if del merge with waiting Clients" << std::endl;
             clients.mergeWaitingClients();
         }
-
-        std::cout << "Pase por el if del merge with waiting Clients" << std::endl;
-
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();

@@ -10,6 +10,10 @@
 #include "Events/Event.h"
 #include "../Server/ServerProtocol.h"
 
+
+
+#include <iostream>
+
 /////////////////////////////////PRIVATE//////////////////////////
 
 
@@ -82,9 +86,26 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
     map.addItemsToTile(std::move(item), position);
 }
 
+
+
 void Game::update(double timeStep, ServerProtocol& protocol) {
+
+    std::cout << "Voy a hacer repopulateMap" << std::endl;
+
     _repopulateMap(timeStep);
+
+
+    std::cout << "Termine repopulateMap" << std::endl;
+
+    std::cout << "Voy a hacer update de monsters" << std::endl;
+
     _updateMonsters(timeStep);
+
+
+
+    std::cout << "Termine update de monsters" << std::endl;
+
+
     //_updatePlayers(timeStep, protocol);
     clients.update(timeStep);
     _executeQueueOperations(protocol);
