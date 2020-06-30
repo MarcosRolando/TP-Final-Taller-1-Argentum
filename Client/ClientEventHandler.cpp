@@ -23,12 +23,12 @@ void ClientEventHandler::run() {
                     quit = true;
                     break;
                 }
-                selector.handleEvent(*e, game.getPlayerInfo().getXPos(),
-                                     game.getPlayerInfo().getYPos(), window);
-                minichat.handleEvent(*e, game.getWindow());
-
                 if (e->type == SDL_KEYDOWN && e->key.repeat == 0) {
                     _handleMoveKeys(*e);
+                } else if (e->type == SDL_MOUSEBUTTONDOWN){
+                    selector.handleEvent(*e, game.getPlayerInfo().getXPos(),
+                                         game.getPlayerInfo().getYPos(), window);
+                    minichat.handleEvent(*e, game.getWindow());
                 }
             }
             if (msgBuffer.rdbuf()->in_avail() != 0) { /*Nos cargaron un mensaje*/
