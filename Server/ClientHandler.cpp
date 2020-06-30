@@ -10,8 +10,8 @@
 
 ///////////////////////////////PUBLIC///////////////////////////////
 
-ClientHandler::ClientHandler(Game &game, Socket &&socket, ServerProtocol &_protocol, PlayerLoader &_loader) :
-        socket(std::move(socket)), protocol(_protocol), loader(_loader), player(game) {
+ClientHandler::ClientHandler(Socket &&socket, ServerProtocol &_protocol, PlayerLoader &_loader) :
+        socket(std::move(socket)), protocol(_protocol), loader(_loader) {
     finished = false;
     hasDataToSend = false;
 }
@@ -81,12 +81,12 @@ void ClientHandler::_sendMapInfoToClient() {
 }
 
 void ClientHandler::_addMessageToQueue() {
-    std::unique_lock<std::mutex> lk(m);
     uint32_t messageLen;
     socket.receive(reinterpret_cast<char *>(&messageLen), sizeof(uint32_t));
     messageLen = ntohl(messageLen);
     std::vector<char> buffer(messageLen);
     socket.receive(buffer.data(), messageLen);
+    std::unique_lock<std::mutex> lk(m);
 }
 
 void ClientHandler::_storePlayerProxy() {
@@ -95,6 +95,7 @@ void ClientHandler::_storePlayerProxy() {
     messageLen = ntohl(messageLen);
     std::vector<char> buffer(messageLen);
     socket.receive(buffer.data(), messageLen);
+    //hacer unpack
 }
 
 

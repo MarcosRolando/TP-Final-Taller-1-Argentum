@@ -116,7 +116,7 @@ const Player &PlayerProxy::getPlayer() const {
 
 void PlayerProxy::giveEventsToGame() {
     while (!storedEvents.empty()) {
-        game.pushEvent(std::move(storedEvents.front()));
+        game->pushEvent(std::move(storedEvents.front()));
         storedEvents.pop();
     }
 }

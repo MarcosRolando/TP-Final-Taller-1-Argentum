@@ -29,7 +29,7 @@ private:
     std::mutex m;
 
 public:
-    ClientHandler(Game& game, Socket&& socket, ServerProtocol& _protocol, PlayerLoader& _loader);
+    ClientHandler(Socket&& socket, ServerProtocol& _protocol, PlayerLoader& _loader);
     ClientHandler(const ClientHandler&) = delete;
     ClientHandler operator=(const ClientHandler&) = delete;
 
