@@ -53,6 +53,7 @@ void ServerProtocol::buildGeneralDataBuffer() {
     generalDataBuffer.resize(sizeof(uint32_t));
     _loadBytes(generalDataBuffer, &msgLength, sizeof(uint32_t));
     std::copy(auxString.begin(), auxString.end(), std::back_inserter(generalDataBuffer));
+    generalData.str("");
     generalData.clear();
 }
 
