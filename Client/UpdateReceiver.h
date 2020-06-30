@@ -29,7 +29,7 @@ public:
     void run() override;
 
 private:
-    void _processUpdate();
+    void _processUpdate(uint32_t msgLength);
     void _processMoveUpdate();
 };
 

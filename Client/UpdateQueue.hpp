@@ -66,6 +66,7 @@ template <typename T>
 void UpdateQueue<T>::consumedUpdate() {
     std::unique_lock<std::mutex> lock(mtx);
     updateAvailable = false;
+    cv.notify_all();
 }
 
 

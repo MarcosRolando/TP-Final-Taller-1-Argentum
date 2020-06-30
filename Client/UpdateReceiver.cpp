@@ -18,31 +18,32 @@ void UpdateReceiver::run() {
             offset = 0;
             socket.receive((char*)(&msgLength), sizeof(uint32_t));
             msgLength = ntohl(msgLength);
-            buffer.resize(msgLength);
             buffer.clear();
+            buffer.resize(msgLength);
             socket.receive(buffer.data(), msgLength);
-            _processUpdate();
+            _processUpdate(msgLength);
             updates.deliverUpdate();
         } catch (...) {
-            //do nothing
         }
     }
 }
 
-void UpdateReceiver::_processUpdate() {
+void UpdateReceiver::_processUpdate(uint32_t msgLength) {
     msgpack::type::tuple<GameType::EventID> id;
-    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    handler->convert(id);
-    switch (std::get<0>(id)) {
-        case GameType::MOVED:
-            _processMoveUpdate();
-            break;
-        case GameType::ATTACK:
-            break;
-        case GameType::UNEQUIP:
-            break;
-        case GameType::USE_ITEM:
-            break;
+    while (offset < msgLength) {
+        handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+        handler->convert(id);
+        switch (std::get<0>(id)) {
+            case GameType::MOVED:
+                _processMoveUpdate();
+                break;
+            case GameType::ATTACK:
+                break;
+            case GameType::UNEQUIP:
+                break;
+            case GameType::USE_ITEM:
+                break;
+        }
     }
 }
 
