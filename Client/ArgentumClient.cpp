@@ -52,6 +52,7 @@ void Client::_processConnection() {
     std::unique_ptr<SDL_Event> event(new SDL_Event());
     std::unique_ptr<UpdateEvent> update;
     while (!quit) {
+        moveTime.start();
         if (updateEvents.isUpdateAvailable()) {
             while (!updateEvents.empty()) {
                 update = updateEvents.pop();
@@ -66,7 +67,7 @@ void Client::_processConnection() {
             }
         }
         timeStep = moveTime.getTicks();
-        moveTime.start();
+        std::cout << timeStep << std::endl;
         game.render(timeStep);
     }
 
