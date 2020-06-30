@@ -18,6 +18,7 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol &_protocol, PlayerL
 
 void ClientHandler::run() {
     try {
+        uint32_t msgLength = 0;
         player = loader.getPlayer();
         _sendMapInfoToClient();
         std::vector<char> data = protocol.getCurrentState(player);
@@ -27,8 +28,12 @@ void ClientHandler::run() {
         //std::vector<char> buffer;
 
         while (!finished) {
-            //socket.receive(buffer, sizeof(unit32_t));
-
+            data.clear();
+            socket.receive((char*)&(msgLength), sizeof(uint32_t));
+            msgLength = ntohl(msgLength);
+            data.resize(msgLength);
+            socket.receive(data.data(), msgLength);
+            _processClientAction(data);
             if (hasDataToSend) {
                 _sendUpdateDataToClient();
                 hasDataToSend = false;
@@ -39,6 +44,10 @@ void ClientHandler::run() {
     } catch(...) {
 
     }
+}
+
+void ClientHandler::_processClientAction(std::vector<char>& data) {
+    msgpack::type::tuple<GameType::P
 }
 
 void ClientHandler::_receive(std::vector<char>& message,

@@ -52,6 +52,7 @@ private:
     void _sendUpdateDataToClient();
     void _addMessageToQueue();
     void _storePlayerProxy();
+    void _processClientAction(std::vector<char>& data);
 };
 
 
