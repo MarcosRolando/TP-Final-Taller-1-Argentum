@@ -105,11 +105,11 @@ void Entity::move(Coordinate newPosition) {
     movement.movedDistance = 0;
 }
 
-void Entity::update(double timeStep) {
+void Entity::update(double timeStep, Game& game) {
     if (movement.isMoving) {
-        std::shared_ptr<Moved> event(new Moved(*this, movement.direction,
+        std::unique_ptr<Moved> event(new Moved(*this, movement.direction,
                                        static_cast<unsigned int>(timeStep) * speed));
-
+        game.pushEvent(std::move(event));
         /*
         movement.movedDistance += static_cast<unsigned int>(timeStep) * speed;
         if (movement.movedDistance >= DISTANCE_TO_MOVE) {

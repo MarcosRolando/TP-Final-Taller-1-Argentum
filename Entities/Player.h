@@ -70,7 +70,7 @@ public:
     void restoreMana(unsigned int amount);
 
     //Actualiza al player acorde a su estado actual (moviendo, meditando, etc)
-    void update(double timeStep) override;
+    void update(double timeStep);
 
     //Hace que el player comience a meditar
     void meditate();

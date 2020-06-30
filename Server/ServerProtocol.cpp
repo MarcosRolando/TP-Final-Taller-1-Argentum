@@ -40,6 +40,7 @@ std::vector<char> ServerProtocol::getCurrentState(PlayerProxy& proxyPlayer) {
 
 void ServerProtocol::addToGeneralData(std::stringstream &data) {
     generalData << data.str();
+    //std::cout << "El tamaño de la data recibida es" << data.str().length() << std::endl;
 }
 
 const std::vector<char>& ServerProtocol::getGeneralData() {

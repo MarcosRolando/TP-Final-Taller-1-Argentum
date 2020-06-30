@@ -73,8 +73,11 @@ void ClientHandler::sendUpdateData() {
 
 ///////////////////////////////PRIVATE///////////////////////////////
 
+#include <iostream>
+
 void ClientHandler::_sendUpdateDataToClient() {
     const std::vector<char>& generalData = protocol.getGeneralData();
+    //std::cout << "VOY A MANDAR COSAS " << std::endl;
     if (generalData.size() != sizeof(uint32_t)) {
         socket.send(generalData.data(), generalData.size());
     }

@@ -57,7 +57,7 @@ public:
     //para el polimorfismo de Player
     AttackResult attacked(int damage, unsigned int attackerLevel, bool isAPlayer) override;
 
-    void update(double timeStep) override;
+    void update(double timeStep);
 
     //Indica si el monstruo esta muerto, retorna true si lo esta, sino retorna false
     bool isDead() const;

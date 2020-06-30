@@ -151,7 +151,7 @@ void Player::meditate() {
 }
 
 void Player::update(double timeStep) {
-    Entity::update(timeStep); /*actualiza movimiento*/
+    Entity::update(timeStep, game); /*actualiza movimiento*/
     stats.update(timeStep); /*actualiza la vida y manda en base al tiempo/meditacion*/
 }
 

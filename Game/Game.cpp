@@ -35,7 +35,6 @@ void Game::_repopulateMap(double timePassed) {
     }
 }
 
-
 void Game::_executeQueueOperations(ServerProtocol& protocol) {
     while (!eventQueue.empty()) {
         (*eventQueue.front())(protocol);

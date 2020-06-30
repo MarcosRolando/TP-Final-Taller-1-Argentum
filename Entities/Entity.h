@@ -95,7 +95,7 @@ protected:
 
     //Actualiza el estado de la entity, por ejemplo si se esta moviendo le
     //actualiza la interpolacion
-    virtual void update(double timeStep);
+    void update(double timeStep, Game& game);
 
     //Retorna si el entity esta o no en movimiento (lo uso en monster)
     bool isMoving() const;
