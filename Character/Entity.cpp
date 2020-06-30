@@ -32,6 +32,10 @@ void Entity::updatePosition(float timeStep) {
         _modifyPosition(moveDirection, offset);
     }
     if (totalDistanceMoved >= ((static_cast<float>(TILE_WIDTH) - 0.01))/*le pongo un poco menos por error de redondeo de float que nunca llego*/) {/*Reinicio la animacion*/
+        if (totalDistanceMoved < static_cast<float>(TILE_WIDTH)) {
+            _modifyPosition(moveDirection, static_cast<float>(TILE_WIDTH) - totalDistanceMoved);
+            totalDistanceMoved = static_cast<float>(TILE_WIDTH);
+        }
         currentFrame = 0;
         lastDirection = moveDirection;
         moveDirection = GameType::DIRECTION_STILL;
