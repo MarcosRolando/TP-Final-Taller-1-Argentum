@@ -30,7 +30,7 @@ Selector::Selector() {
     tileY = -1;
 }
 
-void Selector::handleEvent(SDL_Event &e,int playerX, int playerY, Window& window){
+void Selector::handleEvent(int playerX, int playerY, Window& window){
     //Creo q puedo sacar que reciba &e
     SDL_GetMouseState(&clickX, &clickY);
     //Escalo la posicion de click

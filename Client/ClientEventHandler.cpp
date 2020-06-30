@@ -63,7 +63,8 @@ void ClientEventHandler::run() {
 
 void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
     game.getMinichat().handleMouseButtonDown(game.getWindow());
-    //game.getSelector().handleMouseButtonDown(e);
+    game.getSelector().handleEvent(game.getPlayerInfo().getXPos(),
+                                   game.getPlayerInfo().getYPos(), game.getWindow());
 }
 
 //Cambiarle el nombre a handleKeyDown
