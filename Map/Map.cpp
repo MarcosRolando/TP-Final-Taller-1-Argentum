@@ -95,12 +95,8 @@ void Map::_storePath(Coordinate initialPosition, Coordinate desiredPosition,
                      std::list<Coordinate>& path) {
     Coordinate aux = desiredPosition;
     while (!_areCoordinatesEqual(aux, initialPosition)) {
-
-        std::cout << "Hijo: Posicion i: " << aux.iPosition << ", Posicion j: " << aux.jPosition << std::endl;
-
         path.push_front(aux);
         aux = parentsAndChilds.at(aux);
-        std::cout << "Padre: Posicion i: " << aux.iPosition << ", Posicion j: " << aux.jPosition << std::endl;
     }
 }
 
