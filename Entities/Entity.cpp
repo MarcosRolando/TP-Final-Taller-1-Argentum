@@ -24,7 +24,7 @@ Entity::Entity(GameType::Entity _type, Coordinate initialPosition, std::string&&
     movement.movedDistance = 0;
     movement.isMoving = false;
     movement.direction = GameType::DIRECTION_UP;
-    speed = 2;
+    speed = 3;
     type = _type;
     nickname = std::move(_nicknamePrefix);
     if (!isPrefixUnique) {
