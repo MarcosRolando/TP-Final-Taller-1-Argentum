@@ -75,7 +75,8 @@ void Client::_processConnection() {
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
         time1 = high_resolution_clock::now();
-        game.render(timeStep.count());
+        //std::cout << timeStep.count() << std::endl;
+        game.render(0);
     }
 
     socket.close();

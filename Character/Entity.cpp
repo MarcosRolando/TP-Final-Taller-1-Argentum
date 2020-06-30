@@ -145,15 +145,18 @@ void Entity::updateCamera() {
 }
 
 void Entity::move(GameType::Direction direction, unsigned int distanceTravelled) {
-    if (distanceToMove > currentDistanceMoved) { /*Esto es por si por algun motivo no llegue a interpolarlo a la posicion de destino a tiempo*/
+    /*
+    if (distanceToMove > currentDistanceMoved) { //Esto es por si por algun motivo no llegue a interpolarlo a la posicion de destino a tiempo
         _modifyPosition(moveDirection, distanceToMove - currentDistanceMoved);
         totalDistanceMoved += (distanceToMove - currentDistanceMoved);
     }
+    */
     currentDistanceMoved = 0;
     moveDirection = direction;
     distanceToMove = static_cast<float>(TILE_WIDTH) *
             static_cast<float>(distanceTravelled) / static_cast<float>(TILE_DISTANCE_IN_METERS);
     distancePerMilisecond = distanceToMove / SERVER_UPDATE_TIME;
+    _modifyPosition(direction, distanceToMove);
 }
 
 void Entity::_modifyPosition(GameType::Direction direction, float distance) {
