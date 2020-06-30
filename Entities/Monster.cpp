@@ -62,7 +62,8 @@ void Monster::_storeNearestPlayerPathCache() {
         }
 
         if (nearestTargetIndex >= allPaths.size()) {
-            std::cout << "Estas accediendo a cualquier indice pedazo de pelotudo" <<  std::endl;
+            std::cout << "Estas accediendo a cualquier indice pedazo de pelotudo, el indice es " <<
+            nearestTargetIndex << " y el tamanio es " << allPaths.size() <<  std::endl;
         }
 
         pathCache = std::move(allPaths[nearestTargetIndex]);
