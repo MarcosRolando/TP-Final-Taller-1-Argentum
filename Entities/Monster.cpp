@@ -120,7 +120,7 @@ void Monster::_move() {
 Monster::Monster(Game &_game, Coordinate initialPosition,
                  GameType::Entity _type):
                  Entity(_type, initialPosition, "pepito"/*todo*/),
-                 timeBetweenActions(Configuration::getInstance().configMonsterStats(_type).reactionSpeed),
+                 timeBetweenActions(Configuration::getInstance().configMonsterStats(_type).reactionSpeed * 1000),
                  stats(_type), map(_game.getMap()), game(_game) {
     elapsedTime = 0;
     type = _type;
