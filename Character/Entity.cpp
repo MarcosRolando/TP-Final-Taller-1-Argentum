@@ -5,7 +5,7 @@
 #include "Entity.h"
 #include "../GameConstants.h"
 
-const unsigned int TILE_DISTANCE_IN_METERS = 1000;
+const unsigned int TILE_DISTANCE_IN_METERS = 2000;
 const float SERVER_UPDATE_TIME = 33.f; /*in miliseconds*/
 
 Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
