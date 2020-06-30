@@ -16,12 +16,17 @@ struct Coordinate;
 
 class PlayerProxy {
 private:
-    Game& game;
-    Player& player;
+    Game* game{};
+    Player* player;
     std::queue<std::unique_ptr<Event>> storedEvents;
 
 public:
-    explicit PlayerProxy(Game& _game, Player& _player) : game(_game), player(_player) {}
+    PlayerProxy();
+    PlayerProxy(PlayerProxy&& other) noexcept;
+    PlayerProxy& operator=(PlayerProxy&& other) noexcept;
+    PlayerProxy(const PlayerProxy& other) = delete;
+    PlayerProxy& operator=(const PlayerProxy& other) = delete;
+    explicit PlayerProxy(Game* _game, Player* _player);
     void attack(Coordinate target);
     void useItem(int itemPosition);
     void meditate();
@@ -37,6 +42,9 @@ public:
     const Player& getPlayer() const;
 
     void giveEventsToGame();
+
+private:
+    void executeMove(PlayerProxy&& other);
 };
 
 

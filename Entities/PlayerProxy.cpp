@@ -19,87 +19,114 @@
 
 #define MAX_EVENTS_STORED 3
 
+
+PlayerProxy::PlayerProxy() {
+    game = nullptr;
+    player = nullptr;
+}
+
+PlayerProxy::PlayerProxy(PlayerProxy &&other) noexcept {
+    executeMove(std::move(other));
+}
+
+PlayerProxy &PlayerProxy::operator=(PlayerProxy &&other) noexcept {
+    executeMove(std::move(other));
+    return *this;
+}
+
+
+PlayerProxy::PlayerProxy(Game *_game, Player *_player) {
+    game = _game;
+    player = _player;
+}
+
 void PlayerProxy::attack(Coordinate target) {
-    /*
-    std::unique_ptr<Attack> event(new Attack(player, target));
-    game.pushEvent(std::move(event));
-    */
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Attack(player, target));
+        storedEvents.emplace(new Attack(*player, target));
     }
 }
 
 void PlayerProxy::useItem(int itemPosition) {
-    /*
-    std::unique_ptr<UseItem> event(new UseItem(player, itemPosition));
-    game.pushEvent(std::move(event));
-    */
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new UseItem(player, itemPosition));
+        storedEvents.emplace(new UseItem(*player, itemPosition));
     }
 }
 
 void PlayerProxy::meditate() {
-    player.meditate();
+    player->meditate();
 }
 
 void PlayerProxy::move(GameType::Direction direction) {
-    /*
-    player.requestMove(direction);
-    */
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Move(game, player, direction));
+        storedEvents.emplace(new Move(*game, *player, direction));
     }
 }
 
 void PlayerProxy::buyFrom(std::string &&itemName, Coordinate npcPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Buy(player, itemName, npcPosition));
+        storedEvents.emplace(new Buy(*player, itemName, npcPosition));
     }
 }
 
 void PlayerProxy::sellTo(std::string &&itemName, Coordinate npcPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Sell(player, itemName, npcPosition));
+        storedEvents.emplace(new Sell(*player, itemName, npcPosition));
     }
 }
 
 void PlayerProxy::withdrawFrom(std::string &&itemName, Coordinate npcPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Withdraw(player, itemName, npcPosition));
+        storedEvents.emplace(new Withdraw(*player, itemName, npcPosition));
     }
 }
 
 void PlayerProxy::listFrom(Coordinate npcPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new List(player, npcPosition));
+        storedEvents.emplace(new List(*player, npcPosition));
     }
 }
 
 void PlayerProxy::depositTo(std::string &&itemName, Coordinate npcPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Deposit(player, itemName, npcPosition));
+        storedEvents.emplace(new Deposit(*player, itemName, npcPosition));
     }
 }
 
 void PlayerProxy::unequip() {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Unequip(player));
+        storedEvents.emplace(new Unequip(*player));
     }
 }
 
 void PlayerProxy::unequip(EquipmentPlace clothing) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Unequip(player, clothing));
+        storedEvents.emplace(new Unequip(*player, clothing));
     }
 }
 
 void PlayerProxy::dropItem(unsigned int itemPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Drop(player, itemPosition));
+        storedEvents.emplace(new Drop(*player, itemPosition));
     }
 }
 
 const Player &PlayerProxy::getPlayer() const {
-    return player;
+    return *player;
 }
+
+void PlayerProxy::giveEventsToGame() {
+    while (!storedEvents.empty()) {
+        game.pushEvent(std::move(storedEvents.front()));
+        storedEvents.pop();
+    }
+}
+
+void PlayerProxy::executeMove(PlayerProxy &&other) {
+    game = other.game;
+    other.game = nullptr;
+    player = other.player;
+    other.player = nullptr;
+    storedEvents = std::move(other.storedEvents);
+}
+
+

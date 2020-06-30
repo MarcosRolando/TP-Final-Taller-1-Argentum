@@ -8,6 +8,7 @@
  * el Numero*/
 #include "Socket.h"
 #include "Thread.h"
+#include "../Entities/PlayerProxy.h"
 #include <queue>
 #include <vector>
 #include <mutex>
@@ -24,12 +25,11 @@ private:
     std::atomic<bool> hasDataToSend;
     ServerProtocol& protocol;
     PlayerLoader& loader;
+    PlayerProxy player;
     std::mutex m;
 
 public:
-    ClientHandler(Socket&& socket, ServerProtocol& _protocol, PlayerLoader& _loader) :
-        socket(std::move(socket)), finished(false), protocol(_protocol), loader(_loader) {}
-
+    ClientHandler(Game& game, Socket&& socket, ServerProtocol& _protocol, PlayerLoader& _loader);
     ClientHandler(const ClientHandler&) = delete;
     ClientHandler operator=(const ClientHandler&) = delete;
 
@@ -40,6 +40,8 @@ public:
 
     void sendUpdateData();
 
+    //todo IMPLEMENTAR CONSTRUCTOR POR MOVIMIENTO
+
 private:
     /*Implementa el metodo virtual run de Thread, que sera el metodo ejecutado
     * por el thread*/
@@ -49,6 +51,7 @@ private:
     void _sendMapInfoToClient();
     void _sendUpdateDataToClient();
     void _addMessageToQueue();
+    void _storePlayerProxy();
 };
 
 
