@@ -46,6 +46,8 @@ public:
     void addEntity(std::unique_ptr<Entity> _entity);
 
     void moveEntity(GameType::Direction direction, unsigned int distanceTravelled);
+
+    std::unique_ptr<Entity> getEntity();
 };
 
 

@@ -107,4 +107,33 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
     Coordinate entityPosition = entities.at(nickname);
     int tile = entityPosition.i * TOTAL_HORIZONTAL_TILES + entityPosition.j;
     tiles[tile].moveEntity(direction, distanceTraveled);
+    if (reachedDestination) {
+        std::unique_ptr<Entity> entity = tiles[tile].getEntity();
+        entityPosition = _calculateNewTile(entityPosition, direction);
+        tile = entityPosition.i * TOTAL_HORIZONTAL_TILES + entityPosition.j;
+        tiles[tile].addEntity(std::move(entity));
+        auto it = entities.find(nickname);
+        it->second = entityPosition;
+    }
+}
+
+Coordinate Map::_calculateNewTile(Coordinate position, GameType::Direction direction) {
+    switch (direction) {
+        case GameType::DIRECTION_UP:
+            position.i -= 1;
+            break;
+        case GameType::DIRECTION_DOWN:
+            position.i += 1;
+            break;
+        case GameType::DIRECTION_LEFT:
+            position.j -= 1;
+            break;
+        case GameType::DIRECTION_RIGHT:
+            position.j += 1;
+            break;
+        case GameType::DIRECTION_STILL:
+            //do nothing
+            break;
+    }
+    return position;
 }

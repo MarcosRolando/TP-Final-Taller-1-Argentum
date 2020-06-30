@@ -55,3 +55,12 @@ void Tile::moveEntity(GameType::Direction direction, unsigned int distanceTravel
         entity->move(direction, distanceTravelled);
     }
 }
+
+std::unique_ptr<Entity> Tile::getEntity() {
+    std::unique_ptr<Entity> aux = nullptr;
+    if (entity) {
+        aux = std::move(entity);
+        entity = nullptr;
+    }
+    return aux;
+}

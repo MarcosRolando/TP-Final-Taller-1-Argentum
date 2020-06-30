@@ -42,6 +42,9 @@ public:
     /*Desplaza a la entidad en la direccion recibida y comienza su interpolacion interna para que se vea fluido*/
     void moveEntity(std::string& nickname, GameType::Direction direction,
             unsigned int distanceTraveled, bool reachedDestination);
+
+private:
+    static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
 };
 
 
