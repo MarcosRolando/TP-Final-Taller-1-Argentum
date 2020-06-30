@@ -45,6 +45,9 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     while (keepRunning) {
         time1 = high_resolution_clock::now();
 
+        std::cout << "Entro a hacer game.update" << std::endl;
+
+
         game.update(lastFrameTime, protocol);
 
 
