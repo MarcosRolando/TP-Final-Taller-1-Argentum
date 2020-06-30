@@ -8,7 +8,6 @@
 #include <mutex>
 #include <condition_variable>
 #include <queue>
-#include <SDL_events.h>
 #include "../TPException.h"
 
 

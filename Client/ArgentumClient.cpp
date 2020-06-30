@@ -8,8 +8,10 @@
 #include <vector>
 #include <utility>
 #include "BlockingQueue.hpp"
+#include "UpdateQueue.hpp"
 #include <SDL_mixer.h>
 #include "../UpdateEvents/UpdateEvent.h"
+#include "UpdateReceiver.h"
 
 #define FREQUENCY 44100
 #define CHUNKSIZE 2048
@@ -37,13 +39,22 @@ void Client::_processConnection() {
     GameGUI game;
     Window& window = game.getWindow();
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
-    BlockingQueue<std::unique_ptr<UpdateEvent>> updateEvents;
+    UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
     ClientProtocol protocol(game, socket);
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
+    UpdateReceiver updater(updateEvents, socket, quit);
     eventHandler();
     //Aca falta lo del main menu y la seleccion de server/player etc
     std::unique_ptr<SDL_Event> event(new SDL_Event());
+    std::unique_ptr<UpdateEvent> update;
     while (!quit) {
+        if (updateEvents.isUpdateAvailable()) {
+            while (!updateEvents.empty()) {
+                update = updateEvents.pop();
+                (*update)(game);
+            }
+            updateEvents.consumedUpdate();
+        }
         while(SDL_PollEvent(event.get()) != 0) {
             if (!window.handleEvent(*event)) {
                 sdlEvents.push(std::move(event));

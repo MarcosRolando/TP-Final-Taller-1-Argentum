@@ -31,7 +31,8 @@ Client/User.cpp Client/User.h Client/GameGUI.cpp Client/GameGUI.h
         Shared/GameEnums.h Client/ProtocolEnumTranslator.cpp
         Client/ProtocolEnumTranslator.h Client/ClientEventHandler.cpp Client/ClientEventHandler.h
         Client/BlockingQueue.hpp Client/UpdateReceiver.cpp Client/UpdateReceiver.h
-        UpdateEvents/UpdateEvent.h UpdateEvents/UpdateMove.cpp UpdateEvents/UpdateMove.h)
+        UpdateEvents/UpdateEvent.h UpdateEvents/UpdateMove.cpp UpdateEvents/UpdateMove.h
+        Client/UpdateQueue.hpp)
 
 
 target_compile_options (argentum PUBLIC -std=c++11 -Wall -Werror -pedantic

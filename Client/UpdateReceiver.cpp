@@ -22,6 +22,7 @@ void UpdateReceiver::run() {
             buffer.clear();
             socket.receive(buffer.data(), msgLength);
             _processUpdate();
+            updates.deliverUpdate();
         } catch (...) {
             //do nothing
         }
