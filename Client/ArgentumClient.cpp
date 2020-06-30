@@ -12,6 +12,7 @@
 #include <SDL_mixer.h>
 #include "../UpdateEvents/UpdateEvent.h"
 #include "UpdateReceiver.h"
+#include "../Timer.h"
 
 #define FREQUENCY 44100
 #define CHUNKSIZE 2048
@@ -36,6 +37,7 @@ void Client::_receive() {
 
 void Client::_processConnection() {
     bool quit = false;
+    Timer moveTime;
     GameGUI game;
     Window& window = game.getWindow();
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
@@ -43,6 +45,7 @@ void Client::_processConnection() {
     ClientProtocol protocol(game, socket);
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
     UpdateReceiver updater(updateEvents, socket, quit);
+    float timeStep = 0;
     eventHandler();
     updater();
     //Aca falta lo del main menu y la seleccion de server/player etc
@@ -62,7 +65,9 @@ void Client::_processConnection() {
                 event.reset(new SDL_Event());
             }
         }
-        game.render();
+        timeStep = moveTime.getTicks();
+        moveTime.start();
+        game.render(timeStep);
     }
 
     socket.close();

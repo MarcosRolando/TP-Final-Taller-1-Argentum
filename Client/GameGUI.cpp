@@ -19,7 +19,7 @@ void GameGUI::loadTileData(Coordinate position, FloorTypeTexture floor,
     map.loadTileData(position, floor, structure, entity);
 }
 
-void GameGUI::render() {
+void GameGUI::render(float timeStep) {
     screen.clear();
     screen.setViewport(ScreenViewport);
     background.render(0, 0);
@@ -27,7 +27,7 @@ void GameGUI::render() {
     //Mapa
     screen.setViewport(MapViewport);
     map.renderGround();
-    map.renderNPCS(0);
+    map.renderNPCS(timeStep);
     map.renderStructures();
 
     //Inventario

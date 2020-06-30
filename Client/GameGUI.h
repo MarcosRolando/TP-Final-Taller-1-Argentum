@@ -45,7 +45,7 @@ public:
     PlayerInventoryGUI& getPlayerInventory();
     Map& getMap();
 
-    void render();
+    void render(float timeStep);
 };
 
 
