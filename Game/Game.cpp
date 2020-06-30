@@ -55,6 +55,9 @@ void Game::moveEntity(Coordinate initialPosition, Coordinate finalPosition) {
 
 void Game::_updateMonsters(double timeStep) {
     for (const auto & monster: monsters) {
+        if (!monster) {
+            std::cout << "Tengo un monstruo null" << std::endl;
+        }
         monster->update(timeStep);
     }
 }
@@ -89,23 +92,8 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 
 
 void Game::update(double timeStep, ServerProtocol& protocol) {
-
-    std::cout << "Voy a hacer repopulateMap" << std::endl;
-
     _repopulateMap(timeStep);
-
-
-    std::cout << "Termine repopulateMap" << std::endl;
-
-    std::cout << "Voy a hacer update de monsters" << std::endl;
-
     _updateMonsters(timeStep);
-
-
-
-    std::cout << "Termine update de monsters" << std::endl;
-
-
     //_updatePlayers(timeStep, protocol);
     clients.update(timeStep);
     _executeQueueOperations(protocol);
