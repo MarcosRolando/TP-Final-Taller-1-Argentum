@@ -13,7 +13,7 @@
 MSGPACK_ADD_ENUM(GameType::ID)
 MSGPACK_ADD_ENUM(GameType::Entity)
 
-const unsigned int DISTANCE_TO_MOVE = 1000;
+const unsigned int DISTANCE_TO_MOVE = 2000;
 
 unsigned int Entity::availableId = 0;
 
@@ -24,7 +24,7 @@ Entity::Entity(GameType::Entity _type, Coordinate initialPosition, std::string&&
     movement.movedDistance = 0;
     movement.isMoving = false;
     movement.direction = GameType::DIRECTION_UP;
-    speed = 4;
+    speed = 6;
     type = _type;
     nickname = std::move(_nicknamePrefix);
     if (!isPrefixUnique) {
