@@ -15,12 +15,17 @@ class UpdateReceiver : public Thread {
 private:
     BlockingQueue<std::unique_ptr<UpdateEvent>>& updates;
     Socket& socket;
+    bool& quit;
 
 public:
-    UpdateReceiver(BlockingQueue<std::unique_ptr<UpdateEvent>>& _updates, Socket& _socket) :
-                    updates(_updates), socket(_socket) {}
+    UpdateReceiver(BlockingQueue<std::unique_ptr<UpdateEvent>>& _updates,
+                Socket& _socket, bool& _quit) :
+                    updates(_updates), socket(_socket), quit(_quit) {}
 
     void run() override;
+
+private:
+    void _proccessUpdate(std::vector<char>& buffer);
 };
 
 
