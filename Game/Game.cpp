@@ -86,7 +86,7 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
     _repopulateMap(timeStep);
     _updateMonsters(timeStep);
     //_updatePlayers(timeStep, protocol);
-    clients.update();
+    clients.update(timeStep);
     _executeQueueOperations(protocol);
 
     //AGREGAR UPDATE DE PLAYERS CONECTADOS

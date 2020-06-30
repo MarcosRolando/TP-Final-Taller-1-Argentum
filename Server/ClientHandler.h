@@ -36,7 +36,7 @@ public:
     /*Retorna si el ha terminado de comunicarse con su cliente*/
     bool hasFinished() const;
 
-    void update();
+    void update(double timeStep);
 
     void sendUpdateData();
 
@@ -52,6 +52,7 @@ private:
     void _sendUpdateDataToClient();
     void _addMessageToQueue();
     void _storePlayerProxy();
+    void _processClientAction(std::vector<char>& data);
 };
 
 

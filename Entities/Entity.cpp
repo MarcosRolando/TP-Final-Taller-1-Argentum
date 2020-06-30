@@ -175,6 +175,9 @@ Coordinate Entity::getFinalCoordinate(GameType::Direction moveDirection) {
                 return {currentPosition.iPosition, currentPosition.jPosition + 1};
             case GameType::DIRECTION_LEFT:
                 return {currentPosition.iPosition, currentPosition.jPosition - 1};
+            case GameType::DIRECTION_STILL:
+                //do nothing
+                break;
         }
     }
     return {-1, -1};

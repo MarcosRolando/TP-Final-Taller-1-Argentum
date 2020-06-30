@@ -8,6 +8,9 @@
 
 #define MAX_NUMBER_OF_MESSAGES_STORED 3
 
+MSGPACK_ADD_ENUM(GameType::PlayerEvent)
+MSGPACK_ADD_ENUM(GameType::Direction)
+
 ///////////////////////////////PUBLIC///////////////////////////////
 
 ClientHandler::ClientHandler(Socket &&socket, ServerProtocol &_protocol, PlayerLoader &_loader) :
@@ -18,6 +21,7 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol &_protocol, PlayerL
 
 void ClientHandler::run() {
     try {
+        uint32_t msgLength = 0;
         player = loader.getPlayer();
         _sendMapInfoToClient();
         std::vector<char> data = protocol.getCurrentState(player);
@@ -27,8 +31,12 @@ void ClientHandler::run() {
         //std::vector<char> buffer;
 
         while (!finished) {
-            //socket.receive(buffer, sizeof(unit32_t));
-
+            data.clear();
+            socket.receive((char*)&(msgLength), sizeof(uint32_t));
+            msgLength = ntohl(msgLength);
+            data.resize(msgLength);
+            socket.receive(data.data(), msgLength);
+            _processClientAction(data);
             if (hasDataToSend) {
                 _sendUpdateDataToClient();
                 hasDataToSend = false;
@@ -38,6 +46,19 @@ void ClientHandler::run() {
 
     } catch(...) {
 
+    }
+}
+
+void ClientHandler::_processClientAction(std::vector<char>& data) {
+    std::size_t offset = 0;
+    msgpack::type::tuple<GameType::PlayerEvent> event;
+    msgpack::object_handle handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(event);
+    if (std::get<0>(event) == GameType::MOVE) {
+        msgpack::type::tuple<GameType::Direction> moveInfo;
+        handler = msgpack::unpack(data.data(), data.size(), offset);
+        handler->convert(moveInfo);
+        player.move(std::get<0>(moveInfo));
     }
 }
 
@@ -62,9 +83,9 @@ bool ClientHandler::hasFinished() const {
     return finished;
 }
 
-void ClientHandler::update() {
+void ClientHandler::update(double timeStep) {
     std::unique_lock<std::mutex> lk(m);
-    player.giveEventsToGame();
+    player.giveEventsToGame(timeStep);
 }
 
 void ClientHandler::sendUpdateData() {
