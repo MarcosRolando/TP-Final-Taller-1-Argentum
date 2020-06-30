@@ -48,7 +48,6 @@ void Client::_processConnection() {
     ClientProtocol protocol(game, socket);
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
     UpdateReceiver updater(updateEvents, socket, quit);
-    //float timeStep = 0;
     eventHandler();
     updater();
     //Aca falta lo del main menu y la seleccion de server/player etc
@@ -58,9 +57,8 @@ void Client::_processConnection() {
     high_resolution_clock::time_point time1;
     high_resolution_clock::time_point time2;
     duration<float, std::milli> timeStep{};
+    time1 = high_resolution_clock::now();
     while (!quit) {
-        time1 = high_resolution_clock::now();
-        //moveTime.start();
         if (updateEvents.isUpdateAvailable()) {
             while (!updateEvents.empty()) {
                 update = updateEvents.pop();
@@ -74,10 +72,10 @@ void Client::_processConnection() {
                 event.reset(new SDL_Event());
             }
         }
-        //timeStep = moveTime.getTicks();
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
-        game.render(0);
+        time1 = high_resolution_clock::now();
+        game.render(timeStep.count());
     }
 
     socket.close();

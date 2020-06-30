@@ -32,12 +32,7 @@ void Entity::updatePosition(float timeStep) {
         _modifyPosition(moveDirection, offset);
     }
     if (totalDistanceMoved >= (TILE_WIDTH - 2)/*le pongo un poco menos por error de redondeo de float que nunca llego*/) {/*Reinicio la animacion*/
-        if (totalDistanceMoved >= TILE_WIDTH) {
-            _modifyPosition(moveDirection, TILE_WIDTH - (totalDistanceMoved - offset));
-            std::cout << TILE_WIDTH - (totalDistanceMoved - offset) << std::endl;
-        } else {
-            _modifyPosition(moveDirection, TILE_WIDTH - totalDistanceMoved);
-        }
+        _modifyPosition(moveDirection, TILE_WIDTH - totalDistanceMoved);
         currentFrame = 0;
         lastDirection = moveDirection;
         moveDirection = GameType::DIRECTION_STILL;
@@ -153,8 +148,8 @@ void Entity::move(GameType::Direction direction, unsigned int distanceTravelled)
     if (distanceToMove > currentDistanceMoved) { /*Esto es por si por algun motivo no llegue a interpolarlo a la posicion de destino a tiempo*/
         _modifyPosition(moveDirection, distanceToMove - currentDistanceMoved);
         totalDistanceMoved += (distanceToMove - currentDistanceMoved);
-        currentDistanceMoved = 0;
     }
+    currentDistanceMoved = 0;
     moveDirection = direction;
     distanceToMove = static_cast<float>(TILE_WIDTH) *
             static_cast<float>(distanceTravelled) / static_cast<float>(TILE_DISTANCE_IN_METERS);
