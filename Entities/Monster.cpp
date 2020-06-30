@@ -153,6 +153,9 @@ void Monster::update(double timeStep) {
             std::cout << "Estoy a punto de hacer move" << std::endl;
 
             _move();
+
+
+            std::cout << "Hice move" << std::endl;
         }
         elapsedTime = 0;
     }
