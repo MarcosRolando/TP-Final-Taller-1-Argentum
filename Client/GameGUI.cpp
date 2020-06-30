@@ -77,3 +77,7 @@ PlayerInventoryGUI &GameGUI::getPlayerInventory() {
     return inventoryGUI;
 }
 
+Map &GameGUI::getMap() {
+    return map;
+}
+

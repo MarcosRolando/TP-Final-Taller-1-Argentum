@@ -7,6 +7,7 @@
 
 #include "Thread.h"
 #include "BlockingQueue.hpp"
+#include <msgpack.hpp>
 
 class UpdateEvent;
 class Socket;
@@ -14,7 +15,10 @@ class Socket;
 class UpdateReceiver : public Thread {
 private:
     BlockingQueue<std::unique_ptr<UpdateEvent>>& updates;
+    msgpack::object_handle handler;
+    std::size_t offset{0};
     Socket& socket;
+    std::vector<char> buffer;
     bool& quit;
 
 public:
@@ -25,7 +29,8 @@ public:
     void run() override;
 
 private:
-    void _proccessUpdate(std::vector<char>& buffer);
+    void _processUpdate();
+    void _processMoveUpdate();
 };
 
 

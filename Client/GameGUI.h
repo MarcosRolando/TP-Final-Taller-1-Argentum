@@ -43,6 +43,7 @@ public:
     Selector& getSelector();
     PlayerInfoGUI& getPlayerInfo();
     PlayerInventoryGUI& getPlayerInventory();
+    Map& getMap();
 
     void render();
 };

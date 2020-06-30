@@ -18,7 +18,7 @@ Configuration/Configuration.cpp Configuration/Configuration.h SDL/Sound/Sound.cp
 SDL/Sound/Sound.h Configuration/Calculator.cpp Configuration/Calculator.h
 Map/Tile.cpp Map/Tile.h Map/Map.cpp Map/Map.h Character/Player.cpp
 Character/Player.h Timer.cpp Timer.h GameConstants.h Character/NPC.cpp
-Character/NPC.h Direction.h Character/Entity.cpp Character/Entity.h
+Character/NPC.h Character/Entity.cpp Character/Entity.h
 Screen/Window.cpp Screen/Window.h SDL/Text/Text.cpp SDL/Text/Text.h SDL/GUI/PlayerInfoGUI.cpp
 SDL/GUI/PlayerInfoGUI.h SDL/GUI/PlayerInventoryGUI.cpp SDL/GUI/PlayerInventoryGUI.h
 Spells/Spell.cpp Spells/Spell.h MapFileReader.cpp MapFileReader.h SDL/Minichat/Minichat.cpp
@@ -30,7 +30,8 @@ Client/Socket.cpp Client/Socket.h Client/Thread.cpp Client/Thread.h
 Client/User.cpp Client/User.h Client/GameGUI.cpp Client/GameGUI.h
         Shared/GameEnums.h Client/ProtocolEnumTranslator.cpp
         Client/ProtocolEnumTranslator.h Client/ClientEventHandler.cpp Client/ClientEventHandler.h
-        Client/BlockingQueue.hpp Client/UpdateReceiver.cpp Client/UpdateReceiver.h UpdateEvents/UpdateEvent.cpp UpdateEvents/UpdateEvent.h UpdateEvents/UpdateMove.cpp UpdateEvents/UpdateMove.h)
+        Client/BlockingQueue.hpp Client/UpdateReceiver.cpp Client/UpdateReceiver.h
+        UpdateEvents/UpdateEvent.h UpdateEvents/UpdateMove.cpp UpdateEvents/UpdateMove.h)
 
 
 target_compile_options (argentum PUBLIC -std=c++11 -Wall -Werror -pedantic

@@ -7,9 +7,11 @@
 
 /*Interfaz, los eventos que updatean el juego deben implmenetar cada caso*/
 
+class GameGUI;
+
 class UpdateEvent {
 public:
-    virtual void operator()() = 0;
+    virtual void operator()(GameGUI& game) = 0;
 };
 
 

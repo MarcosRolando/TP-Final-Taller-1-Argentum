@@ -5,6 +5,9 @@
 #include "UpdateMove.h"
 #include "../Map/Map.h"
 
-void UpdateMove::operator()() {
-    map.moveEntity(nickname, direction, distanceTravelled, reachedDestination);
+#include "../Client/GameGUI.h"
+
+void UpdateMove::operator()(GameGUI& game) {
+    game.getMap().moveEntity(nickname, direction, distanceTravelled,
+                                                            reachedDestination);
 }
