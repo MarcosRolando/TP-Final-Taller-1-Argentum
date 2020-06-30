@@ -9,7 +9,7 @@ const unsigned int TILE_DISTANCE_IN_METERS = 1000;
 const float SERVER_UPDATE_TIME = 33.f; /*in miliseconds*/
 
 Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
-    distanceMoved = 0;
+    currentDistanceMoved = 0;
     currentFrame = 0;
     moveDirection = GameType::DIRECTION_STILL;
     lastDirection = GameType::DIRECTION_STILL;
@@ -22,22 +22,23 @@ Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
 void Entity::updatePosition(float timeStep) {
     float offset = distancePerMilisecond*timeStep; //Calculate distanced move, offset es un auxiliar
     if (moveDirection != GameType::DIRECTION_STILL) {
-        if ( (distanceMoved + offset) >= distanceToMove) {
-            offset = distanceToMove - distanceMoved;
-            distanceMoved = distanceToMove;
+        if ( (currentDistanceMoved + offset) >= distanceToMove) {
+            offset = distanceToMove - currentDistanceMoved;
+            currentDistanceMoved = distanceToMove;
         } else {
-            distanceMoved += offset;
+            currentDistanceMoved += offset;
         }
+        totalDistanceMoved += offset;
         _modifyPosition(moveDirection, offset);
     }
-    if (distanceMoved >= TILE_WIDTH) { /*Reinicio la animacion*/
+    if (totalDistanceMoved >= TILE_WIDTH) { /*Reinicio la animacion*/
         currentFrame = 0;
         lastDirection = moveDirection;
         moveDirection = GameType::DIRECTION_STILL;
-        distanceMoved = 0; //todo capaz caga algo con el server, no deberia igual
+        totalDistanceMoved = 0; //todo capaz caga algo con el server, no deberia igual
     } else {
         for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
-            if (distanceMoved < ((float)TILE_WIDTH/6 * (float)(i+1))) {
+            if (totalDistanceMoved < ((float)TILE_WIDTH/6 * (float)(i+1))) {
                 currentFrame = i;
                 break;
             }
@@ -143,8 +144,10 @@ void Entity::updateCamera() {
 }
 
 void Entity::move(GameType::Direction direction, unsigned int distanceTravelled) {
-    if (distanceToMove > distanceMoved) { /*Esto es por si por algun motivo no llegue a interpolarlo a la posicion de destino a tiempo*/
-        _modifyPosition(moveDirection, distanceToMove - distanceMoved);
+    if (distanceToMove > currentDistanceMoved) { /*Esto es por si por algun motivo no llegue a interpolarlo a la posicion de destino a tiempo*/
+        _modifyPosition(moveDirection, distanceToMove - currentDistanceMoved);
+        totalDistanceMoved += (distanceToMove - currentDistanceMoved);
+        currentDistanceMoved = 0;
     }
     moveDirection = direction;
     distanceToMove = static_cast<float>(TILE_WIDTH) *

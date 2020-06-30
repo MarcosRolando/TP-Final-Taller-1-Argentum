@@ -18,7 +18,7 @@ private:
     float xPosition, width;
     float yPosition, height;
     float distanceToMove{0}, distancePerMilisecond{0}; /*Se mide en pixeles*/
-    float distanceMoved;
+    float currentDistanceMoved{0}, totalDistanceMoved{0};
 
 public:
     Entity(SDL_Rect& camera, float x, float y);
