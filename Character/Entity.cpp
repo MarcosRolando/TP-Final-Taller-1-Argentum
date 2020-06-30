@@ -31,12 +31,13 @@ void Entity::updatePosition(float timeStep) {
         totalDistanceMoved += offset;
         _modifyPosition(moveDirection, offset);
     }
-    if (totalDistanceMoved >= (TILE_WIDTH - 2)/*le pongo un poco menos por error de redondeo de float que nunca llego*/) {/*Reinicio la animacion*/
-        _modifyPosition(moveDirection, TILE_WIDTH - totalDistanceMoved);
+    if (totalDistanceMoved >= ((static_cast<float>(TILE_WIDTH) - 0.01))/*le pongo un poco menos por error de redondeo de float que nunca llego*/) {/*Reinicio la animacion*/
         currentFrame = 0;
         lastDirection = moveDirection;
         moveDirection = GameType::DIRECTION_STILL;
         totalDistanceMoved = 0;
+        currentDistanceMoved = 0;
+        distanceToMove = 0;
     } else {
         for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
             if (totalDistanceMoved < ((float)TILE_WIDTH/6 * (float)(i+1))) {
@@ -149,14 +150,14 @@ void Entity::move(GameType::Direction direction, unsigned int distanceTravelled,
     if (distanceToMove > currentDistanceMoved) { //Esto es por si por algun motivo no llegue a interpolarlo a la posicion de destino a tiempo
         _modifyPosition(moveDirection, distanceToMove - currentDistanceMoved);
         totalDistanceMoved += (distanceToMove - currentDistanceMoved);
+    } else {
+        movingEntities.emplace_back(this);
     }
     currentDistanceMoved = 0;
     moveDirection = direction;
     distanceToMove = static_cast<float>(TILE_WIDTH) *
             static_cast<float>(distanceTravelled) / static_cast<float>(TILE_DISTANCE_IN_METERS);
     distancePerMilisecond = distanceToMove / SERVER_UPDATE_TIME;
-    movingEntities.emplace_back(this);
-    //_modifyPosition(direction, distanceToMove);
 }
 
 void Entity::_modifyPosition(GameType::Direction direction, float distance) {
@@ -180,5 +181,5 @@ void Entity::_modifyPosition(GameType::Direction direction, float distance) {
 }
 
 bool Entity::finishedMoving() const {
-    return (distanceToMove == currentDistanceMoved);
+    return (moveDirection == GameType::DIRECTION_STILL);
 }
