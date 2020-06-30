@@ -28,10 +28,13 @@ void Game::_repopulateMap(double timePassed) {
             monstersToCreate = maxNumberOfMonsters - monsters.size();
         }
         for (unsigned int i = 0; i < monstersToCreate; ++i) {
-            //Coordinate monsterPosition = map.getMonsterCoordinate();
+            map.addEntity({0, 0}, std::shared_ptr<Entity>(new Monster(*this, {0, 0}, GameType::Entity::SKELETON)));
+            /*
+            //DESCPOMENTAR ESTO
             monstersFactory.storeRandomMonster(*this, monster);
             monsters.push_back(monster);
             map.addEntity(map.getMonsterCoordinate(), std::static_pointer_cast<Entity>(monster));
+            */
         }
     }
 }
@@ -101,7 +104,8 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
 
 Game::Game(MapFileReader&& mapFile, ClientsMonitor& _clients): map(mapFile), clients(_clients) {
     monsterCreationRate = 20;
-    maxNumberOfMonsters = 300;
+    //maxNumberOfMonsters = 300;
+    maxNumberOfMonsters = 1;
     spawnInterval = 100;
     spawnTimer = 0;
 }
