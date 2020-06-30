@@ -77,7 +77,7 @@ void Client::_processConnection() {
         //timeStep = moveTime.getTicks();
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
-        game.render(timeStep.count());
+        game.render(0);
     }
 
     socket.close();
