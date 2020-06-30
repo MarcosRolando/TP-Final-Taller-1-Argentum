@@ -10,7 +10,7 @@
 #define DEFAULT_MAP_TOP 236
 #define DEFAULT_MAP_BOTTOM 876
 
-#define CAMERA_X_OFFSET 50
+#define CAMERA_X_OFFSET 30
 #define CAMERA_Y_OFFSET 12
 
 #define DEFAULT_INVENTORY_LEFT 1122
@@ -47,8 +47,8 @@ void Selector::_verifyTileSelection(int playerX, int playerY) {
     //Veo si clickeo adentro del mapa
     if (_isInsideRect(DEFAULT_MAP_LEFT, DEFAULT_MAP_RIGHT, DEFAULT_MAP_TOP, DEFAULT_MAP_BOTTOM)){
         //Esto es cuando no esta en los extremos
-        int playerXTile = playerX/TILE_WIDTH;
-        int playerYTile = playerY/TILE_HEIGHT;
+        int playerXTile = playerX;///TILE_WIDTH;
+        int playerYTile = playerY;///TILE_HEIGHT;
         int relativeXTile = (clickX - DEFAULT_MAP_LEFT + CAMERA_X_OFFSET) / TILE_WIDTH;
         int relativeYTile = (clickY - DEFAULT_MAP_TOP - CAMERA_Y_OFFSET) /TILE_HEIGHT;
         tileX = playerXTile + (relativeXTile - 4);
@@ -92,7 +92,7 @@ int Selector::getSelectedTileY() const {
 }
 
 int Selector::getSelectedTileXToRender(int xPlayer) const {
-    int playerXTile = xPlayer/TILE_WIDTH;
+    int playerXTile = xPlayer;///TILE_WIDTH;
     int cameraOffset = 0,tileXOffset = 0;
     if (playerXTile > 3 && playerXTile < 96){
         cameraOffset = CAMERA_X_OFFSET;
@@ -105,11 +105,11 @@ int Selector::getSelectedTileXToRender(int xPlayer) const {
 }
 
 int Selector::getSelectedTileYToRender(int yPlayer) const {
-    int playerYTile = yPlayer/TILE_WIDTH;
+    int playerYTile = yPlayer;///TILE_WIDTH;
     int cameraOffset = 0, tileYOffset = 0;
     if (playerYTile > 2 && playerYTile < 98){
         cameraOffset = CAMERA_Y_OFFSET;
-        tileYOffset = -(yPlayer / TILE_HEIGHT) + 2;
+        tileYOffset = -playerYTile + 2;
     }
     if (playerYTile >= 98){
         tileYOffset = -95;

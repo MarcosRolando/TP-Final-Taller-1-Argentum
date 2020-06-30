@@ -20,6 +20,9 @@ void GameGUI::loadTileData(Coordinate position, FloorTypeTexture floor,
 }
 
 void GameGUI::render(float timeStep) {
+    /*Font UIFont("../SDL/Text/medieval.ttf", 25);
+    Text clickPos(UIFont, screen.getRenderer());*/
+
     map.updateInterpolation(timeStep);
     screen.clear();
     screen.setViewport(ScreenViewport);
@@ -30,10 +33,22 @@ void GameGUI::render(float timeStep) {
     map.renderGround();
     map.renderNPCS();
     map.renderStructures();
+    //Outline del tile seleccionado. Ver si lo ponemos en Map
+    /*SDL_Rect fillRect = {selector.getSelectedTileXToRender
+            (getPlayerInfo().getXPos()),
+                         selector.getSelectedTileYToRender(getPlayerInfo().getYPos()),
+                         128, 128};
+    SDL_SetRenderDrawColor(&screen.getRenderer(), 0xFF,
+                           0x00, 0x00, 0xFF);
+    SDL_RenderDrawRect( &screen.getRenderer(), &fillRect );*///Debugging
 
     //Inventario
     screen.setViewport(InventoryViewport);
     inventoryGUI.render(selector.getInventorySlot());
+    /*clickPos.updateText("ClickX: " + std::to_string(selector.getSelectedTileX()) +
+                        "   ClickY: " + std::to_string(selector.getSelectedTileY
+            ()));
+    clickPos.render(150,100, {0xFF,0xFF,0xFF});*///Debugging del click
 
     //PlayerInfo
     screen.setViewport(PlayerInfoViewport);
