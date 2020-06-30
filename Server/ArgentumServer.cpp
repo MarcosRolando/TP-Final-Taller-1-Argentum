@@ -48,6 +48,8 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         game.update(lastFrameTime, protocol);
 
 
+        std::cout << "Termine de hacer game.update" << std::endl;
+
         protocol.buildGeneralDataBuffer();
         clients.sendGameUpdate();
         //Aca se borran los clientes desconectados
