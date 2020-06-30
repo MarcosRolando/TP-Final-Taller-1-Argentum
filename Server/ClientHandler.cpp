@@ -70,7 +70,9 @@ void ClientHandler::sendUpdateData() {
 
 void ClientHandler::_sendUpdateDataToClient() {
     const std::vector<char>& generalData = protocol.getGeneralData();
-    socket.send(generalData.data(), generalData.size());
+    if (generalData.size() != sizeof(uint32_t)) {
+        socket.send(generalData.data(), generalData.size());
+    }
 
     //ACA SE MANDA LA INFORMACION GENERAL DE PLAYER
 }
