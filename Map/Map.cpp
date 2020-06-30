@@ -102,11 +102,11 @@ void Map::loadTileItem(Coordinate position, TextureID itemTexture) {
 }
 
 void Map::moveEntity(std::string &nickname, GameType::Direction direction,
-                     unsigned int distanceTraveled, bool reachedDestination) {
+                     unsigned int distanceTravelled, bool reachedDestination) {
 
     Coordinate entityPosition = entities.at(nickname);
     int tile = entityPosition.i * TOTAL_HORIZONTAL_TILES + entityPosition.j;
-    tiles[tile].moveEntity(direction, distanceTraveled);
+    tiles[tile].moveEntity(direction, distanceTravelled);
     if (reachedDestination) {
         std::unique_ptr<Entity> entity = tiles[tile].getEntity();
         entityPosition = _calculateNewTile(entityPosition, direction);

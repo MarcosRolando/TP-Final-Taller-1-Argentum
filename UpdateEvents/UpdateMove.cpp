@@ -3,3 +3,8 @@
 //
 
 #include "UpdateMove.h"
+#include "../Map/Map.h"
+
+void UpdateMove::operator()() {
+    map.moveEntity(nickname, direction, distanceTravelled, reachedDestination);
+}

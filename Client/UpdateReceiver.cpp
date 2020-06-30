@@ -3,3 +3,7 @@
 //
 
 #include "UpdateReceiver.h"
+
+void UpdateReceiver::run() {
+
+}
