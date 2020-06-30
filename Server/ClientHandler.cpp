@@ -17,7 +17,7 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol &_protocol, PlayerL
 }
 
 void ClientHandler::run() {
-    //PlayerProxy player = loader.getPlayer();
+    player = loader.getPlayer();
     _sendMapInfoToClient();
     std::vector<char> data = protocol.getCurrentState(player);
     socket.send(data.data(), data.size());
