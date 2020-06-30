@@ -30,19 +30,17 @@ Selector::Selector() {
     tileY = -1;
 }
 
-void Selector::handleEvent(SDL_Event &e,int playerX, int playerY, Window& window){
-    if( e.type == SDL_MOUSEBUTTONDOWN )
-    {
-        SDL_GetMouseState(&clickX, &clickY);
-        //Escalo la posicion de click
-        clickX = (float)clickX *
-                ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
-        clickY = (float)clickY *
-                ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
+void Selector::handleEvent(int playerX, int playerY, Window& window){
+    //Creo q puedo sacar que reciba &e
+    SDL_GetMouseState(&clickX, &clickY);
+    //Escalo la posicion de click
+    clickX = (float)clickX *
+            ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
+    clickY = (float)clickY *
+            ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
 
-        _verifyTileSelection(playerX, playerY);
-        _verifyInventorySlotSelection();
-    }
+    _verifyTileSelection(playerX, playerY);
+    _verifyInventorySlotSelection();
 }
 
 void Selector::_verifyTileSelection(int playerX, int playerY) {

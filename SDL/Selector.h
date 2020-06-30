@@ -16,7 +16,7 @@ private:
     int tileX, tileY;
 public:
     Selector();
-    void handleEvent(SDL_Event &e, int playerX, int playerY, Window& window);
+    void handleEvent(int playerX, int playerY, Window& window);
     int getInventorySlot() const;
     int getSelectedTileX() const;
     int getSelectedTileY() const;

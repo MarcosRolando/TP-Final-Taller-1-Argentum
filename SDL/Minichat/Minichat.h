@@ -26,6 +26,16 @@ public:
     ~Minichat();
 
     bool _isInsideMinichat(int xClick, int yClick);
+
+    void handleBackspace();
+
+    void handleTextInput(SDL_Event &e);
+
+    void handleMouseButtonDown(Window &window);
+
+    void handleMouseWheel(SDL_Event &e);
+
+    void handleReturnKey();
 };
 
 
