@@ -49,7 +49,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
 
 
         protocol.buildGeneralDataBuffer();
-        clients.communicateResult();
+        clients.sendGameUpdate();
         //Aca se borran los clientes desconectados
 
 

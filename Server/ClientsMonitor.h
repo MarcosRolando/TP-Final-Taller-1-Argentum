@@ -24,7 +24,7 @@ public:
     void mergeWaitingClients();
     void update(double timeStep);
     void eraseDisconnectedClients();
-    void communicateResult();
+    void sendGameUpdate();
     void join();
 };
 

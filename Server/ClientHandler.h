@@ -38,7 +38,7 @@ public:
 
     void update(double timeStep);
 
-    void sendUpdateData();
+    void sendGameUpdate();
 
     //todo IMPLEMENTAR CONSTRUCTOR POR MOVIMIENTO
 

@@ -37,16 +37,15 @@ void ClientHandler::run() {
             data.resize(msgLength);
             socket.receive(data.data(), msgLength);
             _processClientAction(data);
-            if (hasDataToSend) {
-                _sendUpdateDataToClient();
-                hasDataToSend = false;
-            }
-
         }
 
     } catch(...) {
 
     }
+}
+
+void ClientHandler::sendGameUpdate() {
+    _sendUpdateDataToClient();
 }
 
 void ClientHandler::_processClientAction(std::vector<char>& data) {
@@ -88,13 +87,7 @@ void ClientHandler::update(double timeStep) {
     player.giveEventsToGame(timeStep);
 }
 
-void ClientHandler::sendUpdateData() {
-    hasDataToSend = true;
-}
-
 ///////////////////////////////PRIVATE///////////////////////////////
-
-#include <iostream>
 
 void ClientHandler::_sendUpdateDataToClient() {
     const std::vector<char>& generalData = protocol.getGeneralData();

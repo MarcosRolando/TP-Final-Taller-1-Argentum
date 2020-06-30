@@ -41,8 +41,8 @@ void ClientsMonitor::mergeWaitingClients() {
     waitingList.clear();
 }
 
-void ClientsMonitor::communicateResult() {
-    for (auto & client: clients) {
-        client->sendUpdateData();
+void ClientsMonitor::sendGameUpdate() {
+    for (const auto& client : clients) {
+        client->sendGameUpdate();
     }
 }
