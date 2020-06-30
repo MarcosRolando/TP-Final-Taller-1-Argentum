@@ -142,11 +142,16 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
     return result;
 }
 
+#include <iostream>
+
 void Monster::update(double timeStep) {
     Entity::update(timeStep, game);
     elapsedTime += timeStep;
     if (elapsedTime >= timeBetweenActions) {
         if (!_tryToAttack() && !isMoving()) {
+
+            std::cout << "Estoy a punto de hacer move" << std::endl;
+
             _move();
         }
         elapsedTime = 0;
