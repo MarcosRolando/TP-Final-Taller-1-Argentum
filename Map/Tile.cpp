@@ -44,15 +44,16 @@ void Tile::addEntity(std::unique_ptr<Entity> _entity) {
     entity = std::move(_entity);
 }
 
-void Tile::renderEntity(float timeStep) {
+void Tile::renderEntity() {
     if (entity) {
-        entity->render(timeStep);
+        entity->render();
     }
 }
 
-void Tile::moveEntity(GameType::Direction direction, unsigned int distanceTravelled) {
+void Tile::moveEntity(GameType::Direction direction, unsigned int distanceTravelled,
+                      std::list<Entity *> &movingEntities) {
     if (entity) {
-        entity->move(direction, distanceTravelled);
+        entity->move(direction, distanceTravelled, movingEntities);
     }
 }
 

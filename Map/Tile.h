@@ -12,6 +12,7 @@
 #include "Coordinate.h"
 #include <memory>
 #include "../Shared/GameEnums.h"
+#include <list>
 
 class Tile {
 private:
@@ -39,13 +40,14 @@ public:
 
     void renderStructure(SDL_Rect& camera);
 
-    void renderEntity(float timeStep);
+    void renderEntity();
 
     void addItemDrop(Texture& itemTexture);
 
     void addEntity(std::unique_ptr<Entity> _entity);
 
-    void moveEntity(GameType::Direction direction, unsigned int distanceTravelled);
+    void moveEntity(GameType::Direction direction, unsigned int distanceTravelled,
+                    std::list<Entity*>& movingEntities);
 
     std::unique_ptr<Entity> getEntity();
 };

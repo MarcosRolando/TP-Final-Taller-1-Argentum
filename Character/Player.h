@@ -19,7 +19,7 @@ public:
     Player(TextureRepository& repo, SDL_Rect& camera, float x, float y,
                                                     PlayerEquipment& images,
                                                     bool _isAlive = true);
-    void render(float timeStep) override;
+    void render() override;
 };
 
 

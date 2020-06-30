@@ -10,8 +10,7 @@ Player::Player(TextureRepository& repo, SDL_Rect& camera, float x, float y,
     isAlive = _isAlive;
 }
 
-void Player::render(float timeStep) {
-    //Entity::updatePosition(timeStep);
+void Player::render() {
     Entity::updateCamera();
     if (isAlive) {
         Entity::render(pTexture);

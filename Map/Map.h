@@ -14,6 +14,7 @@
 #include "Structure.h"
 #include "../Client/ProtocolEnumTranslator.h"
 #include "../Texture/PlayerEquipment.h"
+#include <list>
 
 class Map {
 private:
@@ -21,12 +22,13 @@ private:
     std::vector<Tile> tiles;
     SDL_Rect& camera;
     std::unordered_map<std::string, Coordinate> entities;
+    std::list<Entity*> movingEntities; /*Las entitites que debo interpolar*/
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera);
     void renderGround();
     void renderStructures();
-    void renderNPCS(float timeStep);
+    void renderNPCS();
     void setSize(int rows, int columns);
 
     void loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
@@ -42,6 +44,8 @@ public:
     /*Desplaza a la entidad en la direccion recibida y comienza su interpolacion interna para que se vea fluido*/
     void moveEntity(std::string& nickname, GameType::Direction direction,
             unsigned int distanceTravelled, bool reachedDestination);
+
+    void updateInterpolation(float timeStep);
 
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
