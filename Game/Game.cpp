@@ -28,13 +28,10 @@ void Game::_repopulateMap(double timePassed) {
             monstersToCreate = maxNumberOfMonsters - monsters.size();
         }
         for (unsigned int i = 0; i < monstersToCreate; ++i) {
-            map.addEntity({0, 0}, std::shared_ptr<Entity>(new Monster(*this, {0, 0}, GameType::Entity::SKELETON)));
-            /*
-            //DESCPOMENTAR ESTO
+            //map.addEntity({0, 0}, std::shared_ptr<Entity>(new Monster(*this, {0, 0}, GameType::Entity::SKELETON)));
             monstersFactory.storeRandomMonster(*this, monster);
             monsters.push_back(monster);
             map.addEntity(map.getMonsterCoordinate(), std::static_pointer_cast<Entity>(monster));
-            */
         }
     }
 }
