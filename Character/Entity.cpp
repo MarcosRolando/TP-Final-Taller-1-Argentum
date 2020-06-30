@@ -31,11 +31,12 @@ void Entity::updatePosition(float timeStep) {
         totalDistanceMoved += offset;
         _modifyPosition(moveDirection, offset);
     }
-    if (totalDistanceMoved >= TILE_WIDTH) { /*Reinicio la animacion*/
+    if (totalDistanceMoved >= (TILE_WIDTH - 2)/*le pongo un poco menos por error de redondeo de float que nunca llego*/) { /*Reinicio la animacion*/
+        _modifyPosition(moveDirection, TILE_WIDTH - totalDistanceMoved);
         currentFrame = 0;
         lastDirection = moveDirection;
         moveDirection = GameType::DIRECTION_STILL;
-        totalDistanceMoved = 0; //todo capaz caga algo con el server, no deberia igual
+        totalDistanceMoved = 0;
     } else {
         for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
             if (totalDistanceMoved < ((float)TILE_WIDTH/6 * (float)(i+1))) {

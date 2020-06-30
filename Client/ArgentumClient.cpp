@@ -13,6 +13,9 @@
 #include "../UpdateEvents/UpdateEvent.h"
 #include "UpdateReceiver.h"
 #include "../Timer.h"
+#include <chrono>
+
+using namespace std::chrono;
 
 #define FREQUENCY 44100
 #define CHUNKSIZE 2048
@@ -37,7 +40,7 @@ void Client::_receive() {
 
 void Client::_processConnection() {
     bool quit = false;
-    Timer moveTime;
+    //Timer moveTime;
     GameGUI game;
     Window& window = game.getWindow();
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
@@ -45,14 +48,19 @@ void Client::_processConnection() {
     ClientProtocol protocol(game, socket);
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
     UpdateReceiver updater(updateEvents, socket, quit);
-    float timeStep = 0;
+    //float timeStep = 0;
     eventHandler();
     updater();
     //Aca falta lo del main menu y la seleccion de server/player etc
     std::unique_ptr<SDL_Event> event(new SDL_Event());
     std::unique_ptr<UpdateEvent> update;
+
+    high_resolution_clock::time_point time1;
+    high_resolution_clock::time_point time2;
+    duration<float, std::milli> timeStep{};
     while (!quit) {
-        moveTime.start();
+        time1 = high_resolution_clock::now();
+        //moveTime.start();
         if (updateEvents.isUpdateAvailable()) {
             while (!updateEvents.empty()) {
                 update = updateEvents.pop();
@@ -66,9 +74,10 @@ void Client::_processConnection() {
                 event.reset(new SDL_Event());
             }
         }
-        timeStep = moveTime.getTicks();
-        std::cout << timeStep << std::endl;
-        game.render(timeStep);
+        //timeStep = moveTime.getTicks();
+        time2 = high_resolution_clock::now();
+        timeStep = time2 - time1;
+        game.render(timeStep.count());
     }
 
     socket.close();
