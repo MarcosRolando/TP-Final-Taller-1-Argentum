@@ -34,7 +34,7 @@ void Entity::updatePosition(float timeStep) {
         currentFrame = 0;
         lastDirection = moveDirection;
         moveDirection = GameType::DIRECTION_STILL;
-        distanceMoved = 0; //todo capaz caga algo con el server, no deberia igual
+        //distanceMoved = 0; //todo capaz caga algo con el server, no deberia igual
     } else {
         for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
             if (distanceMoved < ((float)TILE_WIDTH/6 * (float)(i+1))) {

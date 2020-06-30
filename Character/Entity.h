@@ -17,7 +17,7 @@ private:
     GameType::Direction moveDirection, lastDirection;
     float xPosition, width;
     float yPosition, height;
-    float distanceToMove{}, distancePerMilisecond{}; /*Se mide en pixeles*/
+    float distanceToMove{0}, distancePerMilisecond{0}; /*Se mide en pixeles*/
     float distanceMoved;
 
 public:
