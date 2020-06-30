@@ -62,8 +62,12 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         lastFrameTime = timeStep.count();
         //std::cout << lastFrameTime << std::endl;
         if ((FRAME_TIME - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
+            std::cout << "Entre al if del merge with waiting Clients" << std::endl;
             clients.mergeWaitingClients();
         }
+
+        std::cout << "Pase por el if del merge with waiting Clients" << std::endl;
+
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();
