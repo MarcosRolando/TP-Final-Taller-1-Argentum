@@ -54,6 +54,8 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         clients.sendGameUpdate();
         //Aca se borran los clientes desconectados
 
+        std::cout << "Termine de hacer clients.sendGameUpdate" << std::endl;
+
 
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
