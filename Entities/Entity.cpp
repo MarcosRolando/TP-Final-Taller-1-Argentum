@@ -13,7 +13,7 @@
 MSGPACK_ADD_ENUM(GameType::ID)
 MSGPACK_ADD_ENUM(GameType::Entity)
 
-const unsigned int DISTANCE_TO_MOVE = 500;
+const unsigned int DISTANCE_TO_MOVE = 1000;
 
 unsigned int Entity::availableId = 0;
 

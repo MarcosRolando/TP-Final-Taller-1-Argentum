@@ -142,7 +142,7 @@ Game::Game(ClientsMonitor&& clientAux /*= ClientsMonitor()*/): clients(clientAux
 Player& Game::loadPlayer() {
     map.removeEntity({1, 4});
     std::shared_ptr<Player> playeraso(new Player(*this, GameType::Race::GNOME, GameType::Class::WIZARD
-            , 15, 100000
+            , 5000, 100000
             , {1, 4}, "Manolas"));
     Player& player = *playeraso;
     player.storeItem(std::shared_ptr<Item>(new Chest(GameType::PLATE_ARMOR)));
