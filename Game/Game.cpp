@@ -89,9 +89,7 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 
 
 void Game::update(double timeStep, ServerProtocol& protocol) {
-    //DESCOMENTAR ESTA LINEA
-    //_repopulateMap(timeStep);
-
+    _repopulateMap(timeStep);
     _updateMonsters(timeStep);
     //_updatePlayers(timeStep, protocol);
     clients.update(timeStep);
@@ -157,15 +155,6 @@ Player& Game::loadPlayer() {
     player.storeItem(std::shared_ptr<Item>(new Head(GameType::HOOD)));
     player.useItem(1);
     map.addEntity({1, 4}, std::move(playeraso));
-    map.addEntity({0, 4}, std::shared_ptr<Entity>
-            (new Monster(*this, {0, 4}, GameType::Entity::SKELETON)));
-    map.addEntity({2, 4}, std::shared_ptr<Entity>
-            (new Monster(*this, {2, 4}, GameType::Entity::SKELETON)));
-    map.addEntity({1, 3}, std::shared_ptr<Entity>
-            (new Monster(*this, {1, 3}, GameType::Entity::SKELETON)));
-    map.addEntity({1, 5}, std::shared_ptr<Entity>
-            (new Monster(*this, {1, 5}, GameType::Entity::SKELETON)));
-    map.addEntity({1, 6}, std::shared_ptr<Entity>
-            (new Monster(*this, {1, 6}, GameType::Entity::SKELETON)));
+
     return player;
 }

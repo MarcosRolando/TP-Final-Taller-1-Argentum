@@ -44,6 +44,7 @@ private:
     static void _initializeConstructorMaps(std::unordered_map<std::string, GameType::Entity>& entities,
                                            std::unordered_map<std::string, GameType::Structure>& structures,
                                            std::unordered_map<std::string, GameType::FloorType>& floors);
+    bool _isReachable(Coordinate position) const;
 public:
 
     //Crea un mapa vacio, de 0x0

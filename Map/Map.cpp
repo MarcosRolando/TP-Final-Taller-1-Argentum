@@ -100,6 +100,24 @@ void Map::_storePath(Coordinate initialPosition, Coordinate desiredPosition,
 }
 
 
+bool Map::_isReachable(Coordinate position) const {
+    Coordinate topLeft;
+    Coordinate bottomRight;
+    Coordinate aux;
+    _buildSearchRegion(position, 1, topLeft, bottomRight);
+    for (int i = topLeft.iPosition; i <= bottomRight.iPosition; ++i) {
+        for (int j = topLeft.jPosition; j <= bottomRight.jPosition; ++j) {
+            aux = {i, j};
+            if ((_getDistance(position, aux) == 1) && (tiles[i][j].isAvailable() && !tiles[i][j].isInCity())) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+
 void Map::_initializeConstructorMaps(
         std::unordered_map<std::string, GameType::Entity> &entities,
         std::unordered_map<std::string, GameType::Structure> &structures,
@@ -137,6 +155,7 @@ void Map::_initializeConstructorMaps(
 
 
 #include <iostream>
+#include "../Entities/Monster.h"
 
 Map::Map(MapFileReader &mapFile) {
     CitizenFactory citizenFactory;
@@ -174,6 +193,8 @@ Map::Map(MapFileReader &mapFile) {
                     .at(aux.structureType), std::move(citizen));
         }
     }
+
+
 }
 
 
@@ -187,7 +208,7 @@ void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordina
     _buildSearchRegion(center, range, topLeft, bottomRight);
     for (int i = topLeft.iPosition; i <= bottomRight.iPosition; ++i) {
         for (int j = topLeft.jPosition; j <= bottomRight.jPosition; ++j) {
-            if (tiles[i][j].hasMonsterTarget() && !tiles[i][j].isInCity()) {
+            if (tiles[i][j].hasMonsterTarget() && !tiles[i][j].isInCity() && _isReachable({i, j})) {
                 aux.iPosition = i;
                 aux.jPosition = j;
                 targets.push_back(aux);
