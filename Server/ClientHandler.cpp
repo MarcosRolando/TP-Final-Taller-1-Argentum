@@ -17,21 +17,26 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol &_protocol, PlayerL
 }
 
 void ClientHandler::run() {
-    player = loader.getPlayer();
-    _sendMapInfoToClient();
-    std::vector<char> data = protocol.getCurrentState(player);
-    socket.send(data.data(), data.size());
+    try {
+        player = loader.getPlayer();
+        _sendMapInfoToClient();
+        std::vector<char> data = protocol.getCurrentState(player);
+        socket.send(data.data(), data.size());
 
-    //std::unique_lock<std::mutex> lk(m);
-    //std::vector<char> buffer;
+        //std::unique_lock<std::mutex> lk(m);
+        //std::vector<char> buffer;
 
-    while (!finished) {
-        //socket.receive(buffer, sizeof(unit32_t));
+        while (!finished) {
+            //socket.receive(buffer, sizeof(unit32_t));
 
-        if (hasDataToSend) {
-            _sendUpdateDataToClient();
-            hasDataToSend = false;
+            if (hasDataToSend) {
+                _sendUpdateDataToClient();
+                hasDataToSend = false;
+            }
+
         }
+
+    } catch(...) {
 
     }
 }
