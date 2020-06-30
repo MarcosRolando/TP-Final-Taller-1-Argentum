@@ -44,6 +44,7 @@ void Client::_processConnection() {
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
     UpdateReceiver updater(updateEvents, socket, quit);
     eventHandler();
+    updater();
     //Aca falta lo del main menu y la seleccion de server/player etc
     std::unique_ptr<SDL_Event> event(new SDL_Event());
     std::unique_ptr<UpdateEvent> update;
@@ -64,7 +65,10 @@ void Client::_processConnection() {
         game.render();
     }
 
+    socket.close();
+
     eventHandler.join();
+    updater.join();
 }
 
 void Client::connect() {
