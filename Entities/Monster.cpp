@@ -51,9 +51,6 @@ void Monster::_storeNearestPlayerPathCache() {
     if (!positions.empty()) {
         std::vector<std::list<Coordinate>> allPaths/*(positions.size())*/;
         std::list<Coordinate> aux;
-
-        std::cout << "Voy a entrar al for" << std::endl;
-
         for (auto & position : positions) {
             if (map.getPath(currentPosition, position, aux)) {
                 allPaths.push_back(std::move(aux));
@@ -64,9 +61,13 @@ void Monster::_storeNearestPlayerPathCache() {
             }
         }
 
-        std::cout << "Sali del for" << std::endl;
+        std::cout << "Voy a hacer move" << std::endl;
 
         pathCache = std::move(allPaths[nearestTargetIndex]);
+
+        std::cout << "Sali del move" << std::endl;
+
+
         if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
             pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
         }
