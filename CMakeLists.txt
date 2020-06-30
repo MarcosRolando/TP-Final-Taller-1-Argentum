@@ -11,7 +11,7 @@ add_subdirectory(Texture)
 add_subdirectory(Map)
 add_subdirectory(Character)
 
-add_executable(argentum main.cpp TPException.cpp TPException.h
+add_executable(argentumClient main.cpp TPException.cpp TPException.h
 SDL/Sound/SoundRepository.cpp SDL/Sound/SoundRepository.h SDL/Text/Font.cpp
 SDL/Text/Font.h Configuration/ConfigFileReader.cpp Configuration/ConfigFileReader.h
 Configuration/Configuration.cpp Configuration/Configuration.h SDL/Sound/Sound.cpp
@@ -35,13 +35,13 @@ Client/User.cpp Client/User.h Client/GameGUI.cpp Client/GameGUI.h
         Client/UpdateQueue.hpp)
 
 
-target_compile_options (argentum PUBLIC -std=c++11 -Wall -Werror -pedantic
+target_compile_options (argentumClient PUBLIC -std=c++11 -Wall -Werror -pedantic
         -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -ljsoncpp)
 
-target_link_options(argentum PUBLIC -lm -pthread)
+target_link_options(argentumClient PUBLIC -lm -pthread)
 
 
-target_link_libraries(argentum jsoncpp ${Boost_LIBRARIES} )
+target_link_libraries(argentumClient jsoncpp ${Boost_LIBRARIES} )
 
-target_link_libraries(argentum ${SDL2_LIBRARIES} SDL2_image SDL2_ttf SDL2_mixer
+target_link_libraries(argentumClient ${SDL2_LIBRARIES} SDL2_image SDL2_ttf SDL2_mixer
                         texture map character)
