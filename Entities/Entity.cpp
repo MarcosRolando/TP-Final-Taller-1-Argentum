@@ -154,7 +154,7 @@ int32_t Entity::executeDisplacement(int32_t displacement, bool& hasFinished) {
     movement.movedDistance += displacement;
     hasFinished = false;
     if (movement.movedDistance >= DISTANCE_TO_MOVE) {
-        realDisplacement = movement.movedDistance - DISTANCE_TO_MOVE;
+        realDisplacement = displacement - (movement.movedDistance - DISTANCE_TO_MOVE);
         movement.movedDistance = DISTANCE_TO_MOVE;
         movement.isMoving = false;
         hasFinished = true;
