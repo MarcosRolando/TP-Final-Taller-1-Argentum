@@ -38,6 +38,9 @@ protected:
     Movement movement{};
     unsigned int speed;
 
+private:
+    Coordinate _calculatePreviousPosition();
+
  public:
     Entity(GameType::Entity _type, Coordinate initialPosition, std::string&& _nicknamePrefix,
            bool isPrefixUnique = false);

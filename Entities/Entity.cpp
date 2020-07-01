@@ -12,6 +12,7 @@
 
 MSGPACK_ADD_ENUM(GameType::ID)
 MSGPACK_ADD_ENUM(GameType::Entity)
+MSGPACK_ADD_ENUM(GameType::Direction)
 
 const unsigned int DISTANCE_TO_MOVE = 2000;
 
@@ -23,7 +24,7 @@ Entity::Entity(GameType::Entity _type, Coordinate initialPosition, std::string&&
     currentPosition.jPosition = initialPosition.jPosition;
     movement.movedDistance = 0;
     movement.isMoving = false;
-    movement.direction = GameType::DIRECTION_UP;
+    movement.direction = GameType::DIRECTION_STILL;
     speed = 5;
     type = _type;
     nickname = std::move(_nicknamePrefix);
@@ -102,7 +103,7 @@ void Entity::requestMove(Game& game, GameType::Direction moveDirection) {
 void Entity::move(Coordinate newPosition) {
     currentPosition = newPosition;
     movement.isMoving = true;
-    movement.movedDistance = 0;
+    //movement.movedDistance = 0;
 }
 
 void Entity::update(double timeStep, Game& game) {
@@ -133,11 +134,15 @@ GameType::Entity Entity::getType() const {
 
 void Entity::operator>>(std::stringstream& buffer) {
     msgpack::type::tuple<GameType::ID> idType(GameType::ID::ENTITY);
-    msgpack::type::tuple<GameType::Entity, std::string, uint32_t, uint32_t>
-                                            data(type, nickname, currentPosition.iPosition,
-                                                        currentPosition.jPosition);
     msgpack::pack(buffer, idType);
-    msgpack::pack(buffer, data);
+    msgpack::type::tuple<GameType::Entity, std::string>
+                                            idData(type, nickname);
+    msgpack::pack(buffer, idData);
+
+    Coordinate previousPosition = _calculatePreviousPosition();
+    msgpack::type::tuple<int32_t, int32_t, GameType::Direction, int32_t> currentMovementData(previousPosition.iPosition,
+            previousPosition.jPosition, movement.direction, movement.movedDistance);
+    msgpack::pack(buffer, currentMovementData);
 }
 
 bool Entity::isCitizen() {
@@ -155,7 +160,8 @@ int32_t Entity::executeDisplacement(int32_t displacement, bool& hasFinished) {
     hasFinished = false;
     if (movement.movedDistance >= DISTANCE_TO_MOVE) {
         realDisplacement = displacement - (movement.movedDistance - DISTANCE_TO_MOVE);
-        movement.movedDistance = DISTANCE_TO_MOVE;
+        movement.movedDistance = 0;
+        movement.direction = GameType::DIRECTION_STILL;
         movement.isMoving = false;
         hasFinished = true;
     }
@@ -181,4 +187,30 @@ Coordinate Entity::getFinalCoordinate(GameType::Direction moveDirection) {
         }
     }
     return {-1, -1};
+}
+
+
+///////////////////////////////////PUBLIC///////////////////////////////////
+//Calcula la posicion previa tomando en cuenta la direccion de movimiento y la
+//posicion actual
+Coordinate Entity::_calculatePreviousPosition() {
+    Coordinate previous = currentPosition;
+    switch (movement.direction) {
+        case GameType::DIRECTION_UP:
+            previous.iPosition++;
+            break;
+        case GameType::DIRECTION_DOWN:
+            previous.iPosition--;
+            break;
+        case GameType::DIRECTION_LEFT:
+            previous.jPosition++;
+            break;
+        case GameType::DIRECTION_RIGHT:
+            previous.jPosition--;
+            break;
+        case GameType::DIRECTION_STILL:
+            //DO NOTHING
+            break;
+    }
+    return previous;
 }
