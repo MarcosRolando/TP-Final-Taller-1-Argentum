@@ -100,8 +100,8 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
 #include "../Entities/Player.h" //todo volar esto al carajo, es de prueba
 
 Game::Game(MapFileReader&& mapFile, ClientsMonitor& _clients): map(mapFile), clients(_clients) {
-    monsterCreationRate = 20;
-    maxNumberOfMonsters = 300;
+    monsterCreationRate = 200;
+    maxNumberOfMonsters = 2000;
     spawnInterval = 100;
     spawnTimer = 0;
 }
