@@ -94,6 +94,8 @@ GameType::Direction Monster::_getMoveDirection() {
     }
 }
 
+#include <iostream>
+
 
 //Pide al game que lo mueva a la siguiente posicion en pathCache, si pathCache
 //esta vacio entonces busca el jugador mas cercano en su rango de vision y le
@@ -102,18 +104,34 @@ GameType::Direction Monster::_getMoveDirection() {
 //calcular el camino al jugador mas cercano (esto puede pasar si un monstruo se
 //pone en su camino)
 void Monster::_move() {
+
+    std::cout << "Antes del primer if" << std::endl;
+
     if (!map.isPlaceAvailable(pathCache.front())) {
         pathCache.clear();
     }
+
+    std::cout << "Despues del primer if" << std::endl;
+    std::cout << "Antes del segundo if" << std::endl;
+
+
     if (pathCache.empty()) {
         _storeNearestPlayerPathCache();
     }
+
+    std::cout << "Despues del segundo if" << std::endl;
+
+    std::cout << "Antes del tercer if" << std::endl;
+
     if (!pathCache.empty()) {
         //Entity::requestMove(game, _getMoveDirection());
         movement.direction = _getMoveDirection();
         game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
         pathCache.pop_front();
     }
+
+    std::cout << "Despues del tercer if" << std::endl;
+
 }
 
 

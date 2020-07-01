@@ -54,11 +54,6 @@ void Game::moveEntity(Coordinate initialPosition, Coordinate finalPosition) {
 
 void Game::_updateMonsters(double timeStep) {
     for (const auto & monster: monsters) {
-
-        if (!monster) {
-            std::cout << "Hay un monstruo null maquina" << std::endl;
-        }
-
         monster->update(timeStep);
     }
 }
