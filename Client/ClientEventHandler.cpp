@@ -36,10 +36,7 @@ void ClientEventHandler::run() {
                         quit = true;
                         break;
                     case SDL_KEYDOWN:
-                        if (e->key.repeat == 0) {//Ver si le agregamos para q pueda
-                                                //mantener otras teclas
-                            _handleMoveKeys(*e);
-                        }
+                        _handleMoveKeys(*e);
                         break;
                     case SDL_MOUSEBUTTONDOWN:
                         _handleMouseButtonDown(*e);
