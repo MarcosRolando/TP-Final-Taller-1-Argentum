@@ -12,7 +12,6 @@
 #include <SDL_mixer.h>
 #include "../UpdateEvents/UpdateEvent.h"
 #include "UpdateReceiver.h"
-#include "../Timer.h"
 #include <chrono>
 
 using namespace std::chrono;
@@ -40,7 +39,6 @@ void Client::_receive() {
 
 void Client::_processConnection() {
     bool quit = false;
-    //Timer moveTime;
     GameGUI game;
     Window& window = game.getWindow();
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
