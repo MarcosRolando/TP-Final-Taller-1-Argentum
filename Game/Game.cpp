@@ -9,10 +9,10 @@
 #include "ShouldMonsterBeRemoved.h"
 #include "Events/Event.h"
 #include "../Server/ServerProtocol.h"
+#include "../Entities/Player.h"
 
 
 /////////////////////////////////PRIVATE//////////////////////////
-
 
 
 //Carga hasta monsterCreationRate monstruos nuevos cada cierto invervalo de tiempo
@@ -56,6 +56,12 @@ void Game::_updateMonsters(double timeStep) {
     }
 }
 
+void Game::_updatePlayers(double timeStep) {
+    for (const auto & player: players) {
+        player->update(timeStep);
+    }
+}
+
 //Elimina de las listas almacenadas y del mapa los players y monsters que deban ser eliminados
 void Game::_removeEntities() {
     std::list<Coordinate> monstersToRemove;
@@ -87,17 +93,15 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 
 void Game::update(double timeStep, ServerProtocol& protocol) {
     _repopulateMap(timeStep);
-    _updateMonsters(timeStep);
-    //_updatePlayers(timeStep, protocol);
-    clients.update(timeStep);
+    _updateMonsters(timeStep); //todo pasar a lista de Monster* en vez de shared ptr
+    _updatePlayers(timeStep);
+    clients.update(); //todo cambiar el nombre a mergeo de eventos
     _executeQueueOperations(protocol);
 
     //AGREGAR UPDATE DE PLAYERS CONECTADOS
 
     _removeEntities();
 }
-
-#include "../Entities/Player.h" //todo volar esto al carajo, es de prueba
 
 Game::Game(MapFileReader&& mapFile, ClientsMonitor& _clients): map(mapFile), clients(_clients) {
     monsterCreationRate = 20;
@@ -138,20 +142,20 @@ Game::Game(ClientsMonitor&& clientAux /*= ClientsMonitor()*/): clients(clientAux
 
 }
 
-#include "../Items/Defense/Chest.h"
-#include "../Items/Defense/Head.h"
-#include "../Items/Attack/Weapon.h"
-Player& Game::loadPlayer() {
-    map.removeEntity({1, 4});
-    std::shared_ptr<Player> playeraso(new Player(*this, GameType::Race::GNOME, GameType::Class::WIZARD
-            , 5000, 100000
-            , {1, 4}, "Manolas"));
-    Player& player = *playeraso;
-    player.storeItem(std::shared_ptr<Item>(new Chest(GameType::PLATE_ARMOR)));
-    player.storeItem(std::shared_ptr<Item>(new Weapon(GameType::COMPOSITE_BOW)));
-    player.storeItem(std::shared_ptr<Item>(new Head(GameType::HOOD)));
-    player.useItem(1);
-    map.addEntity({1, 4}, std::move(playeraso));
-
-    return player;
+Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
+                                                        GameType::Class _class) {
+    //todo ver si lo spawneamos en un area especifica tipo la capital o pueblos
+    int x = 0;
+    Coordinate position{};
+    while (true) { //esto es solo por ahora para generar al player en el primer tile disponible
+        position = {0, x};
+        if (map.isPlaceAvailable(position)) break;
+        ++x;
+    }
+    std::shared_ptr<Player> player(new Player(*this, race, _class, 1,
+                                0, position, std::move(nickname)));
+    Player* playerAux = player.get();
+    players.emplace_back(playerAux);
+    map.addEntity(position, std::move(player));
+    return *playerAux;
 }

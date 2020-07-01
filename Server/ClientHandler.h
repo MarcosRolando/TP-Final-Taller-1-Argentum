@@ -14,6 +14,7 @@
 #include <mutex>
 #include <utility>
 #include <atomic>
+#include <msgpack.hpp>
 
 class ServerProtocol;
 class PlayerLoader;
@@ -21,8 +22,10 @@ class PlayerLoader;
 class ClientHandler : public Thread {
 private:
     Socket socket;
-    std::atomic<bool> finished;
-    std::atomic<bool> hasDataToSend;
+    std::atomic<bool> finished{};
+    std::vector<char> buffer;
+    std::size_t offset{0};
+    msgpack::object_handle handler;
     ServerProtocol& protocol;
     PlayerLoader& loader;
     PlayerProxy player;
@@ -36,7 +39,7 @@ public:
     /*Retorna si el ha terminado de comunicarse con su cliente*/
     bool hasFinished() const;
 
-    void update(double timeStep);
+    void update();
 
     void sendGameUpdate();
 
@@ -46,13 +49,12 @@ private:
     /*Implementa el metodo virtual run de Thread, que sera el metodo ejecutado
     * por el thread*/
     void run() override;
-    void _receive(std::vector<char>& message, unsigned int& bufferLength);
-    void _send(std::vector<char>& message, unsigned int& bufferLength);
     void _sendMapInfoToClient();
     void _sendUpdateDataToClient();
     void _addMessageToQueue();
-    void _storePlayerProxy();
     void _processClientAction(std::vector<char>& data);
+    void _receivePlayerInfo();
+    void _createPlayer();
 };
 
 

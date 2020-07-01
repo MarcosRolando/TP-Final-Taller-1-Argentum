@@ -5,6 +5,9 @@
 #ifndef ARGENTUM_PLAYERLOADER_H
 #define ARGENTUM_PLAYERLOADER_H
 
+#include <string>
+#include "../Config/GameEnums.h"
+
 class Game;
 class PlayerProxy;
 
@@ -13,8 +16,9 @@ private:
     Game& game;
 
 public:
-    PlayerLoader(Game& _game) : game(_game) {}
-    PlayerProxy getPlayer(/*recibe el nickname, lo busca en el archivo, le pasa los datos a game y game le devuelve la referencia*/);
+    explicit PlayerLoader(Game& _game) : game(_game) {}
+    PlayerProxy createPlayer(std::string&& nickname, GameType::Race race,
+                                        GameType::Class _class);
 };
 
 

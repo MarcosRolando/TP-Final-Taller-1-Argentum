@@ -4,10 +4,9 @@
 
 #include "PlayerLoader.h"
 #include "../Game/Game.h"
-#include "../Entities/PlayerProxy.h"
 
-PlayerProxy PlayerLoader::getPlayer(/*recibimos el nickname*/) {
-    //todo conseguir lo sdatos del player del archivo
-    PlayerProxy player(&game, &game.loadPlayer(/*todo pasarle un struct con los datos del player o algo*/));
+PlayerProxy PlayerLoader::createPlayer(std::string&& nickname, GameType::Race race,
+                                                GameType::Class _class) {
+    PlayerProxy player(&game, &game.createPlayer(std::move(nickname), race, _class));
     return player;
 }

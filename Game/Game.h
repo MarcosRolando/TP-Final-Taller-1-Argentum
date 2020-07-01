@@ -40,6 +40,7 @@ private:
     MonstersFactory monstersFactory;
 
     std::list<std::shared_ptr<Monster>> monsters;
+    std::list<Player*> players;
     ClientsMonitor& clients;
 
     friend GameTests;
@@ -51,6 +52,8 @@ private:
 
     void _updateMonsters(double timeStep);
 
+    void _updatePlayers(double timeStep);
+
     //CUANDO SE IMPLEMENTE ESTO VAMOS A TENER QUE TOMAR EN CUENTA QUE VAMOS A TENER QUE ENCOLAR
     //CADA MOVIMIENTO REALIZADO PARA MANDARSELO A LOS CLIENTES
     void _executeQueueOperations(ServerProtocol& protocol);
@@ -59,7 +62,7 @@ private:
 public:
 
     //Este constructor debe ser utilizado unicamente para las pruebas
-    Game(ClientsMonitor&& clientAux = ClientsMonitor());
+    explicit Game(ClientsMonitor&& clientAux = ClientsMonitor());
 
     Game(MapFileReader&& mapFile, ClientsMonitor& clients);
 
@@ -98,7 +101,8 @@ public:
 
     void pushEvent(std::unique_ptr<Event>&& event);
 
-    Player& loadPlayer(/*recibo un struct con los datos o algo*/);
+    /*Crea el player en base al nickname, raza y clase que recibe*/
+    Player& createPlayer(std::string&& nickname, GameType::Race race, GameType::Class _class);
 };
 
 

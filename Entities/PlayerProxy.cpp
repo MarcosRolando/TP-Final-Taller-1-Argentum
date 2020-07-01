@@ -114,8 +114,7 @@ const Player &PlayerProxy::getPlayer() const {
     return *player;
 }
 
-void PlayerProxy::giveEventsToGame(double timeStep) {
-    player->update(timeStep);
+void PlayerProxy::giveEventsToGame() {
     while (!storedEvents.empty()) {
         game->pushEvent(std::move(storedEvents.front()));
         storedEvents.pop();
@@ -129,5 +128,3 @@ void PlayerProxy::executeMove(PlayerProxy &&other) {
     other.player = nullptr;
     storedEvents = std::move(other.storedEvents);
 }
-
-
