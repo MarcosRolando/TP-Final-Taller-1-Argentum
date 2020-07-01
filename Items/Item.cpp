@@ -5,7 +5,7 @@
 #include "Item.h"
 #include <msgpack.hpp>
 
-MSGPACK_ADD_ENUM(GameType::ID)
+MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::ItemType)
 
 Item::Item(GameType::ItemType _type, const std::string &_name): name(_name) {
@@ -25,7 +25,7 @@ bool Item::isGold() const {
 }
 
 void Item::loadDropItemData(std::stringstream &buffer, uint32_t i, uint32_t j) const {
-    msgpack::type::tuple<GameType::ID> idType(GameType::ITEM);
+    msgpack::type::tuple<GameType::EventID> idType(GameType::CREATE_ITEM);
     msgpack::type::tuple<GameType::ItemType, int32_t, uint32_t, uint32_t>
                                         data(type, id, i, j);
     msgpack::pack(buffer, idType);

@@ -7,6 +7,6 @@
 
 PlayerProxy PlayerLoader::createPlayer(std::string&& nickname, GameType::Race race,
                                                 GameType::Class _class) {
-    PlayerProxy player(&game, &game.createPlayer(std::move(nickname), race, _class));
+    PlayerProxy player(&game, &game.createPlayer(std::move(nickname), race, _class, protocol));
     return player;
 }

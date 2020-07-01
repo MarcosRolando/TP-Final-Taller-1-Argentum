@@ -145,7 +145,7 @@ Game::Game(ClientsMonitor&& clientAux /*= ClientsMonitor()*/): clients(clientAux
 }
 
 Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
-                                                        GameType::Class _class) {
+                GameType::Class _class, ServerProtocol& protocol) {
     //todo ver si lo spawneamos en un area especifica tipo la capital o pueblos
     int x = 0;
     Coordinate position{};
@@ -159,5 +159,8 @@ Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
     Player* playerAux = player.get();
     players.emplace_back(playerAux);
     map.addEntity(position, std::move(player));
+    std::stringstream data;
+    (*playerAux) >> data;
+    protocol.addToGeneralData(data);
     return *playerAux;
 }

@@ -12,14 +12,6 @@
 #include "Events/Event.h"
 #include "../Server/ClientsMonitor.h"
 
-/*
-enum CommandType: char {
-    COMMAND_TYPE_MOVE = 'M'
-};
-*/
-
-
-class GameTests;
 class EntityTests;
 
 struct MoveCommand {
@@ -102,7 +94,8 @@ public:
     void pushEvent(std::unique_ptr<Event>&& event);
 
     /*Crea el player en base al nickname, raza y clase que recibe*/
-    Player& createPlayer(std::string&& nickname, GameType::Race race, GameType::Class _class);
+    Player& createPlayer(std::string&& nickname, GameType::Race race, GameType::Class _class,
+                            ServerProtocol& protocol);
 };
 
 

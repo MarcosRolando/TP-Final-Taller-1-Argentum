@@ -13,12 +13,8 @@ namespace GameType {
         MOVE, CREATE_PLAYER, LOAD_PLAYER
     };
 
-    enum ID: int32_t {
-        ENTITY, ITEM, PLAYER_DATA
-    };
-
     enum EventID: int32_t {
-        MOVED, ATTACK, UNEQUIP, USE_ITEM
+        MOVED, ATTACK, UNEQUIP, USE_ITEM, CREATE_ENTITY, CREATE_ITEM, PLAYER_DATA
     };
 
     enum Race : int32_t {

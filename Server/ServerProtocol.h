@@ -15,7 +15,6 @@ class ServerProtocol {
 private:
     std::vector<char> mapBuffer;
     std::unordered_map<std::string, std::vector<char>> playersData; //(nickname, data)
-    //std::vector<char> generalData;
     std::stringstream generalData;
     std::vector<char> generalDataBuffer;
     const Map &map;

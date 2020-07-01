@@ -10,7 +10,7 @@
 #include "../Game/Events/Moved.h"
 #include <msgpack.hpp>
 
-MSGPACK_ADD_ENUM(GameType::ID)
+MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Entity)
 
 const unsigned int DISTANCE_TO_MOVE = 2000;
@@ -132,7 +132,7 @@ GameType::Entity Entity::getType() const {
 }
 
 void Entity::operator>>(std::stringstream& buffer) {
-    msgpack::type::tuple<GameType::ID> idType(GameType::ID::ENTITY);
+    msgpack::type::tuple<GameType::EventID> idType(GameType::EventID::CREATE_ENTITY);
     msgpack::type::tuple<GameType::Entity, std::string, uint32_t, uint32_t>
                                             data(type, nickname, currentPosition.iPosition,
                                                         currentPosition.jPosition);

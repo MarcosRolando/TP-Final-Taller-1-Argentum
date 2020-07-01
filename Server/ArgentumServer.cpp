@@ -29,8 +29,8 @@ void ArgentumServer::connect(const std::string& _port, const std::string& mapFil
 
 void ArgentumServer::_execute(const std::string& mapFilePath) {
     Game game((MapFileReader(mapFilePath)), clients);
-    PlayerLoader loader(game);
     ServerProtocol protocol(game.getMap());
+    PlayerLoader loader(game, protocol);
     ServerMonitor monitor(*this);
     monitor(); /*Espera la q para cerrar el server*/
     ClientAccepter accepter(clients, protocol, socket, loader, keepRunning);
