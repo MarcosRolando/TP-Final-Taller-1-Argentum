@@ -58,7 +58,7 @@ void Monster::_storeNearestPlayerPathCache() {
                 aux.clear();
             }
         }
-        if (!pathCache.empty()) {
+        if (!allPaths.empty()) {
             pathCache = std::move(allPaths[nearestTargetIndex]);
             if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
                 pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
