@@ -58,14 +58,11 @@ void Monster::_storeNearestPlayerPathCache() {
                 aux.clear();
             }
         }
-
-        if (pathCache.empty()) {
-            std::cout << "Dejaste el bug pedazo de pelotudo" << std::endl;
-        }
-
-        pathCache = std::move(allPaths[nearestTargetIndex]);
-        if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
-            pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
+        if (!pathCache.empty()) {
+            pathCache = std::move(allPaths[nearestTargetIndex]);
+            if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
+                pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
+            }
         }
     }
 }
@@ -116,8 +113,7 @@ void Monster::_move() {
     }
     if (pathCache.empty()) {
         _storeNearestPlayerPathCache();
-    }
-    if (!pathCache.empty()) {
+    } else {
         //Entity::requestMove(game, _getMoveDirection());
         movement.direction = _getMoveDirection();
         game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
