@@ -38,6 +38,8 @@ Coordinate Monster::_getNearestPosition(Coordinate refference, std::vector<Coord
 }
 */
 
+#include <iostream>
+
 //Guarda parte del camino al jugador al cual tiene que moverse la menor cantidad
 //de veces para alcanzarlo
 void Monster::_storeNearestPlayerPathCache() {
@@ -56,6 +58,11 @@ void Monster::_storeNearestPlayerPathCache() {
                 aux.clear();
             }
         }
+
+        if (pathCache.empty()) {
+            std::cout << "Dejaste el bug pedazo de pelotudo" << std::endl;
+        }
+
         pathCache = std::move(allPaths[nearestTargetIndex]);
         if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
             pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
@@ -104,34 +111,18 @@ GameType::Direction Monster::_getMoveDirection() {
 //calcular el camino al jugador mas cercano (esto puede pasar si un monstruo se
 //pone en su camino)
 void Monster::_move() {
-
-    std::cout << "Antes del primer if" << std::endl;
-
     if (!map.isPlaceAvailable(pathCache.front())) {
         pathCache.clear();
     }
-
-    std::cout << "Despues del primer if" << std::endl;
-    std::cout << "Antes del segundo if" << std::endl;
-
-
     if (pathCache.empty()) {
         _storeNearestPlayerPathCache();
     }
-
-    std::cout << "Despues del segundo if" << std::endl;
-
-    std::cout << "Antes del tercer if" << std::endl;
-
     if (!pathCache.empty()) {
         //Entity::requestMove(game, _getMoveDirection());
         movement.direction = _getMoveDirection();
         game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
         pathCache.pop_front();
     }
-
-    std::cout << "Despues del tercer if" << std::endl;
-
 }
 
 
