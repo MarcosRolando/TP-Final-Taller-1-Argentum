@@ -97,6 +97,8 @@ void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
             break;
     }
 }
+
+//Esta y sendMessage hay que meterlas en una clase de protocol gral o algo asi
 void ClientEventHandler::_loadBytes(std::vector<char>& buffer, void* data, unsigned int size) {
     for (unsigned int i = 0; i < size; ++i) {
         buffer[i] = *(reinterpret_cast<char *>(data) + i);

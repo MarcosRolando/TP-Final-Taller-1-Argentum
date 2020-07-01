@@ -44,6 +44,8 @@ void Client::_processConnection() {
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
     UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
     ClientProtocol protocol(game, socket);
+    protocol.createPlayer("ivan", GameType::DWARF, GameType::WARRIOR);
+    protocol.getInitialGameState();//Capaz hay q cambiarle el nombre
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
     UpdateReceiver updater(updateEvents, socket, quit);
     eventHandler();

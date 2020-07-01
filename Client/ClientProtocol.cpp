@@ -17,8 +17,58 @@ MSGPACK_ADD_ENUM(GameType::Weapon)
 MSGPACK_ADD_ENUM(GameType::Clothing)
 MSGPACK_ADD_ENUM(GameType::Potion)
 MSGPACK_ADD_ENUM(GameType::ItemType)
+MSGPACK_ADD_ENUM(GameType::Class)
+MSGPACK_ADD_ENUM(GameType::PlayerEvent)
+
+
+
 
 ClientProtocol::ClientProtocol(GameGUI &_game, Socket &_socket) : game(_game), socket(_socket) {
+    /*_receiveMapInfo();
+    _receiveCurrentGameState();*/
+}
+
+void ClientProtocol::createPlayer(const std::string& nickname, GameType::Race race,
+        GameType::Class _class) {
+    std::stringstream msgBuffer;
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::CREATE_PLAYER);
+    msgpack::type::tuple<std::string, GameType::Race, GameType::Class> playerInfo;
+    playerInfo = {nickname, race, _class};
+    msgpack::pack(msgBuffer, event);
+    msgpack::pack(msgBuffer, playerInfo);
+    std::string aux = msgBuffer.str();
+    uint32_t length = aux.size();
+    length = htonl(aux.size());
+    std::vector<char> sendBuffer(sizeof(uint32_t));
+    _loadBytes(sendBuffer, &length, sizeof(uint32_t));
+    std::copy(aux.begin(), aux.end(), std::back_inserter(sendBuffer));
+    socket.send(sendBuffer.data(), sendBuffer.size());
+}
+
+void ClientProtocol::loadPlayer(std::string& nickname) {
+    std::stringstream msgBuffer;
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::CREATE_PLAYER);
+    msgpack::type::tuple<std::string> playerInfo;
+    playerInfo = {nickname};
+    msgpack::pack(msgBuffer, event);
+    msgpack::pack(msgBuffer, playerInfo);
+    std::string aux = msgBuffer.str();
+    uint32_t length = aux.size();
+    length = htonl(aux.size());
+    std::vector<char> sendBuffer(sizeof(uint32_t));
+    _loadBytes(sendBuffer, &length, sizeof(uint32_t));
+    std::copy(aux.begin(), aux.end(), std::back_inserter(sendBuffer));
+    socket.send(sendBuffer.data(), sendBuffer.size());
+}
+
+//La copie de ClientEventHandler pero creo q va mejor aca
+void ClientProtocol::_loadBytes(std::vector<char>& loadBuffer, void* data, unsigned int size) {
+    for (unsigned int i = 0; i < size; ++i) {
+        loadBuffer[i] = *(reinterpret_cast<char *>(data) + i);
+    }
+}
+
+void ClientProtocol::getInitialGameState() {
     _receiveMapInfo();
     _receiveCurrentGameState();
 }

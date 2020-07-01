@@ -26,6 +26,11 @@ private:
 
 public:
     ClientProtocol(GameGUI& _game, Socket& _socket);
+    void getInitialGameState();
+    void createPlayer(const std::string &nickname, GameType::Race race,
+                      GameType::Class _class);
+    void loadPlayer(std::string &nickname);
+
 
 private://No se si todas las q estan aca son private
     void _receiveMapInfo();
@@ -47,6 +52,9 @@ private://No se si todas las q estan aca son private
     void _addItem(GameType::ItemType type, int32_t id, int position);
     void _addSkills(size_t &offset);
     void _addPosition(size_t &offset);
+
+    void _loadBytes(std::vector<char> &loadBuffer, void *data, unsigned int size);
+
 };
 
 
