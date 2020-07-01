@@ -9,7 +9,7 @@ include_directories(${jsoncpp_INCLUDE_DIRS})
 
 add_subdirectory(Tests)
 
-add_executable(argentum_server main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Attack/Weapon.h
+add_executable(argentumServer main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Attack/Weapon.h
         Items/Miscellaneous/Gold.cpp Items/Miscellaneous/Gold.h Map/Tile.cpp Map/Tile.h Entities/Entity.h
         Map/Coordinate.h Entities/Monster.cpp Entities/Monster.h Game/Game.cpp Game/Game.h Map/Map.cpp
         Map/Map.h Items/Inventory.cpp Items/Inventory.h Entities/Player.cpp Entities/Player.h
@@ -41,9 +41,9 @@ add_executable(argentum_server main.cpp Items/Item.h Items/Attack/Weapon.cpp Ite
         Config/MapFileReader.cpp Entities/Citizens/CitizenFactory.cpp Entities/Citizens/CitizenFactory.h Server/ClientsMonitor.cpp Server/ClientsMonitor.h Server/PlayerLoader.cpp Server/PlayerLoader.h Game/Events/Moved.cpp Game/Events/Moved.h)
 
 
-target_compile_options (argentum_server PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
+target_compile_options (argentumServer PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors
                         -O0 -ggdb -DDEBUG -fno-inline -ljsoncpp)
 
-target_link_options(argentum_server PRIVATE -lm -pthread)
+target_link_options(argentumServer PRIVATE -lm -pthread)
 
-target_link_libraries(argentum_server ${SDL2_LIBRARIES} SDL2_image SDL2_ttf SDL2_mixer jsoncpp ${Boost_LIBRARIES})
+target_link_libraries(argentumServer ${SDL2_LIBRARIES} SDL2_image SDL2_ttf SDL2_mixer jsoncpp ${Boost_LIBRARIES})
