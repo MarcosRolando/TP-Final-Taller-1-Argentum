@@ -78,6 +78,9 @@ void Client::_processConnection() {
         timeStep = time2 - time1;
         time1 = high_resolution_clock::now();
         game.render(timeStep.count());
+        if (timeStep.count()*1000 < 1/144.f) {
+            usleep((1/144.f - timeStep.count()*1000) * 1000);
+        }
     }
 
     socket.close();
