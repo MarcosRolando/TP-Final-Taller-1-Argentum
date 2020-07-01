@@ -11,6 +11,8 @@
 #include "../Server/ServerProtocol.h"
 #include "../Entities/Player.h"
 
+#include <iostream>
+
 
 /////////////////////////////////PRIVATE//////////////////////////
 

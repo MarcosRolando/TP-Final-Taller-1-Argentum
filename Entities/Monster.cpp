@@ -38,6 +38,8 @@ Coordinate Monster::_getNearestPosition(Coordinate refference, std::vector<Coord
 }
 */
 
+#include <iostream>
+
 //Guarda parte del camino al jugador al cual tiene que moverse la menor cantidad
 //de veces para alcanzarlo
 void Monster::_storeNearestPlayerPathCache() {
@@ -56,9 +58,11 @@ void Monster::_storeNearestPlayerPathCache() {
                 aux.clear();
             }
         }
-        pathCache = std::move(allPaths[nearestTargetIndex]);
-        if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
-            pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
+        if (!allPaths.empty()) {
+            pathCache = std::move(allPaths[nearestTargetIndex]);
+            if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
+                pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
+            }
         }
     }
 }
@@ -93,6 +97,8 @@ GameType::Direction Monster::_getMoveDirection() {
         return GameType::DIRECTION_RIGHT;
     }
 }
+
+#include <iostream>
 
 
 //Pide al game que lo mueva a la siguiente posicion en pathCache, si pathCache
