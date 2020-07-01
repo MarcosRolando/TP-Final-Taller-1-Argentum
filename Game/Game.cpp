@@ -88,14 +88,14 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 
 
 void Game::update(double timeStep, ServerProtocol& protocol) {
-
-    std::cout << "Voy a hacer repopulate map" << std::endl;
-
     _repopulateMap(timeStep);
 
-    std::cout << "Hice repopulate map" << std::endl;
+    std::cout << "Voy a hacer update de monsters" << std::endl;
 
     _updateMonsters(timeStep);
+
+    std::cout << "Hice update de monsters" << std::endl;
+
     //_updatePlayers(timeStep, protocol);
     clients.update(timeStep);
     _executeQueueOperations(protocol);
