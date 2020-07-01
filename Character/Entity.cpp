@@ -16,7 +16,7 @@ Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
     xPosition = x;
     yPosition = y;
     width = (float)TILE_WIDTH/2;
-    height = (float)TILE_HEIGHT/2 + 15;
+    height = (float)TILE_HEIGHT;
 }
 
 void Entity::updatePosition(float timeStep) {

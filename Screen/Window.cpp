@@ -58,7 +58,7 @@ void Window::_createWindow() {
 }
 
 void Window::_createRenderer() {
-    renderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (renderer == nullptr) throw TPException("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 }

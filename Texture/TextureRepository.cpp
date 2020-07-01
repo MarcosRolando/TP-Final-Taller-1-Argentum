@@ -212,7 +212,7 @@ void TextureRepository::_loadNPCS() {
     _setNPCImage(Trader, TRADER_PATH, 24, 48,37, 33);
     _setNPCImage(Banker, BANKER_PATH, 25, 45, 37, 33);
     _setNPCImage(Guard, GUARD_PATH, 28, 52, 37, 33);
-    _setNPCImage(PlayerGhost, PLAYER_GHOST_PATH, 47, 71, 20, 5); /*tiene el mismo formato*/
+    _setNPCImage(PlayerGhost, PLAYER_GHOST_PATH, 47, 71, 20, -10); /*tiene el mismo formato*/
 }
 
 void TextureRepository::_setImage(TextureID TextureID, std::string&& image,
