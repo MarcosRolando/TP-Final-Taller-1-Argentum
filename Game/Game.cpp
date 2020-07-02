@@ -20,7 +20,9 @@
 //Carga hasta monsterCreationRate monstruos nuevos cada cierto invervalo de tiempo
 //Si la cantidad que se desea crear sobrepasa la cantidad maxima, entonces crea hasta
 //conseguir la cantidad maxima
-void Game::_repopulateMap(double timePassed) {
+void Game::_repopulateMap(double timePassed, ServerProtocol& protocol) {
+    Coordinate aux{};
+    std::stringstream data;
     spawnTimer += static_cast<unsigned int>(timePassed);
     if (spawnTimer >= spawnInterval) {
         unsigned int monstersToCreate = monsterCreationRate;
@@ -32,9 +34,13 @@ void Game::_repopulateMap(double timePassed) {
         for (unsigned int i = 0; i < monstersToCreate; ++i) {
             //map.addEntity({0, 0}, std::shared_ptr<Entity>(new Monster(*this, {0, 0}, GameType::Entity::SKELETON)));
             monstersFactory.storeRandomMonster(*this, monster);
+            aux = map.getMonsterCoordinate();
+            monster->setPosition(aux);
+            (*monster) >> data;
             monsters.push_back(monster);
-            map.addEntity(map.getMonsterCoordinate(), std::static_pointer_cast<Entity>(monster));
+            map.addEntity(aux, std::static_pointer_cast<Entity>(monster));
         }
+        protocol.addToGeneralData(data);
     }
 }
 
@@ -94,7 +100,7 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 
 
 void Game::update(double timeStep, ServerProtocol& protocol) {
-    _repopulateMap(timeStep);
+    _repopulateMap(timeStep, protocol);
     _updateMonsters(timeStep); //todo pasar a lista de Monster* en vez de shared ptr
     _updatePlayers(timeStep);
     clients.update(); //todo cambiar el nombre a mergeo de eventos

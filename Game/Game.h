@@ -57,7 +57,7 @@ private:
     //CUANDO SE IMPLEMENTE ESTO VAMOS A TENER QUE TOMAR EN CUENTA QUE VAMOS A TENER QUE ENCOLAR
     //CADA MOVIMIENTO REALIZADO PARA MANDARSELO A LOS CLIENTES
     void _executeQueueOperations(ServerProtocol& protocol);
-    void _repopulateMap(double timePassed);
+    void _repopulateMap(double timePassed, ServerProtocol& protocol);
 
 public:
 
