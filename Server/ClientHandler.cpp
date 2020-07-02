@@ -14,8 +14,7 @@ MSGPACK_ADD_ENUM(GameType::Direction)
 ///////////////////////////////PUBLIC///////////////////////////////
 
 ClientHandler::ClientHandler(Socket &&socket, ServerProtocol &_protocol, PlayerLoader &_loader) :
-        socket(std::move(socket)), protocol(_protocol), loader(_loader) {
-}
+        socket(std::move(socket)), protocol(_protocol), loader(_loader) {}
 
 void ClientHandler::run() {
     try {

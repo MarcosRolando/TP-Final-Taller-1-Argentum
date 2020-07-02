@@ -1,6 +1,4 @@
-#include <sys/socket.h>
 #include <netdb.h>
-#include <algorithm>
 #include "ArgentumServer.h"
 #include "ServerMonitor.h"
 #include "ClientAccepter.h"
@@ -51,7 +49,6 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();
-        //std::cout << lastFrameTime << std::endl;
         if ((FRAME_TIME - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
             clients.mergeWaitingClients();
         }
