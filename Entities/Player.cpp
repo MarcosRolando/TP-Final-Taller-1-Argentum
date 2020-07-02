@@ -224,8 +224,6 @@ void Player::operator>>(std::stringstream &buffer) const {
 }
 
 void Player::storeAllRelevantData(std::stringstream& buffer) const {
-    msgpack::type::tuple<GameType::EventID> messageTypeData(PLAYER_DATA);
-    msgpack::pack(buffer, messageTypeData);
     msgpack::type::tuple<int32_t> data(gold);
     msgpack::pack(buffer, data);
     inventory.storeAllData(buffer);
