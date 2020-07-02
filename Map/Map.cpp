@@ -82,18 +82,22 @@ void Map::loadTileData(Coordinate position, FloorTypeTexture floor, TextureID st
 }
 
 void Map::addNPC(TextureID entity, std::string&& nickname, Coordinate position) {
-    int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
-    tiles[tile].addEntity(std::unique_ptr<Entity>(new NPC(textureRepo,
-            camera, position.j*TILE_WIDTH,position.i*TILE_HEIGHT, entity)));
-    entities.emplace(nickname, position);
+    if (entities.count(nickname) == 0) {
+        int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
+        tiles[tile].addEntity(std::unique_ptr<Entity>(new NPC(textureRepo,
+                                                              camera, position.j*TILE_WIDTH,position.i*TILE_HEIGHT, entity)));
+        entities.emplace(nickname, position);
+    }
 }
 
 void Map::addPlayer(PlayerEquipment equipment, bool isAlive, std::string&& nickname,
                                                             Coordinate position) {
-    int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
-    tiles[tile].addEntity(std::unique_ptr<Entity>(new Player(textureRepo,
-            camera, position.j*TILE_WIDTH,position.i*TILE_HEIGHT, equipment, isAlive)));
-    entities.emplace(nickname, position);
+    if (entities.count(nickname) == 0) {
+        int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
+        tiles[tile].addEntity(std::unique_ptr<Entity>(new Player(textureRepo,
+                                                                 camera, position.j*TILE_WIDTH,position.i*TILE_HEIGHT, equipment, isAlive)));
+        entities.emplace(nickname, position);
+    }
 }
 
 void Map::loadTileItem(Coordinate position, TextureID itemTexture) {

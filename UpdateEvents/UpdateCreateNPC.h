@@ -8,7 +8,7 @@
 #include "UpdateEvent.h"
 #include "../Client/ClientProtocol.h"
 
-class UpdateCreateNPC : public UpdateEvent{
+class UpdateCreateNPC : public UpdateEvent {
 private:
     EntityData data;
 public:
