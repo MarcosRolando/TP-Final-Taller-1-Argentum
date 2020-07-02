@@ -32,7 +32,7 @@ public:
             std::string> &entityData,
                               size_t &offset);
     ItemData processAddItem(std::vector<char>* _buffer, std::size_t& offset);
-    PlayerData processAddPlayerData(size_t& offset);//Esta va a ir al protocol general
+    PlayerData processAddPlayerData();
     static void loadBytes(std::vector<char> &loadBuffer, void *data, unsigned int size);
 
 

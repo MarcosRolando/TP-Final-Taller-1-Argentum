@@ -130,13 +130,12 @@ void GameInitializer::loadPlayer(std::string& nickname) {
 }
 
 void GameInitializer::_receivePlayerData() {
-    std::size_t offset = 0;
     uint32_t length = 0;
     socket.receive(reinterpret_cast<char*>(&length), sizeof(uint32_t));
     length = ntohl(length);
     std::vector<char> buffer(length);
     socket.receive(buffer.data(), length);
-    PlayerData data = protocol.processAddPlayerData(offset);
+    PlayerData data = protocol.processAddPlayerData();
     game.getPlayerInventory().updateGold(data.generalInfo.gold);
     for (const auto & item : data.equippedItems) {
         game.getPlayerInventory().addEquipableItem(std::get<0>(item),
