@@ -161,18 +161,20 @@ void Player::requestMove(GameType::Direction direction) {
 }
 */
 
-void Player::unequip(EquipmentPlace clothing) {
+bool Player::unequip(EquipmentPlace clothing) {
     if (!stats.isDead()) {
         stats.stopMeditating();
-        inventory.unequip(clothing);
+        return inventory.unequip(clothing);
     }
+    return false;
 }
 
-void Player::unequip() {
+bool Player::unequip() {
     if (!stats.isDead()) {
         stats.stopMeditating();
-        inventory.unequip();
+        return inventory.unequip();
     }
+    return false;
 }
 
 void Player::dropItem(unsigned int itemPosition) {

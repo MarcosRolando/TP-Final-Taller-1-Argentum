@@ -4,6 +4,12 @@
 
 #include "Unequip.h"
 #include "../../Entities/Player.h"
+#include "../../Items/Item.h"
+#include "../../Server/ServerProtocol.h"
+#include "msgpack.hpp"
+
+MSGPACK_ADD_ENUM(GameType::EventID)
+MSGPACK_ADD_ENUM(EquipmentPlace)
 
 Unequip::Unequip(Player &player, EquipmentPlace _equipment): player(player) {
     equipment = _equipment;
@@ -14,9 +20,19 @@ Unequip::Unequip(Player &player): player(player) {
 }
 
 void Unequip::operator()(ServerProtocol& protocol) {
+    bool hasAppearanceChanged;
     if (equipment == EQUIPMENT_PLACE_WEAPON) {
-        player.unequip();
+        hasAppearanceChanged = player.unequip();
     } else {
-        player.unequip(equipment);
+        hasAppearanceChanged = player.unequip(equipment);
+    }
+    if (hasAppearanceChanged) {
+        std::stringstream data;
+        msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::UNEQUIP);
+        msgpack::pack(data, messageTypeData);
+        msgpack::type::tuple<std::string, EquipmentPlace>
+                unequipData(player.getNickname(), equipment);
+        msgpack::pack(data, unequipData);
+        protocol.addToGeneralData(data);
     }
 }
