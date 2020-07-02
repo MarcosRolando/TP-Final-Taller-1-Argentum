@@ -25,6 +25,7 @@ Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/font.ttf"
     firstToRender = 0;
 }
 
+//Cuando este seguro que lo otro funciona bien volar esto
 void Minichat::handleEvent(SDL_Event &e, Window& window) {
     //If mouse event happened
     /*if( e.type == SDL_MOUSEBUTTONDOWN )
@@ -75,7 +76,7 @@ void Minichat::handleEvent(SDL_Event &e, Window& window) {
 }
 
 void Minichat::handleReturnKey() {
-    //Procesar el comando que escribio el user
+    //retornar el input
     input.updateText("Accion:/ ");
 }
 
@@ -92,18 +93,8 @@ void Minichat::handleTextInput(SDL_Event &e) {
     if (input.getTextLength() < MAX_TEXT_LEN) input.appendText(newInput);
 }
 
-void Minichat::handleMouseButtonDown(Window& window) {
-    int x = 0, y = 0;
-    //Get mouse position
-    //int x, y;
-    SDL_GetMouseState( &x, &y );
-    //Chequeo si hizo click en el minichat
-    //Escalo la posicion del click por si cambia el tamaño de la pantalla
-    x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
-    y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
-
-    focusOnMinichat = _isInsideMinichat(x, y);
-
+void Minichat::handleMouseButtonDown(Coordinate click, Window& window) {
+    focusOnMinichat = _isInsideMinichat(click.j, click.i);
     if (focusOnMinichat){
         SDL_StartTextInput();
     } else {

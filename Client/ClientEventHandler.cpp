@@ -59,9 +59,27 @@ void ClientEventHandler::run() {
 }
 
 void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
-    game.getMinichat().handleMouseButtonDown(game.getWindow());
-    game.getSelector().handleEvent(game.getPlayerInfo().getXPos(),
-                                   game.getPlayerInfo().getYPos(), game.getWindow());
+    int clickX, clickY;
+    SDL_GetMouseState(&clickX, &clickY);
+    //Escalo la posicion de click
+    clickX = (float)clickX * ((float)DEFAULT_SCREEN_WIDTH/(float)game.getWindow().getWidth());
+    clickY = (float)clickY * ((float)DEFAULT_SCREEN_HEIGHT/(float)game.getWindow().getHeight());
+
+    game.getMinichat().handleMouseButtonDown({clickY, clickX}, game.getWindow());
+
+    game.getSelector().handleEvent({game.getPlayerInfo().getYPos(),
+                                   game.getPlayerInfo().getXPos()},
+                           {clickY, clickX},game.getWindow());
+
+    if (e.button.button == SDL_BUTTON_RIGHT) {
+        if (game.getSelector().isThereSelectedTile()){
+            _processAttack(game.getSelector().getSelectedTile());
+        } else if (game.getSelector().isThereSelectedInventorySlot()){
+            //_processUnequipItem();
+        }
+    }
+
+
 }
 
 //Cambiarle el nombre a handleKeyDown
@@ -93,9 +111,18 @@ void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
             game.getMinichat().handleBackspace();
             break;
         case SDLK_RETURN:
-            game.getMinichat().handleReturnKey(); //Ver aca como manejar lo de mandar el msj parseado
+            //todo manejar el parseo del mensaje
+            game.getMinichat().handleReturnKey();
             break;
     }
+}
+
+void ClientEventHandler::_processAttack(Coordinate selectedTile) {
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_ATTACK);
+    msgpack::type::tuple<int32_t, int32_t> targetPosition;
+    targetPosition = {selectedTile.i, selectedTile.j};
+    msgpack::pack(msgBuffer, event);
+    msgpack::pack(msgBuffer, targetPosition);
 }
 
 //Esta y sendMessage hay que meterlas en una clase de protocol gral o algo asi

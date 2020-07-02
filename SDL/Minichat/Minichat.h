@@ -9,6 +9,8 @@
 #include "../../Screen/Window.h"
 #include "../../GameConstants.h"
 #include <list>
+#include "../../Map/Coordinate.h"
+
 class Minichat {
 private:
     Font minichatFont;
@@ -21,22 +23,24 @@ private:
 public:
     explicit Minichat(SDL_Renderer& renderer);
     void handleEvent( SDL_Event& e, Window& window);
+    //Encola newText para imprimirlo en el minichat
     void queueText(std::string &newText);
+    //Renderiza todos los mensajes del minichat + lo q escribio el usuario
     void render();
+    //Borra la ultima letra del input
+    void handleBackspace();
+    //Asigna el texto del evento de input al texto de input del usuario
+    void handleTextInput(SDL_Event &e);
+    //Se fija si el click fue dentro del minichat. Si es asi habilita el input de texto
+    void handleMouseButtonDown(Coordinate click, Window &window);
+    //Scrollea por los mensajes del minichat
+    void handleMouseWheel(SDL_Event &e);
+    //todo retorna el mensaje de input para parsearlo y enviarlo
+    void handleReturnKey();
     ~Minichat();
 
+private:
     bool _isInsideMinichat(int xClick, int yClick);
-
-    void handleBackspace();
-
-    void handleTextInput(SDL_Event &e);
-
-    void handleMouseButtonDown(Window &window);
-
-    void handleMouseWheel(SDL_Event &e);
-
-    void handleReturnKey();
 };
-
 
 #endif //ARGENTUM_MINICHAT_H
