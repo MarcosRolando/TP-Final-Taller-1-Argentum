@@ -22,8 +22,6 @@ void ClientHandler::run() {
         _receivePlayerInfo();
         uint32_t msgLength = 0;
         _sendMapInfoToClient();
-        buffer = protocol.getCurrentState(player);
-        socket.send(buffer.data(), buffer.size());
 
         while (!finished) {
             buffer.clear();
@@ -79,6 +77,8 @@ void ClientHandler::_sendUpdateDataToClient() {
 void ClientHandler::_sendMapInfoToClient() {
     const std::vector<char>& mapInfo = protocol.getMapInfo();
     socket.send(mapInfo.data(), mapInfo.size());
+    buffer = protocol.getCurrentState(player);
+    socket.send(buffer.data(), buffer.size());
 }
 
 void ClientHandler::_addMessageToQueue() {
