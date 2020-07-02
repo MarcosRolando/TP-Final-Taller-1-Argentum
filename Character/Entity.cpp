@@ -187,3 +187,7 @@ void Entity::_modifyPosition(GameType::Direction direction, float distance) {
 bool Entity::finishedMoving() const {
     return (moveDirection == GameType::DIRECTION_STILL);
 }
+
+void Entity::activateCamera() {
+    cameraFollows = true;
+}

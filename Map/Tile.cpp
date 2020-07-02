@@ -65,3 +65,9 @@ std::unique_ptr<Entity> Tile::getEntity() {
     }
     return aux;
 }
+
+void Tile::setCameraOn() {
+    if (entity) {
+        entity->activateCamera();
+    }
+}

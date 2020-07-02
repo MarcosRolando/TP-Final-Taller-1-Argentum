@@ -97,3 +97,7 @@ Map &GameGUI::getMap() {
     return map;
 }
 
+void GameGUI::setCameraOn(Coordinate position) {
+    map.setCameraOn(position);
+}
+

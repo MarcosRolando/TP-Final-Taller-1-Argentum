@@ -21,6 +21,9 @@ private:
     float distanceToMove{0}, distancePerMilisecond{0}; /*Se mide en pixeles*/
     float currentDistanceMoved{0}, totalDistanceMoved{0};
 
+protected:
+    bool cameraFollows{false};
+
 public:
     Entity(SDL_Rect& camera, float x, float y);
     void move(GameType::Direction direction, unsigned int distanceTravelled,
@@ -31,6 +34,8 @@ public:
     void updateCamera();
 
     bool finishedMoving() const;
+
+    void activateCamera();
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);

@@ -11,7 +11,9 @@ Player::Player(TextureRepository& repo, SDL_Rect& camera, float x, float y,
 }
 
 void Player::render() {
-    Entity::updateCamera();
+    if (cameraFollows) {
+        Entity::updateCamera();
+    }
     if (isAlive) {
         Entity::render(pTexture);
     } else {

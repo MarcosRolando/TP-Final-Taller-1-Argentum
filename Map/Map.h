@@ -47,6 +47,8 @@ public:
 
     void updateInterpolation(float timeStep);
 
+    void setCameraOn(Coordinate position);
+
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
 };

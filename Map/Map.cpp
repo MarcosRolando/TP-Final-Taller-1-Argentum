@@ -149,3 +149,8 @@ void Map::updateInterpolation(float timeStep) {
     movingEntities.erase(std::remove_if(movingEntities.begin(), movingEntities.end(),
                                         _finishedMoving), movingEntities.end());
 }
+
+void Map::setCameraOn(Coordinate position) {
+    int tile = position.i * TOTAL_HORIZONTAL_TILES + position.j;
+    tiles.at(tile).setCameraOn();
+}

@@ -49,6 +49,8 @@ public:
     void moveEntity(GameType::Direction direction, unsigned int distanceTravelled,
                     std::list<Entity*>& movingEntities);
 
+    void setCameraOn();
+
     std::unique_ptr<Entity> getEntity();
 };
 

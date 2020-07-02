@@ -45,6 +45,8 @@ public:
     PlayerInventoryGUI& getPlayerInventory();
     Map& getMap();
 
+    void setCameraOn(Coordinate position);
+
     void render(float timeStep);
 };
 
