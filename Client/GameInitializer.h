@@ -32,6 +32,7 @@ private:
     void _receiveCurrentGameState();
     void _loadMap(std::vector<char>& buffer);
     void _processAddEntity(std::vector<char>& buffer, std::size_t& offset);
+    void _receivePlayerData();
 };
 
 

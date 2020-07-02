@@ -54,23 +54,9 @@ void GameInitializer::_receiveCurrentGameState() {
 
             _processAddEntity(buffer, offset);
 
-        } else if (std::get<0>(id) == GameType::PLAYER_DATA) { /*Esto es el inventario y stats*/
-
-            PlayerData data = protocol.processAddPlayerData(offset);
-            game.getPlayerInventory().updateGold(data.generalInfo.gold);
-            for (const auto & item : data.equippedItems) {
-                game.getPlayerInventory().addEquipableItem(std::get<0>(item),
-                                                        std::get<1>(item));
-            }
-            for (const auto & item : data.inventoryItems) {
-                game.getPlayerInventory().addInventoryItem(std::get<0>(item),
-                                                        std::get<1>(item));
-            }
-            game.setCameraOn(data.generalInfo.position);
-            game.getPlayerInfo().update(data.generalInfo);
-
         }
     }
+    _receivePlayerData();
 }
 
 
@@ -141,5 +127,26 @@ void GameInitializer::loadPlayer(std::string& nickname) {
     ClientProtocol::loadBytes(sendBuffer, &length, sizeof(uint32_t));
     std::copy(aux.begin(), aux.end(), std::back_inserter(sendBuffer));
     socket.send(sendBuffer.data(), sendBuffer.size());
+}
+
+void GameInitializer::_receivePlayerData() {
+    std::size_t offset = 0;
+    uint32_t length = 0;
+    socket.receive(reinterpret_cast<char*>(&length), sizeof(uint32_t));
+    length = ntohl(length);
+    std::vector<char> buffer(length);
+    socket.receive(buffer.data(), length);
+    PlayerData data = protocol.processAddPlayerData(offset);
+    game.getPlayerInventory().updateGold(data.generalInfo.gold);
+    for (const auto & item : data.equippedItems) {
+        game.getPlayerInventory().addEquipableItem(std::get<0>(item),
+                                                   std::get<1>(item));
+    }
+    for (const auto & item : data.inventoryItems) {
+        game.getPlayerInventory().addInventoryItem(std::get<0>(item),
+                                                   std::get<1>(item));
+    }
+    game.setCameraOn(data.generalInfo.position);
+    game.getPlayerInfo().update(data.generalInfo);
 }
 
