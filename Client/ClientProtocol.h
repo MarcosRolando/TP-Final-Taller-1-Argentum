@@ -13,30 +13,7 @@
 #include "../Texture/PlayerEquipment.h"
 #include "../Map/Coordinate.h"
 #include "../SDL/GUI/GUIPlayerInfo.h"
-
-struct EntityData {
-    TextureID texture;
-    std::string nickname;
-    Coordinate pos;
-};
-
-struct PlayerData {
-    GUIPlayerInfo generalInfo;
-    std::vector<std::tuple<TextureID, EquippedItems>> equippedItems;
-    std::vector<std::tuple<TextureID, int>> inventoryItems;
-};
-
-struct MapPlayerData {
-    EntityData entityData;
-    GameType::Race race{};
-    PlayerEquipment equipment{};
-    bool isAlive{};
-};
-
-struct ItemData {
-    Coordinate position;
-    TextureID texture;
-};
+#include "EntityData.h"
 
 class Socket;
 
@@ -45,14 +22,14 @@ private:
     Socket& socket;
     ProtocolEnumTranslator translator;
     msgpack::object_handle handler;
-    std::vector<char>* buffer;
+    std::vector<char>* buffer{};
 
 public:
     explicit ClientProtocol(Socket& _socket) : socket(_socket) {}
     MapPlayerData processAddPlayer(std::vector<char>* _buffer, msgpack::type::tuple<GameType::Entity,
-            std::string, int32_t, int32_t>& entityData, std::size_t& offset);
+            std::string>& entityData, std::size_t& offset);
     EntityData processAddNPC(std::vector<char>* _buffer, msgpack::type::tuple<GameType::Entity,
-            std::string, int32_t, int32_t> &entityData,
+            std::string> &entityData,
                               size_t &offset);
     ItemData processAddItem(std::vector<char>* _buffer, std::size_t& offset);
     PlayerData processAddPlayerData(size_t& offset);//Esta va a ir al protocol general

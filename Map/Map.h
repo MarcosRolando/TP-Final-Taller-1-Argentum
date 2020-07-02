@@ -15,6 +15,7 @@
 #include "../Client/ProtocolEnumTranslator.h"
 #include "../Texture/PlayerEquipment.h"
 #include <list>
+#include "../Client/EntityData.h"
 
 class Map {
 private:
@@ -32,14 +33,13 @@ public:
     void setSize(int rows, int columns);
 
     void loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
-                      TextureID entity, std::string&& npcNickname = std::string());
+                      TextureID entity);
 
     void loadTileItem(Coordinate position, TextureID itemTexture);
 
-    void addNPC(TextureID entity, std::string&& nickname, Coordinate position);
+    void addNPC(EntityData& data);
 
-    void addPlayer(PlayerEquipment equipment, bool isAlive, std::string &&nickname,
-            Coordinate position);
+    void addPlayer(MapPlayerData& playerData);
 
     /*Desplaza a la entidad en la direccion recibida y comienza su interpolacion interna para que se vea fluido*/
     void moveEntity(std::string& nickname, GameType::Direction direction,

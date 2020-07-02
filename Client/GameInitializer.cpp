@@ -76,15 +76,15 @@ void GameInitializer::_receiveCurrentGameState() {
 
 void GameInitializer::_processAddEntity(std::vector<char>& buffer, std::size_t& offset) {
     msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    msgpack::type::tuple<GameType::Entity, std::string, int32_t , int32_t> entityData;
+    //msgpack::type::tuple<GameType::Entity, std::string, int32_t , int32_t> entityData;
+    msgpack::type::tuple<GameType::Entity, std::string> entityData;
     handler->convert(entityData);
     if (std::get<0>(entityData) != GameType::PLAYER) {
         EntityData data = protocol.processAddNPC(&buffer, entityData, offset);
-        game.addNPC(data.texture, std::move(data.nickname), data.pos);
+        game.addNPC(data);
     } else {
         MapPlayerData data = protocol.processAddPlayer(&buffer, entityData, offset);
-        game.addPlayer(data.equipment, data.isAlive,
-                       std::move(data.entityData.nickname), data.entityData.pos);
+        game.addPlayer(data);
     }
 }
 

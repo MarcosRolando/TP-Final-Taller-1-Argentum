@@ -67,7 +67,7 @@ void Map::setSize(int rows, int columns) {
 }
 
 void Map::loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
-                       TextureID entity, std::string&& npcNickname) {
+                       TextureID entity) {
     unsigned int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     if (structure != Nothing) {
         tiles[tile].loadData(textureRepo.getTexture(floor.texture),
@@ -77,26 +77,35 @@ void Map::loadTileData(Coordinate position, FloorTypeTexture floor, TextureID st
                 nullptr, floor.index);
     }
     if (entity != Nothing) {
-        addNPC(entity, std::move(npcNickname), position);
+        EntityData data = {entity, "", position,
+                           GameType::DIRECTION_STILL, 0};
+        addNPC(data);
     }
 }
 
-void Map::addNPC(TextureID entity, std::string&& nickname, Coordinate position) {
-    if (entities.count(nickname) == 0) {
-        int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
+void Map::addNPC(EntityData& data) {
+    if (entities.count(data.nickname) == 0) {
+        int tile = data.pos.i*TOTAL_HORIZONTAL_TILES + data.pos.j;
         tiles[tile].addEntity(std::unique_ptr<Entity>(new NPC(textureRepo,
-                                                              camera, position.j*TILE_WIDTH,position.i*TILE_HEIGHT, entity)));
-        entities.emplace(nickname, position);
+                camera, data.pos.j*TILE_WIDTH,data.pos.i*TILE_HEIGHT, data.texture)));
+        if (data.currentDir != GameType::DIRECTION_STILL) {
+            tiles.at(tile).moveEntity(data.currentDir, data.currentDir, movingEntities);
+        }
+        entities.emplace(std::move(data.nickname), data.pos);
     }
 }
 
-void Map::addPlayer(PlayerEquipment equipment, bool isAlive, std::string&& nickname,
-                                                            Coordinate position) {
-    if (entities.count(nickname) == 0) {
-        int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
+void Map::addPlayer(MapPlayerData& playerData) {
+    if (entities.count(playerData.entityData.nickname) == 0) {
+        int tile = playerData.entityData.pos.i*TOTAL_HORIZONTAL_TILES + playerData.entityData.pos.j;
         tiles[tile].addEntity(std::unique_ptr<Entity>(new Player(textureRepo,
-                                                                 camera, position.j*TILE_WIDTH,position.i*TILE_HEIGHT, equipment, isAlive)));
-        entities.emplace(nickname, position);
+                camera, playerData.entityData.pos.j*TILE_WIDTH,playerData.entityData.pos.i*TILE_HEIGHT,
+                playerData.equipment, playerData.isAlive)));
+        if (playerData.entityData.currentDir != GameType::DIRECTION_STILL) {
+            tiles.at(tile).moveEntity(playerData.entityData.currentDir,
+                    playerData.entityData.currentDir, movingEntities);
+        }
+        entities.emplace(std::move(playerData.entityData.nickname), playerData.entityData.pos);
     }
 }
 

@@ -6,6 +6,5 @@
 #include "../Client/GameGUI.h"
 
 void UpdateCreatePlayer::operator()(GameGUI& game) {
-    game.addPlayer(data.equipment, data.isAlive,
-                   std::move(data.entityData.nickname), data.entityData.pos);
+    game.addPlayer(data);
 }

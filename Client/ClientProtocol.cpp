@@ -5,8 +5,6 @@
 #include "ClientProtocol.h"
 #include "GameGUI.h"
 #include "Socket.h"
-#include "../Shared/GameEnums.h"
-#include "../Texture/PlayerEquipment.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Race)
@@ -19,6 +17,7 @@ MSGPACK_ADD_ENUM(GameType::Potion)
 MSGPACK_ADD_ENUM(GameType::ItemType)
 MSGPACK_ADD_ENUM(GameType::Class)
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
+MSGPACK_ADD_ENUM(GameType::Direction)
 
 
 //La copie de ClientEventHandler pero creo q va mejor aca
@@ -53,25 +52,35 @@ ItemData ClientProtocol::processAddItem(std::vector<char>* _buffer, std::size_t&
 }
 
 EntityData ClientProtocol::processAddNPC(std::vector<char>* _buffer, msgpack::type::tuple<GameType::Entity,
-        std::string, int32_t , int32_t>& entityData, std::size_t& offset) {
+        std::string>& entityData, std::size_t& offset) {
 
     buffer = _buffer;
     EntityData npcData;
     npcData.texture = translator.getEntityTexture(std::get<0>(entityData));
     npcData.nickname = std::get<1>(entityData);
-    npcData.pos = {std::get<2>(entityData), std::get<3>(entityData)};
+    msgpack::type::tuple<int32_t, int32_t, GameType::Direction, int32_t> position;
+    handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
+    handler->convert(position);
+    npcData.pos = {std::get<0>(position), std::get<1>(position)};
+    npcData.currentDir = static_cast<GameType::Direction>(std::get<2>(position));
+    npcData.distanceMoved = std::get<3>(position);
     return npcData;
 }
 
 MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer, msgpack::type::tuple<GameType::Entity,
-        std::string, int32_t , int32_t>& entityData, std::size_t& offset) {
+        std::string>& entityData, std::size_t& offset) {
 
     buffer = _buffer;
     MapPlayerData pData;
     PlayerEquipment equipment{};
     pData.entityData.texture = Nothing; /*no lo usamos para nada despues igual*/
     pData.entityData.nickname = std::get<1>(entityData);
-    pData.entityData.pos = {std::get<2>(entityData), std::get<3>(entityData)};
+    msgpack::type::tuple<int32_t, int32_t, GameType::Direction, int32_t> position;
+    handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
+    handler->convert(position);
+    pData.entityData.pos = {std::get<0>(position), std::get<1>(position)};
+    pData.entityData.currentDir = std::get<2>(position);
+    pData.entityData.distanceMoved = std::get<3>(position);
     msgpack::type::tuple<GameType::Race> playerRace;
     msgpack::type::tuple<int32_t> item;
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
@@ -102,7 +111,6 @@ MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer, msgpa
     pData.isAlive = std::get<0>(isAlive);
     pData.race = std::get<0>(playerRace);
     return pData;
-    //game.addPlayer(equipment, std::get<0>(isAlive), std::move(nickname), position);
 }
 
 void ClientProtocol::_addInventoryItems(PlayerData& data, size_t& offset) {

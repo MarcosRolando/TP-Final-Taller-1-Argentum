@@ -14,7 +14,7 @@
 #include "../SDL/GUI/PlayerInventoryGUI.h"
 #include "../SDL/GUI/PlayerInfoGUI.h"
 #include "../Texture/PlayerEquipment.h"
-
+#include "EntityData.h"
 
 class GameGUI {
 private:
@@ -34,9 +34,8 @@ public:
     void loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
                       TextureID entity);
     void loadTileItem(Coordinate position, TextureID itemTexture);
-    void addNPC(TextureID type, std::string&& nickname, Coordinate position);
-    void addPlayer(PlayerEquipment equipment, bool isAlive, std::string&& nickname,
-            Coordinate position);
+    void addNPC(EntityData& entityData);
+    void addPlayer(MapPlayerData& playerData);
 
     Window& getWindow();
     Minichat& getMinichat();

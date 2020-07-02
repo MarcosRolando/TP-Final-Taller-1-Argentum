@@ -67,7 +67,7 @@ void UpdateReceiver::_processMoveUpdate() {
 
 void UpdateReceiver::_processCreateEntity() {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    msgpack::type::tuple<GameType::Entity, std::string, int32_t , int32_t> entityData;
+    msgpack::type::tuple<GameType::Entity, std::string> entityData;
     handler->convert(entityData);
     if (std::get<0>(entityData) != GameType::PLAYER) {
         EntityData data = protocol.processAddNPC(&buffer, entityData, offset);

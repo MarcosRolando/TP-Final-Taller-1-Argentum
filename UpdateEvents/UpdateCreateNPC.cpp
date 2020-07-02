@@ -6,5 +6,5 @@
 #include "../Client/GameGUI.h"
 
 void UpdateCreateNPC::operator()(GameGUI& game) {
-    game.addNPC(data.texture, std::move(data.nickname), data.pos);
+    game.addNPC(data);
 }

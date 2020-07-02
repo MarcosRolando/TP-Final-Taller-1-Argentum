@@ -76,17 +76,16 @@ PlayerInfoGUI &GameGUI::getPlayerInfo() {
     return infoGUI;
 }
 
-void GameGUI::addNPC(TextureID type, std::string&& nickname, Coordinate position) {
-    map.addNPC(type, std::move(nickname), position);
+void GameGUI::addNPC(EntityData& entityData) {
+    map.addNPC(entityData);
 }
 
 void GameGUI::loadTileItem(Coordinate position, TextureID itemTexture) {
     map.loadTileItem(position, itemTexture);
 }
 
-void GameGUI::addPlayer(PlayerEquipment equipment, bool isAlive, std::string &&nickname,
-                        Coordinate position) {
-    map.addPlayer(equipment, isAlive, std::move(nickname), position);
+void GameGUI::addPlayer(MapPlayerData& playerData) {
+    map.addPlayer(playerData);
 }
 
 PlayerInventoryGUI &GameGUI::getPlayerInventory() {
