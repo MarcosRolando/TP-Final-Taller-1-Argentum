@@ -161,18 +161,20 @@ void Player::requestMove(GameType::Direction direction) {
 }
 */
 
-void Player::unequip(EquipmentPlace clothing) {
+bool Player::unequip(EquipmentPlace clothing) {
     if (!stats.isDead()) {
         stats.stopMeditating();
-        inventory.unequip(clothing);
+        return inventory.unequip(clothing);
     }
+    return false;
 }
 
-void Player::unequip() {
+bool Player::unequip() {
     if (!stats.isDead()) {
         stats.stopMeditating();
-        inventory.unequip();
+        return inventory.unequip();
     }
+    return false;
 }
 
 void Player::dropItem(unsigned int itemPosition) {
@@ -194,6 +196,7 @@ void Player::withdrawFrom(const std::string &itemName, Coordinate npcPosition) {
     game.withdraw(*this, itemName, npcPosition);
 }
 
+/*
 void Player::listFrom(Coordinate npcPosition) {
     std::list<ProductData> products;
     game.list(*this, products, npcPosition);
@@ -201,6 +204,14 @@ void Player::listFrom(Coordinate npcPosition) {
     //FALTA HACER QUE SE MANDE AL CLIENTE
 
 }
+*/
+
+
+void Player::listFrom(Coordinate npcPosition, std::stringstream &data) {
+    game.list(*this, npcPosition, data);
+}
+
+
 
 void Player::depositTo(const std::string &itemName, Coordinate npcPosition) {
     game.deposit(*this, itemName, npcPosition);

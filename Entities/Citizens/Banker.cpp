@@ -25,9 +25,16 @@ Banker::Banker(Coordinate initialPosition): Entity(GameType::BANKER,
 
 }
 
+
+/*
 unsigned int Banker::list(const Player &player, std::list<ProductData> &products) {
     return playersStorages.at(player.getNickname()).getStorageData(products);
 }
+*/
+void Banker::list(const Player &player, std::stringstream& data) {
+    playersStorages.at(player.getNickname()).getStorageData(data);
+}
+
 
 void Banker::withdraw(Player &player, const std::string &itemName) {
     try {

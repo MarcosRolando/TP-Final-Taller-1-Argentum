@@ -31,10 +31,12 @@ class EntityTests;
 //su agregado y retiro
 class Storage {
 private:
-    unsigned int storedGold;
+    int32_t storedGold;
     std::unordered_map<std::string, std::list<std::shared_ptr<Item>>> storedItems;
 
     friend EntityTests;
+private:
+    void _storeBasicData(std::stringstream& data, bool hasPrice) const;
 
 public:
 
@@ -58,11 +60,17 @@ public:
     //Almacena en la lista instancias del struct ProductData, retorna la cantidad
     //de oro que tiene almacenada storage
     //Multiplica el precio del item por priceMultiplier
+    /*
     unsigned int getStorageData(std::list<ProductData>& products,
                                 const std::unordered_map<std::string, unsigned int>& prices,
                                 float priceMultiplier) const;
+    */
+    void getStorageData(std::stringstream& data,
+                                const std::unordered_map<std::string, unsigned int>& prices,
+                                float priceMultiplier) const;
 
-    unsigned int getStorageData(std::list<ProductData>& products) const;
+    //unsigned int getStorageData(std::list<ProductData>& products) const;
+    void getStorageData(std::stringstream& data) const;
 
     //Indica si el item con el nombre indicado se encuentra guardado
     bool isItemAvailable(const std::string& itemName) const;
@@ -73,9 +81,10 @@ public:
     unsigned int getItemPrice(const std::string& itemName) const;
     */
 
-    void increaseGoldReserves(unsigned int amount);
+    void increaseGoldReserves(int amount);
 
-    bool decreaseGoldReserves(unsigned int amount);
+    bool decreaseGoldReserves(int amount);
+
 };
 
 

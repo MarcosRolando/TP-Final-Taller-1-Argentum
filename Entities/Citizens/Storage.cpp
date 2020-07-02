@@ -6,6 +6,9 @@
 #include "../../Items/ItemsFactory.h"
 #include <utility>
 #include "../../Items/Item.h"
+#include "msgpack.hpp"
+
+MSGPACK_ADD_ENUM(GameType::EventID)
 
 class Player {
 public:
@@ -54,6 +57,7 @@ void Storage::retreiveItem(const std::string& itemName, Player &player) {
     }
 }
 
+/*
 unsigned int Storage::getStorageData(std::list<ProductData> &products,
                                      const std::unordered_map<std::string, unsigned int>& prices,
                                      float priceMultiplier) const{
@@ -63,13 +67,39 @@ unsigned int Storage::getStorageData(std::list<ProductData> &products,
     }
     return storedGold;
 }
+*/
 
+void Storage::getStorageData(std::stringstream &data,
+                             const std::unordered_map<std::string, unsigned int> &prices,
+                             float priceMultiplier) const {
+    _storeBasicData(data, true);
+    for (const auto & storedItem : storedItems) {
+        msgpack::type::tuple<std::string, int32_t, int32_t> productData
+                (storedItem.second.front()->getName(), storedItem.second.size(), prices.at(storedItem.first) * priceMultiplier);
+        msgpack::pack(data, productData);
+    }
+}
+
+
+
+/*
 unsigned int Storage::getStorageData(std::list<ProductData> &products) const {
     for (const auto & storedItem : storedItems) {
         products.emplace_back(storedItem.second.front()->getName(), storedItem.second.size(), 0);
     }
     return storedGold;
 }
+*/
+
+void Storage::getStorageData(std::stringstream& data) const {
+    _storeBasicData(data, false);
+    for (const auto & storedItem : storedItems) {
+        msgpack::type::tuple<std::string, int32_t> productData
+                (storedItem.second.front()->getName(), storedItem.second.size());
+        msgpack::pack(data, productData);
+    }
+}
+
 
 bool Storage::isItemAvailable(const std::string &itemName) const {
     return storedItems.count(itemName) == 1;
@@ -81,11 +111,11 @@ unsigned int Storage::getItemPrice(const std::string &itemName) const {
 }
 */
 
-void Storage::increaseGoldReserves(unsigned int amount) {
+void Storage::increaseGoldReserves(int amount) {
     storedGold += amount;
 }
 
-bool Storage::decreaseGoldReserves(unsigned int amount) {
+bool Storage::decreaseGoldReserves(int amount) {
     if (amount <= storedGold) {
         storedGold -= amount;
         return true;
@@ -95,4 +125,13 @@ bool Storage::decreaseGoldReserves(unsigned int amount) {
 
 Storage::Storage() {
     storedGold = 0;
+}
+
+///////////////////////////////PRIVATE/////////////////////////////
+
+void Storage::_storeBasicData(std::stringstream& data, bool hasPrice) const {
+    msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::LIST);
+    msgpack::pack(data, messageTypeData);
+    msgpack::type::tuple<int32_t, int32_t, bool> basicData(storedGold, storedItems.size(), hasPrice); //false: tienen precio
+    msgpack::pack(data, basicData);
 }

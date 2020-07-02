@@ -40,7 +40,7 @@ private:
 
 private:
 
-    void _removeEntities();
+    void _removeEntities(ServerProtocol& protocol);
 
     void _updateMonsters(double timeStep);
 
@@ -49,7 +49,7 @@ private:
     //CUANDO SE IMPLEMENTE ESTO VAMOS A TENER QUE TOMAR EN CUENTA QUE VAMOS A TENER QUE ENCOLAR
     //CADA MOVIMIENTO REALIZADO PARA MANDARSELO A LOS CLIENTES
     void _executeQueueOperations(ServerProtocol& protocol);
-    void _repopulateMap(double timePassed);
+    void _repopulateMap(double timePassed, ServerProtocol& protocol);
 
 public:
 
@@ -75,7 +75,8 @@ public:
     void update(double timeStep, ServerProtocol& protocol);
 
     //Delega el comportamiento a la entity que guarda, si es que guarda una
-    unsigned int list(Player& player, std::list<ProductData>& products, Coordinate coordinate);
+    //unsigned int list(Player& player, std::list<ProductData>& products, Coordinate coordinate);
+    void list(Player& player, Coordinate coordinate, std::stringstream& data);
 
     //Delega el comportamiento a la entity que guarda, si es que guarda una
     void withdraw(Player& player, const std::string& itemName, Coordinate coordinate);

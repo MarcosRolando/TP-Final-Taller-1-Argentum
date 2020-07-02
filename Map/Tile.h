@@ -71,7 +71,8 @@ public:
     bool isAvailable() const;
 
     //Delega el comportamiento a la entity que guarda, si es que guarda una
-    unsigned int list(Player& player, std::list<ProductData>& products);
+    //void list(Player& player, std::list<ProductData>& products);
+    void list(Player& player, std::stringstream& data);
 
     //Delega el comportamiento a la entity que guarda, si es que guarda una
     void withdraw(Player& player, const std::string& itemName);

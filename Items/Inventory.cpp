@@ -134,7 +134,7 @@ std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
 }
 
 int Inventory::getWeaponDamage(Coordinate currentPosition, Coordinate target,
-                                int32_t& currentMana) const {
+                               int32_t& currentMana) const {
     return equippedWeapon->getDamage(currentPosition, target, currentMana);
 }
 
@@ -157,24 +157,30 @@ std::list<std::shared_ptr<Item>> Inventory::dropAllItems() {
     return droppedItems;
 }
 
-void Inventory::unequip(EquipmentPlace clothing) {
-    if (clothingEquipment.at(clothing)->isDefault()) return;
+bool Inventory::unequip(EquipmentPlace clothing) {
+    if (clothingEquipment.at(clothing)->isDefault()) {
+        return false;
+    }
     for (auto & item : items) {
         if (!item) {
             item = std::move(clothingEquipment.at(clothing));
-            break;
+            return true;
         }
     }
+    return false;
 }
 
-void Inventory::unequip() {
-    if (equippedWeapon->isDefault()) return;
+bool Inventory::unequip() {
+    if (equippedWeapon->isDefault()) {
+        return false;
+    }
     for (auto & item : items) {
         if (!item) {
             item = std::move(equippedWeapon);
-            break;
+            return true;
         }
     }
+    return false;
 }
 
 void Inventory::storeEquippedItems(std::stringstream &buffer) const {
@@ -194,4 +200,3 @@ void Inventory::storeAllData(std::stringstream &buffer) const {
         }
     }
 }
-

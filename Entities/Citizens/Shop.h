@@ -36,7 +36,8 @@ public:
     //Almacena en la lista los items que tiene en venta, los precios
     //almacenados para cada producto fueron modificados utilizando el
     //multiplicador recibido en el constructor
-    unsigned int list(const Player &player, std::list<ProductData>& products);
+    //unsigned int list(const Player &player, std::list<ProductData>& products);
+    void list(const Player &player, std::stringstream& data);
 
     //Funcion utilizada cuando el jugador quiere comprar un item, si el jugador no
     //tiene oro suficiente o el item pedido no esta guardado entonces no hace nada,

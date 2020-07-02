@@ -13,6 +13,7 @@
 
 #include <iostream>
 
+MSGPACK_ADD_ENUM(GameType::EventID)
 
 /////////////////////////////////PRIVATE//////////////////////////
 
@@ -20,7 +21,9 @@
 //Carga hasta monsterCreationRate monstruos nuevos cada cierto invervalo de tiempo
 //Si la cantidad que se desea crear sobrepasa la cantidad maxima, entonces crea hasta
 //conseguir la cantidad maxima
-void Game::_repopulateMap(double timePassed) {
+void Game::_repopulateMap(double timePassed, ServerProtocol& protocol) {
+    Coordinate aux{};
+    std::stringstream data;
     spawnTimer += static_cast<unsigned int>(timePassed);
     if (spawnTimer >= spawnInterval) {
         unsigned int monstersToCreate = monsterCreationRate;
@@ -32,9 +35,13 @@ void Game::_repopulateMap(double timePassed) {
         for (unsigned int i = 0; i < monstersToCreate; ++i) {
             //map.addEntity({0, 0}, std::shared_ptr<Entity>(new Monster(*this, {0, 0}, GameType::Entity::SKELETON)));
             monstersFactory.storeRandomMonster(*this, monster);
+            aux = map.getMonsterCoordinate();
+            monster->setPosition(aux);
+            (*monster) >> data;
             monsters.push_back(monster);
-            map.addEntity(map.getMonsterCoordinate(), std::static_pointer_cast<Entity>(monster));
+            map.addEntity(aux, std::static_pointer_cast<Entity>(monster));
         }
+        protocol.addToGeneralData(data);
     }
 }
 
@@ -65,12 +72,19 @@ void Game::_updatePlayers(double timeStep) {
 }
 
 //Elimina de las listas almacenadas y del mapa los players y monsters que deban ser eliminados
-void Game::_removeEntities() {
+void Game::_removeEntities(ServerProtocol& protocol) {
+    std::stringstream data;
     std::list<Coordinate> monstersToRemove;
     ShouldMonsterBeRemoved sholdBeRemoved(monstersToRemove);
     monsters.erase(std::remove_if(monsters.begin(), monsters.end(), sholdBeRemoved), monsters.end());
     for (const auto & coordinate: monstersToRemove) {
         map.removeEntity(coordinate);
+        msgpack::type::tuple<GameType::EventID> eventIdData(GameType::EventID::DISAPPEARED);
+        msgpack::pack(data, eventIdData);
+        msgpack::type::tuple<int32_t, int32_t>
+                removedMonsterCoordinate(coordinate.iPosition, coordinate.jPosition);
+        msgpack::pack(data, removedMonsterCoordinate);
+        protocol.addToGeneralData(data);
     }
 
     //AGREGAR BORRADO DE PLAYER_HANDLERS
@@ -94,7 +108,7 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 
 
 void Game::update(double timeStep, ServerProtocol& protocol) {
-    _repopulateMap(timeStep);
+    _repopulateMap(timeStep, protocol);
     _updateMonsters(timeStep); //todo pasar a lista de Monster* en vez de shared ptr
     _updatePlayers(timeStep);
     clients.update(); //todo cambiar el nombre a mergeo de eventos
@@ -102,7 +116,7 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
 
     //AGREGAR UPDATE DE PLAYERS CONECTADOS
 
-    _removeEntities();
+    _removeEntities(protocol);
 }
 
 Game::Game(MapFileReader&& mapFile, ClientsMonitor& _clients): map(mapFile), clients(_clients) {
@@ -116,9 +130,17 @@ const Map& Game::getMap() const {
     return map;
 }
 
+/*
 unsigned int Game::list(Player &player, std::list<ProductData> &products, Coordinate coordinate) {
     return map.list(player, products, coordinate);
 }
+*/
+
+void Game::list(Player &player, Coordinate coordinate, std::stringstream& data) {
+    map.list(player, coordinate, data);
+}
+
+
 
 void Game::withdraw(Player &player, const std::string &itemName, Coordinate coordinate) {
     map.withdraw(player, itemName, coordinate);
@@ -164,3 +186,4 @@ Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
     protocol.addToGeneralData(data);
     return *playerAux;
 }
+

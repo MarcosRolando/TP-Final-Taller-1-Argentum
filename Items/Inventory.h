@@ -71,9 +71,9 @@ public:
     //Retorna una lista con todos los items del iventario, quitandolos del mismo
     std::list<std::shared_ptr<Item>> dropAllItems();
 
-    void unequip(EquipmentPlace clothing);
+    bool unequip(EquipmentPlace clothing);
 
-    void unequip();
+    bool unequip();
 
     void storeEquippedItems(std::stringstream& buffer) const;
 

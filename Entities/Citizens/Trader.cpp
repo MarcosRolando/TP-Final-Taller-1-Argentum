@@ -37,9 +37,16 @@ Trader::Trader(Coordinate initialPosition) : Entity(GameType::TRADER, initialPos
     shop = std::move(aux);
 }
 
+/*
 unsigned int Trader::list(const Player &player, std::list<ProductData> &products) {
     return shop.list(player, products);
 }
+*/
+
+void Trader::list(const Player &player, std::stringstream &data) {
+    shop.list(player, data);
+}
+
 
 void Trader::buy(Player &player, const std::string &itemName) {
     shop.buy(player, itemName);
@@ -48,3 +55,4 @@ void Trader::buy(Player &player, const std::string &itemName) {
 void Trader::sell(Player &player, const std::string& itemName) {
     shop.sell(player, itemName);
 }
+

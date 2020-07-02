@@ -27,9 +27,16 @@ Priest::Priest(Coordinate initialPosition): Entity(GameType::PRIEST, initialPosi
     shop = std::move(aux);
 }
 
+/*
 unsigned int Priest::list(const Player &player, std::list<ProductData> &products) {
     return shop.list(player, products);
 }
+*/
+
+void Priest::list(const Player &player, std::stringstream &data) {
+    shop.list(player, data);
+}
+
 
 
 void Priest::buy(Player &player, const std::string &itemName) {

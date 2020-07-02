@@ -79,7 +79,7 @@ public:
     //void requestMove(GameType::Direction direction);
 
     //Desequipa la ropa de equipment place
-    void unequip(EquipmentPlace clothing);
+    bool unequip(EquipmentPlace clothing);
 
     //Compra el item de nombre itemName del npc en la posicion npcPosition, si no hay
     //uno no hace nada
@@ -91,12 +91,13 @@ public:
 
     void withdrawFrom(const std::string& itemName, Coordinate npcPosition);
 
-    void listFrom(Coordinate npcPosition);
+    //void listFrom(Coordinate npcPosition);
+    void listFrom(Coordinate npcPosition, std::stringstream& data);
 
     void depositTo(const std::string& itemName, Coordinate npcPosition);
 
     //Desequipa el arma
-    void unequip();
+    bool unequip();
 
     void dropItem(unsigned int itemPosition);
 
