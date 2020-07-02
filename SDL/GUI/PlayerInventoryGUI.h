@@ -11,13 +11,6 @@
 #include <list>
 #include <unordered_map>
 
-enum EquippedItems{
-    Helmet,
-    Armor,
-    Weapon,
-    Shield,
-};
-
 class PlayerInventoryGUI {
 private:
     Font textFont;

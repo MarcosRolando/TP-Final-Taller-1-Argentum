@@ -21,113 +21,14 @@ MSGPACK_ADD_ENUM(GameType::Class)
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 
 
-
-
-ClientProtocol::ClientProtocol(GameGUI &_game, Socket &_socket) : game(_game), socket(_socket) {
-    /*_receiveMapInfo();
-    _receiveCurrentGameState();*/
-}
-
-void ClientProtocol::createPlayer(const std::string& nickname, GameType::Race race,
-        GameType::Class _class) {
-    std::stringstream msgBuffer;
-    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::CREATE_PLAYER);
-    msgpack::type::tuple<std::string, GameType::Race, GameType::Class> playerInfo;
-    playerInfo = {nickname, race, _class};
-    msgpack::pack(msgBuffer, event);
-    msgpack::pack(msgBuffer, playerInfo);
-    std::string aux = msgBuffer.str();
-    uint32_t length = aux.size();
-    length = htonl(aux.size());
-    std::vector<char> sendBuffer(sizeof(uint32_t));
-    _loadBytes(sendBuffer, &length, sizeof(uint32_t));
-    std::copy(aux.begin(), aux.end(), std::back_inserter(sendBuffer));
-    socket.send(sendBuffer.data(), sendBuffer.size());
-}
-
-void ClientProtocol::loadPlayer(std::string& nickname) {
-    std::stringstream msgBuffer;
-    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::CREATE_PLAYER);
-    msgpack::type::tuple<std::string> playerInfo;
-    playerInfo = {nickname};
-    msgpack::pack(msgBuffer, event);
-    msgpack::pack(msgBuffer, playerInfo);
-    std::string aux = msgBuffer.str();
-    uint32_t length = aux.size();
-    length = htonl(aux.size());
-    std::vector<char> sendBuffer(sizeof(uint32_t));
-    _loadBytes(sendBuffer, &length, sizeof(uint32_t));
-    std::copy(aux.begin(), aux.end(), std::back_inserter(sendBuffer));
-    socket.send(sendBuffer.data(), sendBuffer.size());
-}
-
 //La copie de ClientEventHandler pero creo q va mejor aca
-void ClientProtocol::_loadBytes(std::vector<char>& loadBuffer, void* data, unsigned int size) {
+void ClientProtocol::loadBytes(std::vector<char>& loadBuffer, void* data, unsigned int size) {
     for (unsigned int i = 0; i < size; ++i) {
         loadBuffer[i] = *(reinterpret_cast<char *>(data) + i);
     }
 }
 
-void ClientProtocol::getInitialGameState() {
-    _receiveMapInfo();
-    _receiveCurrentGameState();
-}
-
-void ClientProtocol::_receiveMapInfo() {
-    int32_t msgLength;
-    socket.receive((char*)(&msgLength), sizeof(msgLength));
-    msgLength = ntohl(msgLength);
-    buffer.resize(msgLength);
-    socket.receive(buffer.data(), buffer.size());
-    _loadMap();
-}
-
-void ClientProtocol::_loadMap() {
-    std::size_t offset = 0;
-    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    msgpack::type::tuple<int32_t, int32_t> mapSize;
-    handler->convert(mapSize);
-    int rows = std::get<0>(mapSize);
-    int columns = std::get<1>(mapSize);
-    game.setMapSize(rows, columns);
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < columns; ++j) {
-            handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-            msgpack::type::tuple<GameType::FloorType, GameType::Structure, GameType::Entity> tileInfo;
-            handler->convert(tileInfo);
-            game.loadTileData({i, j}, translator.getFloorTypeTexture(std::get<0>(tileInfo)),
-                              translator.getStructureTexture(std::get<1>(tileInfo)),
-                              translator.getEntityTexture(std::get<2>(tileInfo)));
-        }
-    }
-}
-
-
-void ClientProtocol::_receiveCurrentGameState() {
-    int32_t msgLength;
-    socket.receive((char*)(&msgLength), sizeof(msgLength));
-    msgLength = ntohl(msgLength);
-    buffer.resize(msgLength);
-    socket.receive(buffer.data(), msgLength);
-    std::size_t offset = 0;
-
-    while (offset < static_cast<size_t>(msgLength)) {
-        handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-        msgpack::type::tuple<GameType::EventID> id;
-        handler->convert(id);
-        if (std::get<0>(id) == GameType::CREATE_ITEM) {
-            _processAddItem(offset);
-        } else if (std::get<0>(id) == GameType::CREATE_ENTITY) {
-            _processAddEntity(offset);
-        } else if (std::get<0>(id) == GameType::PLAYER_DATA) {
-            _processAddInventoryItems(offset);//Capaz me conviene poner esto
-            //en una funcion para poder llamarla dsps en cada update
-            _processAddPlayerData(offset);
-        }
-    }
-}
-
-void ClientProtocol::_processAddItem(std::size_t& offset) {
+ItemData ClientProtocol::processAddItem(std::size_t& offset) {
     TextureID itemTexture = Nothing;
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<GameType::ItemType, int32_t, int32_t , int32_t> itemData;
@@ -147,26 +48,26 @@ void ClientProtocol::_processAddItem(std::size_t& offset) {
                 static_cast<GameType::Potion>(std::get<1>(itemData)));
     }
     if (itemTexture != Nothing) {
-        game.loadTileItem({std::get<2>(itemData), std::get<3>(itemData)}, itemTexture);
+        return {{std::get<2>(itemData), std::get<3>(itemData)}, itemTexture};
     }
 }
 
-void ClientProtocol::_processAddEntity(std::size_t& offset) {
+void ClientProtocol::processAddEntity(std::size_t& offset) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<GameType::Entity, std::string, int32_t , int32_t> entityData;
     handler->convert(entityData);
     if (std::get<0>(entityData) != GameType::PLAYER) {
-        EntityData data = _processAddNPC(entityData, offset);
+        EntityData data = processAddNPC(entityData, offset);
         game.addNPC(translator.getEntityTexture(data.type),
                     std::move(data.nickname), data.pos);
     } else {
-        PlayerData data = _processAddPlayer(entityData,offset);
+        PlayerData data = processAddPlayer(entityData,offset);
         game.addPlayer(data.equipment, data.isAlive,
                 std::move(data.entityData.nickname), data.entityData.pos);
     }
 }
 
-EntityData ClientProtocol::_processAddNPC(msgpack::type::tuple<GameType::Entity,
+EntityData ClientProtocol::processAddNPC(msgpack::type::tuple<GameType::Entity,
         std::string, int32_t , int32_t>& entityData, std::size_t& offset) {
     EntityData npcData;
     npcData.type = std::get<0>(entityData);
@@ -175,7 +76,7 @@ EntityData ClientProtocol::_processAddNPC(msgpack::type::tuple<GameType::Entity,
     return npcData;
 }
 
-PlayerData ClientProtocol::_processAddPlayer(msgpack::type::tuple<GameType::Entity,
+GUIPlayerInfo ClientProtocol::processAddPlayer(msgpack::type::tuple<GameType::Entity,
         std::string, int32_t , int32_t>& entityData, std::size_t& offset) {
 
     PlayerData pData;
@@ -216,35 +117,35 @@ PlayerData ClientProtocol::_processAddPlayer(msgpack::type::tuple<GameType::Enti
     //game.addPlayer(equipment, std::get<0>(isAlive), std::move(nickname), position);
 }
 
-void ClientProtocol::_processAddInventoryItems(size_t& offset) {
+void ClientProtocol::_addInventoryItems(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t> gold;
     handler->convert(gold);
-    game.getPlayerInventory().updateGold(std::get<0>(gold));
+    data.generalInfo.gold = std::get<0>(gold);
     //Aca recibe los items del inventario
-    _addEquippedItems(offset);
-    _fillInventory(offset);
+    _addEquippedItems(data, offset);
+    _fillInventory(data, offset);
 }
 
-void ClientProtocol::_addEquippedItems(size_t& offset){
-    _addClothing(offset, Helmet);//Esto carga el helmet
-    _addClothing(offset, Armor);//Esto carga la armadura
-    _addClothing(offset, Shield);//Esto carga el shield
-    _addWeapon(offset);
+void ClientProtocol::_addEquippedItems(PlayerData& info, size_t& offset){
+    _addClothing(info, offset, Helmet);//Esto carga el helmet
+    _addClothing(info, offset, Armor);//Esto carga la armadura
+    _addClothing(info, offset, Shield);//Esto carga el shield
+    _addWeapon(info, offset);
 }
 
-void ClientProtocol::_fillInventory(size_t& offset){
+void ClientProtocol::_fillInventory(PlayerData& info, size_t& offset){
     for (int i = 0; i < 16; ++i) {
         handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
         msgpack::type::tuple<GameType::ItemType, int32_t> item;
         handler->convert(item);
-        if (static_cast<GameType::ItemType>(std::get<0>(item)) != GameType::ITEM_TYPE_NONE){
-            _addItem(std::get<0>(item), std::get<1>(item), i);
+        if (static_cast<GameType::ItemType>(std::get<0>(item)) != GameType::ITEM_TYPE_NONE) {
+            _addItem(info, std::get<0>(item), std::get<1>(item), i);
         }
     }
 }
 
-void ClientProtocol::_addItem(GameType::ItemType type, int32_t id, int position){
+void ClientProtocol::_addItem(PlayerData& info, GameType::ItemType type, int32_t id, int position) {
     TextureID texture;
     switch (type) {
         case GameType::ITEM_TYPE_WEAPON:
@@ -262,71 +163,77 @@ void ClientProtocol::_addItem(GameType::ItemType type, int32_t id, int position)
         default:
             break;
     }
-    game.getPlayerInventory().addInventoryItem(texture, position);
+    info.inventoryItems.emplace_back(texture, position);
 }
 
-void ClientProtocol::_processAddPlayerData(size_t& offset) {
-    _addXPData(offset);
-    _addManaData(offset);
-    _addHealthData(offset);
-    _addSkills(offset);
-    _addPosition(offset);
+void ClientProtocol::_addPlayerStats(PlayerData& data, size_t& offset) {
+    _addXPData(data, offset);
+    _addManaData(data, offset);
+    _addHealthData(data, offset);
+    _addSkills(data, offset);
+    _addPosition(data, offset);
 }
 
-void ClientProtocol::_addClothing(size_t& offset, EquippedItems item){
+void ClientProtocol::_addClothing(PlayerData& info, size_t& offset, EquippedItems item) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t> equippedClothing;
     handler->convert(equippedClothing);
-    game.getPlayerInventory().addEquipableItem(translator.getClothingDropTexture
-    (static_cast<GameType::Clothing>(std::get<0>(equippedClothing))), item);
+    info.equippedItems.emplace_back(translator.getClothingDropTexture
+            (static_cast<GameType::Clothing>(std::get<0>(equippedClothing))), item);
 }
 
-void ClientProtocol::_addWeapon(size_t& offset){
+void ClientProtocol::_addWeapon(PlayerData& info, size_t& offset){
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t> equippedWeapon;
     handler->convert(equippedWeapon);
-    game.getPlayerInventory().addEquipableItem(translator.getWeaponDropTexture
-    (static_cast<GameType::Weapon>(std::get<0>(equippedWeapon))),Weapon);
+    info.equippedItems.emplace_back(translator.getWeaponTexture(
+            static_cast<GameType::Weapon>(std::get<0>(equippedWeapon))), Weapon);
 }
 
-void ClientProtocol::_addXPData(size_t& offset) {
+void ClientProtocol::_addXPData(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t, int32_t, int32_t> xpData;
     handler->convert(xpData);
-    game.getPlayerInfo().updateXP(std::get<0>(xpData));
-    game.getPlayerInfo().updateNextLevelXP(std::get<1>(xpData));
-    game.getPlayerInfo().updateLevel(std::get<2>(xpData));
+    data.generalInfo.xp = std::get<0>(xpData);
+    data.generalInfo.nextLevelXP = std::get<1>(xpData);
+    data.generalInfo.level = std::get<2>(xpData);
 }
 
-void ClientProtocol::_addHealthData(size_t& offset) {
+void ClientProtocol::_addHealthData(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t, int32_t> healthData;
     handler->convert(healthData);
-    game.getPlayerInfo().updateHealth(std::get<0>(healthData));
-    game.getPlayerInfo().updateTotalHealth(std::get<1>(healthData));
+    data.generalInfo.health = std::get<0>(healthData);
+    data.generalInfo.totalHealth = std::get<1>(healthData);
 }
 
-void ClientProtocol::_addManaData(size_t& offset) {
+void ClientProtocol::_addManaData(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t, int32_t> manaData;
     handler->convert(manaData);
-    game.getPlayerInfo().updateMana(std::get<0>(manaData));
-    game.getPlayerInfo().updateTotalMana(std::get<1>(manaData));
+    data.generalInfo.mana = std::get<0>(manaData);
+    data.generalInfo.totalMana = std::get<1>(manaData);
 }
 
-void ClientProtocol::_addSkills(size_t& offset){
+void ClientProtocol::_addSkills(PlayerData& data, size_t& offset){
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t, int32_t, int32_t, int32_t> skills;
     handler->convert(skills);
-    game.getPlayerInfo().updateStrength(std::get<0>(skills));
-    game.getPlayerInfo().updateConstitution(std::get<1>(skills));
-    game.getPlayerInfo().updateIntelligence(std::get<2>(skills));
-    game.getPlayerInfo().updateAgility(std::get<3>(skills));
+    data.generalInfo.strength = std::get<0>(skills);
+    data.generalInfo.constitution = std::get<1>(skills);
+    data.generalInfo.intelligence = std::get<2>(skills);
+    data.generalInfo.agility = std::get<3>(skills);
 }
 
-void ClientProtocol::_addPosition(size_t& offset) {
+void ClientProtocol::_addPosition(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<int32_t, int32_t> pos;
     handler->convert(pos);
-    game.getPlayerInfo().updatePosition(std::get<1>(pos), std::get<0>(pos));
+    data.generalInfo.position = {std::get<1>(pos), std::get<0>(pos)};
+}
+
+PlayerData ClientProtocol::processAddPlayerData(size_t &offset) {
+    PlayerData data;
+    _addInventoryItems(data, offset);
+    _addPlayerStats(data, offset);
 }

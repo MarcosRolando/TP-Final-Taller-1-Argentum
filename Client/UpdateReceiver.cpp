@@ -63,9 +63,6 @@ void UpdateReceiver::_processMoveUpdate() {
             std::get<0>(moveInfo), std::get<1>(moveInfo), std::get<3>(moveInfo))));
 }
 
-
-
 void UpdateReceiver::_processCreateEntity() {
-
     protocol._processAddEntity(offset);
 }

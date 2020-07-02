@@ -6,21 +6,16 @@
 #define ARGENTUM_PLAYERINFOGUI_H
 
 #include "../Text/Text.h"
-
-struct PlayerInfo {
-    int32_t totalHealth, totalMana, nextLevelXP;
-    int32_t health, mana, xp;
-    int32_t level;
-    int32_t constitution, strength, agility, intelligence;
-    int32_t xPos, yPos;
-};
+#include "GUIPlayerInfo.h"
+#include "../../Map/Coordinate.h"
 
 class PlayerInfoGUI {
 private:
     Font infoFont;
     Text info;
     SDL_Renderer& renderer;
-    PlayerInfo pInfo{};
+    GUIPlayerInfo pInfo{};
+
 public:
     explicit PlayerInfoGUI(SDL_Renderer& renderer);
 
@@ -31,7 +26,7 @@ public:
     void updateXP(int32_t currXP);
     void updateNextLevelXP(int32_t _nextLevelXP);
     void updateLevel(int32_t newLevel);
-    void updatePosition(int32_t x, int32_t y);
+    void updatePosition(Coordinate position);
     //Capaz conviene hacer una que le sume 1 a todas las skills y listo
     void updateStrength(int32_t strength);
     void updateConstitution(int32_t constitution);

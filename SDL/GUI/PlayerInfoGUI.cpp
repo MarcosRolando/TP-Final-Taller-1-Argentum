@@ -60,9 +60,8 @@ void PlayerInfoGUI::updateIntelligence(int32_t intelligence) {
 }
 
 
-void PlayerInfoGUI::updatePosition(int32_t x, int32_t y) {
-    pInfo.xPos = x;
-    pInfo.yPos = y;
+void PlayerInfoGUI::updatePosition(Coordinate position) {
+    pInfo.position = position;
 }
 
 void PlayerInfoGUI::render(){
@@ -101,11 +100,11 @@ int32_t PlayerInfoGUI::getLevel() const {
 }
 
 int32_t PlayerInfoGUI::getXPos() const {
-    return pInfo.xPos;
+    return pInfo.position.j;
 }
 
 int32_t PlayerInfoGUI::getYPos() const {
-    return pInfo.yPos;
+    return pInfo.position.i;
 }
 
 int32_t PlayerInfoGUI::getStrength() const {
