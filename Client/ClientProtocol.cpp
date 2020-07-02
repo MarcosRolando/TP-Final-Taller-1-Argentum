@@ -8,7 +8,7 @@
 #include "../Shared/GameEnums.h"
 #include "../Texture/PlayerEquipment.h"
 
-MSGPACK_ADD_ENUM(GameType::ID)
+MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Race)
 MSGPACK_ADD_ENUM(GameType::FloorType)
 MSGPACK_ADD_ENUM(GameType::Structure)
@@ -113,11 +113,11 @@ void ClientProtocol::_receiveCurrentGameState() {
 
     while (offset < static_cast<size_t>(msgLength)) {
         handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-        msgpack::type::tuple<GameType::ID> id;
+        msgpack::type::tuple<GameType::EventID> id;
         handler->convert(id);
-        if (std::get<0>(id) == GameType::ITEM) {
+        if (std::get<0>(id) == GameType::CREATE_ITEM) {
             _processAddItem(offset);
-        } else if (std::get<0>(id) == GameType::ENTITY) {
+        } else if (std::get<0>(id) == GameType::CREATE_ENTITY) {
             _processAddEntity(offset);
         } else if (std::get<0>(id) == GameType::PLAYER_DATA) {
             _processAddInventoryItems(offset);//Capaz me conviene poner esto
@@ -156,20 +156,33 @@ void ClientProtocol::_processAddEntity(std::size_t& offset) {
     msgpack::type::tuple<GameType::Entity, std::string, int32_t , int32_t> entityData;
     handler->convert(entityData);
     if (std::get<0>(entityData) != GameType::PLAYER) {
-        game.addNPC(translator.getEntityTexture(std::get<0>(entityData)),
-                    std::move(std::get<1>(entityData)), {std::get<2>(entityData),
-                                                         std::get<3>(entityData)});
+        EntityData data = _processAddNPC(entityData, offset);
+        game.addNPC(translator.getEntityTexture(data.type),
+                    std::move(data.nickname), data.pos);
     } else {
-        _processAddPlayer(entityData,offset);
+        PlayerData data = _processAddPlayer(entityData,offset);
+        game.addPlayer(data.equipment, data.isAlive,
+                std::move(data.entityData.nickname), data.entityData.pos);
     }
 }
 
-void ClientProtocol::_processAddPlayer(msgpack::type::tuple<GameType::Entity,
+EntityData ClientProtocol::_processAddNPC(msgpack::type::tuple<GameType::Entity,
+        std::string, int32_t , int32_t>& entityData, std::size_t& offset) {
+    EntityData npcData;
+    npcData.type = std::get<0>(entityData);
+    npcData.nickname = std::get<1>(entityData);
+    npcData.pos = {std::get<2>(entityData), std::get<3>(entityData)};
+    return npcData;
+}
+
+PlayerData ClientProtocol::_processAddPlayer(msgpack::type::tuple<GameType::Entity,
         std::string, int32_t , int32_t>& entityData, std::size_t& offset) {
 
+    PlayerData pData;
     PlayerEquipment equipment{};
-    std::string nickname = std::get<1>(entityData);
-    Coordinate position = {std::get<2>(entityData), std::get<3>(entityData)};
+    pData.entityData.type = std::get<0>(entityData);
+    pData.entityData.nickname = std::get<1>(entityData);
+    pData.entityData.pos = {std::get<2>(entityData), std::get<3>(entityData)};
     msgpack::type::tuple<GameType::Race> playerRace;
     msgpack::type::tuple<int32_t> item;
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
@@ -196,7 +209,11 @@ void ClientProtocol::_processAddPlayer(msgpack::type::tuple<GameType::Entity,
     equipment.weapon = translator.getWeaponTexture(
             static_cast<GameType::Weapon>(std::get<0>(item)));
 
-    game.addPlayer(equipment, std::get<0>(isAlive), std::move(nickname), position);
+    pData.equipment = equipment;
+    pData.isAlive = std::get<0>(isAlive);
+    pData.race = std::get<0>(playerRace);
+    return pData;
+    //game.addPlayer(equipment, std::get<0>(isAlive), std::move(nickname), position);
 }
 
 void ClientProtocol::_processAddInventoryItems(size_t& offset) {

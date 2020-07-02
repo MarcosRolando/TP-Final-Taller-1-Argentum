@@ -44,6 +44,11 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 break;
             case GameType::USE_ITEM:
                 break;
+            case GameType::CREATE_ENTITY:
+                _processCreateEntity();
+                break;
+            case GameType::CREATE_ITEM:
+                break;
         }
     }
 }
@@ -54,4 +59,9 @@ void UpdateReceiver::_processMoveUpdate() {
     handler->convert(moveInfo);
     updates.push(std::unique_ptr<UpdateEvent>(new UpdateMove(std::move(std::get<2>(moveInfo)),
             std::get<0>(moveInfo), std::get<1>(moveInfo), std::get<3>(moveInfo))));
+}
+
+
+void UpdateReceiver::_processCreateEntity() {
+    protocol._processAddEntity(offset);
 }

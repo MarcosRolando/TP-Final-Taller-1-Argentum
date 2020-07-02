@@ -10,7 +10,20 @@
 #include <vector>
 #include <msgpack.hpp>
 #include "ProtocolEnumTranslator.h"
+#include "../Texture/PlayerEquipment.h"
 
+struct EntityData {
+    GameType::Entity type;
+    std::string nickname;
+    Coordinate pos;
+};
+
+struct PlayerData {
+    EntityData entityData;
+    GameType::Race race;
+    PlayerEquipment equipment{};
+    bool isAlive;
+};
 class GameGUI;
 class Socket;
 
@@ -30,18 +43,20 @@ public:
     void createPlayer(const std::string &nickname, GameType::Race race,
                       GameType::Class _class);
     void loadPlayer(std::string &nickname);
+    void _processAddEntity(std::size_t& offset);
+    PlayerData _processAddPlayer(msgpack::type::tuple<GameType::Entity,
+            std::string, int32_t, int32_t>& entityData, std::size_t& offset);
+    EntityData _processAddNPC(msgpack::type::tuple<GameType::Entity, std::string, int32_t, int32_t> &entityData,
+                              size_t &offset);
 
 
-private://No se si todas las q estan aca son private
+private:
     void _receiveMapInfo();
     void _loadMap();
     void _receiveCurrentGameState();
-    void _processAddEntity(std::size_t& offset);
-    void _processAddItem(std::size_t& offset);
-    void _processAddPlayer(msgpack::type::tuple<GameType::Entity,
-            std::string, int32_t, int32_t>& entityData, std::size_t& offset);
+    void _processAddItem(std::size_t& offset);//Esta va a ir al protocol general
     void _processAddInventoryItems(size_t& offset);
-    void _processAddPlayerData(size_t& offset);
+    void _processAddPlayerData(size_t& offset);//Esta va a ir al protocol general
     void _addManaData(size_t& offset);
     void _addHealthData(size_t& offset);
     void _addXPData(size_t& offset);
@@ -52,9 +67,7 @@ private://No se si todas las q estan aca son private
     void _addItem(GameType::ItemType type, int32_t id, int position);
     void _addSkills(size_t &offset);
     void _addPosition(size_t &offset);
-
     void _loadBytes(std::vector<char> &loadBuffer, void *data, unsigned int size);
-
 };
 
 
