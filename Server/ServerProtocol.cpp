@@ -6,6 +6,7 @@
 #include <iostream>
 #include "../Entities/PlayerProxy.h"
 #include "../Entities/Player.h"
+#include "../Entities/Entity.h"
 
 ///////////////////////////////PUBLIC/////////////////////////////
 
@@ -24,9 +25,8 @@ const std::vector<char> &ServerProtocol::getMapInfo() const {
     return mapBuffer;
 }
 
-std::vector<char> ServerProtocol::getCurrentState(PlayerProxy& proxyPlayer) {
-    const Player& player = proxyPlayer.getPlayer();
-    std::vector<char> buffer;
+
+void ServerProtocol::buildCurrentState() {
     std::stringstream data;
     map.getCurrentState(data);
     player.storeAllRelevantData(data);
@@ -35,6 +35,12 @@ std::vector<char> ServerProtocol::getCurrentState(PlayerProxy& proxyPlayer) {
     buffer.resize(sizeof(uint32_t));
     _loadBytes(buffer, &msgLength, sizeof(uint32_t));
     std::copy(auxString.begin(), auxString.end(), std::back_inserter(buffer));
+}
+
+
+
+std::vector<char> ServerProtocol::getCurrentState() {
+
     return buffer;
 }
 
@@ -74,4 +80,8 @@ void ServerProtocol::_loadBytes(std::vector<char>& buffer, void* data, unsigned 
     for (unsigned int i = 0; i < size; ++i) {
         buffer[i] = *(reinterpret_cast<char *>(data) + i);
     }
+}
+
+void ServerProtocol::storeEntityInitialData(const Entity *entity) {
+    (*entity) >> currentStateData;
 }

@@ -17,6 +17,9 @@ private:
     std::unordered_map<std::string, std::vector<char>> playersData; //(nickname, data)
     std::stringstream generalData;
     std::vector<char> generalDataBuffer;
+    std::stringstream currentStateData;//Guarda el estado actual del juego para que despues los
+                                       //clientes puedan ser actualizados solo recibiendo los cambios realidados
+    std::vector<char> currentStateBuffer;
     const Map &map;
 
 private:
@@ -25,7 +28,8 @@ private:
 public:
     explicit ServerProtocol(const Map &map);
     const std::vector<char>& getMapInfo() const;
-    std::vector<char> getCurrentState(PlayerProxy& proxyPlayer);
+    void buildCurrentState();
+    const std::vector<char>& getCurrentState();
 
     //Agrega la informacion del stringstream al buffer que contiene la informacion
     //general que se mandara a todos los clientes
@@ -40,6 +44,11 @@ public:
     void addToPlayerData(const std::string& playerNickname, std::stringstream data);
 
     const std::vector<char>& getPlayerData(const std::string& playerNickname, std::vector<char>& messageSize);
+
+    void storeEntityInitialData(const Entity* entity);
+
+    //todo HACER FUNCION QUE CONSIGA LA DATA INICIAL DEL PLAYER
+
 };
 
 

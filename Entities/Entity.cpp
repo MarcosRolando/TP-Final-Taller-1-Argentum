@@ -137,7 +137,7 @@ GameType::Entity Entity::getType() const {
     return type;
 }
 
-void Entity::operator>>(std::stringstream& buffer) {
+void Entity::operator>>(std::stringstream& buffer) const {
     msgpack::type::tuple<GameType::EventID> idType(GameType::EventID::CREATE_ENTITY);
     msgpack::pack(buffer, idType);
     msgpack::type::tuple<GameType::Entity, std::string>
@@ -198,7 +198,7 @@ Coordinate Entity::getFinalCoordinate(GameType::Direction moveDirection) {
 ///////////////////////////////////PUBLIC///////////////////////////////////
 //Calcula la posicion previa tomando en cuenta la direccion de movimiento y la
 //posicion actual
-Coordinate Entity::_calculatePreviousPosition() {
+Coordinate Entity::_calculatePreviousPosition() const {
     Coordinate previous = currentPosition;
     switch (movement.direction) {
         case GameType::DIRECTION_UP:

@@ -187,3 +187,9 @@ Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
     return *playerAux;
 }
 
+void Game::storeCurrentGameState(ServerProtocol &protocol) {
+    for (const auto & player: players) {
+
+    }
+}
+

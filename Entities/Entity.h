@@ -39,7 +39,7 @@ protected:
     unsigned int speed;
 
 private:
-    Coordinate _calculatePreviousPosition();
+    Coordinate _calculatePreviousPosition() const;
 
  public:
     Entity(GameType::Entity _type, Coordinate initialPosition, std::string&& _nicknamePrefix,
@@ -106,7 +106,7 @@ private:
 
     GameType::Entity getType() const;
 
-    virtual void operator>>(std::stringstream& buffer);
+    virtual void operator>>(std::stringstream& buffer) const;
 
     virtual ~Entity() = default;
 
