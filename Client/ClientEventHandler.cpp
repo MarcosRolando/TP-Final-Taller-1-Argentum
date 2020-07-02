@@ -67,9 +67,9 @@ void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
 
     game.getMinichat().handleMouseButtonDown({clickY, clickX}, game.getWindow());
 
-    game.getSelector().handleEvent({game.getPlayerInfo().getYPos(),
-                                   game.getPlayerInfo().getXPos()},
-                           {clickY, clickX},game.getWindow());
+    game.getSelector().handleEvent({clickY, clickX},
+            {game.getPlayerInfo().getYPos(),game.getPlayerInfo().getXPos()},
+            game.getWindow());
 
     if (e.button.button == SDL_BUTTON_RIGHT) {
         if (game.getSelector().isThereSelectedTile()){
