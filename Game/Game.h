@@ -83,7 +83,8 @@ public:
     void update(double timeStep, ServerProtocol& protocol);
 
     //Delega el comportamiento a la entity que guarda, si es que guarda una
-    unsigned int list(Player& player, std::list<ProductData>& products, Coordinate coordinate);
+    //unsigned int list(Player& player, std::list<ProductData>& products, Coordinate coordinate);
+    void list(Player& player, Coordinate coordinate, std::stringstream& data);
 
     //Delega el comportamiento a la entity que guarda, si es que guarda una
     void withdraw(Player& player, const std::string& itemName, Coordinate coordinate);

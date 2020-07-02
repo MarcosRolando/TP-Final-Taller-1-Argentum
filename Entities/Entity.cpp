@@ -50,8 +50,13 @@ AttackResult Entity::attacked(int damage, unsigned int level, bool isAPlayer) {
     return {0, 0};
 }
 
+/*
 unsigned int Entity::list(const Player &player, std::list<ProductData>& products) {
     return 0;
+}
+*/
+void Entity::list(const Player &player, std::stringstream& data) {
+
 }
 
 void Entity::withdraw(Player &player, const std::string& itemName) {

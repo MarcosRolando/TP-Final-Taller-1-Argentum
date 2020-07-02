@@ -130,9 +130,17 @@ const Map& Game::getMap() const {
     return map;
 }
 
+/*
 unsigned int Game::list(Player &player, std::list<ProductData> &products, Coordinate coordinate) {
     return map.list(player, products, coordinate);
 }
+*/
+
+void Game::list(Player &player, Coordinate coordinate, std::stringstream& data) {
+    map.list(player, coordinate, data);
+}
+
+
 
 void Game::withdraw(Player &player, const std::string &itemName, Coordinate coordinate) {
     map.withdraw(player, itemName, coordinate);
@@ -175,3 +183,4 @@ Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
     map.addEntity(position, std::move(player));
     return *playerAux;
 }
+

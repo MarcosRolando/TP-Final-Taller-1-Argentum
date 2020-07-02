@@ -56,7 +56,8 @@ private:
     //Implementa el comportamiento realizado al pedirle una lista de los items
     //que tiene en venta, por default no hace nada, debe ser reimplementada
     //si la clase hija tiene objetos en venta para listar
-    virtual unsigned int list(const Player &player, std::list<ProductData>& products);
+    //virtual unsigned int list(const Player &player, std::list<ProductData>& products);
+    virtual void list(const Player &player, std::stringstream& data);
 
     //Implementa el comportamiento realizado al pedirle uno de los items
     //que tiene guardados, por default no hace nada, debe ser reimplementada

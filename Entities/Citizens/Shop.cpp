@@ -39,9 +39,18 @@ Shop::Shop(Shop &&other) noexcept {
     sellingMultiplier = other.sellingMultiplier;
 }
 
+
+/*
 unsigned int Shop::list(const Player &player, std::list<ProductData> &products) {
     return storage.getStorageData(products, prices, buyingMultiplier);
 }
+*/
+
+void Shop::list(const Player &player, std::stringstream &data) {
+    storage.getStorageData(data, prices, buyingMultiplier);
+}
+
+
 
 void Shop::buy(Player &player, const std::string &itemName) {
     unsigned int price;

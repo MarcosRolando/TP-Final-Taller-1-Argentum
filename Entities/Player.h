@@ -91,7 +91,8 @@ public:
 
     void withdrawFrom(const std::string& itemName, Coordinate npcPosition);
 
-    void listFrom(Coordinate npcPosition);
+    //void listFrom(Coordinate npcPosition);
+    void listFrom(Coordinate npcPosition, std::stringstream& data);
 
     void depositTo(const std::string& itemName, Coordinate npcPosition);
 

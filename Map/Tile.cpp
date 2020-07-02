@@ -86,12 +86,20 @@ bool Tile::isAvailable() const {
     return isOccupable;
 }
 
-unsigned int Tile::list(Player& player, std::list<ProductData> &products) {
-    if (!entity) {
-        return 0;
+/*
+void Tile::list(Player& player, std::list<ProductData> &products) {
+    if (entity) {
+        entity->list(player, products);
     }
-    return entity->list(player, products);
 }
+*/
+
+void Tile::list(Player &player, std::stringstream &data) {
+    if (entity) {
+        entity->list(player, data);
+    }
+}
+
 
 void Tile::withdraw(Player &player, const std::string &itemName) {
     if (entity) {
@@ -147,3 +155,4 @@ void Tile::storeTileData(std::stringstream &data, uint32_t i, uint32_t j) const 
         items.front()->loadDropItemData(data, i, j);
     }
 }
+
