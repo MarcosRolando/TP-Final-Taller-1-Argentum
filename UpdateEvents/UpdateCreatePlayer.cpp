@@ -3,3 +3,11 @@
 //
 
 #include "UpdateCreatePlayer.h"
+
+UpdateCreatePlayer::UpdateCreatePlayer() {
+
+}
+
+void UpdateCreatePlayer::operator()() {
+
+}

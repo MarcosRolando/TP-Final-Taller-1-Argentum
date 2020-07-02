@@ -11,6 +11,7 @@
 #include <msgpack.hpp>
 #include "ProtocolEnumTranslator.h"
 #include "../Texture/PlayerEquipment.h"
+#include "../Map/Coordinate.h"
 
 struct EntityData {
     GameType::Entity type;

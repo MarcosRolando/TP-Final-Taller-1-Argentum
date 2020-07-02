@@ -14,7 +14,7 @@ private:
 
 public:
     UpdateCreatePlayer();
-    void operator()() override;
+    void operator()();
 };
 
 

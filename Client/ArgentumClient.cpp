@@ -47,7 +47,7 @@ void Client::_processConnection() {
     protocol.createPlayer("ivan", GameType::DWARF, GameType::WARRIOR);
     protocol.getInitialGameState();//Capaz hay q cambiarle el nombre
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
-    UpdateReceiver updater(updateEvents, socket, quit);
+    UpdateReceiver updater(protocol, updateEvents, socket, quit);
     eventHandler();
     updater();
     //Aca falta lo del main menu y la seleccion de server/player etc

@@ -33,6 +33,8 @@ public:
 private:
     void _processUpdate(uint32_t msgLength);
     void _processMoveUpdate();
+
+    void _processCreateEntity();
 };
 
 

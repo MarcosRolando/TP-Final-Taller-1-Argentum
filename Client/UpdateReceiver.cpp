@@ -49,6 +49,8 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 break;
             case GameType::CREATE_ITEM:
                 break;
+            default:
+                break;
         }
     }
 }
@@ -62,6 +64,8 @@ void UpdateReceiver::_processMoveUpdate() {
 }
 
 
+
 void UpdateReceiver::_processCreateEntity() {
+
     protocol._processAddEntity(offset);
 }
