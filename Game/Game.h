@@ -97,6 +97,8 @@ public:
     /*Crea el player en base al nickname, raza y clase que recibe*/
     Player& createPlayer(std::string&& nickname, GameType::Race race, GameType::Class _class,
                             ServerProtocol& protocol);
+
+    void storeCurrentGameState(ServerProtocol& protocol);
 };
 
 

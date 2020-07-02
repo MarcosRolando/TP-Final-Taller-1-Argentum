@@ -26,6 +26,7 @@ public:
     void eraseDisconnectedClients();
     void sendGameUpdate();
     void join();
+    bool hasWaitingClients();
 };
 
 

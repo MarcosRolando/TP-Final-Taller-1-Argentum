@@ -36,3 +36,7 @@ void ClientsMonitor::sendGameUpdate() {
         client->sendGameUpdate();
     }
 }
+
+bool ClientsMonitor::hasWaitingClients() {
+    return !waitingList.empty();
+}
