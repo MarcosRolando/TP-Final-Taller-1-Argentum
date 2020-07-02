@@ -91,7 +91,7 @@ void Map::addNPC(EntityData& data) {
         if (data.currentDir != GameType::DIRECTION_STILL) {
             tiles.at(tile).moveEntity(data.currentDir, data.currentDir, movingEntities);
         }
-        entities.emplace(std::move(data.nickname), data.pos);
+        entities.emplace(std::move(data.nickname), data.pos); //todo recibir el nickname de los citizens sino no los cargo
     }
 }
 

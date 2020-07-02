@@ -76,7 +76,6 @@ void GameInitializer::_receiveCurrentGameState() {
 
 void GameInitializer::_processAddEntity(std::vector<char>& buffer, std::size_t& offset) {
     msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    //msgpack::type::tuple<GameType::Entity, std::string, int32_t , int32_t> entityData;
     msgpack::type::tuple<GameType::Entity, std::string> entityData;
     handler->convert(entityData);
     if (std::get<0>(entityData) != GameType::PLAYER) {
