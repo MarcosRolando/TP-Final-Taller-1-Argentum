@@ -18,7 +18,6 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol &_protocol, PlayerL
 
 void ClientHandler::run() {
     try {
-        _receivePlayerInfo();
         uint32_t msgLength = 0;
 
         while (!finished) {
@@ -112,6 +111,7 @@ void ClientHandler::_createPlayer() {
 }
 
 void ClientHandler::sendCurrentGameState(const std::vector<char>& gameState) {
+    _receivePlayerInfo(); //todo ver que onda xq si por algun motivo no me llega los datos cuelgo al game en un receive
     const std::vector<char>& mapInfo = protocol.getMapInfo();
     socket.send(mapInfo.data(), mapInfo.size());
     socket.send(gameState.data(), gameState.size());
