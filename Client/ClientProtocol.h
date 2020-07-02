@@ -43,17 +43,18 @@ class Socket;
 class ClientProtocol {
 private:
     Socket& socket;
-    std::vector<char> buffer;
     ProtocolEnumTranslator translator;
     msgpack::object_handle handler;
+    std::vector<char>* buffer;
 
 public:
     explicit ClientProtocol(Socket& _socket) : socket(_socket) {}
-    MapPlayerData processAddPlayer(msgpack::type::tuple<GameType::Entity,
+    MapPlayerData processAddPlayer(std::vector<char>* _buffer, msgpack::type::tuple<GameType::Entity,
             std::string, int32_t, int32_t>& entityData, std::size_t& offset);
-    EntityData processAddNPC(msgpack::type::tuple<GameType::Entity, std::string, int32_t, int32_t> &entityData,
+    EntityData processAddNPC(std::vector<char>* _buffer, msgpack::type::tuple<GameType::Entity,
+            std::string, int32_t, int32_t> &entityData,
                               size_t &offset);
-    ItemData processAddItem(std::size_t& offset);
+    ItemData processAddItem(std::vector<char>* _buffer, std::size_t& offset);
     PlayerData processAddPlayerData(size_t& offset);//Esta va a ir al protocol general
     static void loadBytes(std::vector<char> &loadBuffer, void *data, unsigned int size);
 

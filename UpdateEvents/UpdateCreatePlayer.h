@@ -8,13 +8,14 @@
 #include "UpdateEvent.h"
 #include <string>
 #include "../Shared/GameEnums.h"
+#include "../Client/ClientProtocol.h"
 
 class UpdateCreatePlayer : public UpdateEvent{
 private:
-
+    MapPlayerData data;
 public:
-    UpdateCreatePlayer();
-    void operator()();
+    explicit UpdateCreatePlayer(MapPlayerData& _data) : data(_data) {}
+    void operator()(GameGUI& game);
 };
 
 

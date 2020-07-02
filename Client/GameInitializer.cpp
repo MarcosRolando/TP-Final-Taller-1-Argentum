@@ -47,7 +47,7 @@ void GameInitializer::_receiveCurrentGameState() {
         handler->convert(id);
         if (std::get<0>(id) == GameType::CREATE_ITEM) {
 
-            ItemData data = protocol.processAddItem(offset);
+            ItemData data = protocol.processAddItem(&buffer, offset);
             game.loadTileItem(data.position, data.texture);
 
         } else if (std::get<0>(id) == GameType::CREATE_ENTITY) {
@@ -78,10 +78,10 @@ void GameInitializer::_processAddEntity(std::vector<char>& buffer, std::size_t& 
     msgpack::type::tuple<GameType::Entity, std::string, int32_t , int32_t> entityData;
     handler->convert(entityData);
     if (std::get<0>(entityData) != GameType::PLAYER) {
-        EntityData data = protocol.processAddNPC(entityData, offset);
+        EntityData data = protocol.processAddNPC(&buffer, entityData, offset);
         game.addNPC(data.texture, std::move(data.nickname), data.pos);
     } else {
-        MapPlayerData data = protocol.processAddPlayer(entityData, offset);
+        MapPlayerData data = protocol.processAddPlayer(&buffer, entityData, offset);
         game.addPlayer(data.equipment, data.isAlive,
                        std::move(data.entityData.nickname), data.entityData.pos);
     }

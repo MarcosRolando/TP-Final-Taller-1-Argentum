@@ -3,11 +3,9 @@
 //
 
 #include "UpdateCreatePlayer.h"
+#include "../Client/GameGUI.h"
 
-UpdateCreatePlayer::UpdateCreatePlayer() {
-
-}
-
-void UpdateCreatePlayer::operator()() {
-
+void UpdateCreatePlayer::operator()(GameGUI& game) {
+    game.addPlayer(data.equipment, data.isAlive,
+                   std::move(data.entityData.nickname), data.entityData.pos);
 }

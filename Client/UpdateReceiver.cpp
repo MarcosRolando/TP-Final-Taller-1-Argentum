@@ -68,10 +68,10 @@ void UpdateReceiver::_processCreateEntity() {
     msgpack::type::tuple<GameType::Entity, std::string, int32_t , int32_t> entityData;
     handler->convert(entityData);
     if (std::get<0>(entityData) != GameType::PLAYER) {
-        EntityData data = protocol.processAddNPC(entityData, offset);
+        EntityData data = protocol.processAddNPC(&buffer, entityData, offset);
         //game.addNPC(data.texture, std::move(data.nickname), data.pos); //todo push backd del evente de creacion
     } else {
-        MapPlayerData data = protocol.processAddPlayer(entityData, offset);
+        MapPlayerData data = protocol.processAddPlayer(&buffer, entityData, offset);
         //game.addPlayer(data.equipment, data.isAlive,
                        //std::move(data.entityData.nickname), data.entityData.pos);
     }
