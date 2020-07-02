@@ -15,7 +15,7 @@
 #include "../SDL/GUI/GUIPlayerInfo.h"
 
 struct EntityData {
-    GameType::Entity type;
+    TextureID texture;
     std::string nickname;
     Coordinate pos;
 };
@@ -49,10 +49,9 @@ private:
 
 public:
     explicit ClientProtocol(Socket& _socket) : socket(_socket) {}
-    void processAddEntity(std::size_t& offset);
-    GUIPlayerInfo processAddPlayer(msgpack::type::tuple<GameType::Entity,
+    MapPlayerData processAddPlayer(msgpack::type::tuple<GameType::Entity,
             std::string, int32_t, int32_t>& entityData, std::size_t& offset);
-    static EntityData processAddNPC(msgpack::type::tuple<GameType::Entity, std::string, int32_t, int32_t> &entityData,
+    EntityData processAddNPC(msgpack::type::tuple<GameType::Entity, std::string, int32_t, int32_t> &entityData,
                               size_t &offset);
     ItemData processAddItem(std::size_t& offset);
     PlayerData processAddPlayerData(size_t& offset);//Esta va a ir al protocol general

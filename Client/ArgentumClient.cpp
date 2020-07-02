@@ -13,6 +13,7 @@
 #include "../UpdateEvents/UpdateEvent.h"
 #include "UpdateReceiver.h"
 #include <chrono>
+#include "GameInitializer.h"
 
 using namespace std::chrono;
 
@@ -43,9 +44,10 @@ void Client::_processConnection() {
     Window& window = game.getWindow();
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
     UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
-    ClientProtocol protocol(game, socket);
-    protocol.createPlayer("ivan", GameType::DWARF, GameType::WARRIOR);
-    protocol.getInitialGameState();//Capaz hay q cambiarle el nombre
+    ClientProtocol protocol(socket);
+    GameInitializer initializer(game, socket, protocol);
+    initializer.loadPlayer("manolas", GameType::Race::DWARF, GameType::Class::WIZARD);
+    initializer.initializeGame();
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
     UpdateReceiver updater(protocol, updateEvents, socket, quit);
     eventHandler();

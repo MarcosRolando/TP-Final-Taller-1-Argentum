@@ -6,10 +6,17 @@
 #include <cstdint>
 #include "Socket.h"
 #include <msgpack.hpp>
-#include "../Shared/GameEnums.h"
 #include "GameGUI.h"
 #include "ProtocolEnumTranslator.h"
 #include "ClientProtocol.h"
+
+MSGPACK_ADD_ENUM(GameType::PlayerEvent)
+MSGPACK_ADD_ENUM(GameType::EventID)
+MSGPACK_ADD_ENUM(GameType::Race)
+MSGPACK_ADD_ENUM(GameType::Class)
+MSGPACK_ADD_ENUM(GameType::Entity)
+MSGPACK_ADD_ENUM(GameType::Structure)
+MSGPACK_ADD_ENUM(GameType::FloorType)
 
 void GameInitializer::initializeGame() {
     _receiveMapInfo();
@@ -45,7 +52,7 @@ void GameInitializer::_receiveCurrentGameState() {
 
         } else if (std::get<0>(id) == GameType::CREATE_ENTITY) {
 
-            protocol.processAddEntity(offset);
+            _processAddEntity(buffer, offset);
 
         } else if (std::get<0>(id) == GameType::PLAYER_DATA) { /*Esto es el inventario y stats*/
 
@@ -62,6 +69,21 @@ void GameInitializer::_receiveCurrentGameState() {
             game.getPlayerInfo().update(data.generalInfo);
 
         }
+    }
+}
+
+
+void GameInitializer::_processAddEntity(std::vector<char>& buffer, std::size_t& offset) {
+    msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::type::tuple<GameType::Entity, std::string, int32_t , int32_t> entityData;
+    handler->convert(entityData);
+    if (std::get<0>(entityData) != GameType::PLAYER) {
+        EntityData data = protocol.processAddNPC(entityData, offset);
+        game.addNPC(data.texture, std::move(data.nickname), data.pos);
+    } else {
+        MapPlayerData data = protocol.processAddPlayer(entityData, offset);
+        game.addPlayer(data.equipment, data.isAlive,
+                       std::move(data.entityData.nickname), data.entityData.pos);
     }
 }
 

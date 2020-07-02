@@ -47,41 +47,24 @@ ItemData ClientProtocol::processAddItem(std::size_t& offset) {
         itemTexture = translator.getPotionTexture(
                 static_cast<GameType::Potion>(std::get<1>(itemData)));
     }
-    if (itemTexture != Nothing) {
-        return {{std::get<2>(itemData), std::get<3>(itemData)}, itemTexture};
-    }
-}
-
-void ClientProtocol::processAddEntity(std::size_t& offset) {
-    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    msgpack::type::tuple<GameType::Entity, std::string, int32_t , int32_t> entityData;
-    handler->convert(entityData);
-    if (std::get<0>(entityData) != GameType::PLAYER) {
-        EntityData data = processAddNPC(entityData, offset);
-        game.addNPC(translator.getEntityTexture(data.type),
-                    std::move(data.nickname), data.pos);
-    } else {
-        PlayerData data = processAddPlayer(entityData,offset);
-        game.addPlayer(data.equipment, data.isAlive,
-                std::move(data.entityData.nickname), data.entityData.pos);
-    }
+    return {{std::get<2>(itemData), std::get<3>(itemData)}, itemTexture};
 }
 
 EntityData ClientProtocol::processAddNPC(msgpack::type::tuple<GameType::Entity,
         std::string, int32_t , int32_t>& entityData, std::size_t& offset) {
     EntityData npcData;
-    npcData.type = std::get<0>(entityData);
+    npcData.texture = translator.getEntityTexture(std::get<0>(entityData));
     npcData.nickname = std::get<1>(entityData);
     npcData.pos = {std::get<2>(entityData), std::get<3>(entityData)};
     return npcData;
 }
 
-GUIPlayerInfo ClientProtocol::processAddPlayer(msgpack::type::tuple<GameType::Entity,
+MapPlayerData ClientProtocol::processAddPlayer(msgpack::type::tuple<GameType::Entity,
         std::string, int32_t , int32_t>& entityData, std::size_t& offset) {
 
-    PlayerData pData;
+    MapPlayerData pData;
     PlayerEquipment equipment{};
-    pData.entityData.type = std::get<0>(entityData);
+    pData.entityData.texture = translator.getEntityTexture(std::get<0>(entityData));
     pData.entityData.nickname = std::get<1>(entityData);
     pData.entityData.pos = {std::get<2>(entityData), std::get<3>(entityData)};
     msgpack::type::tuple<GameType::Race> playerRace;
@@ -236,4 +219,5 @@ PlayerData ClientProtocol::processAddPlayerData(size_t &offset) {
     PlayerData data;
     _addInventoryItems(data, offset);
     _addPlayerStats(data, offset);
+    return data;
 }

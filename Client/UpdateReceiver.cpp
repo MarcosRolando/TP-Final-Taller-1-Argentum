@@ -5,11 +5,11 @@
 #include <netinet/in.h>
 #include "UpdateReceiver.h"
 #include "Socket.h"
-#include "../Shared/GameEnums.h"
 #include "../UpdateEvents/UpdateMove.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Direction)
+MSGPACK_ADD_ENUM(GameType::Entity)
 
 void UpdateReceiver::run() {
     uint32_t msgLength = 0;
@@ -64,5 +64,15 @@ void UpdateReceiver::_processMoveUpdate() {
 }
 
 void UpdateReceiver::_processCreateEntity() {
-    protocol._processAddEntity(offset);
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    msgpack::type::tuple<GameType::Entity, std::string, int32_t , int32_t> entityData;
+    handler->convert(entityData);
+    if (std::get<0>(entityData) != GameType::PLAYER) {
+        EntityData data = protocol.processAddNPC(entityData, offset);
+        //game.addNPC(data.texture, std::move(data.nickname), data.pos); //todo push backd del evente de creacion
+    } else {
+        MapPlayerData data = protocol.processAddPlayer(entityData, offset);
+        //game.addPlayer(data.equipment, data.isAlive,
+                       //std::move(data.entityData.nickname), data.entityData.pos);
+    }
 }
