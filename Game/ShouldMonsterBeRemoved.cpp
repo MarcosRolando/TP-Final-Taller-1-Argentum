@@ -11,8 +11,7 @@ ShouldMonsterBeRemoved::ShouldMonsterBeRemoved(std::list <Coordinate> &monstersT
 
 }
 
-bool
-ShouldMonsterBeRemoved::operator()(const std::shared_ptr<Monster> &monster) {
+bool ShouldMonsterBeRemoved::operator()(const Monster* monster) {
     if (monster->isDead()) {
         monstersToRemove.push_back(monster->getPosition());
         return true;

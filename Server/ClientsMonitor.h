@@ -21,7 +21,7 @@ private:
 public:
     //void pushClient(Socket&& peer, ServerProtocol& protocol);
     void pushToWaitingList(Socket &&peer, ServerProtocol &protocol, PlayerLoader& loader);
-    void mergeWaitingClients();
+    void mergeWaitingClients(const std::vector<char>& gameState);
     void update();
     void eraseDisconnectedClients();
     void sendGameUpdate();

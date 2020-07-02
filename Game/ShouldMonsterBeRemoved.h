@@ -17,7 +17,7 @@ private:
 public:
     explicit ShouldMonsterBeRemoved(std::list<Coordinate>& monstersToRemove);
 
-    bool operator()(const std::shared_ptr<Monster>& monster);
+    bool operator()(const Monster* monster);
 };
 
 

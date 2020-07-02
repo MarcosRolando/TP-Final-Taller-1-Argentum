@@ -38,7 +38,7 @@ void Game::_repopulateMap(double timePassed, ServerProtocol& protocol) {
             aux = map.getMonsterCoordinate();
             monster->setPosition(aux);
             (*monster) >> data;
-            monsters.push_back(monster);
+            monsters.push_back(monster.get());
             map.addEntity(aux, std::static_pointer_cast<Entity>(monster));
         }
         protocol.addToGeneralData(data);
@@ -105,8 +105,6 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
     map.addItemsToTile(std::move(item), position);
 }
 
-
-
 void Game::update(double timeStep, ServerProtocol& protocol) {
     _repopulateMap(timeStep, protocol);
     _updateMonsters(timeStep); //todo pasar a lista de Monster* en vez de shared ptr
@@ -114,7 +112,7 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
     clients.update(); //todo cambiar el nombre a mergeo de eventos
     _executeQueueOperations(protocol);
 
-    //AGREGAR UPDATE DE PLAYERS CONECTADOS
+    //AGREGAR UPDATE DE PLAYERS CONECTADOS (no hay que borrar esto????)
 
     _removeEntities(protocol);
 }
@@ -187,9 +185,7 @@ Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
     return *playerAux;
 }
 
-void Game::storeCurrentGameState(ServerProtocol &protocol) {
-    for (const auto & player: players) {
-
-    }
+const std::vector<char>& Game::getCurrentState(ServerProtocol& protocol) {
+    return protocol.buildCurrentState(players, monsters /*todo pasar la lista de items tambien*/);
 }
 

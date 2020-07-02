@@ -28,8 +28,9 @@ private:
 public:
     explicit ServerProtocol(const Map &map);
     const std::vector<char>& getMapInfo() const;
-    void buildCurrentState();
-    const std::vector<char>& getCurrentState();
+
+    const std::vector<char>& buildCurrentState(const std::list<Player*>& players,
+                                        const std::list<Monster*>& monsters);
 
     //Agrega la informacion del stringstream al buffer que contiene la informacion
     //general que se mandara a todos los clientes

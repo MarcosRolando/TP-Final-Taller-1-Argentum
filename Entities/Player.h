@@ -101,7 +101,7 @@ public:
 
     void dropItem(unsigned int itemPosition);
 
-    void operator>>(std::stringstream& buffer) override;
+    void operator>>(std::stringstream& buffer) const override;
 
     void storeAllRelevantData(std::stringstream& buffer) const;
 

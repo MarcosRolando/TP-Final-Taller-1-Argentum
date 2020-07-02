@@ -49,8 +49,11 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();
-        if ((FRAME_TIME - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
-            clients.mergeWaitingClients();
+        if (clients.hasWaitingClients() &&
+                (FRAME_TIME - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
+            //todo generar el buffer que le pasamos a los waitingClients
+            const std::vector<char>& gameState = game.getCurrentState(protocol);
+            clients.mergeWaitingClients(gameState);
         }
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;

@@ -7,6 +7,7 @@
 #include "../Entities/PlayerProxy.h"
 #include "../Entities/Player.h"
 #include "../Entities/Entity.h"
+#include "../Entities/Monster.h"
 
 ///////////////////////////////PUBLIC/////////////////////////////
 
@@ -25,23 +26,25 @@ const std::vector<char> &ServerProtocol::getMapInfo() const {
     return mapBuffer;
 }
 
-
-void ServerProtocol::buildCurrentState() {
+const std::vector<char>& ServerProtocol::buildCurrentState(const std::list<Player*>& players,
+                                                    const std::list<Monster*>& monsters) {
     std::stringstream data;
-    map.getCurrentState(data);
+    for (const auto & player : players) {
+        (*player) >> data;
+    }
+    for (const auto & monster : monsters) {
+        (*monster) >> data;
+    }
+    //todo lo de player individual no iria aca
+    /*
     player.storeAllRelevantData(data);
+     */
     std::string auxString = data.str();
     uint32_t msgLength = htonl(auxString.size());
-    buffer.resize(sizeof(uint32_t));
-    _loadBytes(buffer, &msgLength, sizeof(uint32_t));
-    std::copy(auxString.begin(), auxString.end(), std::back_inserter(buffer));
-}
-
-
-
-std::vector<char> ServerProtocol::getCurrentState() {
-
-    return buffer;
+    currentStateBuffer.resize(sizeof(uint32_t));
+    _loadBytes(currentStateBuffer, &msgLength, sizeof(uint32_t));
+    std::copy(auxString.begin(), auxString.end(), std::back_inserter(currentStateBuffer));
+    return currentStateBuffer;
 }
 
 void ServerProtocol::addToGeneralData(std::stringstream &data) {

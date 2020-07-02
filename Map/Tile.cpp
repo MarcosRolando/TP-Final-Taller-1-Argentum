@@ -147,12 +147,3 @@ void Tile::operator>>(std::stringstream &mapBuffer) const {
     msgpack::pack(mapBuffer, tileInfo);
 }
 
-void Tile::storeTileData(std::stringstream &data, uint32_t i, uint32_t j) const {
-    if ((entity) && (!entity->isCitizen())) {
-        *entity >> data;
-    }
-    if (!items.empty()) {
-        items.front()->loadDropItemData(data, i, j);
-    }
-}
-

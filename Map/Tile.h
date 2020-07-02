@@ -90,10 +90,6 @@ public:
     bool isInCity() const;
 
     void operator>>(std::stringstream & mapBuffer) const;
-
-    //Guarda la informacion necesaria para la entity (si esta no es un citizen,
-    //si lo es entonces no lo guarda) y los items contenidos
-    void storeTileData(std::stringstream& data, uint32_t i, uint32_t j) const;
 };
 
 

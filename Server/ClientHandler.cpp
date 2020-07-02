@@ -20,7 +20,6 @@ void ClientHandler::run() {
     try {
         _receivePlayerInfo();
         uint32_t msgLength = 0;
-        _sendMapInfoToClient();
 
         while (!finished) {
             buffer.clear();
@@ -73,13 +72,6 @@ void ClientHandler::_sendUpdateDataToClient() {
     //ACA SE MANDA LA INFORMACION GENERAL DE PLAYER
 }
 
-void ClientHandler::_sendMapInfoToClient() {
-    const std::vector<char>& mapInfo = protocol.getMapInfo();
-    socket.send(mapInfo.data(), mapInfo.size());
-    buffer = protocol.getCurrentState(player);
-    socket.send(buffer.data(), buffer.size());
-}
-
 void ClientHandler::_addMessageToQueue() {
     uint32_t messageLen;
     socket.receive(reinterpret_cast<char *>(&messageLen), sizeof(uint32_t));
@@ -117,4 +109,10 @@ void ClientHandler::_createPlayer() {
     handler->convert(info);
     player = loader.createPlayer(std::move(std::get<0>(info)),
                         std::get<1>(info), std::get<2>(info));
+}
+
+void ClientHandler::sendCurrentGameState(const std::vector<char>& gameState) {
+    const std::vector<char>& mapInfo = protocol.getMapInfo();
+    socket.send(mapInfo.data(), mapInfo.size());
+    socket.send(gameState.data(), gameState.size());
 }

@@ -217,7 +217,7 @@ void Player::depositTo(const std::string &itemName, Coordinate npcPosition) {
     game.deposit(*this, itemName, npcPosition);
 }
 
-void Player::operator>>(std::stringstream &buffer) {
+void Player::operator>>(std::stringstream &buffer) const {
     Entity::operator>>(buffer);
     msgpack::type::tuple<Race> data(race);
     msgpack::pack(buffer, data);

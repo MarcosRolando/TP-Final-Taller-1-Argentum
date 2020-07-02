@@ -31,7 +31,7 @@ private:
     unsigned int  spawnInterval;
     MonstersFactory monstersFactory;
 
-    std::list<std::shared_ptr<Monster>> monsters;
+    std::list<Monster*> monsters;
     std::list<Player*> players;
     ClientsMonitor& clients;
 
@@ -98,7 +98,7 @@ public:
     Player& createPlayer(std::string&& nickname, GameType::Race race, GameType::Class _class,
                             ServerProtocol& protocol);
 
-    void storeCurrentGameState(ServerProtocol& protocol);
+    const std::vector<char>& getCurrentState(ServerProtocol& protocol);
 };
 
 

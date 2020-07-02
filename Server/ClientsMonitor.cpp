@@ -22,10 +22,11 @@ void ClientsMonitor::pushToWaitingList(Socket &&peer, ServerProtocol &protocol, 
     waitingList.emplace_back(new ClientHandler(std::move(peer), protocol, loader));
 }
 
-void ClientsMonitor::mergeWaitingClients() {
+void ClientsMonitor::mergeWaitingClients(const std::vector<char>& gameState) {
     std::lock_guard<std::mutex> lock(mutex);
     for (auto & waitingClient: waitingList) {
         clients.push_back(std::move(waitingClient));
+        (*clients.back()).sendCurrentGameState(gameState);
         (*clients.back())();
     }
     waitingList.clear();

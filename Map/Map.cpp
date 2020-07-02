@@ -419,11 +419,3 @@ void Map::operator>>(std::stringstream &mapBuffer) const {
     }
 }
 
-void Map::getCurrentState(std::stringstream &data) const {
-    for (unsigned int i = 0; i < tiles.size(); ++i) {
-        for (unsigned int j = 0; j < tiles[i].size(); ++j) {
-            tiles[i][j].storeTileData(data, i, j);
-        }
-    }
-}
-

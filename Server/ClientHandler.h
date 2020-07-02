@@ -43,6 +43,8 @@ public:
 
     void sendGameUpdate();
 
+    void sendCurrentGameState(const std::vector<char>& gameState);
+
     //todo IMPLEMENTAR CONSTRUCTOR POR MOVIMIENTO
 
 private:
