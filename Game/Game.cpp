@@ -13,6 +13,7 @@
 
 #include <iostream>
 
+MSGPACK_ADD_ENUM(GameType::EventID)
 
 /////////////////////////////////PRIVATE//////////////////////////
 
@@ -71,12 +72,19 @@ void Game::_updatePlayers(double timeStep) {
 }
 
 //Elimina de las listas almacenadas y del mapa los players y monsters que deban ser eliminados
-void Game::_removeEntities() {
+void Game::_removeEntities(ServerProtocol& protocol) {
+    std::stringstream data;
     std::list<Coordinate> monstersToRemove;
     ShouldMonsterBeRemoved sholdBeRemoved(monstersToRemove);
     monsters.erase(std::remove_if(monsters.begin(), monsters.end(), sholdBeRemoved), monsters.end());
     for (const auto & coordinate: monstersToRemove) {
         map.removeEntity(coordinate);
+        msgpack::type::tuple<GameType::EventID> eventIdData(GameType::EventID::DISAPPEARED);
+        msgpack::pack(data, eventIdData);
+        msgpack::type::tuple<int32_t, int32_t>
+                removedMonsterCoordinate(coordinate.iPosition, coordinate.jPosition);
+        msgpack::pack(data, removedMonsterCoordinate);
+        protocol.addToGeneralData(data);
     }
 
     //AGREGAR BORRADO DE PLAYER_HANDLERS
@@ -108,7 +116,7 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
 
     //AGREGAR UPDATE DE PLAYERS CONECTADOS
 
-    _removeEntities();
+    _removeEntities(protocol);
 }
 
 Game::Game(MapFileReader&& mapFile, ClientsMonitor& _clients): map(mapFile), clients(_clients) {

@@ -37,6 +37,10 @@ public:
     void buildGeneralDataBuffer();
 
     const std::vector<char>& getGeneralData();
+
+    void addToPlayerData(const std::string& playerNickname, std::stringstream data);
+
+    const std::vector<char>& getPlayerData(const std::string& playerNickname, std::vector<char>& messageSize);
 };
 
 

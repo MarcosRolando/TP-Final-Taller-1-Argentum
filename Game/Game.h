@@ -48,7 +48,7 @@ private:
 
 private:
 
-    void _removeEntities();
+    void _removeEntities(ServerProtocol& protocol);
 
     void _updateMonsters(double timeStep);
 
