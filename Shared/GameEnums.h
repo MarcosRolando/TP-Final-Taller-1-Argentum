@@ -14,8 +14,7 @@ namespace GameType {
     };
 
     enum EventID: int32_t {
-        MOVED, ATTACK, UNEQUIP, USE_ITEM, CREATE_ENTITY, CREATE_ITEM,
-        PLAYER_DATA, DISAPPEARED, LIST
+        MOVED, ATTACK, UNEQUIP, USE_ITEM, CREATE_ENTITY, CREATE_ITEM, DISAPPEARED, LIST
     };
 
     enum Race : int32_t {
