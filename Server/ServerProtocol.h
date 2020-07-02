@@ -14,7 +14,6 @@ class PlayerProxy;
 class ServerProtocol {
 private:
     std::vector<char> mapBuffer;
-    std::unordered_map<std::string, std::vector<char>> playersData; //(nickname, data)
     std::stringstream generalData;
     std::vector<char> generalDataBuffer;
     std::stringstream currentStateData;//Guarda el estado actual del juego para que despues los
@@ -42,11 +41,9 @@ public:
 
     const std::vector<char>& getGeneralData();
 
-    void addToPlayerData(const std::string& playerNickname, std::stringstream data);
+    std::vector<char> getPlayerData(const PlayerProxy& player);
 
-    const std::vector<char>& getPlayerData(const std::string& playerNickname, std::vector<char>& messageSize);
-
-    void storeEntityInitialData(const Entity* entity);
+    void storeEntityInitialData(const Entity* entity);//todo creo que esto no hace falta para nada
 
     //todo HACER FUNCION QUE CONSIGA LA DATA INICIAL DEL PLAYER
 

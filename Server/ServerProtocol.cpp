@@ -65,16 +65,15 @@ void ServerProtocol::buildGeneralDataBuffer() {
     generalData.clear();
 }
 
-void ServerProtocol::addToPlayerData(const std::string& playerNickname, std::stringstream data) {
+std::vector<char> ServerProtocol::getPlayerData(const PlayerProxy& player) {
+    std::stringstream data;
+    player.getPlayer().storeAllRelevantData(data);
     std::string auxString = data.str();
-    std::copy(auxString.begin(), auxString.end(), std::back_inserter(playersData[playerNickname]));
-}
-
-const std::vector<char> & ServerProtocol::getPlayerData(const std::string &playerNickname,
-                                                        std::vector<char>& messageSize) {
-    uint32_t dataSize = htonl(playersData[playerNickname].size());
-    _loadBytes(messageSize, &dataSize, sizeof(uint32_t));
-    return playersData[playerNickname];
+    uint32_t msgLength = htonl(auxString.size());
+    std::vector<char> buffer(sizeof(uint32_t));
+    _loadBytes(buffer, &msgLength, sizeof(uint32_t));
+    std::copy(auxString.begin(), auxString.end(), std::back_inserter(buffer));
+    return buffer;
 }
 
 ///////////////////////////////PRIVATE/////////////////////////////
