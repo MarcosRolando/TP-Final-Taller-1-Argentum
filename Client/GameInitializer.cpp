@@ -39,13 +39,28 @@ void GameInitializer::_receiveCurrentGameState() {
         msgpack::type::tuple<GameType::EventID> id;
         handler->convert(id);
         if (std::get<0>(id) == GameType::CREATE_ITEM) {
+
             ItemData data = protocol.processAddItem(offset);
             game.loadTileItem(data.position, data.texture);
+
         } else if (std::get<0>(id) == GameType::CREATE_ENTITY) {
+
             protocol.processAddEntity(offset);
+
         } else if (std::get<0>(id) == GameType::PLAYER_DATA) { /*Esto es el inventario y stats*/
+
             PlayerData data = protocol.processAddPlayerData(offset);
-            //todo llamar al game con los datos recibidos
+            game.getPlayerInventory().updateGold(data.generalInfo.gold);
+            for (const auto & item : data.equippedItems) {
+                game.getPlayerInventory().addEquipableItem(std::get<0>(item),
+                                                        std::get<1>(item));
+            }
+            for (const auto & item : data.inventoryItems) {
+                game.getPlayerInventory().addInventoryItem(std::get<0>(item),
+                                                        std::get<1>(item));
+            }
+            game.getPlayerInfo().update(data.generalInfo);
+
         }
     }
 }

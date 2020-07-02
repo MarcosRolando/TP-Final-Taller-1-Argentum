@@ -15,52 +15,52 @@ PlayerInfoGUI::PlayerInfoGUI(SDL_Renderer &renderer) : infoFont("../SDL/Text/med
 }
 
 
-void PlayerInfoGUI::updateHealth(int32_t currHealth){
+void PlayerInfoGUI::_updateHealth(int32_t currHealth){
     pInfo.health = currHealth;//Ver que pasa si me mandan una vida mayor a la total
 }
 
-void PlayerInfoGUI::updateTotalHealth(int32_t _totalHealth){
+void PlayerInfoGUI::_updateTotalHealth(int32_t _totalHealth){
     pInfo.totalHealth = _totalHealth;
 }
 
-void PlayerInfoGUI::updateMana(int32_t currMana){
+void PlayerInfoGUI::_updateMana(int32_t currMana){
     pInfo.mana = currMana;
 }
 
-void PlayerInfoGUI::updateTotalMana(int32_t _totalMana){
+void PlayerInfoGUI::_updateTotalMana(int32_t _totalMana){
     pInfo.totalMana = _totalMana;
 }
 
-void PlayerInfoGUI::updateXP(int32_t currXP){
+void PlayerInfoGUI::_updateXP(int32_t currXP){
     pInfo.xp = currXP;
 }
 
-void PlayerInfoGUI::updateNextLevelXP(int32_t _nextLevelXP){
+void PlayerInfoGUI::_updateNextLevelXP(int32_t _nextLevelXP){
     pInfo.nextLevelXP = _nextLevelXP;
 }
 
-void PlayerInfoGUI::updateLevel(int32_t newLevel) {
+void PlayerInfoGUI::_updateLevel(int32_t newLevel) {
     pInfo.level = newLevel;
 }
 
-void PlayerInfoGUI::updateStrength(int32_t strength){
+void PlayerInfoGUI::_updateStrength(int32_t strength){
     pInfo.strength = strength;
 }
 
-void PlayerInfoGUI::updateAgility(int32_t agility) {
+void PlayerInfoGUI::_updateAgility(int32_t agility) {
     pInfo.agility = agility;
 }
 
-void PlayerInfoGUI::updateConstitution(int32_t constitution) {
+void PlayerInfoGUI::_updateConstitution(int32_t constitution) {
     pInfo.constitution = constitution;
 }
 
-void PlayerInfoGUI::updateIntelligence(int32_t intelligence) {
+void PlayerInfoGUI::_updateIntelligence(int32_t intelligence) {
     pInfo.intelligence = intelligence;
 }
 
 
-void PlayerInfoGUI::updatePosition(Coordinate position) {
+void PlayerInfoGUI::_updatePosition(Coordinate position) {
     pInfo.position = position;
 }
 
@@ -121,4 +121,19 @@ int32_t PlayerInfoGUI::getAgility() const {
 
 int32_t PlayerInfoGUI::getIntelligence() {
     return pInfo.intelligence;
+}
+
+void PlayerInfoGUI::update(GUIPlayerInfo &generalInfo) {
+    _updateHealth(generalInfo.health);
+    _updateTotalHealth(generalInfo.totalHealth);
+    _updateMana(generalInfo.mana);
+    _updateTotalMana(generalInfo.totalMana);
+    _updateXP(generalInfo.xp);
+    _updateNextLevelXP(generalInfo.nextLevelXP);
+    _updateLevel(generalInfo.level);
+    _updatePosition(generalInfo.position);
+    _updateStrength(generalInfo.strength);
+    _updateConstitution(generalInfo.constitution);
+    _updateAgility(generalInfo.agility);
+    _updateIntelligence(generalInfo.intelligence);
 }
