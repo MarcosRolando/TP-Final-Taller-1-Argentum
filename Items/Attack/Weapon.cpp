@@ -47,8 +47,8 @@ int Weapon::getDamage(Coordinate attackPosition, Coordinate attackedPosition,
     return Calculator::getRandomInt(minDamage, maxDamage);
 }
 
-EquipmentPlace Weapon::use(Player &player) {
-    return EQUIPMENT_PLACE_WEAPON;
+GameType::EquipmentPlace Weapon::use(Player &player) {
+    return GameType::EQUIPMENT_PLACE_WEAPON;
 }
 
 Weapon::~Weapon() = default;

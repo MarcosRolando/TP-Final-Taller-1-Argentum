@@ -8,13 +8,10 @@
 #include <string>
 #include <memory>
 #include "../Config/GameEnums.h"
+#include "UseReturnData.h"
 
 class ItemTests;
 
-enum EquipmentPlace{
-    EQUIPMENT_PLACE_NONE, EQUIPMENT_PLACE_HEAD, EQUIPMENT_PLACE_CHEST, EQUIPMENT_PLACE_WEAPON,
-    EQUIPMENT_PLACE_SHIELD
-};
 
 class Player;
 
@@ -45,7 +42,7 @@ public:
     //use debe retornar el lugar en el que debera equiparse el item una vez usado desde
     //un inventario, si debe ser descartado entonces se tiene que retornar INVENTORY_PLACE_NONE
     //Esta funcion retorna en cierta forma el tipo de item que es
-    virtual EquipmentPlace use(Player& player);
+    virtual GameType::EquipmentPlace use(Player& player);
 
     const std::string& getName() const;
 
@@ -68,6 +65,8 @@ public:
     bool isInFloor() const;
 
     virtual ~Item() = default;
+
+    int32_t getId();
 };
 
 

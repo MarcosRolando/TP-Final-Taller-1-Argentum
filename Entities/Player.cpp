@@ -131,11 +131,12 @@ std::shared_ptr<Item> Player::removeItem(const std::string &itemName) {
     return nullptr;
 }
 
-void Player::useItem(int itemPosition) {
+UseReturnData Player::useItem(int itemPosition) {
     if (!stats.isDead()) {
         stats.stopMeditating();
-        inventory.useItem(*this, itemPosition);
+        return inventory.useItem(*this, itemPosition);
     }
+    return {GameType::EQUIPMENT_PLACE_NONE, -1};
 }
 
 /*

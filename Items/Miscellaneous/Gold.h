@@ -20,7 +20,7 @@ private:
 public:
     explicit Gold(unsigned int amount);
 
-    EquipmentPlace use(Player& player) override;
+    GameType::EquipmentPlace use(Player& player) override;
 
     unsigned int getamount() const;
 

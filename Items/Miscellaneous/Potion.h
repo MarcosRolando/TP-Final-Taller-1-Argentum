@@ -22,7 +22,7 @@ public:
     //explicit Potion(GameType::Potion potion);
 
     //Indica que una vez que son usadas las pociones son descartadas
-    EquipmentPlace use(Player& player) override;
+    GameType::EquipmentPlace use(Player& player) override;
 
     //Debe llamar a la funcion de player que restaura el atributo correspondiente
     virtual void restoreStat(Player& player) = 0;

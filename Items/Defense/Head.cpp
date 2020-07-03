@@ -8,8 +8,8 @@ Head::Head(GameType::Clothing clothing) : Clothing(clothing) {
 
 }
 
-EquipmentPlace Head::use(Player &player) {
-    return EQUIPMENT_PLACE_HEAD;
+GameType::EquipmentPlace Head::use(Player &player) {
+    return GameType::EQUIPMENT_PLACE_HEAD;
 }
 
 bool Head::isDefault() const {

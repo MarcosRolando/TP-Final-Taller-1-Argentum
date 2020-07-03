@@ -57,7 +57,7 @@ public:
 
     //Usa el item en la posicion indicada, si no hay un item en la posicion no
     //hace nada
-    void useItem(int itemPosition);
+    UseReturnData useItem(int itemPosition);
 
     //Ataca al player, retorna el danio ocasionado y el xp ganado
     AttackResult attacked(int damage, unsigned int attackerLevel, bool isAPlayer) override;
@@ -81,7 +81,7 @@ public:
     //void requestMove(GameType::Direction direction);
 
     //Desequipa la ropa de equipment place
-    bool unequip(EquipmentPlace clothing);
+    bool unequip(GameType::EquipmentPlace clothing);
 
     //Compra el item de nombre itemName del npc en la posicion npcPosition, si no hay
     //uno no hace nada

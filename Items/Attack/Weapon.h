@@ -42,7 +42,7 @@ public:
     int getDamage(Coordinate attackPosition, Coordinate attackedPosition,
                   int32_t& currentMana) const;
 
-    EquipmentPlace use(Player& player) override;
+    GameType::EquipmentPlace use(Player& player) override;
 
     //Esta funcion existe para que cuando el juegador muera y tire todos sus
     //items no tire los default
