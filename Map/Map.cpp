@@ -89,7 +89,7 @@ void Map::addNPC(EntityData& data) {
         tiles[tile].addEntity(std::unique_ptr<Entity>(new NPC(textureRepo,
                 camera, data.pos.j*TILE_WIDTH,data.pos.i*TILE_HEIGHT, data.texture)));
         if (data.currentDir != GameType::DIRECTION_STILL) {
-            tiles.at(tile).moveEntity(data.currentDir, data.currentDir, movingEntities);
+            tiles.at(tile).moveEntity(data.currentDir, data.distanceMoved, movingEntities);
         }
         entities.emplace(std::move(data.nickname), data.pos); //todo recibir el nickname de los citizens sino no los cargo
     }
@@ -103,7 +103,7 @@ void Map::addPlayer(MapPlayerData& playerData) {
                 playerData.equipment, playerData.isAlive)));
         if (playerData.entityData.currentDir != GameType::DIRECTION_STILL) {
             tiles.at(tile).moveEntity(playerData.entityData.currentDir,
-                    playerData.entityData.currentDir, movingEntities);
+                    playerData.entityData.distanceMoved, movingEntities);
         }
         entities.emplace(std::move(playerData.entityData.nickname), playerData.entityData.pos);
     }
