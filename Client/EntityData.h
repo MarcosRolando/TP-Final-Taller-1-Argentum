@@ -24,7 +24,20 @@ struct PlayerData {
     GUIPlayerInfo generalInfo;
     std::vector<std::tuple<TextureID, EquippedItems>> equippedItems;
     std::vector<std::tuple<TextureID, int>> inventoryItems;
+
+    PlayerData(PlayerData&& other) noexcept {
+        this->generalInfo = other.generalInfo;
+        this->inventoryItems = std::move(other.inventoryItems);
+        this->equippedItems = std::move(other.equippedItems);
+        other.generalInfo = {};
+        other.inventoryItems.clear();
+        other.equippedItems.clear();
+    }
+
+    PlayerData() = default;
 };
+
+
 
 struct MapPlayerData {
     EntityData entityData;

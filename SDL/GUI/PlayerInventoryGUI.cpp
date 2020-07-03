@@ -41,9 +41,9 @@ void PlayerInventoryGUI::removeInventoryItem(int32_t inventorySlot) {
 void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item) {
     if (texture != Nothing){
         Texture* currTexture = &repo.getTexture(texture);
-        /*if(equippedTextures.count(item)){
+        if (equippedTextures.count(item)) {
             equippedTextures.erase(item);
-        }*/ //Ver si hay que poner esto o lo maneja el server
+        }
         equippedTextures.emplace(item, currTexture);
     }
 }

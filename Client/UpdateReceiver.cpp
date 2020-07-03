@@ -8,6 +8,7 @@
 #include "../UpdateEvents/UpdateMove.h"
 #include "../UpdateEvents/UpdateCreatePlayer.h"
 #include "../UpdateEvents/UpdateCreateNPC.h"
+#include "../UpdateEvents/UpdateGUI.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Direction)
@@ -56,6 +57,7 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 break;
         }
     }
+    _receivePlayerData();
 }
 
 void UpdateReceiver::_processMoveUpdate() {
@@ -77,4 +79,15 @@ void UpdateReceiver::_processCreateEntity() {
         MapPlayerData data = protocol.processAddPlayer(&buffer, entityData, offset);
         updates.push(std::unique_ptr<UpdateEvent>(new UpdateCreatePlayer(data)));
     }
+}
+
+void UpdateReceiver::_receivePlayerData() {
+    uint32_t length = 0;
+    socket.receive(reinterpret_cast<char*>(&length), sizeof(uint32_t));
+    length = ntohl(length);
+    buffer.clear();
+    buffer.resize(length);
+    socket.receive(buffer.data(), length);
+    PlayerData data = protocol.processAddPlayerData(&buffer);
+    updates.push(std::unique_ptr<UpdateEvent>(new UpdateGUI(std::move(data))));
 }
