@@ -62,7 +62,7 @@ public:
     //Indica si el monstruo esta muerto, retorna true si lo esta, sino retorna false
     bool isDead() const;
 
-    void attack(Coordinate attackedPosition) override;
+    int32_t attack(Coordinate attackedPosition) override;
 };
 
 

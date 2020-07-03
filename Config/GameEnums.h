@@ -10,7 +10,7 @@
 namespace GameType {
 
     enum PlayerEvent : int32_t {
-        MOVE, CREATE_PLAYER, LOAD_PLAYER, PLAYER_ATTACK
+        MOVE, CREATE_PLAYER, LOAD_PLAYER, PLAYER_ATTACK, PLAYER_USE_ITEM
     };
 
     enum EventID: int32_t {

@@ -14,11 +14,14 @@ Attack::Attack(Entity& _entity, Coordinate _target) : entity(_entity) {
 }
 
 void Attack::operator()(ServerProtocol& protocol) {
-    entity.attack(target);
-    std::stringstream data;
-    msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::ATTACK);
-    msgpack::pack(data, messageTypeData);
-    msgpack::type::tuple<int32_t, int32_t> attackCoordinateData(target.iPosition, target.jPosition);
-    msgpack::pack(data, attackCoordinateData);
-    protocol.addToGeneralData(data);
+    int32_t usedWeapon = entity.attack(target);
+    if (usedWeapon != -1) {
+        std::stringstream data;
+        msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::ATTACK);
+        msgpack::pack(data, messageTypeData);
+        msgpack::type::tuple<int32_t, int32_t, int32_t> attackCoordinateData
+                                (target.iPosition, target.jPosition, usedWeapon);
+        msgpack::pack(data, attackCoordinateData);
+        protocol.addToGeneralData(data);
+    }
 }

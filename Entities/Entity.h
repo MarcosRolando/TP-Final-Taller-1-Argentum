@@ -47,7 +47,7 @@ private:
 
     //Implementa el comportamiento realizado al atacar,
     //debe ser modificado en las clases hijas de ser necesario
-    virtual void attack(Coordinate target);
+    virtual int32_t attack(Coordinate target);
 
     //Implementa el comportamiento realizado al ser atacado, por default
     //retorna 0, debe ser modificado en las clases hijas de ser necesario

@@ -130,7 +130,9 @@ bool Entity::isMoving() const {
     return movement.isMoving;
 }
 
-void Entity::attack(Coordinate target) {}
+int32_t Entity::attack(Coordinate target) {
+    return -1;
+}
 
 
 GameType::Entity Entity::getType() const {
