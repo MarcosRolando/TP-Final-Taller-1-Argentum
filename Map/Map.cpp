@@ -44,8 +44,8 @@ void Map::renderStructures() {
 }
 
 void Map::renderNPCS() {
-    for (int i = -1; i < (VISIBLE_VERTICAL_TILES + 1); ++i) {
-        for (int j = -1; j < (VISIBLE_HORIZONTAL_TILES + 1); ++j) {
+    for (int i = -2; i < (VISIBLE_VERTICAL_TILES + 2); ++i) {
+        for (int j = -2; j < (VISIBLE_HORIZONTAL_TILES + 2); ++j) {
             float x = (float)camera.x + (float)j * TILE_WIDTH;
             float y = (float)camera.y + (float)i * TILE_HEIGHT;
             if (x >= LEVEL_WIDTH || x < 0) continue;
