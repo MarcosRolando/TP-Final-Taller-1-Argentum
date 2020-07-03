@@ -89,5 +89,5 @@ void ClientHandler::sendCurrentGameState(const std::vector<char>& gameState) {
     std::vector<char> playerData = protocol.getPlayerData(player);
     uint32_t length = htonl(playerData.size());
     socket.send(reinterpret_cast<char*>(&length), sizeof(uint32_t));
-    socket.send(playerData.data(), length);
+    socket.send(playerData.data(), playerData.size());
 }
