@@ -35,6 +35,8 @@ private:
     void _sendMessage();
 
     void _handleMouseButtonDown(SDL_Event &e);
+
+    void _processAttack(Coordinate coordinate);
 };
 
 

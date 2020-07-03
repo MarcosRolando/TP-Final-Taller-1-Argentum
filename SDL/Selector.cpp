@@ -24,101 +24,93 @@
 
 
 Selector::Selector() {
-    inventorySlotX = -1;
-    inventorySlotY = -1;
-    tileX = -1;
-    tileY = -1;
+    inventorySlot = {-1, -1};
+    selectedTile = {-1, -1};
+    //click = {-1, -1};
 }
 
-void Selector::handleEvent(int playerX, int playerY, Window& window){
-    //Creo q puedo sacar que reciba &e
-    SDL_GetMouseState(&clickX, &clickY);
-    //Escalo la posicion de click
-    clickX = (float)clickX *
-            ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
-    clickY = (float)clickY *
-            ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
-
-    _verifyTileSelection(playerX, playerY);
-    _verifyInventorySlotSelection();
+void Selector::handleEvent(Coordinate click, Coordinate playerPos, Window& window){
+    _verifyTileSelection(playerPos, click);
+    _verifyInventorySlotSelection(click);
 }
 
-void Selector::_verifyTileSelection(int playerX, int playerY) {
+void Selector::_verifyTileSelection(Coordinate playerPos, Coordinate click) {
     //Veo si clickeo adentro del mapa
-    if (_isInsideRect(DEFAULT_MAP_LEFT, DEFAULT_MAP_RIGHT, DEFAULT_MAP_TOP, DEFAULT_MAP_BOTTOM)){
+    if (_isInsideRect(click, DEFAULT_MAP_LEFT, DEFAULT_MAP_RIGHT, DEFAULT_MAP_TOP,
+            DEFAULT_MAP_BOTTOM)){
         //Esto es cuando no esta en los extremos
-        int playerXTile = playerX;///TILE_WIDTH;
-        int playerYTile = playerY;///TILE_HEIGHT;
-        int relativeXTile = (clickX - DEFAULT_MAP_LEFT + CAMERA_X_OFFSET) / TILE_WIDTH;
-        int relativeYTile = (clickY - DEFAULT_MAP_TOP - CAMERA_Y_OFFSET) /TILE_HEIGHT;
-        tileX = playerXTile + (relativeXTile - 4);
-        tileY = playerYTile + (relativeYTile - 2);
+        int playerXTile = playerPos.j;///TILE_WIDTH;
+        int playerYTile = playerPos.i;///TILE_HEIGHT;
+        int relativeXTile = (click.j - DEFAULT_MAP_LEFT + CAMERA_X_OFFSET) / TILE_WIDTH;
+        int relativeYTile = (click.i - DEFAULT_MAP_TOP - CAMERA_Y_OFFSET) / TILE_HEIGHT;
+        selectedTile.j = playerXTile + (relativeXTile - 4);
+        selectedTile.i = playerYTile + (relativeYTile - 2);
 
         //Me fijo los extremos
         //Izquierda
         if (playerXTile < 4){
-            tileX = (clickX - DEFAULT_MAP_LEFT) / TILE_WIDTH;
+            selectedTile.j = (click.j - DEFAULT_MAP_LEFT) / TILE_WIDTH;
         } else if (playerXTile > 95){
-            tileX = 92 + ((clickX - DEFAULT_MAP_LEFT) / TILE_WIDTH);
+            selectedTile.j = 92 + ((click.j - DEFAULT_MAP_LEFT) / TILE_WIDTH);
         }
         if (playerYTile < 3){
-            tileY = (clickY - DEFAULT_MAP_TOP) / TILE_HEIGHT;
+            selectedTile.i = (click.i - DEFAULT_MAP_TOP) / TILE_HEIGHT;
         }else if (playerYTile > 97){
-            tileY = 95 + ((clickY - DEFAULT_MAP_TOP) / TILE_HEIGHT);
+            selectedTile.i = 95 + ((click.i - DEFAULT_MAP_TOP) / TILE_HEIGHT);
         }
     }
 }
 
-void Selector::_verifyInventorySlotSelection() {
+void Selector::_verifyInventorySlotSelection(Coordinate click) {
     //Veo si clickeo adentro del inventario
-    if (_isInsideRect(DEFAULT_INVENTORY_LEFT, DEFAULT_INVENTORY_RIGHT,
+    if (_isInsideRect(click, DEFAULT_INVENTORY_LEFT, DEFAULT_INVENTORY_RIGHT,
             DEFAULT_INVENTORY_TOP, DEFAULT_INVENTORY_BOTTOM)){
-        inventorySlotX = (clickX - DEFAULT_INVENTORY_LEFT)/INVENTORY_SLOT_WIDTH;
-        inventorySlotY = (clickY - DEFAULT_INVENTORY_TOP)/INVENTORY_SLOT_HEIGHT;
+        inventorySlot.j = (click.j - DEFAULT_INVENTORY_LEFT)/INVENTORY_SLOT_WIDTH;
+        inventorySlot.i = (click.i - DEFAULT_INVENTORY_TOP)/INVENTORY_SLOT_HEIGHT;
     }
+}
+
+bool Selector::isThereSelectedTile() const {
+    return (selectedTile.i != -1 && selectedTile.j != -1);
+}
+bool Selector::isThereSelectedInventorySlot() const {
+    return (inventorySlot.i != -1 && inventorySlot.j != -1);
 }
 
 int Selector::getInventorySlot() const {
-    return inventorySlotX + (4 * inventorySlotY);
+    return inventorySlot.j + (4 * inventorySlot.i);
 }
 
-int Selector::getSelectedTileX() const {
-    return tileX;
+Coordinate Selector::getSelectedTile() const {
+    return {selectedTile.i, selectedTile.j};
 }
 
-
-int Selector::getSelectedTileY() const {
-    return tileY;
-}
-
-int Selector::getSelectedTileXToRender(int xPlayer) const {
-    int playerXTile = xPlayer;///TILE_WIDTH;
-    int cameraOffset = 0,tileXOffset = 0;
-    if (playerXTile > 3 && playerXTile < 96){
-        cameraOffset = CAMERA_X_OFFSET;
-        tileXOffset = -playerXTile + 4;
-    }
-    if (playerXTile > 95){
-        tileXOffset = -92;
-    }
-    return (tileX + tileXOffset) * 128 - cameraOffset;
-}
-
-int Selector::getSelectedTileYToRender(int yPlayer) const {
-    int playerYTile = yPlayer;///TILE_WIDTH;
-    int cameraOffset = 0, tileYOffset = 0;
+Coordinate Selector::getSelectedTileToRender(Coordinate playerPos) const {
+    int playerYTile = playerPos.i;///TILE_WIDTH;
+    int playerXTile = playerPos.j;
+    int cameraYOffset = 0, tileYOffset = 0;
+    int cameraXOffset = 0,tileXOffset = 0;
     if (playerYTile > 2 && playerYTile < 98){
-        cameraOffset = CAMERA_Y_OFFSET;
+        cameraYOffset = CAMERA_Y_OFFSET;
         tileYOffset = -playerYTile + 2;
     }
     if (playerYTile >= 98){
         tileYOffset = -95;
     }
-    return (tileY + tileYOffset) * 128 + cameraOffset;
+    if (playerXTile > 3 && playerXTile < 96){
+        cameraXOffset = CAMERA_X_OFFSET;
+        tileXOffset = -playerXTile + 4;
+    }
+    if (playerXTile > 95){
+        tileXOffset = -92;
+    }
+    //Ver bien el orden, capaz me maree con el ij/xy
+    return {(selectedTile.i + tileYOffset) * 128 + cameraYOffset,
+            (selectedTile.j + tileXOffset) * 128 - cameraXOffset};
 }
 
-bool Selector::_isInsideRect(int left, int right, int top, int bottom) const{
-    return (clickX > left && clickX < right && clickY > top && clickY < bottom);
+bool Selector::_isInsideRect(Coordinate click, int left, int right, int top, int bottom) const{
+    return (click.j > left && click.j < right && click.i > top && click.i < bottom);
 }
 
 
