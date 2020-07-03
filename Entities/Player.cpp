@@ -39,7 +39,6 @@ void Player::attack(Coordinate target) {
         AttackResult result = game.attackPosition(totalDamage, stats.getLevel(),
                                                 true, target);
         stats.increaseExperience(result.experience);
-        //todo ver el tema de guardar el danio ocasionado
     }
 }
 
@@ -154,12 +153,6 @@ void Player::update(double timeStep) {
     Entity::update(timeStep, game); /*actualiza movimiento*/
     stats.update(timeStep); /*actualiza la vida y manda en base al tiempo/meditacion*/
 }
-
-/*
-void Player::requestMove(GameType::Direction direction) {
-    Entity::requestMove(game, direction);
-}
-*/
 
 bool Player::unequip(EquipmentPlace clothing) {
     if (!stats.isDead()) {

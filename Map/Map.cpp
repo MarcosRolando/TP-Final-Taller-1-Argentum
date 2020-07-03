@@ -154,10 +154,6 @@ void Map::_initializeConstructorMaps(
 
 //////////////////////////////PUBLIC/////////////////////////////
 
-
-#include <iostream>
-#include "../Entities/Monster.h"
-
 Map::Map(MapFileReader &mapFile) {
     CitizenFactory citizenFactory;
     MapSize mapSize = mapFile.getMapDimensions();
