@@ -137,6 +137,9 @@ GameType::Entity Entity::getType() const {
     return type;
 }
 
+
+#include <iostream>
+
 void Entity::operator>>(std::stringstream& buffer) const {
     msgpack::type::tuple<GameType::EventID> idType(GameType::EventID::CREATE_ENTITY);
     msgpack::pack(buffer, idType);
@@ -147,6 +150,8 @@ void Entity::operator>>(std::stringstream& buffer) const {
     Coordinate previousPosition = _calculatePreviousPosition();
     msgpack::type::tuple<int32_t, int32_t, GameType::Direction, int32_t> currentMovementData(previousPosition.iPosition,
             previousPosition.jPosition, movement.direction, movement.movedDistance);
+
+    std::cout << "La distancia movida es: " << movement.movedDistance << std::endl;
     msgpack::pack(buffer, currentMovementData);
 }
 
