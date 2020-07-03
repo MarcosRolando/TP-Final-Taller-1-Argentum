@@ -9,6 +9,8 @@
 #include <memory>
 #include "Thread.h"
 #include <atomic>
+#include <msgpack.hpp>
+#include "../Entities/PlayerProxy.h"
 
 class ServerProtocol;
 class Socket;
@@ -23,6 +25,7 @@ private:
     Socket& serverSocket;
     PlayerLoader& loader;
     std::atomic<bool>& keepRunning;
+    msgpack::object_handle handler;
 
 public:
     ClientAccepter(ClientsMonitor& _clients, ServerProtocol& _protocol,
@@ -31,6 +34,10 @@ public:
                     serverSocket(_serverSocket), loader(_loader), keepRunning(_keepRunning) {}
 
     void run() override;
+
+private:
+    PlayerProxy _receivePlayerInfo(Socket& clientSocket);
+    PlayerProxy _createPlayer(std::vector<char>& buffer, std::size_t& offset);
 };
 
 

@@ -13,8 +13,8 @@ MSGPACK_ADD_ENUM(GameType::Direction)
 
 ///////////////////////////////PUBLIC///////////////////////////////
 
-ClientHandler::ClientHandler(Socket &&socket, ServerProtocol &_protocol, PlayerLoader &_loader) :
-        socket(std::move(socket)), protocol(_protocol), loader(_loader) {}
+ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol, PlayerProxy&& _player) :
+                        socket(std::move(socket)), protocol(_protocol), player(std::move(_player)) {}
 
 void ClientHandler::run() {
     try {
@@ -82,40 +82,11 @@ void ClientHandler::_addMessageToQueue() {
     //todo procesar el mensaje al proxy
 }
 
-void ClientHandler::_receivePlayerInfo() {
-    offset = 0;
-    uint32_t msgLen;
-    socket.receive(reinterpret_cast<char*>(&msgLen), sizeof(uint32_t));
-    msgLen = ntohl(msgLen);
-    buffer.clear();
-    buffer.resize(msgLen);
-    socket.receive(buffer.data(), msgLen);
-    msgpack::type::tuple<GameType::PlayerEvent> creationID;
-    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    handler->convert(creationID);
-    if (std::get<0>(creationID) == GameType::CREATE_PLAYER) {
-        _createPlayer();
-    } else if (std::get<0>(creationID) == GameType::LOAD_PLAYER) {
-        //_loadPlayer();
-    } else {
-        throw TPException("No me llego ni mensaje de creacion ni de carga de player!");
-    }
-}
-
-void ClientHandler::_createPlayer() {
-    msgpack::type::tuple<std::string, GameType::Race, GameType::Class> info;
-    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    handler->convert(info);
-    player = loader.createPlayer(std::move(std::get<0>(info)),
-                        std::get<1>(info), std::get<2>(info));
-}
-
 void ClientHandler::sendCurrentGameState(const std::vector<char>& gameState) {
-    _receivePlayerInfo(); //todo ver que onda xq si por algun motivo no me llega los datos cuelgo al game en un receive
     const std::vector<char>& mapInfo = protocol.getMapInfo();
     socket.send(mapInfo.data(), mapInfo.size());
     socket.send(gameState.data(), gameState.size());
-    const std::vector<char>& playerData = protocol.getPlayerData(player);
+    std::vector<char> playerData = protocol.getPlayerData(player);
     uint32_t length = htonl(playerData.size());
     socket.send(reinterpret_cast<char*>(&length), sizeof(uint32_t));
     socket.send(playerData.data(), length);

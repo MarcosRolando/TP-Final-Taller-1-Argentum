@@ -17,7 +17,6 @@
 #include <msgpack.hpp>
 
 class ServerProtocol;
-class PlayerLoader;
 
 class ClientHandler : public Thread {
 private:
@@ -27,12 +26,11 @@ private:
     std::size_t offset{0};
     msgpack::object_handle handler;
     ServerProtocol& protocol;
-    PlayerLoader& loader;
     PlayerProxy player;
     std::mutex m;
 
 public:
-    ClientHandler(Socket&& socket, ServerProtocol& _protocol, PlayerLoader& _loader);
+    ClientHandler(Socket&& socket, ServerProtocol& _protocol, PlayerProxy&& _player);
     ClientHandler(const ClientHandler&) = delete;
     ClientHandler operator=(const ClientHandler&) = delete;
 
@@ -51,12 +49,9 @@ private:
     /*Implementa el metodo virtual run de Thread, que sera el metodo ejecutado
     * por el thread*/
     void run() override;
-    void _sendMapInfoToClient();
     void _sendUpdateDataToClient();
     void _addMessageToQueue();
     void _processClientAction(std::vector<char>& data);
-    void _receivePlayerInfo();
-    void _createPlayer();
 };
 
 

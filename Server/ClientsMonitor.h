@@ -10,7 +10,7 @@
 #include "ClientHandler.h"
 #include <mutex>
 
-class PlayerLoader;
+class PlayerProxy;
 
 class ClientsMonitor {
 private:
@@ -19,8 +19,7 @@ private:
     std::list<std::unique_ptr<ClientHandler>> waitingList;
 
 public:
-    //void pushClient(Socket&& peer, ServerProtocol& protocol);
-    void pushToWaitingList(Socket &&peer, ServerProtocol &protocol, PlayerLoader& loader);
+    void pushToWaitingList(Socket &&peer, ServerProtocol &protocol, PlayerProxy&& player);
     void mergeWaitingClients(const std::vector<char>& gameState);
     void update();
     void eraseDisconnectedClients();
