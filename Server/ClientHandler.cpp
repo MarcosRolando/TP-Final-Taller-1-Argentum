@@ -67,8 +67,8 @@ void ClientHandler::_sendUpdateDataToClient() {
     if (generalData.size() != sizeof(uint32_t)) {
         socket.send(generalData.data(), generalData.size());
     }
-
-    //ACA SE MANDA LA INFORMACION GENERAL DE PLAYER
+    std::vector<char> playerData = ServerProtocol::getPlayerData(player);
+    socket.send(playerData.data(), playerData.size());
 }
 
 void ClientHandler::_addMessageToQueue() {
@@ -86,6 +86,6 @@ void ClientHandler::sendCurrentGameState(const std::vector<char>& gameState) {
     const std::vector<char>& mapInfo = protocol.getMapInfo();
     socket.send(mapInfo.data(), mapInfo.size());
     socket.send(gameState.data(), gameState.size());
-    std::vector<char> playerData = protocol.getPlayerData(player);
+    std::vector<char> playerData = ServerProtocol::getPlayerData(player);
     socket.send(playerData.data(), playerData.size());
 }
