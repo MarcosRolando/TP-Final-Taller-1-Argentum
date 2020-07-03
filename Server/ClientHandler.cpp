@@ -88,9 +88,13 @@ void ClientHandler::_addMessageToQueue() {
 }
 
 void ClientHandler::sendCurrentGameState(const std::vector<char>& gameState) {
-    const std::vector<char>& mapInfo = protocol.getMapInfo();
-    socket.send(mapInfo.data(), mapInfo.size());
-    socket.send(gameState.data(), gameState.size());
-    std::vector<char> playerData = ServerProtocol::getPlayerData(player);
-    socket.send(playerData.data(), playerData.size());
+    try {
+        const std::vector<char>& mapInfo = protocol.getMapInfo();
+        socket.send(mapInfo.data(), mapInfo.size());
+        socket.send(gameState.data(), gameState.size());
+        std::vector<char> playerData = ServerProtocol::getPlayerData(player);
+        socket.send(playerData.data(), playerData.size());
+    } catch (std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
 }
