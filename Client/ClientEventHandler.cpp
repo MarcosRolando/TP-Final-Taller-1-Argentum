@@ -63,11 +63,9 @@ void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
         if (game.getSelector().isThereSelectedTile()){
             _processAttack(game.getSelector().getSelectedTile());
         } else if (game.getSelector().isThereSelectedInventorySlot()){
-            //_processUnequipItem();
+            _processUseItem(game.getSelector().getInventorySlot());
         }
     }
-
-
 }
 
 //Cambiarle el nombre a handleKeyDown
@@ -100,9 +98,18 @@ void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
             break;
         case SDLK_RETURN:
             //todo manejar el parseo del mensaje
-            game.getMinichat().handleReturnKey();
+            std::string cmd = game.getMinichat().handleReturnKey();
+            //Parsear el comando y mandarlo
             break;
     }
+}
+
+void ClientEventHandler::_processUseItem(int _inventorySlot) {
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_USE_ITEM);
+    msgpack::type::tuple<int32_t> inventorySlot;
+    inventorySlot = _inventorySlot;
+    msgpack::pack(msgBuffer, event);
+    msgpack::pack(msgBuffer, inventorySlot);
 }
 
 void ClientEventHandler::_processAttack(Coordinate selectedTile) {

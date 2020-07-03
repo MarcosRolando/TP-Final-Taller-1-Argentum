@@ -28,6 +28,8 @@ public:
 
     int getTextLength();
 
+    std::string& getText();
+
     void render(int x, int y, SDL_Color color = {0, 0, 0});
 
     ~Text();

@@ -37,6 +37,8 @@ private:
     void _handleMouseButtonDown(SDL_Event &e);
 
     void _processAttack(Coordinate coordinate);
+
+    void _processUseItem(int _inventorySlot);
 };
 
 

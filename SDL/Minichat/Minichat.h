@@ -22,7 +22,6 @@ private:
 
 public:
     explicit Minichat(SDL_Renderer& renderer);
-    void handleEvent( SDL_Event& e, Window& window);
     //Encola newText para imprimirlo en el minichat
     void queueText(std::string &newText);
     //Renderiza todos los mensajes del minichat + lo q escribio el usuario
@@ -35,8 +34,8 @@ public:
     void handleMouseButtonDown(Coordinate click, Window &window);
     //Scrollea por los mensajes del minichat
     void handleMouseWheel(SDL_Event &e);
-    //todo retorna el mensaje de input para parsearlo y enviarlo
-    void handleReturnKey();
+    //Aca nose si esta bien la copia
+    std::string handleReturnKey();
     ~Minichat();
 
 private:
