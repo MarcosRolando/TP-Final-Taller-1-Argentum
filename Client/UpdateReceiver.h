@@ -32,6 +32,7 @@ public:
 
 private:
     void _processUpdate(uint32_t msgLength);
+    void _processRemoveEntity();
     void _processMoveUpdate();
     void _receivePlayerData();
     void _processCreateEntity();

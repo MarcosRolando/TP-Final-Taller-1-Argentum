@@ -49,6 +49,8 @@ public:
 
     void setCameraOn(Coordinate position);
 
+    void removeEntity(std::string& nickname);
+
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
 };

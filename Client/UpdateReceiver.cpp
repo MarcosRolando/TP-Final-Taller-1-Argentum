@@ -9,6 +9,7 @@
 #include "../UpdateEvents/UpdateCreatePlayer.h"
 #include "../UpdateEvents/UpdateCreateNPC.h"
 #include "../UpdateEvents/UpdateGUI.h"
+#include "../UpdateEvents/UpdateRemoveEntity.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Direction)
@@ -53,6 +54,9 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 break;
             case GameType::CREATE_ITEM:
                 break;
+            case GameType::REMOVE_ENTITY:
+                _processRemoveEntity();
+                break;
             default:
                 break;
         }
@@ -66,6 +70,14 @@ void UpdateReceiver::_processMoveUpdate() {
     handler->convert(moveInfo);
     updates.push(std::unique_ptr<UpdateEvent>(new UpdateMove(std::move(std::get<2>(moveInfo)),
             std::get<0>(moveInfo), std::get<1>(moveInfo), std::get<3>(moveInfo))));
+}
+
+void UpdateReceiver::_processRemoveEntity() {
+    msgpack::type::tuple<std::string> nickname;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(nickname);
+    updates.push(std::unique_ptr<UpdateEvent>(new UpdateRemoveEntity(
+                                        std::move(std::get<0>(nickname)))));
 }
 
 void UpdateReceiver::_processCreateEntity() {

@@ -71,3 +71,7 @@ void Tile::setCameraOn() {
         entity->activateCamera();
     }
 }
+
+void Tile::removeEntity() {
+    entity = nullptr;
+}

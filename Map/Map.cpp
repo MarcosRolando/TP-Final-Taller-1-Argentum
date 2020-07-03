@@ -152,12 +152,18 @@ Coordinate Map::_calculateNewTile(Coordinate position, GameType::Direction direc
 }
 
 bool _finishedMoving(const Entity* entity) {
-    return entity->finishedMoving();
+    if (entity) {
+        return entity->finishedMoving();
+    } else {
+        return true;
+    }
 }
 
 void Map::updateInterpolation(float timeStep) {
     for (auto & entity : movingEntities) {
-        entity->updatePosition(timeStep);
+        if (entity) { /*Este caso esta por si por ejemplo el entity se estaba moviendo y lo eliminaron*/
+            entity->updatePosition(timeStep);
+        }
     }
     movingEntities.erase(std::remove_if(movingEntities.begin(), movingEntities.end(),
                                         _finishedMoving), movingEntities.end());
@@ -166,4 +172,10 @@ void Map::updateInterpolation(float timeStep) {
 void Map::setCameraOn(Coordinate position) {
     int tile = position.i * TOTAL_HORIZONTAL_TILES + position.j;
     tiles.at(tile).setCameraOn();
+}
+
+void Map::removeEntity(std::string &nickname) {
+    Coordinate position = entities.at(nickname);
+    int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
+    tiles.at(tile).removeEntity();
 }

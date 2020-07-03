@@ -51,6 +51,8 @@ public:
 
     void setCameraOn();
 
+    void removeEntity();
+
     std::unique_ptr<Entity> getEntity();
 };
 

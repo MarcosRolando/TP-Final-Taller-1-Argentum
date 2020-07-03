@@ -32,7 +32,7 @@ Client/User.cpp Client/User.h Client/GameGUI.cpp Client/GameGUI.h
         Client/ProtocolEnumTranslator.h Client/ClientEventHandler.cpp Client/ClientEventHandler.h
         Client/BlockingQueue.hpp Client/UpdateReceiver.cpp Client/UpdateReceiver.h
         UpdateEvents/UpdateEvent.h UpdateEvents/UpdateMove.cpp UpdateEvents/UpdateMove.h
-        Client/UpdateQueue.hpp UpdateEvents/UpdateCreatePlayer.cpp UpdateEvents/UpdateCreatePlayer.h Client/GameInitializer.cpp Client/GameInitializer.h SDL/GUI/GUIPlayerInfo.h UpdateEvents/UpdateCreateNPC.cpp UpdateEvents/UpdateCreateNPC.h Client/EntityData.h UpdateEvents/UpdateGUI.cpp UpdateEvents/UpdateGUI.h)
+        Client/UpdateQueue.hpp UpdateEvents/UpdateCreatePlayer.cpp UpdateEvents/UpdateCreatePlayer.h Client/GameInitializer.cpp Client/GameInitializer.h SDL/GUI/GUIPlayerInfo.h UpdateEvents/UpdateCreateNPC.cpp UpdateEvents/UpdateCreateNPC.h Client/EntityData.h UpdateEvents/UpdateGUI.cpp UpdateEvents/UpdateGUI.h UpdateEvents/UpdateRemoveEntity.cpp UpdateEvents/UpdateRemoveEntity.h)
 
 
 target_compile_options (argentumClient PUBLIC -std=c++11 -Wall -Werror -pedantic
