@@ -48,6 +48,11 @@ void ClientHandler::_processClientAction(std::vector<char>& data) {
         handler = msgpack::unpack(data.data(), data.size(), offset);
         handler->convert(moveInfo);
         player.move(std::get<0>(moveInfo));
+    } else if (std::get<0>(event) == GameType::PLAYER_ATTACK) {
+        msgpack::type::tuple<int32_t, int32_t> attackInfo;
+        handler = msgpack::unpack(data.data(), data.size(), offset);
+        handler->convert(attackInfo);
+        player.attack({std::get<0>(attackInfo), std::get<1>(attackInfo)});
     }
 }
 

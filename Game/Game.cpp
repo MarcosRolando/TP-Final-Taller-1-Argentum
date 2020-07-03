@@ -163,6 +163,7 @@ void Game::pushEvent(std::unique_ptr<Event>&& event) {
 Game::Game(ClientsMonitor&& clientAux /*= ClientsMonitor()*/): clients(clientAux) {
 
 }
+#include "../Items/Attack/Weapon.h"
 
 Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
                 GameType::Class _class, ServerProtocol& protocol) {
@@ -176,6 +177,8 @@ Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
     }
     std::shared_ptr<Player> player(new Player(*this, race, _class, 1,
                                 0, position, std::move(nickname)));
+    player->storeItem(std::shared_ptr<Item>(new Weapon(GameType::LONGSWORD)));
+    player->useItem(0);
     Player* playerAux = player.get();
     players.emplace_back(playerAux);
     map.addEntity(position, std::move(player));
