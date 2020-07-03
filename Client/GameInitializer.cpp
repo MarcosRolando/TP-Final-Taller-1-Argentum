@@ -51,9 +51,7 @@ void GameInitializer::_receiveCurrentGameState() {
             game.loadTileItem(data.position, data.texture);
 
         } else if (std::get<0>(id) == GameType::CREATE_ENTITY) {
-
             _processAddEntity(buffer, offset);
-
         }
     }
     _receivePlayerData();
@@ -135,7 +133,7 @@ void GameInitializer::_receivePlayerData() {
     length = ntohl(length);
     std::vector<char> buffer(length);
     socket.receive(buffer.data(), length);
-    PlayerData data = protocol.processAddPlayerData();
+    PlayerData data = protocol.processAddPlayerData(&buffer);
     game.getPlayerInventory().updateGold(data.generalInfo.gold);
     for (const auto & item : data.equippedItems) {
         game.getPlayerInventory().addEquipableItem(std::get<0>(item),

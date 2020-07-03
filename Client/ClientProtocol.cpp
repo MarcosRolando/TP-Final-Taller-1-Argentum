@@ -228,7 +228,8 @@ void ClientProtocol::_addPosition(PlayerData& data, size_t& offset) {
     data.generalInfo.position = {std::get<1>(pos), std::get<0>(pos)};
 }
 
-PlayerData ClientProtocol::processAddPlayerData() {
+PlayerData ClientProtocol::processAddPlayerData(std::vector<char>* _buffer) {
+    buffer = _buffer;
     std::size_t offset = 0;
     PlayerData data;
     _addInventoryItems(data, offset);
