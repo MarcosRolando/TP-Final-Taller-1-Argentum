@@ -34,21 +34,18 @@ void GameGUI::render(float timeStep) {
     map.renderNPCS();
     map.renderStructures();
     //Outline del tile seleccionado. Ver si lo ponemos en Map
-    /*SDL_Rect fillRect = {selector.getSelectedTileXToRender
-            (getPlayerInfo().getXPos()),
-                         selector.getSelectedTileYToRender(getPlayerInfo().getYPos()),
-                         128, 128};
+    /*Coordinate tileToRender = selector.getSelectedTileToRender({getPlayerInfo().getXPos(),getPlayerInfo().getYPos()});
+    SDL_Rect fillRect = {tileToRender.j, tileToRender.i, 128, 128};
     SDL_SetRenderDrawColor(&screen.getRenderer(), 0xFF,
                            0x00, 0x00, 0xFF);
-    SDL_RenderDrawRect( &screen.getRenderer(), &fillRect );*///Debugging
+    SDL_RenderDrawRect( &screen.getRenderer(), &fillRect );//Debugging*/
 
     //Inventario
     screen.setViewport(InventoryViewport);
     inventoryGUI.render(selector.getInventorySlot());
-    /*clickPos.updateText("ClickX: " + std::to_string(selector.getSelectedTileX()) +
-                        "   ClickY: " + std::to_string(selector.getSelectedTileY
-            ()));
-    clickPos.render(150,100, {0xFF,0xFF,0xFF});*///Debugging del click
+    /*clickPos.updateText("ClickX: " + std::to_string(selector.getSelectedTile().j) +
+                        "   ClickY: " + std::to_string(selector.getSelectedTile().i));
+    clickPos.render(150,100, {0xFF,0xFF,0xFF});//Debugging del click*/
 
     //PlayerInfo
     screen.setViewport(PlayerInfoViewport);
