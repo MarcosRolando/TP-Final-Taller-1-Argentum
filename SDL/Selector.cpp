@@ -10,8 +10,8 @@
 #define DEFAULT_MAP_TOP 236
 #define DEFAULT_MAP_BOTTOM 876
 
-#define CAMERA_X_OFFSET 30
-#define CAMERA_Y_OFFSET 12
+#define CAMERA_X_OFFSET 27
+#define CAMERA_Y_OFFSET 15
 
 #define DEFAULT_INVENTORY_LEFT 1122
 #define DEFAULT_INVENTORY_RIGHT 1434
@@ -86,7 +86,7 @@ Coordinate Selector::getSelectedTile() const {
 }
 
 Coordinate Selector::getSelectedTileToRender(Coordinate playerPos) const {
-    int playerYTile = playerPos.i;///TILE_WIDTH;
+    int playerYTile = playerPos.i;;
     int playerXTile = playerPos.j;
     int cameraYOffset = 0, tileYOffset = 0;
     int cameraXOffset = 0,tileXOffset = 0;

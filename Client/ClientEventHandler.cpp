@@ -18,19 +18,7 @@ void ClientEventHandler::run() {
     try {
         while (!quit) {
             std::unique_ptr<SDL_Event> e = events.pop();
-            if (e) { /*Si terminamos cerramos la cola entonces devuelve nullptr*/
-                /*if (e->type == SDL_QUIT) {
-                    quit = true;
-                    break;
-                }
-                minichat.handleEvent(*e, game.getWindow());
-
-                if (e->type == SDL_KEYDOWN && e->key.repeat == 0) {
-                    _handleMoveKeys(*e);
-                } else if (e->type == SDL_MOUSEBUTTONDOWN){
-                    selector.handleEvent(*e, game.getPlayerInfo().getXPos(),
-                                         game.getPlayerInfo().getYPos(), window);
-                }*/
+            if (e) {
                 switch (e->type) {
                     case SDL_QUIT:
                         quit = true;

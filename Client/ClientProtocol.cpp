@@ -182,7 +182,7 @@ void ClientProtocol::_addWeapon(PlayerData& info, size_t& offset){
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     msgpack::type::tuple<int32_t> equippedWeapon;
     handler->convert(equippedWeapon);
-    info.equippedItems.emplace_back(translator.getWeaponTexture(
+    info.equippedItems.emplace_back(translator.getWeaponDropTexture(
             static_cast<GameType::Weapon>(std::get<0>(equippedWeapon))), Weapon);
 }
 
