@@ -17,4 +17,5 @@ void UpdateGUI::operator()(GameGUI &game) {
     }
     game.setCameraOn(data.generalInfo.position);
     game.getPlayerInfo().update(data.generalInfo);
+    game.getMinichat().receiveText(data.minichatText);
 }

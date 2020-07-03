@@ -24,6 +24,8 @@ public:
     explicit Minichat(SDL_Renderer& renderer);
     //Encola newText para imprimirlo en el minichat
     void queueText(std::string &newText);
+    //Recibe texto y si es necesario lo separa en varias lineas del minichat
+    void receiveText(std::string &text);
     //Renderiza todos los mensajes del minichat + lo q escribio el usuario
     void render();
     //Borra la ultima letra del input

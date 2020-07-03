@@ -74,6 +74,10 @@ void Minichat::handleMouseWheel(SDL_Event& e){
     }
 }
 
+void Minichat::receiveText(std::string& text) {
+    queueText(text);
+}
+
 //Imprime los mensajes relevantes
 void Minichat::queueText(std::string& newText){
     texts.pop_back();
@@ -88,8 +92,10 @@ void Minichat::render(){
     int textNum = 0;
     for (auto & text : texts) {
         if (textNum >= firstToRender){
-            text.render(0,140 - 20*(textNum - firstToRender),
-                    SDL_Color{0xFF,0xFF,0xFF,0xFF});
+            if (!text.getText().empty()) {
+                text.render(0,140 - 20*(textNum - firstToRender),
+                            SDL_Color{0xFF,0xFF,0xFF,0xFF});
+            }
         }
         textNum++;
         if (textNum >= MAX_MSGS_TO_RENDER + firstToRender) break;

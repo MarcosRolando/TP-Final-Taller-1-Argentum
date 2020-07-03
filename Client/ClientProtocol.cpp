@@ -168,6 +168,7 @@ void ClientProtocol::_addPlayerStats(PlayerData& data, size_t& offset) {
     _addHealthData(data, offset);
     _addSkills(data, offset);
     _addPosition(data, offset);
+    _addMinichatText(data, offset);
 }
 
 void ClientProtocol::_addClothing(PlayerData& info, size_t& offset, EquippedItems item) {
@@ -227,6 +228,14 @@ void ClientProtocol::_addPosition(PlayerData& data, size_t& offset) {
     handler->convert(pos);
     data.generalInfo.position = {std::get<0>(pos), std::get<1>(pos)};
 }
+
+void ClientProtocol::_addMinichatText(PlayerData& data, size_t& offset){
+    handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
+    msgpack::type::tuple<std::string> text;
+    handler->convert(text);
+    data.minichatText = std::get<0>(text);
+}
+
 
 PlayerData ClientProtocol::processAddPlayerData(std::vector<char>* _buffer) {
     buffer = _buffer;

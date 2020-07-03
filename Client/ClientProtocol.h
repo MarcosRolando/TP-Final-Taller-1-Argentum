@@ -49,6 +49,8 @@ private:
     void _addPosition(PlayerData& data, size_t &offset);
     void _addPlayerStats(PlayerData& data, size_t& offset);
     void _addInventoryItems(PlayerData& data, size_t& offset);
+
+    void _addMinichatText(PlayerData &data, size_t &offset);
 };
 
 

@@ -24,11 +24,13 @@ struct PlayerData {
     GUIPlayerInfo generalInfo;
     std::vector<std::tuple<TextureID, EquippedItems>> equippedItems;
     std::vector<std::tuple<TextureID, int>> inventoryItems;
+    std::string minichatText;
 
     PlayerData(PlayerData&& other) noexcept {
         this->generalInfo = other.generalInfo;
         this->inventoryItems = std::move(other.inventoryItems);
         this->equippedItems = std::move(other.equippedItems);
+        this->minichatText = std::move(other.minichatText);
         other.generalInfo = {};
         other.inventoryItems.clear();
         other.equippedItems.clear();
