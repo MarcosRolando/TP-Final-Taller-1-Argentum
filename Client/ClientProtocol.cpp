@@ -225,7 +225,7 @@ void ClientProtocol::_addPosition(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     msgpack::type::tuple<int32_t, int32_t> pos;
     handler->convert(pos);
-    data.generalInfo.position = {std::get<1>(pos), std::get<0>(pos)};
+    data.generalInfo.position = {std::get<0>(pos), std::get<1>(pos)};
 }
 
 PlayerData ClientProtocol::processAddPlayerData(std::vector<char>* _buffer) {

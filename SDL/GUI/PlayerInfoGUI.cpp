@@ -7,11 +7,7 @@
 
 PlayerInfoGUI::PlayerInfoGUI(SDL_Renderer &renderer) : infoFont("../SDL/Text/medieval.ttf", 25),
                                                     info(infoFont, renderer), renderer(renderer) {
-    pInfo = {100,100,100,
-             50,50,50,
-             1,
-             1,1,1,1,
-             0,0};
+    pInfo = {};
 }
 
 
@@ -64,7 +60,7 @@ void PlayerInfoGUI::_updatePosition(Coordinate position) {
     pInfo.position = position;
 }
 
-void PlayerInfoGUI::render(){
+void PlayerInfoGUI::render() {
     info.updateText("HEALTH: " + std::to_string(pInfo.health) + "/" + std::to_string(pInfo.totalHealth));
     _renderInfoBar(pInfo.health, pInfo.totalHealth, HEALTH_BAR_X_OFFSET, 265,{0x99, 0x00,0x00});
 
@@ -76,7 +72,7 @@ void PlayerInfoGUI::render(){
 }
 
 void PlayerInfoGUI::_renderInfoBar(int32_t infoCurr, int32_t infoTotal,
-                                   int32_t xOffset, int32_t barLen, SDL_Color color){
+                                   int32_t xOffset, int32_t barLen, SDL_Color color) {
     float bar = 0;
     if (infoTotal != 0){
         bar = barLen * ((float)infoCurr / (float)infoTotal);
