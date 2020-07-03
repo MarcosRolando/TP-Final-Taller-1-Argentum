@@ -76,6 +76,7 @@ int PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int
     if (damage < 0) {
         currentLife += damage;
         if (currentLife > maxLife) currentLife = maxLife;
+        currentMana = 0;
         return damage;
     } else {
         Configuration& config = Configuration::getInstance();
