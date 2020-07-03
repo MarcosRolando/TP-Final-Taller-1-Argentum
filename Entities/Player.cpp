@@ -32,7 +32,7 @@ Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsig
                 //todo persistencia directamente
 }
 
-void Player::attack(Coordinate target) {
+int32_t Player::attack(Coordinate target) {
     if (!stats.isDead()) {
         stats.stopMeditating();
         int weaponDamage;
@@ -43,7 +43,9 @@ void Player::attack(Coordinate target) {
                                                 true, target);
         stats.increaseExperience(result.experience);
         chat.addMessage(std::move(result.resultMessage));
+        return inventory.getWeaponId();
     }
+    return -1;
 }
 
 void Player::_dropItems() {

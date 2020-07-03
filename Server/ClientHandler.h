@@ -18,8 +18,13 @@
 
 class ServerProtocol;
 
+class ClientHandler;
+
+typedef void (ClientHandler::*processEvent)(std::vector<char>& data);
+
 class ClientHandler : public Thread {
 private:
+    std::unordered_map<GameType::PlayerEvent, processEvent> eventProcessors;
     Socket socket;
     std::atomic<bool> finished{};
     std::vector<char> buffer;
@@ -51,7 +56,11 @@ private:
     void run() override;
     void _sendUpdateDataToClient();
     void _addMessageToQueue();
+
     void _processClientAction(std::vector<char>& data);
+    void _processMove(std::vector<char>& data);
+    void _processAttack(std::vector<char>& data);
+    void _processUseItem(std::vector<char>& data);
 };
 
 

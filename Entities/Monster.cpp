@@ -160,7 +160,8 @@ bool Monster::isDead() const {
     return (stats.getCurrentLife() == 0);
 }
 
-void Monster::attack(Coordinate attackedPosition) {
+int32_t Monster::attack(Coordinate attackedPosition) {
     game.attackPosition(stats.getDamage(), stats.getLevel(), false, attackedPosition);
+    return GameType::FIST;
 }
 
