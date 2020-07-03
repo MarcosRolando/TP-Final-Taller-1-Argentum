@@ -33,6 +33,7 @@ private:
 
     std::list<Monster*> monsters;
     std::list<Player*> players;
+    std::list<Item*> mapItems;
     ClientsMonitor& clients;
 
     friend GameTests;

@@ -76,6 +76,7 @@ int PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int
     if (damage < 0) {
         currentLife += damage;
         if (currentLife > maxLife) currentLife = maxLife;
+        currentMana = 0;
         return damage;
     } else {
         Configuration& config = Configuration::getInstance();
@@ -122,6 +123,9 @@ bool PlayerStats::isDead() const {
 }
 
 void PlayerStats::update(double timeStep) {
+    if (isDead()) {
+        return;
+    }
     timeElapsed += timeStep;
     if (timeElapsed >= TIME_FOR_RECOVERY) {
         currentLife += Calculator::lifeRecovered(recoveryRate, timeElapsed);
