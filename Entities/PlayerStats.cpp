@@ -122,6 +122,9 @@ bool PlayerStats::isDead() const {
 }
 
 void PlayerStats::update(double timeStep) {
+    if (isDead()) {
+        return;
+    }
     timeElapsed += timeStep;
     if (timeElapsed >= TIME_FOR_RECOVERY) {
         currentLife += Calculator::lifeRecovered(recoveryRate, timeElapsed);

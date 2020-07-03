@@ -10,6 +10,7 @@ MSGPACK_ADD_ENUM(GameType::ItemType)
 
 Item::Item(GameType::ItemType _type, const std::string &_name): name(_name) {
     type = _type;
+    isItemInFloor = false;
 }
 
 EquipmentPlace Item::use(Player &player) {
@@ -40,4 +41,16 @@ void Item::loadEquippedItemData(std::stringstream &buffer) {
 void Item::loadTypeAndId(std::stringstream &buffer) {
     msgpack::type::tuple<GameType::ItemType, int32_t> data(type, id);
     msgpack::pack(buffer, data);
+}
+
+void Item::drop() {
+    isItemInFloor = true;
+}
+
+void Item::grab() {
+    isItemInFloor = false;
+}
+
+bool Item::isInFloor() {
+    return isItemInFloor;
 }

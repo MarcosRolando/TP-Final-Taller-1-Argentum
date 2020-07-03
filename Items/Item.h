@@ -28,6 +28,7 @@ private:
     GameType::ItemType type;
     const std::string& name;
     //unsigned int price;
+    bool isItemInFloor;
 
     friend ItemTests;
 
@@ -55,6 +56,16 @@ public:
     void loadEquippedItemData(std::stringstream& buffer);
 
     void loadTypeAndId(std::stringstream& buffer);
+
+    //Setea el estado del item como tirado en el piso
+    void drop();
+
+    //Setea el estado del item como que no esta tirado en el piso
+    void grab();
+
+    //Retorna true si esta en el piso, false si fue recogido por alguien (se usa para
+    //ver si se tiene que eliminar de la lista de items que guarda game)
+    bool isInFloor();
 
     virtual ~Item() = default;
 };
