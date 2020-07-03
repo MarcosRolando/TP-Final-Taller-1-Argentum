@@ -8,8 +8,11 @@
 #include "../Game/Game.h"
 #include "../Items/Miscellaneous/Gold.h"
 #include "../Config/Configuration.h"
-#include "Citizens/ProductData.h"
 #include <msgpack.hpp>
+
+#define ATTACKER_IS_NEWBIE_MESSAGE "I won't lose my time on a low level newbie like you!\n "
+#define PLAYER_IS_A_NEWBIE_MESSAGE "Surely you have better things to do than attack a low level newbie like me...\n"
+#define PLAYER_IS_DEAD_MESSAGE "You can't kill a ghost, you know?\n"
 
 using namespace GameType;
 
@@ -57,12 +60,17 @@ void Player::_dropItems() {
 AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPlayer) {
     stats.stopMeditating();
     unsigned int newbieLevel = Configuration::getInstance().configNewbieLevel();
-    if (isAPlayer && ( stats.getLevel() <= newbieLevel || attackerLevel <= newbieLevel) ) {
-        return {0, 0};
+    if (isAPlayer) {
+        if (stats.getLevel() <= newbieLevel) {
+            return {0, 0, PLAYER_IS_A_NEWBIE_MESSAGE};
+        } else if (attackerLevel <= newbieLevel) {
+            return {0, 0, ATTACKER_IS_NEWBIE_MESSAGE};
+        }
     }
     if (!stats.isDead()) {
+        std::string attackedMessage;
         unsigned int defense = inventory.getDefense();
-        int totalDamage = stats.modifyLife(damage, attackerLevel, defense, isAPlayer);
+        int totalDamage = stats.modifyLife(damage, attackerLevel, defense, isAPlayer, attackedMessage);
         unsigned int experience = Calculator::calculateAttackXP(totalDamage,
                                     attackerLevel, stats.getLevel());
         if (stats.isDead() && totalDamage > 0) {
@@ -70,9 +78,13 @@ AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPl
             experience += Calculator::calculateKillXP(attackerLevel,
                     stats.getLevel(), stats.getMaxLife());
         }
-        return {totalDamage, experience};
+        attackedMessage += "You damaged " + getNickname() + " by " + std::to_string(totalDamage);
+        attackedMessage += " (Remaining Life: " + std::to_string(stats.getCurrentLife()) +
+                            " , XP Gained: " + std::to_string(experience) + "\n";
+        return {totalDamage, experience, std::move(attackedMessage)};
+    } else {
+        return {0, 0, PLAYER_IS_DEAD_MESSAGE};
     }
-    return {0, 0};
 }
 
 bool Player::isMonsterTarget() {

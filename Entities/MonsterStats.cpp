@@ -7,6 +7,8 @@
 #include "../Config/Calculator.h"
 #include "../AttackResult.h"
 
+#define DODGE_MESSAGE "That was a lame attack... "
+
 MonsterStats::MonsterStats(GameType::Entity type) {
     Configuration& config = Configuration::getInstance();
     Config::MonsterStats stats = config.configMonsterStats(type);
@@ -39,6 +41,11 @@ unsigned int MonsterStats::getLevel() const {
 }
 
 AttackResult MonsterStats::modifyLife(int _damage, unsigned int attackerLevel) {
+    AttackResult result {};
+    if (Calculator::canDodge(getAgility())) {
+        result.resultMessage += DODGE_MESSAGE;
+        return result;
+    }
     currentLife -= _damage;
     if (currentLife < 0) {
         currentLife = 0;
@@ -48,7 +55,9 @@ AttackResult MonsterStats::modifyLife(int _damage, unsigned int attackerLevel) {
     if (_isDead() && damage > 0) {
         experience += Calculator::calculateKillXP(attackerLevel, level, maxLife);
     }
-    return {_damage, experience};
+    result.damage = _damage;
+    result.experience = experience;
+    return result;
 }
 
 int MonsterStats::getCurrentLife() const {

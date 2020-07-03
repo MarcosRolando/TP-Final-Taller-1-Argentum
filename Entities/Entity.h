@@ -20,7 +20,7 @@ struct Movement {
     unsigned int movedDistance{};
 
     //Esta direccion solo tiene sentido si se setea que se esta moviendo el entity
-    GameType::Direction direction;
+    GameType::Direction direction{};
 };
 
 class Player;

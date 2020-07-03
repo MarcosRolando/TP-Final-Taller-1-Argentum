@@ -9,6 +9,7 @@
 #include "../Items/Inventory.h"
 #include "Entity.h"
 #include "PlayerStats.h"
+#include "Minichat.h"
 
 class Game;
 class EntityTests;
@@ -20,6 +21,7 @@ private:
     Inventory inventory;
     PlayerStats stats;
     int32_t gold;
+    Minichat chat;
     Game& game;
 
     friend EntityTests;

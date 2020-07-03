@@ -6,6 +6,7 @@
 #define ARGENTUM_MONSTERSTATS_H
 
 #include "../Config/GameEnums.h"
+#include <string>
 
 class EntityTests;
 struct AttackResult;

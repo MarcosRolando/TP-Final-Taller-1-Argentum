@@ -3,13 +3,14 @@
 //
 
 #include "PlayerStats.h"
-#include <ctime>
 #include "../Config/Calculator.h"
 #include "../Config/Configuration.h"
 #include <algorithm>
 #include <msgpack.hpp>
 
-//MSGPACK_ADD_ENUM(GameType::Race)
+#define MUCH_LEVEL_DIFF_MESSAGE "I think the level gap between us is a tad much, I'm level "
+#define CRITICAL_MESSAGE "That must have hurt! Critical! "
+#define DODGE_MESSAGE "Too weak, too slow. "
 
 const double TIME_FOR_RECOVERY = 3000.0; //3 seconds (timeStep is in miliseconds) //todo poder modificarlo desde el archivo
 
@@ -72,7 +73,7 @@ void PlayerStats::increaseExperience(unsigned int _experience) {
 }
 
 int PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defense,
-                            bool isAPlayer) {
+                            bool isAPlayer, std::string& attackedMessage) {
     if (damage < 0) {
         currentLife += damage;
         if (currentLife > maxLife) currentLife = maxLife;
@@ -82,11 +83,14 @@ int PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int
         Configuration& config = Configuration::getInstance();
         if (isAPlayer && std::abs(static_cast<int>(attackerLevel - level)) >
                          config.configMaxLevelDif()) {
+            attackedMessage += MUCH_LEVEL_DIFF_MESSAGE + std::to_string(level) + "\n";
             return 0;
         }
         if (Calculator::isCritical()) {
+            attackedMessage += CRITICAL_MESSAGE;
             damage = damage * 2;
         } else if (Calculator::canDodge(agility)) {
+            attackedMessage += DODGE_MESSAGE;
             return 0;
         }
         int totalDamage = std::max(damage - static_cast<int>(defense), 0);

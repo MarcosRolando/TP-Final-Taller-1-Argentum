@@ -3,7 +3,6 @@
 //
 
 #include "Monster.h"
-#include "../Config/Calculator.h"
 #include "../Items/ItemsFactory.h"
 #include "../Game/Game.h"
 #include "../AttackResult.h"
@@ -37,8 +36,6 @@ Coordinate Monster::_getNearestPosition(Coordinate refference, std::vector<Coord
     return nearest;
 }
 */
-
-#include <iostream>
 
 //Guarda parte del camino al jugador al cual tiene que moverse la menor cantidad
 //de veces para alcanzarlo
@@ -98,9 +95,6 @@ GameType::Direction Monster::_getMoveDirection() {
     }
 }
 
-#include <iostream>
-
-
 //Pide al game que lo mueva a la siguiente posicion en pathCache, si pathCache
 //esta vacio entonces busca el jugador mas cercano en su rango de vision y le
 //pide al mapa un camino a este
@@ -127,19 +121,21 @@ void Monster::_move() {
 
 Monster::Monster(Game &_game, Coordinate initialPosition,
                  GameType::Entity _type):
-                 Entity(_type, initialPosition, "pepito"/*todo*/),
+                 Entity(_type, initialPosition, "Monster"),
                  timeBetweenActions(Configuration::getInstance().configMonsterStats(_type).reactionSpeed * 1000),
                  stats(_type), map(_game.getMap()), game(_game) {
     elapsedTime = 0;
     type = _type;
 }
 
-
 AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isAPlayer) {
-    AttackResult result = {0, 0};
+    AttackResult result{};
     if (!isDead()) {
-        if (Calculator::canDodge(stats.getAgility())) return result;
         result = stats.modifyLife(_damage, attackerLevel);
+        result.resultMessage += "You damaged " + getNickname() + " by " +
+                    std::to_string(result.damage) + " (Remaining Life: " +
+                    std::to_string(stats.getCurrentLife()) +
+                    " , XP Gained: " + std::to_string(result.experience) + "\n";
         if (isDead()) {
             std::shared_ptr<Item> drop;
             ItemsFactory::getInstance().storeRandomDrop(drop, stats.getMaxLife());
@@ -148,8 +144,6 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
     }
     return result;
 }
-
-#include <iostream>
 
 void Monster::update(double timeStep) {
     Entity::update(timeStep, game);

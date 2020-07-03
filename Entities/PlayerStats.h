@@ -54,7 +54,7 @@ public:
 
     //Modifica la vida del player acorde al danio/curacion ocasionados
     int modifyLife(int damage, unsigned int attackerLevel, unsigned int defense,
-                   bool isAPlayer);
+                   bool isAPlayer, std::string& attackedMessage);
 
     //Retorna la maxima vida que puede tener el player dado su nivel actual
     int getMaxLife() const;
