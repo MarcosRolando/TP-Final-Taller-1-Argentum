@@ -65,7 +65,7 @@ public:
 
     //Retorna true si esta en el piso, false si fue recogido por alguien (se usa para
     //ver si se tiene que eliminar de la lista de items que guarda game)
-    bool isInFloor();
+    bool isInFloor() const;
 
     virtual ~Item() = default;
 };

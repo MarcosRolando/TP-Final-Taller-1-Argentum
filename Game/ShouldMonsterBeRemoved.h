@@ -13,9 +13,9 @@ class Monster;
 
 class ShouldMonsterBeRemoved {
 private:
-    std::list<Coordinate>& monstersToRemove;
+    std::list<std::pair<Coordinate, const std::string*>>& monstersToRemove;
 public:
-    explicit ShouldMonsterBeRemoved(std::list<Coordinate>& monstersToRemove);
+    explicit ShouldMonsterBeRemoved(std::list<std::pair<Coordinate, const std::string*>>& monstersToRemove);
 
     bool operator()(const Monster* monster);
 };

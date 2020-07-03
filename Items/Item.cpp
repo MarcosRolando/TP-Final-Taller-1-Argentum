@@ -51,6 +51,6 @@ void Item::grab() {
     isItemInFloor = false;
 }
 
-bool Item::isInFloor() {
+bool Item::isInFloor() const {
     return isItemInFloor;
 }
