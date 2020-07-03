@@ -19,7 +19,7 @@ public:
     //explicit Shield(const Config::ClothingData& stats);
     explicit Shield(GameType::Clothing clothing);
 
-    EquipmentPlace use(Player& player) override;
+    GameType::EquipmentPlace use(Player& player) override;
 
     bool isDefault() const override;
 };

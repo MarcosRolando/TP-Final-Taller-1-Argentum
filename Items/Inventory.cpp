@@ -17,11 +17,11 @@ MSGPACK_ADD_ENUM(GameType::ItemType)
 
 //////////////////////////////PRIVATE/////////////////////////////
 //Mueve el item al lugar de equipamiendo indicado si es que tiene uno
-void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition) {
-    if (equipmentPlace == EQUIPMENT_PLACE_NONE) {
-        return;
+UseReturnData Inventory::_manageItemPlacement(GameType::EquipmentPlace equipmentPlace, unsigned int itemPosition) {
+    if (equipmentPlace == GameType::EQUIPMENT_PLACE_NONE) {
+        return {GameType::EQUIPMENT_PLACE_NONE, -1};
     }
-    if (equipmentPlace == EQUIPMENT_PLACE_WEAPON) {
+    if (equipmentPlace == GameType::EQUIPMENT_PLACE_WEAPON) {
         std::shared_ptr<Weapon> weaponPtrAux;
         weaponPtrAux = std::dynamic_pointer_cast<Weapon>(items[itemPosition]);
         if (weaponPtrAux) {
@@ -31,6 +31,7 @@ void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int
                 items[itemPosition] = nullptr;
             }
             equippedWeapon = std::move(weaponPtrAux);
+            return {GameType::EQUIPMENT_PLACE_WEAPON, equippedWeapon->getId()};
         }
     } else {
         std::shared_ptr<Clothing> clothingPtrAux;
@@ -43,8 +44,10 @@ void Inventory::_manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int
                 storedItemsAmount--;
             }
             clothingEquipment.at(equipmentPlace) = std::move(clothingPtrAux);
+            return {equipmentPlace, clothingEquipment.at(equipmentPlace)->getId()};
         }
     }
+    return {GameType::EQUIPMENT_PLACE_NONE, -1};
 }
 
 
@@ -68,14 +71,14 @@ void Inventory::_storeNullItemData(std::stringstream &buffer) {
 
 
 void Inventory::_restoreDefaultEquipment() {
-    if (!clothingEquipment[EQUIPMENT_PLACE_HEAD]) {
-        clothingEquipment[EQUIPMENT_PLACE_HEAD].reset(new Head(GameType::Clothing::NO_HELMET));
+    if (!clothingEquipment[GameType::EQUIPMENT_PLACE_HEAD]) {
+        clothingEquipment[GameType::EQUIPMENT_PLACE_HEAD].reset(new Head(GameType::Clothing::NO_HELMET));
     }
-    if (!clothingEquipment[EQUIPMENT_PLACE_CHEST]) {
-        clothingEquipment[EQUIPMENT_PLACE_CHEST].reset(new Chest(GameType::Clothing::COMMON_CLOTHING));
+    if (!clothingEquipment[GameType::EQUIPMENT_PLACE_CHEST]) {
+        clothingEquipment[GameType::EQUIPMENT_PLACE_CHEST].reset(new Chest(GameType::Clothing::COMMON_CLOTHING));
     }
-    if (!clothingEquipment[EQUIPMENT_PLACE_SHIELD]) {
-        clothingEquipment[EQUIPMENT_PLACE_SHIELD].reset(new Shield(GameType::Clothing::NO_SHIELD));
+    if (!clothingEquipment[GameType::EQUIPMENT_PLACE_SHIELD]) {
+        clothingEquipment[GameType::EQUIPMENT_PLACE_SHIELD].reset(new Shield(GameType::Clothing::NO_SHIELD));
     }
     if (!equippedWeapon) {
         equippedWeapon.reset(new Weapon(GameType::Weapon::FIST));
@@ -87,9 +90,9 @@ void Inventory::_restoreDefaultEquipment() {
 
 Inventory::Inventory() : items(INVENTORY_SIZE, nullptr) {
     storedItemsAmount = 0;
-    clothingEquipment.emplace(EQUIPMENT_PLACE_HEAD, new Head(GameType::Clothing::NO_HELMET));
-    clothingEquipment.emplace(EQUIPMENT_PLACE_CHEST, new Chest(GameType::Clothing::COMMON_CLOTHING));
-    clothingEquipment.emplace(EQUIPMENT_PLACE_SHIELD, new Shield(GameType::Clothing::NO_SHIELD));
+    clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_HEAD, new Head(GameType::Clothing::NO_HELMET));
+    clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_CHEST, new Chest(GameType::Clothing::COMMON_CLOTHING));
+    clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_SHIELD, new Shield(GameType::Clothing::NO_SHIELD));
     equippedWeapon.reset(new Weapon(GameType::Weapon::FIST));
 }
 
@@ -113,10 +116,11 @@ std::shared_ptr<Item> Inventory::removeItem(unsigned int itemPosition) {
     return aux;
 }
 
-void Inventory::useItem(Player& player, unsigned int itemPosition) {
+UseReturnData Inventory::useItem(Player& player, unsigned int itemPosition) {
     if (items[itemPosition]) {
-        _manageItemPlacement(items[itemPosition]->use(player), itemPosition);
+        return _manageItemPlacement(items[itemPosition]->use(player), itemPosition);
     }
+    return {GameType::EQUIPMENT_PLACE_NONE, -1};
 }
 
 std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
@@ -157,7 +161,7 @@ std::list<std::shared_ptr<Item>> Inventory::dropAllItems() {
     return droppedItems;
 }
 
-bool Inventory::unequip(EquipmentPlace clothing) {
+bool Inventory::unequip(GameType::EquipmentPlace clothing) {
     if (clothingEquipment.at(clothing)->isDefault()) {
         return false;
     }
@@ -184,9 +188,9 @@ bool Inventory::unequip() {
 }
 
 void Inventory::storeEquippedItems(std::stringstream &buffer) const {
-    clothingEquipment.at(EQUIPMENT_PLACE_HEAD)->loadEquippedItemData(buffer);
-    clothingEquipment.at(EQUIPMENT_PLACE_CHEST)->loadEquippedItemData(buffer);
-    clothingEquipment.at(EQUIPMENT_PLACE_SHIELD)->loadEquippedItemData(buffer);
+    clothingEquipment.at(GameType::EQUIPMENT_PLACE_HEAD)->loadEquippedItemData(buffer);
+    clothingEquipment.at(GameType::EQUIPMENT_PLACE_CHEST)->loadEquippedItemData(buffer);
+    clothingEquipment.at(GameType::EQUIPMENT_PLACE_SHIELD)->loadEquippedItemData(buffer);
     equippedWeapon->loadEquippedItemData(buffer);
 }
 

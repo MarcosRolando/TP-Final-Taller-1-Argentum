@@ -16,6 +16,7 @@
 #include "../Game/Events/Unequip.h"
 #include "../Game/Events/UseItem.h"
 #include "../Game/Events/Move.h"
+#include "../Config/GameEnums.h"
 
 #define MAX_EVENTS_STORED 3
 
@@ -98,7 +99,7 @@ void PlayerProxy::unequip() {
     }
 }
 
-void PlayerProxy::unequip(EquipmentPlace clothing) {
+void PlayerProxy::unequip(GameType::EquipmentPlace clothing) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
         storedEvents.emplace(new Unequip(*player, clothing));
     }

@@ -8,8 +8,8 @@ Shield::Shield(GameType::Clothing clothing): Clothing(clothing) {
 
 }
 
-EquipmentPlace Shield::use(Player &player) {
-    return EQUIPMENT_PLACE_SHIELD;
+GameType::EquipmentPlace Shield::use(Player &player) {
+    return GameType::EQUIPMENT_PLACE_SHIELD;
 }
 
 bool Shield::isDefault() const {

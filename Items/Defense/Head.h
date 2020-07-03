@@ -19,7 +19,7 @@ public:
     //explicit Head(const Config::ClothingData& stats);
     explicit Head(GameType::Clothing clothing);
 
-    EquipmentPlace use(Player& player) override;
+    GameType::EquipmentPlace use(Player& player) override;
 
     bool isDefault() const override;
 };

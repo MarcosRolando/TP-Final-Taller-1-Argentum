@@ -8,14 +8,15 @@
 
 #include "Event.h"
 #include "../../Items/Defense/Clothing.h"
+#include "../../Config/GameEnums.h"
 
 class Unequip : public Event {
 private:
     Player& player;
-    EquipmentPlace equipment;
+    GameType::EquipmentPlace equipment;
 
 public:
-    Unequip(Player& player, EquipmentPlace equipment);
+    Unequip(Player& player, GameType::EquipmentPlace equipment);
     explicit Unequip(Player& player);
     void operator()(ServerProtocol& protocol) override;
 };

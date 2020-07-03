@@ -10,8 +10,8 @@ Gold::Gold(unsigned int amount): Item(GameType::ITEM_TYPE_GOLD,
     this->amount = amount;
 }
 
-EquipmentPlace Gold::use(Player &player) {
-    return EQUIPMENT_PLACE_NONE;
+GameType::EquipmentPlace Gold::use(Player &player) {
+    return GameType::EQUIPMENT_PLACE_NONE;
 }
 
 unsigned int Gold::getamount() const {

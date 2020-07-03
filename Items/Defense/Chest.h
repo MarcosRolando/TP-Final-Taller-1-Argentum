@@ -19,7 +19,7 @@ public:
     //explicit Chest(const Config::ClothingData& stats);
     explicit Chest(GameType::Clothing clothing);
 
-    EquipmentPlace use(Player& player) override;
+    GameType::EquipmentPlace use(Player& player) override;
 
     bool isDefault() const override;
 };

@@ -13,8 +13,8 @@ Item::Item(GameType::ItemType _type, const std::string &_name): name(_name) {
     isItemInFloor = false;
 }
 
-EquipmentPlace Item::use(Player &player) {
-    return EQUIPMENT_PLACE_NONE;
+GameType::EquipmentPlace Item::use(Player &player) {
+    return GameType::EQUIPMENT_PLACE_NONE;
 }
 
 const std::string &Item::getName() const {
@@ -53,4 +53,8 @@ void Item::grab() {
 
 bool Item::isInFloor() const {
     return isItemInFloor;
+}
+
+int32_t Item::getId() {
+    return id;
 }

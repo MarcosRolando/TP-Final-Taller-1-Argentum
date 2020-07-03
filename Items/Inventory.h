@@ -11,6 +11,7 @@
 #include <unordered_map>
 #include <list>
 #include "Item.h"
+#include "UseReturnData.h"
 
 class ItemTests;
 class EntityTests;
@@ -22,12 +23,13 @@ class Clothing;
 class Item;
 struct Coordinate;
 
+
 //Esta clase representa los items que almacena y tiene equipados el jugador
 class Inventory {
 private:
     unsigned int storedItemsAmount;
     std::vector<std::shared_ptr<Item>> items;
-    std::unordered_map<EquipmentPlace, std::shared_ptr<Clothing>> clothingEquipment;
+    std::unordered_map<GameType::EquipmentPlace, std::shared_ptr<Clothing>> clothingEquipment;
     std::shared_ptr<Weapon> equippedWeapon;
 
     friend ItemTests;
@@ -35,7 +37,7 @@ private:
     friend MapTests;
 
 private:
-    void _manageItemPlacement(EquipmentPlace equipmentPlace, unsigned int itemPosition);
+    UseReturnData _manageItemPlacement(GameType::EquipmentPlace equipmentPlace, unsigned int itemPosition);
     void _dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems);
     static void _storeNullItemData(std::stringstream& buffer);
     void _restoreDefaultEquipment();
@@ -59,7 +61,7 @@ public:
 
     //Usa el item en la posicion indicada, si no hay un item en la posicion no
     //hace nada
-    void useItem(Player& player, unsigned int itemPosition);
+    UseReturnData useItem(Player& player, unsigned int itemPosition);
 
     //Retorna el danio generado por el arma en el rango de ella
     int getWeaponDamage(Coordinate currentPosition, Coordinate target,
@@ -71,7 +73,7 @@ public:
     //Retorna una lista con todos los items del iventario, quitandolos del mismo
     std::list<std::shared_ptr<Item>> dropAllItems();
 
-    bool unequip(EquipmentPlace clothing);
+    bool unequip(GameType::EquipmentPlace clothing);
 
     bool unequip();
 

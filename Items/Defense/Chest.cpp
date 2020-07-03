@@ -8,8 +8,8 @@ Chest::Chest(GameType::Clothing clothing) : Clothing(clothing) {
 
 }
 
-EquipmentPlace Chest::use(Player &player) {
-    return EQUIPMENT_PLACE_CHEST;
+GameType::EquipmentPlace Chest::use(Player &player) {
+    return GameType::EQUIPMENT_PLACE_CHEST;
 }
 
 bool Chest::isDefault() const {
