@@ -39,8 +39,8 @@ public:
     void unequip();
     void unequip(EquipmentPlace clothing);
     void dropItem(unsigned int itemPosition);
-    const Player& getPlayer() const;
-
+    void storeAllRelevantData(std::stringstream& data) const;
+    void clearMinichat();
     void giveEventsToGame();
 
 private:

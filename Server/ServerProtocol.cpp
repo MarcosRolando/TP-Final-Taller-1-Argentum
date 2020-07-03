@@ -35,10 +35,6 @@ const std::vector<char>& ServerProtocol::buildCurrentState(const std::list<Playe
     for (const auto & monster : monsters) {
         (*monster) >> data;
     }
-    //todo lo de player individual no iria aca
-    /*
-    player.storeAllRelevantData(data);
-     */
     std::string auxString = data.str();
     uint32_t msgLength = htonl(auxString.size());
     currentStateBuffer.resize(sizeof(uint32_t));
@@ -67,7 +63,7 @@ void ServerProtocol::buildGeneralDataBuffer() {
 
 std::vector<char> ServerProtocol::getPlayerData(const PlayerProxy& player) {
     std::stringstream data;
-    player.getPlayer().storeAllRelevantData(data);
+    player.storeAllRelevantData(data);
     std::string auxString = data.str();
     uint32_t msgLength = htonl(auxString.size());
     std::vector<char> buffer(sizeof(uint32_t));

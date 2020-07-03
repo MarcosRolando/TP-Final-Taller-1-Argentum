@@ -107,6 +107,8 @@ public:
 
     void storeAllRelevantData(std::stringstream& buffer) const;
 
+    void clearMinichat();
+
 private:
     void _dropItems();
 };

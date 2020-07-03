@@ -7,3 +7,11 @@
 void Minichat::addMessage(std::string&& msg) {
     message += msg;
 }
+
+std::string Minichat::getMessages() const {
+    return message;
+}
+
+void Minichat::clear() {
+    message.clear();
+}

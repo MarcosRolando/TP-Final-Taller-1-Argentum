@@ -110,10 +110,6 @@ void PlayerProxy::dropItem(unsigned int itemPosition) {
     }
 }
 
-const Player &PlayerProxy::getPlayer() const {
-    return *player;
-}
-
 void PlayerProxy::giveEventsToGame() {
     while (!storedEvents.empty()) {
         game->pushEvent(std::move(storedEvents.front()));
@@ -127,4 +123,12 @@ void PlayerProxy::executeMove(PlayerProxy &&other) {
     player = other.player;
     other.player = nullptr;
     storedEvents = std::move(other.storedEvents);
+}
+
+void PlayerProxy::clearMinichat() {
+    player->clearMinichat();
+}
+
+void PlayerProxy::storeAllRelevantData(std::stringstream& data) const {
+    player->storeAllRelevantData(data);
 }

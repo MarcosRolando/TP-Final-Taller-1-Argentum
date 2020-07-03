@@ -42,6 +42,7 @@ void Player::attack(Coordinate target) {
         AttackResult result = game.attackPosition(totalDamage, stats.getLevel(),
                                                 true, target);
         stats.increaseExperience(result.experience);
+        chat.addMessage(std::move(result.resultMessage));
     }
 }
 
@@ -236,4 +237,10 @@ void Player::storeAllRelevantData(std::stringstream& buffer) const {
     msgpack::type::tuple<int32_t, int32_t> position(currentPosition.iPosition,
                                                 currentPosition.jPosition);
     msgpack::pack(buffer, position);
+    msgpack::type::tuple<std::string> minichat(chat.getMessages());
+    msgpack::pack(buffer, minichat);
+}
+
+void Player::clearMinichat() {
+    chat.clear();
 }
