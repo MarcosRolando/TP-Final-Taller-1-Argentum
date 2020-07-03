@@ -137,9 +137,6 @@ GameType::Entity Entity::getType() const {
     return type;
 }
 
-
-#include <iostream>
-
 void Entity::operator>>(std::stringstream& buffer) const {
     msgpack::type::tuple<GameType::EventID> idType(GameType::EventID::CREATE_ENTITY);
     msgpack::pack(buffer, idType);

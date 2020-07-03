@@ -24,7 +24,7 @@ void ArgentumServer::connect(const std::string& _port, const std::string& mapFil
     socket.maxListen(MAX_LISTENERS);
     _execute(mapFilePath);
 }
-
+#include <iostream>
 void ArgentumServer::_execute(const std::string& mapFilePath) {
     Game game((MapFileReader(mapFilePath)), clients);
     ServerProtocol protocol(game.getMap());
@@ -58,6 +58,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();
+        std::cout << timeStep.count() << std::endl;
         if (lastFrameTime < FRAME_TIME) {
             usleep((FRAME_TIME - lastFrameTime) * 1000);
             lastFrameTime = FRAME_TIME;
