@@ -33,7 +33,7 @@ unsigned int Priest::list(const Player &player, std::list<ProductData> &products
 }
 */
 
-void Priest::list(const Player &player) {
+void Priest::list(Player &player) {
     shop.list(player);
 }
 

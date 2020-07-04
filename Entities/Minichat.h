@@ -13,6 +13,7 @@ private:
 
 public:
     void addMessage(std::string&& msg);
+    void addMessage(const std::string& msg);
     std::string getMessages() const;
     void clear();
 };

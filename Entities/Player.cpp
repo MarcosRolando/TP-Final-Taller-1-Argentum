@@ -247,3 +247,7 @@ void Player::storeAllRelevantData(std::stringstream& buffer) const {
 void Player::clearMinichat() {
     chat.clear();
 }
+
+void Player::addMessage(const std::string &message) {
+    chat.addMessage(message);
+}

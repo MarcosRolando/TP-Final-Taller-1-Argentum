@@ -109,6 +109,8 @@ public:
 
     void clearMinichat();
 
+    void addMessage(const std::string& message);
+
 private:
     void _dropItems();
 };

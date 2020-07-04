@@ -6,14 +6,10 @@
 #include "../../Items/ItemsFactory.h"
 #include <utility>
 #include "../../Items/Item.h"
+#include "../Player.h"
 #include "msgpack.hpp"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
-
-class Player {
-public:
-    bool storeItem(std::shared_ptr<Item>&& item);
-};
 
 Storage &Storage::operator=(Storage &&other) noexcept {
     storedGold = other.storedGold;
@@ -71,14 +67,10 @@ unsigned int Storage::getStorageData(std::list<ProductData> &products,
 
 void Storage::getStorageData(Player& player, const std::unordered_map<std::string, unsigned int> &prices,
                              float priceMultiplier) const {
-    _storeBasicData(player, true);
-    std::string buffer;
+    _addAmmountMessageToPlayer(player, "Gold", storedGold);
     for (const auto & storedItem : storedItems) {
-        buffer += storedItem.second.front()->getName();
-        buffer += ": ";
-        buffer += std::to_string(prices.at(storedItem.first) * priceMultiplier);
-        buffer += "\n";
-        player
+        _addAmmountMessageToPlayer(player, storedItem.second.front()->getName(),
+                                   prices.at(storedItem.first) * priceMultiplier);
         /*
         msgpack::type::tuple<std::string, int32_t, int32_t> productData
                 (storedItem.second.front()->getName(), storedItem.second.size(), prices.at(storedItem.first) * priceMultiplier);
@@ -99,11 +91,10 @@ unsigned int Storage::getStorageData(std::list<ProductData> &products) const {
 */
 
 void Storage::getStorageData(Player& player) const {
-    _storeBasicData(data, false);
+    _addAmmountMessageToPlayer(player, "Gold", storedGold);
     for (const auto & storedItem : storedItems) {
-        msgpack::type::tuple<std::string, int32_t> productData
-                (storedItem.second.front()->getName(), storedItem.second.size());
-        msgpack::pack(data, productData);
+        _addAmmountMessageToPlayer(player, storedItem.second.front()->getName(),
+                                   storedItem.second.size());
     }
 }
 
@@ -136,9 +127,10 @@ Storage::Storage() {
 
 ///////////////////////////////PRIVATE/////////////////////////////
 
-void Storage::_storeBasicData(Player& player, bool hasPrice) const {
-    msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::LIST);
-    msgpack::pack(data, messageTypeData);
-    msgpack::type::tuple<int32_t, int32_t, bool> basicData(storedGold, storedItems.size(), hasPrice); //false: tienen precio
-    msgpack::pack(data, basicData);
+void Storage::_addAmmountMessageToPlayer(Player &player, const std::string &itemName,
+                                         int concatenatedNumber) const {
+    player.addMessage(itemName);
+    player.addMessage(": ");
+    player.addMessage(std::to_string(concatenatedNumber));
+    player.addMessage("\n");
 }

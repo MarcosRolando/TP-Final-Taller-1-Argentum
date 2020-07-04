@@ -4,6 +4,10 @@
 
 #include "Minichat.h"
 
+void Minichat::addMessage(const std::string &msg) {
+    message += msg;
+}
+
 void Minichat::addMessage(std::string&& msg) {
     message += msg;
 }

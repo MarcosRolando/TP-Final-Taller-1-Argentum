@@ -43,7 +43,7 @@ unsigned int Trader::list(const Player &player, std::list<ProductData> &products
 }
 */
 
-void Trader::list(const Player &player) {
+void Trader::list(Player &player) {
     shop.list(player);
 }
 

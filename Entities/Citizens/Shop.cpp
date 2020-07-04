@@ -46,8 +46,8 @@ unsigned int Shop::list(const Player &player, std::list<ProductData> &products) 
 }
 */
 
-void Shop::list(const Player &player) {
-    storage.getStorageData(prices, buyingMultiplier);
+void Shop::list(Player &player) const {
+    storage.getStorageData(player, prices, buyingMultiplier);
 }
 
 

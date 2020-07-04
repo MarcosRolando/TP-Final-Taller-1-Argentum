@@ -36,7 +36,8 @@ private:
 
     friend EntityTests;
 private:
-    void _storeBasicData(Player& player, bool hasPrice) const;
+    void _addAmmountMessageToPlayer(Player& player, const std::string& itemName,
+                                    int concatenatedNumber) const;
 
 public:
 
