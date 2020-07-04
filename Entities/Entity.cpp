@@ -75,36 +75,6 @@ void Entity::sell(Player &player, const std::string& itemName) {
     //DO NOTHING
 }
 
-/*
-void Entity::requestMove(Game& game, GameType::Direction moveDirection) {
-    if (!isMoving()) {
-        std::unique_ptr<Move> event;
-        switch (moveDirection) {
-            case GameType::DIRECTION_UP:
-                event.reset(new Move(game, *this, {currentPosition.iPosition - 1,
-                                                                    currentPosition.jPosition} ));
-                game.pushEvent(std::move(event));
-                break;
-            case GameType::DIRECTION_DOWN:
-                event.reset(new Move(game, *this, {currentPosition.iPosition + 1,
-                                                                   currentPosition.jPosition} ));
-                game.pushEvent(std::move(event));
-                break;
-            case GameType::DIRECTION_RIGHT:
-                event.reset(new Move(game, *this, {currentPosition.iPosition,
-                                                                   currentPosition.jPosition + 1} ));
-                game.pushEvent(std::move(event));
-                break;
-            case GameType::DIRECTION_LEFT:
-                event.reset(new Move(game, *this, {currentPosition.iPosition,
-                                                   currentPosition.jPosition - 1} ));
-                game.pushEvent(std::move(event));
-                break;
-        }
-    }
-}
-*/
-
 void Entity::move(Coordinate newPosition) {
     currentPosition = newPosition;
     movement.isMoving = true;
@@ -116,13 +86,6 @@ void Entity::update(double timeStep, Game& game) {
         std::unique_ptr<Moved> event(new Moved(*this, movement.direction,
                                        static_cast<unsigned int>(timeStep) * speed));
         game.pushEvent(std::move(event));
-        /*
-        movement.movedDistance += static_cast<unsigned int>(timeStep) * speed;
-        if (movement.movedDistance >= DISTANCE_TO_MOVE) {
-            movement.movedDistance = DISTANCE_TO_MOVE;
-            movement.isMoving = false;
-        }
-        */
     }
 }
 

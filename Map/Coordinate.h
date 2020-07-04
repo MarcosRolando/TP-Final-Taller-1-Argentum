@@ -13,6 +13,14 @@
 struct Coordinate {
     int iPosition; //todo ver si lo cambiamos a int32 xq estamos mandando esto
     int jPosition;
+
+    bool operator==(Coordinate& other) {
+        return ((iPosition == other.iPosition) && (jPosition == other.jPosition));
+    }
+
+    bool operator!=(Coordinate& other) {
+        return !((iPosition == other.iPosition) && (jPosition == other.jPosition));
+    }
 };
 
 namespace std {

@@ -30,8 +30,6 @@ private:
     static unsigned int availableId;
     std::string nickname;
 
-
-
 protected:
     Coordinate currentPosition{};
     GameType::Entity type;
