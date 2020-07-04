@@ -14,7 +14,7 @@
 Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/font.ttf", 20),
                                 input(minichatFont,renderer), renderer(renderer) {
     focusOnMinichat = false;
-    input.updateText(":/ ");//Pongo el Accion:/ aca xq me parece al
+    input.updateText(":");//Pongo el Accion:/ aca xq me parece al
     // pedo crear un text solo para eso, pero capaz tengo q hacerlo por el
     // tema del protocolo
 
@@ -28,17 +28,17 @@ Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/font.ttf"
 //Ver esta funcion xq esta muy rancia
 std::string Minichat::handleReturnKey() {
     std::string toPrint = input.getText();
-    if (toPrint.size() > 9){
-        toPrint.erase(0, 9);//Le saco "Accion:"
+    if (toPrint.size() > 1) {
+        toPrint.erase(0, 1);//Le saco "Accion:"
         queueText(toPrint);//Imprimo el comando en el minichat
-        input.updateText("Accion:/ ");
+        input.updateText(":");
         return toPrint;
     }
     return " ";
 }
 
 void Minichat::handleBackspace() {
-    if (input.getTextLength() > 9) {
+    if (input.getTextLength() > 1) {
         //Va un 9 asi no borro la parte fija que dice Accion
         //borro una letra
         input.eraseText();
