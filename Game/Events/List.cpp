@@ -10,8 +10,7 @@ List::List(Player &_player, Coordinate _npcPosition) : player(_player) {
 }
 
 void List::operator()(ServerProtocol& protocol) {
-    std::stringstream data;
-    player.listFrom(npcPosition, data);
+    player.listFrom(npcPosition);
 
     //HAY QUE AGREGARLO AL MINICHAT DEL PLAYER
 

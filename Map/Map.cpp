@@ -373,9 +373,9 @@ unsigned int Map::list(Player &player, std::list<ProductData> &products, Coordin
 }
 */
 
-void Map::list(Player &player, Coordinate coordinate, std::stringstream &data) {
+void Map::list(Player &player, Coordinate coordinate) {
     if (_isCoordinateValid(coordinate)) {
-        tiles[coordinate.iPosition][coordinate.jPosition].list(player, data);
+        tiles[coordinate.iPosition][coordinate.jPosition].list(player);
     }
 }
 

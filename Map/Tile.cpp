@@ -94,9 +94,9 @@ void Tile::list(Player& player, std::list<ProductData> &products) {
 }
 */
 
-void Tile::list(Player &player, std::stringstream &data) {
+void Tile::list(Player &player) {
     if (entity) {
-        entity->list(player, data);
+        entity->list(player);
     }
 }
 

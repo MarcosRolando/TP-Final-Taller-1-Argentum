@@ -36,7 +36,7 @@ private:
 
     friend EntityTests;
 private:
-    void _storeBasicData(std::stringstream& data, bool hasPrice) const;
+    void _storeBasicData(Player& player, bool hasPrice) const;
 
 public:
 
@@ -65,12 +65,11 @@ public:
                                 const std::unordered_map<std::string, unsigned int>& prices,
                                 float priceMultiplier) const;
     */
-    void getStorageData(std::stringstream& data,
-                                const std::unordered_map<std::string, unsigned int>& prices,
+    void getStorageData(Player& player, const std::unordered_map<std::string, unsigned int>& prices,
                                 float priceMultiplier) const;
 
     //unsigned int getStorageData(std::list<ProductData>& products) const;
-    void getStorageData(std::stringstream& data) const;
+    void getStorageData(Player& player) const;
 
     //Indica si el item con el nombre indicado se encuentra guardado
     bool isItemAvailable(const std::string& itemName) const;

@@ -69,14 +69,21 @@ unsigned int Storage::getStorageData(std::list<ProductData> &products,
 }
 */
 
-void Storage::getStorageData(std::stringstream &data,
-                             const std::unordered_map<std::string, unsigned int> &prices,
+void Storage::getStorageData(Player& player, const std::unordered_map<std::string, unsigned int> &prices,
                              float priceMultiplier) const {
-    _storeBasicData(data, true);
+    _storeBasicData(player, true);
+    std::string buffer;
     for (const auto & storedItem : storedItems) {
+        buffer += storedItem.second.front()->getName();
+        buffer += ": ";
+        buffer += std::to_string(prices.at(storedItem.first) * priceMultiplier);
+        buffer += "\n";
+        player
+        /*
         msgpack::type::tuple<std::string, int32_t, int32_t> productData
                 (storedItem.second.front()->getName(), storedItem.second.size(), prices.at(storedItem.first) * priceMultiplier);
         msgpack::pack(data, productData);
+        */
     }
 }
 
@@ -91,7 +98,7 @@ unsigned int Storage::getStorageData(std::list<ProductData> &products) const {
 }
 */
 
-void Storage::getStorageData(std::stringstream& data) const {
+void Storage::getStorageData(Player& player) const {
     _storeBasicData(data, false);
     for (const auto & storedItem : storedItems) {
         msgpack::type::tuple<std::string, int32_t> productData
@@ -129,7 +136,7 @@ Storage::Storage() {
 
 ///////////////////////////////PRIVATE/////////////////////////////
 
-void Storage::_storeBasicData(std::stringstream& data, bool hasPrice) const {
+void Storage::_storeBasicData(Player& player, bool hasPrice) const {
     msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::LIST);
     msgpack::pack(data, messageTypeData);
     msgpack::type::tuple<int32_t, int32_t, bool> basicData(storedGold, storedItems.size(), hasPrice); //false: tienen precio

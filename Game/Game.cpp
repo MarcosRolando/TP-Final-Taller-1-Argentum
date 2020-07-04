@@ -134,8 +134,8 @@ unsigned int Game::list(Player &player, std::list<ProductData> &products, Coordi
 }
 */
 
-void Game::list(Player &player, Coordinate coordinate, std::stringstream& data) {
-    map.list(player, coordinate, data);
+void Game::list(Player &player, Coordinate coordinate) {
+    map.list(player, coordinate);
 }
 
 

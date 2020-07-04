@@ -33,8 +33,8 @@ unsigned int Priest::list(const Player &player, std::list<ProductData> &products
 }
 */
 
-void Priest::list(const Player &player, std::stringstream &data) {
-    shop.list(player, data);
+void Priest::list(const Player &player) {
+    shop.list(player);
 }
 
 

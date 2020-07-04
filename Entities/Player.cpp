@@ -216,8 +216,8 @@ void Player::listFrom(Coordinate npcPosition) {
 */
 
 
-void Player::listFrom(Coordinate npcPosition, std::stringstream &data) {
-    game.list(*this, npcPosition, data);
+void Player::listFrom(Coordinate npcPosition) {
+    game.list(*this, npcPosition);
 }
 
 void Player::depositTo(const std::string &itemName, Coordinate npcPosition) {
