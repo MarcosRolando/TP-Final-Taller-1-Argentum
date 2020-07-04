@@ -42,8 +42,10 @@ PlayerProxy::PlayerProxy(Game *_game, Player *_player) {
 }
 
 void PlayerProxy::attack(Coordinate target) {
-    if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Attack(*player, target));
+    if (player->getPosition() != target) {
+        if (storedEvents.size() < MAX_EVENTS_STORED) {
+            storedEvents.emplace(new Attack(*player, target));
+        }
     }
 }
 

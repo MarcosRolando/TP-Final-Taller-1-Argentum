@@ -61,9 +61,10 @@ void ServerProtocol::buildGeneralDataBuffer() {
     generalData.clear();
 }
 
-std::vector<char> ServerProtocol::getPlayerData(const PlayerProxy& player) {
+std::vector<char> ServerProtocol::getPlayerData(PlayerProxy& player) {
     std::stringstream data;
     player.storeAllRelevantData(data);
+    player.clearMinichat();
     std::string auxString = data.str();
     uint32_t msgLength = htonl(auxString.size());
     std::vector<char> buffer(sizeof(uint32_t));
