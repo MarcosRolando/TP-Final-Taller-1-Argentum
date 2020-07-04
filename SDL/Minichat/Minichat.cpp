@@ -75,7 +75,18 @@ void Minichat::handleMouseWheel(SDL_Event& e){
 }
 
 void Minichat::receiveText(std::string& text) {
-    queueText(text);
+    //Separa un mensaje separado con \n en varias lineas
+    int currPos = -1;
+    int nextPos;
+    while (currPos < (int)text.size()) {
+        nextPos =  text.find('\n', currPos + 1);
+        std::string substr = text.substr(currPos + 1, nextPos - currPos - 1);
+        currPos = nextPos;
+        if (substr.empty())
+            break;
+
+        queueText(substr);
+    }
 }
 
 //Imprime los mensajes relevantes
