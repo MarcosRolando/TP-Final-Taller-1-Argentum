@@ -72,7 +72,7 @@ void PlayerInventoryGUI::_renderText() {
 
     _renderSkills();
 
-    text.updateText("MyX: " + std::to_string(pInfo.getXPos()) + "   " + "MyY: " +
+    text.updateText("X: " + std::to_string(pInfo.getXPos()) + "   " + "Y: " +
                     std::to_string(pInfo.getYPos()));
     text.render(200, 880, {0xFF, 0xFF, 0xFF});
 }

@@ -115,7 +115,7 @@ int32_t PlayerInfoGUI::getAgility() const {
     return pInfo.agility;
 }
 
-int32_t PlayerInfoGUI::getIntelligence() {
+int32_t PlayerInfoGUI::getIntelligence() const {
     return pInfo.intelligence;
 }
 

@@ -14,11 +14,11 @@
 Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/font.ttf", 20),
                                 input(minichatFont,renderer), renderer(renderer) {
     focusOnMinichat = false;
-    input.updateText("Accion:/ ");//Pongo el Accion:/ aca xq me parece al
+    input.updateText(":/ ");//Pongo el Accion:/ aca xq me parece al
     // pedo crear un text solo para eso, pero capaz tengo q hacerlo por el
     // tema del protocolo
 
-    //LLeno el vector con mensajes vacios
+    //Lleno el vector con mensajes vacios
     for (int i = 0; i < MAX_MSGS; ++i) {
         texts.emplace_back(minichatFont,renderer);
     }
@@ -79,10 +79,12 @@ void Minichat::receiveText(std::string& text) {
 }
 
 //Imprime los mensajes relevantes
-void Minichat::queueText(std::string& newText){
-    texts.pop_back();
-    texts.emplace_front(minichatFont, renderer);
-    texts.front().updateText(newText);
+void Minichat::queueText(std::string& newText) {
+    if (!newText.empty()) {
+        texts.pop_back();
+        texts.emplace_front(minichatFont, renderer);
+        texts.front().updateText(newText);
+    }
 }
 
 void Minichat::render(){
@@ -109,6 +111,6 @@ bool Minichat::_isInsideMinichat(int xClick, int yClick){
     && ( yClick <= (MINICHAT_Y_OFFSET + DEFAULT_MINICHAT_HEIGHT));
 }
 
-Minichat::~Minichat() {}
+Minichat::~Minichat() = default;
 
 

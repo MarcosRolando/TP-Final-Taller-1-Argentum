@@ -41,7 +41,7 @@ public:
     ~Minichat();
 
 private:
-    bool _isInsideMinichat(int xClick, int yClick);
+    static bool _isInsideMinichat(int xClick, int yClick);
 };
 
 #endif //ARGENTUM_MINICHAT_H

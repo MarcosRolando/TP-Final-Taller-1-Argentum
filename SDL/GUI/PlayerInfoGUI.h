@@ -25,7 +25,7 @@ public:
     int32_t getStrength() const;
     int32_t getConstitution() const;
     int32_t getAgility() const;
-    int32_t getIntelligence();
+    int32_t getIntelligence() const;
     void update(GUIPlayerInfo& generalInfo);
     void render();
 
