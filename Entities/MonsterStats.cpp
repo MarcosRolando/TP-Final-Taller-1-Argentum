@@ -40,6 +40,8 @@ unsigned int MonsterStats::getLevel() const {
     return level;
 }
 
+#include <iostream>
+
 AttackResult MonsterStats::modifyLife(int _damage, unsigned int attackerLevel) {
     AttackResult result {};
     if (Calculator::canDodge(getAgility())) {
@@ -52,6 +54,9 @@ AttackResult MonsterStats::modifyLife(int _damage, unsigned int attackerLevel) {
     }
     unsigned int experience = Calculator::calculateAttackXP(damage,
                                                             attackerLevel, level);
+
+    std::cout << "Equispe: " << experience << std::endl;
+
     if (_isDead() && damage > 0) {
         experience += Calculator::calculateKillXP(attackerLevel, level, maxLife);
     }
