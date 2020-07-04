@@ -61,7 +61,7 @@ std::unique_ptr<Entity> Tile::getEntity() {
     std::unique_ptr<Entity> aux = nullptr;
     if (entity) {
         aux = std::move(entity);
-        entity = nullptr;
+        entity.reset();
     }
     return aux;
 }

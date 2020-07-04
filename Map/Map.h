@@ -24,6 +24,7 @@ private:
     SDL_Rect& camera;
     std::unordered_map<std::string, Coordinate> entities;
     std::list<Entity*> movingEntities; /*Las entitites que debo interpolar*/
+    std::list<std::tuple<std::unique_ptr<Entity>, Coordinate>> entitiesToUpdateTilePosition; /*Esto es para no pisar entities entre si cuando terminan de moverse*/
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera);
@@ -53,6 +54,7 @@ public:
 
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
+    void _moveEntitiesToNewTile();
 };
 
 

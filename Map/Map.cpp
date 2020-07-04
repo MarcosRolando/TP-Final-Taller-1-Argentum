@@ -111,7 +111,7 @@ void Map::addPlayer(MapPlayerData& playerData) {
 
 void Map::loadTileItem(Coordinate position, TextureID itemTexture) {
     unsigned int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
-    tiles[tile].loadItem(textureRepo.getTexture(itemTexture));
+    tiles.at(tile).loadItem(textureRepo.getTexture(itemTexture));
 }
 
 void Map::moveEntity(std::string &nickname, GameType::Direction direction,
@@ -119,14 +119,13 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
 
     Coordinate entityPosition = entities.at(nickname);
     int tile = entityPosition.i * TOTAL_HORIZONTAL_TILES + entityPosition.j;
-    tiles[tile].moveEntity(direction, distanceTravelled, movingEntities);
+    tiles.at(tile).moveEntity(direction, distanceTravelled, movingEntities);
     if (reachedDestination) {
-        std::unique_ptr<Entity> entity = tiles[tile].getEntity();
+        std::unique_ptr<Entity> entity = tiles.at(tile).getEntity();
         entityPosition = _calculateNewTile(entityPosition, direction);
-        tile = entityPosition.i * TOTAL_HORIZONTAL_TILES + entityPosition.j;
-        tiles[tile].addEntity(std::move(entity));
-        auto it = entities.find(nickname);
-        it->second = entityPosition;
+        entitiesToUpdateTilePosition.emplace_back(std::move(entity), entityPosition);
+        entities.erase(nickname);
+        entities.emplace(std::move(nickname), entityPosition);
     }
 }
 
@@ -159,7 +158,18 @@ bool _finishedMoving(const Entity* entity) {
     }
 }
 
+void Map::_moveEntitiesToNewTile() {
+    if (!entitiesToUpdateTilePosition.empty()) {
+        for (auto && entity : entitiesToUpdateTilePosition) {
+            int tile = std::get<1>(entity).i * TOTAL_HORIZONTAL_TILES + std::get<1>(entity).j;
+            tiles.at(tile).addEntity(std::move(std::get<0>(entity)));
+        }
+        entitiesToUpdateTilePosition.clear();
+    }
+}
+
 void Map::updateInterpolation(float timeStep) {
+    _moveEntitiesToNewTile();
     for (auto & entity : movingEntities) {
         if (entity) { /*Este caso esta por si por ejemplo el entity se estaba moviendo y lo eliminaron*/
             entity->updatePosition(timeStep);
