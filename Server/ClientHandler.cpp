@@ -87,8 +87,6 @@ void ClientHandler::_addMessageToQueue() {
     //todo procesar el mensaje al proxy
 }
 
-
-
 void ClientHandler::_processClientAction(std::vector<char>& data) {
     offset = 0;
     msgpack::type::tuple<GameType::PlayerEvent> event;
