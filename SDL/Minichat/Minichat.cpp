@@ -29,8 +29,8 @@ Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/font.ttf"
 std::string Minichat::handleReturnKey() {
     std::string toPrint = input.getText();
     if (toPrint.size() > 1) {
-        toPrint.erase(0, 1);//Le saco "Accion:"
-        queueText(toPrint);//Imprimo el comando en el minichat
+        toPrint.erase(0, 1);//Le saco ":"
+        receiveText(toPrint);//Imprimo el comando en el minichat
         input.updateText(":");
         return toPrint;
     }
@@ -75,7 +75,17 @@ void Minichat::handleMouseWheel(SDL_Event& e){
 }
 
 void Minichat::receiveText(std::string& text) {
-    queueText(text);
+    //Separa un mensaje separado con \n en varias lineas
+    int currPos = -1;
+    int nextPos;
+    while (currPos < (int)text.size()) {
+        nextPos =  text.find('\n', currPos + 1);
+        std::string substr = text.substr(currPos + 1, nextPos - currPos - 1);
+        currPos = nextPos;
+        queueText(substr);
+        if (nextPos == -1)
+            break;
+    }
 }
 
 //Imprime los mensajes relevantes
