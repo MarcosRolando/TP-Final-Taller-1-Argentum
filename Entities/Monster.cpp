@@ -129,10 +129,11 @@ Monster::Monster(Game &_game, Coordinate initialPosition,
 }
 
 AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isAPlayer) {
-    AttackResult result{};
+    AttackResult result{0, 0, ""};
+    if (_damage == 0) return result;
     if (!isDead()) {
         result = stats.modifyLife(_damage, attackerLevel);
-        result.resultMessage += "You damaged " + getNickname() + " by " +
+        result.resultMessage += "You damaged the Monster by " +
                     std::to_string(result.damage) + " (Remaining Life: " +
                     std::to_string(stats.getCurrentLife()) +
                     " , XP Gained: " + std::to_string(result.experience) + ")\n";

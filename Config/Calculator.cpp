@@ -61,7 +61,7 @@ unsigned int Calculator::calculateAttackXP(unsigned int dmg, unsigned int
             .attackXPModifier;
 
     int multiplier = static_cast<int>(otherLevel - myLevel + modifier);
-    return dmg * std::max(multiplier, 0);
+    return (dmg * std::max(multiplier, 0));
 }
 
 unsigned int Calculator::calculateKillXP(unsigned int myLevel,

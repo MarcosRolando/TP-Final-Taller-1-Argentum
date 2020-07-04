@@ -41,7 +41,7 @@ unsigned int MonsterStats::getLevel() const {
 }
 
 AttackResult MonsterStats::modifyLife(int _damage, unsigned int attackerLevel) {
-    AttackResult result {};
+    AttackResult result {0, 0, ""};
     if (Calculator::canDodge(getAgility())) {
         result.resultMessage += DODGE_MESSAGE;
         return result;
@@ -50,9 +50,9 @@ AttackResult MonsterStats::modifyLife(int _damage, unsigned int attackerLevel) {
     if (currentLife < 0) {
         currentLife = 0;
     }
-    unsigned int experience = Calculator::calculateAttackXP(damage,
+    unsigned int experience = Calculator::calculateAttackXP(_damage,
                                                             attackerLevel, level);
-    if (_isDead() && damage > 0) {
+    if (_isDead() && _damage > 0) {
         experience += Calculator::calculateKillXP(attackerLevel, level, maxLife);
     }
     result.damage = _damage;
