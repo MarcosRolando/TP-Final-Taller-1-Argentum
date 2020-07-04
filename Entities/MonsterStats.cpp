@@ -54,7 +54,7 @@ AttackResult MonsterStats::modifyLife(int _damage, unsigned int attackerLevel) {
     }
     unsigned int experience = Calculator::calculateAttackXP(damage,
                                                             attackerLevel, level);
-
+    std::cout << "Damio: " << _damage << std::endl;
     std::cout << "Equispe: " << experience << std::endl;
 
     if (_isDead() && damage > 0) {
