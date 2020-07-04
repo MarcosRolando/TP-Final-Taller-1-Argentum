@@ -31,7 +31,7 @@ unsigned int Banker::list(const Player &player, std::list<ProductData> &products
     return playersStorages.at(player.getNickname()).getStorageData(products);
 }
 */
-void Banker::list(const Player &player, std::stringstream& data) {
+void Banker::list(const Player &player) {
     playersStorages.at(player.getNickname()).getStorageData(data);
 }
 

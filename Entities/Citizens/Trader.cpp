@@ -43,8 +43,8 @@ unsigned int Trader::list(const Player &player, std::list<ProductData> &products
 }
 */
 
-void Trader::list(const Player &player, std::stringstream &data) {
-    shop.list(player, data);
+void Trader::list(const Player &player) {
+    shop.list(player);
 }
 
 

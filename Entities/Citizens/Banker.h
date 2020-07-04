@@ -26,7 +26,7 @@ public:
     //Almacena una lista con los datos de los items y oro almacenados
     //NO TIENE QUE ALMACENAR PRODUCTDATA, CAMBIAR
     //unsigned int list(const Player &player, std::list<ProductData>& products) override;
-    void list(const Player &player, std::stringstream& data) override;
+    void list(const Player &player) override;
 
     //Intenta sacar el item del banco y almacenarlo en el inventario del jugador
     //Si el item no esta guardado en el banco o el judador no tiene espacio en

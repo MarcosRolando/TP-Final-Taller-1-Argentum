@@ -55,7 +55,7 @@ unsigned int Entity::list(const Player &player, std::list<ProductData>& products
     return 0;
 }
 */
-void Entity::list(const Player &player, std::stringstream& data) {
+void Entity::list(const Player &player) {
 
 }
 
