@@ -135,7 +135,7 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
         result.resultMessage += "You damaged " + getNickname() + " by " +
                     std::to_string(result.damage) + " (Remaining Life: " +
                     std::to_string(stats.getCurrentLife()) +
-                    " , XP Gained: " + std::to_string(result.experience) + "\n";
+                    " , XP Gained: " + std::to_string(result.experience) + ")\n";
         if (isDead()) {
             std::shared_ptr<Item> drop;
             ItemsFactory::getInstance().storeRandomDrop(drop, stats.getMaxLife());

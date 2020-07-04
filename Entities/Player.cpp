@@ -83,7 +83,7 @@ AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPl
         }
         attackedMessage += "You damaged " + getNickname() + " by " + std::to_string(totalDamage);
         attackedMessage += " (Remaining Life: " + std::to_string(stats.getCurrentLife()) +
-                            " , XP Gained: " + std::to_string(experience) + "\n";
+                            " , XP Gained: " + std::to_string(experience) + ")\n";
         return {totalDamage, experience, std::move(attackedMessage)};
     } else {
         return {0, 0, PLAYER_IS_DEAD_MESSAGE};
