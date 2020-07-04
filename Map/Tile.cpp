@@ -70,7 +70,7 @@ std::shared_ptr<Item> Tile::removeItem() {
 
 AttackResult Tile::attacked(int damage, unsigned int level, bool isAPlayer) {
     if (!entity) {
-        return {0, 0};
+        return {0, 0, ""};
     }
     return entity->attacked(damage, level, isAPlayer);
 }
