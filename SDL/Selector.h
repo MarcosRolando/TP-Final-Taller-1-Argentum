@@ -36,6 +36,7 @@ public:
     //Devuelve true si tengo un slot del inventario seleccionado
     bool hasSelectedSlot(Coordinate click) const;
     bool hasSelectedEquipment(Coordinate click) const;
+    void resetTileSelection();
     ~Selector();
 
 private:
@@ -44,6 +45,7 @@ private:
     bool _isInsideRect(Coordinate click, int left, int right, int top,
             int bottom) const;
     void _verifySelectedEquipment(Coordinate click);
+
 
 };
 

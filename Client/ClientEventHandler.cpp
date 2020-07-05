@@ -78,21 +78,25 @@ void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
     msgpack::type::tuple<GameType::Direction> direction;
     switch (e.key.keysym.sym) {
         case SDLK_UP:
+            game.getSelector().resetTileSelection();
             direction = {GameType::DIRECTION_UP};
             msgpack::pack(msgBuffer, event);
             msgpack::pack(msgBuffer, direction);
             break;
         case SDLK_DOWN:
+            game.getSelector().resetTileSelection();
             direction = {GameType::DIRECTION_DOWN};
             msgpack::pack(msgBuffer, event);
             msgpack::pack(msgBuffer, direction);
             break;
         case SDLK_LEFT:
+            game.getSelector().resetTileSelection();
             direction = {GameType::DIRECTION_LEFT};
             msgpack::pack(msgBuffer, event);
             msgpack::pack(msgBuffer, direction);
             break;
         case SDLK_RIGHT:
+            game.getSelector().resetTileSelection();
             direction = {GameType::DIRECTION_RIGHT};
             msgpack::pack(msgBuffer, event);
             msgpack::pack(msgBuffer, direction);
