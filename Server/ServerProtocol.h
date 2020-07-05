@@ -45,11 +45,6 @@ public:
     const std::vector<char>& getGeneralData();
 
     static std::vector<char> getPlayerData(PlayerProxy& player);
-
-    void storeEntityInitialData(const Entity* entity);//todo creo que esto no hace falta para nada
-
-    //todo HACER FUNCION QUE CONSIGA LA DATA INICIAL DEL PLAYER
-
 };
 
 

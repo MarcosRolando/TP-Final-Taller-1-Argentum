@@ -4,9 +4,8 @@
 
 #include "UseItem.h"
 #include "../../Entities/Player.h"
-#include "../../Config/GameEnums.h"
-#include "../../Items/UseReturnData.h"
 #include <msgpack.hpp>
+#include "../../Server/ServerProtocol.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::EquipmentPlace)
@@ -24,5 +23,6 @@ void UseItem::operator()(ServerProtocol& protocol) {
         msgpack::type::tuple<std::string, GameType::EquipmentPlace, int32_t> useDataTuple
                         (player.getNickname(), useData.equipmentPlace, useData.id);
         msgpack::pack(data, useDataTuple);
+        protocol.addToGeneralData(data);
     }
 }

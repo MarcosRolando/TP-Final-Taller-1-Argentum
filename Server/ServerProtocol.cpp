@@ -80,7 +80,3 @@ void ServerProtocol::_loadBytes(std::vector<char>& buffer, void* data, unsigned 
         buffer[i] = *(reinterpret_cast<char *>(data) + i);
     }
 }
-
-void ServerProtocol::storeEntityInitialData(const Entity *entity) {
-    (*entity) >> currentStateData;
-}
