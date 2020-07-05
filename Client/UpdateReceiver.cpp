@@ -48,6 +48,7 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
             case GameType::UNEQUIP:
                 break;
             case GameType::USE_ITEM:
+                handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
                 break;
             case GameType::CREATE_ENTITY:
                 _processCreateEntity();
