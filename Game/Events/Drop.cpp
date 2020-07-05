@@ -6,7 +6,7 @@
 #include "../../Entities/Player.h"
 
 
-Drop::Drop(Player &player, unsigned int _position): player(player) {
+Drop::Drop(Player &player, unsigned int _position): player(&player) {
     position = _position;
 }
 
@@ -15,5 +15,7 @@ Drop::Drop(std::list<std::shared_ptr<Item>>&& items, unsigned int position) {
 }
 
 void Drop::operator()(ServerProtocol& protocol) {
-    player.dropItem(position);
+    if (player) {
+        player->dropItem(position);
+    }
 }

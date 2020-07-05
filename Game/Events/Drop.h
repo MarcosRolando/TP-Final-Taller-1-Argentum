@@ -17,7 +17,7 @@ class Player;
 
 class Drop: public Event {
 private:
-    Player& player;
+    Player* player{nullptr};
     unsigned int position;
 public:
     Drop(Player& player, unsigned int position);
