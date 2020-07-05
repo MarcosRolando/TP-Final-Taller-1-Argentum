@@ -17,7 +17,6 @@ private:
 
 public:
     Unequip(Player& player, GameType::EquipmentPlace equipment);
-    explicit Unequip(Player& player);
     void operator()(ServerProtocol& protocol) override;
 };
 

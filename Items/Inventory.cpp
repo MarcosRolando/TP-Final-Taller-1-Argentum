@@ -71,14 +71,14 @@ void Inventory::_storeNullItemData(std::stringstream &buffer) {
 
 
 void Inventory::_restoreDefaultEquipment() {
-    if (!clothingEquipment[GameType::EQUIPMENT_PLACE_HEAD]) {
-        clothingEquipment[GameType::EQUIPMENT_PLACE_HEAD].reset(new Head(GameType::Clothing::NO_HELMET));
+    if (!clothingEquipment.at(GameType::EQUIPMENT_PLACE_HEAD)) {
+        clothingEquipment.at(GameType::EQUIPMENT_PLACE_HEAD).reset(new Head(GameType::Clothing::NO_HELMET));
     }
-    if (!clothingEquipment[GameType::EQUIPMENT_PLACE_CHEST]) {
-        clothingEquipment[GameType::EQUIPMENT_PLACE_CHEST].reset(new Chest(GameType::Clothing::COMMON_CLOTHING));
+    if (!clothingEquipment.at(GameType::EQUIPMENT_PLACE_CHEST)) {
+        clothingEquipment.at(GameType::EQUIPMENT_PLACE_CHEST).reset(new Chest(GameType::Clothing::COMMON_CLOTHING));
     }
-    if (!clothingEquipment[GameType::EQUIPMENT_PLACE_SHIELD]) {
-        clothingEquipment[GameType::EQUIPMENT_PLACE_SHIELD].reset(new Shield(GameType::Clothing::NO_SHIELD));
+    if (!clothingEquipment.at(GameType::EQUIPMENT_PLACE_SHIELD)) {
+        clothingEquipment.at(GameType::EQUIPMENT_PLACE_SHIELD).reset(new Shield(GameType::Clothing::NO_SHIELD));
     }
     if (!equippedWeapon) {
         equippedWeapon.reset(new Weapon(GameType::Weapon::FIST));
@@ -168,6 +168,7 @@ bool Inventory::unequip(GameType::EquipmentPlace clothing) {
     for (auto & item : items) {
         if (!item) {
             item = std::move(clothingEquipment.at(clothing));
+            _restoreDefaultEquipment();
             return true;
         }
     }
@@ -181,6 +182,7 @@ bool Inventory::unequip() {
     for (auto & item : items) {
         if (!item) {
             item = std::move(equippedWeapon);
+            _restoreDefaultEquipment();
             return true;
         }
     }

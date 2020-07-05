@@ -95,15 +95,9 @@ void PlayerProxy::depositTo(std::string &&itemName, Coordinate npcPosition) {
     }
 }
 
-void PlayerProxy::unequip() {
+void PlayerProxy::unequip(GameType::EquipmentPlace place) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Unequip(*player));
-    }
-}
-
-void PlayerProxy::unequip(GameType::EquipmentPlace clothing) {
-    if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Unequip(*player, clothing));
+        storedEvents.emplace(new Unequip(*player, place));
     }
 }
 

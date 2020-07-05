@@ -36,7 +36,6 @@ public:
     void withdrawFrom(std::string&& itemName, Coordinate npcPosition);
     void listFrom(Coordinate npcPosition);
     void depositTo(std::string&& itemName, Coordinate npcPosition);
-    void unequip();
     void unequip(GameType::EquipmentPlace clothing);
     void dropItem(unsigned int itemPosition);
     void storeAllRelevantData(std::stringstream& data) const;

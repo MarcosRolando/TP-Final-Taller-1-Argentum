@@ -15,10 +15,6 @@ Unequip::Unequip(Player &player, GameType::EquipmentPlace _equipment): player(pl
     equipment = _equipment;
 }
 
-Unequip::Unequip(Player &player): player(player) {
-    equipment = GameType::EQUIPMENT_PLACE_WEAPON;
-}
-
 void Unequip::operator()(ServerProtocol& protocol) {
     bool hasAppearanceChanged;
     if (equipment == GameType::EQUIPMENT_PLACE_WEAPON) {
