@@ -78,7 +78,7 @@ void Game::_removeEntities(ServerProtocol& protocol) {
     ShouldMonsterBeRemoved sholdBeRemoved(monstersToRemove);
     monsters.erase(std::remove_if(monsters.begin(), monsters.end(), sholdBeRemoved), monsters.end());
     for (const auto & monster: monstersToRemove) {
-        msgpack::type::tuple<GameType::EventID> eventIdData(GameType::EventID::DISAPPEARED);
+        msgpack::type::tuple<GameType::EventID> eventIdData(GameType::EventID::REMOVE_ENTITY);
         msgpack::pack(data, eventIdData);
         msgpack::type::tuple<std::string>
                 removedMonsterNickname(*monster.second);
