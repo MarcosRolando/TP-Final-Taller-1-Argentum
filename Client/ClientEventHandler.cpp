@@ -60,9 +60,10 @@ void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
             game.getWindow());
 
     if (e.button.button == SDL_BUTTON_RIGHT) {
-        if (game.getSelector().isThereSelectedTile()){
+        if (game.getSelector().isThereSelectedTile()) {
             _processAttack(game.getSelector().getSelectedTile());
-        } else if (game.getSelector().isThereSelectedInventorySlot()){
+        }
+        if (game.getSelector().isThereSelectedInventorySlot()){
             _processUseItem(game.getSelector().getInventorySlot());
         }
     }

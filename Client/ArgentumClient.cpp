@@ -48,7 +48,6 @@ void Client::_processConnection() {
     UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    //SoundPlayer soundPlayer;
     initializer.loadPlayer("ivan", GameType::Race::DWARF, GameType::Class::WARRIOR);
     initializer.initializeGame();
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);

@@ -26,6 +26,8 @@
 Selector::Selector() {
     inventorySlot = {-1, -1};
     selectedTile = {-1, -1};
+    tileSelected = false;
+    slotSelected = false;
     //click = {-1, -1};
 }
 
@@ -38,6 +40,8 @@ void Selector::_verifyTileSelection(Coordinate playerPos, Coordinate click) {
     //Veo si clickeo adentro del mapa
     if (_isInsideRect(click, DEFAULT_MAP_LEFT, DEFAULT_MAP_RIGHT, DEFAULT_MAP_TOP,
             DEFAULT_MAP_BOTTOM)){
+        tileSelected = true;
+        slotSelected = false;
         //Esto es cuando no esta en los extremos
         int playerXTile = playerPos.j;///TILE_WIDTH;
         int playerYTile = playerPos.i;///TILE_HEIGHT;
@@ -65,6 +69,8 @@ void Selector::_verifyInventorySlotSelection(Coordinate click) {
     //Veo si clickeo adentro del inventario
     if (_isInsideRect(click, DEFAULT_INVENTORY_LEFT, DEFAULT_INVENTORY_RIGHT,
             DEFAULT_INVENTORY_TOP, DEFAULT_INVENTORY_BOTTOM)){
+        tileSelected = false;
+        slotSelected = true;
         inventorySlot.j = (click.j - DEFAULT_INVENTORY_LEFT)/INVENTORY_SLOT_WIDTH;
         inventorySlot.i = (click.i - DEFAULT_INVENTORY_TOP)/INVENTORY_SLOT_HEIGHT;
     }

@@ -15,6 +15,8 @@ private:
     //Coordinate clickX;
     Coordinate inventorySlot;
     Coordinate selectedTile;
+    bool tileSelected;
+    bool slotSelected;
 public:
     Selector();
     //Se fija si el click fue en el mapa o en el inventario. Dependiendo el caso
