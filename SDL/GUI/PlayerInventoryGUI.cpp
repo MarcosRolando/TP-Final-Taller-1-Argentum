@@ -76,6 +76,9 @@ void PlayerInventoryGUI::_renderText() {
     text.updateText("X: " + std::to_string(pInfo.getXPos()) + "   " + "Y: " +
                     std::to_string(pInfo.getYPos()));
     text.render(200, 880, {0xFF, 0xFF, 0xFF});
+
+    text.updateText(pInfo.getNickname());
+    text.render(150,100, {0xFF,0xFF,0xFF});
 }
 
 void PlayerInventoryGUI::_renderSkills(){

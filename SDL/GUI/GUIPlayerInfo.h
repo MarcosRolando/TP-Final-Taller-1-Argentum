@@ -8,6 +8,7 @@
 #include "../../Map/Coordinate.h"
 
 struct GUIPlayerInfo {
+    std::string nickname;
     int32_t totalHealth, totalMana, nextLevelXP;
     int32_t health, mana, xp;
     int32_t level;

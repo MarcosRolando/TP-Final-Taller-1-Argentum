@@ -170,6 +170,14 @@ void ClientProtocol::_addPlayerStats(PlayerData& data, size_t& offset) {
     _addSkills(data, offset);
     _addPosition(data, offset);
     _addMinichatText(data, offset);
+    _addNickname(data, offset);
+}
+
+void ClientProtocol::_addNickname(PlayerData& data, size_t& offset) {
+    handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
+    msgpack::type::tuple<std::string> name;
+    handler->convert(name);
+    data.generalInfo.nickname = std::get<0>(name);
 }
 
 void ClientProtocol::_addClothing(PlayerData& info, size_t& offset, EquippedItems item) {

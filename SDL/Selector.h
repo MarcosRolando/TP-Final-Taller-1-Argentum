@@ -27,15 +27,17 @@ public:
     int getInventorySlot() const;
     //Devuelve la coordenada del tile actualmente seleccionado
     Coordinate getSelectedTile() const;
-    //Para debuggind. Me devuelve el tile relativo para renderizar el outline
+    //Para debuggin. Me devuelve el tile relativo para renderizar el outline
     Coordinate getSelectedTileToRender(Coordinate playerPos) const;
-
+    //Me devuelve el item equipado que seleccione
     GameType::EquipmentPlace getSelectedEquipment() const;
-    //Devuelve true si tengo un tile seleccionado
+    //Devuelve true si seleccione un tile
     bool hasSelectedTile(Coordinate click) const;
-    //Devuelve true si tengo un slot del inventario seleccionado
+    //Devuelve true si seleccione un slot
     bool hasSelectedSlot(Coordinate click) const;
+    //Devuelve true si seleccione un item de equipables
     bool hasSelectedEquipment(Coordinate click) const;
+    //setea el tile seleccionado a {-1,-1}
     void resetTileSelection();
     ~Selector();
 

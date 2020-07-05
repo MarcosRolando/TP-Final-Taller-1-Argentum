@@ -60,6 +60,10 @@ void PlayerInfoGUI::_updatePosition(Coordinate position) {
     pInfo.position = position;
 }
 
+void PlayerInfoGUI::_updateNickname(std::string name){
+    pInfo.nickname = name;
+}
+
 void PlayerInfoGUI::render() {
     info.updateText("HEALTH: " + std::to_string(pInfo.health) + "/" + std::to_string(pInfo.totalHealth));
     _renderInfoBar(pInfo.health, pInfo.totalHealth, HEALTH_BAR_X_OFFSET, 265,{0x99, 0x00,0x00});
@@ -119,6 +123,10 @@ int32_t PlayerInfoGUI::getIntelligence() const {
     return pInfo.intelligence;
 }
 
+std::string PlayerInfoGUI::getNickname() const {
+    return pInfo.nickname;//Ver si esta bien devoler el string asi
+}
+
 void PlayerInfoGUI::update(GUIPlayerInfo &generalInfo) {
     _updateHealth(generalInfo.health);
     _updateTotalHealth(generalInfo.totalHealth);
@@ -132,4 +140,5 @@ void PlayerInfoGUI::update(GUIPlayerInfo &generalInfo) {
     _updateConstitution(generalInfo.constitution);
     _updateAgility(generalInfo.agility);
     _updateIntelligence(generalInfo.intelligence);
+    _updateNickname(generalInfo.nickname);
 }
