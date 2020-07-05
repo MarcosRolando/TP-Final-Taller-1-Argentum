@@ -102,6 +102,9 @@ public:
     //Desequipa el arma
     bool unequip();
 
+    //Retorna una instancia de un ItemData que guarda el tipo e id de item y la
+    //posicion en la que el item fue dejado, si no se encuentra un item en la posicion
+    //recibida entonces se almacena -1 en el id del item
     ItemData dropItem(unsigned int itemPosition);
 
     void operator>>(std::stringstream& buffer) const override;
