@@ -76,11 +76,14 @@ void Selector::_verifyInventorySlotSelection(Coordinate click) {
     }
 }
 
-bool Selector::isThereSelectedTile() const {
-    return (selectedTile.i != -1 && selectedTile.j != -1);
+bool Selector::hasSelectedTile(Coordinate click) const {
+    return _isInsideRect(click, DEFAULT_MAP_LEFT, DEFAULT_MAP_RIGHT, DEFAULT_MAP_TOP,
+                         DEFAULT_MAP_BOTTOM);
 }
-bool Selector::isThereSelectedInventorySlot() const {
-    return (inventorySlot.i != -1 && inventorySlot.j != -1);
+
+bool Selector::hasSelectedSlot(Coordinate click) const {
+    return _isInsideRect(click, DEFAULT_INVENTORY_LEFT, DEFAULT_INVENTORY_RIGHT,
+                         DEFAULT_INVENTORY_TOP, DEFAULT_INVENTORY_BOTTOM);
 }
 
 int Selector::getInventorySlot() const {

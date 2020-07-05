@@ -29,9 +29,9 @@ public:
     //Para debuggind. Me devuelve el tile relativo para renderizar el outline
     Coordinate getSelectedTileToRender(Coordinate playerPos) const;
     //Devuelve true si tengo un tile seleccionado
-    bool isThereSelectedTile() const;
+    bool hasSelectedTile(Coordinate click) const;
     //Devuelve true si tengo un slot del inventario seleccionado
-    bool isThereSelectedInventorySlot() const;
+    bool hasSelectedSlot(Coordinate click) const;
     ~Selector();
 
 private:
