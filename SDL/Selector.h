@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include "../Screen/Window.h"
 #include "../Map/Coordinate.h"
+#include "../Shared/GameEnums.h"
 
 //Maneja las cosas que selecciona el usuario
 class Selector {
@@ -15,8 +16,8 @@ private:
     //Coordinate clickX;
     Coordinate inventorySlot;
     Coordinate selectedTile;
-    bool tileSelected;
-    bool slotSelected;
+    GameType::EquipmentPlace selectedEquipment;
+
 public:
     Selector();
     //Se fija si el click fue en el mapa o en el inventario. Dependiendo el caso
@@ -28,10 +29,13 @@ public:
     Coordinate getSelectedTile() const;
     //Para debuggind. Me devuelve el tile relativo para renderizar el outline
     Coordinate getSelectedTileToRender(Coordinate playerPos) const;
+
+    GameType::EquipmentPlace getSelectedEquipment() const;
     //Devuelve true si tengo un tile seleccionado
     bool hasSelectedTile(Coordinate click) const;
     //Devuelve true si tengo un slot del inventario seleccionado
     bool hasSelectedSlot(Coordinate click) const;
+    bool hasSelectedEquipment(Coordinate click) const;
     ~Selector();
 
 private:
@@ -39,6 +43,8 @@ private:
     void _verifyInventorySlotSelection(Coordinate click);
     bool _isInsideRect(Coordinate click, int left, int right, int top,
             int bottom) const;
+    void _verifySelectedEquipment(Coordinate click);
+
 };
 
 

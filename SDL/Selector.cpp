@@ -4,6 +4,7 @@
 
 #include "../GameConstants.h"
 #include "Selector.h"
+#include <iostream>
 
 #define DEFAULT_MAP_LEFT 20
 #define DEFAULT_MAP_RIGHT 1044
@@ -26,25 +27,21 @@
 Selector::Selector() {
     inventorySlot = {-1, -1};
     selectedTile = {-1, -1};
-    tileSelected = false;
-    slotSelected = false;
-    //click = {-1, -1};
 }
 
 void Selector::handleEvent(Coordinate click, Coordinate playerPos, Window& window){
     _verifyTileSelection(playerPos, click);
     _verifyInventorySlotSelection(click);
+    _verifySelectedEquipment(click);
 }
 
 void Selector::_verifyTileSelection(Coordinate playerPos, Coordinate click) {
     //Veo si clickeo adentro del mapa
     if (_isInsideRect(click, DEFAULT_MAP_LEFT, DEFAULT_MAP_RIGHT, DEFAULT_MAP_TOP,
             DEFAULT_MAP_BOTTOM)){
-        tileSelected = true;
-        slotSelected = false;
         //Esto es cuando no esta en los extremos
-        int playerXTile = playerPos.j;///TILE_WIDTH;
-        int playerYTile = playerPos.i;///TILE_HEIGHT;
+        int playerXTile = playerPos.j;;
+        int playerYTile = playerPos.i;;
         int relativeXTile = (click.j - DEFAULT_MAP_LEFT + CAMERA_X_OFFSET) / TILE_WIDTH;
         int relativeYTile = (click.i - DEFAULT_MAP_TOP - CAMERA_Y_OFFSET) / TILE_HEIGHT;
         selectedTile.j = playerXTile + (relativeXTile - 4);
@@ -69,10 +66,27 @@ void Selector::_verifyInventorySlotSelection(Coordinate click) {
     //Veo si clickeo adentro del inventario
     if (_isInsideRect(click, DEFAULT_INVENTORY_LEFT, DEFAULT_INVENTORY_RIGHT,
             DEFAULT_INVENTORY_TOP, DEFAULT_INVENTORY_BOTTOM)){
-        tileSelected = false;
-        slotSelected = true;
         inventorySlot.j = (click.j - DEFAULT_INVENTORY_LEFT)/INVENTORY_SLOT_WIDTH;
         inventorySlot.i = (click.i - DEFAULT_INVENTORY_TOP)/INVENTORY_SLOT_HEIGHT;
+        std::cout << "shield" << std::endl;
+    }
+}
+
+void Selector::_verifySelectedEquipment(Coordinate click) {
+    if (_isInsideRect(click, 1320, 1392, 660, 735)){//Casco
+        selectedEquipment = GameType::EQUIPMENT_PLACE_HEAD;
+        std::cout << "head" << std::endl;
+    } else if (_isInsideRect(click, 1397, 1469, 660, 735)){//Chest
+        selectedEquipment = GameType::EQUIPMENT_PLACE_CHEST;
+        std::cout << "chest" << std::endl;
+
+    } else if (_isInsideRect(click, 1320, 1392, 760, 835)){//Weapon
+        selectedEquipment = GameType::EQUIPMENT_PLACE_WEAPON;
+        std::cout << "weapon" << std::endl;
+
+    } else if (_isInsideRect(click, 1397, 1469, 760, 835)){//Shield
+        selectedEquipment = GameType::EQUIPMENT_PLACE_SHIELD;
+        std::cout << "shield" << std::endl;
     }
 }
 
@@ -86,12 +100,22 @@ bool Selector::hasSelectedSlot(Coordinate click) const {
                          DEFAULT_INVENTORY_TOP, DEFAULT_INVENTORY_BOTTOM);
 }
 
+bool Selector::hasSelectedEquipment(Coordinate click) const {
+    return _isInsideRect(click, 1320, 1469,
+                         660, 835);//Estoy viendo si esta entre los 4 cuadrados de
+                                                //equipamiento
+}
+
 int Selector::getInventorySlot() const {
     return inventorySlot.j + (4 * inventorySlot.i);
 }
 
 Coordinate Selector::getSelectedTile() const {
     return {selectedTile.i, selectedTile.j};
+}
+
+GameType::EquipmentPlace Selector::getSelectedEquipment() const {
+    return selectedEquipment;
 }
 
 Coordinate Selector::getSelectedTileToRender(Coordinate playerPos) const {

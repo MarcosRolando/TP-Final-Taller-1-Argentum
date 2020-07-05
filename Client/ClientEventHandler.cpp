@@ -66,6 +66,9 @@ void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
         if (game.getSelector().hasSelectedSlot({clickY, clickX})){
             _processUseItem(game.getSelector().getInventorySlot());
         }
+        if (game.getSelector().hasSelectedEquipment({clickY, clickX})){
+            _processUnequipItem(game.getSelector().getSelectedEquipment());
+        }
     }
 }
 
@@ -103,6 +106,14 @@ void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
             //Parsear el comando y mandarlo
             break;
     }
+}
+
+void ClientEventHandler::_processUnequipItem(GameType::EquipmentPlace _equipment){
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_UNEQUIP);
+    msgpack::type::tuple<int32_t> equipment;
+    equipment = _equipment;
+    msgpack::pack(msgBuffer, event);
+    msgpack::pack(msgBuffer, equipment);
 }
 
 void ClientEventHandler::_processUseItem(int _inventorySlot) {
