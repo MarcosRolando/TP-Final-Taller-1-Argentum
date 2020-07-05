@@ -9,6 +9,9 @@
 #include "Event.h"
 
 #include <string>
+#include <memory>
+#include <list>
+#include "../../Items/Item.h"
 
 class Player;
 
@@ -18,6 +21,7 @@ private:
     unsigned int position;
 public:
     Drop(Player& player, unsigned int position);
+    Drop(std::list<std::shared_ptr<Item>>&& items, unsigned int position);
     void operator()(ServerProtocol& protocol) override;
 };
 
