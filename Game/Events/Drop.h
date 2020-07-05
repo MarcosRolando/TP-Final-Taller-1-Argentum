@@ -17,7 +17,11 @@ class Player;
 
 class Drop: public Event {
 private:
+<<<<<<< HEAD
     Player* player;
+=======
+    Player* player{nullptr};
+>>>>>>> bc254ece2fc1c263b97ad72353f9195db38e0954
     unsigned int position;
     std::list<std::shared_ptr<Item>> items;
 

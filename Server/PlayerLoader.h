@@ -11,6 +11,7 @@
 class Game;
 class PlayerProxy;
 class ServerProtocol;
+struct InitialPlayerData;
 
 class PlayerLoader {
 private:
@@ -20,8 +21,7 @@ private:
 public:
     explicit PlayerLoader(Game& _game, ServerProtocol& _protocol) : game(_game),
                                                         protocol(_protocol) {}
-    PlayerProxy createPlayer(std::string&& nickname, GameType::Race race,
-                                        GameType::Class _class);
+    PlayerProxy createPlayer(InitialPlayerData& playerData);
 };
 
 

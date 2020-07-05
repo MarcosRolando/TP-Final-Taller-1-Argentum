@@ -6,10 +6,13 @@
 #define ARGENTUM_SERVERPROTOCOL_H
 
 
-#include "../Map/Map.h"
 #include <msgpack.hpp>
 
+class Player;
+class Monster;
+class Entity;
 class PlayerProxy;
+class Game;
 
 class ServerProtocol {
 private:
@@ -19,13 +22,13 @@ private:
     std::stringstream currentStateData;//Guarda el estado actual del juego para que despues los
                                        //clientes puedan ser actualizados solo recibiendo los cambios realidados
     std::vector<char> currentStateBuffer;
-    const Map &map;
+    const Game& game;
 
 private:
     static void _loadBytes(std::vector<char>& buffer, void* data, unsigned int size);
 
 public:
-    explicit ServerProtocol(const Map &map);
+    explicit ServerProtocol(const Game& game);
     const std::vector<char>& getMapInfo() const;
 
     const std::vector<char>& buildCurrentState(const std::list<Player*>& players,

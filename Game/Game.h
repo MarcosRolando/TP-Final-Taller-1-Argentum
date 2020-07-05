@@ -10,9 +10,9 @@
 #include "../Map/Map.h"
 #include "MonstersFactory.h"
 #include "Events/Event.h"
-#include "../Server/ClientsMonitor.h"
 
 class EntityTests;
+struct InitialPlayerData;
 
 class PlayerShouldBeRemoved {
 private:
@@ -43,7 +43,6 @@ private:
     std::list<Monster*> monsters;
     std::list<Player*> players;
     std::list<Item*> mapItems;
-    ClientsMonitor& clients;
 
     friend GameTests;
     friend EntityTests;
@@ -64,9 +63,9 @@ private:
 public:
 
     //Este constructor debe ser utilizado unicamente para las pruebas
-    explicit Game(ClientsMonitor&& clientAux = ClientsMonitor());
+    //explicit Game(ClientsMonitor&& clientAux = ClientsMonitor());
 
-    Game(MapFileReader&& mapFile, ClientsMonitor& clients);
+    explicit Game(MapFileReader&& mapFile);
 
     AttackResult attackPosition(int damage, unsigned int level, bool isAPlayer,
                             Coordinate coordinate);
@@ -105,8 +104,7 @@ public:
     void pushEvent(std::unique_ptr<Event>&& event);
 
     /*Crea el player en base al nickname, raza y clase que recibe*/
-    Player& createPlayer(std::string&& nickname, GameType::Race race, GameType::Class _class,
-                            ServerProtocol& protocol);
+    Player& createPlayer(InitialPlayerData& playerData, ServerProtocol& protocol);
 
     const std::vector<char>& getCurrentState(ServerProtocol& protocol);
 

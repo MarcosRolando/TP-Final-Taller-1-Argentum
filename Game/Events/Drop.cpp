@@ -6,8 +6,7 @@
 #include "../../Entities/Player.h"
 
 
-Drop::Drop(Player &_player, unsigned int _position) {
-    player = &_player;
+Drop::Drop(Player &player, unsigned int _position): player(&player) {
     position = _position;
 }
 
@@ -21,6 +20,5 @@ void Drop::operator()(ServerProtocol& protocol) {
     if (player) {
         player->dropItem(position);
     } else {
-
     }
 }

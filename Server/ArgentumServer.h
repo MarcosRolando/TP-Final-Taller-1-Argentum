@@ -20,7 +20,6 @@ class ArgentumServer {
 private:
     std::atomic<bool> keepRunning{true};
     Socket socket;
-    ClientsMonitor clients;
 
 public:
     explicit ArgentumServer(/*std::string&& _port, const std::string& mapFilePath*/);

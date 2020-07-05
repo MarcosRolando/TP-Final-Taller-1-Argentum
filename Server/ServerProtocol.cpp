@@ -6,14 +6,14 @@
 #include <iostream>
 #include "../Entities/PlayerProxy.h"
 #include "../Entities/Player.h"
-#include "../Entities/Entity.h"
 #include "../Entities/Monster.h"
+#include "../Game/Game.h"
 
 ///////////////////////////////PUBLIC/////////////////////////////
 
-ServerProtocol::ServerProtocol(const Map &map): map(map) {
+ServerProtocol::ServerProtocol(const Game& _game): game(_game) {
     std::stringstream aux;
-    map >> aux;
+    game.getMap() >> aux;
     uint32_t msgLength = aux.str().size();
     msgLength = htonl(msgLength); /*Enviamos la longitud en big endian 4 bytes*/
     mapBuffer.resize(sizeof(uint32_t));
