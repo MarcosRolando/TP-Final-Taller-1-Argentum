@@ -62,6 +62,10 @@ void Selector::_verifyTileSelection(Coordinate playerPos, Coordinate click) {
     }
 }
 
+void Selector::resetTileSelection() {
+    selectedTile = {-1, -1};
+}
+
 void Selector::_verifyInventorySlotSelection(Coordinate click) {
     //Veo si clickeo adentro del inventario
     if (_isInsideRect(click, DEFAULT_INVENTORY_LEFT, DEFAULT_INVENTORY_RIGHT,
