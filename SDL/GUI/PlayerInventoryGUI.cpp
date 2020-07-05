@@ -6,8 +6,6 @@
 #include "../../GameConstants.h"
 
 #define INVENTORY_SIZE 16 //////////////////////////////USAR EL GENERAL
-#define LINES 4
-#define COLUMNS 4
 
 #define INVENTORY_ITEMS_X_OFFSET 45
 #define INVENTORY_ITEMS_Y_OFFSET 235
@@ -28,27 +26,26 @@ PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &ren
     for (int i = 0; i < INVENTORY_SIZE; ++i) {//Inicializo el vector con nullptr
         inventoryTextures.push_back(nullptr);
     }
+    equippedTextures[Helmet] = nullptr;
+    equippedTextures[Armor] = nullptr;
+    equippedTextures[Weapon] = nullptr;
+    equippedTextures[Shield] = nullptr;
 }
 
 void PlayerInventoryGUI::addInventoryItem(TextureID texture, int32_t slot) {
-    if (texture == Nothing){
+    if (texture == Nothing) {
         inventoryTextures[slot] = nullptr;
     } else {
         inventoryTextures[slot] = &repo.getTexture(texture);
     }
 }
 
-void PlayerInventoryGUI::removeInventoryItem(int32_t inventorySlot) {
-    inventoryTextures.erase(inventoryTextures.begin() + inventorySlot);//Ver si esto funciona
-}
-
 void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item) {
-    if (texture != Nothing){
+    if (texture != Nothing) {
         Texture* currTexture = &repo.getTexture(texture);
-        if (equippedTextures.count(item)) {
-            equippedTextures.erase(item);
-        }
-        equippedTextures.emplace(item, currTexture);
+        equippedTextures.at(item) = currTexture;
+    } else {
+        equippedTextures.at(item) = nullptr;
     }
 }
 
@@ -108,18 +105,16 @@ void PlayerInventoryGUI::_renderInventoryItems() {
 }
 
 void PlayerInventoryGUI::_renderEquipableItems() {
-    if(equippedTextures.count(Helmet)){
+    if (equippedTextures.at(Helmet)) {
         equippedTextures.at(Helmet)->render(250, 635,0);
     }
-    if(equippedTextures.count(Armor)){
+    if (equippedTextures.at(Armor)) {
         equippedTextures.at(Armor)->render(325, 635, 0);
-
     }
-    if(equippedTextures.count(Weapon)){
+    if (equippedTextures.at(Weapon)) {
         equippedTextures.at(Weapon)->render(250, 735, 0);
-
     }
-    if(equippedTextures.count(Shield)){
+    if (equippedTextures.at(Shield)) {
         equippedTextures.at(Shield)->render(325, 735, 0);
     }
 }

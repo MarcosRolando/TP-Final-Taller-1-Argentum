@@ -26,7 +26,6 @@ public:
     PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer, PlayerInfoGUI& playerInfo);
     void addInventoryItem(TextureID texture, int32_t slot);
     void addEquipableItem(TextureID texture, EquippedItems item);
-    void removeInventoryItem(int32_t inventorySlot);
     void updateGold(int32_t gold);
     void render(int32_t selectedSlot);
 
