@@ -141,12 +141,6 @@ UseReturnData Player::useItem(int itemPosition) {
     return {GameType::EQUIPMENT_PLACE_NONE, -1};
 }
 
-/*
-const std::string &Player::getNickname() const {
-    return Entity::getNickname();
-}
-*/
-
 void Player::restoreLife(unsigned int amount) {
     if (!stats.isDead()) {
         stats.restoreLife(amount);
