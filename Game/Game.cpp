@@ -162,6 +162,8 @@ Game::Game(ClientsMonitor&& clientAux /*= ClientsMonitor()*/): clients(clientAux
 
 }
 #include "../Items/Attack/Weapon.h"
+#include "../Items/Defense/Head.h"
+#include "../Items/Defense/Shield.h"
 
 Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
                 GameType::Class _class, ServerProtocol& protocol) {
@@ -176,6 +178,12 @@ Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
     std::shared_ptr<Player> player(new Player(*this, race, _class, 1,
                                 0, position, std::move(nickname)));
     player->storeItem(std::shared_ptr<Item>(new Weapon(GameType::LONGSWORD)));
+    player->storeItem(std::shared_ptr<Item>(new Weapon(GameType::GNARLED_STAFF)));
+    player->storeItem(std::shared_ptr<Item>(new Weapon(GameType::GNARLED_STAFF)));
+    player->storeItem(std::shared_ptr<Item>(new Weapon(GameType::LONGSWORD)));
+    player->storeItem(std::shared_ptr<Item>(new Head(GameType::MAGIC_HAT)));
+    player->storeItem(std::shared_ptr<Item>(new Head(GameType::IRON_HELMET)));
+    player->storeItem(std::shared_ptr<Item>(new Shield(GameType::IRON_SHIELD)));
     player->useItem(0);
     Player* playerAux = player.get();
     players.emplace_back(playerAux);
