@@ -51,6 +51,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         lastFrameTime = timeStep.count();
         if (clients.hasWaitingClients() &&
                 (FRAME_TIME - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
+            //todo crear aca secuencialmente los players
             const std::vector<char>& gameState = game.getCurrentState(protocol);
             clients.mergeWaitingClients(gameState);
         }
