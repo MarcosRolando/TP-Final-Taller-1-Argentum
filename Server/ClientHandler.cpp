@@ -10,6 +10,7 @@ MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 MSGPACK_ADD_ENUM(GameType::Race)
 MSGPACK_ADD_ENUM(GameType::Class)
 MSGPACK_ADD_ENUM(GameType::Direction)
+MSGPACK_ADD_ENUM(GameType::EquipmentPlace)
 
 ///////////////////////////////PUBLIC///////////////////////////////
 
@@ -17,7 +18,8 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol, PlayerP
                         socket(std::move(socket)), protocol(_protocol), player(std::move(_player)) {
     eventProcessors = {{GameType::MOVE, &ClientHandler::_processMove},
                        {GameType::PLAYER_ATTACK, &ClientHandler::_processAttack},
-                       {GameType::PLAYER_USE_ITEM, &ClientHandler::_processUseItem}};
+                       {GameType::PLAYER_USE_ITEM, &ClientHandler::_processUseItem},
+                       {GameType::PLAYER_UNEQUIP, &ClientHandler::_processUnequip}};
 }
 
 void ClientHandler::run() {
@@ -114,6 +116,13 @@ void ClientHandler::_processUseItem(std::vector<char> &data) {
     handler = msgpack::unpack(data.data(), data.size(), offset);
     handler->convert(itemPosition);
     player.useItem(std::get<0>(itemPosition));
+}
+
+void ClientHandler::_processUnequip(std::vector<char> &data) {
+    msgpack::type::tuple<GameType::EquipmentPlace> equipmentPlace;
+    handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(equipmentPlace);
+    player.unequip(std::get<0>(equipmentPlace));
 }
 
 void ClientHandler::removePlayer() {

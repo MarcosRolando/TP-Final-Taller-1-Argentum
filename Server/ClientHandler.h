@@ -63,6 +63,7 @@ private:
     void _processMove(std::vector<char>& data);
     void _processAttack(std::vector<char>& data);
     void _processUseItem(std::vector<char>& data);
+    void _processUnequip(std::vector<char>& data);
 };
 
 
