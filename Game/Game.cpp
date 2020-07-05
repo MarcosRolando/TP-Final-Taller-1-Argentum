@@ -192,16 +192,16 @@ const std::vector<char>& Game::getCurrentState(ServerProtocol& protocol) {
 
 void Game::removePlayer(Player *player, ServerProtocol& protocol) {
     std::stringstream data;
-    PlayerShouldBeRemoved shouldBeRemoved(player);
-    players.erase(std::remove_if(players.begin(), players.end(), shouldBeRemoved),
-                                players.end());
-    map.removeEntity(player->getPosition());
     msgpack::type::tuple<GameType::EventID> eventIdData(GameType::EventID::REMOVE_ENTITY);
     msgpack::pack(data, eventIdData);
     msgpack::type::tuple<std::string>
             removedPlayerNickname(player->getNickname());
     msgpack::pack(data, removedPlayerNickname);
     protocol.addToGeneralData(data);
+    PlayerShouldBeRemoved shouldBeRemoved(player);
+    players.erase(std::remove_if(players.begin(), players.end(), shouldBeRemoved),
+                                players.end());
+    map.removeEntity(player->getPosition());
 }
 
 bool PlayerShouldBeRemoved::operator()(const Player* player) {
