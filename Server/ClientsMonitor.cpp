@@ -6,6 +6,7 @@
 
 void ClientsMonitor::join() {
     for (auto & client : clients) {
+        client->forceFinish();
         client->join();
     }
 }
@@ -40,4 +41,20 @@ void ClientsMonitor::sendGameUpdate() {
 
 bool ClientsMonitor::hasWaitingClients() {
     return !waitingList.empty();
+}
+
+void ClientsMonitor::removeDisconnectedClients(ServerProtocol& protocol) {
+    ClientShouldBeRemoved shouldBeRemoved(protocol);
+    clients.erase(std::remove_if(clients.begin(), clients.end(),
+                                    shouldBeRemoved), clients.end());
+}
+
+bool ClientShouldBeRemoved::operator()(std::unique_ptr<ClientHandler> &client) {
+    if (client->hasFinished()) {
+        client->removePlayer();
+        client->join();
+        return true;
+    } else {
+        return false;
+    }
 }

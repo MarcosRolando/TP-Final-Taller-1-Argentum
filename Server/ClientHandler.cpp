@@ -34,12 +34,22 @@ void ClientHandler::run() {
         }
 
     } catch(std::exception& e) {
+        finished = true;
         std::cerr << e.what() << std::endl;
     }
 }
 
 void ClientHandler::sendGameUpdate() {
-    _sendUpdateDataToClient();
+    try {
+        const std::vector<char>& generalData = protocol.getGeneralData();
+        if (generalData.size() != sizeof(uint32_t)) {
+            socket.send(generalData.data(), generalData.size());
+        }
+        std::vector<char> playerData = ServerProtocol::getPlayerData(player);
+        socket.send(playerData.data(), playerData.size());
+    } catch (std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
 }
 
 bool ClientHandler::hasFinished() const {
@@ -66,16 +76,6 @@ void ClientHandler::sendCurrentGameState(const std::vector<char>& gameState) {
 ///////////////////////////////PRIVATE///////////////////////////////
 
 
-
-void ClientHandler::_sendUpdateDataToClient() {
-    const std::vector<char>& generalData = protocol.getGeneralData();
-    if (generalData.size() != sizeof(uint32_t)) {
-        socket.send(generalData.data(), generalData.size());
-    }
-    std::vector<char> playerData = ServerProtocol::getPlayerData(player);
-    socket.send(playerData.data(), playerData.size());
-}
-
 void ClientHandler::_addMessageToQueue() {
     uint32_t messageLen;
     socket.receive(reinterpret_cast<char *>(&messageLen), sizeof(uint32_t));
@@ -93,21 +93,6 @@ void ClientHandler::_processClientAction(std::vector<char>& data) {
     handler = msgpack::unpack(data.data(), data.size(), offset);
     handler->convert(event);
     (this->*eventProcessors.at(std::get<0>(event)))(data);
-    /*
-    if (std::get<0>(event) == GameType::MOVE) {
-        (this->*eventProcessors.at(GameType::MOVE))(data);
-    } else if (std::get<0>(event) == GameType::PLAYER_ATTACK) {
-        msgpack::type::tuple<int32_t, int32_t> attackInfo;
-        handler = msgpack::unpack(data.data(), data.size(), offset);
-        handler->convert(attackInfo);
-        player.attack({std::get<0>(attackInfo), std::get<1>(attackInfo)});
-    } else if (std::get<0>(event) == GameType::PLAYER_USE_ITEM) {
-        msgpack::type::tuple<int32_t> itemPosition;
-        handler = msgpack::unpack(data.data(), data.size(), offset);
-        handler->convert(itemPosition);
-        player.useItem(std::get<0>(itemPosition));
-    }
-    */
 }
 
 void ClientHandler::_processMove(std::vector<char> &data) {
@@ -129,4 +114,12 @@ void ClientHandler::_processUseItem(std::vector<char> &data) {
     handler = msgpack::unpack(data.data(), data.size(), offset);
     handler->convert(itemPosition);
     player.useItem(std::get<0>(itemPosition));
+}
+
+void ClientHandler::removePlayer() {
+    player.remove();
+}
+
+void ClientHandler::forceFinish() {
+    socket.close();
 }

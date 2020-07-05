@@ -11,6 +11,15 @@
 
 class PlayerProxy;
 
+class ClientShouldBeRemoved {
+private:
+    ServerProtocol& protocol;
+
+public:
+    explicit ClientShouldBeRemoved(ServerProtocol& _protocol) : protocol(_protocol) {}
+    bool operator()(std::unique_ptr<ClientHandler>& client);
+};
+
 class ClientsMonitor {
 private:
     std::mutex mutex;
@@ -21,7 +30,7 @@ public:
     void pushToWaitingList(Socket &&peer, ServerProtocol &protocol, PlayerProxy&& player);
     void mergeWaitingClients(const std::vector<char>& gameState);
     void update();
-    void eraseDisconnectedClients();
+    void removeDisconnectedClients(ServerProtocol& protocol);
     void sendGameUpdate();
     void join();
     bool hasWaitingClients();

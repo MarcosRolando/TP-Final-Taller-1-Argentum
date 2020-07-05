@@ -48,15 +48,17 @@ public:
 
     void sendCurrentGameState(const std::vector<char>& gameState);
 
+    void removePlayer();
+
+    void forceFinish();
+
     //todo IMPLEMENTAR CONSTRUCTOR POR MOVIMIENTO
 
 private:
     /*Implementa el metodo virtual run de Thread, que sera el metodo ejecutado
     * por el thread*/
     void run() override;
-    void _sendUpdateDataToClient();
     void _addMessageToQueue();
-
     void _processClientAction(std::vector<char>& data);
     void _processMove(std::vector<char>& data);
     void _processAttack(std::vector<char>& data);

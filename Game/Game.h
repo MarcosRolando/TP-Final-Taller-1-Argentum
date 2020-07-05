@@ -14,6 +14,15 @@
 
 class EntityTests;
 
+class PlayerShouldBeRemoved {
+private:
+    Player* playerToRemove;
+
+public:
+    explicit PlayerShouldBeRemoved(Player* player) : playerToRemove(player) {}
+    bool operator()(const Player* player);
+};
+
 struct MoveCommand {
     Coordinate initialPosition;
     Coordinate finalPosition;
@@ -100,6 +109,8 @@ public:
                             ServerProtocol& protocol);
 
     const std::vector<char>& getCurrentState(ServerProtocol& protocol);
+
+    void removePlayer(Player* player);
 };
 
 

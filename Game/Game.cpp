@@ -106,6 +106,7 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 }
 
 void Game::update(double timeStep, ServerProtocol& protocol) {
+    clients.removeDisconnectedClients(protocol);
     _repopulateMap(timeStep, protocol);
     _updateMonsters(timeStep); //todo pasar a lista de Monster* en vez de shared ptr
     _updatePlayers(timeStep);
@@ -192,3 +193,13 @@ const std::vector<char>& Game::getCurrentState(ServerProtocol& protocol) {
     return protocol.buildCurrentState(players, monsters /*todo pasar la lista de items tambien*/);
 }
 
+void Game::removePlayer(Player *player) {
+    PlayerShouldBeRemoved shouldBeRemoved(player);
+    players.erase(std::remove_if(players.begin(), players.end(), shouldBeRemoved),
+                                players.end());
+    map.removeEntity(player->getPosition());
+}
+
+bool PlayerShouldBeRemoved::operator()(const Player* player) {
+    return (playerToRemove == player);
+}
