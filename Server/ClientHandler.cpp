@@ -5,6 +5,7 @@
 #include "PlayerLoader.h"
 #include <iostream>
 #include "../TPException.h"
+#include "../Map/Coordinate.h"
 
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 MSGPACK_ADD_ENUM(GameType::Race)

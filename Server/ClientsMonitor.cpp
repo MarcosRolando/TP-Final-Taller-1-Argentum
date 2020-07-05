@@ -4,6 +4,7 @@
 
 #include "ClientsMonitor.h"
 #include "PlayerLoader.h"
+#include "../Game/Game.h"
 
 void ClientsMonitor::join() {
     for (auto & client : clients) {
@@ -26,12 +27,18 @@ void ClientsMonitor::pushToWaitingList(Socket &&peer, ServerProtocol &protocol,
                                 std::move(playerData));
 }
 
-void ClientsMonitor::mergeWaitingClients(const std::vector<char>& gameState) {
+void ClientsMonitor::mergeWaitingClients(Game& game, ServerProtocol& protocol) {
     std::lock_guard<std::mutex> lock(mutex);
+
     for (auto & waitingClient: waitingList) {
-        InitialPlayerData playerData = std::move(std::get<1>(waitingClient));
+        InitialPlayerData playerData = std::move(std::get<1>(waitingClient)); /*creo los players*/
+        std::get<0>(waitingClient)->setPlayerProxy(loader.createPlayer(playerData));
+    }
+
+    const std::vector<char>& gameState = game.getCurrentState(protocol); /*armo el buffer*/
+
+    for (auto & waitingClient: waitingList) { /*disparo los nuevos client handlers*/
         clients.push_back(std::move(std::get<0>(waitingClient)));
-        (*clients.back()).setPlayerProxy(loader.createPlayer(playerData));
         (*clients.back()).sendCurrentGameState(gameState);
         (*clients.back())();
     }

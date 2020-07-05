@@ -12,6 +12,8 @@
 
 class PlayerProxy;
 class PlayerLoader;
+class Game;
+class ServerProtocol;
 
 class ClientShouldBeRemoved {
 private:
@@ -32,7 +34,7 @@ private:
 public:
     explicit ClientsMonitor(PlayerLoader& _loader) : loader(_loader) {}
     void pushToWaitingList(Socket &&peer, ServerProtocol &protocol, InitialPlayerData&& playerData);
-    void mergeWaitingClients(const std::vector<char>& gameState);
+    void mergeWaitingClients(Game& game, ServerProtocol& protocol);
     void mergeClientsEvents();
     void removeDisconnectedClients(ServerProtocol& protocol);
     void sendGameUpdate();

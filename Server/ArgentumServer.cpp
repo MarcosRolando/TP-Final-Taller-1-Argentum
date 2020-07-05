@@ -27,7 +27,7 @@ void ArgentumServer::connect(const std::string& _port, const std::string& mapFil
 
 void ArgentumServer::_execute(const std::string& mapFilePath) {
     Game game((MapFileReader(mapFilePath)));
-    ServerProtocol protocol(game.getMap());
+    ServerProtocol protocol(game);
     PlayerLoader loader(game, protocol);
     ClientsMonitor clients(loader);
     ServerMonitor monitor(*this);
@@ -54,13 +54,12 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         lastFrameTime = timeStep.count();
         if (clients.hasWaitingClients() &&
                 (FRAME_TIME - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
-            const std::vector<char>& gameState = game.getCurrentState(protocol);
-            clients.mergeWaitingClients(gameState);
+            //const std::vector<char>& gameState = game.getCurrentState(protocol);
+            clients.mergeWaitingClients(game, protocol);
         }
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();
-
         if (lastFrameTime < FRAME_TIME) {
             usleep((FRAME_TIME - lastFrameTime) * 1000);
             lastFrameTime = FRAME_TIME;
