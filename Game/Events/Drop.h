@@ -17,8 +17,10 @@ class Player;
 
 class Drop: public Event {
 private:
-    Player& player;
+    Player* player;
     unsigned int position;
+    std::list<std::shared_ptr<Item>> items;
+
 public:
     Drop(Player& player, unsigned int position);
     Drop(std::list<std::shared_ptr<Item>>&& items, unsigned int position);
