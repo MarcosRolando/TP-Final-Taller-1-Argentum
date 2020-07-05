@@ -136,6 +136,6 @@ void PlayerProxy::storeAllRelevantData(std::stringstream& data) const {
     player->storeAllRelevantData(data);
 }
 
-void PlayerProxy::remove() {
-    game->removePlayer(player);
+void PlayerProxy::remove(ServerProtocol& protocol) {
+    game->removePlayer(player, protocol);
 }

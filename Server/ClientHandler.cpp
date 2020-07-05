@@ -117,7 +117,7 @@ void ClientHandler::_processUseItem(std::vector<char> &data) {
 }
 
 void ClientHandler::removePlayer() {
-    player.remove();
+    player.remove(protocol);
 }
 
 void ClientHandler::forceFinish() {

@@ -50,7 +50,7 @@ private:
 
 private:
 
-    void _removeEntities(ServerProtocol& protocol);
+    void _removeMonsters(ServerProtocol& protocol);
 
     void _updateMonsters(double timeStep);
 
@@ -110,7 +110,7 @@ public:
 
     const std::vector<char>& getCurrentState(ServerProtocol& protocol);
 
-    void removePlayer(Player* player);
+    void removePlayer(Player* player, ServerProtocol& protocol);
 };
 
 

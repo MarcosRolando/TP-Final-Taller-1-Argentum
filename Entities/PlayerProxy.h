@@ -43,7 +43,7 @@ public:
     void clearMinichat();
     void giveEventsToGame();
 
-    void remove();
+    void remove(ServerProtocol& protocol);
 
 private:
     void executeMove(PlayerProxy&& other);

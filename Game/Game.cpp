@@ -33,7 +33,6 @@ void Game::_repopulateMap(double timePassed, ServerProtocol& protocol) {
             monstersToCreate = maxNumberOfMonsters - monsters.size();
         }
         for (unsigned int i = 0; i < monstersToCreate; ++i) {
-            //map.addEntity({0, 0}, std::shared_ptr<Entity>(new Monster(*this, {0, 0}, GameType::Entity::SKELETON)));
             monstersFactory.storeRandomMonster(*this, monster);
             aux = map.getMonsterCoordinate();
             monster->setPosition(aux);
@@ -72,7 +71,7 @@ void Game::_updatePlayers(double timeStep) {
 }
 
 //Elimina de las listas almacenadas y del mapa los players y monsters que deban ser eliminados
-void Game::_removeEntities(ServerProtocol& protocol) {
+void Game::_removeMonsters(ServerProtocol& protocol) {
     std::stringstream data;
     std::list<std::pair<Coordinate, const std::string*>> monstersToRemove;
     ShouldMonsterBeRemoved sholdBeRemoved(monstersToRemove);
@@ -86,8 +85,6 @@ void Game::_removeEntities(ServerProtocol& protocol) {
         protocol.addToGeneralData(data);
         map.removeEntity(monster.first);
     }
-
-    //AGREGAR BORRADO DE PLAYER_HANDLERS
 }
 
 /////////////////////////////////PUBLIC//////////////////////////
@@ -115,7 +112,7 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
 
     //AGREGAR UPDATE DE PLAYERS CONECTADOS (no hay que borrar esto????)
 
-    _removeEntities(protocol);
+    _removeMonsters(protocol);
 }
 
 Game::Game(MapFileReader&& mapFile, ClientsMonitor& _clients): map(mapFile), clients(_clients) {
@@ -193,11 +190,18 @@ const std::vector<char>& Game::getCurrentState(ServerProtocol& protocol) {
     return protocol.buildCurrentState(players, monsters /*todo pasar la lista de items tambien*/);
 }
 
-void Game::removePlayer(Player *player) {
+void Game::removePlayer(Player *player, ServerProtocol& protocol) {
+    std::stringstream data;
     PlayerShouldBeRemoved shouldBeRemoved(player);
     players.erase(std::remove_if(players.begin(), players.end(), shouldBeRemoved),
                                 players.end());
     map.removeEntity(player->getPosition());
+    msgpack::type::tuple<GameType::EventID> eventIdData(GameType::EventID::REMOVE_ENTITY);
+    msgpack::pack(data, eventIdData);
+    msgpack::type::tuple<std::string>
+            removedPlayerNickname(player->getNickname());
+    msgpack::pack(data, removedPlayerNickname);
+    protocol.addToGeneralData(data);
 }
 
 bool PlayerShouldBeRemoved::operator()(const Player* player) {
