@@ -52,6 +52,9 @@ public:
 
     void removeEntity(std::string& nickname);
 
+    void equipOnPlayer(std::string& nickname, GameType::EquipmentPlace place,
+                        TextureID equipment);
+
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
     void _moveEntitiesToNewTile();

@@ -10,6 +10,7 @@
 #include "../TPException.h"
 #include "TextureRepository.h"
 #include "PlayerEquipment.h"
+#include "../Shared/GameEnums.h"
 
 class PlayerTexture : public EntityTexture {
 private:
@@ -27,6 +28,8 @@ public:
     void renderBack(int x, int y, int frame) override;
     void renderRight(int x, int y, int frame) override;
     void renderLeft(int x, int y, int frame) override;
+
+    void equip(GameType::EquipmentPlace place, TextureID equipment);
 };
 
 

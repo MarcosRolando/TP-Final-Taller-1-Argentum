@@ -54,6 +54,8 @@ public:
     void removeEntity();
 
     std::unique_ptr<Entity> getEntity();
+
+    void equipOnPlayer(GameType::EquipmentPlace place, TextureID equipment);
 };
 
 

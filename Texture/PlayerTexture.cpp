@@ -52,3 +52,27 @@ void PlayerTexture::renderLeft(int x, int y, int frame) {
     EntityTexture::render(shield, x + 47, y + 30, frame + 12);
 }
 
+void PlayerTexture::equip(GameType::EquipmentPlace place, TextureID equipment) {
+    Texture* texture = nullptr;
+    if (equipment != Nothing) {
+        texture = &textureRepo.getTexture(equipment);
+    }
+    switch (place) {
+        case GameType::EQUIPMENT_PLACE_HEAD:
+            helmet = texture;
+            break;
+        case GameType::EQUIPMENT_PLACE_CHEST:
+            body = texture;
+            break;
+        case GameType::EQUIPMENT_PLACE_SHIELD:
+            shield = texture;
+            break;
+        case GameType::EQUIPMENT_PLACE_WEAPON:
+            weapon = texture;
+            break;
+        default:
+            //do nothing
+            break;
+    }
+}
+
