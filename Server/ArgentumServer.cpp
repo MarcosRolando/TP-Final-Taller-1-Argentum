@@ -24,11 +24,12 @@ void ArgentumServer::connect(const std::string& _port, const std::string& mapFil
     socket.maxListen(MAX_LISTENERS);
     _execute(mapFilePath);
 }
-#include <iostream>
+
 void ArgentumServer::_execute(const std::string& mapFilePath) {
-    Game game((MapFileReader(mapFilePath)), clients);
+    Game game((MapFileReader(mapFilePath)));
     ServerProtocol protocol(game.getMap());
     PlayerLoader loader(game, protocol);
+    ClientsMonitor clients(loader);
     ServerMonitor monitor(*this);
     monitor(); /*Espera la q para cerrar el server*/
     ClientAccepter accepter(clients, protocol, socket, loader, keepRunning);
@@ -41,6 +42,8 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     double lastFrameTime = 0;
     while (keepRunning) {
         time1 = high_resolution_clock::now();
+        clients.mergeClientsEvents(); //todo cambiar el nombre a mergeo de eventos
+        clients.removeDisconnectedClients(protocol);
         game.update(lastFrameTime, protocol);
         protocol.buildGeneralDataBuffer();
         clients.sendGameUpdate();
@@ -51,7 +54,6 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         lastFrameTime = timeStep.count();
         if (clients.hasWaitingClients() &&
                 (FRAME_TIME - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
-            //todo crear aca secuencialmente los players
             const std::vector<char>& gameState = game.getCurrentState(protocol);
             clients.mergeWaitingClients(gameState);
         }

@@ -8,8 +8,10 @@
 #include <list>
 #include "ClientHandler.h"
 #include <mutex>
+#include "InitialPlayerData.h"
 
 class PlayerProxy;
+class PlayerLoader;
 
 class ClientShouldBeRemoved {
 private:
@@ -24,12 +26,14 @@ class ClientsMonitor {
 private:
     std::mutex mutex;
     std::list<std::unique_ptr<ClientHandler>> clients;
-    std::list<std::unique_ptr<ClientHandler>> waitingList;
+    std::list<std::tuple<std::unique_ptr<ClientHandler>, InitialPlayerData>> waitingList;
+    PlayerLoader& loader;
 
 public:
-    void pushToWaitingList(Socket &&peer, ServerProtocol &protocol, PlayerProxy&& player);
+    explicit ClientsMonitor(PlayerLoader& _loader) : loader(_loader) {}
+    void pushToWaitingList(Socket &&peer, ServerProtocol &protocol, InitialPlayerData&& playerData);
     void mergeWaitingClients(const std::vector<char>& gameState);
-    void update();
+    void mergeClientsEvents();
     void removeDisconnectedClients(ServerProtocol& protocol);
     void sendGameUpdate();
     void join();

@@ -14,8 +14,8 @@ MSGPACK_ADD_ENUM(GameType::EquipmentPlace)
 
 ///////////////////////////////PUBLIC///////////////////////////////
 
-ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol, PlayerProxy&& _player) :
-                        socket(std::move(socket)), protocol(_protocol), player(std::move(_player)) {
+ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol) :
+                        socket(std::move(socket)), protocol(_protocol) {
     eventProcessors = {{GameType::MOVE, &ClientHandler::_processMove},
                        {GameType::PLAYER_ATTACK, &ClientHandler::_processAttack},
                        {GameType::PLAYER_USE_ITEM, &ClientHandler::_processUseItem},
@@ -131,4 +131,8 @@ void ClientHandler::removePlayer() {
 
 void ClientHandler::forceFinish() {
     socket.close();
+}
+
+void ClientHandler::setPlayerProxy(PlayerProxy&& _player) {
+    player = std::move(_player);
 }

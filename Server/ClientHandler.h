@@ -35,7 +35,7 @@ private:
     std::mutex m;
 
 public:
-    ClientHandler(Socket&& socket, ServerProtocol& _protocol, PlayerProxy&& _player);
+    ClientHandler(Socket&& socket, ServerProtocol& _protocol);
     ClientHandler(const ClientHandler&) = delete;
     ClientHandler operator=(const ClientHandler&) = delete;
 
@@ -51,6 +51,8 @@ public:
     void removePlayer();
 
     void forceFinish();
+
+    void setPlayerProxy(PlayerProxy&& _player);
 
     //todo IMPLEMENTAR CONSTRUCTOR POR MOVIMIENTO
 

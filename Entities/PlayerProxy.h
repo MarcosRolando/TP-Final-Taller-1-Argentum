@@ -16,8 +16,8 @@ struct Coordinate;
 
 class PlayerProxy {
 private:
-    Game* game{};
-    Player* player{};
+    Game* game{nullptr};
+    Player* player{nullptr};
     std::queue<std::unique_ptr<Event>> storedEvents;
 
 public:

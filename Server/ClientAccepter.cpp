@@ -18,15 +18,15 @@ void ClientAccepter::run() {
     while (keepRunning) {
         try {
             Socket clientSocket = serverSocket.accept();
-            PlayerProxy player = _receivePlayerInfo(clientSocket);
-            clients.pushToWaitingList(std::move(clientSocket), protocol, std::move(player));
+            InitialPlayerData playerData = _receivePlayerInfo(clientSocket);
+            clients.pushToWaitingList(std::move(clientSocket), protocol, std::move(playerData));
         } catch(std::exception& e) {
             std::cerr << e.what() << std::endl;
         }
     }
 }
 
-PlayerProxy ClientAccepter::_receivePlayerInfo(Socket& clientSocket) {
+InitialPlayerData ClientAccepter::_receivePlayerInfo(Socket& clientSocket) {
     std::size_t offset = 0;
     std::vector<char> buffer;
     uint32_t msgLen;
@@ -41,18 +41,18 @@ PlayerProxy ClientAccepter::_receivePlayerInfo(Socket& clientSocket) {
     if (std::get<0>(creationID) == GameType::CREATE_PLAYER) {
         return _createPlayer(buffer, offset);
     } else if (std::get<0>(creationID) == GameType::LOAD_PLAYER) {
-        //_loadPlayer();
+        //_loadPlayer();//todo aca chequeamos en el archivo indice si existe el nombre de ese player
         throw TPException("No existe ese player en el archivo"); //todo no tirar siempre exception xd
     } else {
         throw TPException("No me llego ni mensaje de creacion ni de carga de player!");
     }
 }
 
-PlayerProxy ClientAccepter::_createPlayer(std::vector<char>& buffer, std::size_t& offset) {
+InitialPlayerData ClientAccepter::_createPlayer(std::vector<char>& buffer, std::size_t& offset) {
     msgpack::type::tuple<std::string, GameType::Race, GameType::Class> info;
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     handler->convert(info);
-    PlayerProxy player = loader.createPlayer(std::move(std::get<0>(info)),
-                                 std::get<1>(info), std::get<2>(info));
-    return player;
+    InitialPlayerData playerData = {std::move(std::get<0>(info)),
+                                    std::get<1>(info), std::get<2>(info)};
+    return playerData;
 }

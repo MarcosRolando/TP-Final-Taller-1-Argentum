@@ -12,6 +12,7 @@
 #include "../Entities/Player.h"
 
 #include <iostream>
+#include "../Server/InitialPlayerData.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 
@@ -103,11 +104,9 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 }
 
 void Game::update(double timeStep, ServerProtocol& protocol) {
-    clients.removeDisconnectedClients(protocol);
     _repopulateMap(timeStep, protocol);
-    _updateMonsters(timeStep); //todo pasar a lista de Monster* en vez de shared ptr
+    _updateMonsters(timeStep);
     _updatePlayers(timeStep);
-    clients.update(); //todo cambiar el nombre a mergeo de eventos
     _executeQueueOperations(protocol);
 
     //AGREGAR UPDATE DE PLAYERS CONECTADOS (no hay que borrar esto????)
@@ -115,7 +114,7 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
     _removeMonsters(protocol);
 }
 
-Game::Game(MapFileReader&& mapFile, ClientsMonitor& _clients): map(mapFile), clients(_clients) {
+Game::Game(MapFileReader&& mapFile): map(mapFile) {
     monsterCreationRate = 20;
     maxNumberOfMonsters = 300;
     spawnInterval = 100;
@@ -158,15 +157,16 @@ void Game::pushEvent(std::unique_ptr<Event>&& event) {
     eventQueue.push(std::move(event));
 }
 
-Game::Game(ClientsMonitor&& clientAux /*= ClientsMonitor()*/): clients(clientAux) {
+/*
+Game::Game(ClientsMonitor&& clientAux //= ClientsMonitor()): clients(clientAux) {
 
 }
+*/
 #include "../Items/Attack/Weapon.h"
 #include "../Items/Defense/Head.h"
 #include "../Items/Defense/Shield.h"
 
-Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
-                GameType::Class _class, ServerProtocol& protocol) {
+Player& Game::createPlayer(InitialPlayerData& playerData, ServerProtocol& protocol) {
     //todo ver si lo spawneamos en un area especifica tipo la capital o pueblos
     int x = 0;
     Coordinate position{};
@@ -175,8 +175,8 @@ Player& Game::createPlayer(std::string &&nickname, GameType::Race race,
         if (map.isPlaceAvailable(position)) break;
         ++x;
     }
-    std::shared_ptr<Player> player(new Player(*this, race, _class, 1,
-                                0, position, std::move(nickname)));
+    std::shared_ptr<Player> player(new Player(*this, playerData.race, playerData._class, 1,
+                                0, position, std::move(playerData.nickname)));
     player->storeItem(std::shared_ptr<Item>(new Weapon(GameType::LONGSWORD)));
     player->storeItem(std::shared_ptr<Item>(new Weapon(GameType::GNARLED_STAFF)));
     player->storeItem(std::shared_ptr<Item>(new Weapon(GameType::GNARLED_STAFF)));

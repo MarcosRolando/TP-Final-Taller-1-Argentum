@@ -4,9 +4,10 @@
 
 #include "PlayerLoader.h"
 #include "../Game/Game.h"
+#include "InitialPlayerData.h"
+#include "../Entities/PlayerProxy.h"
 
-PlayerProxy PlayerLoader::createPlayer(std::string&& nickname, GameType::Race race,
-                                                GameType::Class _class) {
-    PlayerProxy player(&game, &game.createPlayer(std::move(nickname), race, _class, protocol));
+PlayerProxy PlayerLoader::createPlayer(InitialPlayerData& playerData) {
+    PlayerProxy player(&game, &game.createPlayer(playerData, protocol));
     return player;
 }
