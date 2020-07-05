@@ -21,8 +21,8 @@ void UseItem::operator()(ServerProtocol& protocol) {
         std::stringstream data;
         msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::EQUIPPED);
         msgpack::pack(data, messageTypeData);
-        msgpack::type::tuple<GameType::EquipmentPlace, int32_t> useDataTuple
-                        (useData.equipmentPlace, useData.id);
+        msgpack::type::tuple<std::string, GameType::EquipmentPlace, int32_t> useDataTuple
+                        (player.getNickname(), useData.equipmentPlace, useData.id);
         msgpack::pack(data, useDataTuple);
     }
 }
