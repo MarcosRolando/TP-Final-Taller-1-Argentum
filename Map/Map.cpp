@@ -18,12 +18,12 @@ void Map::renderGround() {
         for (int j = 0; j < (VISIBLE_HORIZONTAL_TILES + 1); ++j) {
             float x = (float)camera.x + (float)j * TILE_WIDTH;
             float y = (float)camera.y + (float)i * TILE_HEIGHT;
-            if (x >= LEVEL_WIDTH) continue;
-            if (y >= LEVEL_HEIGHT) continue;
+            if (x >= LEVEL_WIDTH || x < 0) continue;
+            if (y >= LEVEL_HEIGHT || y < 0) continue;
             int xTile = floor(x / TILE_WIDTH);
             int yTile = floor(y / TILE_HEIGHT);
             int tile = yTile*TOTAL_HORIZONTAL_TILES + xTile;
-            tiles[tile].renderGround(camera);
+            tiles.at(tile).renderGround(camera);
         }
     }
 }
@@ -70,10 +70,10 @@ void Map::loadTileData(Coordinate position, FloorTypeTexture floor, TextureID st
                        TextureID entity) {
     unsigned int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     if (structure != Nothing) {
-        tiles[tile].loadData(textureRepo.getTexture(floor.texture),
+        tiles.at(tile).loadData(textureRepo.getTexture(floor.texture),
                 &textureRepo.getTexture(structure), floor.index);
     } else {
-        tiles[tile].loadData(textureRepo.getTexture(floor.texture),
+        tiles.at(tile).loadData(textureRepo.getTexture(floor.texture),
                 nullptr, floor.index);
     }
     if (entity != Nothing) {
@@ -86,7 +86,7 @@ void Map::loadTileData(Coordinate position, FloorTypeTexture floor, TextureID st
 void Map::addNPC(EntityData& data) {
     if (entities.count(data.nickname) == 0) {
         int tile = data.pos.i*TOTAL_HORIZONTAL_TILES + data.pos.j;
-        tiles[tile].addEntity(std::unique_ptr<Entity>(new NPC(textureRepo,
+        tiles.at(tile).addEntity(std::unique_ptr<Entity>(new NPC(textureRepo,
                 camera, data.pos.j*TILE_WIDTH,data.pos.i*TILE_HEIGHT, data.texture)));
         if (data.currentDir != GameType::DIRECTION_STILL) {
             tiles.at(tile).moveEntity(data.currentDir, data.distanceMoved, movingEntities);
@@ -98,7 +98,7 @@ void Map::addNPC(EntityData& data) {
 void Map::addPlayer(MapPlayerData& playerData) {
     if (entities.count(playerData.entityData.nickname) == 0) {
         int tile = playerData.entityData.pos.i*TOTAL_HORIZONTAL_TILES + playerData.entityData.pos.j;
-        tiles[tile].addEntity(std::unique_ptr<Entity>(new Player(textureRepo,
+        tiles.at(tile).addEntity(std::unique_ptr<Entity>(new Player(textureRepo,
                 camera, playerData.entityData.pos.j*TILE_WIDTH,playerData.entityData.pos.i*TILE_HEIGHT,
                 playerData.equipment, playerData.isAlive)));
         if (playerData.entityData.currentDir != GameType::DIRECTION_STILL) {
@@ -150,7 +150,7 @@ Coordinate Map::_calculateNewTile(Coordinate position, GameType::Direction direc
     return position;
 }
 
-bool _finishedMoving(const Entity* entity) {
+static bool _finishedMoving(const Entity* entity) {
     if (entity) {
         return entity->finishedMoving();
     } else {

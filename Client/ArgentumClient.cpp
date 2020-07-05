@@ -49,7 +49,7 @@ void Client::_processConnection() {
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
     //SoundPlayer soundPlayer;
-    initializer.loadPlayer("ivan", GameType::Race::DWARF, GameType::Class::WARRIOR);
+    initializer.loadPlayer("marcos", GameType::Race::DWARF, GameType::Class::WARRIOR);
     initializer.initializeGame();
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
     UpdateReceiver updater(protocol, updateEvents, socket, quit);
