@@ -188,4 +188,5 @@ void Map::removeEntity(std::string &nickname) {
     Coordinate position = entities.at(nickname);
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     tiles.at(tile).removeEntity();
+    entities.erase(nickname);
 }
