@@ -8,6 +8,7 @@
 #include "../Game/Game.h"
 #include "../Items/Miscellaneous/Gold.h"
 #include "../Config/Configuration.h"
+#include "../Game/Events/Drop.h"
 #include <msgpack.hpp>
 
 #define ATTACKER_IS_NEWBIE_MESSAGE "I won't lose my time on a low level newbie like you!\n"
@@ -57,7 +58,10 @@ void Player::_dropItems() {
     if (goldDropped > 0) {
         items.emplace_back(new Gold(goldDropped));
     }
-    game.dropItems(std::move(items), currentPosition);
+    if (!items.empty()) {
+        //game.dropItems(std::move(items), currentPosition);
+        game.pushEvent(std::unique_ptr<Event>(new Drop(game, std::move(items), currentPosition)));
+    }
 }
 
 AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPlayer) {
@@ -180,11 +184,14 @@ bool Player::unequip() {
     return false;
 }
 
-void Player::dropItem(unsigned int itemPosition) {
+ItemData Player::dropItem(unsigned int itemPosition) {
     std::shared_ptr<Item> aux = inventory.removeItem(itemPosition);
+    ItemData returnData = {GameType::ITEM_TYPE_NONE, -1, currentPosition};
     if (aux) {
+        returnData = {aux->getType(), aux->getId()};
         game.dropItems(std::move(aux), currentPosition);
     }
+    return returnData;
 }
 
 void Player::buyFrom(const std::string &itemName, Coordinate npcPosition) {

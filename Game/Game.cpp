@@ -96,10 +96,18 @@ AttackResult Game::attackPosition(int damage, unsigned int level, bool isAPlayer
 }
 
 void Game::dropItems(std::list<std::shared_ptr<Item>>&& items, Coordinate position) {
+    if (items.empty()) {
+        throw std::invalid_argument("Received empty list in Game::dropItems");
+    }
+    mapItems[position] = {items.back()->getType(), items.back()->getId(), position};
     map.addItemsToTile(std::move(items), position);
 }
 
 void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
+    if (!item) {
+        throw std::invalid_argument("Received null item in Game::dropItems");
+    }
+    mapItems[position] = {item->getType(), item->getId(), position};
     map.addItemsToTile(std::move(item), position);
 }
 

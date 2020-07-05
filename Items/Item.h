@@ -67,6 +67,8 @@ public:
     virtual ~Item() = default;
 
     int32_t getId();
+
+    GameType::ItemType getType();
 };
 
 

@@ -58,3 +58,7 @@ bool Item::isInFloor() const {
 int32_t Item::getId() {
     return id;
 }
+
+GameType::ItemType Item::getType() {
+    return type;
+}
