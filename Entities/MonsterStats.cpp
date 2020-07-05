@@ -7,7 +7,7 @@
 #include "../Config/Calculator.h"
 #include "../AttackResult.h"
 
-#define DODGE_MESSAGE "That was a lame attack... "
+#define DODGE_MESSAGE "Monster dodged! "
 
 MonsterStats::MonsterStats(GameType::Entity type) {
     Configuration& config = Configuration::getInstance();
