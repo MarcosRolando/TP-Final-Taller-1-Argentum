@@ -19,7 +19,7 @@ void UseItem::operator()(ServerProtocol& protocol) {
     UseReturnData useData = player.useItem(position);
     if (useData.equipmentPlace != GameType::EQUIPMENT_PLACE_NONE) {
         std::stringstream data;
-        msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::USE_ITEM);
+        msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::EQUIPPED);
         msgpack::pack(data, messageTypeData);
         msgpack::type::tuple<GameType::EquipmentPlace, int32_t> useDataTuple
                         (useData.equipmentPlace, useData.id);
