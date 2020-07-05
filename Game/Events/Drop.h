@@ -12,22 +12,27 @@
 #include <memory>
 #include <list>
 #include "../../Items/Item.h"
+#include "../../Map/Coordinate.h"
 
+class ServerProtocol;
 class Player;
+class Game;
 
 class Drop: public Event {
 private:
-<<<<<<< HEAD
-    Player* player;
-=======
     Player* player{nullptr};
->>>>>>> bc254ece2fc1c263b97ad72353f9195db38e0954
-    unsigned int position;
+    int position{-1};
+
     std::list<std::shared_ptr<Item>> items;
+    Game* game{nullptr};
+    Coordinate dropPosition{-1, -1};
 
 public:
-    Drop(Player& player, unsigned int position);
-    Drop(std::list<std::shared_ptr<Item>>&& items, unsigned int position);
+    Drop(Player& player, int position);
+
+    //La lista debe contener al menos 1 elemento si se utiliza este contrsuctor
+    Drop(Game& game, std::list<std::shared_ptr<Item>>&& items, Coordinate dropPosition);
+    Drop(Game& game, std::shared_ptr<Item>&& item, Coordinate dropPosition);
     void operator()(ServerProtocol& protocol) override;
 };
 

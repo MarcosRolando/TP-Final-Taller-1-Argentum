@@ -10,6 +10,7 @@
 #include "../Map/Map.h"
 #include "MonstersFactory.h"
 #include "Events/Event.h"
+#include "../Items/ItemData.h"
 
 class EntityTests;
 struct InitialPlayerData;
@@ -42,7 +43,8 @@ private:
 
     std::list<Monster*> monsters;
     std::list<Player*> players;
-    std::list<Item*> mapItems;
+    //std::list<Item*> mapItems;
+    std::unordered_map<Coordinate, ItemData> mapItems;
 
     friend GameTests;
     friend EntityTests;

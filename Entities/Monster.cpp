@@ -9,6 +9,7 @@
 #include "../Config/Configuration.h"
 #include "../Game/Events/Attack.h"
 #include "../Game/Events/Move.h"
+#include "../Game/Events/Drop.h"
 
 #define MAX_NUMBER_OF_CACHED_NODES 4
 
@@ -140,7 +141,8 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
         if (isDead()) {
             std::shared_ptr<Item> drop;
             ItemsFactory::getInstance().storeRandomDrop(drop, stats.getMaxLife());
-            game.dropItems(std::move(drop), currentPosition);
+            //game.dropItems(std::move(drop), currentPosition);
+            game.pushEvent(std::unique_ptr<Event>(new Drop(game, std::move(drop), currentPosition)));
         }
     }
     return result;

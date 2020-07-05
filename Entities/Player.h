@@ -10,6 +10,7 @@
 #include "Entity.h"
 #include "PlayerStats.h"
 #include "Minichat.h"
+#include "../Items/ItemData.h"
 
 class Game;
 class EntityTests;
@@ -101,7 +102,7 @@ public:
     //Desequipa el arma
     bool unequip();
 
-    void dropItem(unsigned int itemPosition);
+    ItemData dropItem(unsigned int itemPosition);
 
     void operator>>(std::stringstream& buffer) const override;
 
