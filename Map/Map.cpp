@@ -190,3 +190,10 @@ void Map::removeEntity(std::string &nickname) {
     tiles.at(tile).removeEntity();
     entities.erase(nickname);
 }
+
+void Map::equipOnPlayer(std::string &nickname, GameType::EquipmentPlace place,
+                        TextureID equipment) {
+    Coordinate position = entities.at(nickname);
+    int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
+    tiles.at(tile).equipOnPlayer(place, equipment);
+}

@@ -20,6 +20,8 @@ public:
                                                     PlayerEquipment& images,
                                                     bool _isAlive = true);
     void render() override;
+
+    void equip(GameType::EquipmentPlace place, TextureID equipment);
 };
 
 

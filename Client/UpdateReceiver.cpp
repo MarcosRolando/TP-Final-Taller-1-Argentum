@@ -10,10 +10,12 @@
 #include "../UpdateEvents/UpdateCreateNPC.h"
 #include "../UpdateEvents/UpdateGUI.h"
 #include "../UpdateEvents/UpdateRemoveEntity.h"
+#include "../UpdateEvents/UpdateEquip.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Direction)
 MSGPACK_ADD_ENUM(GameType::Entity)
+MSGPACK_ADD_ENUM(GameType::EquipmentPlace)
 
 void UpdateReceiver::run() {
     uint32_t msgLength = 0;
@@ -49,7 +51,7 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
                 break;
             case GameType::EQUIPPED:
-                handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+                _processEquipped();
                 break;
             case GameType::CREATE_ENTITY:
                 _processCreateEntity();
@@ -64,6 +66,14 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
         }
     }
     _receivePlayerData();
+}
+
+void UpdateReceiver::_processEquipped() {
+    msgpack::type::tuple<std::string, GameType::EquipmentPlace, int32_t> data;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(data);
+    updates.push(std::unique_ptr<UpdateEvent>(new UpdateEquip(std::move(std::get<0>(data)),
+                std::get<1>(data), std::get<2>(data))));
 }
 
 void UpdateReceiver::_processMoveUpdate() {

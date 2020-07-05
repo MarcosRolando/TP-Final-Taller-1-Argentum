@@ -20,3 +20,7 @@ void Player::render() {
         Entity::render(ghostTexture);
     }
 }
+
+void Player::equip(GameType::EquipmentPlace place, TextureID equipment) {
+    pTexture.equip(place, equipment);
+}

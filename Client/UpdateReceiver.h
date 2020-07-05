@@ -36,6 +36,7 @@ private:
     void _processMoveUpdate();
     void _receivePlayerData();
     void _processCreateEntity();
+    void _processEquipped();
 };
 
 

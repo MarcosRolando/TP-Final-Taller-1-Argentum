@@ -4,6 +4,7 @@
 
 #include "Tile.h"
 #include "../GameConstants.h"
+#include "../Character/Player.h"
 
 Tile::Tile(Coordinate position) : item(position), structure(position) {
     box = {position.j*TILE_WIDTH, position.i*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT};
@@ -74,4 +75,12 @@ void Tile::setCameraOn() {
 
 void Tile::removeEntity() {
     entity = nullptr;
+}
+
+void Tile::equipOnPlayer(GameType::EquipmentPlace place, TextureID equipment) {
+    Entity* entityToCast = entity.get();
+    auto player = dynamic_cast<Player*>(entityToCast);
+    if (player) {
+        player->equip(place, equipment);
+    }
 }
