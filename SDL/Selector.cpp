@@ -68,25 +68,18 @@ void Selector::_verifyInventorySlotSelection(Coordinate click) {
             DEFAULT_INVENTORY_TOP, DEFAULT_INVENTORY_BOTTOM)){
         inventorySlot.j = (click.j - DEFAULT_INVENTORY_LEFT)/INVENTORY_SLOT_WIDTH;
         inventorySlot.i = (click.i - DEFAULT_INVENTORY_TOP)/INVENTORY_SLOT_HEIGHT;
-        std::cout << "shield" << std::endl;
     }
 }
 
 void Selector::_verifySelectedEquipment(Coordinate click) {
     if (_isInsideRect(click, 1320, 1392, 660, 735)){//Casco
         selectedEquipment = GameType::EQUIPMENT_PLACE_HEAD;
-        std::cout << "head" << std::endl;
     } else if (_isInsideRect(click, 1397, 1469, 660, 735)){//Chest
         selectedEquipment = GameType::EQUIPMENT_PLACE_CHEST;
-        std::cout << "chest" << std::endl;
-
     } else if (_isInsideRect(click, 1320, 1392, 760, 835)){//Weapon
         selectedEquipment = GameType::EQUIPMENT_PLACE_WEAPON;
-        std::cout << "weapon" << std::endl;
-
     } else if (_isInsideRect(click, 1397, 1469, 760, 835)){//Shield
         selectedEquipment = GameType::EQUIPMENT_PLACE_SHIELD;
-        std::cout << "shield" << std::endl;
     }
 }
 
