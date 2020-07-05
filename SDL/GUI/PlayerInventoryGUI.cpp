@@ -31,7 +31,11 @@ PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &ren
 }
 
 void PlayerInventoryGUI::addInventoryItem(TextureID texture, int32_t slot) {
-    inventoryTextures[slot] = &repo.getTexture(texture);
+    if (texture == Nothing){
+        inventoryTextures[slot] = nullptr;
+    } else {
+        inventoryTextures[slot] = &repo.getTexture(texture);
+    }
 }
 
 void PlayerInventoryGUI::removeInventoryItem(int32_t inventorySlot) {
@@ -97,7 +101,7 @@ void PlayerInventoryGUI::_renderInventoryItems() {
             if (inventoryTextures[4*i + j] != nullptr){
                 inventoryTextures[4*i + j]->render(INVENTORY_ITEMS_X_OFFSET +
                                         (ITEM_WIDTH + 6) * j,INVENTORY_ITEMS_Y_OFFSET
-                                        +(i/LINES) * (ITEM_HEIGHT - 1),0);
+                                        +(i) * (ITEM_HEIGHT - 1),0);
             }
         }
     }

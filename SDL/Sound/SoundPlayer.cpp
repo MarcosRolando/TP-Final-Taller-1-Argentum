@@ -6,7 +6,7 @@
 
 #define QUEUE_SIZE 3
 
-SoundPlayer::SoundPlayer(SoundRepository& repo) : repo(repo){}
+SoundPlayer::SoundPlayer(){}
 
 void SoundPlayer::playMusic() {
     if( Mix_PlayingMusic() == 0 ) {//Empieza musica si no habia

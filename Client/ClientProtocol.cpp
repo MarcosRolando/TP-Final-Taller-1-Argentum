@@ -135,9 +135,7 @@ void ClientProtocol::_fillInventory(PlayerData& info, size_t& offset){
         handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
         msgpack::type::tuple<GameType::ItemType, int32_t> item;
         handler->convert(item);
-        if (static_cast<GameType::ItemType>(std::get<0>(item)) != GameType::ITEM_TYPE_NONE) {
-            _addItem(info, std::get<0>(item), std::get<1>(item), i);
-        }
+        _addItem(info, std::get<0>(item), std::get<1>(item), i);
     }
 }
 
@@ -155,6 +153,9 @@ void ClientProtocol::_addItem(PlayerData& info, GameType::ItemType type, int32_t
         case GameType::ITEM_TYPE_POTION:
             texture = translator.getPotionTexture(static_cast<GameType::Potion>
                                                   (id));
+            break;
+        case GameType::ITEM_TYPE_NONE:
+            texture = Nothing;
             break;
         default:
             break;

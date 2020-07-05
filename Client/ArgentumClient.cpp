@@ -14,6 +14,8 @@
 #include "UpdateReceiver.h"
 #include <chrono>
 #include "GameInitializer.h"
+#include "../SDL/Sound/SoundPlayer.h"
+#include "../SDL/Sound/SoundRepository.h"
 
 using namespace std::chrono;
 
@@ -46,7 +48,8 @@ void Client::_processConnection() {
     UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    initializer.loadPlayer("manolito", GameType::Race::DWARF, GameType::Class::WARRIOR);
+    //SoundPlayer soundPlayer;
+    initializer.loadPlayer("ivan", GameType::Race::DWARF, GameType::Class::WARRIOR);
     initializer.initializeGame();
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
     UpdateReceiver updater(protocol, updateEvents, socket, quit);

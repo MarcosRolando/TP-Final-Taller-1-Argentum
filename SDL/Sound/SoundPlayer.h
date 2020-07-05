@@ -10,9 +10,9 @@
 class SoundPlayer {
 private:
     std::queue<SoundID> soundQueue;
-    SoundRepository& repo;
+    SoundRepository repo;
 public:
-    SoundPlayer(SoundRepository& repo);
+    SoundPlayer();
 
     void queueSound(SoundID id);
     /* Reproduce los sonidos que estan encolados */
