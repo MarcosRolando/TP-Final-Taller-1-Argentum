@@ -48,10 +48,11 @@ void PlayerProxy::attack(Coordinate target) {
         }
     }
 }
-
+#include <iostream>
 void PlayerProxy::useItem(int itemPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
         storedEvents.emplace(new UseItem(*player, itemPosition));
+        std::cout << "agus puto " << std::endl;
     }
 }
 

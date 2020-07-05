@@ -10,7 +10,7 @@
 #include "../Config/Configuration.h"
 #include <msgpack.hpp>
 
-#define ATTACKER_IS_NEWBIE_MESSAGE "I won't lose my time on a low level newbie like you!\n "
+#define ATTACKER_IS_NEWBIE_MESSAGE "I won't lose my time on a low level newbie like you!\n"
 #define PLAYER_IS_A_NEWBIE_MESSAGE "Surely you have better things to do than attack a low level newbie like me...\n"
 #define PLAYER_IS_DEAD_MESSAGE "You can't kill a ghost, you know?\n"
 
@@ -63,14 +63,14 @@ void Player::_dropItems() {
 AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPlayer) {
     stats.stopMeditating();
     unsigned int newbieLevel = Configuration::getInstance().configNewbieLevel();
-    if (isAPlayer) {
-        if (stats.getLevel() <= newbieLevel) {
-            return {0, 0, PLAYER_IS_A_NEWBIE_MESSAGE};
-        } else if (attackerLevel <= newbieLevel) {
-            return {0, 0, ATTACKER_IS_NEWBIE_MESSAGE};
-        }
-    }
     if (!stats.isDead()) {
+        if (isAPlayer) {
+            if (stats.getLevel() <= newbieLevel) {
+                return {0, 0, PLAYER_IS_A_NEWBIE_MESSAGE};
+            } else if (attackerLevel <= newbieLevel) {
+                return {0, 0, ATTACKER_IS_NEWBIE_MESSAGE};
+            }
+        }
         std::string attackedMessage;
         unsigned int defense = inventory.getDefense();
         int totalDamage = stats.modifyLife(damage, attackerLevel, defense, isAPlayer, attackedMessage);
