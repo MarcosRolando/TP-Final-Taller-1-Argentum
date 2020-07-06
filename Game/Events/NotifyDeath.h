@@ -8,12 +8,17 @@
 
 #include "Event.h"
 
+#include <sstream>
+
 class Player;
 
 //Clase utilizada para notificar a todos los clientes de la muerte de un jugador
 class NotifyDeath: public Event {
 private:
     const Player& player;
+
+private:
+    void _appendUnequipMessages(std::stringstream& data);
 
 public:
     explicit NotifyDeath(const Player& player);

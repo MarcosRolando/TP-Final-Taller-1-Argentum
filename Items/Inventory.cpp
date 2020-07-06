@@ -53,11 +53,11 @@ UseReturnData Inventory::_manageItemPlacement(GameType::EquipmentPlace equipment
 }
 
 
-void Inventory::_dropEquippedItems(Game& game, std::list<std::shared_ptr<Item>>& droppedItems) {
+void Inventory::_dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems) {
     for (auto & armour : clothingEquipment) {
         if (!armour.second->isDefault()) {
             droppedItems.push_back(std::move(armour.second));
-            game.pushEvent(std::unique_ptr<Event>(new Unequip()));
+            //game.pushEvent(std::unique_ptr<Event>(new Unequip()));
         }
     }
     if (!equippedWeapon->isDefault()) {
@@ -153,7 +153,7 @@ unsigned int Inventory::getDefense() {
     return defense;
 }
 
-std::list<std::shared_ptr<Item>> Inventory::dropAllItems(Game& game) {
+std::list<std::shared_ptr<Item>> Inventory::dropAllItems(Game& game, Player& player) {
     std::list<std::shared_ptr<Item>> droppedItems;
     for (int i = 0; i < INVENTORY_SIZE; ++i) {
         if (items[i]) {

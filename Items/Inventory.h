@@ -39,7 +39,7 @@ private:
 
 private:
     UseReturnData _manageItemPlacement(GameType::EquipmentPlace equipmentPlace, unsigned int itemPosition);
-    void _dropEquippedItems(Game& game, std::list<std::shared_ptr<Item>>& droppedItems);
+    void _dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItems);
     static void _storeNullItemData(std::stringstream& buffer);
     void _restoreDefaultEquipment();
 
@@ -72,7 +72,7 @@ public:
     unsigned int getDefense();
 
     //Retorna una lista con todos los items del iventario, quitandolos del mismo
-    std::list<std::shared_ptr<Item>> dropAllItems(Game& game);
+    std::list<std::shared_ptr<Item>> dropAllItems(Game& game, Player& player);
 
     bool unequip(GameType::EquipmentPlace clothing);
 
