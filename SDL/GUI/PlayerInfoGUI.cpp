@@ -61,7 +61,7 @@ void PlayerInfoGUI::_updatePosition(Coordinate position) {
 }
 
 void PlayerInfoGUI::_updateNickname(std::string name){
-    pInfo.nickname = name;
+    //pInfo.nickname = name;
 }
 
 void PlayerInfoGUI::render() {
@@ -124,7 +124,8 @@ int32_t PlayerInfoGUI::getIntelligence() const {
 }
 
 std::string PlayerInfoGUI::getNickname() const {
-    return pInfo.nickname;//Ver si esta bien devoler el string asi
+    //return pInfo.nickname;//Ver si esta bien devoler el string asi
+    return " ";//Pongo esto para q no se queje clion de q no devuelvo nada
 }
 
 void PlayerInfoGUI::update(GUIPlayerInfo &generalInfo) {
