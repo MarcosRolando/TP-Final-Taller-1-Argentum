@@ -9,7 +9,6 @@ const unsigned int TILE_DISTANCE_IN_METERS = 2000;
 const float SERVER_UPDATE_TIME = 33.f; /*in miliseconds*/
 
 Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
-    currentDistanceMoved = 0;
     currentFrame = 0;
     moveDirection = GameType::DIRECTION_STILL;
     lastDirection = GameType::DIRECTION_STILL;
@@ -19,35 +18,21 @@ Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
     height = (float)TILE_HEIGHT;
 }
 
-void Entity::updatePosition(float timeStep) {
-    float offset = distancePerMilisecond*timeStep; //Calculate distanced move, offset es un auxiliar
-    if (moveDirection != GameType::DIRECTION_STILL) {
-        if ( (currentDistanceMoved + offset) >= distanceToMove) {
-            offset = distanceToMove - currentDistanceMoved;
-            currentDistanceMoved = distanceToMove;
-        } else {
-            currentDistanceMoved += offset;
+void Entity::_updateFrame(bool reachedDestination) {
+    if (reachedDestination) {
+        if (totalDistanceMoved < static_cast<float>(TILE_WIDTH)) {
+            _modifyPosition(moveDirection, static_cast<float>(TILE_WIDTH) - totalDistanceMoved);
+            totalDistanceMoved = static_cast<float>(TILE_WIDTH);
         }
-        totalDistanceMoved += offset;
-        _modifyPosition(moveDirection, offset);
-
-        if (totalDistanceMoved >= ((static_cast<float>(TILE_WIDTH) - 1))/*le pongo un poco menos por error de redondeo de float que nunca llego*/) {/*Reinicio la animacion*/
-            if (totalDistanceMoved < static_cast<float>(TILE_WIDTH)) {
-                _modifyPosition(moveDirection, static_cast<float>(TILE_WIDTH) - totalDistanceMoved);
-                totalDistanceMoved = static_cast<float>(TILE_WIDTH);
-            }
-            currentFrame = 0;
-            lastDirection = moveDirection;
-            moveDirection = GameType::DIRECTION_STILL;
-            totalDistanceMoved = 0;
-            currentDistanceMoved = 0;
-            distanceToMove = 0;
-        } else {
-            for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
-                if (totalDistanceMoved < ((float)TILE_WIDTH/6 * (float)(i+1))) {
-                    currentFrame = i;
-                    break;
-                }
+        currentFrame = 0;
+        lastDirection = moveDirection;
+        moveDirection = GameType::DIRECTION_STILL;
+        totalDistanceMoved = 0;
+    } else {
+        for (int i = 0; i < 6; ++i) { /*6 es la cantidad de frames distintos del body*/
+            if (totalDistanceMoved < ((float)TILE_WIDTH/6 * (float)(i+1))) {
+                currentFrame = i;
+                break;
             }
         }
     }
@@ -151,18 +136,13 @@ void Entity::updateCamera() {
 }
 
 void Entity::move(GameType::Direction direction, unsigned int distanceTravelled,
-                  std::list<Entity *> &movingEntities) {
-    if (distanceToMove > currentDistanceMoved) { //Esto es por si por algun motivo no llegue a interpolarlo a la posicion de destino a tiempo
-        _modifyPosition(moveDirection, distanceToMove - currentDistanceMoved);
-        totalDistanceMoved += (distanceToMove - currentDistanceMoved);
-    } else {
-        movingEntities.emplace_back(this);
-    }
-    currentDistanceMoved = 0;
+                  bool reachedDestination) {
+    float distanceInPixels = static_cast<float>(TILE_WIDTH) *
+                           static_cast<float>(distanceTravelled) / static_cast<float>(TILE_DISTANCE_IN_METERS);
     moveDirection = direction;
-    distanceToMove = static_cast<float>(TILE_WIDTH) *
-            static_cast<float>(distanceTravelled) / static_cast<float>(TILE_DISTANCE_IN_METERS);
-    distancePerMilisecond = distanceToMove / SERVER_UPDATE_TIME;
+    _modifyPosition(direction, distanceInPixels);
+    totalDistanceMoved += distanceInPixels;
+    _updateFrame(reachedDestination);
 }
 
 void Entity::_modifyPosition(GameType::Direction direction, float distance) {

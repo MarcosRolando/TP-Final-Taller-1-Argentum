@@ -52,9 +52,9 @@ void Tile::renderEntity() {
 }
 
 void Tile::moveEntity(GameType::Direction direction, unsigned int distanceTravelled,
-                      std::list<Entity *> &movingEntities) {
+                        bool reachedDestination) {
     if (entity) {
-        entity->move(direction, distanceTravelled, movingEntities);
+        entity->move(direction, distanceTravelled, reachedDestination);
     }
 }
 
