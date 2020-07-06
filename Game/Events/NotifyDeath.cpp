@@ -8,6 +8,7 @@
 #include "../../Config/GameEnums.h"
 #include "../../Server/ServerProtocol.h"
 #include <msgpack.hpp>
+#include "../../Server/ServerProtocol.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::EquipmentPlace)

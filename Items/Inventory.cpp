@@ -57,7 +57,6 @@ void Inventory::_dropEquippedItems(std::list<std::shared_ptr<Item>>& droppedItem
     for (auto & armour : clothingEquipment) {
         if (!armour.second->isDefault()) {
             droppedItems.push_back(std::move(armour.second));
-            //game.pushEvent(std::unique_ptr<Event>(new Unequip()));
         }
     }
     if (!equippedWeapon->isDefault()) {
@@ -160,7 +159,7 @@ std::list<std::shared_ptr<Item>> Inventory::dropAllItems(Game& game, Player& pla
             droppedItems.push_back(std::move(items[i]));
         }
     }
-    _dropEquippedItems(droppedItems);
+    _dropEquippedItems(game, droppedItems);
     return droppedItems;
 }
 
