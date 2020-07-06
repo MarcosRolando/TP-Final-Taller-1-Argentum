@@ -98,7 +98,7 @@ Inventory::Inventory() : items(INVENTORY_SIZE, nullptr) {
     equippedWeapon.reset(new Weapon(GameType::Weapon::FIST));
 }
 
-bool Inventory::addItem(std::shared_ptr<Item> &&item) {
+bool Inventory::addItem(std::shared_ptr<Item> &item) {
     if ((storedItemsAmount == items.size()) || !item) {
         return false;
     }

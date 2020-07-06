@@ -48,7 +48,7 @@ public:
 
     //Adquiere el shared pointer recibido y lo guarda si hay espacio y retorna
     //true. Si no hay espacio o item es null no adquiere el puntero y retorna false
-    bool addItem(std::shared_ptr<Item>&& item);
+    bool addItem(std::shared_ptr<Item>& item);
 
     //Elimina el item del inventario de la posicion recibida  y lo retorna,
     //dejando el lugar que ocupaba para un nuevo item que quiera ser guardado

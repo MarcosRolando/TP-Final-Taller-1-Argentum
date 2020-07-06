@@ -20,7 +20,8 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol) :
     eventProcessors = {{GameType::MOVE, &ClientHandler::_processMove},
                        {GameType::PLAYER_ATTACK, &ClientHandler::_processAttack},
                        {GameType::PLAYER_USE_ITEM, &ClientHandler::_processUseItem},
-                       {GameType::PLAYER_UNEQUIP, &ClientHandler::_processUnequip}};
+                       {GameType::PLAYER_UNEQUIP, &ClientHandler::_processUnequip},
+                       {GameType::PLAYER_PICK_UP, &ClientHandler::_processPickUp}};
 }
 
 void ClientHandler::run() {
@@ -124,6 +125,10 @@ void ClientHandler::_processUnequip(std::vector<char> &data) {
     handler = msgpack::unpack(data.data(), data.size(), offset);
     handler->convert(equipmentPlace);
     player.unequip(std::get<0>(equipmentPlace));
+}
+
+void ClientHandler::_processPickUp(std::vector<char> &data) {
+    player.
 }
 
 void ClientHandler::removePlayer() {

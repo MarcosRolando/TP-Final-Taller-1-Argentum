@@ -34,8 +34,6 @@ Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsig
                 //todo persistencia directamente
 }
 
-#include <iostream>
-
 int32_t Player::attack(Coordinate target) {
     if (!stats.isDead()) {
         stats.stopMeditating();
@@ -119,7 +117,7 @@ void Player::receiveGold(unsigned int amount) {
     }
 }
 
-bool Player::storeItem(std::shared_ptr<Item> &&item) {
+bool Player::storeItem(std::shared_ptr<Item> &item) {
     if ((!stats.isDead()) && (item)) {
         stats.stopMeditating();
         if (item->isGold()) {
@@ -127,7 +125,7 @@ bool Player::storeItem(std::shared_ptr<Item> &&item) {
             gold += aux->getamount();
             return true;
         } else {
-            return inventory.addItem(std::move(item));
+            return inventory.addItem(item);
         }
     }
     return false;
