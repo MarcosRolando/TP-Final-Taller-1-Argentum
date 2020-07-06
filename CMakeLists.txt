@@ -41,7 +41,7 @@ add_executable(argentumServer main.cpp Items/Item.h Items/Attack/Weapon.cpp Item
         Config/MapFileReader.cpp Entities/Citizens/CitizenFactory.cpp Entities/Citizens/CitizenFactory.h
         Server/ClientsMonitor.cpp Server/ClientsMonitor.h Server/PlayerLoader.cpp Server/PlayerLoader.h
         Game/Events/Moved.cpp Game/Events/Moved.h Entities/Minichat.cpp Entities/Minichat.h
-        Items/UseReturnData.h Server/InitialPlayerData.h Items/ItemData.h)
+        Items/UseReturnData.h Server/InitialPlayerData.h Items/ItemData.h Game/Events/NotifyDeath.cpp Game/Events/NotifyDeath.h)
 
 
 target_compile_options (argentumServer PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors

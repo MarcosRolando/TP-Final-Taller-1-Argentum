@@ -7,8 +7,8 @@
 #include "../../Server/ServerProtocol.h"
 #include <msgpack.hpp>
 
-MSGPACK_ADD_ENUM(GameType::Direction)
 MSGPACK_ADD_ENUM(GameType::EventID)
+MSGPACK_ADD_ENUM(GameType::Direction)
 
 Moved::Moved(Entity &entity, GameType::Direction _direction, int32_t _displacement):
              entity(entity) {

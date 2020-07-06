@@ -9,6 +9,7 @@
 #include "../Items/Miscellaneous/Gold.h"
 #include "../Config/Configuration.h"
 #include "../Game/Events/Drop.h"
+#include "../Game/Events/NotifyDeath.h"
 #include <msgpack.hpp>
 
 #define ATTACKER_IS_NEWBIE_MESSAGE "I won't lose my time on a low level newbie like you!\n"
@@ -52,7 +53,7 @@ int32_t Player::attack(Coordinate target) {
 }
 
 void Player::_dropItems() {
-    std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();
+    std::list<std::shared_ptr<Item>> items = inventory.dropAllItems(game);
     int goldDropped = static_cast<int>(gold -
                                        Calculator::calculateMaxSafeGold(stats.getLevel()));
     goldDropped = std::max(goldDropped, 0);
@@ -86,6 +87,7 @@ AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPl
             _dropItems();
             experience += Calculator::calculateKillXP(attackerLevel,
                     stats.getLevel(), stats.getMaxLife());
+            game.pushEvent(std::unique_ptr<Event>(new NotifyDeath(*this)));
         }
         attackedMessage += "You damaged " + getNickname() + " by " + std::to_string(totalDamage);
         attackedMessage += " (Remaining Life: " + std::to_string(stats.getCurrentLife()) +
