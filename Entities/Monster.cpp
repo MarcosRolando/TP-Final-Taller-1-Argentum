@@ -129,7 +129,12 @@ Monster::Monster(Game &_game, Coordinate initialPosition,
     type = _type;
 }
 
+#include <iostream>
+
 AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isAPlayer) {
+
+    std::cout << "Entre a attacked de mosnter" << std::endl;
+
     AttackResult result{0, 0, ""};
     if (_damage == 0) return result;
     if (!isDead()) {
@@ -145,6 +150,11 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
             game.pushEvent(std::unique_ptr<Event>(new Drop(game, std::move(drop), currentPosition)));
         }
     }
+
+    std::cout << "Salgo de attacked de mosnter" << std::endl;
+
+
+
     return result;
 }
 
