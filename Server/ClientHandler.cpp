@@ -46,9 +46,7 @@ void ClientHandler::run() {
 void ClientHandler::sendGameUpdate() {
     try {
         const std::vector<char>& generalData = protocol.getGeneralData();
-        if (generalData.size() != sizeof(uint32_t)) {
-            socket.send(generalData.data(), generalData.size());
-        }
+        socket.send(generalData.data(), generalData.size());
         std::vector<char> playerData = ServerProtocol::getPlayerData(player);
         socket.send(playerData.data(), playerData.size());
     } catch (std::exception& e) {
