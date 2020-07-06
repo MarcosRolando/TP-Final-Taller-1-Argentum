@@ -45,6 +45,9 @@ private:
                                            std::unordered_map<std::string, GameType::Structure>& structures,
                                            std::unordered_map<std::string, GameType::FloorType>& floors);
     bool _isReachable(Coordinate position) const;
+    void _getTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets,
+                     bool detectUnreachableTargets) const;
+
 public:
 
     //Crea un mapa vacio, de 0x0
@@ -62,7 +65,11 @@ public:
 
     //Almacena en el vector la cantidad de targets de un monstruo en un cuadrado centrado en
     //center de lado 2*range+1
-    void getTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const;
+    void getMoveTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const;
+
+    //Almacena en el vector la cantidad de targets de un monstruo en un cuadrado centrado en
+    //center de lado 2*range+1
+    void getAttackTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const;
 
     //Almacena en el vector el camino que se debe seguir para llegar a la coordenada deseada
     //Si existe un camino retorna true y la informacion es guardada en path, sino retorna

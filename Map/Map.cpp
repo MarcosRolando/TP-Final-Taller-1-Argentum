@@ -152,6 +152,23 @@ void Map::_initializeConstructorMaps(
             {"DarkWater3", GameType::FloorType::DARK_WATER3}};
 }
 
+void Map::_getTargets(Coordinate center, unsigned int range, std::vector<Coordinate> &targets,
+                      bool detectUnreachableTargets) const {
+    Coordinate topLeft{}, bottomRight{}, aux{};
+    _buildSearchRegion(center, range, topLeft, bottomRight);
+    for (int i = topLeft.iPosition; i <= bottomRight.iPosition; ++i) {
+        for (int j = topLeft.jPosition; j <= bottomRight.jPosition; ++j) {
+            if (tiles[i][j].hasMonsterTarget() && !tiles[i][j].isInCity() &&
+                (_isReachable({i, j}) || detectUnreachableTargets)) {
+                aux.iPosition = i;
+                aux.jPosition = j;
+                targets.push_back(aux);
+            }
+        }
+    }
+}
+
+
 
 //////////////////////////////PUBLIC/////////////////////////////
 
@@ -199,19 +216,16 @@ AttackResult Map::attackTile(int damage, unsigned int level, bool isAPlayer,
     return tiles[coordinate.iPosition][coordinate.jPosition].attacked(damage, level, isAPlayer);
 }
 
-void Map::getTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const {
-    Coordinate topLeft{}, bottomRight{}, aux{};
-    _buildSearchRegion(center, range, topLeft, bottomRight);
-    for (int i = topLeft.iPosition; i <= bottomRight.iPosition; ++i) {
-        for (int j = topLeft.jPosition; j <= bottomRight.jPosition; ++j) {
-            if (tiles[i][j].hasMonsterTarget() && !tiles[i][j].isInCity() && _isReachable({i, j})) {
-                aux.iPosition = i;
-                aux.jPosition = j;
-                targets.push_back(aux);
-            }
-        }
-    }
+void Map::getMoveTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const {
+    _getTargets(center, range, targets, false);
 }
+
+
+void Map::getAttackTargets(Coordinate center, unsigned int range,
+                           std::vector<Coordinate> &targets) const {
+    _getTargets(center, range, targets, true);
+}
+
 
 bool Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const {
     std::priority_queue<PointAndDistance, std::vector<PointAndDistance>, InverseCoordinateDistance> nodes;
@@ -430,4 +444,5 @@ std::pair<GameType::ItemType, int32_t> Map::peekShowedItemData(Coordinate coordi
     }
     return tiles[coordinate.iPosition][coordinate.jPosition].peekShowedItemData();
 }
+
 

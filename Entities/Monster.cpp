@@ -17,7 +17,7 @@
 
 //Retorna la distancia (siempre positiva) entre las dos coordenadas
 unsigned int Monster::_getDistance(Coordinate a, Coordinate b) {
-    return std::abs((a.iPosition - b.iPosition) + (a.jPosition - b.jPosition));
+    return std::abs(a.iPosition - b.iPosition) + std::abs(a.jPosition - b.jPosition);
 }
 
 /*
@@ -38,12 +38,15 @@ Coordinate Monster::_getNearestPosition(Coordinate refference, std::vector<Coord
 }
 */
 
+
+#include <iostream>
+
 //Guarda parte del camino al jugador al cual tiene que moverse la menor cantidad
 //de veces para alcanzarlo
 void Monster::_storeNearestPlayerPathCache() {
     unsigned int nearestTargetIndex = 0;
     std::vector<Coordinate> positions;
-    map.getTargets(currentPosition, stats.getRangeOfVision(), positions);
+    map.getMoveTargets(currentPosition, stats.getRangeOfVision(), positions);
     if (!positions.empty()) {
         std::vector<std::list<Coordinate>> allPaths/*(positions.size())*/;
         std::list<Coordinate> aux;
@@ -69,7 +72,7 @@ void Monster::_storeNearestPlayerPathCache() {
 //no hace nada y retorna false, sino vacia pathCache, ataca y retorna true
 bool Monster::_tryToAttack() {
     std::vector<Coordinate> targets;
-    map.getTargets(currentPosition, stats.getRangeOfVision(), targets);
+    map.getAttackTargets(currentPosition, stats.getRangeOfVision(), targets);
     for (auto & target : targets) {
         if (_getDistance(currentPosition, target) == 1) {
             std::unique_ptr<Attack> attackFunction(new Attack(*this, target));
@@ -82,9 +85,9 @@ bool Monster::_tryToAttack() {
 }
 
 GameType::Direction Monster::_getMoveDirection() {
-    Coordinate destiny = pathCache.front();
-    Coordinate difference = {destiny.iPosition - currentPosition.iPosition,
-                             destiny.jPosition - currentPosition.jPosition};
+    Coordinate destination = pathCache.front();
+    Coordinate difference = {destination.iPosition - currentPosition.iPosition,
+                             destination.jPosition - currentPosition.jPosition};
     if (difference.iPosition  == 1) {
         return GameType::DIRECTION_DOWN;
     } else if (difference.iPosition == -1) {
