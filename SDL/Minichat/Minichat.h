@@ -10,6 +10,7 @@
 #include "../../GameConstants.h"
 #include <list>
 #include "../../Map/Coordinate.h"
+#include <mutex>
 
 class Minichat {
 private:
@@ -19,6 +20,7 @@ private:
     SDL_Renderer& renderer;
     bool focusOnMinichat;
     int firstToRender;
+    std::mutex m;
 
 public:
     explicit Minichat(SDL_Renderer& renderer);
