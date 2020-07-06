@@ -13,7 +13,7 @@
 class UpdateCreateItem : public UpdateEvent {
 private:
     TextureID item;
-    Coordinate position;
+    Coordinate position{};
 
 public:
     UpdateCreateItem(GameType::ItemType _type, int32_t _item, Coordinate _position);

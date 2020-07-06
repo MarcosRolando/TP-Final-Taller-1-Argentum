@@ -5,7 +5,7 @@
 #ifndef ARGENTUM_PLAYEREQUIPMENT_H
 #define ARGENTUM_PLAYEREQUIPMENT_H
 
-#include "TextureRepository.h"
+#include "TextureID.h"
 
 struct PlayerEquipment {
     TextureID helmet;

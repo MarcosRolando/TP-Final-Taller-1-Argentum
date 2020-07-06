@@ -87,6 +87,7 @@
 #define MAGIC_ARROW_PATH "../Images/Spells/MagicArrow.png"
 #define MAGIC_MISSILE_PATH "../Images/Spells/MagicMissile.png"
 #define HEAL_PATH "../Images/Spells/Heal.png"
+#define GOLD_PATH "../Images/Miscellaneous/Gold.png"
 #define BACKGROUND_PATH "../Images/UI/Background.png"
 #define MAIN_MENU_PATH "../Images/UI/MainMenuTest.png"
 
@@ -138,6 +139,7 @@ void TextureRepository::_loadDrops() {
     _setImage(ElvenFluteDrop, ELVEN_FLUTE_DROP_PATH, 32, 32, 32, 30, 2);
     _setImage(SimpleBowDrop, SIMPLE_BOW_DROP_PATH, 32, 32, 32, 30, 2);
     _setImage(WarHammerDrop, WAR_HAMMER_DROP_PATH, 32, 32, 32, 28, 2);
+    _setImage(Gold, GOLD_PATH, 32, 32, 45, 50, 1);
 }
 
 void TextureRepository::_loadClothing() {
