@@ -159,6 +159,7 @@ std::list<std::shared_ptr<Item>> Inventory::dropAllItems() {
             droppedItems.push_back(std::move(items[i]));
         }
     }
+    _dropEquippedItems(droppedItems);
     return droppedItems;
 }
 
