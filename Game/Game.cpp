@@ -23,7 +23,6 @@ MSGPACK_ADD_ENUM(GameType::EventID)
 //Si la cantidad que se desea crear sobrepasa la cantidad maxima, entonces crea hasta
 //conseguir la cantidad maxima
 void Game::_repopulateMap(double timePassed, ServerProtocol& protocol) {
-    /*
     Coordinate aux{};
     std::stringstream data;
     spawnTimer += static_cast<unsigned int>(timePassed);
@@ -44,7 +43,6 @@ void Game::_repopulateMap(double timePassed, ServerProtocol& protocol) {
         }
         protocol.addToGeneralData(data);
     }
-     */
 }
 
 void Game::_executeQueueOperations(ServerProtocol& protocol) {
