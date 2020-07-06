@@ -20,7 +20,8 @@ private:
     SDL_Renderer& renderer;
     bool focusOnMinichat;
     int firstToRender;
-    std::mutex m;
+    std::mutex generalMutex;
+    std::mutex inputMutex;
 
 public:
     explicit Minichat(SDL_Renderer& renderer);

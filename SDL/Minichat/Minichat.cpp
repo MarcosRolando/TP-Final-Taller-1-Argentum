@@ -27,7 +27,7 @@ Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/font.ttf"
 
 //Ver esta funcion xq esta muy rancia
 std::string Minichat::handleReturnKey() {
-    std::lock_guard<std::mutex> l(m);
+    std::lock_guard<std::mutex> l(inputMutex);
     std::string toPrint = input.getText();
     if (toPrint.size() > 1) {
         toPrint.erase(0, 1);//Le saco ":"
@@ -39,7 +39,7 @@ std::string Minichat::handleReturnKey() {
 }
 
 void Minichat::handleBackspace() {
-    std::lock_guard<std::mutex> l(m);
+    std::lock_guard<std::mutex> l(inputMutex);
     if (input.getTextLength() > 1) {
         //Va un 9 asi no borro la parte fija que dice Accion
         //borro una letra
@@ -48,7 +48,7 @@ void Minichat::handleBackspace() {
 }
 
 void Minichat::handleTextInput(SDL_Event &e) {
-    std::lock_guard<std::mutex> l(m);
+    std::lock_guard<std::mutex> l(inputMutex);
     std::string newInput = e.text.text;
     if (input.getTextLength() < MAX_TEXT_LEN) input.appendText(std::move(newInput));
 }
@@ -63,7 +63,7 @@ void Minichat::handleMouseButtonDown(Coordinate click, Window& window) {
 }
 
 void Minichat::handleMouseWheel(SDL_Event& e) {
-    std::lock_guard<std::mutex> l(m);
+    std::lock_guard<std::mutex> l(generalMutex);
     if(e.wheel.y > 0) // scroll up
     {
         firstToRender += 1;
@@ -94,6 +94,7 @@ void Minichat::receiveText(std::string& text) {
 
 //Imprime los mensajes relevantes
 void Minichat::queueText(std::string& newText) {
+    std::lock_guard<std::mutex> l(generalMutex);
     if (!newText.empty()) {
         texts.pop_back();
         texts.emplace_front(minichatFont, renderer);
@@ -102,7 +103,7 @@ void Minichat::queueText(std::string& newText) {
 }
 
 void Minichat::render() {
-    std::lock_guard<std::mutex> l(m);
+    std::lock_guard<std::mutex> l(generalMutex);
     //renderizo input
     input.render(0,178, SDL_Color{0xFF,0xFF,0xFF,0xFF});
     //renderizo mensajes encolados. Prob haya una mejor forma de iterar esto

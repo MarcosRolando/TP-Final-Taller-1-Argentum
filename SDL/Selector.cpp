@@ -36,6 +36,7 @@ void Selector::handleEvent(Coordinate click, Coordinate playerPos, Window& windo
 }
 
 void Selector::_verifyTileSelection(Coordinate playerPos, Coordinate click) {
+    std::lock_guard<std::mutex> l(m);
     //Veo si clickeo adentro del mapa
     if (_isInsideRect(click, DEFAULT_MAP_LEFT, DEFAULT_MAP_RIGHT, DEFAULT_MAP_TOP,
             DEFAULT_MAP_BOTTOM)){
@@ -62,11 +63,8 @@ void Selector::_verifyTileSelection(Coordinate playerPos, Coordinate click) {
     }
 }
 
-void Selector::resetTileSelection() {
-    selectedTile = {-1, -1};
-}
-
 void Selector::_verifyInventorySlotSelection(Coordinate click) {
+    std::lock_guard<std::mutex> l(m);
     //Veo si clickeo adentro del inventario
     if (_isInsideRect(click, DEFAULT_INVENTORY_LEFT, DEFAULT_INVENTORY_RIGHT,
             DEFAULT_INVENTORY_TOP, DEFAULT_INVENTORY_BOTTOM)){
@@ -76,6 +74,7 @@ void Selector::_verifyInventorySlotSelection(Coordinate click) {
 }
 
 void Selector::_verifySelectedEquipment(Coordinate click) {
+    std::lock_guard<std::mutex> l(m);
     if (_isInsideRect(click, 1320, 1392, 660, 735)){//Casco
         selectedEquipment = GameType::EQUIPMENT_PLACE_HEAD;
     } else if (_isInsideRect(click, 1397, 1469, 660, 735)){//Chest
@@ -103,16 +102,24 @@ bool Selector::hasSelectedEquipment(Coordinate click) {
                                                 //equipamiento
 }
 
-int Selector::getInventorySlot() const {
+int Selector::getInventorySlot() {
+    std::lock_guard<std::mutex> l(m);
     return inventorySlot.j + (4 * inventorySlot.i);
 }
 
-Coordinate Selector::getSelectedTile() const {
+Coordinate Selector::getSelectedTile() {
+    std::lock_guard<std::mutex> l(m);
     return {selectedTile.i, selectedTile.j};
 }
 
-GameType::EquipmentPlace Selector::getSelectedEquipment() const {
+GameType::EquipmentPlace Selector::getSelectedEquipment() {
+    std::lock_guard<std::mutex> l(m);
     return selectedEquipment;
+}
+
+void Selector::resetTileSelection() {
+    std::lock_guard<std::mutex> l(m);
+    selectedTile = {-1, -1};
 }
 
 Coordinate Selector::getSelectedTileToRender(Coordinate playerPos) const {

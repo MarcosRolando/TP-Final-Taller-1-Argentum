@@ -10,7 +10,7 @@ Text::Text(Font& font, SDL_Renderer& renderer) : font(font),
 }
 
 void Text::updateText(std::string&& newText){
-    text = newText;
+    text = std::move(newText);
 }
 
 void Text::appendText(std::string&& newText){
