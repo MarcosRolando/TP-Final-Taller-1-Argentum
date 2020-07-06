@@ -6,6 +6,7 @@
 
 #include "../../Entities/Player.h"
 #include <msgpack.hpp>
+#include "../../Server/ServerProtocol.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 
@@ -19,4 +20,5 @@ void NotifyDeath::operator()(ServerProtocol &protocol) {
     msgpack::pack(data, messageTypeData);
     msgpack::type::tuple<std::string> nicknameData(player.getNickname());
     msgpack::pack(data, nicknameData);
+    protocol.addToGeneralData(data);
 }
