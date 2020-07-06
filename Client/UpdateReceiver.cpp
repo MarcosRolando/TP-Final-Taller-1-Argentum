@@ -33,6 +33,8 @@ void UpdateReceiver::run() {
             updates.deliverUpdate();
         } catch (std::exception& e) {
             std::cerr << e.what() << std::endl;
+        } catch (...) {
+            std::cerr << "Uknown error in UpdateReceiver" << std::endl;
         }
     }
 }
