@@ -17,7 +17,7 @@
 
 //Retorna la distancia (siempre positiva) entre las dos coordenadas
 unsigned int Monster::_getDistance(Coordinate a, Coordinate b) {
-    return std::abs((a.iPosition - b.iPosition) + (a.jPosition - b.jPosition));
+    return std::abs(a.iPosition - b.iPosition) + std::abs(a.jPosition - b.jPosition);
 }
 
 /*
@@ -46,10 +46,7 @@ Coordinate Monster::_getNearestPosition(Coordinate refference, std::vector<Coord
 void Monster::_storeNearestPlayerPathCache() {
     unsigned int nearestTargetIndex = 0;
     std::vector<Coordinate> positions;
-
-    //map.getTargets(currentPosition, stats.getRangeOfVision(), positions);
-    map.getTargets(currentPosition, 100, positions);
-
+    map.getMoveTargets(currentPosition, stats.getRangeOfVision(), positions);
     if (!positions.empty()) {
         std::vector<std::list<Coordinate>> allPaths/*(positions.size())*/;
         std::list<Coordinate> aux;
@@ -64,19 +61,6 @@ void Monster::_storeNearestPlayerPathCache() {
         }
         if (!allPaths.empty()) {
             pathCache = std::move(allPaths[nearestTargetIndex]);
-
-            /*
-            std::cout << "Nuevo camino:" << std::endl;
-            int i = 0;
-            for (const auto & pathPosition: pathCache) {
-                std::cout << "La posicion " << i << " es i: " << pathPosition.iPosition <<
-                            " j: " << pathPosition.jPosition << std::endl;
-                i++;
-            }
-            std::cout << std::endl << std::endl;
-            */
-
-
             if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
                 pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
             }
@@ -88,7 +72,7 @@ void Monster::_storeNearestPlayerPathCache() {
 //no hace nada y retorna false, sino vacia pathCache, ataca y retorna true
 bool Monster::_tryToAttack() {
     std::vector<Coordinate> targets;
-    map.getTargets(currentPosition, stats.getRangeOfVision(), targets);
+    map.getAttackTargets(currentPosition, stats.getRangeOfVision(), targets);
     for (auto & target : targets) {
         if (_getDistance(currentPosition, target) == 1) {
             std::unique_ptr<Attack> attackFunction(new Attack(*this, target));
@@ -132,11 +116,6 @@ void Monster::_move() {
         //Entity::requestMove(game, _getMoveDirection());
         movement.direction = _getMoveDirection();
         game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
-
-        std::cout << "Coordenada guardada: i: " << pathCache.front().iPosition << " j: " <<
-                     pathCache.front().jPosition << std::endl;
-
-
         pathCache.pop_front();
     }
 }

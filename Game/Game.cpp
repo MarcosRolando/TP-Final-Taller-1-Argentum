@@ -124,8 +124,7 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
 
 Game::Game(MapFileReader&& mapFile): map(mapFile) {
     monsterCreationRate = 20;
-    //maxNumberOfMonsters = 300;
-    maxNumberOfMonsters = 1;
+    maxNumberOfMonsters = 300;
     spawnInterval = 100;
     spawnTimer = 0;
 }
