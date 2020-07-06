@@ -22,24 +22,6 @@ using namespace std::chrono;
 #define FREQUENCY 44100
 #define CHUNKSIZE 2048
 
-void Client::_send() const {
-    std::string command = User::getInput();
-    //unsigned int bufferLength;
-    //std::vector<char> buffer = ClientProtocol::translateCommand(std::move(command), bufferLength);
-    //socket.send(buffer.data(), bufferLength);
-}
-
-void Client::_receive() {
-    //unsigned int bufferLength;
-    std::vector<char> response;
-    /*do {
-        response = protocol.responseBuffer(bufferLength);
-        socket.receive(response.data(), bufferLength);
-        protocol.processResponse(response);
-    } while (!protocol.finishedReceiving());*/
-    User::showMessage(response.data());
-}
-
 void Client::_processConnection() {
     bool quit = false;
     GameGUI game;
@@ -65,24 +47,30 @@ void Client::_processConnection() {
 
     time1 = high_resolution_clock::now();
 
-    while (!quit) {
-        if (updateEvents.isUpdateAvailable()) {
-            while (!updateEvents.empty()) {
-                update = updateEvents.pop();
-                (*update)(game);
+    try {
+        while (!quit) {
+            if (updateEvents.isUpdateAvailable()) {
+                while (!updateEvents.empty()) {
+                    update = updateEvents.pop();
+                    (*update)(game);
+                }
+                updateEvents.consumedUpdate();
             }
-            updateEvents.consumedUpdate();
-        }
-        while(SDL_PollEvent(event.get()) != 0) {
-            if (!window.handleEvent(*event)) {
-                sdlEvents.push(std::move(event));
-                event.reset(new SDL_Event());
+            while(SDL_PollEvent(event.get()) != 0) {
+                if (!window.handleEvent(*event)) {
+                    sdlEvents.push(std::move(event));
+                    event.reset(new SDL_Event());
+                }
             }
+            time2 = high_resolution_clock::now();
+            timeStep = time2 - time1;
+            time1 = high_resolution_clock::now();
+            game.render(timeStep.count());
         }
-        time2 = high_resolution_clock::now();
-        timeStep = time2 - time1;
-        time1 = high_resolution_clock::now();
-        game.render(timeStep.count());
+    } catch (std::exception& e) {
+        std::cerr << e.what() << " in Main Game Loop" << std::endl;
+    } catch (...) {
+        std::cerr << "Unknown Error in Main Game Loop" << std::endl;
     }
 
     socket.close();

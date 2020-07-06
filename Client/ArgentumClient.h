@@ -26,8 +26,6 @@ public:
     ~Client();
 
 private:
-    void _send() const;
-    void _receive();
     void _processConnection();
     static void _initializeSDL();
     static void _closeSDL();
