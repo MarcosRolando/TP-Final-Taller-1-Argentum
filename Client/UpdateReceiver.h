@@ -31,6 +31,7 @@ public:
     void run() override;
 
 private:
+    void _processCreateItem();
     void _processUnequip();
     void _processUpdate(uint32_t msgLength);
     void _processRemoveEntity();

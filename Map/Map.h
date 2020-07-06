@@ -28,15 +28,19 @@ private:
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera);
+
     void renderGround();
+
     void renderStructures();
+
     void renderNPCS();
+
     void setSize(int rows, int columns);
 
     void loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
                       TextureID entity);
 
-    void loadTileItem(Coordinate position, TextureID itemTexture);
+    void createItem(Coordinate position, TextureID itemTexture);
 
     void addNPC(EntityData& data);
 

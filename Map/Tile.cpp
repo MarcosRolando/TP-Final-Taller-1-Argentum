@@ -37,7 +37,7 @@ void Tile::loadData(Texture& _tileTexture, Texture* sTexture, int tileType) {
     }
 }
 
-void Tile::loadItem(Texture& _itemTexture) {
+void Tile::createItem(Texture& _itemTexture) {
     item.setItem(_itemTexture);
 }
 

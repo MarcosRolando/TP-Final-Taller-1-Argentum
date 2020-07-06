@@ -31,7 +31,7 @@ public:
 
     void loadData(Texture& _tileTexture, Texture* sTexture = nullptr, int tileType = 0);
 
-    void loadItem(Texture& _itemTexture);
+    void createItem(Texture& _itemTexture);
 
     void setStructure(Texture& sTexture);
 

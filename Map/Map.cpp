@@ -109,9 +109,9 @@ void Map::addPlayer(MapPlayerData& playerData) {
     }
 }
 
-void Map::loadTileItem(Coordinate position, TextureID itemTexture) {
+void Map::createItem(Coordinate position, TextureID itemTexture) {
     unsigned int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
-    tiles.at(tile).loadItem(textureRepo.getTexture(itemTexture));
+    tiles.at(tile).createItem(textureRepo.getTexture(itemTexture));
 }
 
 void Map::moveEntity(std::string &nickname, GameType::Direction direction,
