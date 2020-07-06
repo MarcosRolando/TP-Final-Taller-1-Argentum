@@ -12,13 +12,17 @@ UpdateEquip::UpdateEquip(std::string &&_nickname,
     ProtocolEnumTranslator translator;
     nickname = std::move(_nickname);
     place = _place;
-    switch (place) {
-        case GameType::EQUIPMENT_PLACE_WEAPON:
-            equipment = translator.getWeaponTexture(static_cast<GameType::Weapon>(_equipment));
-            break;
+    if (_equipment == UNEQUIP) {
+        equipment = Nothing;
+    } else {
+        switch (place) {
+            case GameType::EQUIPMENT_PLACE_WEAPON:
+                equipment = translator.getWeaponTexture(static_cast<GameType::Weapon>(_equipment));
+                break;
 
-        default:
-            equipment = translator.getClothingTexture(static_cast<GameType::Clothing>(_equipment));
+            default:
+                equipment = translator.getClothingTexture(static_cast<GameType::Clothing>(_equipment));
+        }
     }
 }
 

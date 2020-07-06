@@ -10,6 +10,8 @@
 #include "../Shared/GameEnums.h"
 #include "../Texture/TextureID.h"
 
+const int UNEQUIP = -1; /*Uso esta constante para decirle que es un unequip*/
+
 class UpdateEquip : public UpdateEvent {
 private:
     std::string nickname;
