@@ -34,7 +34,7 @@ void UpdateReceiver::run() {
         } catch (std::exception& e) {
             std::cerr << e.what() << std::endl;
         } catch (...) {
-            std::cerr << "Uknown error in UpdateReceiver" << std::endl;
+            std::cerr << "Unkown error in UpdateReceiver" << std::endl;
         }
     }
 }
@@ -69,6 +69,7 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
             case GameType::PLAYER_DEATH:
                 _processPlayerDeath();
             default:
+                std::cerr << std::get<0>(id) << " comando no reconocido" << std::endl;
                 break;
         }
     }
