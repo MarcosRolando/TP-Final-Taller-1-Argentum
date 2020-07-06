@@ -32,18 +32,18 @@ public:
 
     GameType::EquipmentPlace getSelectedEquipment() const;
     //Devuelve true si tengo un tile seleccionado
-    bool hasSelectedTile(Coordinate click) const;
+    static bool hasSelectedTile(Coordinate click) ;
     //Devuelve true si tengo un slot del inventario seleccionado
-    bool hasSelectedSlot(Coordinate click) const;
-    bool hasSelectedEquipment(Coordinate click) const;
+    static bool hasSelectedSlot(Coordinate click) ;
+    static bool hasSelectedEquipment(Coordinate click) ;
     void resetTileSelection();
     ~Selector();
 
 private:
     void _verifyTileSelection(Coordinate playerPos, Coordinate click);
     void _verifyInventorySlotSelection(Coordinate click);
-    bool _isInsideRect(Coordinate click, int left, int right, int top,
-            int bottom) const;
+    static bool _isInsideRect(Coordinate click, int left, int right, int top,
+            int bottom) ;
     void _verifySelectedEquipment(Coordinate click);
 
 

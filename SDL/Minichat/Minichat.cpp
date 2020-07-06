@@ -41,13 +41,13 @@ void Minichat::handleBackspace() {
     if (input.getTextLength() > 1) {
         //Va un 9 asi no borro la parte fija que dice Accion
         //borro una letra
-        input.eraseText();
+        input.eraseText();//todo race condition, que pasa si renderizo mientras borran?
     }
 }
 
 void Minichat::handleTextInput(SDL_Event &e) {
     std::string newInput = e.text.text;
-    if (input.getTextLength() < MAX_TEXT_LEN) input.appendText(std::move(newInput));
+    if (input.getTextLength() < MAX_TEXT_LEN) input.appendText(std::move(newInput)); //todo race conditino, renderizo mientras agregan
 }
 
 void Minichat::handleMouseButtonDown(Coordinate click, Window& window) {
@@ -68,7 +68,7 @@ void Minichat::handleMouseWheel(SDL_Event& e){
     }
     else if(e.wheel.y < 0) // scroll down
     {
-        firstToRender -= 1;
+        firstToRender -= 1;//todo race condition, cuando renderizamos chequeamos con esta variable. Toda esta funcion deberia ser atomica
         if (firstToRender < 0)
             firstToRender = 0;
     }
@@ -90,26 +90,26 @@ void Minichat::receiveText(std::string& text) {
 
 //Imprime los mensajes relevantes
 void Minichat::queueText(std::string& newText) {
-    if (!newText.empty()) {
+    if (!newText.empty()) {//todo race conddition, agregamos o quitamos de una lista no protegida
         texts.pop_back();
         texts.emplace_front(minichatFont, renderer);
         texts.front().updateText(std::move(newText));
     }
 }
 
-void Minichat::render(){
+void Minichat::render() {
     //renderizo input
     input.render(0,178, SDL_Color{0xFF,0xFF,0xFF,0xFF});
     //renderizo mensajes encolados. Prob haya una mejor forma de iterar esto
     int textNum = 0;
-    for (auto & text : texts) {
-        if (textNum >= firstToRender){
+    for (auto & text : texts) { //todo race condition, iteramos lista que no esta protegida
+        if (textNum >= firstToRender) {
             if (!text.getText().empty()) {
                 text.render(0,140 - 20*(textNum - firstToRender),
                             SDL_Color{0xFF,0xFF,0xFF,0xFF});
             }
         }
-        textNum++;
+        ++textNum;
         if (textNum >= MAX_MSGS_TO_RENDER + firstToRender) break;
     }
 }

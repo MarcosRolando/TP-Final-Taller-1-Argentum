@@ -36,7 +36,7 @@ public:
     void handleMouseButtonDown(Coordinate click, Window &window);
     //Scrollea por los mensajes del minichat
     void handleMouseWheel(SDL_Event &e);
-    //Aca nose si esta bien la copia
+
     std::string handleReturnKey();
     ~Minichat();
 

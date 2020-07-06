@@ -6,6 +6,7 @@
 #include "BlockingQueue.hpp"
 #include <msgpack.hpp>
 #include "Socket.h"
+#include "ClientProtocol.h"
 
 MSGPACK_ADD_ENUM(GameType::Direction)
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
@@ -60,13 +61,13 @@ void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
             game.getWindow());
 
     if (e.button.button == SDL_BUTTON_RIGHT) {
-        if (game.getSelector().hasSelectedTile({clickY, clickX})) {
+        if (Selector::hasSelectedTile({clickY, clickX})) {
             _processAttack(game.getSelector().getSelectedTile());
         }
-        if (game.getSelector().hasSelectedSlot({clickY, clickX})){
+        if (Selector::hasSelectedSlot({clickY, clickX})){
             _processUseItem(game.getSelector().getInventorySlot());
         }
-        if (game.getSelector().hasSelectedEquipment({clickY, clickX})){
+        if (Selector::hasSelectedEquipment({clickY, clickX})){
             _processUnequipItem(game.getSelector().getSelectedEquipment());
         }
     }
@@ -136,18 +137,11 @@ void ClientEventHandler::_processAttack(Coordinate selectedTile) {
     msgpack::pack(msgBuffer, targetPosition);
 }
 
-//Esta y sendMessage hay que meterlas en una clase de protocol gral o algo asi
-void ClientEventHandler::_loadBytes(std::vector<char>& buffer, void* data, unsigned int size) {
-    for (unsigned int i = 0; i < size; ++i) {
-        buffer[i] = *(reinterpret_cast<char *>(data) + i);
-    }
-}
-
 void ClientEventHandler::_sendMessage() {
     std::string aux = msgBuffer.str();
     uint32_t length = htonl(aux.size());
     std::vector<char> buffer(sizeof(uint32_t));
-    _loadBytes(buffer, &length, sizeof(uint32_t));
+    ClientProtocol::loadBytes(buffer, &length, sizeof(uint32_t));
     std::copy(aux.begin(), aux.end(), std::back_inserter(buffer));
     socket.send(buffer.data(), buffer.size());
     msgBuffer.str(""); /*Reseteo el stringstream*/
