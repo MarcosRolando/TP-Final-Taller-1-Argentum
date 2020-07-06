@@ -48,7 +48,7 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
                 break;
             case GameType::UNEQUIP:
-                handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+                _processUnequip();
                 break;
             case GameType::EQUIPPED:
                 _processEquipped();
@@ -66,6 +66,14 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
         }
     }
     _receivePlayerData();
+}
+
+void UpdateReceiver::_processUnequip() {
+    msgpack::type::tuple<std::string, GameType::EquipmentPlace> data;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(data);
+    updates.push(std::unique_ptr<UpdateEvent>(new UpdateEquip(std::move(std::get<0>(data)),
+                                    std::get<1>(data), UNEQUIP)));
 }
 
 void UpdateReceiver::_processEquipped() {
