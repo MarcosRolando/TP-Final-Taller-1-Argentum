@@ -20,9 +20,9 @@ private:
 public:
     Text(Font& font, SDL_Renderer& renderer);
 
-    void updateText(const std::string &newText);
+    void updateText(std::string&& newText);
 
-    void appendText(const std::string &newText);
+    void appendText(std::string&& newText);
 
     void eraseText();
 
