@@ -31,21 +31,19 @@ public:
     Coordinate getSelectedTileToRender(Coordinate playerPos) const;
     //Me devuelve el item equipado que seleccione
     GameType::EquipmentPlace getSelectedEquipment() const;
-    //Devuelve true si seleccione un tile
-    bool hasSelectedTile(Coordinate click) const;
-    //Devuelve true si seleccione un slot
-    bool hasSelectedSlot(Coordinate click) const;
-    //Devuelve true si seleccione un item de equipables
-    bool hasSelectedEquipment(Coordinate click) const;
-    //setea el tile seleccionado a {-1,-1}
+    //Devuelve true si tengo un tile seleccionado
+    static bool hasSelectedTile(Coordinate click) ;
+    //Devuelve true si tengo un slot del inventario seleccionado
+    static bool hasSelectedSlot(Coordinate click) ;
+    static bool hasSelectedEquipment(Coordinate click) ;
     void resetTileSelection();
     ~Selector();
 
 private:
     void _verifyTileSelection(Coordinate playerPos, Coordinate click);
     void _verifyInventorySlotSelection(Coordinate click);
-    bool _isInsideRect(Coordinate click, int left, int right, int top,
-            int bottom) const;
+    static bool _isInsideRect(Coordinate click, int left, int right, int top,
+            int bottom) ;
     void _verifySelectedEquipment(Coordinate click);
 
 

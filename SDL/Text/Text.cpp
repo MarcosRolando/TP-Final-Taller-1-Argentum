@@ -9,11 +9,11 @@ Text::Text(Font& font, SDL_Renderer& renderer) : font(font),
     text = " ";//Pongo esto xq SDL no puede renderizar texto vacio
 }
 
-void Text::updateText(const std::string& newText){
+void Text::updateText(std::string&& newText){
     text = newText;
 }
 
-void Text::appendText(const std::string& newText){
+void Text::appendText(std::string&& newText){
     text += newText;
 }
 

@@ -87,17 +87,17 @@ void Selector::_verifySelectedEquipment(Coordinate click) {
     }
 }
 
-bool Selector::hasSelectedTile(Coordinate click) const {
+bool Selector::hasSelectedTile(Coordinate click) {
     return _isInsideRect(click, DEFAULT_MAP_LEFT, DEFAULT_MAP_RIGHT, DEFAULT_MAP_TOP,
                          DEFAULT_MAP_BOTTOM);
 }
 
-bool Selector::hasSelectedSlot(Coordinate click) const {
+bool Selector::hasSelectedSlot(Coordinate click) {
     return _isInsideRect(click, DEFAULT_INVENTORY_LEFT, DEFAULT_INVENTORY_RIGHT,
                          DEFAULT_INVENTORY_TOP, DEFAULT_INVENTORY_BOTTOM);
 }
 
-bool Selector::hasSelectedEquipment(Coordinate click) const {
+bool Selector::hasSelectedEquipment(Coordinate click) {
     return _isInsideRect(click, 1320, 1469,
                          660, 835);//Estoy viendo si esta entre los 4 cuadrados de
                                                 //equipamiento
@@ -139,9 +139,9 @@ Coordinate Selector::getSelectedTileToRender(Coordinate playerPos) const {
             (selectedTile.j + tileXOffset) * 128 - cameraXOffset};
 }
 
-bool Selector::_isInsideRect(Coordinate click, int left, int right, int top, int bottom) const{
+bool Selector::_isInsideRect(Coordinate click, int left, int right, int top, int bottom) {
     return (click.j > left && click.j < right && click.i > top && click.i < bottom);
 }
 
 
-Selector::~Selector() {}
+Selector::~Selector() = default;

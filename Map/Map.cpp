@@ -44,6 +44,7 @@ void Map::renderStructures() {
 }
 
 void Map::renderNPCS() {
+    _moveEntitiesToNewTile();
     for (int i = -2; i < (VISIBLE_VERTICAL_TILES + 2); ++i) {
         for (int j = -2; j < (VISIBLE_HORIZONTAL_TILES + 2); ++j) {
             float x = (float)camera.x + (float)j * TILE_WIDTH;
@@ -89,7 +90,7 @@ void Map::addNPC(EntityData& data) {
         tiles.at(tile).addEntity(std::unique_ptr<Entity>(new NPC(textureRepo,
                 camera, data.pos.j*TILE_WIDTH,data.pos.i*TILE_HEIGHT, data.texture)));
         if (data.currentDir != GameType::DIRECTION_STILL) {
-            tiles.at(tile).moveEntity(data.currentDir, data.distanceMoved, movingEntities);
+            tiles.at(tile).moveEntity(data.currentDir, data.distanceMoved, false);
         }
         entities.emplace(std::move(data.nickname), data.pos); //todo recibir el nickname de los citizens sino no los cargo
     }
@@ -103,7 +104,7 @@ void Map::addPlayer(MapPlayerData& playerData) {
                 playerData.equipment, playerData.isAlive)));
         if (playerData.entityData.currentDir != GameType::DIRECTION_STILL) {
             tiles.at(tile).moveEntity(playerData.entityData.currentDir,
-                    playerData.entityData.distanceMoved, movingEntities);
+                    playerData.entityData.distanceMoved, false);
         }
         entities.emplace(std::move(playerData.entityData.nickname), playerData.entityData.pos);
     }
@@ -119,7 +120,7 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
 
     Coordinate entityPosition = entities.at(nickname);
     int tile = entityPosition.i * TOTAL_HORIZONTAL_TILES + entityPosition.j;
-    tiles.at(tile).moveEntity(direction, distanceTravelled, movingEntities);
+    tiles.at(tile).moveEntity(direction, distanceTravelled, reachedDestination);
     if (reachedDestination) {
         std::unique_ptr<Entity> entity = tiles.at(tile).getEntity();
         entityPosition = _calculateNewTile(entityPosition, direction);
@@ -150,14 +151,6 @@ Coordinate Map::_calculateNewTile(Coordinate position, GameType::Direction direc
     return position;
 }
 
-static bool _finishedMoving(const Entity* entity) {
-    if (entity) {
-        return entity->finishedMoving();
-    } else {
-        return true;
-    }
-}
-
 void Map::_moveEntitiesToNewTile() {
     if (!entitiesToUpdateTilePosition.empty()) {
         for (auto && entity : entitiesToUpdateTilePosition) {
@@ -166,17 +159,6 @@ void Map::_moveEntitiesToNewTile() {
         }
         entitiesToUpdateTilePosition.clear();
     }
-}
-
-void Map::updateInterpolation(float timeStep) {
-    _moveEntitiesToNewTile();
-    for (auto & entity : movingEntities) {
-        if (entity) { /*Este caso esta por si por ejemplo el entity se estaba moviendo y lo eliminaron*/
-            entity->updatePosition(timeStep);
-        }
-    }
-    movingEntities.erase(std::remove_if(movingEntities.begin(), movingEntities.end(),
-                                        _finishedMoving), movingEntities.end());
 }
 
 void Map::setCameraOn(Coordinate position) {

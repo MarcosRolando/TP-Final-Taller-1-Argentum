@@ -140,5 +140,5 @@ void PlayerInfoGUI::update(GUIPlayerInfo &generalInfo) {
     _updateConstitution(generalInfo.constitution);
     _updateAgility(generalInfo.agility);
     _updateIntelligence(generalInfo.intelligence);
-    _updateNickname(generalInfo.nickname);
+    //_updateNickname(generalInfo.nickname);
 }

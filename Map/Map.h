@@ -23,7 +23,6 @@ private:
     std::vector<Tile> tiles;
     SDL_Rect& camera;
     std::unordered_map<std::string, Coordinate> entities;
-    std::list<Entity*> movingEntities; /*Las entitites que debo interpolar*/
     std::list<std::tuple<std::unique_ptr<Entity>, Coordinate>> entitiesToUpdateTilePosition; /*Esto es para no pisar entities entre si cuando terminan de moverse*/
 
 public:

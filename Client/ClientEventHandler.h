@@ -30,8 +30,6 @@ public:
 private:
     void _handleMoveKeys(SDL_Event& e);
 
-    void _loadBytes(std::vector<char>& buffer, void* data, unsigned int size);
-
     void _sendMessage();
 
     void _handleMouseButtonDown(SDL_Event &e);

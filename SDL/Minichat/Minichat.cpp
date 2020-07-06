@@ -27,6 +27,7 @@ Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/font.ttf"
 
 //Ver esta funcion xq esta muy rancia
 std::string Minichat::handleReturnKey() {
+    std::lock_guard<std::mutex> l(m);
     std::string toPrint = input.getText();
     if (toPrint.size() > 1) {
         toPrint.erase(0, 1);//Le saco ":"
@@ -38,6 +39,7 @@ std::string Minichat::handleReturnKey() {
 }
 
 void Minichat::handleBackspace() {
+    std::lock_guard<std::mutex> l(m);
     if (input.getTextLength() > 1) {
         //Va un 9 asi no borro la parte fija que dice Accion
         //borro una letra
@@ -46,20 +48,22 @@ void Minichat::handleBackspace() {
 }
 
 void Minichat::handleTextInput(SDL_Event &e) {
+    std::lock_guard<std::mutex> l(m);
     std::string newInput = e.text.text;
-    if (input.getTextLength() < MAX_TEXT_LEN) input.appendText(newInput);
+    if (input.getTextLength() < MAX_TEXT_LEN) input.appendText(std::move(newInput));
 }
 
 void Minichat::handleMouseButtonDown(Coordinate click, Window& window) {
     focusOnMinichat = _isInsideMinichat(click.j, click.i);
-    if (focusOnMinichat){
+    if (focusOnMinichat) {
         SDL_StartTextInput();
     } else {
         SDL_StopTextInput();
     }
 }
 
-void Minichat::handleMouseWheel(SDL_Event& e){
+void Minichat::handleMouseWheel(SDL_Event& e) {
+    std::lock_guard<std::mutex> l(m);
     if(e.wheel.y > 0) // scroll up
     {
         firstToRender += 1;
@@ -93,23 +97,24 @@ void Minichat::queueText(std::string& newText) {
     if (!newText.empty()) {
         texts.pop_back();
         texts.emplace_front(minichatFont, renderer);
-        texts.front().updateText(newText);
+        texts.front().updateText(std::move(newText));
     }
 }
 
-void Minichat::render(){
+void Minichat::render() {
+    std::lock_guard<std::mutex> l(m);
     //renderizo input
     input.render(0,178, SDL_Color{0xFF,0xFF,0xFF,0xFF});
     //renderizo mensajes encolados. Prob haya una mejor forma de iterar esto
     int textNum = 0;
     for (auto & text : texts) {
-        if (textNum >= firstToRender){
+        if (textNum >= firstToRender) {
             if (!text.getText().empty()) {
                 text.render(0,140 - 20*(textNum - firstToRender),
                             SDL_Color{0xFF,0xFF,0xFF,0xFF});
             }
         }
-        textNum++;
+        ++textNum;
         if (textNum >= MAX_MSGS_TO_RENDER + firstToRender) break;
     }
 }
