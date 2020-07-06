@@ -53,7 +53,7 @@ int32_t Player::attack(Coordinate target) {
 }
 
 void Player::_dropItems() {
-    std::list<std::shared_ptr<Item>> items = inventory.dropAllItems(game, *this);
+    std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();
     int goldDropped = static_cast<int>(gold -
                                        Calculator::calculateMaxSafeGold(stats.getLevel()));
     goldDropped = std::max(goldDropped, 0);

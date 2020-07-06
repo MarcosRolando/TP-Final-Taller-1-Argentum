@@ -72,7 +72,7 @@ public:
     unsigned int getDefense();
 
     //Retorna una lista con todos los items del iventario, quitandolos del mismo
-    std::list<std::shared_ptr<Item>> dropAllItems(Game& game, Player& player);
+    std::list<std::shared_ptr<Item>> dropAllItems();
 
     bool unequip(GameType::EquipmentPlace clothing);
 

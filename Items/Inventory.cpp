@@ -152,14 +152,13 @@ unsigned int Inventory::getDefense() {
     return defense;
 }
 
-std::list<std::shared_ptr<Item>> Inventory::dropAllItems(Game& game, Player& player) {
+std::list<std::shared_ptr<Item>> Inventory::dropAllItems() {
     std::list<std::shared_ptr<Item>> droppedItems;
     for (int i = 0; i < INVENTORY_SIZE; ++i) {
         if (items[i]) {
             droppedItems.push_back(std::move(items[i]));
         }
     }
-    _dropEquippedItems(game, droppedItems);
     return droppedItems;
 }
 
