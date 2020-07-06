@@ -47,7 +47,7 @@ void Minichat::handleBackspace() {
 
 void Minichat::handleTextInput(SDL_Event &e) {
     std::string newInput = e.text.text;
-    if (input.getTextLength() < MAX_TEXT_LEN) input.appendText(newInput);
+    if (input.getTextLength() < MAX_TEXT_LEN) input.appendText(std::move(newInput));
 }
 
 void Minichat::handleMouseButtonDown(Coordinate click, Window& window) {
@@ -93,7 +93,7 @@ void Minichat::queueText(std::string& newText) {
     if (!newText.empty()) {
         texts.pop_back();
         texts.emplace_front(minichatFont, renderer);
-        texts.front().updateText(newText);
+        texts.front().updateText(std::move(newText));
     }
 }
 
