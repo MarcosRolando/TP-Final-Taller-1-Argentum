@@ -128,7 +128,7 @@ void ClientHandler::_processUnequip(std::vector<char> &data) {
 }
 
 void ClientHandler::_processPickUp(std::vector<char> &data) {
-    player.
+    player.pickUpItem();
 }
 
 void ClientHandler::removePlayer() {

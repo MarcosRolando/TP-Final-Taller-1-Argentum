@@ -63,8 +63,8 @@ std::shared_ptr<Item> Tile::removeItem() {
     if (items.empty()) {
         return nullptr;
     }
-    std::shared_ptr<Item> return_item = items.front();
-    items.pop_front();
+    std::shared_ptr<Item> return_item = items.back();
+    items.pop_back();
     return return_item;
 }
 
@@ -145,5 +145,12 @@ void Tile::operator>>(std::stringstream &mapBuffer) const {
     msgpack::type::tuple<GameType::FloorType,
                 GameType::Structure, GameType::Entity> tileInfo(floor, structure, entityType); /*de izquierda a derecha es el tipo de piso, tipo de estructura y citizen*/
     msgpack::pack(mapBuffer, tileInfo);
+}
+
+std::pair<GameType::ItemType, int32_t> Tile::peekShowedItemData() {
+    if (items.empty()) {
+        return {GameType::ITEM_TYPE_NONE, -1};
+    }
+    return {items.back()->getType(), items.back()->getId()};
 }
 

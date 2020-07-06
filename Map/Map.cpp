@@ -415,3 +415,18 @@ void Map::operator>>(std::stringstream &mapBuffer) const {
     }
 }
 
+std::shared_ptr<Item> Map::getItemFromTile(Coordinate coordinate) {
+    std::shared_ptr<Item> retreivedItem;
+    if (!_isCoordinateValid(coordinate)) {
+        return retreivedItem;
+    }
+    return tiles[coordinate.iPosition][coordinate.jPosition].removeItem();
+}
+
+std::pair<GameType::ItemType, int32_t> Map::peekShowedItemData(Coordinate coordinate) {
+    if (!_isCoordinateValid(coordinate)) {
+        return {GameType::ITEM_TYPE_NONE, -2};
+    }
+    return tiles[coordinate.iPosition][coordinate.jPosition].peekShowedItemData();
+}
+

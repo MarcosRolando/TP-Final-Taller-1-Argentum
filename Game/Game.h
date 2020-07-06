@@ -111,6 +111,8 @@ public:
     const std::vector<char>& getCurrentState(ServerProtocol& protocol);
 
     void removePlayer(Player* player, ServerProtocol& protocol);
+
+    ItemData storeItemFromTileInPlayer(Player& player);
 };
 
 

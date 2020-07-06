@@ -42,8 +42,10 @@ void Storage::storeItem(std::shared_ptr<Item> &&item) {
 }
 
 void Storage::retreiveItem(const std::string& itemName, Player &player) {
+    std::shared_ptr<Item> item;
     if (storedItems.count(itemName) == 1) {
-        if (!player.storeItem(std::move(storedItems.at(itemName).front()))) {
+        item = storedItems.at(itemName).front();
+        if (!player.storeItem(item)) {
             return;
         }
         storedItems[itemName].pop_front();

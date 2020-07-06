@@ -124,6 +124,14 @@ public:
     void sell(Player& player, const std::string& itemName, Coordinate coordinate);
 
     void operator>>(std::stringstream& mapBuffer) const;
+
+    //Saca del tile el item que se le muestra a los jugadores y lo retorna
+    std::shared_ptr<Item> getItemFromTile(Coordinate coordinate);
+
+    //Retorna un pair que almacena el tipo del item y su id, si la coordenada es inexistente
+    //guarda -2 en el id (second), si el tile no tiene items guarda -1, sino guarda el it del item
+    std::pair<GameType::ItemType, int32_t> peekShowedItemData(Coordinate coordinate);
+
 };
 
 

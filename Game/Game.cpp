@@ -185,13 +185,20 @@ Player& Game::createPlayer(InitialPlayerData& playerData, ServerProtocol& protoc
     }
     std::shared_ptr<Player> player(new Player(*this, playerData.race, playerData._class, 1,
                                 0, position, std::move(playerData.nickname)));
-    player->storeItem(std::shared_ptr<Item>(new Weapon(GameType::LONGSWORD)));
-    player->storeItem(std::shared_ptr<Item>(new Weapon(GameType::GNARLED_STAFF)));
-    player->storeItem(std::shared_ptr<Item>(new Weapon(GameType::GNARLED_STAFF)));
-    player->storeItem(std::shared_ptr<Item>(new Weapon(GameType::LONGSWORD)));
-    player->storeItem(std::shared_ptr<Item>(new Head(GameType::MAGIC_HAT)));
-    player->storeItem(std::shared_ptr<Item>(new Head(GameType::IRON_HELMET)));
-    player->storeItem(std::shared_ptr<Item>(new Shield(GameType::IRON_SHIELD)));
+    std::shared_ptr<Item> item(new Weapon(GameType::LONGSWORD));
+    player->storeItem(item);
+    item.reset(new Weapon(GameType::GNARLED_STAFF));
+    player->storeItem(item);
+    item.reset(new Weapon(GameType::GNARLED_STAFF));
+    player->storeItem(item);
+    item.reset(new Weapon(GameType::LONGSWORD));
+    player->storeItem(item);
+    item.reset(new Head(GameType::MAGIC_HAT));
+    player->storeItem(item);
+    item.reset(new Head(GameType::IRON_HELMET));
+    player->storeItem(item);
+    item.reset(new Shield(GameType::IRON_SHIELD));
+    player->storeItem(item);
     player->useItem(0);
     Player* playerAux = player.get();
     players.emplace_back(playerAux);
@@ -218,6 +225,27 @@ void Game::removePlayer(Player *player, ServerProtocol& protocol) {
     players.erase(std::remove_if(players.begin(), players.end(), shouldBeRemoved),
                                 players.end());
     map.removeEntity(player->getPosition());
+}
+
+ItemData Game::storeItemFromTileInPlayer(Player& player) {
+    Coordinate playerPosition = player.getPosition();
+    std::shared_ptr<Item> retreivedItem = map.removeItem(playerPosition);
+    ItemData returnData = {GameType::ITEM_TYPE_NONE, -2, playerPosition};
+    if (retreivedItem) {
+        if (!player.storeItem(retreivedItem)) {
+            map.addItemsToTile(std::move(retreivedItem), playerPosition);
+        } else {
+            std::pair<GameType::ItemType, int32_t> showedItem = map.peekShowedItemData(playerPosition);
+            returnData = {showedItem.first, showedItem.second, playerPosition};
+            if (showedItem.second >= 0) {
+                mapItems[{playerPosition.iPosition, playerPosition.jPosition}] = returnData;
+                //return {showedItem.first, showedItem.second, playerPosition};
+            } else if (showedItem.second == -1) {
+                mapItems.erase({playerPosition.iPosition, playerPosition.jPosition});
+            }
+        }
+    }
+    return returnData;
 }
 
 bool PlayerShouldBeRemoved::operator()(const Player* player) {

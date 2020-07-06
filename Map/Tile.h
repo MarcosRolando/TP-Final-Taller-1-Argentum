@@ -9,6 +9,7 @@
 #include <list>
 #include "../Config/GameEnums.h"
 #include "../Entities/Entity.h"
+#include "../Items/ItemData.h"
 
 class MapTests;
 class Item;
@@ -90,6 +91,10 @@ public:
     bool isInCity() const;
 
     void operator>>(std::stringstream & mapBuffer) const;
+
+    //Guarda el tipo del item y el id del item a mostrar, si no hay items en el
+    //tile guarda -1 en el lugar del id (second)
+    std::pair<GameType::ItemType, int32_t> peekShowedItemData();
 };
 
 

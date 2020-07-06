@@ -38,6 +38,7 @@ public:
     void depositTo(std::string&& itemName, Coordinate npcPosition);
     void unequip(GameType::EquipmentPlace clothing);
     void dropItem(unsigned int itemPosition);
+    void pickUpItem();
     void storeAllRelevantData(std::stringstream& data) const;
     void clearMinichat();
     void giveEventsToGame();

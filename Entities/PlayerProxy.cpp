@@ -17,6 +17,7 @@
 #include "../Game/Events/UseItem.h"
 #include "../Game/Events/Move.h"
 #include "../Config/GameEnums.h"
+#include "../Game/Events/PickUpItem.h"
 
 #define MAX_EVENTS_STORED 3
 
@@ -104,6 +105,12 @@ void PlayerProxy::unequip(GameType::EquipmentPlace place) {
 void PlayerProxy::dropItem(unsigned int itemPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
         storedEvents.emplace(new Drop(*player, itemPosition));
+    }
+}
+
+void PlayerProxy::pickUpItem() {
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new PickUpItem(*game, *player));
     }
 }
 
