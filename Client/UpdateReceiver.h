@@ -31,6 +31,7 @@ public:
     void run() override;
 
 private:
+    void _processCreateItem();
     void _processUnequip();
     void _processUpdate(uint32_t msgLength);
     void _processRemoveEntity();
@@ -38,6 +39,7 @@ private:
     void _receivePlayerData();
     void _processCreateEntity();
     void _processEquipped();
+    void _processPlayerDeath();
 };
 
 

@@ -13,7 +13,7 @@ private:
     EntityData data;
 public:
     explicit UpdateCreateNPC(EntityData& _data) : data(_data) {}
-    void operator()(GameGUI& game);
+    void operator()(GameGUI& game) override;
 };
 
 #endif //ARGENTUM_UPDATECREATENPC_H

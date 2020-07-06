@@ -1,7 +1,6 @@
 //
 // Created by marcos on 6/29/20.
 //
-
 #include <netinet/in.h>
 #include "UpdateReceiver.h"
 #include "Socket.h"
@@ -11,11 +10,14 @@
 #include "../UpdateEvents/UpdateGUI.h"
 #include "../UpdateEvents/UpdateRemoveEntity.h"
 #include "../UpdateEvents/UpdateEquip.h"
+#include "../UpdateEvents/UpdateCreateItem.h"
+#include "../UpdateEvents/UpdatePlayerDeath.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Direction)
 MSGPACK_ADD_ENUM(GameType::Entity)
 MSGPACK_ADD_ENUM(GameType::EquipmentPlace)
+MSGPACK_ADD_ENUM(GameType::ItemType)
 
 void UpdateReceiver::run() {
     uint32_t msgLength = 0;
@@ -57,15 +59,34 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 _processCreateEntity();
                 break;
             case GameType::CREATE_ITEM:
+                _processCreateItem();
                 break;
             case GameType::REMOVE_ENTITY:
                 _processRemoveEntity();
                 break;
+            case GameType::PLAYER_DEATH:
+                _processPlayerDeath();
             default:
                 break;
         }
     }
     _receivePlayerData();
+}
+
+void UpdateReceiver::_processPlayerDeath() {
+    msgpack::type::tuple<std::string> player;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(player);
+    updates.push(std::unique_ptr<UpdateEvent>(
+            new UpdatePlayerDeath(std::move(std::get<0>(player)))));
+}
+
+void UpdateReceiver::_processCreateItem() {
+    msgpack::type::tuple<GameType::ItemType, int32_t, int32_t, int32_t> itemData;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(itemData);
+    updates.push(std::unique_ptr<UpdateEvent>(new UpdateCreateItem(std::get<0>(itemData),
+                std::get<1>(itemData), {std::get<2>(itemData), std::get<3>(itemData)})));
 }
 
 void UpdateReceiver::_processUnequip() {

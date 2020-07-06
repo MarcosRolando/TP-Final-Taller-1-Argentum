@@ -77,8 +77,8 @@ void GameGUI::addNPC(EntityData& entityData) {
     map.addNPC(entityData);
 }
 
-void GameGUI::loadTileItem(Coordinate position, TextureID itemTexture) {
-    map.loadTileItem(position, itemTexture);
+void GameGUI::createItem(Coordinate position, TextureID itemTexture) {
+    map.createItem(position, itemTexture);
 }
 
 void GameGUI::addPlayer(MapPlayerData& playerData) {

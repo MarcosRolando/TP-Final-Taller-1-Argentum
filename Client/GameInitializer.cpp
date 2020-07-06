@@ -48,7 +48,7 @@ void GameInitializer::_receiveCurrentGameState() {
         if (std::get<0>(id) == GameType::CREATE_ITEM) {
 
             ItemData data = protocol.processAddItem(&buffer, offset);
-            game.loadTileItem(data.position, data.texture);
+            game.createItem(data.position, data.texture);
 
         } else if (std::get<0>(id) == GameType::CREATE_ENTITY) {
             _processAddEntity(buffer, offset);

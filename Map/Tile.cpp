@@ -37,7 +37,7 @@ void Tile::loadData(Texture& _tileTexture, Texture* sTexture, int tileType) {
     }
 }
 
-void Tile::loadItem(Texture& _itemTexture) {
+void Tile::createItem(Texture& _itemTexture) {
     item.setItem(_itemTexture);
 }
 
@@ -82,5 +82,13 @@ void Tile::equipOnPlayer(GameType::EquipmentPlace place, TextureID equipment) {
     auto player = dynamic_cast<Player*>(entityToCast);
     if (player) {
         player->equip(place, equipment);
+    }
+}
+
+void Tile::killPlayer() {
+    Entity* entityToCast = entity.get();
+    auto player = dynamic_cast<Player*>(entityToCast);
+    if (player) {
+        player->kill();
     }
 }

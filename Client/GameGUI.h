@@ -33,7 +33,7 @@ public:
     void setMapSize(int rows, int columns);
     void loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
                       TextureID entity);
-    void loadTileItem(Coordinate position, TextureID itemTexture);
+    void createItem(Coordinate position, TextureID itemTexture);
     void addNPC(EntityData& entityData);
     void addPlayer(MapPlayerData& playerData);
 
