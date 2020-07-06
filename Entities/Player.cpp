@@ -36,10 +36,6 @@ Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsig
 #include <iostream>
 
 int32_t Player::attack(Coordinate target) {
-
-    std::cout << "Entre a attack de player" << std::endl;
-
-
     if (!stats.isDead()) {
         stats.stopMeditating();
         int weaponDamage;
@@ -52,11 +48,6 @@ int32_t Player::attack(Coordinate target) {
         chat.addMessage(std::move(result.resultMessage));
         return inventory.getWeaponId();
     }
-
-
-    std::cout << "Salgo de attack de player" << std::endl;
-
-
     return -1;
 }
 
