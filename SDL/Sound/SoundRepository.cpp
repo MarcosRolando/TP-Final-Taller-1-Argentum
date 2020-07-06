@@ -15,7 +15,7 @@ void SoundRepository::_loadSounds(){
         sounds.emplace(Punch, "../Sounds/punch.wav");
         sounds.emplace(StepDirt, "../Sounds/stepdirt_1.wav");
     } catch (std::exception& e) {
-        std::cout << e.what();
+        std::cerr << e.what() << std::endl;
     }
 }
 

@@ -42,8 +42,8 @@ void ClientEventHandler::run() {
                 _sendMessage();
             }
         }
-    } catch (...) {
-        //do nothing
+    } catch (std::exception& e) {
+        std::cerr << e.what() << std::endl;
     }
 }
 
