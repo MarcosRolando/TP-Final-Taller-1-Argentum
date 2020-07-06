@@ -38,12 +38,18 @@ Coordinate Monster::_getNearestPosition(Coordinate refference, std::vector<Coord
 }
 */
 
+
+#include <iostream>
+
 //Guarda parte del camino al jugador al cual tiene que moverse la menor cantidad
 //de veces para alcanzarlo
 void Monster::_storeNearestPlayerPathCache() {
     unsigned int nearestTargetIndex = 0;
     std::vector<Coordinate> positions;
-    map.getTargets(currentPosition, stats.getRangeOfVision(), positions);
+
+    //map.getTargets(currentPosition, stats.getRangeOfVision(), positions);
+    map.getTargets(currentPosition, 100, positions);
+
     if (!positions.empty()) {
         std::vector<std::list<Coordinate>> allPaths/*(positions.size())*/;
         std::list<Coordinate> aux;
@@ -58,6 +64,19 @@ void Monster::_storeNearestPlayerPathCache() {
         }
         if (!allPaths.empty()) {
             pathCache = std::move(allPaths[nearestTargetIndex]);
+
+            /*
+            std::cout << "Nuevo camino:" << std::endl;
+            int i = 0;
+            for (const auto & pathPosition: pathCache) {
+                std::cout << "La posicion " << i << " es i: " << pathPosition.iPosition <<
+                            " j: " << pathPosition.jPosition << std::endl;
+                i++;
+            }
+            std::cout << std::endl << std::endl;
+            */
+
+
             if (pathCache.size() > MAX_NUMBER_OF_CACHED_NODES) {
                 pathCache.resize(MAX_NUMBER_OF_CACHED_NODES);
             }
@@ -82,9 +101,9 @@ bool Monster::_tryToAttack() {
 }
 
 GameType::Direction Monster::_getMoveDirection() {
-    Coordinate destiny = pathCache.front();
-    Coordinate difference = {destiny.iPosition - currentPosition.iPosition,
-                             destiny.jPosition - currentPosition.jPosition};
+    Coordinate destination = pathCache.front();
+    Coordinate difference = {destination.iPosition - currentPosition.iPosition,
+                             destination.jPosition - currentPosition.jPosition};
     if (difference.iPosition  == 1) {
         return GameType::DIRECTION_DOWN;
     } else if (difference.iPosition == -1) {
@@ -113,6 +132,11 @@ void Monster::_move() {
         //Entity::requestMove(game, _getMoveDirection());
         movement.direction = _getMoveDirection();
         game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
+
+        std::cout << "Coordenada guardada: i: " << pathCache.front().iPosition << " j: " <<
+                     pathCache.front().jPosition << std::endl;
+
+
         pathCache.pop_front();
     }
 }
