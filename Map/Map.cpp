@@ -55,6 +55,8 @@ Coordinate Map::_getValidCoordinate(Coordinate coordinate) const {
     return coordinate;
 }
 
+
+
 //Guarda en nodes y parentsAndChilds los nodos correspondientes, revisando los
 //nodos que se encuentren adyacentes a referencia, tambien actualiza las distancias
 //de los nodos de ser necesario
@@ -64,7 +66,6 @@ void Map::_storeAdjacentPositions(
         std::priority_queue<PointAndDistance, std::vector<PointAndDistance>,
                             InverseCoordinateDistance>& nodes,
         Coordinate destination) const {
-
     Coordinate topLeft{}, bottomRight{};
     PointAndDistance aux{};
     _buildSearchRegion(refference.point, 1, topLeft, bottomRight);
@@ -73,9 +74,9 @@ void Map::_storeAdjacentPositions(
             aux.point.iPosition = i;
             aux.point.jPosition = j;
             aux.distance = _getDistance(refference.point, aux.point);
-            //if ((la posicion es alcanzable o tiene un jugador) y no esta en una ciudad)
-            if ((((aux.distance == 1) && tiles[i][j].isAvailable()) ||
-                tiles[i][j].hasMonsterTarget()) && !tiles[i][j].isInCity()) {
+            //if (esta a distancia 1 y (la posicion es alcanzable o tiene un jugador) y no esta en una ciudad)
+            if (((aux.distance == 1) && (tiles[i][j].isAvailable() ||
+                tiles[i][j].hasMonsterTarget())) && !tiles[i][j].isInCity()) {
                 aux.distance += refference.distance + _getDistance(aux.point, destination);
                 if ((distances.count(aux.point) == 0) ||
                     (distances.at(aux.point) > aux.distance)) {
