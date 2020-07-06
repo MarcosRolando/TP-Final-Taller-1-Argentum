@@ -24,3 +24,7 @@ void Player::render() {
 void Player::equip(GameType::EquipmentPlace place, TextureID equipment) {
     pTexture.equip(place, equipment);
 }
+
+void Player::kill() {
+    isAlive = false;
+}

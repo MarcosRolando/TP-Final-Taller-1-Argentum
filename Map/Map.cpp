@@ -197,3 +197,9 @@ void Map::equipOnPlayer(std::string &nickname, GameType::EquipmentPlace place,
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     tiles.at(tile).equipOnPlayer(place, equipment);
 }
+
+void Map::killPlayer(std::string &nickname) {
+    Coordinate position = entities.at(nickname);
+    int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
+    tiles.at(tile).killPlayer();
+}

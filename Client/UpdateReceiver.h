@@ -39,6 +39,7 @@ private:
     void _receivePlayerData();
     void _processCreateEntity();
     void _processEquipped();
+    void _processPlayerDeath();
 };
 
 

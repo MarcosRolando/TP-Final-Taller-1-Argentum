@@ -84,3 +84,11 @@ void Tile::equipOnPlayer(GameType::EquipmentPlace place, TextureID equipment) {
         player->equip(place, equipment);
     }
 }
+
+void Tile::killPlayer() {
+    Entity* entityToCast = entity.get();
+    auto player = dynamic_cast<Player*>(entityToCast);
+    if (player) {
+        player->kill();
+    }
+}

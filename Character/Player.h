@@ -22,6 +22,8 @@ public:
     void render() override;
 
     void equip(GameType::EquipmentPlace place, TextureID equipment);
+
+    void kill();
 };
 
 

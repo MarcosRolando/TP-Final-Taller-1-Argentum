@@ -59,6 +59,8 @@ public:
     void equipOnPlayer(std::string& nickname, GameType::EquipmentPlace place,
                         TextureID equipment);
 
+    void killPlayer(std::string& nickname);
+
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
     void _moveEntitiesToNewTile();
