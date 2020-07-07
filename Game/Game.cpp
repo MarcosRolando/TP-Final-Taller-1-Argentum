@@ -191,11 +191,11 @@ Player& Game::createPlayer(InitialPlayerData& playerData, ServerProtocol& protoc
     player->storeItem(item);
     item.reset(new Weapon(GameType::GNARLED_STAFF));
     player->storeItem(item);
-    item.reset(new Weapon(GameType::GNARLED_STAFF));
+    item.reset(new Weapon(GameType::ASH_ROD));
+    player->storeItem(item);
+    item.reset(new Weapon(GameType::LINKED_STAFF));
     player->storeItem(item);
     item.reset(new Weapon(GameType::LONGSWORD));
-    player->storeItem(item);
-    item.reset(new Head(GameType::MAGIC_HAT));
     player->storeItem(item);
     item.reset(new Head(GameType::IRON_HELMET));
     player->storeItem(item);
