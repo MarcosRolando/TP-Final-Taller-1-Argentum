@@ -46,10 +46,8 @@ void GameInitializer::_receiveCurrentGameState() {
         msgpack::type::tuple<GameType::EventID> id;
         handler->convert(id);
         if (std::get<0>(id) == GameType::CREATE_ITEM) {
-
             ItemData data = protocol.processAddItem(&buffer, offset);
             game.createItem(data.position, data.texture);
-
         } else if (std::get<0>(id) == GameType::CREATE_ENTITY) {
             _processAddEntity(buffer, offset);
         }
