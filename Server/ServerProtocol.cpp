@@ -34,12 +34,14 @@ const std::vector<char> &ServerProtocol::getMapInfo() const {
     return mapBuffer;
 }
 
-const std::vector<char>& ServerProtocol::buildCurrentState(const std::list<Player*>& players,
+const std::vector<char>& ServerProtocol::buildCurrentState(
+                                          const std::unordered_map<const std::string*, Player*>& players,
+                                          //const std::list<Player*>& players,
                                           const std::list<Monster*>& monsters,
                                           const std::unordered_map<Coordinate, const Item*>& mapItems) {
     std::stringstream data;
     for (const auto & player : players) {
-        (*player) >> data;
+        (*player.second) >> data;
     }
     for (const auto & monster : monsters) {
         (*monster) >> data;
