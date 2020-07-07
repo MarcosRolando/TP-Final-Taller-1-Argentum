@@ -26,10 +26,10 @@ bool Item::isGold() const {
 }
 
 void Item::loadDropItemData(std::stringstream &buffer, uint32_t i, uint32_t j) const {
-    //msgpack::type::tuple<GameType::EventID> idType(GameType::CREATE_ITEM);
+    msgpack::type::tuple<GameType::EventID> idType(GameType::CREATE_ITEM);
     msgpack::type::tuple<GameType::ItemType, int32_t, uint32_t, uint32_t>
                                         data(type, id, i, j);
-    //msgpack::pack(buffer, idType);
+    msgpack::pack(buffer, idType);
     msgpack::pack(buffer, data);
 }
 

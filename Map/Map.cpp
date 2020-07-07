@@ -438,9 +438,11 @@ std::shared_ptr<Item> Map::getItemFromTile(Coordinate coordinate) {
     return tiles[coordinate.iPosition][coordinate.jPosition].removeItem();
 }
 
-std::pair<GameType::ItemType, int32_t> Map::peekShowedItemData(Coordinate coordinate) {
+//std::pair<GameType::ItemType, int32_t> Map::peekShowedItemData(Coordinate coordinate) {
+Item* Map::peekShowedItemData(Coordinate coordinate) {
     if (!_isCoordinateValid(coordinate)) {
-        return {GameType::ITEM_TYPE_NONE, -2};
+        //return {GameType::ITEM_TYPE_NONE, -2};
+        throw std::invalid_argument("Invalid coordinate in peekShoedItemData");
     }
     return tiles[coordinate.iPosition][coordinate.jPosition].peekShowedItemData();
 }

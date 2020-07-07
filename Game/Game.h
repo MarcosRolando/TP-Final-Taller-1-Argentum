@@ -43,8 +43,8 @@ private:
 
     std::list<Monster*> monsters;
     std::list<Player*> players;
-    std::list<Item*> mapItems;
     //std::unordered_map<Coordinate, ItemData> mapItems;
+    std::unordered_map<Coordinate, Item*> mapItems;
 
     friend GameTests;
     friend EntityTests;
@@ -112,7 +112,8 @@ public:
 
     void removePlayer(Player* player, ServerProtocol& protocol);
 
-    ItemData storeItemFromTileInPlayer(Player& player);
+    //ItemData storeItemFromTileInPlayer(Player& player);
+    Item* storeItemFromTileInPlayer(Player& player);
 };
 
 

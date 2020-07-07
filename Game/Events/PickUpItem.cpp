@@ -16,20 +16,17 @@ PickUpItem::PickUpItem(Game &game, Player &player): game(game), player(player) {
 }
 
 void PickUpItem::operator()(ServerProtocol& protocol) {
-    ItemData itemData = game.storeItemFromTileInPlayer(player);
+    //ItemData itemData = game.storeItemFromTileInPlayer(player);
+    Item* itemPtr = game.storeItemFromTileInPlayer(player);
     std::stringstream data;
-    if (itemData.id != -1) {
+    Coordinate pickUpPosition = player.getPosition();
+    if (itemPtr) {
+        itemPtr->loadDropItemData(data, pickUpPosition.iPosition, pickUpPosition.jPosition);
+    } else {
         msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::DESTROY_ITEM);
         msgpack::pack(data, messageTypeData);
         msgpack::type::tuple<int32_t, int32_t> itemDataTuple
-                        (itemData.coordinate.iPosition, itemData.coordinate.jPosition);
-        msgpack::pack(data, itemDataTuple);
-        protocol.addToGeneralData(data);
-    } else if (itemData.id >= 0) {
-        msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::CREATE_ITEM);
-        msgpack::pack(data, messageTypeData);
-        msgpack::type::tuple<GameType::ItemType, int32_t, int32_t, int32_t> itemDataTuple
-                (itemData.type, itemData.id, itemData.coordinate.iPosition, itemData.coordinate.jPosition);
+                (pickUpPosition.iPosition, pickUpPosition.jPosition);
         msgpack::pack(data, itemDataTuple);
         protocol.addToGeneralData(data);
     }

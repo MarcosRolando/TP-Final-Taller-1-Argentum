@@ -99,7 +99,8 @@ void Game::dropItems(std::list<std::shared_ptr<Item>>&& items, Coordinate positi
     if (items.empty()) {
         throw std::invalid_argument("Received empty list in Game::dropItems");
     }
-    mapItems[position] = {items.back()->getType(), items.back()->getId(), position};
+    //mapItems[position] = {items.back()->getType(), items.back()->getId(), position};
+    mapItems[position] = items.back().get();
     map.addItemsToTile(std::move(items), position);
 }
 
@@ -107,7 +108,8 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
     if (!item) {
         throw std::invalid_argument("Received null item in Game::dropItems");
     }
-    mapItems[position] = {item->getType(), item->getId(), position};
+    //mapItems[position] = {item->getType(), item->getId(), position};
+    mapItems[position] = item.get();
     map.addItemsToTile(std::move(item), position);
 }
 
@@ -227,20 +229,22 @@ void Game::removePlayer(Player *player, ServerProtocol& protocol) {
     map.removeEntity(player->getPosition());
 }
 
-ItemData Game::storeItemFromTileInPlayer(Player& player) {
+//ItemData Game::storeItemFromTileInPlayer(Player& player) {
+Item* Game::storeItemFromTileInPlayer(Player& player) {
     Coordinate playerPosition = player.getPosition();
     std::shared_ptr<Item> retreivedItem = map.removeItem(playerPosition);
-    ItemData returnData = {GameType::ITEM_TYPE_NONE, -2, playerPosition};
+    //ItemData returnData = {GameType::ITEM_TYPE_NONE, -2, playerPosition};
+    Item* returnData = nullptr;
     if (retreivedItem) {
         if (!player.storeItem(retreivedItem)) {
             map.addItemsToTile(std::move(retreivedItem), playerPosition);
         } else {
-            std::pair<GameType::ItemType, int32_t> showedItem = map.peekShowedItemData(playerPosition);
-            returnData = {showedItem.first, showedItem.second, playerPosition};
-            if (showedItem.second >= 0) {
+            //std::pair<GameType::ItemType, int32_t> showedItem = map.peekShowedItemData(playerPosition);
+            returnData = map.peekShowedItemData(playerPosition);
+            if (returnData) {
                 mapItems[{playerPosition.iPosition, playerPosition.jPosition}] = returnData;
                 //return {showedItem.first, showedItem.second, playerPosition};
-            } else if (showedItem.second == -1) {
+            } else {
                 mapItems.erase({playerPosition.iPosition, playerPosition.jPosition});
             }
         }

@@ -36,7 +36,10 @@ const std::vector<char> &ServerProtocol::getMapInfo() const {
 
 const std::vector<char>& ServerProtocol::buildCurrentState(const std::list<Player*>& players,
                                                     const std::list<Monster*>& monsters,
-                                                    std::unordered_map<Coordinate, ItemData> mapItems) {
+                                                    const std::unordered_map<Coordinate, Item*> mapItems) {
+    const Monster* monsterPtr = nullptr;
+    monsterPtr = monsters.front();
+    monsterPtr->getPosition();
     std::stringstream data;
     for (const auto & player : players) {
         (*player) >> data;
@@ -44,13 +47,16 @@ const std::vector<char>& ServerProtocol::buildCurrentState(const std::list<Playe
     for (const auto & monster : monsters) {
         (*monster) >> data;
     }
-    for (const auto & itemData : mapItems) {
+    for (const auto & item : mapItems) {
+        /*
         msgpack::type::tuple<GameType::EventID> eventIdData(GameType::CREATE_ITEM);
         msgpack::pack(data, eventIdData);
         msgpack::type::tuple<GameType::ItemType, int32_t, int32_t, int32_t>
                 itemDataTuple(itemData.second.type, itemData.second.id, itemData.second.coordinate.iPosition,
                               itemData.second.coordinate.jPosition);
         msgpack::pack(data, itemDataTuple);
+        */
+        item.second->loadDropItemData(data, item.first.iPosition, item.first.jPosition);
     }
     std::string auxString = data.str();
     uint32_t msgLength = htonl(auxString.size());

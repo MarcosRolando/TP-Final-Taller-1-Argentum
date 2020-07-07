@@ -186,14 +186,15 @@ bool Player::unequip() {
     return false;
 }
 
-ItemData Player::dropItem(unsigned int itemPosition) {
+//ItemData Player::dropItem(unsigned int itemPosition) {
+Item* Player::dropItem(unsigned int itemPosition) {
     std::shared_ptr<Item> aux = inventory.removeItem(itemPosition);
-    ItemData returnData = {GameType::ITEM_TYPE_NONE, -1, currentPosition};
+    //ItemData returnData = {GameType::ITEM_TYPE_NONE, -1, currentPosition};
     if (aux) {
-        returnData = {aux->getType(), aux->getId()};
+        //returnData = {aux->getType(), aux->getId()};
         game.dropItems(std::move(aux), currentPosition);
     }
-    return returnData;
+    return aux.get();
 }
 
 void Player::buyFrom(const std::string &itemName, Coordinate npcPosition) {

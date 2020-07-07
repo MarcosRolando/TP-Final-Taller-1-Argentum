@@ -21,7 +21,7 @@ class Game;
 class Drop: public Event {
 private:
     Player* player{nullptr};
-    int position{-1};
+    int inventoryPosition{-1};
 
     std::list<std::shared_ptr<Item>> items;
     Game* game{nullptr};

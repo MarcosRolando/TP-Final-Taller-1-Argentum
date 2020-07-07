@@ -13,6 +13,7 @@ class Monster;
 class Entity;
 class PlayerProxy;
 class Game;
+class Item;
 
 class ServerProtocol {
 private:
@@ -33,7 +34,7 @@ public:
 
     const std::vector<char>& buildCurrentState(const std::list<Player*>& players,
                                         const std::list<Monster*>& monsters,
-                                        std::unordered_map<Coordinate, ItemData> mapItems);
+                                        const std::unordered_map<Coordinate, Item*> mapItems);
 
     //Agrega la informacion del stringstream al buffer que contiene la informacion
     //general que se mandara a todos los clientes

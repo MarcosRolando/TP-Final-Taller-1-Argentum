@@ -147,10 +147,10 @@ void Tile::operator>>(std::stringstream &mapBuffer) const {
     msgpack::pack(mapBuffer, tileInfo);
 }
 
-std::pair<GameType::ItemType, int32_t> Tile::peekShowedItemData() {
+Item* Tile::peekShowedItemData() {
     if (items.empty()) {
-        return {GameType::ITEM_TYPE_NONE, -1};
+        return nullptr;
     }
-    return {items.back()->getType(), items.back()->getId()};
+    return items.back().get();
 }
 
