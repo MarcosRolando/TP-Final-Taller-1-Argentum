@@ -116,7 +116,6 @@ void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
 
 void ClientEventHandler::_processCommandInput() {
     std::string cmd = game.getMinichat().handleReturnKey();
-    std::cout << cmd << std::endl;
     //if (cmd != " "){//Si apreto enter y no hay texto handleReturnKey me devuelve esto
         //std::unique_ptr<InputCommand> inputCmd;
         //inputCmd = CommandVerifier::verifyCommand(std::move(cmd));//Parsea el comando y me devuelve x ejemplo
