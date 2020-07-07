@@ -4,7 +4,6 @@
 
 #include "UpdateAttack.h"
 #include "../Client/GameGUI.h"
-#include "../Texture/TextureID.h"
 
 void UpdateAttack::operator()(GameGUI &game) {
     switch (weapon) {
