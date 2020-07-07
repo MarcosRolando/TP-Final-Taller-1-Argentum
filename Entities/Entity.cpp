@@ -97,7 +97,6 @@ int32_t Entity::attack(Coordinate target) {
     return -1;
 }
 
-
 GameType::Entity Entity::getType() const {
     return type;
 }

@@ -86,14 +86,6 @@ bool Tile::isAvailable() const {
     return isOccupable;
 }
 
-/*
-void Tile::list(Player& player, std::list<ProductData> &products) {
-    if (entity) {
-        entity->list(player, products);
-    }
-}
-*/
-
 void Tile::list(Player &player) {
     if (entity) {
         entity->list(player);
