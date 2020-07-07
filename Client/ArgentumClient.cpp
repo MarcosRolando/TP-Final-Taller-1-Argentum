@@ -74,7 +74,7 @@ void Client::_processConnection() {
     }
 
     socket.close();
-
+    quit = true;
     eventHandler.join();
     updater.join();
 }
