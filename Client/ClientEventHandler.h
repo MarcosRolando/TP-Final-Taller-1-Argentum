@@ -39,6 +39,8 @@ private:
     void _processUseItem(int _inventorySlot);
 
     void _processUnequipItem(GameType::EquipmentPlace _equipment);
+
+    void _processCommandInput();
 };
 
 

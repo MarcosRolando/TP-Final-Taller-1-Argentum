@@ -107,10 +107,19 @@ void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
             break;
         case SDLK_RETURN:
             //todo manejar el parseo del mensaje
-            std::string cmd = game.getMinichat().handleReturnKey();
-            //Parsear el comando y mandarlo
+            _processCommandInput();
             break;
     }
+}
+
+void ClientEventHandler::_processCommandInput() {
+    std::string cmd = game.getMinichat().handleReturnKey();
+    /*if (cmd != " "){//Si apreto enter y no hay texto handleReturnKey me devuelve esto
+        std::unique_ptr<InputCommand> inputCmd;
+        inputCmd = cmdVerifier(cmd);//Parsea el comando y me devuelve x ejemplo
+        //std::unique_ptr<InputCommand>(new CommandMeditate())
+        (*inputCmd)(game, msgBuffer);//Arma el mensaje y lo packea en msgBuffer
+    }*/
 }
 
 void ClientEventHandler::_processUnequipItem(GameType::EquipmentPlace _equipment){
