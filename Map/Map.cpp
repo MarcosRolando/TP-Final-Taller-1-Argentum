@@ -220,11 +220,13 @@ static bool shouldSpellBeRemoved(std::unique_ptr<Spell>* spell) {
 }
 
 void Map::_updateSpellsFrame(float timeStep) {
-    for (auto & spell : spells) {
-        if (*spell) {
-            (*spell)->updateFrame(timeStep);
+    if (!spells.empty()) {
+        for (auto & spell : spells) {
+            if (*spell) {
+                (*spell)->updateFrame(timeStep);
+            }
         }
+        spells.erase(std::remove_if(spells.begin(), spells.end(),
+                                    shouldSpellBeRemoved), spells.end());
     }
-    spells.erase(std::remove_if(spells.begin(), spells.end(),
-                    shouldSpellBeRemoved), spells.end());
 }
