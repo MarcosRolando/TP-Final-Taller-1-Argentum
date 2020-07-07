@@ -155,8 +155,8 @@ void Map::moveEntitiesToNewTile() {
     if (!entitiesToUpdateTilePosition.empty()) {
         for (auto && entity : entitiesToUpdateTilePosition) {
             int tile = std::get<1>(entity).i * TOTAL_HORIZONTAL_TILES + std::get<1>(entity).j;
-            tiles.at(tile).addEntity(std::move(std::get<0>(entity)));
             entities.at(std::get<2>(entity)) = std::get<1>(entity);
+            tiles.at(tile).addEntity(std::move(std::get<0>(entity)));
         }
         entitiesToUpdateTilePosition.clear();
     }
