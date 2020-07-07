@@ -7,7 +7,7 @@
 #define MINICHAT_X_OFFSET 15
 #define MINICHAT_Y_OFFSET 15
 
-#define MAX_TEXT_LEN 94
+#define MAX_TEXT_LEN 85
 #define MAX_MSGS 24 //El maximo de mensajes qu ese van a ver al scrollear
 #define MAX_MSGS_TO_RENDER 8
 

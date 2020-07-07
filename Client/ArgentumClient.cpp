@@ -24,13 +24,14 @@ using namespace std::chrono;
 
 void Client::_processConnection() {
     bool quit = false;
+    setCursor();
     GameGUI game;
     Window& window = game.getWindow();
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
     UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    initializer.loadPlayer("marcos", GameType::Race::DWARF, GameType::Class::WARRIOR);
+    initializer.loadPlayer("QUIRREL", GameType::Race::HUMAN, GameType::Class::PALADIN);
     //SoundPlayer soundPlayer;
     initializer.initializeGame();
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
@@ -91,6 +92,21 @@ void Client::connect() {
 Client::Client(std::string &&host, std::string &&port)  : host(host), port(port),
                                                     finished(false) {
     _initializeSDL();
+}
+
+void Client::setCursor() {
+    //Setea un cursor custom
+    SDL_Surface *surface = NULL;
+    SDL_Cursor *cursor = NULL;
+    surface = SDL_LoadBMP("../Images/UI/Cursor.bmp");
+    if (!surface) {
+        throw TPException("No se pudo crear el cursor");
+    }
+    cursor = SDL_CreateColorCursor(surface, 0, 0);
+    if (!cursor) {
+        throw TPException("No se pudo crear el cursor");
+    }
+    SDL_SetCursor(cursor);
 }
 
 void Client::_initializeSDL() {
