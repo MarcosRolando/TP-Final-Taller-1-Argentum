@@ -75,6 +75,7 @@ void Client::_processConnection() {
 
     socket.close();
     quit = true;
+    sdlEvents.doneAdding();
     eventHandler.join();
     updater.join();
 }
