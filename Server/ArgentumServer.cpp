@@ -7,7 +7,7 @@
 #include <chrono>
 #include <unistd.h>
 
-#define FRAME_TIME 33 /*ms que tarda en actualizarse el juego*/
+#define FRAME_TIME 1/60.f /*ms que tarda en actualizarse el juego*/
 #define TIME_FOR_CLIENTS_INITIALIZATION 3 //ms dejados para mandarle la data inicial a los clientes
 
 using namespace std::chrono;
@@ -24,7 +24,7 @@ void ArgentumServer::connect(const std::string& _port, const std::string& mapFil
     socket.maxListen(MAX_LISTENERS);
     _execute(mapFilePath);
 }
-
+#include <iostream>
 void ArgentumServer::_execute(const std::string& mapFilePath) {
     Game game((MapFileReader(mapFilePath)));
     ServerProtocol protocol(game);
@@ -47,19 +47,18 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         game.update(lastFrameTime, protocol);
         protocol.buildGeneralDataBuffer();
         clients.sendGameUpdate();
-        //Aca se borran los clientes desconectados
 
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();
         if (clients.hasWaitingClients() &&
                 (FRAME_TIME - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
-            //const std::vector<char>& gameState = game.getCurrentState(protocol);
             clients.mergeWaitingClients(game, protocol);
         }
         time2 = high_resolution_clock::now();
         timeStep = time2 - time1;
         lastFrameTime = timeStep.count();
+        std::cout << lastFrameTime << std::endl;
         if (lastFrameTime < FRAME_TIME) {
             usleep((FRAME_TIME - lastFrameTime) * 1000);
             lastFrameTime = FRAME_TIME;
