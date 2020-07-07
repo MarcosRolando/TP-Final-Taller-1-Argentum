@@ -66,12 +66,10 @@ GameType::Direction Tile::moveEntity(GameType::Direction direction, unsigned int
 }
 
 std::unique_ptr<Entity> Tile::getEntity() {
-    std::unique_ptr<Entity> aux = nullptr;
     if (entity) {
-        aux = std::move(entity);
-        entity.reset();
+        return std::move(entity);
     }
-    return aux;
+    return nullptr;
 }
 
 void Tile::setCameraOn() {
@@ -80,8 +78,14 @@ void Tile::setCameraOn() {
     }
 }
 
-void Tile::removeEntity() {
+std::unique_ptr<Spell>* Tile::removeEntity() {
+    if (entity) {
+        spell = entity->getSpell();
+        entity = nullptr;
+        return &spell;
+    }
     entity = nullptr;
+    return nullptr;
 }
 
 void Tile::equipOnPlayer(GameType::EquipmentPlace place, TextureID equipment) {

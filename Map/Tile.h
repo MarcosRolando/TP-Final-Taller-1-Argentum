@@ -53,7 +53,7 @@ public:
 
     void setCameraOn();
 
-    void removeEntity();
+    std::unique_ptr<Spell>* removeEntity(); /*Devuelve el puntero al hechizo del entity que murio*/
 
     std::unique_ptr<Entity> getEntity();
 

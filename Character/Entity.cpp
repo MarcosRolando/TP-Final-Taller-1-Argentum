@@ -178,3 +178,7 @@ std::unique_ptr<Spell>* Entity::addSpell(std::unique_ptr<Spell>&& _spell) {
     spell = std::move(_spell);
     return &spell;
 }
+
+std::unique_ptr<Spell> Entity::getSpell() {
+    return std::move(spell);
+}
