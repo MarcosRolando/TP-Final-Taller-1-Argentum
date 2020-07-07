@@ -43,8 +43,8 @@ private:
 
     std::list<Monster*> monsters;
     std::list<Player*> players;
-    //std::list<Item*> mapItems;
-    std::unordered_map<Coordinate, ItemData> mapItems;
+    std::list<Item*> mapItems;
+    //std::unordered_map<Coordinate, ItemData> mapItems;
 
     friend GameTests;
     friend EntityTests;
