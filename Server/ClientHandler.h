@@ -67,6 +67,7 @@ private:
     void _processUnequip(std::vector<char>& data);
     void _processPickUp(std::vector<char>& data);
     void _processDrop(std::vector<char>& data);
+    void _processList(std::vector<char>& data);
 };
 
 

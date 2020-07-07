@@ -140,8 +140,15 @@ void ClientHandler::_processPickUp(std::vector<char> &data) {
 }
 
 void ClientHandler::_processDrop(std::vector<char> &data) {
-    msgpack::type::tuple<GameType::EquipmentPlace> ItemPosition;
+    msgpack::type::tuple<int32_t> itemPosition;
     handler = msgpack::unpack(data.data(), data.size(), offset);
-    handler->convert(ItemPosition);
-    player.dropItem(std::get<0>(ItemPosition));
+    handler->convert(itemPosition);
+    player.dropItem(std::get<0>(itemPosition));
+}
+
+void ClientHandler::_processList(std::vector<char> &data) {
+    msgpack::type::tuple<int32_t, int32_t> listPosition;
+    handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(listPosition);
+    player.listFrom({std::get<0>(listPosition), std::get<1>(listPosition)});
 }

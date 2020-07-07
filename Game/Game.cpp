@@ -67,7 +67,7 @@ void Game::_updateMonsters(double timeStep) {
 
 void Game::_updatePlayers(double timeStep) {
     for (const auto & player: players) {
-        player->update(timeStep);
+        player.second->update(timeStep);
     }
 }
 
@@ -203,7 +203,7 @@ Player& Game::createPlayer(InitialPlayerData& playerData, ServerProtocol& protoc
     player->storeItem(item);
     player->useItem(0);
     Player* playerAux = player.get();
-    players.emplace_back(playerAux);
+    players.emplace(&playerAux->getNickname(), playerAux);
     map.addEntity(position, std::move(player));
     std::stringstream data;
     (*playerAux) >> data;
@@ -223,9 +223,10 @@ void Game::removePlayer(Player *player, ServerProtocol& protocol) {
             removedPlayerNickname(player->getNickname());
     msgpack::pack(data, removedPlayerNickname);
     protocol.addToGeneralData(data);
-    PlayerShouldBeRemoved shouldBeRemoved(player);
-    players.erase(std::remove_if(players.begin(), players.end(), shouldBeRemoved),
-                                players.end());
+    //PlayerShouldBeRemoved shouldBeRemoved(player);
+    //players.erase(std::remove_if(players.begin(), players.end(), shouldBeRemoved),
+    //                            players.end());
+    players.erase(&player->getNickname());
     map.removeEntity(player->getPosition());
 }
 
