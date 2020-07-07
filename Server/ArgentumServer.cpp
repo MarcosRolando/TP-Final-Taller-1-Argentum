@@ -24,7 +24,7 @@ void ArgentumServer::connect(const std::string& _port, const std::string& mapFil
     socket.maxListen(MAX_LISTENERS);
     _execute(mapFilePath);
 }
-
+#include <iostream>
 void ArgentumServer::_execute(const std::string& mapFilePath) {
     Game game((MapFileReader(mapFilePath)));
     ServerProtocol protocol(game);

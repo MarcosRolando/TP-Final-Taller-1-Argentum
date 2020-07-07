@@ -51,7 +51,4 @@ void Drop::operator()(ServerProtocol& protocol) {
         msgpack::pack(data, itemDataTuple);
         protocol.addToGeneralData(data);
     }
-    if (itemData.type == GameType::ITEM_TYPE_NONE) {
-        std::cerr << "recibi item type none" << std::endl; //todo volar esto al carajo
-    }
 }
