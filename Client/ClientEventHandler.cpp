@@ -7,6 +7,8 @@
 #include <msgpack.hpp>
 #include "Socket.h"
 #include "ClientProtocol.h"
+#include "InputCommands/InputCommand.h"
+#include "InputCommands/CommandVerifier.h"
 
 MSGPACK_ADD_ENUM(GameType::Direction)
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
@@ -116,9 +118,9 @@ void ClientEventHandler::_processCommandInput() {
     std::string cmd = game.getMinichat().handleReturnKey();
     /*if (cmd != " "){//Si apreto enter y no hay texto handleReturnKey me devuelve esto
         std::unique_ptr<InputCommand> inputCmd;
-        inputCmd = cmdVerifier(cmd);//Parsea el comando y me devuelve x ejemplo
-        //std::unique_ptr<InputCommand>(new CommandMeditate())
-        (*inputCmd)(game, msgBuffer);//Arma el mensaje y lo packea en msgBuffer
+        inputCmd = CommandVerifier::verifyCommand(std::move(cmd));//Parsea el comando y me devuelve x ejemplo
+        //std::unique_ptr<InputCommands>(new CommandMeditate())
+        //(*inputCmd)(game, msgBuffer);//Arma el mensaje y lo packea en msgBuffer
     }*/
 }
 
