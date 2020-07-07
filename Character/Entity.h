@@ -34,6 +34,7 @@ public:
     void updateCamera();
     void activateCamera();
     std::unique_ptr<Spell>* addSpell(std::unique_ptr<Spell>&& _spell);
+    std::unique_ptr<Spell> getSpell();
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);

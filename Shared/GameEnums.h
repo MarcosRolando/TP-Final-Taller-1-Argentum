@@ -15,7 +15,7 @@ namespace GameType {
 
     enum EventID: int32_t {
         MOVED, ATTACK, UNEQUIP, EQUIPPED, CREATE_ENTITY, CREATE_ITEM, REMOVE_ENTITY,
-        LIST, DESTROY_ITEM, PLAYER_DEATH
+        DESTROY_ITEM, PLAYER_DEATH
     };
 
 
