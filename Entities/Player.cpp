@@ -246,6 +246,8 @@ void Player::storeAllRelevantData(std::stringstream& buffer) const {
     msgpack::pack(buffer, position);
     msgpack::type::tuple<std::string> minichat(chat.getMessages());
     msgpack::pack(buffer, minichat);
+    msgpack::type::tuple<std::string> nick(Entity::getNickname());
+    msgpack::pack(buffer, nick);
 }
 
 void Player::clearMinichat() {
