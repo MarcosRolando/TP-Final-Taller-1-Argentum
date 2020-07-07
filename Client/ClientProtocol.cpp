@@ -47,6 +47,8 @@ ItemData ClientProtocol::processAddItem(std::vector<char>* _buffer, std::size_t&
     } else if (itemType == GameType::ITEM_TYPE_POTION) {
         itemTexture = translator.getPotionTexture(
                 static_cast<GameType::Potion>(std::get<1>(itemData)));
+    } else if (itemType == GameType::ITEM_TYPE_GOLD) {
+        itemTexture = Gold;
     }
     return {{std::get<2>(itemData), std::get<3>(itemData)}, itemTexture};
 }
