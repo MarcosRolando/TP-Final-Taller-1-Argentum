@@ -82,10 +82,8 @@ std::unique_ptr<Spell>* Tile::removeEntity() {
     if (entity) {
         spell = entity->getSpell();
         entity = nullptr;
-        return &spell;
     }
-    entity = nullptr;
-    return nullptr;
+    return &spell;
 }
 
 void Tile::equipOnPlayer(GameType::EquipmentPlace place, TextureID equipment) {
