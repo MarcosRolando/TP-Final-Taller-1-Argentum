@@ -35,7 +35,7 @@ Drop::Drop(Game &_game, std::shared_ptr<Item> &&item, Coordinate _dropPosition) 
 }
 
 void Drop::operator()(ServerProtocol& protocol) {
-    Item* itemPtr = nullptr;
+    const Item* itemPtr = nullptr;
     if (player) {
         itemPtr = player->dropItem(inventoryPosition);
     } else {
@@ -53,7 +53,7 @@ void Drop::operator()(ServerProtocol& protocol) {
                 itemDataTuple(itemData.type, itemData.id, itemData.coordinate.iPosition,
                               itemData.coordinate.jPosition);
         msgpack::pack(data, itemDataTuple);
-        protocol.addToGeneralData(data);
         */
+        protocol.addToGeneralData(data);
     }
 }

@@ -106,7 +106,7 @@ public:
     //posicion en la que el item fue dejado, si no se encuentra un item en la posicion
     //recibida entonces se almacena -1 en el id del item
     //ItemData dropItem(unsigned int itemPosition);
-    Item* dropItem(unsigned int itemPosition);
+    const Item* dropItem(unsigned int itemPosition);
 
     void operator>>(std::stringstream& buffer) const override;
 

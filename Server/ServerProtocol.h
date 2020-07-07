@@ -34,7 +34,7 @@ public:
 
     const std::vector<char>& buildCurrentState(const std::list<Player*>& players,
                                         const std::list<Monster*>& monsters,
-                                        const std::unordered_map<Coordinate, Item*> mapItems);
+                                        const std::unordered_map<Coordinate, const Item*>& mapItems);
 
     //Agrega la informacion del stringstream al buffer que contiene la informacion
     //general que se mandara a todos los clientes

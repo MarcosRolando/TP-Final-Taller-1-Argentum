@@ -230,11 +230,11 @@ void Game::removePlayer(Player *player, ServerProtocol& protocol) {
 }
 
 //ItemData Game::storeItemFromTileInPlayer(Player& player) {
-Item* Game::storeItemFromTileInPlayer(Player& player) {
+const Item* Game::storeItemFromTileInPlayer(Player& player) {
     Coordinate playerPosition = player.getPosition();
     std::shared_ptr<Item> retreivedItem = map.removeItem(playerPosition);
     //ItemData returnData = {GameType::ITEM_TYPE_NONE, -2, playerPosition};
-    Item* returnData = nullptr;
+    const Item* returnData = nullptr;
     if (retreivedItem) {
         if (!player.storeItem(retreivedItem)) {
             map.addItemsToTile(std::move(retreivedItem), playerPosition);

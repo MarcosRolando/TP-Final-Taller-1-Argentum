@@ -187,7 +187,7 @@ bool Player::unequip() {
 }
 
 //ItemData Player::dropItem(unsigned int itemPosition) {
-Item* Player::dropItem(unsigned int itemPosition) {
+const Item* Player::dropItem(unsigned int itemPosition) {
     std::shared_ptr<Item> aux = inventory.removeItem(itemPosition);
     //ItemData returnData = {GameType::ITEM_TYPE_NONE, -1, currentPosition};
     if (aux) {

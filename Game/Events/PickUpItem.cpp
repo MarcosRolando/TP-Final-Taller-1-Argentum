@@ -17,7 +17,7 @@ PickUpItem::PickUpItem(Game &game, Player &player): game(game), player(player) {
 
 void PickUpItem::operator()(ServerProtocol& protocol) {
     //ItemData itemData = game.storeItemFromTileInPlayer(player);
-    Item* itemPtr = game.storeItemFromTileInPlayer(player);
+    const Item* itemPtr = game.storeItemFromTileInPlayer(player);
     std::stringstream data;
     Coordinate pickUpPosition = player.getPosition();
     if (itemPtr) {

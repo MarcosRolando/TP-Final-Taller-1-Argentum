@@ -35,11 +35,8 @@ const std::vector<char> &ServerProtocol::getMapInfo() const {
 }
 
 const std::vector<char>& ServerProtocol::buildCurrentState(const std::list<Player*>& players,
-                                                    const std::list<Monster*>& monsters,
-                                                    const std::unordered_map<Coordinate, Item*> mapItems) {
-    const Monster* monsterPtr = nullptr;
-    monsterPtr = monsters.front();
-    monsterPtr->getPosition();
+                                          const std::list<Monster*>& monsters,
+                                          const std::unordered_map<Coordinate, const Item*>& mapItems) {
     std::stringstream data;
     for (const auto & player : players) {
         (*player) >> data;
