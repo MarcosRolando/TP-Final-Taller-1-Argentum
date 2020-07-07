@@ -6,6 +6,8 @@
 #define ARGENTUM_ITEMDATA_H
 
 #include <cstdint>
+#include "../Config/GameEnums.h"
+#include "../Map/Coordinate.h"
 
 struct ItemData {
     GameType::ItemType type;

@@ -5,7 +5,7 @@
 #ifndef ARGENTUM_SERVERPROTOCOL_H
 #define ARGENTUM_SERVERPROTOCOL_H
 
-
+#include "../Items/ItemData.h"
 #include <msgpack.hpp>
 
 class Player;
@@ -32,7 +32,8 @@ public:
     const std::vector<char>& getMapInfo() const;
 
     const std::vector<char>& buildCurrentState(const std::list<Player*>& players,
-                                        const std::list<Monster*>& monsters);
+                                        const std::list<Monster*>& monsters,
+                                        std::unordered_map<Coordinate, ItemData> mapItems);
 
     //Agrega la informacion del stringstream al buffer que contiene la informacion
     //general que se mandara a todos los clientes
