@@ -31,6 +31,7 @@ public:
     void run() override;
 
 private:
+    void _processAttack();
     void _processCreateItem();
     void _processUnequip();
     void _processUpdate(uint32_t msgLength);

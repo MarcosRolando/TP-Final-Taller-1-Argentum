@@ -12,12 +12,14 @@
 #include "../UpdateEvents/UpdateEquip.h"
 #include "../UpdateEvents/UpdateCreateItem.h"
 #include "../UpdateEvents/UpdatePlayerDeath.h"
+#include "../UpdateEvents/UpdateAttack.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Direction)
 MSGPACK_ADD_ENUM(GameType::Entity)
 MSGPACK_ADD_ENUM(GameType::EquipmentPlace)
 MSGPACK_ADD_ENUM(GameType::ItemType)
+MSGPACK_ADD_ENUM(GameType::Weapon)
 
 void UpdateReceiver::run() {
     try {
@@ -51,6 +53,7 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 break;
             case GameType::ATTACK:
                 handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+                _processAttack();
                 break;
             case GameType::UNEQUIP:
                 _processUnequip();
@@ -77,6 +80,16 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
     }
     _receivePlayerData();
 }
+
+void UpdateReceiver::_processAttack() {
+    msgpack::type::tuple<int32_t, int32_t, GameType::Weapon> player;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(player);
+    updates.push(std::unique_ptr<UpdateEvent>(
+            new UpdateAttack({std::get<0>(player),
+                    std::get<1>(player)}, std::get<2>(player))));
+}
+
 
 void UpdateReceiver::_processPlayerDeath() {
     msgpack::type::tuple<std::string> player;
