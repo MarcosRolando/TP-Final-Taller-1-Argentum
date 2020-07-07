@@ -95,7 +95,10 @@ int PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int
         }
         int totalDamage = std::max(damage - static_cast<int>(defense), 0);
         currentLife -= totalDamage;
-        if (currentLife < 0) currentLife = 0;
+        if (currentLife <= 0) {
+            currentLife = 0;
+            currentMana = 0;
+        }
         if (totalDamage > 0) timeElapsed = 0.0;
         return totalDamage;
     }
