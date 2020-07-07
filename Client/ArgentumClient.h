@@ -29,8 +29,7 @@ private:
     void _processConnection();
     static void _initializeSDL();
     static void _closeSDL();
-
-    void setCursor();
+    static void _setCursor();
 };
 
 

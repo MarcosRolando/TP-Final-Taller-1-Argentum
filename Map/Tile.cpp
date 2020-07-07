@@ -78,12 +78,17 @@ void Tile::setCameraOn() {
     }
 }
 
-std::unique_ptr<Spell>* Tile::removeEntity() {
+void Tile::moveSpellFromEntityToTile(std::list<std::unique_ptr<Spell>*>& spells) {
     if (entity) {
-        spell = entity->getSpell();
-        entity = nullptr;
+        spell = entity->getSpell(spells);
     }
-    return &spell;
+    if (spell) {
+        spells.emplace_back(&spell); /*Agrego el spell que ahora paso al tile*/
+    }
+}
+
+void Tile::removeEntity() {
+    entity = nullptr;
 }
 
 void Tile::equipOnPlayer(GameType::EquipmentPlace place, TextureID equipment) {

@@ -192,10 +192,8 @@ void Map::setCameraOn(Coordinate position) {
 void Map::removeEntity(std::string &nickname) {
     Coordinate position = entities.at(nickname);
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
-    std::unique_ptr<Spell>* entitySpell = tiles.at(tile).removeEntity();
-    if (*entitySpell) {
-        spells.emplace_back(entitySpell);
-    }
+    tiles.at(tile).moveSpellFromEntityToTile(spells);
+    tiles.at(tile).removeEntity();
     entities.erase(nickname);
 }
 
@@ -214,7 +212,7 @@ void Map::killPlayer(std::string &nickname) {
 
 void Map::addSpell(Coordinate position, TextureID spellTexture) {
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
-    std::unique_ptr<Spell>*  spell = tiles.at(tile).addSpell(textureRepo.getTexture(spellTexture), camera,
+    std::unique_ptr<Spell>* spell = tiles.at(tile).addSpell(textureRepo.getTexture(spellTexture), camera,
                             position.j*TILE_WIDTH, position.i*TILE_HEIGHT);
     spells.emplace_back(spell);
 }

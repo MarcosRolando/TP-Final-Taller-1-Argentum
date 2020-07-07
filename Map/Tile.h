@@ -53,7 +53,7 @@ public:
 
     void setCameraOn();
 
-    std::unique_ptr<Spell>* removeEntity(); /*Devuelve el puntero al hechizo del entity que murio*/
+    void removeEntity();
 
     std::unique_ptr<Entity> getEntity();
 
@@ -62,6 +62,8 @@ public:
     void killPlayer();
 
     std::unique_ptr<Spell>* addSpell(Texture& spellTexture, SDL_Rect& camera, float x, float y);
+
+    void moveSpellFromEntityToTile(std::list<std::unique_ptr<Spell>*>& spells);
 };
 
 

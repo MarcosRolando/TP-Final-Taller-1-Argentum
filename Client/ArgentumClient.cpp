@@ -24,7 +24,6 @@ using namespace std::chrono;
 
 void Client::_processConnection() {
     bool quit = false;
-    setCursor();
     GameGUI game;
     Window& window = game.getWindow();
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
@@ -93,9 +92,10 @@ void Client::connect() {
 Client::Client(std::string &&host, std::string &&port)  : host(host), port(port),
                                                     finished(false) {
     _initializeSDL();
+    _setCursor();
 }
 
-void Client::setCursor() {
+void Client::_setCursor() {
     //Setea un cursor custom
     SDL_Surface *surface = NULL;
     SDL_Cursor *cursor = NULL;

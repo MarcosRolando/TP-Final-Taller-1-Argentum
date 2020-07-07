@@ -4,6 +4,7 @@
 
 #include "Entity.h"
 #include "../GameConstants.h"
+#include <algorithm>
 
 const unsigned int TILE_DISTANCE_IN_METERS = 2000;
 
@@ -179,6 +180,18 @@ std::unique_ptr<Spell>* Entity::addSpell(std::unique_ptr<Spell>&& _spell) {
     return &spell;
 }
 
-std::unique_ptr<Spell> Entity::getSpell() {
+std::unique_ptr<Spell> Entity::getSpell(std::list<std::unique_ptr<Spell>*>& spells) {
+    _removeSpellOnDeath(spells);
     return std::move(spell);
+}
+
+void Entity::_removeSpellOnDeath(std::list<std::unique_ptr<Spell>*> &spells) {
+    if (spell) {
+        auto it = spells.begin();
+        while (it != spells.end()) {
+            if ((*it) == (&spell)) break;
+            ++it;
+        }
+        spells.erase(it);
+    }
 }
