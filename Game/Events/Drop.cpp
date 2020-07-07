@@ -32,7 +32,7 @@ Drop::Drop(Game &_game, std::shared_ptr<Item> &&item, Coordinate _dropPosition) 
     dropPosition = _dropPosition;
     items.push_back(std::move(item));
 }
-#include <iostream>
+
 void Drop::operator()(ServerProtocol& protocol) {
     ItemData itemData{};
     if (player) {
@@ -50,8 +50,5 @@ void Drop::operator()(ServerProtocol& protocol) {
                               itemData.coordinate.jPosition);
         msgpack::pack(data, itemDataTuple);
         protocol.addToGeneralData(data);
-    }
-    if (itemData.type == GameType::ITEM_TYPE_NONE) {
-        std::cerr << "recibi item type none" << std::endl; //todo volar esto al carajo
     }
 }
