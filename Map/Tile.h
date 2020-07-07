@@ -35,7 +35,7 @@ public:
                   GameType::Structure structure, std::shared_ptr<Entity>&& initialEntity);
 
     //El tile se queda con la entity de other y setea la de other en nullptr
-    void moveEntity(Tile&& otherTile, Coordinate position);
+    void moveEntity(Tile& otherTile, Coordinate position);
 
     //Intenta agregar la entity al tile
     //Si la posicion es ocupable entonces se apropia
