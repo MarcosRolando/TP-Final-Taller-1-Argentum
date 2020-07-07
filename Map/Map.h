@@ -23,7 +23,7 @@ private:
     std::vector<Tile> tiles;
     SDL_Rect& camera;
     std::unordered_map<std::string, Coordinate> entities;
-    std::list<std::tuple<std::unique_ptr<Entity>, Coordinate>> entitiesToUpdateTilePosition; /*Esto es para no pisar entities entre si cuando terminan de moverse*/
+    std::list<std::tuple<std::unique_ptr<Entity>, Coordinate, std::string>> entitiesToUpdateTilePosition; /*Esto es para no pisar entities entre si cuando terminan de moverse*/
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera);
@@ -49,7 +49,7 @@ public:
     void moveEntity(std::string& nickname, GameType::Direction direction,
             unsigned int distanceTravelled, bool reachedDestination);
 
-    void updateInterpolation(float timeStep);
+    void moveEntitiesToNewTile();
 
     void setCameraOn(Coordinate position);
 
@@ -62,7 +62,6 @@ public:
 
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
-    void _moveEntitiesToNewTile();
 };
 
 

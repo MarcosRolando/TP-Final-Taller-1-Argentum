@@ -44,7 +44,6 @@ void Map::renderStructures() {
 }
 
 void Map::renderNPCS() {
-    _moveEntitiesToNewTile();
     for (int i = -2; i < (VISIBLE_VERTICAL_TILES + 2); ++i) {
         for (int j = -2; j < (VISIBLE_HORIZONTAL_TILES + 2); ++j) {
             float x = (float)camera.x + (float)j * TILE_WIDTH;
@@ -118,15 +117,16 @@ void Map::createItem(Coordinate position, TextureID itemTexture) {
 void Map::moveEntity(std::string &nickname, GameType::Direction direction,
                      unsigned int distanceTravelled, bool reachedDestination) {
 
-    Coordinate entityPosition = entities.at(nickname);
-    int tile = entityPosition.i * TOTAL_HORIZONTAL_TILES + entityPosition.j;
-    tiles.at(tile).moveEntity(direction, distanceTravelled, reachedDestination);
-    if (reachedDestination) {
-        std::unique_ptr<Entity> entity = tiles.at(tile).getEntity();
-        entityPosition = _calculateNewTile(entityPosition, direction);
-        entitiesToUpdateTilePosition.emplace_back(std::move(entity), entityPosition);
-        entities.erase(nickname);
-        entities.emplace(std::move(nickname), entityPosition);
+    if (entities.count(nickname) == 1) {
+        Coordinate entityPosition = entities.at(nickname);
+        int tile = entityPosition.i * TOTAL_HORIZONTAL_TILES + entityPosition.j;
+        tiles.at(tile).moveEntity(direction, distanceTravelled, reachedDestination);
+        if (reachedDestination) {
+            std::unique_ptr<Entity> entity = tiles.at(tile).getEntity();
+            entityPosition = _calculateNewTile(entityPosition, direction);
+            entitiesToUpdateTilePosition.emplace_back(std::move(entity), entityPosition,
+                                                std::move(nickname));
+        }
     }
 }
 
@@ -151,14 +151,16 @@ Coordinate Map::_calculateNewTile(Coordinate position, GameType::Direction direc
     return position;
 }
 
-void Map::_moveEntitiesToNewTile() {
+void Map::moveEntitiesToNewTile() {
     if (!entitiesToUpdateTilePosition.empty()) {
         for (auto && entity : entitiesToUpdateTilePosition) {
             int tile = std::get<1>(entity).i * TOTAL_HORIZONTAL_TILES + std::get<1>(entity).j;
             tiles.at(tile).addEntity(std::move(std::get<0>(entity)));
+            entities.at(std::get<2>(entity)) = std::get<1>(entity);
         }
         entitiesToUpdateTilePosition.clear();
     }
+
 }
 
 void Map::setCameraOn(Coordinate position) {
