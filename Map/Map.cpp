@@ -85,27 +85,41 @@ void Map::loadTileData(Coordinate position, FloorTypeTexture floor, TextureID st
 
 void Map::addNPC(EntityData& data) {
     if (entities.count(data.nickname) == 0) {
-        int tile = data.pos.i*TOTAL_HORIZONTAL_TILES + data.pos.j;
-        tiles.at(tile).addEntity(std::unique_ptr<Entity>(new NPC(textureRepo,
-                camera, data.pos.j*TILE_WIDTH,data.pos.i*TILE_HEIGHT, data.texture)));
-        entities.emplace(std::move(data.nickname), data.pos); //todo recibir el nickname de los citizens sino no los cargo
         if (data.currentDir != GameType::DIRECTION_STILL) {
-            moveEntity(data.nickname, data.currentDir, data.distanceMoved, false);
+            Coordinate destination = _calculateNewTile(data.pos,
+                                                       data.currentDir);
+            std::unique_ptr<NPC> npc(new NPC(textureRepo,
+                    camera, data.pos.j*TILE_WIDTH,data.pos.i*TILE_HEIGHT, data.texture));
+            npc->move(data.currentDir, data.distanceMoved, false);
+            entitiesToUpdateTilePosition.emplace_back(std::move(npc), destination,
+                                                      data.nickname);
+        } else {
+            int tile = data.pos.i*TOTAL_HORIZONTAL_TILES + data.pos.j;
+            tiles.at(tile).addEntity(std::unique_ptr<Entity>(new NPC(textureRepo,
+                    camera, data.pos.j*TILE_WIDTH,data.pos.i*TILE_HEIGHT, data.texture)));
         }
+        entities.emplace(std::move(data.nickname), data.pos); //todo recibir el nickname de los citizens sino no los cargo
     }
 }
 
 void Map::addPlayer(MapPlayerData& playerData) {
     if (entities.count(playerData.entityData.nickname) == 0) {
-        int tile = playerData.entityData.pos.i*TOTAL_HORIZONTAL_TILES + playerData.entityData.pos.j;
-        tiles.at(tile).addEntity(std::unique_ptr<Entity>(new Player(textureRepo,
-                camera, playerData.entityData.pos.j*TILE_WIDTH,playerData.entityData.pos.i*TILE_HEIGHT,
-                playerData.equipment, playerData.isAlive)));
-        entities.emplace(std::move(playerData.entityData.nickname), playerData.entityData.pos);
         if (playerData.entityData.currentDir != GameType::DIRECTION_STILL) {
-            moveEntity(playerData.entityData.nickname, playerData.entityData.currentDir,
-                        playerData.entityData.distanceMoved, false);
+            Coordinate destination = _calculateNewTile(playerData.entityData.pos,
+                                     playerData.entityData.currentDir);
+            std::unique_ptr<Player> player(new Player(textureRepo,camera,
+                    playerData.entityData.pos.j*TILE_WIDTH,playerData.entityData.pos.i*TILE_HEIGHT,
+                    playerData.equipment, playerData.isAlive));
+            player->move(playerData.entityData.currentDir, playerData.entityData.distanceMoved, false);
+            entitiesToUpdateTilePosition.emplace_back(std::move(player), destination,
+                                                      playerData.entityData.nickname);
+        } else {
+            int tile = playerData.entityData.pos.i*TOTAL_HORIZONTAL_TILES + playerData.entityData.pos.j;
+            tiles.at(tile).addEntity(std::unique_ptr<Entity>(new Player(textureRepo,camera,
+                    playerData.entityData.pos.j*TILE_WIDTH,playerData.entityData.pos.i*TILE_HEIGHT,
+                    playerData.equipment, playerData.isAlive)));
         }
+        entities.emplace(std::move(playerData.entityData.nickname), playerData.entityData.pos);
     }
 }
 
