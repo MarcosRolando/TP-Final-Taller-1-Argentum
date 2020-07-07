@@ -69,6 +69,7 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 break;
             case GameType::PLAYER_DEATH:
                 _processPlayerDeath();
+                break;
             default:
                 std::cerr << std::get<0>(id) << " comando no reconocido" << std::endl;
                 break;
