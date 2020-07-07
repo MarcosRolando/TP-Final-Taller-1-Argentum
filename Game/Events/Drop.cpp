@@ -6,8 +6,8 @@
 #include "../../Entities/Player.h"
 #include "../../Items/ItemData.h"
 #include "../../Server/ServerProtocol.h"
-#include <msgpack.hpp>
 #include "../Game.h"
+#include <msgpack.hpp>
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::ItemType)

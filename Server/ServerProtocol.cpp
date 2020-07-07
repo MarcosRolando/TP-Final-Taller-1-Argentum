@@ -8,6 +8,14 @@
 #include "../Entities/Player.h"
 #include "../Entities/Monster.h"
 #include "../Game/Game.h"
+#include "../Items/ItemData.h"
+
+#include <msgpack.hpp>
+
+MSGPACK_ADD_ENUM(GameType::EventID)
+MSGPACK_ADD_ENUM(GameType::ItemType)
+
+
 
 ///////////////////////////////PUBLIC/////////////////////////////
 
@@ -27,13 +35,22 @@ const std::vector<char> &ServerProtocol::getMapInfo() const {
 }
 
 const std::vector<char>& ServerProtocol::buildCurrentState(const std::list<Player*>& players,
-                                                    const std::list<Monster*>& monsters) {
+                                                    const std::list<Monster*>& monsters,
+                                                    std::unordered_map<Coordinate, ItemData> mapItems) {
     std::stringstream data;
     for (const auto & player : players) {
         (*player) >> data;
     }
     for (const auto & monster : monsters) {
         (*monster) >> data;
+    }
+    for (const auto & itemData : mapItems) {
+        msgpack::type::tuple<GameType::EventID> eventIdData(GameType::CREATE_ITEM);
+        msgpack::pack(data, eventIdData);
+        msgpack::type::tuple<GameType::ItemType, int32_t, int32_t, int32_t>
+                itemDataTuple(itemData.second.type, itemData.second.id, itemData.second.coordinate.iPosition,
+                              itemData.second.coordinate.jPosition);
+        msgpack::pack(data, itemDataTuple);
     }
     std::string auxString = data.str();
     uint32_t msgLength = htonl(auxString.size());

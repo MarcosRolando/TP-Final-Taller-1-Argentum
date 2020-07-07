@@ -210,7 +210,7 @@ Player& Game::createPlayer(InitialPlayerData& playerData, ServerProtocol& protoc
 }
 
 const std::vector<char>& Game::getCurrentState(ServerProtocol& protocol) {
-    return protocol.buildCurrentState(players, monsters /*todo pasar la lista de items tambien*/);
+    return protocol.buildCurrentState(players, monsters,  mapItems);
 }
 
 void Game::removePlayer(Player *player, ServerProtocol& protocol) {
