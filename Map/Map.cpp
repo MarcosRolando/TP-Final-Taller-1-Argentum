@@ -284,7 +284,7 @@ void Map::moveEntity(Coordinate startingPosition, Coordinate finalPosition) {
         return;
     }
     Tile& tile = tiles[finalPosition.iPosition][finalPosition.jPosition];
-    tile.moveEntity(std::move(tiles[startingPosition.iPosition][startingPosition.jPosition]),
+    tile.moveEntity(tiles[startingPosition.iPosition][startingPosition.jPosition],
                         finalPosition);
 }
 
