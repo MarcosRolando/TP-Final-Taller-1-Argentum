@@ -22,6 +22,7 @@ UpdateCreateItem::UpdateCreateItem(GameType::ItemType _type, int32_t _item,
             break;
         case GameType::ITEM_TYPE_POTION:
             item = translator.getPotionTexture(static_cast<GameType::Potion>(_item));
+            break;
         case GameType::ITEM_TYPE_NONE:
             throw TPException("Intentaron crear un item que no existia");
             break;
