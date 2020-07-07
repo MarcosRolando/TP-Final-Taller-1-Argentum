@@ -42,8 +42,8 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     double lastFrameTime = 0;
     while (keepRunning) {
         time1 = high_resolution_clock::now();
-        clients.mergeClientsEvents(); //todo cambiar el nombre a mergeo de eventos
         clients.removeDisconnectedClients(protocol);
+        clients.mergeClientsEvents();
         game.update(lastFrameTime, protocol);
         protocol.buildGeneralDataBuffer();
         clients.sendGameUpdate();
