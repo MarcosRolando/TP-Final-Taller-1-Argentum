@@ -16,14 +16,17 @@ private:
     int currentFrame;
     float xPosition, width;
     float yPosition, height;
+    bool finished{false};
 
 public:
     Spell(Texture& texture, SDL_Rect& camera, float x, float y);
-    void render(float timeStep);
+    void render();
+    void updateFrame(float stepTime);
+    bool finishedAnimation() const;
+    void updatePosition(float x, float y);
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);
-    void _updateFrame(float stepTime);
 };
 
 

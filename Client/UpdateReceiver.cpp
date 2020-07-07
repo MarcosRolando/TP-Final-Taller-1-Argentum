@@ -52,7 +52,6 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 _processMoveUpdate();
                 break;
             case GameType::ATTACK:
-                handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
                 _processAttack();
                 break;
             case GameType::UNEQUIP:

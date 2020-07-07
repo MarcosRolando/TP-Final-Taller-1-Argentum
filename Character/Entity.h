@@ -9,6 +9,7 @@
 #include "../Shared/GameEnums.h"
 #include <list>
 #include <memory>
+#include "../Spells/Spell.h"
 
 /*Clase Abstracta*/
 
@@ -23,6 +24,7 @@ private:
 
 protected:
     bool cameraFollows{false};
+    std::unique_ptr<Spell> spell;
 
 public:
     Entity(SDL_Rect& camera, float x, float y);
@@ -31,6 +33,7 @@ public:
     virtual void render() = 0;
     void updateCamera();
     void activateCamera();
+    std::unique_ptr<Spell>* addSpell(std::unique_ptr<Spell>&& _spell);
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);

@@ -23,7 +23,7 @@ void GameGUI::render(float timeStep) {
     //Font UIFont("../SDL/Text/medieval.ttf", 25);
     //Text clickPos(UIFont, screen.getRenderer());
 
-    map.moveEntitiesToNewTile();
+    map.update(timeStep);
     screen.clear();
     screen.setViewport(ScreenViewport);
     background.render(0, 0);

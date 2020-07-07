@@ -5,8 +5,8 @@
 #include "Spell.h"
 #include "../GameConstants.h"
 
-const float ANIMATION_TIME = 150.f;
-const int SPELL_SPEED = 200;
+const float ANIMATION_TIME = 20000.f;
+const int SPELL_SPEED = 30;
 
 Spell::Spell(Texture& texture, SDL_Rect &camera, float x, float y) :
                                 sTexture(texture), camera(camera) {
@@ -18,7 +18,7 @@ Spell::Spell(Texture& texture, SDL_Rect &camera, float x, float y) :
     height = (float)TILE_HEIGHT/2 + 15;
 }
 
-void Spell::_updateFrame(float timeStep) {
+void Spell::updateFrame(float timeStep) {
     //Calculate time step
     float offset = SPELL_SPEED*timeStep;
     if ( (timePassed + offset) >= ANIMATION_TIME) {
@@ -29,6 +29,7 @@ void Spell::_updateFrame(float timeStep) {
     if (timePassed >= ANIMATION_TIME) {
         currentFrame = 0;
         timePassed = 0;
+        finished = true;
     } else {
         for (int i = 0; i < 24; ++i) { /*6 es la cantidad de frames distintos del spell*/
             if (timePassed < ((float)ANIMATION_TIME/24 * (float)(i+1))) {
@@ -67,10 +68,18 @@ bool Spell::_checkCollision(SDL_Rect a, SDL_Rect b) {
     return true;
 }
 
-void Spell::render(float timeStep) {
-    _updateFrame(timeStep);
+void Spell::render() {
     if (_checkCollision(camera, {(int)xPosition, (int)yPosition, (int)width, (int)height})) {
         sTexture.render((int)(xPosition) - camera.x,
                                 (int)(yPosition) - camera.y, currentFrame);
     };
+}
+
+bool Spell::finishedAnimation() const {
+    return finished;
+}
+
+void Spell::updatePosition(float x, float y) {
+    xPosition = x;
+    yPosition = y;
 }
