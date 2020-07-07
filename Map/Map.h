@@ -16,6 +16,7 @@
 #include "../Texture/PlayerEquipment.h"
 #include <list>
 #include "../Client/EntityData.h"
+#include "../Spells/Spell.h"
 
 class Map {
 private:
@@ -24,6 +25,7 @@ private:
     SDL_Rect& camera;
     std::unordered_map<std::string, Coordinate> entities;
     std::list<std::tuple<std::unique_ptr<Entity>, Coordinate, std::string>> entitiesToUpdateTilePosition; /*Esto es para no pisar entities entre si cuando terminan de moverse*/
+    std::list<std::unique_ptr<Spell>*> spells;
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera);
@@ -49,8 +51,6 @@ public:
     void moveEntity(std::string& nickname, GameType::Direction direction,
             unsigned int distanceTravelled, bool reachedDestination);
 
-    void moveEntitiesToNewTile();
-
     void setCameraOn(Coordinate position);
 
     void removeEntity(std::string& nickname);
@@ -60,8 +60,14 @@ public:
 
     void killPlayer(std::string& nickname);
 
+    void addSpell(Coordinate position, TextureID spellTexture);
+
+    void update(float timeStep = 0);
+
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
+    void _updateSpellsFrame(float timeStep);
+    void _moveEntitiesToNewTile();
 };
 
 

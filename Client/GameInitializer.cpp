@@ -52,7 +52,7 @@ void GameInitializer::_receiveCurrentGameState() {
             _processAddEntity(buffer, offset);
         }
     }
-    game.getMap().moveEntitiesToNewTile();
+    game.getMap().update();
     _receivePlayerData();
 }
 

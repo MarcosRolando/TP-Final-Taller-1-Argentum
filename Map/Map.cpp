@@ -152,7 +152,7 @@ Coordinate Map::_calculateNewTile(Coordinate position, GameType::Direction direc
     return position;
 }
 
-void Map::moveEntitiesToNewTile() {
+void Map::_moveEntitiesToNewTile() {
     if (!entitiesToUpdateTilePosition.empty()) {
         for (auto && entity : entitiesToUpdateTilePosition) {
             if (entities.count(std::get<2>(entity)) == 1) { //esto es para el sneaky motherfucker caso donde lo mueven al nuevo tile y matan en el mismo update
@@ -193,4 +193,40 @@ void Map::killPlayer(std::string &nickname) {
     Coordinate position = entities.at(nickname);
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     tiles.at(tile).killPlayer();
+}
+
+void Map::addSpell(Coordinate position, TextureID spellTexture) {
+    int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
+    std::unique_ptr<Spell>*  spell = tiles.at(tile).addSpell(textureRepo.getTexture(spellTexture), camera,
+                            position.j*TILE_WIDTH, position.i*TILE_HEIGHT);
+    spells.emplace_back(spell);
+}
+
+void Map::update(float timeStep) {
+    _moveEntitiesToNewTile();
+    _updateSpellsFrame(timeStep);
+}
+
+static bool shouldSpellBeRemoved(std::unique_ptr<Spell>* spell) {
+    if (*spell) {
+        if ((*spell)->finishedAnimation()) {
+            *spell = nullptr;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
+void Map::_updateSpellsFrame(float timeStep) {
+    if (!spells.empty()) {
+        for (auto & spell : spells) {
+            if (*spell) {
+                (*spell)->updateFrame(timeStep);
+            }
+        }
+        spells.erase(std::remove_if(spells.begin(), spells.end(),
+                                    shouldSpellBeRemoved), spells.end());
+    }
 }

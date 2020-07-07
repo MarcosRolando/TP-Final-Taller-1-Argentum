@@ -87,7 +87,11 @@ void Entity::render(EntityTexture& eTexture) {
             case GameType::DIRECTION_STILL:
                 _renderLastDirection(eTexture);
         }
-    };
+    }
+    if (spell) {
+        spell->updatePosition(xPosition, yPosition);
+        spell->render();
+    }
 }
 
 void Entity::_renderLastDirection(EntityTexture& eTexture) {
@@ -168,4 +172,9 @@ void Entity::_modifyPosition(GameType::Direction direction, float distance) {
 
 void Entity::activateCamera() {
     cameraFollows = true;
+}
+
+std::unique_ptr<Spell>* Entity::addSpell(std::unique_ptr<Spell>&& _spell) {
+    spell = std::move(_spell);
+    return &spell;
 }

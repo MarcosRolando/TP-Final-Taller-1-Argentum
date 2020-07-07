@@ -11,12 +11,11 @@
 
 class UpdateAttack : public UpdateEvent {
 private:
-    Coordinate position;
+    Coordinate position{};
     GameType::Weapon weapon;
 
 public:
-    UpdateAttack(Coordinate _position, GameType::Weapon _weapon) : position(_position),
-                weapon(_weapon) {}
+    UpdateAttack(Coordinate _position, int32_t _weapon);
 
     void operator()(GameGUI& game) override;
 };

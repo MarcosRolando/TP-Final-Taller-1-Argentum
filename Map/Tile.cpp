@@ -52,6 +52,9 @@ void Tile::renderEntity() {
     if (entity) {
         entity->render();
     }
+    if (spell) {
+        spell->render();
+    }
 }
 
 GameType::Direction Tile::moveEntity(GameType::Direction direction, unsigned int distanceTravelled,
@@ -94,5 +97,14 @@ void Tile::killPlayer() {
     auto player = dynamic_cast<Player*>(entityToCast);
     if (player) {
         player->kill();
+    }
+}
+
+std::unique_ptr<Spell>* Tile::addSpell(Texture& spellTexture, SDL_Rect& camera, float x, float y) {
+    spell.reset(new Spell(spellTexture, camera, x, y));
+    if (entity) {
+        return entity->addSpell(std::move(spell));
+    } else {
+        return &spell;
     }
 }

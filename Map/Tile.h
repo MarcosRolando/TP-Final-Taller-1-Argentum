@@ -13,6 +13,7 @@
 #include <memory>
 #include "../Shared/GameEnums.h"
 #include <list>
+#include "../Spells/Spell.h"
 
 class Tile {
 private:
@@ -22,6 +23,7 @@ private:
     ItemDrop item;
     Structure structure;
     std::unique_ptr<Entity> entity{nullptr};
+    std::unique_ptr<Spell> spell{nullptr};
     //The tile type
     int type;
 
@@ -58,6 +60,8 @@ public:
     void equipOnPlayer(GameType::EquipmentPlace place, TextureID equipment);
 
     void killPlayer();
+
+    std::unique_ptr<Spell>* addSpell(Texture& spellTexture, SDL_Rect& camera, float x, float y);
 };
 
 
