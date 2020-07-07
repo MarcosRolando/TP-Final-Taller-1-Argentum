@@ -115,6 +115,7 @@ void PlayerProxy::pickUpItem() {
 }
 
 void PlayerProxy::giveEventsToGame() {
+
     while (!storedEvents.empty()) {
         game->pushEvent(std::move(storedEvents.front()));
         storedEvents.pop();

@@ -60,7 +60,6 @@ private:
     /*Implementa el metodo virtual run de Thread, que sera el metodo ejecutado
     * por el thread*/
     void run() override;
-    void _addMessageToQueue();
     void _processClientAction(std::vector<char>& data);
     void _processMove(std::vector<char>& data);
     void _processAttack(std::vector<char>& data);

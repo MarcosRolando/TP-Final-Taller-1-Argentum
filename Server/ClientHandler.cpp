@@ -5,7 +5,7 @@
 #include "PlayerLoader.h"
 #include <iostream>
 #include "../TPException.h"
-#include "../Map/Coordinate.h"
+#include <iostream>
 
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 MSGPACK_ADD_ENUM(GameType::Race)
@@ -78,23 +78,17 @@ void ClientHandler::sendCurrentGameState(const std::vector<char>& gameState) {
 ///////////////////////////////PRIVATE///////////////////////////////
 
 
-void ClientHandler::_addMessageToQueue() {
-    uint32_t messageLen;
-    socket.receive(reinterpret_cast<char *>(&messageLen), sizeof(uint32_t));
-    messageLen = ntohl(messageLen);
-    buffer.clear();
-    buffer.resize(messageLen);
-    socket.receive(buffer.data(), messageLen);
-    std::unique_lock<std::mutex> lk(m);
-    //todo procesar el mensaje al proxy
-}
-
 void ClientHandler::_processClientAction(std::vector<char>& data) {
     offset = 0;
     msgpack::type::tuple<GameType::PlayerEvent> event;
     handler = msgpack::unpack(data.data(), data.size(), offset);
     handler->convert(event);
-    (this->*eventProcessors.at(std::get<0>(event)))(data);
+    std::unique_lock<std::mutex> lk(m);
+    try {
+        (this->*eventProcessors.at(std::get<0>(event)))(data);
+    } catch(std::out_of_range& e) {
+        std::cerr << "Se recibio un comando desconocido" << std::endl;
+    }
 }
 
 void ClientHandler::_processMove(std::vector<char> &data) {
