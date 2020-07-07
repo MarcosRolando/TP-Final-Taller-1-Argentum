@@ -117,7 +117,7 @@ void Map::createItem(Coordinate position, TextureID itemTexture) {
 void Map::moveEntity(std::string &nickname, GameType::Direction direction,
                      unsigned int distanceTravelled, bool reachedDestination) {
 
-    if (entities.count(nickname) == 1) {
+    if (entities.count(nickname) == 1) { /*Si no lo mataron en el update*/
         Coordinate entityPosition = entities.at(nickname);
         int tile = entityPosition.i * TOTAL_HORIZONTAL_TILES + entityPosition.j;
         tiles.at(tile).moveEntity(direction, distanceTravelled, reachedDestination);

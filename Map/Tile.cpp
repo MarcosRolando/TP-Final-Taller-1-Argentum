@@ -42,6 +42,9 @@ void Tile::createItem(Texture& _itemTexture) {
 }
 
 void Tile::addEntity(std::unique_ptr<Entity> _entity) {
+    if (entity) {
+        std::cerr << "pisaste un entity capo" << std::endl;
+    }
     entity = std::move(_entity);
 }
 
