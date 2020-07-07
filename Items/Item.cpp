@@ -26,10 +26,10 @@ bool Item::isGold() const {
 }
 
 void Item::loadDropItemData(std::stringstream &buffer, uint32_t i, uint32_t j) const {
-    msgpack::type::tuple<GameType::EventID> idType(GameType::CREATE_ITEM);
+    //msgpack::type::tuple<GameType::EventID> idType(GameType::CREATE_ITEM);
     msgpack::type::tuple<GameType::ItemType, int32_t, uint32_t, uint32_t>
                                         data(type, id, i, j);
-    msgpack::pack(buffer, idType);
+    //msgpack::pack(buffer, idType);
     msgpack::pack(buffer, data);
 }
 
@@ -43,6 +43,7 @@ void Item::loadTypeAndId(std::stringstream &buffer) {
     msgpack::pack(buffer, data);
 }
 
+/*
 void Item::drop() {
     isItemInFloor = true;
 }
@@ -54,6 +55,7 @@ void Item::grab() {
 bool Item::isInFloor() const {
     return isItemInFloor;
 }
+*/
 
 int32_t Item::getId() {
     return id;
