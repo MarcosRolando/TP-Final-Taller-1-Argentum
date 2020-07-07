@@ -10,7 +10,7 @@ MSGPACK_ADD_ENUM(GameType::ItemType)
 
 Item::Item(GameType::ItemType _type, const std::string &_name): name(_name) {
     type = _type;
-    isItemInFloor = false;
+    //isItemInFloor = false;
 }
 
 GameType::EquipmentPlace Item::use(Player &player) {
