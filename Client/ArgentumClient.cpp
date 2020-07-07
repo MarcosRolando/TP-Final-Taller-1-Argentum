@@ -77,8 +77,9 @@ void Client::_processConnection() {
         std::cerr << "Unknown Error in Main Game Loop" << std::endl;
     }
 
-    socket.close();
     quit = true;
+    socket.close();
+    updateEvents.consumedUpdate();
     sdlEvents.doneAdding();
     eventHandler.join();
     updater.join();
