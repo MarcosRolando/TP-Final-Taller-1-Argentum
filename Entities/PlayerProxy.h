@@ -28,7 +28,7 @@ public:
     PlayerProxy& operator=(const PlayerProxy& other) = delete;
     explicit PlayerProxy(Game* _game, Player* _player);
     void attack(Coordinate target);
-    void useItem(int itemPosition);
+    void useItem(int32_t itemPosition);
     void meditate();
     void move(GameType::Direction direction);
     void buyFrom(std::string&& itemName, Coordinate npcPosition);
@@ -37,7 +37,7 @@ public:
     void listFrom(Coordinate npcPosition);
     void depositTo(std::string&& itemName, Coordinate npcPosition);
     void unequip(GameType::EquipmentPlace clothing);
-    void dropItem(unsigned int itemPosition);
+    void dropItem(int32_t itemPosition);
     void pickUpItem();
     void storeAllRelevantData(std::stringstream& data) const;
     void clearMinichat();

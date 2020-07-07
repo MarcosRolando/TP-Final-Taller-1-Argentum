@@ -21,7 +21,9 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol) :
                        {GameType::PLAYER_ATTACK, &ClientHandler::_processAttack},
                        {GameType::PLAYER_USE_ITEM, &ClientHandler::_processUseItem},
                        {GameType::PLAYER_UNEQUIP, &ClientHandler::_processUnequip},
-                       {GameType::PLAYER_PICK_UP, &ClientHandler::_processPickUp}};
+                       {GameType::PLAYER_PICK_UP, &ClientHandler::_processPickUp},
+                       {GameType::PLAYER_DROP, &ClientHandler::_processDrop},
+                       {GameType::PLAYER_LIST, &ClientHandler::_processList}};
 }
 
 void ClientHandler::run() {
@@ -75,6 +77,20 @@ void ClientHandler::sendCurrentGameState(const std::vector<char>& gameState) {
     }
 }
 
+
+void ClientHandler::removePlayer() {
+    player.remove(protocol);
+}
+
+void ClientHandler::forceFinish() {
+    socket.close();
+}
+
+void ClientHandler::setPlayerProxy(PlayerProxy&& _player) {
+    player = std::move(_player);
+}
+
+
 ///////////////////////////////PRIVATE///////////////////////////////
 
 
@@ -123,14 +139,9 @@ void ClientHandler::_processPickUp(std::vector<char> &data) {
     player.pickUpItem();
 }
 
-void ClientHandler::removePlayer() {
-    player.remove(protocol);
-}
-
-void ClientHandler::forceFinish() {
-    socket.close();
-}
-
-void ClientHandler::setPlayerProxy(PlayerProxy&& _player) {
-    player = std::move(_player);
+void ClientHandler::_processDrop(std::vector<char> &data) {
+    msgpack::type::tuple<GameType::EquipmentPlace> ItemPosition;
+    handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(ItemPosition);
+    player.dropItem(std::get<0>(ItemPosition));
 }

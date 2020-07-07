@@ -50,7 +50,7 @@ void PlayerProxy::attack(Coordinate target) {
     }
 }
 #include <iostream>
-void PlayerProxy::useItem(int itemPosition) {
+void PlayerProxy::useItem(int32_t itemPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
         storedEvents.emplace(new UseItem(*player, itemPosition));
     }
@@ -102,7 +102,7 @@ void PlayerProxy::unequip(GameType::EquipmentPlace place) {
     }
 }
 
-void PlayerProxy::dropItem(unsigned int itemPosition) {
+void PlayerProxy::dropItem(int32_t itemPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
         storedEvents.emplace(new Drop(*player, itemPosition));
     }

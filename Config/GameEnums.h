@@ -11,7 +11,7 @@ namespace GameType {
 
     enum PlayerEvent : int32_t {
         MOVE, CREATE_PLAYER, LOAD_PLAYER, PLAYER_ATTACK, PLAYER_USE_ITEM, PLAYER_UNEQUIP,
-        PLAYER_PICK_UP, LIST
+        PLAYER_PICK_UP, PLAYER_DROP, PLAYER_LIST
     };
 
     enum EventID: int32_t {
