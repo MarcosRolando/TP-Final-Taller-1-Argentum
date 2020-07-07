@@ -20,23 +20,24 @@ MSGPACK_ADD_ENUM(GameType::EquipmentPlace)
 MSGPACK_ADD_ENUM(GameType::ItemType)
 
 void UpdateReceiver::run() {
-    uint32_t msgLength = 0;
-    while (!quit) {
-        try {
+    try {
+        uint32_t msgLength = 0;
+        while (!quit) {
             offset = 0;
-            socket.receive((char*)(&msgLength), sizeof(uint32_t));
+            socket.receive((char *) (&msgLength), sizeof(uint32_t));
             msgLength = ntohl(msgLength);
             buffer.clear();
             buffer.resize(msgLength);
             socket.receive(buffer.data(), msgLength);
             _processUpdate(msgLength);
             updates.deliverUpdate();
-        } catch (std::exception& e) {
-            std::cerr << e.what() << std::endl;
-        } catch (...) {
-            std::cerr << "Unkown error in UpdateReceiver" << std::endl;
         }
+    } catch (std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    } catch (...) {
+        std::cerr << "Unkown error in UpdateReceiver" << std::endl;
     }
+    quit = true;
 }
 
 void UpdateReceiver::_processUpdate(uint32_t msgLength) {
