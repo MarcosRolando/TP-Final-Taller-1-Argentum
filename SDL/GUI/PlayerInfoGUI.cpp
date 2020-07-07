@@ -61,7 +61,7 @@ void PlayerInfoGUI::_updatePosition(Coordinate position) {
 }
 
 void PlayerInfoGUI::_updateNickname(std::string name){
-    //pInfo.nickname = name;
+    pInfo.nickname = name;
 }
 
 void PlayerInfoGUI::render() {
@@ -124,8 +124,8 @@ int32_t PlayerInfoGUI::getIntelligence() const {
 }
 
 std::string PlayerInfoGUI::getNickname() const {
-    //return pInfo.nickname;//Ver si esta bien devoler el string asi
-    return " ";//Pongo esto para q no se queje clion de q no devuelvo nada
+    return pInfo.nickname;//Ver si esta bien devoler el string asi
+    //return " ";//Pongo esto para q no se queje clion de q no devuelvo nada
 }
 
 void PlayerInfoGUI::update(GUIPlayerInfo &generalInfo) {
@@ -141,5 +141,5 @@ void PlayerInfoGUI::update(GUIPlayerInfo &generalInfo) {
     _updateConstitution(generalInfo.constitution);
     _updateAgility(generalInfo.agility);
     _updateIntelligence(generalInfo.intelligence);
-    //_updateNickname(generalInfo.nickname);
+    _updateNickname(generalInfo.nickname);
 }

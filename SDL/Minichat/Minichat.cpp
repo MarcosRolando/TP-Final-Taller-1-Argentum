@@ -28,7 +28,7 @@ Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/font.ttf"
 //Ver esta funcion xq esta muy rancia
 std::string Minichat::handleReturnKey() {
     std::lock_guard<std::mutex> l(inputMutex);
-    std::string toPrint = input.getText();
+    std::string& toPrint = input.getText();
     if (toPrint.size() > 1) {
         toPrint.erase(0, 1);//Le saco ":"
         receiveText(toPrint);//Imprimo el comando en el minichat
