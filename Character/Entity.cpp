@@ -134,14 +134,16 @@ void Entity::updateCamera() {
     }
 }
 
-void Entity::move(GameType::Direction direction, unsigned int distanceTravelled,
+GameType::Direction Entity::move(GameType::Direction direction, unsigned int distanceTravelled,
                   bool reachedDestination) {
     float distanceInPixels = static_cast<float>(TILE_WIDTH) *
                            static_cast<float>(distanceTravelled) / static_cast<float>(TILE_DISTANCE_IN_METERS);
+    GameType::Direction previousDirection = moveDirection;
     moveDirection = direction;
     _modifyPosition(direction, distanceInPixels);
     totalDistanceMoved += distanceInPixels;
     _updateFrame(reachedDestination);
+    return previousDirection;
 }
 
 void Entity::_modifyPosition(GameType::Direction direction, float distance) {
@@ -162,10 +164,6 @@ void Entity::_modifyPosition(GameType::Direction direction, float distance) {
             //do nothing
             break;
     }
-}
-
-bool Entity::finishedMoving() const {
-    return (moveDirection == GameType::DIRECTION_STILL);
 }
 
 void Entity::activateCamera() {

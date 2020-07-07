@@ -26,13 +26,10 @@ protected:
 
 public:
     Entity(SDL_Rect& camera, float x, float y);
-    void move(GameType::Direction direction, unsigned int distanceTravelled, bool reachedDestination);
+    GameType::Direction move(GameType::Direction direction, unsigned int distanceTravelled, bool reachedDestination);
     void render(EntityTexture& eTexture);
     virtual void render() = 0;
     void updateCamera();
-
-    bool finishedMoving() const;
-
     void activateCamera();
 
 private:

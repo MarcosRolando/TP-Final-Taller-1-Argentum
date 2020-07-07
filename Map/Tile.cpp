@@ -54,11 +54,12 @@ void Tile::renderEntity() {
     }
 }
 
-void Tile::moveEntity(GameType::Direction direction, unsigned int distanceTravelled,
+GameType::Direction Tile::moveEntity(GameType::Direction direction, unsigned int distanceTravelled,
                         bool reachedDestination) {
     if (entity) {
         entity->move(direction, distanceTravelled, reachedDestination);
     }
+    throw TPException("Intentaron mover una entity que no existia en el tile");
 }
 
 std::unique_ptr<Entity> Tile::getEntity() {

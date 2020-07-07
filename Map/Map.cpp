@@ -120,8 +120,9 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
     if (entities.count(nickname) == 1) { /*Si no lo mataron en el update*/
         Coordinate entityPosition = entities.at(nickname);
         int tile = entityPosition.i * TOTAL_HORIZONTAL_TILES + entityPosition.j;
-        tiles.at(tile).moveEntity(direction, distanceTravelled, reachedDestination);
-        if (reachedDestination) {
+        GameType::Direction previousDirection = tiles.at(tile).moveEntity(direction,
+                                            distanceTravelled, reachedDestination);
+        if (previousDirection == GameType::DIRECTION_STILL) { /*Se empezo a mover de tile*/
             std::unique_ptr<Entity> entity = tiles.at(tile).getEntity();
             entityPosition = _calculateNewTile(entityPosition, direction);
             entitiesToUpdateTilePosition.emplace_back(std::move(entity), entityPosition,

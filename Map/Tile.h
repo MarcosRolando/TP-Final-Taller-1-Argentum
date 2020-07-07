@@ -46,7 +46,7 @@ public:
 
     void addEntity(std::unique_ptr<Entity> _entity);
 
-    void moveEntity(GameType::Direction direction, unsigned int distanceTravelled,
+    GameType::Direction moveEntity(GameType::Direction direction, unsigned int distanceTravelled,
                     bool reachedDestination);
 
     void setCameraOn();
