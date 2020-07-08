@@ -264,3 +264,7 @@ void Player::move(Coordinate newPosition) {
     stats.stopMeditating(chat);
     Entity::move(newPosition);
 }
+
+void Player::restoreStats() {
+    stats.restore();
+}

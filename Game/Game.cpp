@@ -253,6 +253,25 @@ const Item* Game::storeItemFromTileInPlayer(Player& player) {
     return returnData;
 }
 
+bool Game::requestResurrect(Player &player, Coordinate selectedPosition) {
+    if (priests.empty()) {
+        return false;
+    }
+    Coordinate playerPosition = player.getPosition();
+    Coordinate nearestPriest = priests.front();
+    for (const auto & priestPosition: priests) {
+        if (playerPosition == priestPosition) {
+            player.restoreStats();
+            return true;
+        }
+        if (playerPosition.calculateDistance(priestPosition) <
+                playerPosition.calculateDistance(nearestPriest)) {
+            nearestPriest = priestPosition;
+        }
+    }
+    return false;
+}
+
 bool PlayerShouldBeRemoved::operator()(const Player* player) {
     return (playerToRemove == player);
 }
