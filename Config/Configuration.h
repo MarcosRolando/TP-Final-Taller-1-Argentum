@@ -36,6 +36,7 @@ private:
     std::string goldName;
 
     unsigned int playerVisionRange;
+    unsigned int playerSpeed;
 
 public:
     Configuration(Configuration const&) = delete;
@@ -75,6 +76,7 @@ public:
     unsigned int configMonsterSpawnAmount() const;
     unsigned int configInitialMerchantGold() const;
     const std::string &configGetGoldName() const;
+    unsigned int configPlayerSpeed() const;
 
 private:
     Configuration();

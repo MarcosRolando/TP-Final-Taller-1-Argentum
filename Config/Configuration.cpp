@@ -37,6 +37,7 @@ Configuration::Configuration() {
     newbieLevel = fileReader.loadNewbieLevel();
     maxLevelDif = fileReader.loadmaxLevelDif();
     playerVisionRange = fileReader.loadPlayerVisionRange();
+    playerSpeed = fileReader.loadPlayerSpeed();
     goldName = "Gold"; /*Lo guardamos por el tema de guardar las referencias a los nombres de los items*/
 }
 
@@ -125,4 +126,8 @@ const std::unordered_map<GameType::Clothing, Config::ClothingData> &
 const std::unordered_map<GameType::Potion, Config::PotionData> &
                                 Configuration::configAllPotionsData() {
     return potionData;
+}
+
+unsigned int Configuration::configPlayerSpeed() const {
+    return playerSpeed;
 }

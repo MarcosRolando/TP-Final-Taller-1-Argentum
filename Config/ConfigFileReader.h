@@ -113,6 +113,8 @@ namespace Config {
 
         unsigned int loadPlayerVisionRange();
 
+        unsigned int loadPlayerSpeed();
+
         void loadPotionData(std::unordered_map<GameType::Potion, PotionData>& stats);
 
         ~ConfigFileReader();

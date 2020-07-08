@@ -28,6 +28,8 @@ Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsig
                Entity(GameType::Entity::PLAYER, _initialPosition, std::move(_nickname), true),
                stats(_race, _class, _level, _experience),
                game(_game) {
+
+    speed = Configuration::getInstance().configPlayerSpeed();
     race = _race;
     gold = 0; //todo habria que recibir la cantidad de oro tambien,
                 //todo o pasar por referencia la clase que maneje el archivo de
