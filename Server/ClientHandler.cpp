@@ -90,6 +90,7 @@ void ClientHandler::removePlayer() {
 
 void ClientHandler::forceFinish() {
     socket.close();
+    finished = true;
 }
 
 void ClientHandler::setPlayerProxy(PlayerProxy&& _player) {
