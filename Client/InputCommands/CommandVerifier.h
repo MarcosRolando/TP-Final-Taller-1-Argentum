@@ -10,10 +10,11 @@
 #include <memory>
 
 class CommandVerifier {
-private:
-
 public:
     static std::unique_ptr<InputCommand> verifyCommand(std::string&& cmd);
+
+private:
+    static std::unique_ptr<InputCommand> _processMeditateCommand();
 };
 
 
