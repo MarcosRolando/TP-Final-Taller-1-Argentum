@@ -68,6 +68,10 @@ private:
     void _processPickUp(std::vector<char>& data);
     void _processDrop(std::vector<char>& data);
     void _processList(std::vector<char>& data);
+    void _processBuy(std::vector<char>& data);
+    void _processSell(std::vector<char>& data);
+    void _processWithdraw(std::vector<char>& data);
+    void _processDeposit(std::vector<char>& data);
 };
 
 

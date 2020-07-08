@@ -23,7 +23,13 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol) :
                        {GameType::PLAYER_UNEQUIP, &ClientHandler::_processUnequip},
                        {GameType::PLAYER_PICK_UP, &ClientHandler::_processPickUp},
                        {GameType::PLAYER_DROP, &ClientHandler::_processDrop},
-                       {GameType::PLAYER_LIST, &ClientHandler::_processList}};
+                       {GameType::PLAYER_LIST, &ClientHandler::_processList},
+                       {GameType::PLAYER_BUY, &ClientHandler::_processBuy},
+                       {GameType::PLAYER_SELL, &ClientHandler::_processSell},
+                       {GameType::PLAYER_WITHDRAW, &ClientHandler::_processWithdraw},
+                       {GameType::PLAYER_DEPOSIT, &ClientHandler::_processDeposit}};
+
+
 }
 
 void ClientHandler::run() {
@@ -151,4 +157,36 @@ void ClientHandler::_processList(std::vector<char> &data) {
     handler = msgpack::unpack(data.data(), data.size(), offset);
     handler->convert(listPosition);
     player.listFrom({std::get<0>(listPosition), std::get<1>(listPosition)});
+}
+
+void ClientHandler::_processBuy(std::vector<char> &data) {
+    msgpack::type::tuple<std::string, int32_t, int32_t> buyArguments;
+    handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(buyArguments);
+    player.buyFrom(std::move(std::get<0>(buyArguments)),
+                   {std::get<1>(buyArguments), std::get<2>(buyArguments)});
+}
+
+void ClientHandler::_processSell(std::vector<char> &data) {
+    msgpack::type::tuple<std::string, int32_t, int32_t> sellArguments;
+    handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(sellArguments);
+    player.sellTo(std::move(std::get<0>(sellArguments)),
+                   {std::get<1>(sellArguments), std::get<2>(sellArguments)});
+}
+
+void ClientHandler::_processWithdraw(std::vector<char> &data) {
+    msgpack::type::tuple<std::string, int32_t, int32_t> sellArguments;
+    handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(sellArguments);
+    player.withdrawFrom(std::move(std::get<0>(sellArguments)),
+                  {std::get<1>(sellArguments), std::get<2>(sellArguments)});
+}
+
+void ClientHandler::_processDeposit(std::vector<char> &data) {
+    msgpack::type::tuple<std::string, int32_t, int32_t> depositArguments;
+    handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(depositArguments);
+    player.depositTo(std::move(std::get<0>(depositArguments)),
+                        {std::get<1>(depositArguments), std::get<2>(depositArguments)});
 }
