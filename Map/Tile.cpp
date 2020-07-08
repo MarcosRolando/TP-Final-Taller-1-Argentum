@@ -131,11 +131,14 @@ bool Tile::isInCity() const {
 
 void Tile::operator>>(std::stringstream &mapBuffer) const {
     GameType::Entity entityType = GameType::Entity::NOTHING;
+    std::string nickname;
     if (entity) {
         entityType = entity->getType();
+        nickname = entity->getNickname();
     }
-    msgpack::type::tuple<GameType::FloorType,
-                GameType::Structure, GameType::Entity> tileInfo(floor, structure, entityType); /*de izquierda a derecha es el tipo de piso, tipo de estructura y citizen*/
+    /*de izquierda a derecha es el tipo de piso, tipo de estructura y citizen*/
+    msgpack::type::tuple<GameType::FloorType, GameType::Structure,
+            GameType::Entity, std::string> tileInfo(floor, structure, entityType, nickname);
     msgpack::pack(mapBuffer, tileInfo);
 }
 
