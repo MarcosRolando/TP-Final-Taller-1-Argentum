@@ -10,7 +10,7 @@
 class MeditateCommand : public InputCommand{
 public:
     MeditateCommand() {}
-    void operator()(GameGUI& game, std::stringstream& msgBuffer) override ;
+    void operator()(std::stringstream& msgBuffer) override;
 };
 
 

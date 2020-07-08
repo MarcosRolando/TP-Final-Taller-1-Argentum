@@ -8,10 +8,11 @@
 #include "InputCommand.h"
 
 #include <memory>
+class GameGUI;
 
 class CommandVerifier {
 public:
-    static std::unique_ptr<InputCommand> verifyCommand(std::string&& cmd);
+    static std::unique_ptr<InputCommand> verifyCommand(GameGUI& game, std::string&& cmd);
 
 private:
     static std::unique_ptr<InputCommand> _processMeditateCommand();

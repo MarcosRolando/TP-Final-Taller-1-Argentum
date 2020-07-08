@@ -5,8 +5,10 @@
 #include <sstream>
 #include "CommandVerifier.h"
 #include "MeditateCommand.h"
+#include "../GameGUI.h"
 
-std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(std::string&& inputCmd) {
+std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
+        std::string&& inputCmd) {
     std::unique_ptr<InputCommand> command;
     std::istringstream stream(inputCmd);
     std::string cmd;//Me fijo que comando es y de ahi veo si necesita parametros

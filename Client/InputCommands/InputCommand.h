@@ -6,13 +6,11 @@
 #define ARGENTUM_INPUTCOMMAND_H
 #include <sstream>
 
-class GameGUI;
-
 // Interfaz de los comandos del minichat.
 
 class InputCommand {
 public:
-    virtual void operator()(GameGUI& game, std::stringstream& msgBuffer) = 0;
+    virtual void operator()(std::stringstream& msgBuffer) = 0;
 };
 
 #endif //ARGENTUM_INPUTCOMMAND_H
