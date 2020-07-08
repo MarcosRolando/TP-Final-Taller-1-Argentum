@@ -154,13 +154,17 @@ void PlayerStats::update(double timeStep) {
 }
 
 void PlayerStats::startMeditating(Minichat& minichat) {
-    isMeditating = true;
-    minichat.addMessage(STARTED_MEDITATING_MESSAGE);
+    if (!isMeditating) {
+        isMeditating = true;
+        minichat.addMessage(STARTED_MEDITATING_MESSAGE);
+    }
 }
 
 void PlayerStats::stopMeditating(Minichat& minichat) {
-    isMeditating = false;
-    minichat.addMessage(STOPPED_MEDITATING_MESSAGE);
+    if (isMeditating) {
+        isMeditating = false;
+        minichat.addMessage(STOPPED_MEDITATING_MESSAGE);
+    }
 }
 
 int32_t& PlayerStats::getCurrentMana() {
