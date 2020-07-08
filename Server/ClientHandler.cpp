@@ -27,9 +27,8 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol) :
                        {GameType::PLAYER_BUY, &ClientHandler::_processBuy},
                        {GameType::PLAYER_SELL, &ClientHandler::_processSell},
                        {GameType::PLAYER_WITHDRAW, &ClientHandler::_processWithdraw},
-                       {GameType::PLAYER_DEPOSIT, &ClientHandler::_processDeposit}};
-
-
+                       {GameType::PLAYER_DEPOSIT, &ClientHandler::_processDeposit},
+                       {GameType::PLAYER_MEDITATE, &ClientHandler::_processMeditate}};
 }
 
 void ClientHandler::run() {
@@ -190,4 +189,8 @@ void ClientHandler::_processDeposit(std::vector<char> &data) {
     handler->convert(depositArguments);
     player.depositTo(std::move(std::get<0>(depositArguments)),
                         {std::get<1>(depositArguments), std::get<2>(depositArguments)});
+}
+
+void ClientHandler::_processMeditate(std::vector<char> &data) {
+    player.meditate();
 }

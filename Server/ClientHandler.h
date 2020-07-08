@@ -72,6 +72,7 @@ private:
     void _processSell(std::vector<char>& data);
     void _processWithdraw(std::vector<char>& data);
     void _processDeposit(std::vector<char>& data);
+    void _processMeditate(std::vector<char>& data);
 };
 
 
