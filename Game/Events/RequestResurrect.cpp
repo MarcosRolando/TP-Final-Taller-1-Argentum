@@ -22,5 +22,6 @@ void RequestResurrect::operator()(ServerProtocol &protocol) {
         msgpack::pack(data, messageTypeData);
         msgpack::type::tuple<std::string> playerData(player.getNickname());
         msgpack::pack(data, playerData);
+        protocol.addToGeneralData(data);
     }
 }
