@@ -34,6 +34,7 @@ public:
     void updateCamera();
     void activateCamera();
     void addSpell(std::shared_ptr<Spell>& _spell);
+    std::weak_ptr<Spell>& getSpell();
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);

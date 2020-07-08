@@ -178,4 +178,9 @@ void Entity::activateCamera() {
 
 void Entity::addSpell(std::shared_ptr<Spell>& _spell) {
     spell = _spell;
+    _spell->updatePosition(xPosition, yPosition);
+}
+
+std::weak_ptr<Spell> &Entity::getSpell() {
+    return spell;
 }
