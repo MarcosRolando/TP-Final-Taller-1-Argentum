@@ -11,6 +11,7 @@
 
 class EntityTests;
 class MapTests;
+class Minichat;
 
 class PlayerStats {
 private:
@@ -75,10 +76,10 @@ public:
     void update(double timeStep);
 
     //Setea el player a modo meditacion
-    void startMeditating();
+    void startMeditating(Minichat& minichat);
 
     //Hace que el player deje de estar en modo meditacion
-    void stopMeditating();
+    void stopMeditating(Minichat& minichat);
 
     int32_t& getCurrentMana();
 

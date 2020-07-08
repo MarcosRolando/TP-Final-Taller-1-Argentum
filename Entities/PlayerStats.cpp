@@ -5,12 +5,15 @@
 #include "PlayerStats.h"
 #include "../Config/Calculator.h"
 #include "../Config/Configuration.h"
+#include "Minichat.h"
 #include <algorithm>
 #include <msgpack.hpp>
 
 #define MUCH_LEVEL_DIFF_MESSAGE "I think the level gap between us is a tad much, I'm level "
 #define CRITICAL_MESSAGE "That must have hurt! Critical! "
 #define DODGE_MESSAGE "Too weak, too slow. "
+#define STARTED_MEDITATING_MESSAGE "Started meditating\n"
+#define STOPPED_MEDITATING_MESSAGE "Stopped meditating\n"
 
 const double TIME_FOR_RECOVERY = 3000.0; //3 seconds (timeStep is in miliseconds) //todo poder modificarlo desde el archivo
 
@@ -150,12 +153,14 @@ void PlayerStats::update(double timeStep) {
     }
 }
 
-void PlayerStats::startMeditating() {
+void PlayerStats::startMeditating(Minichat& minichat) {
     isMeditating = true;
+    minichat.addMessage(STARTED_MEDITATING_MESSAGE);
 }
 
-void PlayerStats::stopMeditating() {
+void PlayerStats::stopMeditating(Minichat& minichat) {
     isMeditating = false;
+    minichat.addMessage(STOPPED_MEDITATING_MESSAGE);
 }
 
 int32_t& PlayerStats::getCurrentMana() {

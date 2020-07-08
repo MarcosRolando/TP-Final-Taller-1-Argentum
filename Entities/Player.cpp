@@ -36,7 +36,7 @@ Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsig
 
 int32_t Player::attack(Coordinate target) {
     if (!stats.isDead()) {
-        stats.stopMeditating();
+        stats.stopMeditating(chat);
         int weaponDamage;
         weaponDamage = inventory.getWeaponDamage(currentPosition, target,
                                                     stats.getCurrentMana());
@@ -66,7 +66,7 @@ void Player::_dropItems() {
 }
 
 AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPlayer) {
-    stats.stopMeditating();
+    stats.stopMeditating(chat);
     unsigned int newbieLevel = Configuration::getInstance().configNewbieLevel();
     if (!stats.isDead()) {
         if (isAPlayer) {
@@ -101,7 +101,7 @@ bool Player::isMonsterTarget() {
 }
 
 bool Player::spendGold(int amount) {
-    stats.stopMeditating();
+    stats.stopMeditating(chat);
     if ((!stats.isDead()) && (amount <= gold)) {
         gold -= amount;
         return true;
@@ -119,7 +119,7 @@ void Player::receiveGold(unsigned int amount) {
 
 bool Player::storeItem(std::shared_ptr<Item> &item) {
     if ((!stats.isDead()) && (item)) {
-        stats.stopMeditating();
+        stats.stopMeditating(chat);
         if (item->isGold()) {
             std::shared_ptr<Gold> aux = std::dynamic_pointer_cast<Gold>(item);
             gold += aux->getamount();
@@ -133,7 +133,7 @@ bool Player::storeItem(std::shared_ptr<Item> &item) {
 
 std::shared_ptr<Item> Player::removeItem(const std::string &itemName) {
     if (!stats.isDead()) {
-        stats.stopMeditating();
+        stats.stopMeditating(chat);
         return inventory.removeItem(itemName);
     }
     return nullptr;
@@ -141,7 +141,7 @@ std::shared_ptr<Item> Player::removeItem(const std::string &itemName) {
 
 UseReturnData Player::useItem(int itemPosition) {
     if (!stats.isDead()) {
-        stats.stopMeditating();
+        stats.stopMeditating(chat);
         return inventory.useItem(*this, itemPosition);
     }
     return {GameType::EQUIPMENT_PLACE_NONE, -1};
@@ -161,7 +161,7 @@ void Player::restoreMana(unsigned int amount) {
 
 void Player::meditate() {
     if (!stats.isDead()) {
-        stats.startMeditating();
+        stats.startMeditating(chat);
     }
 }
 
@@ -172,7 +172,7 @@ void Player::update(double timeStep) {
 
 bool Player::unequip(EquipmentPlace clothing) {
     if (!stats.isDead()) {
-        stats.stopMeditating();
+        stats.stopMeditating(chat);
         return inventory.unequip(clothing);
     }
     return false;
@@ -180,7 +180,7 @@ bool Player::unequip(EquipmentPlace clothing) {
 
 bool Player::unequip() {
     if (!stats.isDead()) {
-        stats.stopMeditating();
+        stats.stopMeditating(chat);
         return inventory.unequip();
     }
     return false;
