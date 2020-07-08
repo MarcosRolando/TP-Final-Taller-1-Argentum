@@ -130,6 +130,7 @@ Monster::Monster(Game &_game, Coordinate initialPosition,
                  stats(_type), map(_game.getMap()), game(_game) {
     elapsedTime = 0;
     type = _type;
+    speed = Configuration::getInstance().configMonsterStats(_type).speed;
 }
 
 #include <iostream>

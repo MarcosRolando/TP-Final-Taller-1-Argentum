@@ -191,3 +191,7 @@ void Config::ConfigFileReader::loadMonsterSpawnData(unsigned int &maxMonsterAmou
 unsigned int Config::ConfigFileReader::loadInitialMerchantGold() {
     return obj["InitialMerchantGold"].asUInt();
 }
+
+unsigned int Config::ConfigFileReader::loadPlayerSpeed() {
+    return obj["PlayerSpeed"].asUInt();
+}
