@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include "CommandVerifier.h"
+#include "MeditateCommand.h"
 
 std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(std::string&& inputCmd) {
     std::unique_ptr<InputCommand> command;
@@ -11,7 +12,7 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(std::string&& input
     std::string cmd;//Me fijo que comando es y de ahi veo si necesita parametros
     stream >> cmd;
     if (cmd == "/meditate") {
-        //_processMeditateCommand();
+        command = _processMeditateCommand();
     } else if (cmd == "/resurrect") {
 
     } else if (cmd == "/heal") {
@@ -36,4 +37,8 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(std::string&& input
         //Invalid Command
     }
     return command;
+}
+
+std::unique_ptr<InputCommand> CommandVerifier::_processMeditateCommand() {
+    return std::unique_ptr<InputCommand>(new MeditateCommand());
 }

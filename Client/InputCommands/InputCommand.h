@@ -4,6 +4,7 @@
 
 #ifndef ARGENTUM_INPUTCOMMAND_H
 #define ARGENTUM_INPUTCOMMAND_H
+#include <sstream>
 
 class GameGUI;
 

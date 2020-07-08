@@ -29,11 +29,13 @@ Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/font.ttf"
 std::string Minichat::handleReturnKey() {
     std::lock_guard<std::mutex> l(inputMutex);
     std::string& toPrint = input.getText();
+    std::string toParse;//por ahora hago esto choto pero dsps lo cambiamos
     if (toPrint.size() > 1) {
         toPrint.erase(0, 1);//Le saco ":"
+        toParse = toPrint;
         receiveText(toPrint);//Imprimo el comando en el minichat
         input.updateText(":");
-        return toPrint;
+        return toParse;
     }
     return " ";
 }
