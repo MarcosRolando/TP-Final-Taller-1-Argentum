@@ -83,12 +83,15 @@ public:
 
     int32_t& getCurrentMana();
 
+    void restore();
+
     //Guarda experiencia, experiencia para proximo nivel, nivel, mana actual, mana maximo,
     //vida, vida maxima y si esta vivo (true) o muerto (false)
     void storeAllRelevantData(std::stringstream& buffer) const;
 
     //Guarda true si esta vivo, sino guarda false
     void storeLifeStatus(std::stringstream& buffer) const;
+
 
 private:
     void _increaseStats();

@@ -18,6 +18,7 @@
 #include "../Game/Events/Move.h"
 #include "../Config/GameEnums.h"
 #include "../Game/Events/PickUpItem.h"
+#include "../Game/Events/RequestResurrect.h"
 
 #define MAX_EVENTS_STORED 3
 
@@ -114,6 +115,13 @@ void PlayerProxy::pickUpItem() {
     }
 }
 
+void PlayerProxy::requesResurrect(Coordinate selectedPosition) {
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new RequestResurrect(*game, *player, selectedPosition));
+    }
+}
+
+
 void PlayerProxy::giveEventsToGame() {
 
     while (!storedEvents.empty()) {
@@ -141,3 +149,4 @@ void PlayerProxy::storeAllRelevantData(std::stringstream& data) const {
 void PlayerProxy::remove(ServerProtocol& protocol) {
     game->removePlayer(player, protocol);
 }
+

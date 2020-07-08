@@ -11,6 +11,7 @@
 #include "MonstersFactory.h"
 #include "Events/Event.h"
 #include "../Items/ItemData.h"
+#include "ResurrectData.h"
 
 class EntityTests;
 struct InitialPlayerData;
@@ -42,10 +43,12 @@ private:
     MonstersFactory monstersFactory;
 
     std::list<Monster*> monsters;
-    //std::list<Player*> players;
     std::unordered_map<const std::string*, Player*> players;
-    //std::unordered_map<Coordinate, ItemData> mapItems;
     std::unordered_map<Coordinate, const Item*> mapItems;
+
+    std::list<Coordinate> priests;
+    std::list<ResurrectData> playersToResurrect;
+
 
     friend GameTests;
     friend EntityTests;
@@ -115,6 +118,11 @@ public:
 
     //ItemData storeItemFromTileInPlayer(Player& player);
     const Item* storeItemFromTileInPlayer(Player& player);
+
+    //Resusita el player instantaneamente si la coordenada que selecciono contiene un priest, sino
+    //guarda su informacion para resucitarlo cuando la cantidad de tiempo necesaria
+    //Si lo resucita retorna true, sino retorna false
+    bool requestResurrect(Player& player, Coordinate selectedPosition);
 };
 
 

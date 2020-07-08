@@ -116,6 +116,11 @@ public:
 
     void addMessage(const std::string& message);
 
+    //Le confirma a entity el request de movimiento para comenzar la interpolacion
+    void move(Coordinate newPosition) override;
+
+    void restoreStats();
+
 private:
     void _dropItems();
 };

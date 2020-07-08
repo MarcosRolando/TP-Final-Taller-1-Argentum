@@ -171,6 +171,13 @@ int32_t& PlayerStats::getCurrentMana() {
     return currentMana;
 }
 
+
+void PlayerStats::restore() {
+    currentMana = maxMana;
+    currentLife = maxLife;
+}
+
+
 void PlayerStats::storeAllRelevantData(std::stringstream& buffer) const {
     msgpack::type::tuple<int32_t, int32_t, int32_t> xpData(experience, nextLevelExperience, level);
     msgpack::pack(buffer, xpData);
@@ -187,3 +194,4 @@ void PlayerStats::storeLifeStatus(std::stringstream& buffer) const {
     msgpack::type::tuple<bool> isAlive(!isDead());
     msgpack::pack(buffer, isAlive);
 }
+
