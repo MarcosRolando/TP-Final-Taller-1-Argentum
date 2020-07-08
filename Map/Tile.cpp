@@ -52,8 +52,9 @@ void Tile::renderEntity() {
     if (entity) {
         entity->render();
     }
-    if (spell) {
-        spell->render();
+    if (!spell.expired()) {
+        std::shared_ptr<Spell> _spell(spell);
+        _spell->render();
     }
 }
 
@@ -78,15 +79,6 @@ void Tile::setCameraOn() {
     }
 }
 
-void Tile::moveSpellFromEntityToTile(std::list<std::unique_ptr<Spell>*>& spells) {
-    if (entity) {
-        spell = entity->getSpell(spells);
-    }
-    if (spell) {
-        spells.emplace_back(&spell); /*Agrego el spell que ahora paso al tile*/
-    }
-}
-
 void Tile::removeEntity() {
     entity = nullptr;
 }
@@ -107,11 +99,10 @@ void Tile::killPlayer() {
     }
 }
 
-std::unique_ptr<Spell>* Tile::addSpell(Texture& spellTexture, SDL_Rect& camera, float x, float y) {
-    spell.reset(new Spell(spellTexture, camera, x, y));
+void Tile::addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera, float x, float y) {
     if (entity) {
-        return entity->addSpell(std::move(spell));
+        entity->addSpell(newSpell);
     } else {
-        return &spell;
+        spell = newSpell;
     }
 }

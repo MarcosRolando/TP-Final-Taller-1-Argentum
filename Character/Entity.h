@@ -24,7 +24,7 @@ private:
 
 protected:
     bool cameraFollows{false};
-    std::unique_ptr<Spell> spell;
+    std::weak_ptr<Spell> spell;
 
 public:
     Entity(SDL_Rect& camera, float x, float y);
@@ -33,15 +33,13 @@ public:
     virtual void render() = 0;
     void updateCamera();
     void activateCamera();
-    std::unique_ptr<Spell>* addSpell(std::unique_ptr<Spell>&& _spell);
-    std::unique_ptr<Spell> getSpell(std::list<std::unique_ptr<Spell>*>& spells);
+    void addSpell(std::shared_ptr<Spell>& _spell);
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);
     void _renderLastDirection(EntityTexture& eTexture);
     void _modifyPosition(GameType::Direction direction, float distance);
     void _updateFrame(bool reachedDestination);
-    void _removeSpellOnDeath(std::list<std::unique_ptr<Spell>*>& spells);
 };
 
 

@@ -89,9 +89,10 @@ void Entity::render(EntityTexture& eTexture) {
                 _renderLastDirection(eTexture);
         }
     }
-    if (spell) {
-        spell->updatePosition(xPosition, yPosition);
-        spell->render();
+    if (!spell.expired()) {
+        std::shared_ptr<Spell> _spell(spell);
+        _spell->updatePosition(xPosition, yPosition);
+        _spell->render();
     }
 }
 
@@ -175,23 +176,6 @@ void Entity::activateCamera() {
     cameraFollows = true;
 }
 
-std::unique_ptr<Spell>* Entity::addSpell(std::unique_ptr<Spell>&& _spell) {
-    spell = std::move(_spell);
-    return &spell;
-}
-
-std::unique_ptr<Spell> Entity::getSpell(std::list<std::unique_ptr<Spell>*>& spells) {
-    _removeSpellOnDeath(spells);
-    return std::move(spell);
-}
-
-void Entity::_removeSpellOnDeath(std::list<std::unique_ptr<Spell>*> &spells) {
-    if (spell) {
-        auto it = spells.begin();
-        while (it != spells.end()) {
-            if ((*it) == (&spell)) break;
-            ++it;
-        }
-        spells.erase(it);
-    }
+void Entity::addSpell(std::shared_ptr<Spell>& _spell) {
+    spell = _spell;
 }

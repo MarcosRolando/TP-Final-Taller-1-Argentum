@@ -187,7 +187,6 @@ void Map::setCameraOn(Coordinate position) {
 void Map::removeEntity(std::string &nickname) {
     Coordinate position = entities.at(nickname);
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
-    tiles.at(tile).moveSpellFromEntityToTile(spells);
     tiles.at(tile).removeEntity();
     entities.erase(nickname);
 }
@@ -207,9 +206,11 @@ void Map::killPlayer(std::string &nickname) {
 
 void Map::addSpell(Coordinate position, TextureID spellTexture) {
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
-    std::unique_ptr<Spell>* spell = tiles.at(tile).addSpell(textureRepo.getTexture(spellTexture), camera,
+    std::shared_ptr<Spell> spell(new Spell(textureRepo.getTexture(spellTexture),
+            camera,position.j*TILE_WIDTH, position.i*TILE_HEIGHT));
+    tiles.at(tile).addSpell(spell, camera,
                             position.j*TILE_WIDTH, position.i*TILE_HEIGHT);
-    spells.emplace_back(spell);
+    spells.emplace_back(std::move(spell));
 }
 
 void Map::update(float timeStep) {
@@ -217,14 +218,9 @@ void Map::update(float timeStep) {
     _updateSpellsFrame(timeStep);
 }
 
-static bool shouldSpellBeRemoved(std::unique_ptr<Spell>* spell) {
-    if (*spell) {
-        if ((*spell)->finishedAnimation()) {
-            *spell = nullptr;
-            return true;
-        } else {
-            return false;
-        }
+static bool shouldSpellBeRemoved(std::shared_ptr<Spell>& spell) {
+    if (spell) {
+        return spell->finishedAnimation();
     }
     return true;
 }
@@ -232,8 +228,8 @@ static bool shouldSpellBeRemoved(std::unique_ptr<Spell>* spell) {
 void Map::_updateSpellsFrame(float timeStep) {
     if (!spells.empty()) {
         for (auto & spell : spells) {
-            if (*spell) {
-                (*spell)->updateFrame(timeStep);
+            if (spell) {
+                spell->updateFrame(timeStep);
             }
         }
         spells.erase(std::remove_if(spells.begin(), spells.end(),

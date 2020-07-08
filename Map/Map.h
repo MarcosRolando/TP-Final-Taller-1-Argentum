@@ -25,7 +25,7 @@ private:
     SDL_Rect& camera;
     std::unordered_map<std::string, Coordinate> entities;
     std::list<std::tuple<std::unique_ptr<Entity>, Coordinate, std::string>> entitiesToUpdateTilePosition; /*Esto es para no pisar entities entre si cuando terminan de moverse*/
-    std::list<std::unique_ptr<Spell>*> spells;
+    std::list<std::shared_ptr<Spell>> spells; /*Comparto ownership cosa que si el entity muere no pierdo la animacion del hechizo*/
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera);

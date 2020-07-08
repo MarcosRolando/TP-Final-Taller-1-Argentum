@@ -23,7 +23,7 @@ private:
     ItemDrop item;
     Structure structure;
     std::unique_ptr<Entity> entity{nullptr};
-    std::unique_ptr<Spell> spell{nullptr};
+    std::weak_ptr<Spell> spell;
     //The tile type
     int type;
 
@@ -61,9 +61,7 @@ public:
 
     void killPlayer();
 
-    std::unique_ptr<Spell>* addSpell(Texture& spellTexture, SDL_Rect& camera, float x, float y);
-
-    void moveSpellFromEntityToTile(std::list<std::unique_ptr<Spell>*>& spells);
+    void addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera, float x, float y);
 };
 
 
