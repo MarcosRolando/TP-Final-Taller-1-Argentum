@@ -171,17 +171,12 @@ void Map::_moveEntitiesToNewTile() {
         for (auto && entity : entitiesToUpdateTilePosition) {
             if (entities.count(std::get<2>(entity)) == 1) { //esto es para el sneaky motherfucker caso donde lo mueven al nuevo tile y matan en el mismo update
                 int tile = std::get<1>(entity).i * TOTAL_HORIZONTAL_TILES + std::get<1>(entity).j;
-                try {
-                    entities.at(std::get<2>(entity)) = std::get<1>(entity);
-                } catch (std::exception& e) {
-                    std::cerr << "la cagaste bro" << std::endl;
-                }
+                entities.at(std::get<2>(entity)) = std::get<1>(entity);
                 tiles.at(tile).addEntity(std::move(std::get<0>(entity)));
             }
         }
         entitiesToUpdateTilePosition.clear();
     }
-
 }
 
 void Map::setCameraOn(Coordinate position) {

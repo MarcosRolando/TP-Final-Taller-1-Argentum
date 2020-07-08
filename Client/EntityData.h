@@ -39,8 +39,6 @@ struct PlayerData {
     PlayerData() = default;
 };
 
-
-
 struct MapPlayerData {
     EntityData entityData;
     GameType::Race race{};

@@ -42,7 +42,7 @@ void GameGUI::render(float timeStep) {
 
     //Inventario
     screen.setViewport(InventoryViewport);
-    inventoryGUI.render(selector.getInventorySlot());//todo race condition en el getter, igual no romperia nada creo
+    inventoryGUI.render(selector.getInventorySlot());
     //clickPos.updateText("ClickX: " + std::to_string(selector.getSelectedTile().j) +
                         //"   ClickY: " + std::to_string(selector.getSelectedTile().i));
     //clickPos.render(150,100, {0xFF,0xFF,0xFF});//Debugging del click
