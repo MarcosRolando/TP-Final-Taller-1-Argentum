@@ -40,6 +40,7 @@ void ClientHandler::run() {
         }
 
     } catch(std::exception& e) {
+        socket.close();
         finished = true;
         std::cerr << e.what() << std::endl;
     }
