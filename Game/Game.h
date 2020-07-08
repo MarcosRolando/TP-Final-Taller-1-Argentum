@@ -42,9 +42,7 @@ private:
     MonstersFactory monstersFactory;
 
     std::list<Monster*> monsters;
-    //std::list<Player*> players;
     std::unordered_map<const std::string*, Player*> players;
-    //std::unordered_map<Coordinate, ItemData> mapItems;
     std::unordered_map<Coordinate, const Item*> mapItems;
 
     friend GameTests;
