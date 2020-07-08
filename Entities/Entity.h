@@ -93,7 +93,7 @@ private:
     Coordinate getPosition() const;
 
     //Le confirma a entity el request de movimiento para comenzar la interpolacion
-    void move(Coordinate newPosition);
+    virtual void move(Coordinate newPosition);
 
     //Actualiza el estado de la entity, por ejemplo si se esta moviendo le
     //actualiza la interpolacion

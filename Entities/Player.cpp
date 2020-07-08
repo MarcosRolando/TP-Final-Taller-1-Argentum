@@ -259,3 +259,8 @@ void Player::clearMinichat() {
 void Player::addMessage(const std::string &message) {
     chat.addMessage(message);
 }
+
+void Player::move(Coordinate newPosition) {
+    stats.stopMeditating(chat);
+    Entity::move(newPosition);
+}
