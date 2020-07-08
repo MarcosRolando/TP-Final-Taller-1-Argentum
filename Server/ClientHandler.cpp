@@ -28,7 +28,8 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol) :
                        {GameType::PLAYER_SELL, &ClientHandler::_processSell},
                        {GameType::PLAYER_WITHDRAW, &ClientHandler::_processWithdraw},
                        {GameType::PLAYER_DEPOSIT, &ClientHandler::_processDeposit},
-                       {GameType::PLAYER_MEDITATE, &ClientHandler::_processMeditate}};
+                       {GameType::PLAYER_MEDITATE, &ClientHandler::_processMeditate},
+                       {GameType::PLAYER_RESURRECT, &ClientHandler::_processResurrect}};
 }
 
 void ClientHandler::run() {
@@ -194,4 +195,12 @@ void ClientHandler::_processDeposit(std::vector<char> &data) {
 
 void ClientHandler::_processMeditate(std::vector<char> &data) {
     player.meditate();
+}
+
+void ClientHandler::_processResurrect(std::vector<char> &data) {
+    msgpack::type::tuple<int32_t, int32_t> resurrectArguments;
+    handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(resurrectArguments);
+    player.requesResurrect({std::get<0>(resurrectArguments),
+                                        std::get<1>(resurrectArguments)});
 }

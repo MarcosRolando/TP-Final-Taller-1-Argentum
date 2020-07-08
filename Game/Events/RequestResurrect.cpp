@@ -10,7 +10,7 @@
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 
-RequestResurrect::RequestResurrect(Player &player, Game &game, Coordinate _selectedPosition)
+RequestResurrect::RequestResurrect(Game& game, Player& player, Coordinate _selectedPosition)
                                         : player(player), game(game) {
     selectedPosition = _selectedPosition;
 }

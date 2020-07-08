@@ -19,7 +19,7 @@ private:
     Coordinate selectedPosition;
 
 public:
-    RequestResurrect(Player& player, Game& game, Coordinate selectedPosition);
+    RequestResurrect(Game& game, Player& player, Coordinate selectedPosition);
     void operator()(ServerProtocol& protocol) override;
 };
 

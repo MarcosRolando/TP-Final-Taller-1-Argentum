@@ -73,6 +73,7 @@ private:
     void _processWithdraw(std::vector<char>& data);
     void _processDeposit(std::vector<char>& data);
     void _processMeditate(std::vector<char>& data);
+    void _processResurrect(std::vector<char>& data);
 };
 
 
