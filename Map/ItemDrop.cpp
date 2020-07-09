@@ -21,6 +21,6 @@ void ItemDrop::setItem(Texture* itemTexture) {
         SpriteDimensions_t dimensions = itemTexture->getSpriteDimensions();
         box.w = dimensions.width;
         box.h = dimensions.height;
-        sTexture = itemTexture;
     }
+    sTexture = itemTexture;
 }

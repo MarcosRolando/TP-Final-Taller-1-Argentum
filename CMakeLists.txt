@@ -13,9 +13,8 @@ add_subdirectory(Character)
 
 add_executable(argentumClient main.cpp TPException.cpp TPException.h
 SDL/Sound/SoundRepository.cpp SDL/Sound/SoundRepository.h SDL/Text/Font.cpp
-SDL/Text/Font.h Configuration/ConfigFileReader.cpp Configuration/ConfigFileReader.h
-Configuration/Configuration.cpp Configuration/Configuration.h SDL/Sound/Sound.cpp
-SDL/Sound/Sound.h Configuration/Calculator.cpp Configuration/Calculator.h
+SDL/Text/Font.h SDL/Sound/Sound.cpp
+SDL/Sound/Sound.h
 Map/Tile.cpp Map/Tile.h Map/Map.cpp Map/Map.h Character/Player.cpp
 Character/Player.h Timer.cpp Timer.h GameConstants.h Character/NPC.cpp
 Character/NPC.h Character/Entity.cpp Character/Entity.h
@@ -28,7 +27,6 @@ Client/ClientProtocol.cpp Client/ClientProtocol.h Client/ArgentumClientSide.cpp
 Client/ArgentumClientSide.h Client/ArgentumClient.cpp Client/ArgentumClient.h
 Client/Socket.cpp Client/Socket.h Client/Thread.cpp Client/Thread.h
 Client/User.cpp Client/User.h Client/GameGUI.cpp Client/GameGUI.h
-
 Shared/GameEnums.h Client/ProtocolEnumTranslator.cpp
 Client/ProtocolEnumTranslator.h Client/ClientEventHandler.cpp Client/ClientEventHandler.h
 Client/BlockingQueue.hpp Client/UpdateReceiver.cpp Client/UpdateReceiver.h
