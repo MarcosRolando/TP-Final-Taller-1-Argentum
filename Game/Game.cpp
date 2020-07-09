@@ -183,12 +183,12 @@ void Game::pushEvent(std::unique_ptr<Event>&& event) {
 
 Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
     //todo ver si lo spawneamos en un area especifica tipo la capital o pueblos
-    int x = 0;
+    int x = 99;
     Coordinate position{};
     while (true) { //esto es solo por ahora para generar al player en el primer tile disponible
-        position = {0, x};
+        position = {99, x};
         if (map.isPlaceAvailable(position)) break;
-        ++x;
+        --x;
     }
     std::shared_ptr<Player> player(new Player(*this, playerData.pRace, playerData.pClass, 1,
                                 0, position, std::move(playerData.nickname)));
