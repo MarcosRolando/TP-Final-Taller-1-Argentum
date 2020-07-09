@@ -24,6 +24,8 @@ public:
                              PlayerFilePosition filePosition);
     PlayerFilePosition storePlayerData(const PlayerData& playerData,
                                        int32_t fileOffset);
+    PlayerFilePosition storePlayerData(const PlayerData& playerData);
+
 private:
     static void _packPlayerType(std::stringstream& dataToStore, const PlayerData& playerData);
     static void _packPlayerGeneralStats(std::stringstream& dataToStore,

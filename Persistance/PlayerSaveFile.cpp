@@ -146,3 +146,8 @@ void PlayerSaveFile::_packPlayerInventory(std::stringstream& dataToStore,
     msgpack::type::tuple<int32_t> weapon(playerData.equipment.at(GameType::EQUIPMENT_PLACE_WEAPON));
     msgpack::pack(dataToStore, weapon);
 }
+
+PlayerFilePosition PlayerSaveFile::storePlayerData(const PlayerData &playerData) {
+    saveFile.seekp(std::ios_base::end);
+    return storePlayerData(playerData, saveFile.tellp());
+}

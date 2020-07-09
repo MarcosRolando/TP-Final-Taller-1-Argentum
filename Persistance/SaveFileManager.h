@@ -18,7 +18,8 @@ public:
                     indexFile(indexPath), saveFile(savePath) {}
 
     PlayerData getPlayerData(const std::string& playerNickname);
-    void storePlayerData(const PlayerData& data);
+    void storeOldPlayer(const PlayerData& data);
+    void storeNewPlayer(const PlayerData& data);
 };
 
 

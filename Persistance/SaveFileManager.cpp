@@ -9,8 +9,13 @@ PlayerData SaveFileManager::getPlayerData(const std::string &playerNickname) {
     return saveFile.getPlayerData(playerNickname, filePosition);
 }
 
-void SaveFileManager::storePlayerData(const PlayerData &data) {
+void SaveFileManager::storeNewPlayer(const PlayerData &data) {
+    PlayerFilePosition filePosition = saveFile.storePlayerData(data);
+    indexFile.storeNewPlayer(data.nickname, filePosition);
+}
+
+void SaveFileManager::storeOldPlayer(const PlayerData &data) {
     PlayerFilePosition filePosition = indexFile.getPlayerPosition(data.nickname);
     filePosition = saveFile.storePlayerData(data, filePosition.offset);
-    indexFile.storePlayer(data.nickname, filePosition);
+    indexFile.storeOldPlayer(data.nickname, filePosition);
 }

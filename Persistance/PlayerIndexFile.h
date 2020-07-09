@@ -21,7 +21,8 @@ private:
 
 public:
     explicit PlayerIndexFile(const std::string& filePath);
-    void storePlayer(const std::string& playerNickname, PlayerFilePosition filePosition);
+    void storeOldPlayer(const std::string& playerNickname, PlayerFilePosition filePosition);
+    void storeNewPlayer(const std::string& playerNickname, PlayerFilePosition filePosition);
     PlayerFilePosition getPlayerPosition(const std::string& nickname);
 
 private:
