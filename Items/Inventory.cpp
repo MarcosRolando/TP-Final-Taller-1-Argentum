@@ -21,6 +21,7 @@ MSGPACK_ADD_ENUM(GameType::ItemType)
 //Mueve el item al lugar de equipamiendo indicado si es que tiene uno
 UseReturnData Inventory::_manageItemPlacement(GameType::EquipmentPlace equipmentPlace, unsigned int itemPosition) {
     if (equipmentPlace == GameType::EQUIPMENT_PLACE_NONE) {
+        storedItemsAmount--;
         return {GameType::EQUIPMENT_PLACE_NONE, -1};
     }
     if (equipmentPlace == GameType::EQUIPMENT_PLACE_WEAPON) {
@@ -115,7 +116,9 @@ bool Inventory::addItem(std::shared_ptr<Item> &item) {
 
 std::shared_ptr<Item> Inventory::removeItem(unsigned int itemPosition) {
     std::shared_ptr<Item> aux = std::move(items[itemPosition]);
-    --storedItemsAmount;
+    if (aux) {
+        --storedItemsAmount;
+    }
     return aux;
 }
 
@@ -185,6 +188,7 @@ bool Inventory::unequip() {
     for (auto & item : items) {
         if (!item) {
             item = std::move(equippedWeapon);
+            ++storedItemsAmount;
             _restoreDefaultEquipment();
             return true;
         }
