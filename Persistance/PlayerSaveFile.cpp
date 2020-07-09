@@ -4,7 +4,7 @@
 
 #include "PlayerSaveFile.h"
 #include <iostream>
-#include <msgpack.hpp>
+#include "../TPException.h"
 
 MSGPACK_ADD_ENUM(GameType::Race)
 MSGPACK_ADD_ENUM(GameType::Class)
@@ -22,13 +22,80 @@ PlayerSaveFile::PlayerSaveFile(const std::string &filePath) {
     }
 }
 
-void PlayerSaveFile::getPlayerData(const std::string& playerNickname) {
+PlayerData PlayerSaveFile::getPlayerData(const std::string& playerNickname,
+                                        PlayerFilePosition filePosition) {
+    saveFile.clear();
+    saveFile.seekg(filePosition.offset, std::ios_base::beg);
+    readData = 0;
+    std::vector<char> playerDataBuffer(filePosition.length);
+    saveFile.read(playerDataBuffer.data(), filePosition.length);
+    PlayerData playerData;
+    _loadPlayerType(playerData, playerDataBuffer);
+    if (playerData.nickname != playerNickname) {
+        throw TPException("El nombre del jugador almacenado no coincide con "
+                          "el esperado!");
+    }
+    _loadPlayerGeneralStats(playerData, playerDataBuffer);
+    _loadPlayerInventory(playerData, playerDataBuffer);
+    return playerData;
+}
 
+
+
+void PlayerSaveFile::_loadPlayerInventory(PlayerData& playerData,
+                                             std::vector<char>& playerDataBuffer) {
+
+    for (auto & currItem : playerData.inventory) {
+        msgpack::type::tuple<GameType::ItemType, int32_t> item;
+        handler = msgpack::unpack(playerDataBuffer.data(), playerData.size(), readData);
+        handler->convert(item);
+        currItem = item;
+    }
+    msgpack::type::tuple<int32_t> equipment;
+    handler = msgpack::unpack(playerDataBuffer.data(), playerData.size(), readData);
+    handler->convert(equipment);
+    playerData.equipment.at(GameType::EQUIPMENT_PLACE_HEAD) = std::get<0>(equipment);
+    handler = msgpack::unpack(playerDataBuffer.data(), playerData.size(), readData);
+    handler->convert(equipment);
+    playerData.equipment.at(GameType::EQUIPMENT_PLACE_CHEST) = std::get<0>(equipment);
+    handler = msgpack::unpack(playerDataBuffer.data(), playerData.size(), readData);
+    handler->convert(equipment);
+    playerData.equipment.at(GameType::EQUIPMENT_PLACE_SHIELD) = std::get<0>(equipment);
+    handler = msgpack::unpack(playerDataBuffer.data(), playerData.size(), readData);
+    handler->convert(equipment);
+    playerData.equipment.at(GameType::EQUIPMENT_PLACE_WEAPON) = std::get<0>(equipment);
+}
+
+void PlayerSaveFile::_loadPlayerGeneralStats(PlayerData& playerData,
+                                     std::vector<char>& playerDataBuffer) {
+    msgpack::type::tuple<int32_t, int32_t, int32_t> generalStats;
+    handler = msgpack::unpack(playerDataBuffer.data(), playerData.size(), readData);
+    handler->convert(generalStats);
+    playerData.level = std::get<0>(generalStats);
+    playerData.experience = std::get<1>(generalStats);
+    playerData.gold = std::get<2>(generalStats);
+    msgpack::type::tuple<int32_t, int32_t, int32_t, int32_t> stats;
+    handler = msgpack::unpack(playerDataBuffer.data(), playerData.size(), readData);
+    handler->convert(stats);
+    playerData.constitution = std::get<0>(stats);
+    playerData.strength = std::get<1>(stats);
+    playerData.agility = std::get<2>(stats);
+    playerData.intelligence = std::get<3>(stats);
+}
+
+void PlayerSaveFile::_loadPlayerType(PlayerData& playerData,
+                                        std::vector<char>& playerDataBuffer) {
+    msgpack::type::tuple<std::string, GameType::Race, GameType::Class> playerType;
+    handler = msgpack::unpack(playerDataBuffer.data(), playerData.size(), readData);
+    handler->convert(playerType);
+    playerData.nickname = std::move(std::get<0>(playerType));
+    playerData.pRace = std::get<1>(playerType);
+    playerData.pClass = std::get<2>(playerType);
 }
 
 PlayerFilePosition PlayerSaveFile::storePlayerData(const PlayerData& playerData,
                                             int32_t fileOffset) {
-    if (saveFile.eof()) saveFile.clear();
+    saveFile.clear();
     PlayerFilePosition playerPosition{};
     playerPosition.offset = fileOffset;
     std::stringstream dataToStore;

@@ -8,16 +8,20 @@
 #include <fstream>
 #include "PlayerFilePosition.h"
 #include "../Server/PlayerData.hpp"
+#include <vector>
 
 /*Esta clase es la que maneja el archivo que contiene los datos del player
  * guardado*/
 class PlayerSaveFile {
 private:
     std::fstream saveFile;
+    msgpack::object_handle handler;
+    std::size_t readData{0};
 
 public:
     explicit PlayerSaveFile(const std::string& filePath);
-    void getPlayerData(const std::string& playerNickname);
+    PlayerData getPlayerData(const std::string& playerNickname,
+                             PlayerFilePosition filePosition);
     PlayerFilePosition storePlayerData(const PlayerData& playerData,
                                        int32_t fileOffset);
 private:
@@ -26,6 +30,11 @@ private:
                                                  const PlayerData& playerData);
     static void _packPlayerInventory(std::stringstream& dataToStore,
                                               const PlayerData& playerData);
+    void _loadPlayerType(PlayerData& playerData,
+                                         std::vector<char>& playerDataBuffer);
+    void _loadPlayerGeneralStats(PlayerData& playerData,
+                                                 std::vector<char>& playerDataBuffer);
+    void _loadPlayerInventory(PlayerData& playerData, std::vector<char>& playerDataBuffer);
 };
 
 

@@ -37,7 +37,7 @@ void PlayerIndexFile::_loadFileDataToMap() {
 }
 
 void PlayerIndexFile::storeNewPlayer(std::string& playerNickname, PlayerFilePosition offData) {
-    if (indexFile.eof()) indexFile.clear();
+    indexFile.clear();
     offData = {htonl(offData.offset), htonl(offData.length)};
     uint32_t nameLength = playerNickname.size() + 1;
     nameLength = htonl(nameLength);
