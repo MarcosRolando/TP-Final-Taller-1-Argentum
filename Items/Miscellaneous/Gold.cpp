@@ -14,7 +14,7 @@ GameType::EquipmentPlace Gold::use(Player &player) {
     return GameType::EQUIPMENT_PLACE_NONE;
 }
 
-unsigned int Gold::getamount() const {
+unsigned int Gold::getAmmount() const {
     return amount;
 }
 

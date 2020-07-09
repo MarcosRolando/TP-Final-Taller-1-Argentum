@@ -124,7 +124,7 @@ bool Player::storeItem(std::shared_ptr<Item> &item) {
         stats.stopMeditating(chat);
         if (item->isGold()) {
             std::shared_ptr<Gold> aux = std::dynamic_pointer_cast<Gold>(item);
-            gold += aux->getamount();
+            gold += aux->getAmmount();
             return true;
         } else {
             return inventory.addItem(item);

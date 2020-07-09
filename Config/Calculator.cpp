@@ -35,7 +35,7 @@ unsigned int Calculator::calculateGoldDrop(unsigned int maxLife) {
             .goldDropFactorMax;
     float randNum = _getRandomFloat(minRange, maxRange);
 
-    return (static_cast<unsigned int>(randNum) * maxLife);
+    return static_cast<unsigned int>(randNum * maxLife);
 }
 
 unsigned int Calculator::calculateMaxSafeGold(unsigned int level) {
