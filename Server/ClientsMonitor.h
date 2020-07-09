@@ -11,7 +11,7 @@
 #include "PlayerData.hpp"
 
 class PlayerProxy;
-class PlayerLoader;
+class PlayerManager;
 class Game;
 class ServerProtocol;
 
@@ -29,10 +29,10 @@ private:
     std::mutex mutex;
     std::list<std::unique_ptr<ClientHandler>> clients;
     std::list<std::tuple<std::unique_ptr<ClientHandler>, PlayerData>> waitingList;
-    PlayerLoader& loader;
+    PlayerManager& manager;
 
 public:
-    explicit ClientsMonitor(PlayerLoader& _loader) : loader(_loader) {}
+    explicit ClientsMonitor(PlayerManager& _manager) : manager(_manager) {}
     void pushToWaitingList(Socket &&peer, ServerProtocol &protocol, PlayerData&& playerData);
     void mergeWaitingClients(Game& game, ServerProtocol& protocol);
     void mergeClientsEvents();

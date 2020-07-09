@@ -229,7 +229,6 @@ void Map::getAttackTargets(Coordinate center, unsigned int range,
     _getTargets(center, range, targets, true);
 }
 
-
 bool Map::getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const {
     std::priority_queue<PointAndDistance, std::vector<PointAndDistance>, InverseCoordinateDistance> nodes;
 

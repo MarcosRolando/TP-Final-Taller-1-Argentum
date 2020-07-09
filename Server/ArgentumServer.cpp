@@ -3,7 +3,7 @@
 #include "ServerMonitor.h"
 #include "ClientAccepter.h"
 #include "../Config/MapFileReader.h"
-#include "PlayerLoader.h"
+#include "PlayerManager.h"
 #include <chrono>
 #include <unistd.h>
 
@@ -28,11 +28,11 @@ void ArgentumServer::connect(const std::string& _port, const std::string& mapFil
 void ArgentumServer::_execute(const std::string& mapFilePath) {
     Game game((MapFileReader(mapFilePath)));
     ServerProtocol protocol(game);
-    PlayerLoader loader(game, protocol);
-    ClientsMonitor clients(loader);
+    PlayerManager manager(game, protocol, "indexFile", "saveFile");
+    ClientsMonitor clients(manager);
     ServerMonitor monitor(*this);
     monitor(); /*Espera la q para cerrar el server*/
-    ClientAccepter accepter(clients, protocol, socket, loader, keepRunning);
+    ClientAccepter accepter(clients, protocol, socket, keepRunning);
     accepter(); /*Acepta conexiones de clientes*/
 
     high_resolution_clock::time_point time1;
