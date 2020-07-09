@@ -13,7 +13,7 @@ struct ResurrectData {
     double timeToWait;
     double timeWaited;
     Coordinate resurrectingPriest;
-    Player& playerToResurrect;
+    Player* playerToResurrect;
 };
 
 #endif //ARGENTUM_RESURRECTDATA_H

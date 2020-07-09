@@ -13,8 +13,11 @@
 
 #include <iostream>
 #include "../Server/InitialPlayerData.h"
+#include "ShouldPlayerBeRevived.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
+
+#define WAITING_TIME_MESSAGE "The estimated waiting time to resurrect in ms is "
 
 /////////////////////////////////PRIVATE//////////////////////////
 
@@ -87,6 +90,15 @@ void Game::_removeMonsters(ServerProtocol& protocol) {
         map.removeEntity(monster.first);
     }
 }
+
+
+void Game::_updateDeadPlayersTimer(ServerProtocol& protocol, double timestep) {
+    std::stringstream data;
+    ShouldPlayerBeRevived sholdBeRevived(map, data, timestep);
+    playersToResurrect.erase(std::remove_if(playersToResurrect.begin(), playersToResurrect.end(), sholdBeRevived),
+                             playersToResurrect.end());
+}
+
 
 /////////////////////////////////PUBLIC//////////////////////////
 
@@ -269,6 +281,11 @@ bool Game::requestResurrect(Player &player, Coordinate selectedPosition) {
             nearestPriest = priestPosition;
         }
     }
+    //Por cada tile de distancia espera 200ms
+    double waitingTime = static_cast<double>(playerPosition.calculateDistance(nearestPriest) * 200);
+    player.addMessage(WAITING_TIME_MESSAGE);
+    player.addMessage(std::to_string(waitingTime) + "\n");
+    playersToResurrect.push_back({waitingTime, 0, nearestPriest, &player});
     return false;
 }
 

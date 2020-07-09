@@ -65,6 +65,7 @@ private:
     //CADA MOVIMIENTO REALIZADO PARA MANDARSELO A LOS CLIENTES
     void _executeQueueOperations(ServerProtocol& protocol);
     void _repopulateMap(double timePassed, ServerProtocol& protocol);
+    void _updateDeadPlayersTimer(ServerProtocol& protocol, double timestep);
 
 public:
 

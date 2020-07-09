@@ -12,6 +12,9 @@
 #include "../Config/MapFileReader.h"
 #include <msgpack.hpp>
 
+
+#define RESPAWN_RANGE 3
+
 //////////////////////////////PRIVATE/////////////////////////////
 
 //Retorna la distancia (siempre positiva) entre las dos coordenadas
@@ -445,6 +448,19 @@ Item* Map::peekShowedItemData(Coordinate coordinate) {
         throw std::invalid_argument("Invalid coordinate in peekShoedItemData");
     }
     return tiles[coordinate.iPosition][coordinate.jPosition].peekShowedItemData();
+}
+
+Coordinate Map::getSpawnCoordinateArroundPosition(Coordinate refference) {
+    Coordinate topLeft{}, bottomRight{};
+    _buildSearchRegion(refference, RESPAWN_RANGE, topLeft, bottomRight);
+    for (int i = topLeft.iPosition; i <= bottomRight.iPosition; ++i) {
+        for (int j = topLeft.jPosition; j <= bottomRight.jPosition; ++j) {
+            if (tiles[i][j].isAvailable()) {
+                return {i, j};
+            }
+        }
+    }
+    return {-1, -1};
 }
 
 

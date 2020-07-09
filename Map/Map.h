@@ -140,6 +140,9 @@ public:
     //std::pair<GameType::ItemType, int32_t> peekShowedItemData(Coordinate coordinate);
     Item* peekShowedItemData(Coordinate coordinate);
 
+
+    //Retorna una posicion disponible alrededor de la posicion recibida
+    Coordinate getSpawnCoordinateArroundPosition(Coordinate refference);
 };
 
 

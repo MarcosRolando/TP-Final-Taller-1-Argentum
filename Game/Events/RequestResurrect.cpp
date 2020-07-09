@@ -6,6 +6,7 @@
 
 #include "../../Entities/Player.h"
 #include "../Game.h"
+#include "../../Server/ServerProtocol.h"
 #include <msgpack.hpp>
 
 MSGPACK_ADD_ENUM(GameType::EventID)
