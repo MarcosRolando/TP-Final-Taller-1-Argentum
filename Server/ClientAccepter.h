@@ -11,7 +11,7 @@
 #include <atomic>
 #include <msgpack.hpp>
 #include "../Entities/PlayerProxy.h"
-#include "PlayerData.h"
+#include "PlayerData.hpp"
 
 class ServerProtocol;
 class Socket;

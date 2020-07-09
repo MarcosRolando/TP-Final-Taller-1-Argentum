@@ -12,7 +12,7 @@
 #include "../Entities/Player.h"
 
 #include <iostream>
-#include "../Server/PlayerData.h"
+#include "../Server/PlayerData.hpp"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 

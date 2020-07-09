@@ -4,7 +4,7 @@
 
 #include "PlayerLoader.h"
 #include "../Game/Game.h"
-#include "PlayerData.h"
+#include "PlayerData.hpp"
 #include "../Entities/PlayerProxy.h"
 
 PlayerProxy PlayerLoader::createPlayer(PlayerData& playerData) {
