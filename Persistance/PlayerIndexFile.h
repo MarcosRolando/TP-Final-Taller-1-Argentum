@@ -16,14 +16,17 @@ class PlayerIndexFile {
 private:
     std::fstream indexFile;
     std::unordered_map<std::string, PlayerFilePosition> players;
+    std::unordered_map<std::string, int32_t> indexPlayersPosition; /*Guardo la posicion en el indice del largo en bytes*/
+                                                                    /*de la info del player para poder acceder rapido cada vez que cambie*/
 
 public:
     explicit PlayerIndexFile(const std::string& filePath);
-    void storeNewPlayer(std::string& playerNickname, PlayerFilePosition offData);
-    void storeNewPlayer(std::string&& playerNickname, PlayerFilePosition offData);
+    void storePlayer(const std::string& playerNickname, PlayerFilePosition filePosition);
+    PlayerFilePosition getPlayerPosition(const std::string& nickname);
 
 private:
-    void _loadFileDataToMap();
+    void _loadFileData();
+    void _storeNewPlayer(const std::string& nickname);
 };
 
 

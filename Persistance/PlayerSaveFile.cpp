@@ -96,6 +96,7 @@ void PlayerSaveFile::_loadPlayerType(PlayerData& playerData,
 PlayerFilePosition PlayerSaveFile::storePlayerData(const PlayerData& playerData,
                                             int32_t fileOffset) {
     saveFile.clear();
+    saveFile.seekp(fileOffset, std::ios_base::beg);
     PlayerFilePosition playerPosition{};
     playerPosition.offset = fileOffset;
     std::stringstream dataToStore;
