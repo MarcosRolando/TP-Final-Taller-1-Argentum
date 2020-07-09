@@ -117,7 +117,9 @@ public:
 
     void removePlayer(Player* player, ServerProtocol& protocol);
 
-    //ItemData storeItemFromTileInPlayer(Player& player);
+    //Intenta guardar el item en el inventario del player, retorna el puntero al
+    //item que se encuentra al final de la lista de items guardada en el tile del cual
+    //se agarro el item, si no hay mas items despues de agarrar uno entonces retorna nullptr
     const Item* storeItemFromTileInPlayer(Player& player);
 
     //Resusita el player instantaneamente si la coordenada que selecciono contiene un priest, sino
