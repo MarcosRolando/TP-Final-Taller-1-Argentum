@@ -21,6 +21,7 @@ MSGPACK_ADD_ENUM(GameType::ItemType)
 //Mueve el item al lugar de equipamiendo indicado si es que tiene uno
 UseReturnData Inventory::_manageItemPlacement(GameType::EquipmentPlace equipmentPlace, unsigned int itemPosition) {
     if (equipmentPlace == GameType::EQUIPMENT_PLACE_NONE) {
+        items[itemPosition] = nullptr;
         storedItemsAmount--;
         return {GameType::EQUIPMENT_PLACE_NONE, -1};
     }
