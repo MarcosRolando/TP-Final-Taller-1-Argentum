@@ -7,11 +7,13 @@
 
 #include "PlayerIndexFile.h"
 #include "PlayerSaveFile.h"
+#include <mutex>
 
 class SaveFileManager {
 private:
     PlayerIndexFile indexFile;
     PlayerSaveFile saveFile;
+    std::mutex m;
 
 public:
     SaveFileManager(const std::string& indexPath, const std::string& savePath) :
