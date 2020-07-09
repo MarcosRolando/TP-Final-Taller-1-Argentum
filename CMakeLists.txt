@@ -41,7 +41,7 @@ UpdateEvents/UpdateAttack.h Client/InputCommands/InputCommand.h Client/InputComm
 Client/InputCommands/CommandVerifier.h Client/InputCommands/MeditateCommand.cpp Client/InputCommands/MeditateCommand.h
 Client/InputCommands/PickUpCommand.cpp Client/InputCommands/PickUpCommand.h Client/CitizenData.h
 UpdateEvents/UpdateDestroyItem.cpp UpdateEvents/UpdateDestroyItem.h Client/InputCommands/DropCommand.cpp
-        Client/InputCommands/DropCommand.h Client/InputCommands/ListCommand.cpp Client/InputCommands/ListCommand.h)
+        Client/InputCommands/DropCommand.h Client/InputCommands/ListCommand.cpp Client/InputCommands/ListCommand.h Client/InputCommands/ResurrectCommand.cpp Client/InputCommands/ResurrectCommand.h)
 
 
 

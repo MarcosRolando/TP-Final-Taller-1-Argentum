@@ -31,6 +31,8 @@ private:
     std::unique_ptr<InputCommand> _processDrop(GameGUI& game);
 
     std::unique_ptr<InputCommand> _processList(GameGUI &game);
+
+    std::unique_ptr<InputCommand> _processResurrect(GameGUI &game);
 };
 
 

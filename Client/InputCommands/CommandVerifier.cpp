@@ -17,7 +17,7 @@ CommandVerifier::CommandVerifier() {
 
 void CommandVerifier::_initCommands() {
     commands.emplace("/meditate", GameType::PLAYER_MEDITATE);
-    //commands.emplace("/revive", GameType::PLAYER_REVIVE);
+    commands.emplace("/resurrect", GameType::PLAYER_RESURRECT);
     //commands.emplace("/heal", GameType::PLAYER_HEAL);
     commands.emplace("/deposit", GameType::PLAYER_DEPOSIT);
     commands.emplace("/withdraw", GameType::PLAYER_WITHDRAW);
@@ -74,6 +74,8 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
                 case GameType::PLAYER_LIST:
                     command = _processList(game);
                     break;
+                case GameType::PLAYER_RESURRECT:
+                    //command = _processResurrect(game);
                 case GameType::PLAYER_BUY:
                     //command = _processBuy(std::move(inputCmd));
                     break;
@@ -130,6 +132,14 @@ std::unique_ptr<InputCommand> CommandVerifier::_processDrop(GameGUI& game) {
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processList(GameGUI& game) {
+    //Chequeo que no haya nada escrito despues del comando
+    if (input.size() > input.find(' ', 0)) {
+        return nullptr;
+    }
+    return std::unique_ptr<InputCommand>(new ListCommand(game.getSelector().getSelectedTile()));
+}
+
+std::unique_ptr<InputCommand> CommandVerifier::_processResurrect(GameGUI& game) {
     //Chequeo que no haya nada escrito despues del comando
     if (input.size() > input.find(' ', 0)) {
         return nullptr;
