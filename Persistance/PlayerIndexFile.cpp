@@ -4,12 +4,14 @@
 
 #include "PlayerIndexFile.h"
 #include <iostream>
-#include <msgpack.hpp>
+#include <arpa/inet.h>
+#include <vector>
 
-PlayerIndexFile::PlayerIndexFile(std::string& filePath) {
+PlayerIndexFile::PlayerIndexFile(const std::string& filePath) {
     indexFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);
     if (!indexFile.is_open()) {
-        std::cout << "No se encontro un archivo previo con ese nombre, se creo uno" << std::endl;
+        std::cout << "No se encontro un archivo previo del indice con el nombre provisto."
+                     " Se creo uno" << std::endl;
         std::ofstream newIndexFile(filePath);
         newIndexFile.close();
         indexFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);

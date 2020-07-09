@@ -12,7 +12,7 @@
 #include "../Entities/Player.h"
 
 #include <iostream>
-#include "../Server/InitialPlayerData.h"
+#include "../Server/PlayerData.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 
@@ -176,7 +176,7 @@ Game::Game(ClientsMonitor&& clientAux //= ClientsMonitor()): clients(clientAux) 
 #include "../Items/Defense/Head.h"
 #include "../Items/Defense/Shield.h"
 
-Player& Game::createPlayer(InitialPlayerData& playerData, ServerProtocol& protocol) {
+Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
     //todo ver si lo spawneamos en un area especifica tipo la capital o pueblos
     int x = 0;
     Coordinate position{};
@@ -185,7 +185,7 @@ Player& Game::createPlayer(InitialPlayerData& playerData, ServerProtocol& protoc
         if (map.isPlaceAvailable(position)) break;
         ++x;
     }
-    std::shared_ptr<Player> player(new Player(*this, playerData.race, playerData._class, 1,
+    std::shared_ptr<Player> player(new Player(*this, playerData.pRace, playerData.pClass, 1,
                                 0, position, std::move(playerData.nickname)));
     std::shared_ptr<Item> item(new Weapon(GameType::LONGSWORD));
     player->storeItem(item);

@@ -14,7 +14,7 @@
 #include "ResurrectData.h"
 
 class EntityTests;
-struct InitialPlayerData;
+struct PlayerData;
 
 class PlayerShouldBeRemoved {
 private:
@@ -110,7 +110,7 @@ public:
     void pushEvent(std::unique_ptr<Event>&& event);
 
     /*Crea el player en base al nickname, raza y clase que recibe*/
-    Player& createPlayer(InitialPlayerData& playerData, ServerProtocol& protocol);
+    Player& createPlayer(PlayerData& playerData, ServerProtocol& protocol);
 
     const std::vector<char>& getCurrentState(ServerProtocol& protocol);
 

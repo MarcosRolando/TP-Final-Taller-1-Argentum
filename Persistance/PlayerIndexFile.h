@@ -7,11 +7,7 @@
 
 #include <fstream>
 #include <unordered_map>
-
-struct PlayerFilePosition {
-    uint32_t offset;
-    uint32_t length;
-};
+#include "PlayerFilePosition.h"
 
 /*Esta clase maneja el archivo de indice de jugadores, el cual contiene
  * el nombre del jugador, el offset donde arranca su informacion y la cantidad de
@@ -22,8 +18,8 @@ private:
     std::unordered_map<std::string, PlayerFilePosition> players;
 
 public:
-    explicit PlayerIndexFile(std::string& filePath);
-    explicit PlayerIndexFile(std::string&& filePath) : PlayerIndexFile(filePath) {}
+    explicit PlayerIndexFile(const std::string& filePath);
+    explicit PlayerIndexFile(const std::string&& filePath) : PlayerIndexFile(filePath) {}
     void storeNewPlayer(std::string& playerNickname, PlayerFilePosition offData);
     void storeNewPlayer(std::string&& playerNickname, PlayerFilePosition offData);
 

@@ -11,7 +11,7 @@
 class Game;
 class PlayerProxy;
 class ServerProtocol;
-struct InitialPlayerData;
+struct PlayerData;
 
 class PlayerLoader {
 private:
@@ -21,7 +21,7 @@ private:
 public:
     explicit PlayerLoader(Game& _game, ServerProtocol& _protocol) : game(_game),
                                                         protocol(_protocol) {}
-    PlayerProxy createPlayer(InitialPlayerData& playerData);
+    PlayerProxy createPlayer(PlayerData& playerData);
 };
 
 

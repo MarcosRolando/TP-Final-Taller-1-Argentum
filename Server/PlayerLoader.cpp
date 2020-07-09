@@ -4,10 +4,10 @@
 
 #include "PlayerLoader.h"
 #include "../Game/Game.h"
-#include "InitialPlayerData.h"
+#include "PlayerData.h"
 #include "../Entities/PlayerProxy.h"
 
-PlayerProxy PlayerLoader::createPlayer(InitialPlayerData& playerData) {
+PlayerProxy PlayerLoader::createPlayer(PlayerData& playerData) {
     PlayerProxy player(&game, &game.createPlayer(playerData, protocol));
     return player;
 }

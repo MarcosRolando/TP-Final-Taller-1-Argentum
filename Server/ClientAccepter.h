@@ -11,7 +11,7 @@
 #include <atomic>
 #include <msgpack.hpp>
 #include "../Entities/PlayerProxy.h"
-#include "InitialPlayerData.h"
+#include "PlayerData.h"
 
 class ServerProtocol;
 class Socket;
@@ -37,8 +37,8 @@ public:
     void run() override;
 
 private:
-    InitialPlayerData _receivePlayerInfo(Socket& clientSocket);
-    InitialPlayerData _createPlayer(std::vector<char>& buffer, std::size_t& offset);
+    PlayerData _receivePlayerInfo(Socket& clientSocket);
+    PlayerData _createPlayer(std::vector<char>& buffer, std::size_t& offset);
 };
 
 

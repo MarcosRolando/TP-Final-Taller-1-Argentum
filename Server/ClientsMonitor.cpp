@@ -21,7 +21,7 @@ void ClientsMonitor::mergeClientsEvents() {
 }
 
 void ClientsMonitor::pushToWaitingList(Socket &&peer, ServerProtocol &protocol,
-                                    InitialPlayerData&& playerData) {
+                                       PlayerData&& playerData) {
     std::lock_guard<std::mutex> lock(mutex);
     waitingList.emplace_back(new ClientHandler(std::move(peer), protocol),
                                 std::move(playerData));
@@ -31,7 +31,7 @@ void ClientsMonitor::mergeWaitingClients(Game& game, ServerProtocol& protocol) {
     std::lock_guard<std::mutex> lock(mutex);
 
     for (auto & waitingClient: waitingList) {
-        InitialPlayerData playerData = std::move(std::get<1>(waitingClient)); /*creo los players*/
+        PlayerData playerData = std::move(std::get<1>(waitingClient)); /*creo los players*/
         std::get<0>(waitingClient)->setPlayerProxy(loader.createPlayer(playerData));
     }
 
