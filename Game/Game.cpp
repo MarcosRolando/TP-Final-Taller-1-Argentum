@@ -186,6 +186,7 @@ Game::Game(ClientsMonitor&& clientAux //= ClientsMonitor()): clients(clientAux) 
 #include "../Items/Attack/Weapon.h"
 #include "../Items/Defense/Head.h"
 #include "../Items/Defense/Shield.h"
+#include "../Items/Miscellaneous/ManaPotion.h"
 
 Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
     //todo ver si lo spawneamos en un area especifica tipo la capital o pueblos
@@ -211,6 +212,8 @@ Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
     item.reset(new Head(GameType::IRON_HELMET));
     player->storeItem(item);
     item.reset(new Shield(GameType::IRON_SHIELD));
+    player->storeItem(item);
+    item.reset(new ManaPotion());
     player->storeItem(item);
     player->useItem(0);
     Player* playerAux = player.get();
