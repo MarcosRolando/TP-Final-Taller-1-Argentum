@@ -5,42 +5,110 @@
 #include <sstream>
 #include "CommandVerifier.h"
 #include "MeditateCommand.h"
+#include "PickUpCommand.h"
 #include "../GameGUI.h"
+
+CommandVerifier::CommandVerifier() {
+    _initCommands();
+    _initItems();
+}
+
+void CommandVerifier::_initCommands() {
+    commands.emplace("/meditate", GameType::PLAYER_MEDITATE);
+    //commands.emplace("/revive", GameType::PLAYER_REVIVE);
+    //commands.emplace("/heal", GameType::PLAYER_HEAL);
+    commands.emplace("/deposit", GameType::PLAYER_DEPOSIT);
+    commands.emplace("/withdraw", GameType::PLAYER_WITHDRAW);
+    commands.emplace("/list", GameType::PLAYER_LIST);
+    commands.emplace("/buy", GameType::PLAYER_BUY);
+    commands.emplace("/sell", GameType::PLAYER_SELL);
+    commands.emplace("/take", GameType::PLAYER_PICK_UP);
+    commands.emplace("/drop", GameType::PLAYER_DROP);
+}
+
+void CommandVerifier::_initItems() {
+    items.emplace("longsword", GameType::LONGSWORD);
+    items.emplace("axe", GameType::AXE);
+    items.emplace("warhammer", GameType::WARHAMMER);
+    items.emplace("ash rod", GameType::ASH_ROD);
+    items.emplace("elven flute", GameType::ELVEN_FLUTE);
+    items.emplace("linked staff", GameType::LINKED_STAFF);
+    items.emplace("simple bow", GameType::SIMPLE_BOW);
+    items.emplace("composite bow", GameType::COMPOSITE_BOW);
+    items.emplace("gnarled staff", GameType::GNARLED_STAFF);
+
+    items.emplace("leather armor", GameType::LEATHER_ARMOR);
+    items.emplace("plate armor", GameType::PLATE_ARMOR);
+    items.emplace("blue tunic", GameType::BLUE_TUNIC);
+    items.emplace("hood", GameType::HOOD);
+    items.emplace("iron helmet", GameType::IRON_HELMET);
+    items.emplace("turtle shield", GameType::TURTLE_SHIELD);
+    items.emplace("iron shield", GameType::IRON_SHIELD);
+    items.emplace("magic hat", GameType::MAGIC_HAT);
+    items.emplace("health potion", GameType::HEALTH_POTION);
+    items.emplace("mana potion", GameType::MANA_POTION);
+}
 
 std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
         std::string&& inputCmd) {
     std::unique_ptr<InputCommand> command;
-    std::istringstream stream(inputCmd);
-    std::string cmd;//Me fijo que comando es y de ahi veo si necesita parametros
-    stream >> cmd;
-    if (cmd == "/meditate") {
-        command = _processMeditateCommand();
-    } else if (cmd == "/resurrect") {
 
-    } else if (cmd == "/heal") {
-
-    } else if (cmd == "/deposit") {
-
-    } else if (cmd == "/withdraw") {
-
-    } else if (cmd == "/list") {
-
-    } else if (cmd == "/buy") {
-
-    } else if (cmd == "/sell") {
-
-    } else if (cmd == "/take") {
-
-    } else if (cmd == "/drop") {
-
-    } else if (cmd.back() == '@') {//Veo si es un nickname
-
-    } else {
-        //Invalid Command
+    //Agarro lo que tenga antes de un espacio. Eso deberia ser el comando
+    std::string cmd = inputCmd.substr(0, inputCmd.find(' ', 0));
+    GameType::PlayerEvent event;
+    try {
+        event = commands.at(cmd);
+        switch (event) {
+            case GameType::PLAYER_PICK_UP:
+                command = _processPickUp(std::move(inputCmd));
+                break;
+            case GameType::PLAYER_DROP:
+                //command = _processDrop(std::move(inputCmd));
+                break;
+            case GameType::PLAYER_LIST:
+                //command = _processList(std::move(inputCmd));
+                break;
+            case GameType::PLAYER_BUY:
+                //command = _processBuy(std::move(inputCmd));
+                break;
+            case GameType::PLAYER_SELL:
+                //command = _processSell(std::move(inputCmd));
+                break;
+            case GameType::PLAYER_WITHDRAW:
+                //command = _processWithdraw(std::move(inputCmd));
+                break;
+            case GameType::PLAYER_DEPOSIT:
+                //command = _processDeposit(std::move(inputCmd));
+                break;
+            case GameType::PLAYER_MEDITATE:
+                _processMeditate();
+                break;
+            default:
+                break;
+        }
+    } catch (std::exception& e) {
+        return nullptr;
     }
+
+    /*//Agarro lo que haya dsps del espacio que deberian ser los parametros
+    std::string parameters;
+    if (inputCmd.size() > inputCmd.find(' ', 0)) {
+        parameters = inputCmd.substr(inputCmd.find(' ', 0), inputCmd.size());
+    }*/
     return command;
 }
 
-std::unique_ptr<InputCommand> CommandVerifier::_processMeditateCommand() {
+std::unique_ptr<InputCommand> CommandVerifier::_processMeditate() {
     return std::unique_ptr<InputCommand>(new MeditateCommand());
 }
+
+std::unique_ptr<InputCommand> CommandVerifier::_processPickUp(std::string&& cmd) {
+    if (cmd.size() > cmd.find(' ', 0)) {
+        //Esto es que hay algo escrito dsps del comando
+        return nullptr;
+    }
+
+    return std::unique_ptr<InputCommand>(new PickUpCommand());
+}
+
+
