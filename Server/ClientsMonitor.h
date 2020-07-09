@@ -8,7 +8,7 @@
 #include <list>
 #include "ClientHandler.h"
 #include <mutex>
-#include "InitialPlayerData.h"
+#include "PlayerData.h"
 
 class PlayerProxy;
 class PlayerLoader;
@@ -28,12 +28,12 @@ class ClientsMonitor {
 private:
     std::mutex mutex;
     std::list<std::unique_ptr<ClientHandler>> clients;
-    std::list<std::tuple<std::unique_ptr<ClientHandler>, InitialPlayerData>> waitingList;
+    std::list<std::tuple<std::unique_ptr<ClientHandler>, PlayerData>> waitingList;
     PlayerLoader& loader;
 
 public:
     explicit ClientsMonitor(PlayerLoader& _loader) : loader(_loader) {}
-    void pushToWaitingList(Socket &&peer, ServerProtocol &protocol, InitialPlayerData&& playerData);
+    void pushToWaitingList(Socket &&peer, ServerProtocol &protocol, PlayerData&& playerData);
     void mergeWaitingClients(Game& game, ServerProtocol& protocol);
     void mergeClientsEvents();
     void removeDisconnectedClients(ServerProtocol& protocol);

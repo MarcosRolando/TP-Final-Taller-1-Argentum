@@ -16,7 +16,7 @@ class RequestResurrect: public Event {
 private:
     Player& player;
     Game& game;
-    Coordinate selectedPosition;
+    Coordinate selectedPosition{};
 
 public:
     RequestResurrect(Game& game, Player& player, Coordinate selectedPosition);

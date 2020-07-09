@@ -18,7 +18,7 @@ void ClientAccepter::run() {
     while (keepRunning) {
         try {
             Socket clientSocket = serverSocket.accept();
-            InitialPlayerData playerData = _receivePlayerInfo(clientSocket);
+            PlayerData playerData = _receivePlayerInfo(clientSocket);
             clients.pushToWaitingList(std::move(clientSocket), protocol, std::move(playerData));
         } catch(std::exception& e) {
             std::cerr << e.what() << std::endl;
@@ -26,7 +26,7 @@ void ClientAccepter::run() {
     }
 }
 
-InitialPlayerData ClientAccepter::_receivePlayerInfo(Socket& clientSocket) {
+PlayerData ClientAccepter::_receivePlayerInfo(Socket& clientSocket) {
     std::size_t offset = 0;
     std::vector<char> buffer;
     uint32_t msgLen;
@@ -48,11 +48,11 @@ InitialPlayerData ClientAccepter::_receivePlayerInfo(Socket& clientSocket) {
     }
 }
 
-InitialPlayerData ClientAccepter::_createPlayer(std::vector<char>& buffer, std::size_t& offset) {
+PlayerData ClientAccepter::_createPlayer(std::vector<char>& buffer, std::size_t& offset) {
     msgpack::type::tuple<std::string, GameType::Race, GameType::Class> info;
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     handler->convert(info);
-    InitialPlayerData playerData = {std::move(std::get<0>(info)),
-                                    std::get<1>(info), std::get<2>(info)};
+    PlayerData playerData = {std::move(std::get<0>(info)),
+                             std::get<1>(info), std::get<2>(info)};
     return playerData;
 }
