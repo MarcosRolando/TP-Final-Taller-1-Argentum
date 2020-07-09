@@ -45,9 +45,6 @@ public:
     void giveEventsToGame();
 
     void remove(ServerProtocol& protocol);
-
-private:
-    void executeMove(PlayerProxy&& other);
 };
 
 

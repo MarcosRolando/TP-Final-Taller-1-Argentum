@@ -139,7 +139,6 @@ int32_t Entity::executeDisplacement(int32_t displacement, bool& hasFinished) {
 
 Coordinate Entity::getFinalCoordinate(GameType::Direction moveDirection) {
     if (!isMoving()) {
-        std::unique_ptr<Move> event;
         movement.direction = moveDirection;
         switch (moveDirection) {
             case GameType::DIRECTION_UP:

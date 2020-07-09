@@ -29,11 +29,19 @@ PlayerProxy::PlayerProxy() {
 }
 
 PlayerProxy::PlayerProxy(PlayerProxy &&other) noexcept {
-    executeMove(std::move(other));
+    game = other.game;
+    other.game = nullptr;
+    player = other.player;
+    other.player = nullptr;
+    storedEvents = std::move(other.storedEvents);
 }
 
 PlayerProxy &PlayerProxy::operator=(PlayerProxy &&other) noexcept {
-    executeMove(std::move(other));
+    game = other.game;
+    other.game = nullptr;
+    player = other.player;
+    other.player = nullptr;
+    storedEvents = std::move(other.storedEvents);
     return *this;
 }
 
@@ -123,19 +131,10 @@ void PlayerProxy::requesResurrect(Coordinate selectedPosition) {
 
 
 void PlayerProxy::giveEventsToGame() {
-
     while (!storedEvents.empty()) {
         game->pushEvent(std::move(storedEvents.front()));
         storedEvents.pop();
     }
-}
-
-void PlayerProxy::executeMove(PlayerProxy &&other) {
-    game = other.game;
-    other.game = nullptr;
-    player = other.player;
-    other.player = nullptr;
-    storedEvents = std::move(other.storedEvents);
 }
 
 void PlayerProxy::clearMinichat() {
