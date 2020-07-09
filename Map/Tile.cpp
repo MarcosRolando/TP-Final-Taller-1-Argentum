@@ -131,7 +131,7 @@ bool Tile::isInCity() const {
 
 void Tile::operator>>(std::stringstream &mapBuffer) const {
     GameType::Entity entityType = GameType::Entity::NOTHING;
-    std::string nickname;
+    std::string nickname = "";
     if (entity) {
         entityType = entity->getType();
         nickname = entity->getNickname();
