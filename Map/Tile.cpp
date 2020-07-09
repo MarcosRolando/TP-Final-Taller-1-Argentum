@@ -17,10 +17,6 @@ void Tile::renderGround(SDL_Rect& camera) {
     item.render(camera);
 }
 
-void Tile::addItemDrop(Texture& itemTexture) {
-    item.setItem(itemTexture);
-}
-
 void Tile::setStructure(Texture& sTexture) {
     structure.setTexture(sTexture);
 }
@@ -38,7 +34,7 @@ void Tile::loadData(Texture& _tileTexture, Texture* sTexture, int tileType) {
 }
 
 void Tile::createItem(Texture& _itemTexture) {
-    item.setItem(_itemTexture);
+    item.setItem(&_itemTexture);
 }
 
 void Tile::addEntity(std::unique_ptr<Entity> _entity) {
@@ -106,4 +102,8 @@ void Tile::addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera, float x,
     } else {
         spell = newSpell;
     }
+}
+
+void Tile::destroyItem() {
+    item.setItem(nullptr);
 }

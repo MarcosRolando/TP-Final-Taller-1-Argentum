@@ -236,3 +236,8 @@ void Map::_updateSpellsFrame(float timeStep) {
                                     shouldSpellBeRemoved), spells.end());
     }
 }
+
+void Map::destroyItem(Coordinate itemPosition) {
+    int tile = itemPosition.i*TOTAL_HORIZONTAL_TILES + itemPosition.j;
+    tiles.at(tile).destroyItem();
+}

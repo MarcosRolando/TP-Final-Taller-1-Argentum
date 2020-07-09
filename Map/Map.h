@@ -65,6 +65,8 @@ public:
 
     void update(float timeStep = 0);
 
+    void destroyItem(Coordinate itemPosition);
+
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
     void _updateSpellsFrame(float timeStep);

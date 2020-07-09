@@ -13,6 +13,7 @@
 #include "../UpdateEvents/UpdateCreateItem.h"
 #include "../UpdateEvents/UpdatePlayerDeath.h"
 #include "../UpdateEvents/UpdateAttack.h"
+#include "../UpdateEvents/UpdateDestroyItem.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Direction)
@@ -72,12 +73,22 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
             case GameType::PLAYER_DEATH:
                 _processPlayerDeath();
                 break;
+            case GameType::DESTROY_ITEM:
+                _processDestroyItem();
             default:
                 std::cerr << std::get<0>(id) << " comando no reconocido" << std::endl;
                 break;
         }
     }
     _receivePlayerData();
+}
+
+void UpdateReceiver::_processDestroyItem() {
+    msgpack::type::tuple<int32_t, int32_t> itemPosition;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(itemPosition);
+    updates.push(std::unique_ptr<UpdateEvent>(new UpdateDestroyItem({std::get<0>(itemPosition),
+                                                std::get<1>(itemPosition)})));
 }
 
 void UpdateReceiver::_processAttack() {
