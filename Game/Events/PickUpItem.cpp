@@ -22,6 +22,7 @@ void PickUpItem::operator()(ServerProtocol& protocol) {
     Coordinate pickUpPosition = player.getPosition();
     if (itemPtr) {
         itemPtr->loadDropItemData(data, pickUpPosition.iPosition, pickUpPosition.jPosition);
+        protocol.addToGeneralData(data);
     } else {
         msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::DESTROY_ITEM);
         msgpack::pack(data, messageTypeData);
