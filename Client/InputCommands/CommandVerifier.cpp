@@ -58,39 +58,44 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
     //Agarro lo que tenga antes de un espacio. Eso deberia ser el comando
     std::string cmd = input.substr(0, input.find(' ', 0));
     GameType::PlayerEvent event;
-    try {
-        event = commands.at(cmd);
-        switch (event) {
-            case GameType::PLAYER_PICK_UP:
-                command = _processPickUp();
-                break;
-            case GameType::PLAYER_DROP:
-                command = _processDrop(game);
-                break;
-            case GameType::PLAYER_LIST:
-                //command = _processList(std::move(inputCmd));
-                break;
-            case GameType::PLAYER_BUY:
-                //command = _processBuy(std::move(inputCmd));
-                break;
-            case GameType::PLAYER_SELL:
-                //command = _processSell(std::move(inputCmd));
-                break;
-            case GameType::PLAYER_WITHDRAW:
-                //command = _processWithdraw(std::move(inputCmd));
-                break;
-            case GameType::PLAYER_DEPOSIT:
-                //command = _processDeposit(std::move(inputCmd));
-                break;
-            case GameType::PLAYER_MEDITATE:
-                _processMeditate();
-                break;
-            default:
-                break;
+    if (cmd.back() == '@') {
+        //_processSendMessageToPlayer();
+    } else {
+        try {
+            event = commands.at(cmd);
+            switch (event) {
+                case GameType::PLAYER_PICK_UP:
+                    command = _processPickUp();
+                    break;
+                case GameType::PLAYER_DROP:
+                    command = _processDrop(game);
+                    break;
+                case GameType::PLAYER_LIST:
+                    //command = _processList(std::move(inputCmd));
+                    break;
+                case GameType::PLAYER_BUY:
+                    //command = _processBuy(std::move(inputCmd));
+                    break;
+                case GameType::PLAYER_SELL:
+                    //command = _processSell(std::move(inputCmd));
+                    break;
+                case GameType::PLAYER_WITHDRAW:
+                    //command = _processWithdraw(std::move(inputCmd));
+                    break;
+                case GameType::PLAYER_DEPOSIT:
+                    //command = _processDeposit(std::move(inputCmd));
+                    break;
+                case GameType::PLAYER_MEDITATE:
+                    _processMeditate();
+                    break;
+                default:
+                    break;
+            }
+        } catch (std::exception& e) {
+            return nullptr;
         }
-    } catch (std::exception& e) {
-        return nullptr;
     }
+
 
     /*//Agarro lo que haya dsps del espacio que deberian ser los parametros
     std::string parameters;
