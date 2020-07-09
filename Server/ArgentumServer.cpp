@@ -39,30 +39,37 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     high_resolution_clock::time_point time2;
     duration<double, std::milli> timeStep{};
 
-    double lastFrameTime = 0;
-    while (keepRunning) {
-        time1 = high_resolution_clock::now();
-        clients.removeDisconnectedClients(protocol);
-        clients.mergeClientsEvents();
-        game.update(lastFrameTime, protocol);
-        protocol.buildGeneralDataBuffer();
-        clients.sendGameUpdate();
+    try {
+        double lastFrameTime = 0;
+        while (keepRunning) {
+            time1 = high_resolution_clock::now();
+            clients.removeDisconnectedClients(protocol);
+            clients.mergeClientsEvents();
+            game.update(lastFrameTime, protocol);
+            protocol.buildGeneralDataBuffer();
+            clients.sendGameUpdate();
 
-        time2 = high_resolution_clock::now();
-        timeStep = time2 - time1;
-        lastFrameTime = timeStep.count();
-        if (clients.hasWaitingClients() &&
+            time2 = high_resolution_clock::now();
+            timeStep = time2 - time1;
+            lastFrameTime = timeStep.count();
+            if (clients.hasWaitingClients() &&
                 (FRAME_TIME*1000 - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
-            clients.mergeWaitingClients(game, protocol);
+                clients.mergeWaitingClients(game, protocol);
+            }
+            time2 = high_resolution_clock::now();
+            timeStep = time2 - time1;
+            lastFrameTime = timeStep.count();
+            std::cout << lastFrameTime << std::endl;
+            if (lastFrameTime < FRAME_TIME*1000) {
+                usleep((FRAME_TIME*1000 - lastFrameTime) * 1000);
+                lastFrameTime = FRAME_TIME*1000;
+            }
         }
-        time2 = high_resolution_clock::now();
-        timeStep = time2 - time1;
-        lastFrameTime = timeStep.count();
-        std::cout << lastFrameTime << std::endl;
-        if (lastFrameTime < FRAME_TIME*1000) {
-            usleep((FRAME_TIME*1000 - lastFrameTime) * 1000);
-            lastFrameTime = FRAME_TIME*1000;
-        }
+
+    } catch (std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    } catch (...) {
+        std::cerr << "Error desconocido en el main loop!" << std::endl;
     }
 
     forceFinish();

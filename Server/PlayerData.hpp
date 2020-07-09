@@ -56,6 +56,8 @@ struct PlayerData {
         intelligence = other.intelligence;
         strength = other.strength;
         agility = other.agility;
+        mySize = other.mySize;
+        other.mySize = 0;
     }
 
     PlayerData(std::string&& _nickname, GameType::Race _pRace, GameType::Class _pClass) : PlayerData() {
