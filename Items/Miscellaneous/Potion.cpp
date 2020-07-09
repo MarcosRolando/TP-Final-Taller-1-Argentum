@@ -10,8 +10,16 @@ GameType::EquipmentPlace Potion::use(Player &player) {
     return GameType::EQUIPMENT_PLACE_NONE;
 }
 
+/*
 Potion::Potion(const Config::PotionData& data): Item(GameType::ITEM_TYPE_POTION, data.name) {
     recoveryValue = data.recoveryValue;
+}
+*/
+
+Potion::Potion(GameType::Potion potion):
+                Item(GameType::ITEM_TYPE_POTION, Configuration::getInstance().configPotionData(potion).name) {
+    recoveryValue = Configuration::getInstance().configPotionData(potion).recoveryValue;
+    id = potion;
 }
 
 Potion::~Potion() = default;
