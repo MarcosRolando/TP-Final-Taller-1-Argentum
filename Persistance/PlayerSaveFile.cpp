@@ -12,13 +12,13 @@ MSGPACK_ADD_ENUM(GameType::ItemType)
 MSGPACK_ADD_ENUM(GameType::EquipmentPlace)
 
 PlayerSaveFile::PlayerSaveFile(const std::string &filePath) {
-    saveFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);
+    saveFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary);
     if (!saveFile.is_open()) {
         std::cout << "No se encontro un archivo previo de jugadores con el nombre provisto."
                      " Se creo uno" << std::endl;
         std::ofstream newSaveFile(filePath);
         newSaveFile.close();
-        saveFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);
+        saveFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary);
     }
 }
 
@@ -148,6 +148,6 @@ void PlayerSaveFile::_packPlayerInventory(std::stringstream& dataToStore,
 }
 
 PlayerFilePosition PlayerSaveFile::storePlayerData(const PlayerData &playerData) {
-    saveFile.seekp(std::ios_base::end);
+    saveFile.seekp(0, std::ios_base::end);
     return storePlayerData(playerData, saveFile.tellp());
 }

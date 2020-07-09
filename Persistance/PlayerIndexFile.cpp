@@ -9,13 +9,13 @@
 #include "../TPException.h"
 
 PlayerIndexFile::PlayerIndexFile(const std::string& filePath) {
-    indexFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);
+    indexFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary);
     if (!indexFile.is_open()) {
         std::cout << "No se encontro un archivo previo del indice con el nombre provisto."
                      " Se creo uno" << std::endl;
         std::ofstream newIndexFile(filePath);
         newIndexFile.close();
-        indexFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);
+        indexFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary);
     } else {
         _loadFileData();
     }
@@ -24,6 +24,7 @@ PlayerIndexFile::PlayerIndexFile(const std::string& filePath) {
 void PlayerIndexFile::_loadFileData() {
     PlayerFilePosition offData{};
     uint32_t nicknameSize = 0;
+    indexFile.seekg(0, std::ios_base::beg);
     while (indexFile.peek() != std::fstream::traits_type::eof() || !indexFile.eof()) {
         indexFile.read(reinterpret_cast<char*>(&nicknameSize), sizeof(nicknameSize));
         nicknameSize = ntohl(nicknameSize);
@@ -60,7 +61,7 @@ void PlayerIndexFile::storeNewPlayer(const std::string &playerNickname,
                                      PlayerFilePosition filePosition) {
 
     indexFile.clear();
-    indexFile.seekp(std::ios_base::end);
+    indexFile.seekp(0, std::ios_base::end);
     filePosition = {htonl(filePosition.offset), htonl(filePosition.length)};
     uint32_t nameLength = playerNickname.size() + 1;
     nameLength = htonl(nameLength);
