@@ -19,7 +19,7 @@ public:
 
     void render(SDL_Rect& camera);
 
-    void setItem(Texture& itemTexture);
+    void setItem(Texture* itemTexture);
 };
 
 

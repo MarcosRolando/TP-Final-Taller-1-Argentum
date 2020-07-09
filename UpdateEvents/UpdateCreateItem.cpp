@@ -26,7 +26,6 @@ UpdateCreateItem::UpdateCreateItem(GameType::ItemType _type, int32_t _item,
                 break;
             case GameType::ITEM_TYPE_NONE:
                 throw TPException("Intentaron crear un item que no existia");
-                break;
         }
     } catch (std::exception& e) {
         std::cerr << e.what() << " prob intentaro crear un item que yo no tenia traducido" << std::endl;

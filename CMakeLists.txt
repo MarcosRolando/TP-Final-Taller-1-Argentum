@@ -28,6 +28,7 @@ Client/ClientProtocol.cpp Client/ClientProtocol.h Client/ArgentumClientSide.cpp
 Client/ArgentumClientSide.h Client/ArgentumClient.cpp Client/ArgentumClient.h
 Client/Socket.cpp Client/Socket.h Client/Thread.cpp Client/Thread.h
 Client/User.cpp Client/User.h Client/GameGUI.cpp Client/GameGUI.h
+
 Shared/GameEnums.h Client/ProtocolEnumTranslator.cpp
 Client/ProtocolEnumTranslator.h Client/ClientEventHandler.cpp Client/ClientEventHandler.h
 Client/BlockingQueue.hpp Client/UpdateReceiver.cpp Client/UpdateReceiver.h
@@ -40,7 +41,9 @@ UpdateEvents/UpdateEquip.h UpdateEvents/UpdateCreateItem.cpp UpdateEvents/Update
 UpdateEvents/UpdatePlayerDeath.cpp UpdateEvents/UpdatePlayerDeath.h UpdateEvents/UpdateAttack.cpp
 UpdateEvents/UpdateAttack.h Client/InputCommands/InputCommand.h Client/InputCommands/CommandVerifier.cpp
 Client/InputCommands/CommandVerifier.h Client/InputCommands/MeditateCommand.cpp Client/InputCommands/MeditateCommand.h
-Client/InputCommands/PickUpCommand.cpp Client/InputCommands/PickUpCommand.h Client/CitizenData.h Client/InputCommands/DropCommand.cpp Client/InputCommands/DropCommand.h)
+Client/InputCommands/PickUpCommand.cpp Client/InputCommands/PickUpCommand.h Client/CitizenData.h
+UpdateEvents/UpdateDestroyItem.cpp UpdateEvents/UpdateDestroyItem.h Client/InputCommands/DropCommand.cpp
+        Client/InputCommands/DropCommand.h)
 
 
 

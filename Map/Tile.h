@@ -44,8 +44,6 @@ public:
 
     void renderEntity();
 
-    void addItemDrop(Texture& itemTexture);
-
     void addEntity(std::unique_ptr<Entity> _entity);
 
     GameType::Direction moveEntity(GameType::Direction direction, unsigned int distanceTravelled,
@@ -62,6 +60,8 @@ public:
     void killPlayer();
 
     void addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera, float x, float y);
+
+    void destroyItem();
 };
 
 
