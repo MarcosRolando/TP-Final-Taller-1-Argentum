@@ -192,6 +192,7 @@ Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
     }
     std::shared_ptr<Player> player(new Player(*this, playerData.pRace, playerData.pClass, 1,
                                 0, position, std::move(playerData.nickname)));
+
     std::shared_ptr<Item> item(new Weapon(GameType::LONGSWORD));
     player->storeItem(item);
     item.reset(new Weapon(GameType::GNARLED_STAFF));

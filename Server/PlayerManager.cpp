@@ -7,7 +7,14 @@
 #include "PlayerData.hpp"
 #include "../Entities/PlayerProxy.h"
 
-PlayerProxy PlayerManager::createPlayer(PlayerData& playerData) {
+PlayerProxy PlayerManager::addPlayer(PlayerData& playerData) {
+    saveManager.storeNewPlayer(playerData);
     PlayerProxy player(&game, &game.createPlayer(playerData, protocol));
     return player;
 }
+
+PlayerData PlayerManager::getSavedPlayerData(const std::string &nickname) {
+    return saveManager.getPlayerData(nickname);
+}
+
+
