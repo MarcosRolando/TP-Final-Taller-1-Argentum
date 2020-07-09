@@ -243,8 +243,8 @@ const Item* Game::storeItemFromTileInPlayer(Player& player) {
     const Item* returnData = nullptr;
     if (retreivedItem) {
         if (!player.storeItem(retreivedItem)) {
-            map.addItemsToTile(std::move(retreivedItem), playerPosition);
             returnData = retreivedItem.get();
+            map.addItemsToTile(std::move(retreivedItem), playerPosition);
         } else {
             //std::pair<GameType::ItemType, int32_t> showedItem = map.peekShowedItemData(playerPosition);
             returnData = map.peekShowedItemData(playerPosition);
