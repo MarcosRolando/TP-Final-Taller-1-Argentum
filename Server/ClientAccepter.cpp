@@ -15,13 +15,17 @@ MSGPACK_ADD_ENUM(GameType::Class)
 MSGPACK_ADD_ENUM(GameType::Race)
 
 void ClientAccepter::run() {
+    const char acceptedConnection = 1;
+    const char deniedConnection = 0;
     while (keepRunning) {
+        Socket clientSocket = serverSocket.accept();
         try {
-            Socket clientSocket = serverSocket.accept();
             PlayerData playerData = _receivePlayerInfo(clientSocket);
+            clientSocket.send(&acceptedConnection, sizeof(acceptedConnection));
             clients.pushToWaitingList(std::move(clientSocket), protocol, std::move(playerData));
         } catch(std::exception& e) {
             std::cerr << e.what() << std::endl;
+            clientSocket.send(&deniedConnection, sizeof(deniedConnection));
         }
     }
 }
@@ -41,8 +45,7 @@ PlayerData ClientAccepter::_receivePlayerInfo(Socket& clientSocket) {
     if (std::get<0>(creationID) == GameType::CREATE_PLAYER) {
         return _createPlayer(buffer, offset);
     } else if (std::get<0>(creationID) == GameType::LOAD_PLAYER) {
-        //_loadPlayer();//todo aca chequeamos en el archivo indice si existe el nombre de ese player
-        throw TPException("No existe ese player en el archivo"); //todo no tirar siempre exception xd
+        return _loadPlayer(buffer, offset);
     } else {
         throw TPException("No me llego ni mensaje de creacion ni de carga de player!");
     }
@@ -55,4 +58,11 @@ PlayerData ClientAccepter::_createPlayer(std::vector<char>& buffer, std::size_t&
     PlayerData playerData = {std::move(std::get<0>(info)),
                              std::get<1>(info), std::get<2>(info)};
     return playerData;
+}
+
+PlayerData ClientAccepter::_loadPlayer(std::vector<char>& buffer, std::size_t& offset) {
+    msgpack::type::tuple<std::string> nickname;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(nickname);
+    return manager.getSavedPlayerData(std::get<0>(nickname));
 }

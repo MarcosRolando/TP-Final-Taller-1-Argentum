@@ -32,7 +32,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     ClientsMonitor clients(manager);
     ServerMonitor monitor(*this);
     monitor(); /*Espera la q para cerrar el server*/
-    ClientAccepter accepter(clients, protocol, socket, keepRunning);
+    ClientAccepter accepter(clients, protocol, socket, keepRunning, manager);
     accepter(); /*Acepta conexiones de clientes*/
 
     high_resolution_clock::time_point time1;

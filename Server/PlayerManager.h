@@ -26,7 +26,8 @@ public:
                             const std::string& savePath) : game(_game),
                             protocol(_protocol), saveManager(indexPath, savePath) {}
 
-    PlayerProxy createPlayer(PlayerData& playerData);
+    PlayerProxy addPlayer(PlayerData& playerData);
+    PlayerData getSavedPlayerData(const std::string& nickname);
 };
 
 

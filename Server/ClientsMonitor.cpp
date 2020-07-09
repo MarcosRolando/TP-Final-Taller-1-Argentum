@@ -32,7 +32,7 @@ void ClientsMonitor::mergeWaitingClients(Game& game, ServerProtocol& protocol) {
 
     for (auto & waitingClient: waitingList) {
         PlayerData playerData = std::move(std::get<1>(waitingClient)); /*creo los players*/
-        std::get<0>(waitingClient)->setPlayerProxy(manager.createPlayer(playerData));
+        std::get<0>(waitingClient)->setPlayerProxy(manager.addPlayer(playerData));
     }
 
     const std::vector<char>& gameState = game.getCurrentState(protocol); /*armo el buffer*/
