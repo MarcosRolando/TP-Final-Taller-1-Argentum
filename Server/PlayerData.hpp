@@ -12,6 +12,7 @@
 #include <msgpack.hpp>
 
 const int INVENTORY_SIZE = 16;
+const int MAX_NICKNAME_SIZE = 15;
 
 struct PlayerData {
     std::string nickname;
@@ -24,6 +25,8 @@ struct PlayerData {
     std::vector<std::tuple<GameType::ItemType, int32_t>> inventory;
     std::unordered_map<GameType::EquipmentPlace, int32_t> equipment; //todo habria que ver el tema del banker
 
+    int32_t mySize{};
+
     PlayerData() {
         for (int i = 0; i < INVENTORY_SIZE; ++i) {
             inventory.emplace_back(std::tuple<GameType::ItemType, int32_t>(
@@ -33,6 +36,11 @@ struct PlayerData {
         equipment.emplace(GameType::EQUIPMENT_PLACE_CHEST, 0);
         equipment.emplace(GameType::EQUIPMENT_PLACE_SHIELD, 0);
         equipment.emplace(GameType::EQUIPMENT_PLACE_WEAPON, 0);
+        mySize = MAX_NICKNAME_SIZE*sizeof(char) + sizeof(pRace) + sizeof(pClass) +
+                         sizeof(level) + sizeof(experience) + sizeof(gold) +
+                         sizeof(constitution) + sizeof(strength) + sizeof(agility) +
+                         sizeof(intelligence) + sizeof(std::tuple<GameType::ItemType, int32_t>)*INVENTORY_SIZE +
+                         sizeof(int32_t)*4; /*Los 4 items equipados*/
     }
 
     PlayerData(PlayerData&& other) noexcept {
@@ -54,6 +62,10 @@ struct PlayerData {
         nickname = std::move(_nickname);
         pRace = _pRace;
         pClass = _pClass;
+    }
+
+    int32_t size() const {
+        return mySize;
     }
 };
 

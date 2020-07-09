@@ -40,7 +40,9 @@ PlayerFilePosition PlayerSaveFile::storePlayerData(const PlayerData& playerData,
     playerPosition.length = strDataToStore.length();
     saveFile.seekp(fileOffset, std::ios_base::beg);
     saveFile.write(strDataToStore.data(), playerPosition.length);
-    //todo agregar padding
+    int32_t paddingSize = (playerData.size() - playerPosition.length);
+    std::vector<char> paddingBuffer(paddingSize, 0);
+    saveFile.write(paddingBuffer.data(), paddingSize);
     return playerPosition;
 }
 
@@ -67,8 +69,12 @@ void PlayerSaveFile::_packPlayerInventory(std::stringstream& dataToStore,
         msgpack::type::tuple<GameType::ItemType, int32_t> item(currItem);
         msgpack::pack(dataToStore, item);
     }
-    for (auto & currItem : playerData.equipment) {
-        msgpack::type::tuple<GameType::EquipmentPlace, int32_t> item(currItem);
-        msgpack::pack(dataToStore, item);
-    }
+    msgpack::type::tuple<int32_t> helmet(playerData.equipment.at(GameType::EQUIPMENT_PLACE_HEAD));
+    msgpack::pack(dataToStore, helmet);
+    msgpack::type::tuple<int32_t> chest(playerData.equipment.at(GameType::EQUIPMENT_PLACE_CHEST));
+    msgpack::pack(dataToStore, chest);
+    msgpack::type::tuple<int32_t> shield(playerData.equipment.at(GameType::EQUIPMENT_PLACE_SHIELD));
+    msgpack::pack(dataToStore, shield);
+    msgpack::type::tuple<int32_t> weapon(playerData.equipment.at(GameType::EQUIPMENT_PLACE_WEAPON));
+    msgpack::pack(dataToStore, weapon);
 }
