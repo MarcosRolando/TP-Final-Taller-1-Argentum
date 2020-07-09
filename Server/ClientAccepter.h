@@ -17,22 +17,21 @@ class ServerProtocol;
 class Socket;
 class ClientHandler;
 class ClientsMonitor;
-class PlayerLoader;
+class PlayerManager;
 
 class ClientAccepter : public Thread {
 private:
     ClientsMonitor& clients;
     ServerProtocol& protocol;
     Socket& serverSocket;
-    PlayerLoader& loader;
     std::atomic<bool>& keepRunning;
     msgpack::object_handle handler;
 
 public:
     ClientAccepter(ClientsMonitor& _clients, ServerProtocol& _protocol,
-                    Socket& _serverSocket, PlayerLoader& _loader, std::atomic<bool>& _keepRunning) :
+                   Socket& _serverSocket, std::atomic<bool>& _keepRunning) :
                     clients(_clients), protocol(_protocol),
-                    serverSocket(_serverSocket), loader(_loader), keepRunning(_keepRunning) {}
+                    serverSocket(_serverSocket), keepRunning(_keepRunning) {}
 
     void run() override;
 

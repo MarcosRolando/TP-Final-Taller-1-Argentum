@@ -2,7 +2,7 @@
 #include <vector>
 #include <mutex>
 #include "ServerProtocol.h"
-#include "PlayerLoader.h"
+#include "PlayerManager.h"
 #include <iostream>
 #include "../TPException.h"
 #include <iostream>

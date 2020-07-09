@@ -8,7 +8,7 @@
 #include "ClientsMonitor.h"
 #include <iostream>
 #include "../TPException.h"
-#include "PlayerLoader.h"
+#include "PlayerManager.h"
 
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 MSGPACK_ADD_ENUM(GameType::Class)

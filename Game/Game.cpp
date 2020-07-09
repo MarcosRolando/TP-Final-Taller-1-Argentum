@@ -156,8 +156,6 @@ void Game::list(Player &player, Coordinate coordinate) {
     map.list(player, coordinate);
 }
 
-
-
 void Game::withdraw(Player &player, const std::string &itemName, Coordinate coordinate) {
     map.withdraw(player, itemName, coordinate);
 }
@@ -178,11 +176,6 @@ void Game::pushEvent(std::unique_ptr<Event>&& event) {
     eventQueue.push(std::move(event));
 }
 
-/*
-Game::Game(ClientsMonitor&& clientAux //= ClientsMonitor()): clients(clientAux) {
-
-}
-*/
 #include "../Items/Attack/Weapon.h"
 #include "../Items/Defense/Head.h"
 #include "../Items/Defense/Shield.h"
@@ -209,7 +202,7 @@ Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
     player->storeItem(item);
     item.reset(new Weapon(GameType::LONGSWORD));
     player->storeItem(item);
-    item.reset(new Head(GameType::IRON_HELMET));
+    item.reset(new Weapon(GameType::ELVEN_FLUTE));
     player->storeItem(item);
     item.reset(new Shield(GameType::IRON_SHIELD));
     player->storeItem(item);
@@ -283,7 +276,7 @@ bool Game::requestResurrect(Player &player, Coordinate selectedPosition) {
         }
     }
     //Por cada tile de distancia espera 200ms
-    double waitingTime = static_cast<double>(playerPosition.calculateDistance(nearestPriest) * 200);
+    auto waitingTime = static_cast<double>(playerPosition.calculateDistance(nearestPriest) * 200);
     player.addMessage(WAITING_TIME_MESSAGE);
     player.addMessage(std::to_string(waitingTime) + "\n");
     playersToResurrect.push_back({waitingTime, 0, nearestPriest, &player});

@@ -39,7 +39,7 @@ add_executable(argentumServer main.cpp Items/Item.h Items/Attack/Weapon.cpp Item
         Server/ClientHandler.cpp Server/ArgentumServer.cpp Server/ServerMonitor.cpp Server/ServerMonitor.cpp
         Server/Socket.cpp Server/Thread.cpp Server/ArgentumServerSide.cpp Server/ClientAccepter.cpp Server/ClientAccepter.h
         Config/MapFileReader.cpp Entities/Citizens/CitizenFactory.cpp Entities/Citizens/CitizenFactory.h
-        Server/ClientsMonitor.cpp Server/ClientsMonitor.h Server/PlayerLoader.cpp Server/PlayerLoader.h
+        Server/ClientsMonitor.cpp Server/ClientsMonitor.h Server/PlayerManager.cpp Server/PlayerManager.h
         Game/Events/Moved.cpp Game/Events/Moved.h Entities/Minichat.cpp Entities/Minichat.h
         Items/UseReturnData.h Server/PlayerData.hpp Items/ItemData.h Game/Events/NotifyDeath.cpp
         Game/Events/NotifyDeath.h Game/Events/PickUpItem.cpp Game/Events/PickUpItem.h Game/ResurrectData.h
