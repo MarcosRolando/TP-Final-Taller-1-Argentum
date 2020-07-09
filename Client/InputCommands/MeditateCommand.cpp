@@ -3,8 +3,7 @@
 //
 
 #include "MeditateCommand.h"
-#include <msgpack.hpp>
-#include "../../Shared/GameEnums.h"
+
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 
 

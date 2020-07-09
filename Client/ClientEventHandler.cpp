@@ -118,8 +118,12 @@ void ClientEventHandler::_processCommandInput() {
     std::string cmd = game.getMinichat().handleReturnKey();
     if (cmd != " "){//Si apreto enter y no hay texto handleReturnKey me devuelve esto
         std::unique_ptr<InputCommand> inputCmd;
-        inputCmd = CommandVerifier::verifyCommand(game, std::move(cmd));//Parsea el comando y me devuelve x ejemplo
-        (*inputCmd)(msgBuffer);//Arma el mensaje y lo packea en msgBuffer
+        inputCmd = cmdVerifier.verifyCommand(game, std::move(cmd));//Parsea el comando y me devuelve x ejemplo
+        if (inputCmd) {
+            (*inputCmd)(msgBuffer);//Arma el mensaje y lo packea en msgBuffer
+        } else {
+            //Mostrar mensaje de comando invalido
+        }
     }
 }
 

@@ -10,6 +10,7 @@
 #include "GameGUI.h"
 #include <sstream>
 #include "BlockingQueue.hpp"
+#include "InputCommands/CommandVerifier.h"
 
 class Socket;
 
@@ -18,6 +19,7 @@ private:
     Socket& socket;
     bool& quit;
     GameGUI& game;
+    CommandVerifier cmdVerifier;
     BlockingQueue<std::unique_ptr<SDL_Event>>& events;
     std::stringstream msgBuffer;
 

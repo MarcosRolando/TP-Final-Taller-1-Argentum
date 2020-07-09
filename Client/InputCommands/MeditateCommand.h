@@ -9,7 +9,6 @@
 
 class MeditateCommand : public InputCommand{
 public:
-    MeditateCommand() {}
     void operator()(std::stringstream& msgBuffer) override;
 };
 

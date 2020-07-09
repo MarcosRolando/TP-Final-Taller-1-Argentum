@@ -5,7 +5,8 @@
 #ifndef ARGENTUM_INPUTCOMMAND_H
 #define ARGENTUM_INPUTCOMMAND_H
 #include <sstream>
-
+#include <msgpack.hpp>
+#include "../../Shared/GameEnums.h"
 // Interfaz de los comandos del minichat.
 
 class InputCommand {
