@@ -313,7 +313,7 @@
   "Potion" : [
     {
       "Name": "HealthPotion",
-      "RecoveryValue": 100,
+      "RecoveryValue": 1000,
       "Price": 100
     },
     {
