@@ -7,6 +7,7 @@
 #include "MeditateCommand.h"
 #include "PickUpCommand.h"
 #include "DropCommand.h"
+#include "ListCommand.h"
 #include "../GameGUI.h"
 
 CommandVerifier::CommandVerifier() {
@@ -71,7 +72,7 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
                     command = _processDrop(game);
                     break;
                 case GameType::PLAYER_LIST:
-                    //command = _processList(std::move(inputCmd));
+                    command = _processList(game);
                     break;
                 case GameType::PLAYER_BUY:
                     //command = _processBuy(std::move(inputCmd));
@@ -126,6 +127,14 @@ std::unique_ptr<InputCommand> CommandVerifier::_processDrop(GameGUI& game) {
         return nullptr;
     }
     return std::unique_ptr<InputCommand>(new DropCommand(game.getSelector().getInventorySlot()));
+}
+
+std::unique_ptr<InputCommand> CommandVerifier::_processList(GameGUI& game) {
+    //Chequeo que no haya nada escrito despues del comando
+    if (input.size() > input.find(' ', 0)) {
+        return nullptr;
+    }
+    return std::unique_ptr<InputCommand>(new ListCommand(game.getSelector().getSelectedTile()));
 }
 
 
