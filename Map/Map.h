@@ -17,6 +17,7 @@
 #include <list>
 #include "../Client/EntityData.h"
 #include "../Spells/Spell.h"
+#include "../Client/CitizenData.h"
 
 class Map {
 private:
@@ -39,7 +40,7 @@ public:
     void setSize(int rows, int columns);
 
     void loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
-                      TextureID entity);
+                      CitizenData& citizen);
 
     void createItem(Coordinate position, TextureID itemTexture);
 

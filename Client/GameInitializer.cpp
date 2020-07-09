@@ -9,6 +9,7 @@
 #include "GameGUI.h"
 #include "ProtocolEnumTranslator.h"
 #include "ClientProtocol.h"
+#include "CitizenData.h"
 
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 MSGPACK_ADD_ENUM(GameType::EventID)
@@ -83,11 +84,14 @@ void GameInitializer::_loadMap(std::vector<char>& buffer) {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
             handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-            msgpack::type::tuple<GameType::FloorType, GameType::Structure, GameType::Entity> tileInfo;
+            msgpack::type::tuple<GameType::FloorType, GameType::Structure,
+            GameType::Entity, std::string> tileInfo;
             handler->convert(tileInfo);
+            CitizenData citizen = {translator.getEntityTexture(std::get<2>(tileInfo)),
+                                   std::get<3>(tileInfo)};
             game.loadTileData({i, j}, translator.getFloorTypeTexture(std::get<0>(tileInfo)),
                               translator.getStructureTexture(std::get<1>(tileInfo)),
-                              translator.getEntityTexture(std::get<2>(tileInfo)));
+                              citizen);
         }
     }
 }

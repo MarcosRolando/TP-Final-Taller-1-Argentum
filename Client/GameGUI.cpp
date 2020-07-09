@@ -15,8 +15,8 @@ GameGUI::GameGUI() : repo(screen.getRenderer()), map(repo, camera),
 }
 
 void GameGUI::loadTileData(Coordinate position, FloorTypeTexture floor,
-                                TextureID structure, TextureID entity) {
-    map.loadTileData(position, floor, structure, entity);
+                                TextureID structure, CitizenData& citizen) {
+    map.loadTileData(position, floor, structure, citizen);
 }
 
 void GameGUI::render(float timeStep) {

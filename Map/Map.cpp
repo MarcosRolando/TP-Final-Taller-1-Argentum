@@ -67,7 +67,7 @@ void Map::setSize(int rows, int columns) {
 }
 
 void Map::loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
-                       TextureID entity) {
+                       CitizenData& citizen) {
     unsigned int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     if (structure != Nothing) {
         tiles.at(tile).loadData(textureRepo.getTexture(floor.texture),
@@ -76,8 +76,8 @@ void Map::loadTileData(Coordinate position, FloorTypeTexture floor, TextureID st
         tiles.at(tile).loadData(textureRepo.getTexture(floor.texture),
                 nullptr, floor.index);
     }
-    if (entity != Nothing) {
-        EntityData data = {entity, "", position,
+    if (citizen.texture != Nothing) {
+        EntityData data = {citizen.texture, std::move(citizen.nickname), position,
                            GameType::DIRECTION_STILL, 0};
         addNPC(data);
     }

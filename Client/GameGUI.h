@@ -15,6 +15,7 @@
 #include "../SDL/GUI/PlayerInfoGUI.h"
 #include "../Texture/PlayerEquipment.h"
 #include "EntityData.h"
+#include "CitizenData.h"
 
 class GameGUI {
 private:
@@ -32,7 +33,7 @@ public:
     GameGUI();
     void setMapSize(int rows, int columns);
     void loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
-                      TextureID entity);
+                      CitizenData& citizen);
     void createItem(Coordinate position, TextureID itemTexture);
     void addNPC(EntityData& entityData);
     void addPlayer(MapPlayerData& playerData);
