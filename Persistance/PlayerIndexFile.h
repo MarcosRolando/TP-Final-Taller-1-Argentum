@@ -19,7 +19,6 @@ private:
 
 public:
     explicit PlayerIndexFile(const std::string& filePath);
-    explicit PlayerIndexFile(const std::string&& filePath) : PlayerIndexFile(filePath) {}
     void storeNewPlayer(std::string& playerNickname, PlayerFilePosition offData);
     void storeNewPlayer(std::string&& playerNickname, PlayerFilePosition offData);
 

@@ -7,7 +7,7 @@
 
 #include <fstream>
 #include "PlayerFilePosition.h"
-#include "../Server/PlayerData.h"
+#include "../Server/PlayerData.hpp"
 
 /*Esta clase es la que maneja el archivo que contiene los datos del player
  * guardado*/
@@ -18,7 +18,14 @@ private:
 public:
     explicit PlayerSaveFile(const std::string& filePath);
     void getPlayerData(const std::string& playerNickname);
-    PlayerFilePosition storePlayerData(const PlayerData& playerData);
+    PlayerFilePosition storePlayerData(const PlayerData& playerData,
+                                       int32_t fileOffset);
+private:
+    static void _packPlayerType(std::stringstream& dataToStore, const PlayerData& playerData);
+    static void _packPlayerGeneralStats(std::stringstream& dataToStore,
+                                                 const PlayerData& playerData);
+    static void _packPlayerInventory(std::stringstream& dataToStore,
+                                              const PlayerData& playerData);
 };
 
 

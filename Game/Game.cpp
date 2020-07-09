@@ -10,11 +10,9 @@
 #include "Events/Event.h"
 #include "../Server/ServerProtocol.h"
 #include "../Entities/Player.h"
-#include "../Server/PlayerData.h"
 #include "ShouldPlayerBeRevived.h"
-#include "../Server/PlayerData.h"
 #include <iostream>
-
+#include "../Server/PlayerData.hpp"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 

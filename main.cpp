@@ -5,8 +5,10 @@
 #include "Server/ArgentumServerSide.h"
 #include "TPException.h"
 #include <iostream>
+#include "Persistance/PlayerSaveFile.h"
 
 int main(int argc, char** argv) {
+    /*
     try {
         ArgentumServerSide::run(argc, argv);
     } catch (TPException& e) {
@@ -14,5 +16,9 @@ int main(int argc, char** argv) {
     } catch (...) {
         std::cerr << "Algo rompio bro" << std::endl;
     }
+     */
+    PlayerSaveFile saveFile("saveTestFile");
+    PlayerData data;
+    saveFile.storePlayerData(data, 0);
     return 0;
 }

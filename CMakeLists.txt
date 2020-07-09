@@ -41,7 +41,7 @@ add_executable(argentumServer main.cpp Items/Item.h Items/Attack/Weapon.cpp Item
         Config/MapFileReader.cpp Entities/Citizens/CitizenFactory.cpp Entities/Citizens/CitizenFactory.h
         Server/ClientsMonitor.cpp Server/ClientsMonitor.h Server/PlayerLoader.cpp Server/PlayerLoader.h
         Game/Events/Moved.cpp Game/Events/Moved.h Entities/Minichat.cpp Entities/Minichat.h
-        Items/UseReturnData.h Server/PlayerData.h Items/ItemData.h Game/Events/NotifyDeath.cpp
+        Items/UseReturnData.h Server/PlayerData.hpp Items/ItemData.h Game/Events/NotifyDeath.cpp
         Game/Events/NotifyDeath.h Game/Events/PickUpItem.cpp Game/Events/PickUpItem.h Game/ResurrectData.h
         Game/Events/RequestResurrect.cpp Game/Events/RequestResurrect.h Game/ShouldPlayerBeRevived.cpp
         Game/ShouldPlayerBeRevived.h Game/Events/RequestResurrect.cpp Game/Events/RequestResurrect.h

@@ -8,7 +8,7 @@
 #include <list>
 #include "ClientHandler.h"
 #include <mutex>
-#include "PlayerData.h"
+#include "PlayerData.hpp"
 
 class PlayerProxy;
 class PlayerLoader;
