@@ -265,7 +265,7 @@ const Item* Game::storeItemFromTileInPlayer(Player& player) {
 }
 
 bool Game::requestResurrect(Player &player, Coordinate selectedPosition) {
-    if (priests.empty()) {
+    if (priests.empty() || !player.isDead()) {
         return false;
     }
     Coordinate playerPosition = player.getPosition();

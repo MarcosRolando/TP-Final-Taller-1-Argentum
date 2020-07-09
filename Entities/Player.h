@@ -121,6 +121,8 @@ public:
 
     void restoreStats();
 
+    bool isDead();
+
 private:
     void _dropItems();
 };

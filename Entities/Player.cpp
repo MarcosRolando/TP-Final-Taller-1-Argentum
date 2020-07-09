@@ -268,3 +268,7 @@ void Player::move(Coordinate newPosition) {
 void Player::restoreStats() {
     stats.restore();
 }
+
+bool Player::isDead() {
+    return stats.isDead();
+}

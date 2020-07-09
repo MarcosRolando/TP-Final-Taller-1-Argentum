@@ -18,6 +18,9 @@ ShouldPlayerBeRevived::ShouldPlayerBeRevived(Map& map, std::stringstream &data, 
 }
 
 bool ShouldPlayerBeRevived::operator()(ResurrectData &resurrectData) {
+    if (!resurrectData.playerToResurrect->isDead()) {
+        return true;
+    }
     resurrectData.timeWaited += timeStep;
     Coordinate noFreePositionReturn = {-1, -1};
     Coordinate positionToTeleport{};
