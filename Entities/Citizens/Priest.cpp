@@ -4,6 +4,7 @@
 
 #include "Priest.h"
 #include "../../Config/Configuration.h"
+#include "../Player.h"
 
 using namespace GameType;
 
@@ -45,5 +46,9 @@ void Priest::buy(Player &player, const std::string &itemName) {
 
 void Priest::sell(Player &player, const std::string& itemName) {
     shop.sell(player, itemName);
+}
+
+void Priest::requestHeal(Player &player) {
+    player.restoreStats();
 }
 

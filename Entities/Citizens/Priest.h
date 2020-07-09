@@ -35,6 +35,8 @@ public:
     //encuentra en la posicion pasada, por default no hace nada, debe ser reimplementada
     //si la clase hija puede comprar y vender items
     void sell(Player& player, const std::string& itemName) override;
+
+    void requestHeal(Player& player) override;
 };
 
 
