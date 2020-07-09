@@ -119,7 +119,7 @@ GameType::EquipmentPlace Selector::getSelectedEquipment() {
 
 void Selector::resetTileSelection() {
     std::lock_guard<std::mutex> l(m);
-    selectedTile = {-1, -1};
+    selectedTile = {0, 0};
 }
 
 Coordinate Selector::getSelectedTileToRender(Coordinate playerPos) const {
