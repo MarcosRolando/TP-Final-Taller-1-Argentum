@@ -31,6 +31,8 @@ void Client::_processConnection() {
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
     initializer.loadPlayer("IVAN", GameType::Race::DWARF, GameType::Class::PALADIN);
+    char serverAcceptedConnection;
+    socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
     //SoundPlayer soundPlayer;
     initializer.initializeGame();
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
