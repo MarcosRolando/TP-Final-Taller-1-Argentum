@@ -18,8 +18,8 @@ protected:
     friend ItemTests;
 
 public:
-    explicit Potion(const Config::PotionData& data);
-    //explicit Potion(GameType::Potion potion);
+    //explicit Potion(const Config::PotionData& data);
+    explicit Potion(GameType::Potion potion);
 
     //Indica que una vez que son usadas las pociones son descartadas
     GameType::EquipmentPlace use(Player& player) override;
