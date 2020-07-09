@@ -22,7 +22,7 @@ public:
 
     GameType::EquipmentPlace use(Player& player) override;
 
-    unsigned int getamount() const;
+    unsigned int getAmmount() const;
 
     bool isGold() const override;
 };
