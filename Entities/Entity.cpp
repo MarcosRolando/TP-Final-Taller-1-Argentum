@@ -74,6 +74,12 @@ void Entity::sell(Player &player, const std::string& itemName) {
     //DO NOTHING
 }
 
+
+void Entity::requestHeal(Player &player) {
+    //DO NOTHING
+}
+
+
 void Entity::move(Coordinate newPosition) {
     currentPosition = newPosition;
     movement.isMoving = true;

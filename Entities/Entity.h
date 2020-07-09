@@ -95,6 +95,8 @@ private:
     //Le confirma a entity el request de movimiento para comenzar la interpolacion
     virtual void move(Coordinate newPosition);
 
+    virtual void requestHeal(Player& player);
+
     //Actualiza el estado de la entity, por ejemplo si se esta moviendo le
     //actualiza la interpolacion
     void update(double timeStep, Game& game);
