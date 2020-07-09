@@ -17,17 +17,24 @@ MSGPACK_ADD_ENUM(GameType::Race)
 void ClientAccepter::run() {
     const char acceptedConnection = 1;
     const char deniedConnection = 0;
-    while (keepRunning) {
-        Socket clientSocket = serverSocket.accept();
-        try {
-            PlayerData playerData = _receivePlayerInfo(clientSocket);
-            clientSocket.send(&acceptedConnection, sizeof(acceptedConnection));
-            clients.pushToWaitingList(std::move(clientSocket), protocol, std::move(playerData));
-        } catch(std::exception& e) {
-            std::cerr << e.what() << std::endl;
-            clientSocket.send(&deniedConnection, sizeof(deniedConnection));
+    try {
+        while (keepRunning) {
+            Socket clientSocket = serverSocket.accept();
+            try {
+                PlayerData playerData = _receivePlayerInfo(clientSocket);
+                clientSocket.send(&acceptedConnection, sizeof(acceptedConnection));
+                clients.pushToWaitingList(std::move(clientSocket), protocol, std::move(playerData));
+            } catch(std::exception& e) {
+                std::cerr << e.what() << std::endl;
+                clientSocket.send(&deniedConnection, sizeof(deniedConnection));
+            }
         }
+    } catch (std::exception& e) {
+        std::cerr << e.what() << " in accepter socket" << std::endl;
+    } catch (...) {
+        std::cerr << "Unkown error in accepter socket" << std::endl;
     }
+    keepRunning = false;
 }
 
 PlayerData ClientAccepter::_receivePlayerInfo(Socket& clientSocket) {
