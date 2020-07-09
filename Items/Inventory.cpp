@@ -31,6 +31,7 @@ UseReturnData Inventory::_manageItemPlacement(GameType::EquipmentPlace equipment
                 items[itemPosition] = std::move(equippedWeapon);
             } else {
                 items[itemPosition] = nullptr;
+                storedItemsAmount--;
             }
             equippedWeapon = std::move(weaponPtrAux);
             return {GameType::EQUIPMENT_PLACE_WEAPON, equippedWeapon->getId()};
