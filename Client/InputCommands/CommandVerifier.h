@@ -16,16 +16,19 @@ class CommandVerifier {
 private:
     std::unordered_map<std::string, GameType::PlayerEvent> commands;
     std::unordered_map<std::string, int32_t> items;
+    std::string input;
 
 public:
     CommandVerifier();
     std::unique_ptr<InputCommand> verifyCommand(GameGUI& game, std::string&& cmd);
 
 private:
-    static std::unique_ptr<InputCommand> _processMeditate();
-    static std::unique_ptr<InputCommand> _processPickUp(std::string &&cmd);
+    std::unique_ptr<InputCommand> _processMeditate();
+    std::unique_ptr<InputCommand> _processPickUp();
     void _initCommands();
     void _initItems();
+
+    std::unique_ptr<InputCommand> _processDrop(GameGUI& game);
 };
 
 

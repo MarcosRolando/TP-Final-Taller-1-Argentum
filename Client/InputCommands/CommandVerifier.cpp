@@ -6,6 +6,7 @@
 #include "CommandVerifier.h"
 #include "MeditateCommand.h"
 #include "PickUpCommand.h"
+#include "DropCommand.h"
 #include "../GameGUI.h"
 
 CommandVerifier::CommandVerifier() {
@@ -52,18 +53,19 @@ void CommandVerifier::_initItems() {
 std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
         std::string&& inputCmd) {
     std::unique_ptr<InputCommand> command;
+    input = inputCmd;
 
     //Agarro lo que tenga antes de un espacio. Eso deberia ser el comando
-    std::string cmd = inputCmd.substr(0, inputCmd.find(' ', 0));
+    std::string cmd = input.substr(0, input.find(' ', 0));
     GameType::PlayerEvent event;
     try {
         event = commands.at(cmd);
         switch (event) {
             case GameType::PLAYER_PICK_UP:
-                command = _processPickUp(std::move(inputCmd));
+                command = _processPickUp();
                 break;
             case GameType::PLAYER_DROP:
-                //command = _processDrop(std::move(inputCmd));
+                command = _processDrop(game);
                 break;
             case GameType::PLAYER_LIST:
                 //command = _processList(std::move(inputCmd));
@@ -99,16 +101,26 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processMeditate() {
+    if (input.size() > input.find(' ', 0)) {
+        return nullptr;
+    }
     return std::unique_ptr<InputCommand>(new MeditateCommand());
 }
 
-std::unique_ptr<InputCommand> CommandVerifier::_processPickUp(std::string&& cmd) {
-    if (cmd.size() > cmd.find(' ', 0)) {
-        //Esto es que hay algo escrito dsps del comando
+std::unique_ptr<InputCommand> CommandVerifier::_processPickUp() {
+    //Chequeo que no haya nada escrito despues del comando
+    if (input.size() > input.find(' ', 0)) {
         return nullptr;
     }
-
     return std::unique_ptr<InputCommand>(new PickUpCommand());
+}
+
+std::unique_ptr<InputCommand> CommandVerifier::_processDrop(GameGUI& game) {
+    //Chequeo que no haya nada escrito despues del comando
+    if (input.size() > input.find(' ', 0)) {
+        return nullptr;
+    }
+    return std::unique_ptr<InputCommand>(new DropCommand(game.getSelector().getInventorySlot()));
 }
 
 

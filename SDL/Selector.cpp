@@ -25,8 +25,8 @@
 
 
 Selector::Selector() {
-    inventorySlot = {-1, -1};
-    selectedTile = {-1, -1};
+    inventorySlot = {0, 0};
+    selectedTile = {0, 0};
 }
 
 void Selector::handleEvent(Coordinate click, Coordinate playerPos, Window& window){
