@@ -28,6 +28,7 @@ void PlayerSaveFile::getPlayerData(const std::string& playerNickname) {
 
 PlayerFilePosition PlayerSaveFile::storePlayerData(const PlayerData& playerData,
                                             int32_t fileOffset) {
+    if (saveFile.eof()) saveFile.clear();
     PlayerFilePosition playerPosition{};
     playerPosition.offset = fileOffset;
     std::stringstream dataToStore;
