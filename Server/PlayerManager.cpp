@@ -17,4 +17,3 @@ PlayerData PlayerManager::getSavedPlayerData(const std::string &nickname) {
     return saveManager.getPlayerData(nickname);
 }
 
-
