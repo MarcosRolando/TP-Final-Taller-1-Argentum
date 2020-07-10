@@ -42,6 +42,7 @@ private:
     void _processEquipped();
     void _processPlayerDeath();
     void _processDestroyItem();
+    void _processTeleportEntity();
 };
 
 

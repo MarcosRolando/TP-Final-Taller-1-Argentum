@@ -186,3 +186,12 @@ void Entity::addSpell(std::shared_ptr<Spell>& _spell) {
 std::weak_ptr<Spell> &Entity::getSpell() {
     return spell;
 }
+
+void Entity::setPosition(float _xPosition, float _yPosition) {
+    xPosition = _xPosition;
+    yPosition = _yPosition;
+    moveDirection = GameType::DIRECTION_STILL;
+    lastDirection = moveDirection;
+    currentFrame = 0;
+    totalDistanceMoved = 0;
+}

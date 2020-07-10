@@ -241,3 +241,17 @@ void Map::destroyItem(Coordinate itemPosition) {
     int tile = itemPosition.i*TOTAL_HORIZONTAL_TILES + itemPosition.j;
     tiles.at(tile).destroyItem();
 }
+
+void Map::teleportEntity(const std::string &nickname, Coordinate newPosition,
+                         bool isMyPlayer) {
+    Coordinate oldPosition = entities.at(nickname);
+    int oldTile = oldPosition.i*TOTAL_HORIZONTAL_TILES + oldPosition.j;
+    std::unique_ptr<Entity> entity = tiles.at(oldTile).getEntity();
+    int newTile = newPosition.i*TOTAL_HORIZONTAL_TILES + newPosition.j;
+    entity->setPosition(newPosition.j*TILE_WIDTH, newPosition.i*TILE_HEIGHT);
+    if (isMyPlayer) {
+        entity->activateCamera();
+    }
+    tiles.at(newTile).addEntity(std::move(entity));
+    entities.at(nickname) = newPosition;
+}

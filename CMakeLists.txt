@@ -41,7 +41,7 @@ UpdateEvents/UpdateAttack.h Client/InputCommands/InputCommand.h Client/InputComm
 Client/InputCommands/CommandVerifier.h Client/InputCommands/MeditateCommand.cpp Client/InputCommands/MeditateCommand.h
 Client/InputCommands/PickUpCommand.cpp Client/InputCommands/PickUpCommand.h Client/CitizenData.h
 UpdateEvents/UpdateDestroyItem.cpp UpdateEvents/UpdateDestroyItem.h Client/InputCommands/DropCommand.cpp
-        Client/InputCommands/DropCommand.h Client/InputCommands/ListCommand.cpp Client/InputCommands/ListCommand.h Client/InputCommands/ResurrectCommand.cpp Client/InputCommands/ResurrectCommand.h Client/InputCommands/SellCommand.cpp Client/InputCommands/SellCommand.h Client/InputCommands/BuyCommand.cpp Client/InputCommands/BuyCommand.h)
+        Client/InputCommands/DropCommand.h Client/InputCommands/ListCommand.cpp Client/InputCommands/ListCommand.h Client/InputCommands/ResurrectCommand.cpp Client/InputCommands/ResurrectCommand.h Client/InputCommands/SellCommand.cpp Client/InputCommands/SellCommand.h Client/InputCommands/BuyCommand.cpp Client/InputCommands/BuyCommand.h UpdateEvents/UpdateTeleportEntity.cpp UpdateEvents/UpdateTeleportEntity.h)
 
 
 
@@ -49,7 +49,6 @@ target_compile_options (argentumClient PUBLIC -std=c++11 -Wall -Werror -pedantic
         -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -ljsoncpp)
 
 target_link_options(argentumClient PUBLIC -lm -pthread)
-
 
 target_link_libraries(argentumClient jsoncpp ${Boost_LIBRARIES} )
 
