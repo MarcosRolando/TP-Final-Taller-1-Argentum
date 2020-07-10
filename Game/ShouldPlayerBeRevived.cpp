@@ -44,7 +44,7 @@ void ShouldPlayerBeRevived::_storeResurrectMessage(const ResurrectData& resurrec
     msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::RESURRECTED);
     msgpack::pack(data, messageTypeData);
     msgpack::type::tuple<std::string> resurrectDataTuple(resurrectData.playerToResurrect->getNickname());
-    msgpack::pack(data, messageTypeData);
+    msgpack::pack(data, resurrectDataTuple);
 }
 
 void ShouldPlayerBeRevived::_storeTeleportMessage(const ResurrectData& resurrectData, Coordinate newPosition) {
@@ -52,5 +52,5 @@ void ShouldPlayerBeRevived::_storeTeleportMessage(const ResurrectData& resurrect
     msgpack::pack(data, messageTypeData);
     msgpack::type::tuple<std::string, int32_t, int32_t> resurrectDataTuple
                 (resurrectData.playerToResurrect->getNickname(), newPosition.iPosition, newPosition.jPosition);
-    msgpack::pack(data, messageTypeData);
+    msgpack::pack(data, resurrectDataTuple);
 }

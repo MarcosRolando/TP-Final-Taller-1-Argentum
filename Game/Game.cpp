@@ -269,7 +269,7 @@ bool Game::requestResurrect(Player &player, Coordinate selectedPosition) {
     Coordinate playerPosition = player.getPosition();
     Coordinate nearestPriest = priests.front();
     for (const auto & priestPosition: priests) {
-        if (playerPosition == priestPosition) {
+        if (selectedPosition == priestPosition) {
             player.restoreStats();
             return true;
         }
