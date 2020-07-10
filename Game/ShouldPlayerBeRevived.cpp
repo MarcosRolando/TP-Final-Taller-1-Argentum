@@ -28,6 +28,7 @@ bool ShouldPlayerBeRevived::operator()(ResurrectData &resurrectData) {
         positionToTeleport = map.getSpawnCoordinateArroundPosition(resurrectData.resurrectingPriest);
         if (positionToTeleport != noFreePositionReturn) {
             map.moveEntity(resurrectData.playerToResurrect->getPosition(), positionToTeleport);
+            resurrectData.playerToResurrect->resetMovement();
             resurrectData.playerToResurrect->restoreStats();
             _storeResurrectMessage(resurrectData);
             _storeTeleportMessage(resurrectData, positionToTeleport);

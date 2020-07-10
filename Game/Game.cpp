@@ -133,6 +133,7 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
     //AGREGAR UPDATE DE PLAYERS CONECTADOS (no hay que borrar esto????)
 
     _removeMonsters(protocol);
+    _updateDeadPlayersTimer(protocol, timeStep);
 }
 
 Game::Game(MapFileReader&& mapFile): map(mapFile) {

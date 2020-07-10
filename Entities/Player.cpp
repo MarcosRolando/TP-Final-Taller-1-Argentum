@@ -272,3 +272,8 @@ void Player::restoreStats() {
 bool Player::isDead() {
     return stats.isDead();
 }
+
+void Player::resetMovement() {
+    movement.movedDistance = 0;
+    movement.direction = DIRECTION_STILL;
+}

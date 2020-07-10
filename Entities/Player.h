@@ -123,6 +123,9 @@ public:
 
     bool isDead();
 
+
+    void resetMovement();
+
 private:
     void _dropItems();
 };
