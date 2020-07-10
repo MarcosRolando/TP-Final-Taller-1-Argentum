@@ -64,6 +64,7 @@ PlayerData ClientAccepter::_createPlayer(std::vector<char>& buffer, std::size_t&
     handler->convert(info);
     PlayerData playerData = {std::move(std::get<0>(info)),
                              std::get<1>(info), std::get<2>(info)};
+    manager.storeNewPlayer(playerData);
     return playerData;
 }
 

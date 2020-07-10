@@ -333,6 +333,7 @@
   },
 
   "PlayerVisionRange" : 5,
+  "InitialMerchantGold": 1000,
   "PlayerSpeed" : 5,
   "CritAttackProb" : 0.1,
   "DodgeProb" : 0.1,
