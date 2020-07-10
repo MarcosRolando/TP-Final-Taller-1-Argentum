@@ -9,11 +9,12 @@
 #include "DropCommand.h"
 #include "ListCommand.h"
 #include "SellCommand.h"
+#include "BuyCommand.h"
 #include "../GameGUI.h"
 
 CommandVerifier::CommandVerifier() {
     _initCommands();
-    _initItems();
+    //_initItems();
 }
 
 void CommandVerifier::_initCommands() {
@@ -29,7 +30,7 @@ void CommandVerifier::_initCommands() {
     commands.emplace("/drop", GameType::PLAYER_DROP);
 }
 
-void CommandVerifier::_initItems() {
+/*void CommandVerifier::_initItems() {
     items.emplace("longsword", GameType::LONGSWORD);
     items.emplace("axe", GameType::AXE);
     items.emplace("warhammer", GameType::WARHAMMER);
@@ -50,7 +51,7 @@ void CommandVerifier::_initItems() {
     items.emplace("magic hat", GameType::MAGIC_HAT);
     items.emplace("health potion", GameType::HEALTH_POTION);
     items.emplace("mana potion", GameType::MANA_POTION);
-}
+}*/
 
 std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
         std::string&& inputCmd) {
@@ -79,7 +80,7 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
                     //command = _processResurrect(game);
                     break;
                 case GameType::PLAYER_BUY:
-                    //command = _processBuy(std::move(inputCmd));
+                    command = _processBuy(game);
                     break;
                 case GameType::PLAYER_SELL:
                     command = _processSell(game);
@@ -156,5 +157,15 @@ std::unique_ptr<InputCommand> CommandVerifier::_processSell(GameGUI& game) {
         parameters = input.substr(input.find(' ', 0), input.size());
     }
     return std::unique_ptr<InputCommand>(new SellCommand(
+            game.getSelector().getSelectedTile(), std::move(parameters)));
+}
+
+std::unique_ptr<InputCommand> CommandVerifier::_processBuy(GameGUI& game) {
+    //Agarro lo que haya dsps del espacio que deberian ser los parametros
+    std::string parameters;
+    if (input.size() > input.find(' ', 0)) {
+        parameters = input.substr(input.find(' ', 0), input.size());
+    }
+    return std::unique_ptr<InputCommand>(new BuyCommand(
             game.getSelector().getSelectedTile(), std::move(parameters)));
 }
