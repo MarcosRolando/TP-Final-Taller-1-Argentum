@@ -99,7 +99,7 @@ void GameInitializer::_loadMap(std::vector<char>& buffer) {
 void GameInitializer::loadPlayer(const std::string& nickname, GameType::Race race,
                                   GameType::Class _class) {
     std::stringstream msgBuffer;
-    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::LOAD_PLAYER);
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::CREATE_PLAYER);
     msgpack::type::tuple<std::string, GameType::Race, GameType::Class> playerInfo;
     playerInfo = {nickname, race, _class};
     msgpack::pack(msgBuffer, event);
@@ -111,12 +111,12 @@ void GameInitializer::loadPlayer(const std::string& nickname, GameType::Race rac
     ClientProtocol::loadBytes(sendBuffer, &length, sizeof(uint32_t));
     std::copy(aux.begin(), aux.end(), std::back_inserter(sendBuffer));
     socket.send(sendBuffer.data(), sendBuffer.size());
-}
+} //todo no repetir el codigo para las 2 funciones
 
 
-void GameInitializer::loadPlayer(std::string& nickname) {
+void GameInitializer::loadPlayer(const std::string& nickname) {
     std::stringstream msgBuffer;
-    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::CREATE_PLAYER);
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::LOAD_PLAYER);
     msgpack::type::tuple<std::string> playerInfo;
     playerInfo = {nickname};
     msgpack::pack(msgBuffer, event);
