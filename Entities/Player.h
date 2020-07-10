@@ -123,8 +123,9 @@ public:
 
     bool isDead();
 
-
     void resetMovement();
+
+    bool hasItem(const std::string& itemName);
 
 private:
     void _dropItems();

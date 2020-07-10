@@ -83,6 +83,8 @@ public:
     void storeAllData(std::stringstream& buffer) const;
 
     int32_t getWeaponId();
+
+    bool hasItem(const std::string& itemName);
 };
 
 

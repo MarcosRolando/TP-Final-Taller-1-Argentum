@@ -76,7 +76,8 @@ void Shop::sell(Player &player, const std::string& itemName) {
     unsigned int price;
     price = static_cast<unsigned int>(static_cast<float>(prices[itemName])
                                       * sellingMultiplier);
-    if (storage.decreaseGoldReserves(price)) {
+
+    if (player.hasItem(itemName) && storage.decreaseGoldReserves(price)) {
         player.receiveGold(price);
         storage.storeItem(player.removeItem(itemName));
     }

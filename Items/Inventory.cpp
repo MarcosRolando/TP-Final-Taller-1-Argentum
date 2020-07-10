@@ -218,3 +218,14 @@ void Inventory::storeAllData(std::stringstream &buffer) const {
 int32_t Inventory::getWeaponId() {
     return equippedWeapon->getId();
 }
+
+bool Inventory::hasItem(const std::string &itemName) {
+    for (auto & item : items) {
+        if (item) {
+            if (itemName == item->getName()) {
+                return true;
+            }
+        }
+    }
+    return false;
+}

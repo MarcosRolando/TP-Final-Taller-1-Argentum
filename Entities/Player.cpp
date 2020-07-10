@@ -277,3 +277,7 @@ void Player::resetMovement() {
     movement.movedDistance = 0;
     movement.direction = DIRECTION_STILL;
 }
+
+bool Player::hasItem(const std::string& itemName) {
+    return inventory.hasItem(itemName);
+}
