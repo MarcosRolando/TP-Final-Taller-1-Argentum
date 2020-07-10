@@ -53,7 +53,7 @@ public:
     //Crea un mapa vacio, de 0x0
     Map() = default;
 
-    explicit Map(MapFileReader& mapFile);
+    explicit Map(MapFileReader& mapFile, std::list<Coordinate>& priests);
 
     //Constructor de prueba
     void test(Game& game, std::list<std::shared_ptr<Monster>>& monsters);

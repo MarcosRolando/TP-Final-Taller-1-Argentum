@@ -136,7 +136,7 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
     _updateDeadPlayersTimer(protocol, timeStep);
 }
 
-Game::Game(MapFileReader&& mapFile): map(mapFile) {
+Game::Game(MapFileReader&& mapFile): priests(),  map(mapFile, priests) {
     monsterCreationRate = 20;
     maxNumberOfMonsters = 300;
     spawnInterval = 100;

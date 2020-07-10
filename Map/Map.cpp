@@ -175,7 +175,7 @@ void Map::_getTargets(Coordinate center, unsigned int range, std::vector<Coordin
 
 //////////////////////////////PUBLIC/////////////////////////////
 
-Map::Map(MapFileReader &mapFile) {
+Map::Map(MapFileReader &mapFile, std::list<Coordinate>& priests) {
     CitizenFactory citizenFactory;
     MapSize mapSize = mapFile.getMapDimensions();
     TileInfo aux{};
@@ -185,6 +185,7 @@ Map::Map(MapFileReader &mapFile) {
     std::unordered_map<std::string, GameType::FloorType> floors;
     _initializeConstructorMaps(entities, structures, floors);
     //tiles.resize(mapSize.height, std::vector<Tile>(mapSize.width));
+    GameType::Entity auxEntity{};
     for (unsigned int i = 0; i < mapSize.height; ++i) {
         tiles.emplace_back();
         for (unsigned int j = 0; j < mapSize.width; ++j) {
@@ -192,9 +193,12 @@ Map::Map(MapFileReader &mapFile) {
             if (aux.entityType == "Nothing") {
                 citizen.reset();
             } else {
-                citizenFactory.storeCitizen(citizen, entities.at(aux.entityType),
+                auxEntity = entities.at(aux.entityType);
+                citizenFactory.storeCitizen(citizen, auxEntity,
                         {static_cast<int>(i), static_cast<int>(j)});
-                //FALTA GUARDAR EL SHARED_PTR EN GAME
+                if (auxEntity == GameType::PRIEST) {
+                    priests.push_back({static_cast<int>(i), static_cast<int>(j)});
+                }
             }
             //CAMBIAR, POR AHORA SE PONE TODO COMO OCUPABLE
 

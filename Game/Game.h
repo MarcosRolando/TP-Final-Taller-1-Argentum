@@ -33,6 +33,7 @@ struct MoveCommand {
 
 class Game {
 private:
+    std::list<Coordinate> priests;
     Map map;
     std::queue<std::unique_ptr<Event>> eventQueue;
 
@@ -46,7 +47,6 @@ private:
     std::unordered_map<const std::string*, Player*> players;
     std::unordered_map<Coordinate, const Item*> mapItems;
 
-    std::list<Coordinate> priests;
     std::list<ResurrectData> playersToResurrect;
 
 
