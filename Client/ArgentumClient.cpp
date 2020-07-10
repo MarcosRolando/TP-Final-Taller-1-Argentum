@@ -30,7 +30,7 @@ void Client::_processConnection() {
     UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    initializer.loadPlayer("gay");
+    initializer.loadPlayer("El recursante");
     char serverAcceptedConnection;
     socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
     //SoundPlayer soundPlayer;

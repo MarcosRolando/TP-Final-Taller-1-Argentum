@@ -14,6 +14,7 @@
 #include "HealCommand.h"
 #include "DepositCommand.h"
 #include "WithdrawCommand.h"
+#include "MessageToPlayerCommand.h"
 #include "../GameGUI.h"
 
 CommandVerifier::CommandVerifier() {
@@ -65,8 +66,8 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
     //Agarro lo que tenga antes de un espacio. Eso deberia ser el comando
     std::string cmd = input.substr(0, input.find(' ', 0));
     GameType::PlayerEvent event;
-    if (cmd.back() == '@') {
-        //command = _processSendMessageToPlayer();
+    if (cmd.front() == '@') {
+        command = _processSendMessageToPlayer();
     } else {
         try {
             event = commands.at(cmd);
@@ -235,12 +236,14 @@ void CommandVerifier::_processGold(std::string& parameter) {
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processSendMessageToPlayer() {
-    /*//Chequeo que no haya nada escrito despues del comando
-    std::string nickname = input.substr(1, input.find(' ', 0));
-    std::string msg = input.substr(input.find(' ',0), input.size());
-    if (!msg.empty()) {
-        return std::unique_ptr<InputCommand>(new DepositCommand(
-                game.getSelector().getSelectedTile(), std::move(parameters)));
-    }*/
+    int separator = input.find(' ');
+    if ((int)input.size() > separator && separator != -1) {
+        std::string nickname = input.substr(1, separator-1);
+        std::string msg = input.substr(separator + 1, input.size());
+        if (!msg.empty()) {
+            return std::unique_ptr<InputCommand>(new MessageToPlayerCommand(
+                    std::move(nickname), std::move(msg)));
+        }
+    }
     return nullptr;
 }
