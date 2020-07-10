@@ -13,6 +13,8 @@ struct TileInfo {
     std::string tileType;
     std::string structureType;
     std::string entityType;
+    bool isOccupable;
+    bool isFromCity;
 };
 
 struct MapSize {

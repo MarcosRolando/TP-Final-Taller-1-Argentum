@@ -50,6 +50,10 @@ TileInfo MapFileReader::getTileInfo(unsigned int row, unsigned int column) {
     tile.structureType = mapElements.at(sData[row*mapDimensions.width + column].asInt());
     Json::Value& eData = layers[2]["data"];
     tile.entityType = mapElements.at(eData[row*mapDimensions.width + column].asInt());
+    Json::Value& oData = layers[3]["data"]; /*isOccupable*/
+    tile.isOccupable = (oData[row*mapDimensions.width + column].asInt() == 0);
+    Json::Value& cData = layers[4]["data"]; /*isFromCity*/
+    tile.isOccupable = (cData[row*mapDimensions.width + column].asInt() != 0);
     return tile;
 }
 
