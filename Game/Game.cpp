@@ -96,6 +96,7 @@ void Game::_updateDeadPlayersTimer(ServerProtocol& protocol, double timestep) {
     ShouldPlayerBeRevived sholdBeRevived(map, data, timestep);
     playersToResurrect.erase(std::remove_if(playersToResurrect.begin(), playersToResurrect.end(), sholdBeRevived),
                              playersToResurrect.end());
+    protocol.addToGeneralData(data);
 }
 
 
