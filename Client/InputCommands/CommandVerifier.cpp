@@ -13,6 +13,7 @@
 #include "ResurrectCommand.h"
 #include "HealCommand.h"
 #include "DepositCommand.h"
+#include "WithdrawCommand.h"
 #include "../GameGUI.h"
 
 CommandVerifier::CommandVerifier() {
@@ -92,10 +93,10 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
                     command = _processSell(game);
                     break;
                 case GameType::PLAYER_WITHDRAW:
-                    //command = _processWithdraw(std::move(inputCmd));
+                    command = _processWithdraw(game);
                     break;
                 case GameType::PLAYER_DEPOSIT:
-                    //command = _processDeposit(std::move(inputCmd));
+                    command = _processDeposit(game);
                     break;
                 case GameType::PLAYER_MEDITATE:
                     _processMeditate();
@@ -162,11 +163,12 @@ std::unique_ptr<InputCommand> CommandVerifier::_processSell(GameGUI& game) {
     std::string parameters;
     if (input.size() > input.find(' ', 0)) {
         parameters = input.substr(input.find(' ', 0) + 1, input.size());
-    } else {
-        return nullptr;//si no tengo parametros es un comando invalido
+        if (!parameters.empty()) {
+            return std::unique_ptr<InputCommand>(new SellCommand(
+                    game.getSelector().getSelectedTile(), std::move(parameters)));
+        }
     }
-    return std::unique_ptr<InputCommand>(new SellCommand(
-            game.getSelector().getSelectedTile(), std::move(parameters)));
+    return nullptr;
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processBuy(GameGUI& game) {
@@ -174,38 +176,60 @@ std::unique_ptr<InputCommand> CommandVerifier::_processBuy(GameGUI& game) {
     std::string parameters;
     if (input.size() > input.find(' ', 0)) {
         parameters = input.substr(input.find(' ', 0) + 1, input.size());
-    } else {
-        return nullptr;//si no tengo parametros es un comando invalido
+        if (!parameters.empty()) {
+            return std::unique_ptr<InputCommand>(new BuyCommand(
+                    game.getSelector().getSelectedTile(), std::move(parameters)));
+        }
     }
-    return std::unique_ptr<InputCommand>(new BuyCommand(
-            game.getSelector().getSelectedTile(), std::move(parameters)));
+    return nullptr;
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processDeposit(GameGUI& game) {
-    /*//Agarro lo que haya dsps del espacio que deberian ser los parametros
+    //Agarro lo que haya dsps del espacio que deberian ser los parametros
     std::string parameters;
     int separator = input.find(' ', 0);
-    if ((int)input.size() > separator) {
+    if ((int)input.size() > separator && separator != -1) {
         parameters = input.substr(separator + 1, input.size());
-        if (parameters.find("gold", 0) != std::string::npos) {//Dice gold en el string
+        if (parameters.find("Gold", 0) != std::string::npos) {//Dice gold en el string
             _processGold(parameters);
-        } else {//Si no dice gold es que estoy mandando un item
+        }
+        if (!parameters.empty()){
             return std::unique_ptr<InputCommand>(new DepositCommand(
                     game.getSelector().getSelectedTile(), std::move(parameters)));
         }
-    } else { //Esto es si no pongo nada despues del comando
-        return nullptr;//si no tengo parametros es un comando invalido
-    }*/
+    }
+    return nullptr;
+}
+
+std::unique_ptr<InputCommand> CommandVerifier::_processWithdraw(GameGUI& game) {
+    //Agarro lo que haya dsps del espacio que deberian ser los parametros
+    std::string parameters;
+    int separator = input.find(' ', 0);
+    if ((int)input.size() > separator && separator != -1) {
+        parameters = input.substr(separator + 1, input.size());
+        if (parameters.find("Gold", 0) != std::string::npos) {//Dice gold en el string
+            _processGold(parameters);
+        }
+        if (!parameters.empty()){
+            return std::unique_ptr<InputCommand>(new WithdrawCommand(
+                    game.getSelector().getSelectedTile(), std::move(parameters)));
+        }
+    }
     return nullptr;
 }
 
 void CommandVerifier::_processGold(std::string& parameter) {
-    /*std::string goldAmount = parameter.substr(parameter.find
-            (' ', 0) + 1, parameter.size());//Agarro la parte del string q deberia tener la cant de gold
-    if (!goldAmount.empty()) {
-
+    int separator = parameter.find(' ', 0);
+    if ((int)parameter.size() > separator && separator != -1) {
+        //Agarro la parte del string q deberia tener la cant de gold
+        std::string goldAmount = parameter.substr(parameter.find(' ', 0) + 1,
+                                                  parameter.size());
+        try {
+            std::stoi(goldAmount);
+        } catch (std::exception &e) {
+            parameter = "";//Si la cantidad no es un numero
+        }
     } else {
-
+        parameter = "";
     }
-     */
 }
