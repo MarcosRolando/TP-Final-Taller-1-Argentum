@@ -24,7 +24,7 @@ public:
                     game(_game), socket(_socket), protocol(_protocol) {}
     void loadPlayer(const std::string &nickname, GameType::Race race,
                        GameType::Class _class);
-    void loadPlayer(std::string &nickname);
+    void loadPlayer(const std::string &nickname);
     void initializeGame();
 
 private:
