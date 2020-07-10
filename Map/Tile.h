@@ -59,6 +59,8 @@ public:
 
     void killPlayer();
 
+    void revivePlayer();
+
     void addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera, float x, float y);
 
     void destroyItem();

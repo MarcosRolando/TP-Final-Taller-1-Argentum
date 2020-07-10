@@ -15,6 +15,7 @@
 #include "../UpdateEvents/UpdateAttack.h"
 #include "../UpdateEvents/UpdateDestroyItem.h"
 #include "../UpdateEvents/UpdateTeleportEntity.h"
+#include "../UpdateEvents/UpdatePlayerResurrect.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Direction)
@@ -79,6 +80,9 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 break;
             case GameType::TELEPORTED:
                 _processTeleportEntity();
+            case GameType::RESURRECTED:
+                _processPlayerResurrect();
+                break;
             default:
                 std::cerr << std::get<0>(id) << " comando no reconocido" << std::endl;
                 break;
@@ -121,6 +125,14 @@ void UpdateReceiver::_processPlayerDeath() {
     handler->convert(player);
     updates.push(std::unique_ptr<UpdateEvent>(
             new UpdatePlayerDeath(std::move(std::get<0>(player)))));
+}
+
+void UpdateReceiver::_processPlayerResurrect() {
+    msgpack::type::tuple<std::string> player;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(player);
+    updates.push(std::unique_ptr<UpdateEvent>(new UpdatePlayerResurrect(
+                                            std::move(std::get<0>(player)))));
 }
 
 void UpdateReceiver::_processCreateItem() {

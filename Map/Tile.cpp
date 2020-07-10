@@ -96,6 +96,14 @@ void Tile::killPlayer() {
     }
 }
 
+void Tile::revivePlayer() {
+    Entity* entityToCast = entity.get();
+    auto player = dynamic_cast<Player*>(entityToCast);
+    if (player) {
+        player->revive();
+    }
+}
+
 void Tile::addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera, float x, float y) {
     if (entity) {
         entity->addSpell(newSpell);

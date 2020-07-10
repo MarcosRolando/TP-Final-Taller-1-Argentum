@@ -41,7 +41,12 @@ UpdateEvents/UpdateAttack.h Client/InputCommands/InputCommand.h Client/InputComm
 Client/InputCommands/CommandVerifier.h Client/InputCommands/MeditateCommand.cpp Client/InputCommands/MeditateCommand.h
 Client/InputCommands/PickUpCommand.cpp Client/InputCommands/PickUpCommand.h Client/CitizenData.h
 UpdateEvents/UpdateDestroyItem.cpp UpdateEvents/UpdateDestroyItem.h Client/InputCommands/DropCommand.cpp
-        Client/InputCommands/DropCommand.h Client/InputCommands/ListCommand.cpp Client/InputCommands/ListCommand.h Client/InputCommands/ResurrectCommand.cpp Client/InputCommands/ResurrectCommand.h Client/InputCommands/SellCommand.cpp Client/InputCommands/SellCommand.h Client/InputCommands/BuyCommand.cpp Client/InputCommands/BuyCommand.h UpdateEvents/UpdateTeleportEntity.cpp UpdateEvents/UpdateTeleportEntity.h)
+Client/InputCommands/DropCommand.h Client/InputCommands/ListCommand.cpp Client/InputCommands/ListCommand.h
+Client/InputCommands/ResurrectCommand.cpp Client/InputCommands/ResurrectCommand.h
+Client/InputCommands/SellCommand.cpp Client/InputCommands/SellCommand.h Client/InputCommands/BuyCommand.cpp
+Client/InputCommands/BuyCommand.h UpdateEvents/UpdateTeleportEntity.cpp UpdateEvents/UpdateTeleportEntity.h
+UpdateEvents/UpdatePlayerResurrect.cpp UpdateEvents/UpdatePlayerResurrect.h)
+
 
 
 

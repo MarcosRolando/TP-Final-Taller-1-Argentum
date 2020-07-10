@@ -204,6 +204,12 @@ void Map::killPlayer(std::string &nickname) {
     tiles.at(tile).killPlayer();
 }
 
+void Map::revivePlayer(std::string &nickname) {
+    Coordinate position = entities.at(nickname);
+    int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
+    tiles.at(tile).revivePlayer();
+}
+
 void Map::addSpell(Coordinate position, TextureID spellTexture) {
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     std::shared_ptr<Spell> spell(new Spell(textureRepo.getTexture(spellTexture),
