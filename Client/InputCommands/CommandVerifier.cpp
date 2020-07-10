@@ -106,13 +106,6 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
             return nullptr;
         }
     }
-
-
-    /*//Agarro lo que haya dsps del espacio que deberian ser los parametros
-    std::string parameters;
-    if (inputCmd.size() > inputCmd.find(' ', 0)) {
-        parameters = inputCmd.substr(inputCmd.find(' ', 0), inputCmd.size());
-    }*/
     return command;
 }
 
@@ -168,6 +161,8 @@ std::unique_ptr<InputCommand> CommandVerifier::_processSell(GameGUI& game) {
     std::string parameters;
     if (input.size() > input.find(' ', 0)) {
         parameters = input.substr(input.find(' ', 0), input.size());
+    } else {
+        return nullptr;//si no tengo parametros es un comando invalido
     }
     return std::unique_ptr<InputCommand>(new SellCommand(
             game.getSelector().getSelectedTile(), std::move(parameters)));
@@ -178,6 +173,8 @@ std::unique_ptr<InputCommand> CommandVerifier::_processBuy(GameGUI& game) {
     std::string parameters;
     if (input.size() > input.find(' ', 0)) {
         parameters = input.substr(input.find(' ', 0), input.size());
+    } else {
+        return nullptr;//si no tengo parametros es un comando invalido
     }
     return std::unique_ptr<InputCommand>(new BuyCommand(
             game.getSelector().getSelectedTile(), std::move(parameters)));
