@@ -10,6 +10,8 @@
 #include "ListCommand.h"
 #include "SellCommand.h"
 #include "BuyCommand.h"
+#include "ResurrectCommand.h"
+#include "HealCommand.h"
 #include "../GameGUI.h"
 
 CommandVerifier::CommandVerifier() {
@@ -20,7 +22,7 @@ CommandVerifier::CommandVerifier() {
 void CommandVerifier::_initCommands() {
     commands.emplace("/meditate", GameType::PLAYER_MEDITATE);
     commands.emplace("/resurrect", GameType::PLAYER_RESURRECT);
-    //commands.emplace("/heal", GameType::PLAYER_HEAL);
+    commands.emplace("/heal", GameType::PLAYER_HEAL);
     commands.emplace("/deposit", GameType::PLAYER_DEPOSIT);
     commands.emplace("/withdraw", GameType::PLAYER_WITHDRAW);
     commands.emplace("/list", GameType::PLAYER_LIST);
@@ -77,7 +79,10 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
                     command = _processList(game);
                     break;
                 case GameType::PLAYER_RESURRECT:
-                    //command = _processResurrect(game);
+                    command = _processResurrect(game);
+                    break;
+                case GameType::PLAYER_HEAL:
+                    command = _processHeal(game);
                     break;
                 case GameType::PLAYER_BUY:
                     command = _processBuy(game);
@@ -147,7 +152,15 @@ std::unique_ptr<InputCommand> CommandVerifier::_processResurrect(GameGUI& game) 
     if (input.size() > input.find(' ', 0)) {
         return nullptr;
     }
-    return std::unique_ptr<InputCommand>(new ListCommand(game.getSelector().getSelectedTile()));
+    return std::unique_ptr<InputCommand>(new ResurrectCommand(game.getSelector().getSelectedTile()));
+}
+
+std::unique_ptr<InputCommand> CommandVerifier::_processHeal(GameGUI& game) {
+    //Chequeo que no haya nada escrito despues del comando
+    if (input.size() > input.find(' ', 0)) {
+        return nullptr;
+    }
+    return std::unique_ptr<InputCommand>(new HealCommand(game.getSelector().getSelectedTile()));
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processSell(GameGUI& game) {
