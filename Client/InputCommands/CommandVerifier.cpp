@@ -13,6 +13,7 @@
 #include "ResurrectCommand.h"
 #include "HealCommand.h"
 #include "DepositCommand.h"
+#include "WithdrawCommand.h"
 #include "../GameGUI.h"
 
 CommandVerifier::CommandVerifier() {
@@ -92,7 +93,7 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
                     command = _processSell(game);
                     break;
                 case GameType::PLAYER_WITHDRAW:
-                    //command = _processWithdraw(std::move(inputCmd));
+                    command = _processWithdraw(game);
                     break;
                 case GameType::PLAYER_DEPOSIT:
                     command = _processDeposit(game);
@@ -194,6 +195,23 @@ std::unique_ptr<InputCommand> CommandVerifier::_processDeposit(GameGUI& game) {
         }
         if (!parameters.empty()){
             return std::unique_ptr<InputCommand>(new DepositCommand(
+                    game.getSelector().getSelectedTile(), std::move(parameters)));
+        }
+    }
+    return nullptr;
+}
+
+std::unique_ptr<InputCommand> CommandVerifier::_processWithdraw(GameGUI& game) {
+    //Agarro lo que haya dsps del espacio que deberian ser los parametros
+    std::string parameters;
+    int separator = input.find(' ', 0);
+    if ((int)input.size() > separator && separator != -1) {
+        parameters = input.substr(separator + 1, input.size());
+        if (parameters.find("Gold", 0) != std::string::npos) {//Dice gold en el string
+            _processGold(parameters);
+        }
+        if (!parameters.empty()){
+            return std::unique_ptr<InputCommand>(new WithdrawCommand(
                     game.getSelector().getSelectedTile(), std::move(parameters)));
         }
     }

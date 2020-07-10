@@ -36,7 +36,9 @@ private:
 
     std::unique_ptr<InputCommand> _processDeposit(GameGUI &game);
 
-    void _processGold(std::string &parameter);
+    static void _processGold(std::string &parameter);
+
+    std::unique_ptr<InputCommand> _processWithdraw(GameGUI &game);
 };
 
 
