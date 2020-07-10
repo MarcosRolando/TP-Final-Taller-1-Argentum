@@ -13,12 +13,14 @@ MSGPACK_ADD_ENUM(GameType::EventID)
 
 Storage &Storage::operator=(Storage &&other) noexcept {
     storedGold = other.storedGold;
+    other.storedGold = 0;
     storedItems = std::move(other.storedItems);
     return *this;
 }
 
 Storage::Storage(Storage &&other) noexcept {
     storedGold = other.storedGold;
+    other.storedGold = 0;
     storedItems = std::move(other.storedItems);
 }
 

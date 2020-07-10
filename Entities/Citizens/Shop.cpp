@@ -12,24 +12,31 @@ Shop::Shop() {
 }
 
 Shop::Shop(const std::unordered_map<std::string, unsigned int> &initialItemsAmounts,
-           float buyingMultiplier, float sellingMultiplier):
+           float _buyingMultiplier, float _sellingMultiplier):
            storage(initialItemsAmounts, Configuration::getInstance().configInitialMerchantGold()) {
     Configuration& config = Configuration::getInstance();
-    for (const auto & weaponData: config.configAllWeaponsData()) {
+    const auto & weaponsData = config.configAllWeaponsData();
+    const auto & clothesData = config.configAllClothingData();
+    const auto & potionsData = config.configAllPotionsData();
+
+    for (const auto & weaponData: weaponsData) {
         prices[weaponData.second.name] = weaponData.second.price;
     }
-    for (const auto & clothingData: config.configAllClothingData()) {
+    for (const auto & clothingData: clothesData) {
         prices[clothingData.second.name] = clothingData.second.price;
     }
-    for (const auto & potionData: config.configAllPotionsData()) {
+    for (const auto & potionData: potionsData) {
         prices[potionData.second.name] = potionData.second.price;
     }
+    buyingMultiplier = _buyingMultiplier;
+    sellingMultiplier = _sellingMultiplier;
 }
 
 Shop &Shop::operator=(Shop &&other) noexcept {
     storage = std::move(other.storage);
     buyingMultiplier = other.buyingMultiplier;
     sellingMultiplier = other.sellingMultiplier;
+    prices = std::move(other.prices);
     return *this;
 }
 
@@ -37,6 +44,7 @@ Shop::Shop(Shop &&other) noexcept {
     storage = std::move(other.storage);
     buyingMultiplier = other.buyingMultiplier;
     sellingMultiplier = other.sellingMultiplier;
+    prices = std::move(other.prices);
 }
 
 
