@@ -60,6 +60,7 @@ PlayerFilePosition PlayerIndexFile::getPlayerPosition(const std::string& nicknam
 void PlayerIndexFile::storeNewPlayer(const std::string &playerNickname,
                                      PlayerFilePosition filePosition) {
 
+    players.emplace(playerNickname, filePosition);
     indexFile.clear();
     indexFile.seekp(0, std::ios_base::end);
     filePosition = {htonl(filePosition.offset), htonl(filePosition.length)};
@@ -70,7 +71,6 @@ void PlayerIndexFile::storeNewPlayer(const std::string &playerNickname,
     indexFile.write(reinterpret_cast<char*>(&filePosition.offset), sizeof(filePosition.offset));
     indexPlayersPosition.emplace(playerNickname, indexFile.tellp());
     indexFile.write(reinterpret_cast<char*>(&filePosition.length), sizeof(filePosition.length));
-    players.emplace(playerNickname, filePosition);
 }
 
 bool PlayerIndexFile::playerExists(const std::string& nickname) const {
