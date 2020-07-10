@@ -37,19 +37,22 @@ Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsig
 }
 
 int32_t Player::attack(Coordinate target) {
+    int32_t returnValue = -1;
     if (!stats.isDead()) {
         stats.stopMeditating(chat);
         int weaponDamage;
         weaponDamage = inventory.getWeaponDamage(currentPosition, target,
                                                     stats.getCurrentMana());
         int totalDamage = stats.getTotalDamage(weaponDamage);
-        AttackResult result = game.attackPosition(totalDamage, stats.getLevel(),
-                                                true, target);
-        stats.increaseExperience(result.experience);
-        chat.addMessage(std::move(result.resultMessage));
-        return inventory.getWeaponId();
+        if (totalDamage != 0) {
+            AttackResult result = game.attackPosition(totalDamage, stats.getLevel(),
+                                                      true, target);
+            stats.increaseExperience(result.experience);
+            chat.addMessage(std::move(result.resultMessage));
+            returnValue = inventory.getWeaponId();
+        }
     }
-    return -1;
+    return returnValue;
 }
 
 void Player::_dropItems() {
