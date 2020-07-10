@@ -257,7 +257,6 @@ void ItemsFactory::storeRandomDrop(std::shared_ptr<Item> &item, unsigned int gol
                (*itemsNames[randomNumber] == manaPotionName)) {
             randomNumber = Calculator::getRandomInt(0, (int)itemsNames.size() - 1);
         }
-        //randomNumber = Calculator::getRandomInt(0, (int)itemsNames.size() - 1);
         itemsCreators[*itemsNames[randomNumber]](item);
     }
 }
