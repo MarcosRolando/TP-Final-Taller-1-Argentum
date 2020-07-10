@@ -8,6 +8,7 @@
 #include "PickUpCommand.h"
 #include "DropCommand.h"
 #include "ListCommand.h"
+#include "SellCommand.h"
 #include "../GameGUI.h"
 
 CommandVerifier::CommandVerifier() {
@@ -76,11 +77,12 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
                     break;
                 case GameType::PLAYER_RESURRECT:
                     //command = _processResurrect(game);
+                    break;
                 case GameType::PLAYER_BUY:
                     //command = _processBuy(std::move(inputCmd));
                     break;
                 case GameType::PLAYER_SELL:
-                    //command = _processSell(std::move(inputCmd));
+                    command = _processSell(game);
                     break;
                 case GameType::PLAYER_WITHDRAW:
                     //command = _processWithdraw(std::move(inputCmd));
@@ -147,4 +149,12 @@ std::unique_ptr<InputCommand> CommandVerifier::_processResurrect(GameGUI& game) 
     return std::unique_ptr<InputCommand>(new ListCommand(game.getSelector().getSelectedTile()));
 }
 
-
+std::unique_ptr<InputCommand> CommandVerifier::_processSell(GameGUI& game) {
+    //Agarro lo que haya dsps del espacio que deberian ser los parametros
+    std::string parameters;
+    if (input.size() > input.find(' ', 0)) {
+        parameters = input.substr(input.find(' ', 0), input.size());
+    }
+    return std::unique_ptr<InputCommand>(new SellCommand(
+            game.getSelector().getSelectedTile(), std::move(parameters)));
+}
