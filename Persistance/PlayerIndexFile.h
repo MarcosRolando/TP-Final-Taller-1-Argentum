@@ -24,10 +24,10 @@ public:
     void storeOldPlayer(const std::string& playerNickname, PlayerFilePosition filePosition);
     void storeNewPlayer(const std::string& playerNickname, PlayerFilePosition filePosition);
     PlayerFilePosition getPlayerPosition(const std::string& nickname);
+    bool playerExists(const std::string& nickname) const;
 
 private:
     void _loadFileData();
-    void _storeNewPlayer(const std::string& nickname);
 };
 
 

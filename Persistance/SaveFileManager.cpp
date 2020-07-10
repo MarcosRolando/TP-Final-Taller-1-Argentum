@@ -3,6 +3,7 @@
 //
 
 #include "SaveFileManager.h"
+#include "../TPException.h"
 
 PlayerData SaveFileManager::getPlayerData(const std::string &playerNickname) {
     std::lock_guard<std::mutex> l(m);
@@ -12,6 +13,9 @@ PlayerData SaveFileManager::getPlayerData(const std::string &playerNickname) {
 
 void SaveFileManager::storeNewPlayer(const PlayerData &data) {
     std::lock_guard<std::mutex> l(m);
+    if (indexFile.playerExists(data.nickname)) {
+        throw TPException("Player cannot be created, he already exists!");
+    }
     PlayerFilePosition filePosition = saveFile.storePlayerData(data);
     indexFile.storeNewPlayer(data.nickname, filePosition);
 }

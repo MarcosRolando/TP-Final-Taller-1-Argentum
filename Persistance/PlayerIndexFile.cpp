@@ -51,10 +51,10 @@ void PlayerIndexFile::storeOldPlayer(const std::string& playerNickname, PlayerFi
 }
 
 PlayerFilePosition PlayerIndexFile::getPlayerPosition(const std::string& nickname) {
-    if (players.count(nickname) == 1) {
+    if (playerExists(nickname)) {
         return players.at(nickname);
     }
-    throw TPException("Intentaron pedir la posicion del archivo de un jugador que no existe!");
+    throw TPException("Intentaron conseguir un player que no existe!");
 }
 
 void PlayerIndexFile::storeNewPlayer(const std::string &playerNickname,
@@ -71,4 +71,8 @@ void PlayerIndexFile::storeNewPlayer(const std::string &playerNickname,
     indexPlayersPosition.emplace(playerNickname, indexFile.tellp());
     indexFile.write(reinterpret_cast<char*>(&filePosition.length), sizeof(filePosition.length));
     players.emplace(playerNickname, filePosition);
+}
+
+bool PlayerIndexFile::playerExists(const std::string& nickname) const {
+    return (players.count(nickname) == 1);
 }
