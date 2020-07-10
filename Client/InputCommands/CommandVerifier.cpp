@@ -66,7 +66,7 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
     std::string cmd = input.substr(0, input.find(' ', 0));
     GameType::PlayerEvent event;
     if (cmd.back() == '@') {
-        //_processSendMessageToPlayer();
+        //command = _processSendMessageToPlayer();
     } else {
         try {
             event = commands.at(cmd);
@@ -232,4 +232,15 @@ void CommandVerifier::_processGold(std::string& parameter) {
     } else {
         parameter = "";
     }
+}
+
+std::unique_ptr<InputCommand> CommandVerifier::_processSendMessageToPlayer() {
+    /*//Chequeo que no haya nada escrito despues del comando
+    std::string nickname = input.substr(1, input.find(' ', 0));
+    std::string msg = input.substr(input.find(' ',0), input.size());
+    if (!msg.empty()) {
+        return std::unique_ptr<InputCommand>(new DepositCommand(
+                game.getSelector().getSelectedTile(), std::move(parameters)));
+    }*/
+    return nullptr;
 }

@@ -39,6 +39,8 @@ private:
     static void _processGold(std::string &parameter);
 
     std::unique_ptr<InputCommand> _processWithdraw(GameGUI &game);
+
+    std::unique_ptr<InputCommand> _processSendMessageToPlayer();
 };
 
 
