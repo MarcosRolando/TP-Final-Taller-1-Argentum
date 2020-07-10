@@ -412,7 +412,7 @@ void Map::deposit(Player &player, const std::string &itemName, Coordinate coordi
 
 void Map::buy(Player &player, const std::string &itemName, Coordinate coordinate) {
     if (_isCoordinateValid(coordinate)) {
-        tiles[coordinate.iPosition][coordinate.jPosition].deposit(player, itemName);
+        tiles[coordinate.iPosition][coordinate.jPosition].buy(player, itemName);
     }
 }
 
