@@ -202,7 +202,9 @@ void ItemsFactory::_storeGold(std::shared_ptr<Item> &item, unsigned int amount) 
     std::shared_ptr<Item> aux(new Gold(amount));
     item = std::move(aux);
     */
-    item.reset(new Gold(amount));
+    if (amount > 0) {
+        item.reset(new Gold(amount));
+    }
 }
 
 void ItemsFactory::_storeManaPotion(std::shared_ptr<Item> &item) {
