@@ -32,7 +32,7 @@ private:
     std::unique_ptr<InputCommand> _processResurrect(GameGUI &game);
     std::unique_ptr<InputCommand> _processSell(GameGUI &game);
     std::unique_ptr<InputCommand> _processBuy(GameGUI &game);
-    std::unique_ptr<InputCommand> _processHeal(GameGUI& game)
+    std::unique_ptr<InputCommand> _processHeal(GameGUI& game);
 };
 
 
