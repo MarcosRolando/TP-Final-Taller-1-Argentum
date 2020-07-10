@@ -8,7 +8,7 @@
 #include "../UpdateEvents/UpdateEvent.h"
 #include <string>
 
-class UpdatePlayerResurrect {
+class UpdatePlayerResurrect : public UpdateEvent {
 private:
     std::string nickname;
 

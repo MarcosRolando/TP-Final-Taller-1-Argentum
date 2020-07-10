@@ -14,6 +14,8 @@
 #include "../UpdateEvents/UpdatePlayerDeath.h"
 #include "../UpdateEvents/UpdateAttack.h"
 #include "../UpdateEvents/UpdateDestroyItem.h"
+#include "../UpdateEvents/UpdateTeleportEntity.h"
+#include "../UpdateEvents/UpdatePlayerResurrect.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Direction)
@@ -76,6 +78,8 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
             case GameType::DESTROY_ITEM:
                 _processDestroyItem();
                 break;
+            case GameType::TELEPORTED:
+                _processTeleportEntity();
             case GameType::RESURRECTED:
                 _processPlayerResurrect();
                 break;
@@ -85,6 +89,16 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
         }
     }
     _receivePlayerData();
+}
+
+void UpdateReceiver::_processTeleportEntity() {
+    msgpack::type::tuple<std::string, int32_t, int32_t> teleportData;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(teleportData);
+    updates.push(std::unique_ptr<UpdateEvent>(new UpdateTeleportEntity(
+                            std::move(std::get<0>(teleportData)),
+                                    {std::get<1>(teleportData),
+                                    std::get<2>(teleportData)})));
 }
 
 void UpdateReceiver::_processDestroyItem() {
@@ -117,8 +131,8 @@ void UpdateReceiver::_processPlayerResurrect() {
     msgpack::type::tuple<std::string> player;
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     handler->convert(player);
-    updates.push(std::unique_ptr<UpdateEvent>(
-            new UpdatePlayerDeath(std::move(std::get<0>(player)))));
+    updates.push(std::unique_ptr<UpdateEvent>(new UpdatePlayerResurrect(
+                                            std::move(std::get<0>(player)))));
 }
 
 void UpdateReceiver::_processCreateItem() {

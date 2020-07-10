@@ -69,6 +69,9 @@ public:
 
     void destroyItem(Coordinate itemPosition);
 
+    void teleportEntity(const std::string& nickname, Coordinate newPosition,
+                        bool isMyPlayer);
+
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
     void _updateSpellsFrame(float timeStep);
