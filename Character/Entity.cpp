@@ -174,6 +174,7 @@ void Entity::_modifyPosition(GameType::Direction direction, float distance) {
 
 void Entity::activateCamera() {
     cameraFollows = true;
+    camera = {static_cast<int>(xPosition), static_cast<int>(yPosition)};
 }
 
 void Entity::addSpell(std::shared_ptr<Spell>& _spell) {

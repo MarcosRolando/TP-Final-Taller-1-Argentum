@@ -17,7 +17,4 @@ public:
     void operator()(std::stringstream& msgBuffer) override;
 };
 
-};
-
-
 #endif //ARGENTUM_RESURRECTCOMMAND_H
