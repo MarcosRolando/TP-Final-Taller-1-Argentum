@@ -12,7 +12,7 @@ Shop::Shop() {
 }
 
 Shop::Shop(const std::unordered_map<std::string, unsigned int> &initialItemsAmounts,
-           float buyingMultiplier, float sellingMultiplier):
+           float _buyingMultiplier, float _sellingMultiplier):
            storage(initialItemsAmounts, Configuration::getInstance().configInitialMerchantGold()) {
     Configuration& config = Configuration::getInstance();
     for (const auto & weaponData: config.configAllWeaponsData()) {
@@ -24,6 +24,8 @@ Shop::Shop(const std::unordered_map<std::string, unsigned int> &initialItemsAmou
     for (const auto & potionData: config.configAllPotionsData()) {
         prices[potionData.second.name] = potionData.second.price;
     }
+    buyingMultiplier = _buyingMultiplier;
+    sellingMultiplier = _sellingMultiplier;
 }
 
 Shop &Shop::operator=(Shop &&other) noexcept {
