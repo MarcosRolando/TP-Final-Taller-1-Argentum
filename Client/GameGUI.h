@@ -20,7 +20,7 @@
 class GameGUI {
 private:
     Window screen;
-    SDL_Rect camera{ 91, 94, DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT};
+    SDL_Rect camera{0, 0, DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT};
     TextureRepository repo;
     Map map;
     Minichat minichat;
