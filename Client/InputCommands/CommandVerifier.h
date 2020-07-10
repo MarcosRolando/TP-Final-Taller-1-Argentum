@@ -33,6 +33,8 @@ private:
     std::unique_ptr<InputCommand> _processList(GameGUI &game);
 
     std::unique_ptr<InputCommand> _processResurrect(GameGUI &game);
+
+    std::unique_ptr<InputCommand> _processSell(GameGUI &game);
 };
 
 
