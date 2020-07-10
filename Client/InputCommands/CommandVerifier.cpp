@@ -172,7 +172,7 @@ std::unique_ptr<InputCommand> CommandVerifier::_processBuy(GameGUI& game) {
     //Agarro lo que haya dsps del espacio que deberian ser los parametros
     std::string parameters;
     if (input.size() > input.find(' ', 0)) {
-        parameters = input.substr(input.find(' ', 0), input.size());
+        parameters = input.substr(input.find(' ', 0) + 1, input.size());
     } else {
         return nullptr;//si no tengo parametros es un comando invalido
     }
