@@ -46,7 +46,7 @@ Client/InputCommands/ResurrectCommand.cpp Client/InputCommands/ResurrectCommand.
 Client/InputCommands/SellCommand.cpp Client/InputCommands/SellCommand.h Client/InputCommands/BuyCommand.cpp
 Client/InputCommands/BuyCommand.h UpdateEvents/UpdatePlayerResurrect.cpp UpdateEvents/UpdatePlayerResurrect.h
 Client/InputCommands/HealCommand.cpp Client/InputCommands/HealCommand.h UpdateEvents/UpdateTeleportEntity.h
-UpdateEvents/UpdateTeleportEntity.cpp)
+UpdateEvents/UpdateTeleportEntity.cpp Client/InputCommands/DepositCommand.cpp Client/InputCommands/DepositCommand.h)
 
 
 

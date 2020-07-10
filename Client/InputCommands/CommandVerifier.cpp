@@ -12,6 +12,7 @@
 #include "BuyCommand.h"
 #include "ResurrectCommand.h"
 #include "HealCommand.h"
+#include "DepositCommand.h"
 #include "../GameGUI.h"
 
 CommandVerifier::CommandVerifier() {
@@ -178,4 +179,33 @@ std::unique_ptr<InputCommand> CommandVerifier::_processBuy(GameGUI& game) {
     }
     return std::unique_ptr<InputCommand>(new BuyCommand(
             game.getSelector().getSelectedTile(), std::move(parameters)));
+}
+
+std::unique_ptr<InputCommand> CommandVerifier::_processDeposit(GameGUI& game) {
+    /*//Agarro lo que haya dsps del espacio que deberian ser los parametros
+    std::string parameters;
+    int separator = input.find(' ', 0);
+    if ((int)input.size() > separator) {
+        parameters = input.substr(separator + 1, input.size());
+        if (parameters.find("gold", 0) != std::string::npos) {//Dice gold en el string
+            _processGold(parameters);
+        } else {//Si no dice gold es que estoy mandando un item
+            return std::unique_ptr<InputCommand>(new DepositCommand(
+                    game.getSelector().getSelectedTile(), std::move(parameters)));
+        }
+    } else { //Esto es si no pongo nada despues del comando
+        return nullptr;//si no tengo parametros es un comando invalido
+    }*/
+    return nullptr;
+}
+
+void CommandVerifier::_processGold(std::string& parameter) {
+    /*std::string goldAmount = parameter.substr(parameter.find
+            (' ', 0) + 1, parameter.size());//Agarro la parte del string q deberia tener la cant de gold
+    if (!goldAmount.empty()) {
+
+    } else {
+
+    }
+     */
 }

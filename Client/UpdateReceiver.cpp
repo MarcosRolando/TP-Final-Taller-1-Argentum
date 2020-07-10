@@ -80,6 +80,7 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 break;
             case GameType::TELEPORTED:
                 _processTeleportEntity();
+                break;
             case GameType::RESURRECTED:
                 _processPlayerResurrect();
                 break;
