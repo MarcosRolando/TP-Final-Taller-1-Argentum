@@ -28,3 +28,8 @@ void Player::equip(GameType::EquipmentPlace place, TextureID equipment) {
 void Player::kill() {
     isAlive = false;
 }
+
+void Player::revive() {
+    isAlive = true;
+}
+

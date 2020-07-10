@@ -24,6 +24,8 @@ public:
     void equip(GameType::EquipmentPlace place, TextureID equipment);
 
     void kill();
+
+    void revive();
 };
 
 

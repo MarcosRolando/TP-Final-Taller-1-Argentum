@@ -61,6 +61,8 @@ public:
 
     void killPlayer(std::string& nickname);
 
+    void revivePlayer(std::string &nickname);
+
     void addSpell(Coordinate position, TextureID spellTexture);
 
     void update(float timeStep = 0);
