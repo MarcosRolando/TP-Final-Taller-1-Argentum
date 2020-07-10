@@ -57,8 +57,6 @@ TileInfo MapFileReader::getTileInfo(unsigned int row, unsigned int column) {
     return tile;
 }
 
-
-
 MapFileReader::~MapFileReader() {
     file.close();
 }
