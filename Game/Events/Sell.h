@@ -15,10 +15,10 @@ class Player;
 class Sell: public Event {
 private:
     Player& player;
-    Coordinate position;
+    Coordinate position{};
     std::string itemName;
 public:
-    Sell(Player& player, const std::string& itemName, Coordinate position);
+    Sell(Player& player, std::string&& itemName, Coordinate position);
     void operator()(ServerProtocol& protocol) override;
 };
 

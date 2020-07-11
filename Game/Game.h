@@ -44,7 +44,7 @@ private:
     MonstersFactory monstersFactory;
 
     std::list<Monster*> monsters;
-    std::unordered_map<const std::string*, Player*> players;
+    std::unordered_map<std::string, Player*> players;
     std::unordered_map<Coordinate, const Item*> mapItems;
 
     std::list<ResurrectData> playersToResurrect;
@@ -126,6 +126,9 @@ public:
     //guarda su informacion para resucitarlo cuando la cantidad de tiempo necesaria
     //Si lo resucita retorna true, sino retorna false
     bool requestResurrect(Player& player, Coordinate selectedPosition);
+
+    //Envia un mensaje a otro jugador
+    void messagePlayer(const std::string& playerToMessage, const std::string& message);
 };
 
 

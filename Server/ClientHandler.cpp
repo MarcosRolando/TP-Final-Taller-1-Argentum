@@ -204,3 +204,11 @@ void ClientHandler::_processResurrect(std::vector<char> &data) {
     player.requesResurrect({std::get<0>(resurrectArguments),
                                         std::get<1>(resurrectArguments)});
 }
+
+void ClientHandler::_processMessage(std::vector<char> &data) {
+    msgpack::type::tuple<std::string, std::string> messageArguments;
+    handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(messageArguments);
+    player.messageOtherPlayer(std::move(std::get<0>(messageArguments)),
+                            std::move(std::get<1>(messageArguments)));
+}

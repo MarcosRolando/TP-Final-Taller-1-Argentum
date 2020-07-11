@@ -19,7 +19,7 @@ private:
     Coordinate npcPosition{};
 
 public:
-    Buy(Player& player, const std::string& _itemName, Coordinate _npcPosition);
+    Buy(Player& player, std::string&& _itemName, Coordinate _npcPosition);
     void operator()(ServerProtocol& protocol) override;
 };
 

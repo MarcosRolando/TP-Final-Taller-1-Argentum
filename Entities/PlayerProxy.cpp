@@ -19,6 +19,7 @@
 #include "../Config/GameEnums.h"
 #include "../Game/Events/PickUpItem.h"
 #include "../Game/Events/RequestResurrect.h"
+#include "../Game/Events/Message.h"
 
 #define MAX_EVENTS_STORED 3
 
@@ -77,19 +78,19 @@ void PlayerProxy::move(GameType::Direction direction) {
 
 void PlayerProxy::buyFrom(std::string &&itemName, Coordinate npcPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Buy(*player, itemName, npcPosition));
+        storedEvents.emplace(new Buy(*player, std::move(itemName), npcPosition));
     }
 }
 
 void PlayerProxy::sellTo(std::string &&itemName, Coordinate npcPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Sell(*player, itemName, npcPosition));
+        storedEvents.emplace(new Sell(*player, std::move(itemName), npcPosition));
     }
 }
 
 void PlayerProxy::withdrawFrom(std::string &&itemName, Coordinate npcPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Withdraw(*player, itemName, npcPosition));
+        storedEvents.emplace(new Withdraw(*player, std::move(itemName), npcPosition));
     }
 }
 
@@ -101,7 +102,7 @@ void PlayerProxy::listFrom(Coordinate npcPosition) {
 
 void PlayerProxy::depositTo(std::string &&itemName, Coordinate npcPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Deposit(*player, itemName, npcPosition));
+        storedEvents.emplace(new Deposit(*player, std::move(itemName), npcPosition));
     }
 }
 
@@ -147,5 +148,13 @@ void PlayerProxy::storeAllRelevantData(std::stringstream& data) const {
 
 void PlayerProxy::remove(ServerProtocol& protocol) {
     game->removePlayer(player, protocol);
+}
+
+void PlayerProxy::messageOtherPlayer(std::string &&playerToMessage,
+                                     std::string &&message) {
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new Message(*game, *player, std::move(playerToMessage),
+                                        std::move(message)));
+    }
 }
 

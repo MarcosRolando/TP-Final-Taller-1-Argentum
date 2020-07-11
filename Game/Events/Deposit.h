@@ -19,7 +19,7 @@ private:
     Coordinate npcPosition{};
 
 public:
-    Deposit(Player& player, const std::string& _itemName, Coordinate _npcPosition);
+    Deposit(Player& player, std::string&& _itemName, Coordinate _npcPosition);
     void operator()(ServerProtocol& protocol) override;
 
 };

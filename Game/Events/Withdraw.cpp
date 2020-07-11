@@ -5,8 +5,8 @@
 #include "Withdraw.h"
 #include "../../Entities/Player.h"
 
-Withdraw::Withdraw(Player &_player, const std::string &_itemName, Coordinate _npcPosition) : player(_player) {
-    itemName = _itemName;
+Withdraw::Withdraw(Player &_player, std::string&& _itemName, Coordinate _npcPosition) : player(_player) {
+    itemName = std::move(_itemName);
     npcPosition = _npcPosition;
 }
 

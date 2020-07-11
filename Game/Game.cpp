@@ -213,7 +213,7 @@ Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
     player->storeItem(item);
     player->useItem(0);
     Player* playerAux = player.get();
-    players.emplace(&playerAux->getNickname(), playerAux);
+    players.emplace(playerAux->getNickname(), playerAux);
     map.addEntity(position, std::move(player));
     std::stringstream data;
     (*playerAux) >> data;
@@ -236,7 +236,7 @@ void Game::removePlayer(Player *player, ServerProtocol& protocol) {
     //PlayerShouldBeRemoved shouldBeRemoved(player);
     //players.erase(std::remove_if(players.begin(), players.end(), shouldBeRemoved),
     //                            players.end());
-    players.erase(&player->getNickname());
+    players.erase(player->getNickname());
     map.removeEntity(player->getPosition());
 }
 
@@ -284,6 +284,11 @@ bool Game::requestResurrect(Player &player, Coordinate selectedPosition) {
     player.addMessage(std::to_string(waitingTime) + "\n");
     playersToResurrect.push_back({waitingTime, 0, nearestPriest, &player});
     return false;
+}
+
+void Game::messagePlayer(const std::string &playerToMessage, const std::string &message) {
+    Player* player = players.at(playerToMessage);
+    player->addMessage(message);
 }
 
 bool PlayerShouldBeRemoved::operator()(const Player* player) {

@@ -33,7 +33,7 @@ public:
     const std::vector<char>& getMapInfo() const;
 
     const std::vector<char>& buildCurrentState(
-                                const std::unordered_map<const std::string*, Player*>& players,
+                                const std::unordered_map<std::string, Player*>& players,
                                 //const std::list<Player*>& players,
                                 const std::list<Monster*>& monsters,
                                 const std::unordered_map<Coordinate, const Item*>& mapItems);

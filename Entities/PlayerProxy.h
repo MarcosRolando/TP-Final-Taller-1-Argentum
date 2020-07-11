@@ -34,6 +34,7 @@ public:
     void buyFrom(std::string&& itemName, Coordinate npcPosition);
     void sellTo(std::string&& itemName, Coordinate npcPosition);
     void withdrawFrom(std::string&& itemName, Coordinate npcPosition);
+    void messageOtherPlayer(std::string&& playerToMessage, std::string&& message);
     void listFrom(Coordinate npcPosition);
     void depositTo(std::string&& itemName, Coordinate npcPosition);
     void unequip(GameType::EquipmentPlace clothing);

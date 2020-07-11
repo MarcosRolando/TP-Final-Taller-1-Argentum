@@ -5,8 +5,8 @@
 #include "Sell.h"
 #include "../../Entities/Player.h"
 
-Sell::Sell(Player &player, const std::string& _itemName, Coordinate _position):
-           player(player), itemName(_itemName) {
+Sell::Sell(Player &player, std::string&& _itemName, Coordinate _position):
+           player(player), itemName(std::move(_itemName)) {
     position = _position;
 }
 
