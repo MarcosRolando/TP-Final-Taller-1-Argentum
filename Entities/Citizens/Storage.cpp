@@ -11,6 +11,8 @@
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 
+#define UNEXISTING_ITEM_MESSAGE "The requested item is not available\n"
+
 Storage &Storage::operator=(Storage &&other) noexcept {
     storedGold = other.storedGold;
     other.storedGold = 0;
@@ -43,18 +45,20 @@ void Storage::storeItem(std::shared_ptr<Item> &&item) {
     }
 }
 
-void Storage::retreiveItem(const std::string& itemName, Player &player) {
+bool Storage::retreiveItem(const std::string& itemName, Player &player) {
     std::shared_ptr<Item> item;
     if (storedItems.count(itemName) == 1) {
         item = storedItems.at(itemName).front();
         if (!player.storeItem(item)) {
-            return;
+            return false;
         }
         storedItems[itemName].pop_front();
         if (storedItems[itemName].empty()) {
             storedItems.erase(itemName);
         }
     }
+    player.addMessage(UNEXISTING_ITEM_MESSAGE);
+    return false;
 }
 
 void Storage::getStorageData(Player& player, const std::unordered_map<std::string, unsigned int> &prices,

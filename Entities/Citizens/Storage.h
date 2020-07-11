@@ -56,7 +56,7 @@ public:
 
     //Intenta pasar el item pedido de Storage a Player, si el item no existe o
     //el player no tiene espacio entonces no hace nada
-    void retreiveItem(const std::string& itemName, Player& player);
+    bool retreiveItem(const std::string& itemName, Player& player);
 
     //Almacena en la lista instancias del struct ProductData, retorna la cantidad
     //de oro que tiene almacenada storage

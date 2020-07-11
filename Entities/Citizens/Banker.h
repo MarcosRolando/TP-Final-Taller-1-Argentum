@@ -16,9 +16,14 @@ class EntityTests;
 //El jugador puede darle oro o items nuevos para que guarde o sacar oro o items
 class Banker: public Entity {
 private:
-    static std::unordered_map<std::string, Storage> playersStorages;
+    //static std::unordered_map<std::string, Storage> playersStorages;
+    static std::unordered_map<std::string, std::pair<int32_t, Storage>> playersStorages;
 
     friend EntityTests;
+
+private:
+    static int32_t _getNumberOfItemsStored(const std::unordered_map<std::string, unsigned int>&
+                                                        initialItemsAmounts) ;
 
 public:
     explicit Banker(Coordinate initialPosition);
