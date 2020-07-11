@@ -55,8 +55,11 @@ unsigned int Calculator::calculateNextLevelXP(unsigned int level) {
     return (multiplier * static_cast<unsigned int>(pow(level, exponent)));
 }
 
-unsigned int Calculator::calculateAttackXP(unsigned int dmg, unsigned int
+unsigned int Calculator::calculateAttackXP(int dmg, unsigned int
                                     myLevel, unsigned int otherLevel) {
+    if (dmg < 0) {
+        return 0;
+    }
     unsigned int modifier = Configuration::getInstance().configXPModifiers()
             .attackXPModifier;
 

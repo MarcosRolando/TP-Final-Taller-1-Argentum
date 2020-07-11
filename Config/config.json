@@ -186,8 +186,8 @@
     },
     {
       "Name" : "ElvenFlute",
-      "MinDmg" : 0,
-      "MaxDmg" : 0,
+      "MinDmg" : -500,
+      "MaxDmg" : -200,
       "Range" : 5,
       "ManaConsumption" : 100,
       "Price" : 100

@@ -21,7 +21,7 @@ public:
 
     static unsigned int calculateNextLevelXP(unsigned int level);
 
-    static unsigned int calculateAttackXP(unsigned int dmg, unsigned int
+    static unsigned int calculateAttackXP(int dmg, unsigned int
     myLevel, unsigned int otherLevel);
 
     static unsigned int calculateKillXP(unsigned int myLevel, unsigned int otherLevel,
