@@ -6,11 +6,13 @@
 #define ARGENTUM_SOUNDPLAYER_H
 
 #include "SoundRepository.h"
+#include <mutex>
 
 class SoundPlayer {
 private:
     std::queue<SoundID> soundQueue;
     SoundRepository repo;
+    std::mutex m;
 public:
     SoundPlayer();
 
@@ -25,7 +27,7 @@ public:
     ~SoundPlayer();
 
 
-    bool isMusicPlaying();
+    static bool isMusicPlaying();
 };
 
 

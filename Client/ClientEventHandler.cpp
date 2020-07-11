@@ -110,6 +110,13 @@ void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
         case SDLK_RETURN:
             _processCommandInput();
             break;
+        case SDLK_SPACE:
+            if (SoundPlayer::isMusicPlaying()) {
+                game.getSoundPlayer().pauseMusic();
+            } else {
+                game.getSoundPlayer().playMusic();
+            }
+            break;
     }
 }
 
