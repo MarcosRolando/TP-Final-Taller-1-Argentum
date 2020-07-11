@@ -143,6 +143,8 @@ public:
 
     //Retorna una posicion disponible alrededor de la posicion recibida
     Coordinate getSpawnCoordinateArroundPosition(Coordinate refference);
+
+    void requestRestore(Player& player, Coordinate target);
 };
 
 

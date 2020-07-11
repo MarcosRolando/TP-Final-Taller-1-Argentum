@@ -129,6 +129,8 @@ public:
 
     //Envia un mensaje a otro jugador
     void messagePlayer(const std::string& playerToMessage, const std::string& message);
+
+    void requestRestore(Player& player, Coordinate target);
 };
 
 

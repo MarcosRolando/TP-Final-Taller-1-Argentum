@@ -293,6 +293,10 @@ void Game::messagePlayer(const std::string &playerToMessage, const std::string &
     }
 }
 
+void Game::requestRestore(Player& player, Coordinate target) {
+    map.requestRestore(player, target);
+}
+
 bool PlayerShouldBeRemoved::operator()(const Player* player) {
     return (playerToRemove == player);
 }
