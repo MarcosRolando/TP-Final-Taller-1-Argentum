@@ -97,8 +97,8 @@ SoundPlayer &GameGUI::getSoundPlayer() {
     return soundPlayer;
 }
 
-void GameGUI::setCameraOn(Coordinate position) {
-    map.setCameraOn(position);
+void GameGUI::setCameraOn(std::string& playerNickname) {
+    map.setCameraOn(playerNickname);
 }
 
 

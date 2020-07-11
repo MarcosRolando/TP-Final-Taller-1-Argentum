@@ -22,7 +22,7 @@ private:
     Texture* tileTexture{nullptr};
     ItemDrop item;
     Structure structure;
-    std::unique_ptr<Entity> entity{nullptr};
+    std::weak_ptr<Entity> entity;
     std::weak_ptr<Spell> spell;
     //The tile type
     int type;
@@ -44,22 +44,9 @@ public:
 
     void renderEntity();
 
-    void addEntity(std::unique_ptr<Entity> _entity);
-
-    GameType::Direction moveEntity(GameType::Direction direction, unsigned int distanceTravelled,
-                    bool reachedDestination);
-
-    void setCameraOn();
+    void addEntity(std::shared_ptr<Entity>& _entity);
 
     void removeEntity();
-
-    std::unique_ptr<Entity> getEntity();
-
-    void equipOnPlayer(GameType::EquipmentPlace place, TextureID equipment);
-
-    void killPlayer();
-
-    void revivePlayer();
 
     void addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera, float x, float y);
 

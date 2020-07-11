@@ -26,8 +26,8 @@ private:
     SoundPlayer& soundPlayer;
     std::vector<Tile> tiles;
     SDL_Rect& camera;
-    std::unordered_map<std::string, Coordinate> entities;
-    std::list<std::tuple<std::unique_ptr<Entity>, Coordinate, std::string>> entitiesToUpdateTilePosition; /*Esto es para no pisar entities entre si cuando terminan de moverse*/
+    std::unordered_map<std::string, std::pair<std::shared_ptr<Entity>, Coordinate>> entities;
+    std::list<std::tuple<std::shared_ptr<Entity>*, Coordinate, std::string>> entitiesToUpdateTilePosition; /*Esto es para no pisar entities entre si cuando terminan de moverse*/
     std::list<std::shared_ptr<Spell>> spells; /*Comparto ownership cosa que si el entity muere no pierdo la animacion del hechizo*/
 
 public:
@@ -54,7 +54,7 @@ public:
     void moveEntity(std::string& nickname, GameType::Direction direction,
             unsigned int distanceTravelled, bool reachedDestination);
 
-    void setCameraOn(Coordinate position);
+    void setCameraOn(std::string& playerNickname);
 
     void removeEntity(std::string& nickname);
 

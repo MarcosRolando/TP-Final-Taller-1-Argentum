@@ -48,7 +48,7 @@ public:
     Map& getMap();
     SoundPlayer& getSoundPlayer();
 
-    void setCameraOn(Coordinate position);
+    void setCameraOn(std::string& playerNickname);
 
     void render(float timeStep);
 };
