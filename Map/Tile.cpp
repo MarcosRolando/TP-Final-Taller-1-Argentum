@@ -76,8 +76,10 @@ void Tile::setCameraOn() {
 }
 
 void Tile::removeEntity() {
-    spell = entity->getSpell(); /*Para que la animacion quede y no muera si mataste al entity*/
-    entity = nullptr;
+    if (entity) {
+        spell = entity->getSpell(); /*Para que la animacion quede y no muera si mataste al entity*/
+        entity = nullptr;
+    }
 }
 
 void Tile::equipOnPlayer(GameType::EquipmentPlace place, TextureID equipment) {
