@@ -92,8 +92,6 @@ void Map::_storeAdjacentPositions(
     }
 }
 
-#include <iostream>
-
 void Map::_storePath(Coordinate initialPosition, Coordinate desiredPosition,
                      const std::unordered_map<Coordinate, Coordinate>& parentsAndChilds,
                      std::list<Coordinate>& path) {
@@ -200,6 +198,7 @@ Map::Map(MapFileReader &mapFile, std::list<Coordinate>& priests) {
                     priests.push_back({static_cast<int>(i), static_cast<int>(j)});
                 }
             }
+
             //CAMBIAR, POR AHORA SE PONE TODO COMO OCUPABLE
 
             /*
@@ -211,7 +210,7 @@ Map::Map(MapFileReader &mapFile, std::list<Coordinate>& priests) {
             }
             */
 
-            tiles[i].emplace_back(true, false, floors.at(aux.tileType), structures
+            tiles[i].emplace_back(aux.isOccupable, aux.isFromCity, floors.at(aux.tileType), structures
                     .at(aux.structureType), std::move(citizen));
         }
     }
