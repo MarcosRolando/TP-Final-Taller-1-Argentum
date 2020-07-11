@@ -30,7 +30,7 @@ void Client::_processConnection() {
     UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    initializer.loadPlayer("PUTOELQUELEE");
+    initializer.loadPlayer("agusGay");
     char serverAcceptedConnection;
     socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
     //SoundPlayer soundPlayer;
@@ -99,8 +99,8 @@ Client::Client(std::string &&host, std::string &&port)  : host(host), port(port)
 
 void Client::_setCursor() {
     //Setea un cursor custom
-    SDL_Surface *surface = NULL;
-    SDL_Cursor *cursor = NULL;
+    SDL_Surface *surface = nullptr;
+    SDL_Cursor *cursor = nullptr;
     surface = SDL_LoadBMP("../Images/UI/Cursor.bmp");
     if (!surface) {
         throw TPException("No se pudo crear el cursor");
@@ -127,15 +127,15 @@ void Client::_initializeSDL() {
             throw TPException("SDL_image could not initialize! SDL_mage Error: %s\n", IMG_GetError() );
         }
     }
-    if( Mix_OpenAudio(FREQUENCY, MIX_DEFAULT_FORMAT, 2,
-                      CHUNKSIZE) < 0 ){
+    if(Mix_OpenAudio(FREQUENCY, MIX_DEFAULT_FORMAT, 2,
+                      CHUNKSIZE) < 0){
         throw TPException("SDL_mixer could not initialize!"
                           " SDL_mixer Error: %s\n", Mix_GetError());
     }
     //Initialize SDL_ttf
-    if( TTF_Init() == -1 ){//ver si esto va en la clase SDL gral
+    if(TTF_Init() == -1) {
         throw TPException("SDL_ttf could not initialize! SDL_ttf Error:"
-                          " %s\n", TTF_GetError() );
+                          " %s\n", TTF_GetError());
     }
 }
 
