@@ -20,6 +20,7 @@
 #include "../Game/Events/PickUpItem.h"
 #include "../Game/Events/RequestResurrect.h"
 #include "../Game/Events/Message.h"
+#include "../Game/Events/RestoreStats.h"
 
 #define MAX_EVENTS_STORED 3
 
@@ -130,6 +131,18 @@ void PlayerProxy::requesResurrect(Coordinate selectedPosition) {
     }
 }
 
+void PlayerProxy::messageOtherPlayer(std::string &&playerToMessage, std::string &&message) {
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new Message(*game, *player, std::move(playerToMessage),
+                                         std::move(message)));
+    }
+}
+
+void PlayerProxy::requestHeal(Coordinate selectedPosition) {
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new RestoreStats(*game, *player, selectedPosition));
+    }
+}
 
 void PlayerProxy::giveEventsToGame() {
     while (!storedEvents.empty()) {
@@ -148,13 +161,5 @@ void PlayerProxy::storeAllRelevantData(std::stringstream& data) const {
 
 void PlayerProxy::remove(ServerProtocol& protocol) {
     game->removePlayer(player, protocol);
-}
-
-void PlayerProxy::messageOtherPlayer(std::string &&playerToMessage,
-                                     std::string &&message) {
-    if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Message(*game, *player, std::move(playerToMessage),
-                                        std::move(message)));
-    }
 }
 

@@ -149,3 +149,9 @@ Item* Tile::peekShowedItemData() {
     return items.back().get();
 }
 
+void Tile::requestRestore(Player& player) {
+    if (entity) {
+        entity->requestHeal(player);
+    }
+}
+

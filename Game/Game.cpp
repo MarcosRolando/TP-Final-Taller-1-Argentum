@@ -297,6 +297,10 @@ bool Game::playerExists(const std::string &nickname) const {
     return (players.count(nickname) == 1);
 }
 
+void Game::requestRestore(Player& player, Coordinate target) {
+    map.requestRestore(player, target);
+}
+
 bool PlayerShouldBeRemoved::operator()(const Player* player) {
     return (playerToRemove == player);
 }

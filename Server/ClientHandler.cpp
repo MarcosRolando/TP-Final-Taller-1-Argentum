@@ -30,7 +30,8 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol) :
                        {GameType::PLAYER_DEPOSIT, &ClientHandler::_processDeposit},
                        {GameType::PLAYER_MEDITATE, &ClientHandler::_processMeditate},
                        {GameType::PLAYER_RESURRECT, &ClientHandler::_processResurrect},
-                        {GameType::PLAYER_SEND_MSG, &ClientHandler::_processMessage}};
+                        {GameType::PLAYER_SEND_MSG, &ClientHandler::_processMessage},
+                       {GameType::PLAYER_HEAL, &ClientHandler::_processHeal}};
 }
 
 void ClientHandler::run() {
@@ -212,4 +213,11 @@ void ClientHandler::_processMessage(std::vector<char> &data) {
     handler->convert(messageArguments);
     player.messageOtherPlayer(std::move(std::get<0>(messageArguments)),
                             std::move(std::get<1>(messageArguments)));
+}
+
+void ClientHandler::_processHeal(std::vector<char> &data) {
+    msgpack::type::tuple<int32_t, int32_t> healArguments;
+    handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(healArguments);
+    player.requestHeal({std::get<0>(healArguments), std::get<1>(healArguments)});
 }

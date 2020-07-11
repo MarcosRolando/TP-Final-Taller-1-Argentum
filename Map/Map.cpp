@@ -463,4 +463,10 @@ Coordinate Map::getSpawnCoordinateArroundPosition(Coordinate refference) {
     return {-1, -1};
 }
 
+void Map::requestRestore(Player &player, Coordinate target) {
+    if (_isCoordinateValid(target)) {
+        tiles[target.iPosition][target.jPosition].requestRestore(player);
+    }
+}
+
 
