@@ -7,7 +7,6 @@
 
 using namespace GameType;
 
-//ManaPotion::ManaPotion(): Potion(Configuration::getInstance().configPotionData(MANA_POTION)) {
 ManaPotion::ManaPotion(): Potion(MANA_POTION) {
 
 }

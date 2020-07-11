@@ -56,13 +56,8 @@ private:
 private:
 
     void _removeMonsters(ServerProtocol& protocol);
-
     void _updateMonsters(double timeStep);
-
     void _updatePlayers(double timeStep);
-
-    //CUANDO SE IMPLEMENTE ESTO VAMOS A TENER QUE TOMAR EN CUENTA QUE VAMOS A TENER QUE ENCOLAR
-    //CADA MOVIMIENTO REALIZADO PARA MANDARSELO A LOS CLIENTES
     void _executeQueueOperations(ServerProtocol& protocol);
     void _repopulateMap(double timePassed, ServerProtocol& protocol);
     void _updateDeadPlayersTimer(ServerProtocol& protocol, double timestep);

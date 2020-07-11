@@ -30,18 +30,12 @@ Trader::Trader(Coordinate initialPosition) : Entity(GameType::TRADER, initialPos
     initialItemsAmounts[config.configClothingData(IRON_SHIELD).name] = INITIAL_ITEMS_AMOUNT;
     initialItemsAmounts[config.configClothingData(MAGIC_HAT).name] = INITIAL_ITEMS_AMOUNT;
 
-    //AGREGAR POCIONES
-
+    initialItemsAmounts[config.configPotionData(MANA_POTION).name] = INITIAL_ITEMS_AMOUNT;
+    initialItemsAmounts[config.configPotionData(HEALTH_POTION).name] = INITIAL_ITEMS_AMOUNT;
 
     Shop aux(initialItemsAmounts, BUYING_PRICE_MULTIPLIER, SELLING_PRICE_MULTIPLIER);
     shop = std::move(aux);
 }
-
-/*
-unsigned int Trader::list(const Player &player, std::list<ProductData> &products) {
-    return shop.list(player, products);
-}
-*/
 
 void Trader::list(Player &player) {
     shop.list(player);

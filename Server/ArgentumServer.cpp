@@ -79,6 +79,4 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
 }
 
 ArgentumServer::ArgentumServer() {
-    //port = std::move(_port);
-    //protocol << game.getMap();
 }

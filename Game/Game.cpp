@@ -51,9 +51,6 @@ void Game::_executeQueueOperations(ServerProtocol& protocol) {
     while (!eventQueue.empty()) {
         (*eventQueue.front())(protocol);
         eventQueue.pop();
-
-        //TOMAR EN CUENTA QUE VAMOS A TENER QUE ENCOLAR
-        //CADA ACCION REALIZADA PARA MANDARSELA A LOS CLIENTES
     }
 }
 
@@ -111,7 +108,6 @@ void Game::dropItems(std::list<std::shared_ptr<Item>>&& items, Coordinate positi
     if (items.empty()) {
         throw std::invalid_argument("Received empty list in Game::dropItems");
     }
-    //mapItems[position] = {items.back()->getType(), items.back()->getId(), position};
     mapItems[position] = items.back().get();
     map.addItemsToTile(std::move(items), position);
 }
@@ -120,7 +116,6 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
     if (!item) {
         throw std::invalid_argument("Received null item in Game::dropItems");
     }
-    //mapItems[position] = {item->getType(), item->getId(), position};
     mapItems[position] = item.get();
     map.addItemsToTile(std::move(item), position);
 }
@@ -130,9 +125,6 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
     _updateMonsters(timeStep);
     _updatePlayers(timeStep);
     _executeQueueOperations(protocol);
-
-    //AGREGAR UPDATE DE PLAYERS CONECTADOS (no hay que borrar esto????)
-
     _removeMonsters(protocol);
     _updateDeadPlayersTimer(protocol, timeStep);
 }
@@ -147,12 +139,6 @@ Game::Game(MapFileReader&& mapFile): priests(),  map(mapFile, priests) {
 const Map& Game::getMap() const {
     return map;
 }
-
-/*
-unsigned int Game::list(Player &player, std::list<ProductData> &products, Coordinate coordinate) {
-    return map.list(player, products, coordinate);
-}
-*/
 
 void Game::list(Player &player, Coordinate coordinate) {
     map.list(player, coordinate);
@@ -233,9 +219,6 @@ void Game::removePlayer(Player *player, ServerProtocol& protocol) {
             removedPlayerNickname(player->getNickname());
     msgpack::pack(data, removedPlayerNickname);
     protocol.addToGeneralData(data);
-    //PlayerShouldBeRemoved shouldBeRemoved(player);
-    //players.erase(std::remove_if(players.begin(), players.end(), shouldBeRemoved),
-    //                            players.end());
     players.erase(player->getNickname());
     map.removeEntity(player->getPosition());
 }
@@ -249,11 +232,9 @@ const Item* Game::storeItemFromTileInPlayer(Player& player) {
             returnData = retreivedItem.get();
             map.addItemsToTile(std::move(retreivedItem), playerPosition);
         } else {
-            //std::pair<GameType::ItemType, int32_t> showedItem = map.peekShowedItemData(playerPosition);
             returnData = map.peekShowedItemData(playerPosition);
             if (returnData) {
                 mapItems[{playerPosition.iPosition, playerPosition.jPosition}] = returnData;
-                //return {showedItem.first, showedItem.second, playerPosition};
             } else {
                 mapItems.erase({playerPosition.iPosition, playerPosition.jPosition});
             }

@@ -47,14 +47,6 @@ const std::vector<char>& ServerProtocol::buildCurrentState(
         (*monster) >> data;
     }
     for (const auto & item : mapItems) {
-        /*
-        msgpack::type::tuple<GameType::EventID> eventIdData(GameType::CREATE_ITEM);
-        msgpack::pack(data, eventIdData);
-        msgpack::type::tuple<GameType::ItemType, int32_t, int32_t, int32_t>
-                itemDataTuple(itemData.second.type, itemData.second.id, itemData.second.coordinate.iPosition,
-                              itemData.second.coordinate.jPosition);
-        msgpack::pack(data, itemDataTuple);
-        */
         item.second->loadDropItemData(data, item.first.iPosition, item.first.jPosition);
     }
     std::string auxString = data.str();

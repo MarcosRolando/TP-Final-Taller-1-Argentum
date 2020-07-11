@@ -198,16 +198,6 @@ Map::Map(MapFileReader &mapFile, std::list<Coordinate>& priests) {
                     priests.push_back({static_cast<int>(i), static_cast<int>(j)});
                 }
             }
-
-            /*
-            if (floors.count(aux.tileType) == 0) {
-                std::cout << "No existe el tile: " << aux.tileType << std::endl;
-            }
-            if ((structures.count(aux.structureType) == 0) && (aux.structureType != "Nothing")) {
-                std::cout << "No existe la estructura: " << aux.structureType << std::endl;
-            }
-            */
-
             tiles.at(i).emplace_back(aux.isOccupable, aux.isFromCity, floors.at(aux.tileType), structures
                     .at(aux.structureType), std::move(citizen));
         }
@@ -280,7 +270,6 @@ void Map::removeEntity(Coordinate position) {
 void Map::moveEntity(Coordinate startingPosition, Coordinate finalPosition) {
     if ((!_isCoordinateValid(startingPosition)) ||
         (!_isCoordinateValid(finalPosition))) {
-        //throw (std::invalid_argument("Out of bounds coordinate"));
         return;
     }
     if (!tiles[finalPosition.iPosition][finalPosition.jPosition].isAvailable()) {
@@ -311,17 +300,13 @@ void Map::addItemsToTile(std::shared_ptr<Item> &&item, Coordinate position) {
 }
 
 
-Coordinate Map::getMonsterCoordinate(/*std::shared_ptr<Monster>&& monster*/) {
-    //std::shared_ptr<Entity> aux;
-    //aux.reset((Entity*)monster.get());
-    //monster.reset();
+Coordinate Map::getMonsterCoordinate() {
     unsigned int xPosition = Calculator::getRandomInt(0, (int)(tiles.size() - 1));
     unsigned int yPosition = Calculator::getRandomInt(0, (int)(tiles[0].size() - 1));
     while ((!tiles[xPosition][yPosition].isAvailable()) || (tiles[xPosition][yPosition].isInCity())) {
         xPosition = Calculator::getRandomInt(0, (int)(tiles.size() - 1));
         yPosition = Calculator::getRandomInt(0, (int)(tiles[0].size() - 1));
     }
-    //tiles[xPosition][yPosition].addEntity(std::static_pointer_cast<Entity>(monster));
     return {static_cast<int>(xPosition), static_cast<int>(yPosition)};
 }
 
@@ -441,10 +426,8 @@ std::shared_ptr<Item> Map::getItemFromTile(Coordinate coordinate) {
     return tiles[coordinate.iPosition][coordinate.jPosition].removeItem();
 }
 
-//std::pair<GameType::ItemType, int32_t> Map::peekShowedItemData(Coordinate coordinate) {
 Item* Map::peekShowedItemData(Coordinate coordinate) {
     if (!_isCoordinateValid(coordinate)) {
-        //return {GameType::ITEM_TYPE_NONE, -2};
         throw std::invalid_argument("Invalid coordinate in peekShoedItemData");
     }
     return tiles[coordinate.iPosition][coordinate.jPosition].peekShowedItemData();

@@ -14,7 +14,6 @@ void ClientsMonitor::join() {
 }
 
 void ClientsMonitor::mergeClientsEvents() {
-    //std::lock_guard<std::mutex> lock(mutex);
     for (auto & client : clients) {
         client->update();
     }

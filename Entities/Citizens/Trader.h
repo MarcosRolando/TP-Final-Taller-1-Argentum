@@ -13,7 +13,6 @@ class EntityTests;
 
 class Trader: public Entity {
 private:
-    //Storage storage;
     Shop shop;
 
     friend EntityTests;

@@ -113,7 +113,6 @@ void Monster::_move() {
         _storeNearestPlayerPathCache();
     }
     if (!pathCache.empty()) {
-        //Entity::requestMove(game, _getMoveDirection());
         movement.direction = _getMoveDirection();
         game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
         pathCache.pop_front();
@@ -147,7 +146,6 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
         if (isDead()) {
             std::shared_ptr<Item> drop;
             ItemsFactory::getInstance().storeRandomDrop(drop, stats.getMaxLife());
-            //game.dropItems(std::move(drop), currentPosition);
             if (drop) {
                 game.pushEvent(std::unique_ptr<Event>(new Drop(game, std::move(drop), currentPosition)));
             }

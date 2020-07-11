@@ -30,8 +30,7 @@ void Weapon::_initializeData(int _minDamage, int _maxDamage, unsigned int _manaC
 
 //////////////////////////////////////PUBLIC//////////////////////
 Weapon::Weapon(GameType::Weapon weapon): Item(GameType::ITEM_TYPE_WEAPON,
-                                              Configuration::getInstance().configWeaponData(weapon).name/*,
-                                              Configuration::getInstance().configWeaponData(weapon).price*/) {
+                                              Configuration::getInstance().configWeaponData(weapon).name) {
     Config::WeaponData stats = Configuration::getInstance().configWeaponData(weapon);
     id = static_cast<unsigned int>(weapon);
     _initializeData(stats.minDmg, stats.maxDmg, stats.manaConsumption, stats.range);

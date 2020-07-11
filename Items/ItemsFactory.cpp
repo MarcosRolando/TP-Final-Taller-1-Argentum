@@ -51,145 +51,66 @@ ItemsFactory::ItemsFactory() {
 }
 
 void ItemsFactory::_storeBlueTunic(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new BlueTunic());
-    item = std::move(aux);
-    */
-    //item.reset(new BlueTunic());
     item.reset(new Chest(GameType::BLUE_TUNIC));
 }
 
 void ItemsFactory::_storeLeatherArmor(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new LeatherArmor());
-    item = std::move(aux);
-    */
-    //item.reset(new LeatherArmor());
     item.reset(new Chest(GameType::LEATHER_ARMOR));
 }
 
 void ItemsFactory::_storePlateArmor(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new PlateArmor());
-    item = std::move(aux);
-    */
-    //item.reset(new PlateArmor());
     item.reset(new Chest(GameType::PLATE_ARMOR));
 }
 
 void ItemsFactory::_storeHood(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new Hood());
-    item = std::move(aux);
-    */
-    //item.reset(new Hood());
     item.reset(new Head(GameType::HOOD));
 }
 
 void ItemsFactory::_storeIronHelmet(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new IronHelmet());
-    item = std::move(aux);
-    */
-    //item.reset(new IronHelmet());
     item.reset(new Head(GameType::IRON_HELMET));
 }
 
 void ItemsFactory::_storeMagicHat(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new MagicHat());
-    item = std::move(aux);
-    */
-    //item.reset(new MagicHat());
     item.reset(new Head(GameType::MAGIC_HAT));
 }
 
 void ItemsFactory::_storeIronShield(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new IronShield());
-    item = std::move(aux);
-    */
-    //item.reset(new IronShield());
     item.reset(new Shield(GameType::IRON_SHIELD));
 }
 
 void ItemsFactory::_storeTurtleShield(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new TurtleShield());
-    item = std::move(aux);
-    */
     item.reset(new Shield(GameType::TURTLE_SHIELD));
 }
 
 void ItemsFactory::_storeAshRod(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new AshRod());
-    item = std::move(aux);
-    */
-    //item.reset(new AshRod());
     item.reset(new Weapon(GameType::ASH_ROD));
 }
 
 void ItemsFactory::_storeCompositeBow(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new CompositeBow());
-    item = std::move(aux);
-    */
-    //item.reset(new CompositeBow());
     item.reset(new Weapon(GameType::COMPOSITE_BOW));
 }
 
 void ItemsFactory::_storeElvenFlute(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new ElvenFlute());
-    item = std::move(aux);
-    */
-    //item.reset(new ElvenFlute());
     item.reset(new Weapon(GameType::ELVEN_FLUTE));
 }
 
 void ItemsFactory::_storeGnarledStaff(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new GnarledStaff());
-    item = std::move(aux);
-    */
-    //item.reset(new GnarledStaff());
     item.reset(new Weapon(GameType::GNARLED_STAFF));
 }
 
 void ItemsFactory::_storeLinkedStaff(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new LinkedStaff());
-    item = std::move(aux);
-    */
-    //item.reset(new LinkedStaff());
     item.reset(new Weapon(GameType::LINKED_STAFF));
 }
 
 void ItemsFactory::_storeLongsword(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new Longsword());
-    item = std::move(aux);
-    */
-    //item.reset(new Longsword());
     item.reset(new Weapon(GameType::LONGSWORD));
 }
 
 void ItemsFactory::_storeSimpleBow(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new SimpleBow());
-    item = std::move(aux);
-    */
-    //item.reset(new SimpleBow());
     item.reset(new Weapon(GameType::SIMPLE_BOW));
 }
 
 void ItemsFactory::_storeWarhammer(std::shared_ptr<Item> &item) {
-    /*
-    std::shared_ptr<Item> aux(new Warhammer());
-    item = std::move(aux);
-     */
-    //item.reset(new Warhammer());
     item.reset(new Weapon(GameType::WARHAMMER));
 }
 
@@ -198,10 +119,6 @@ void ItemsFactory::_storeAxe(std::shared_ptr<Item> &item) {
 }
 
 void ItemsFactory::_storeGold(std::shared_ptr<Item> &item, unsigned int amount) {
-    /*
-    std::shared_ptr<Item> aux(new Gold(amount));
-    item = std::move(aux);
-    */
     if (amount > 0) {
         item.reset(new Gold(amount));
     }
@@ -231,17 +148,6 @@ ItemsFactory &ItemsFactory::getInstance() {
 }
 
 void ItemsFactory::storeItemInstance(const std::string& itemName, std::shared_ptr<Item> &item) {
-    /*
-    if (itemsCreators.count(itemName) == 1) {
-        itemsCreators.at(itemName)(item);
-    } else if (itemName == Configuration::getInstance().configPotionData(HEALTH_POTION).name) {
-        _storeHealthPotion(item);
-    } else if (itemName == Configuration::getInstance().configPotionData(MANA_POTION).name) {
-        _storeManaPotion(item);
-    } else {
-        throw(std::out_of_range);
-    }
-    */
     itemsCreators.at(itemName)(item);
 }
 

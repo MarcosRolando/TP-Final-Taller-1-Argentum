@@ -83,7 +83,6 @@ void Entity::requestHeal(Player &player) {
 void Entity::move(Coordinate newPosition) {
     currentPosition = newPosition;
     movement.isMoving = true;
-    //movement.movedDistance = 0;
 }
 
 void Entity::update(double timeStep, Game& game) {

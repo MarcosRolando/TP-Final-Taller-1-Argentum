@@ -40,21 +40,12 @@ void Drop::operator()(ServerProtocol& protocol) {
     if (player) {
         itemPtr = player->dropItem(inventoryPosition);
     } else {
-        //itemPtr = {items.back()->getType(), items.back()->getId(), dropPosition};
         itemPtr = items.back().get();
         game->dropItems(std::move(items), dropPosition);
     }
     if (itemPtr) {
         std::stringstream data;
         itemPtr->loadDropItemData(data, dropPosition.iPosition, dropPosition.jPosition);
-        /*
-        msgpack::type::tuple<GameType::EventID> eventIdData(GameType::CREATE_ITEM);
-        msgpack::pack(data, eventIdData);
-        msgpack::type::tuple<GameType::ItemType, int32_t, int32_t, int32_t>
-                itemDataTuple(itemData.type, itemData.id, itemData.coordinate.iPosition,
-                              itemData.coordinate.jPosition);
-        msgpack::pack(data, itemDataTuple);
-        */
         protocol.addToGeneralData(data);
     }
 }

@@ -18,8 +18,6 @@ private:
     friend ItemTests;
 
 public:
-    //explicit Clothing(unsigned int minDefense, unsigned int maxDefense, std::string name);
-    //explicit Clothing(const Config::ClothingData& stats);
     explicit Clothing(GameType::Clothing clothing);
 
     unsigned int getDefense() const;
@@ -28,7 +26,6 @@ public:
     //sepa reconocer los default y no los tire
     virtual bool isDefault() const = 0;
 
-    //virtual EquipmentPlace use(Player& player) = 0;
     ~Clothing() override = default;
 };
 

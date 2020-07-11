@@ -57,42 +57,14 @@ void Storage::retreiveItem(const std::string& itemName, Player &player) {
     }
 }
 
-/*
-unsigned int Storage::getStorageData(std::list<ProductData> &products,
-                                     const std::unordered_map<std::string, unsigned int>& prices,
-                                     float priceMultiplier) const{
-    for (const auto & storedItem : storedItems) {
-        products.emplace_back(storedItem.second.front()->getName(), storedItem.second.size(),
-                              prices.at(storedItem.first) * priceMultiplier);
-    }
-    return storedGold;
-}
-*/
-
 void Storage::getStorageData(Player& player, const std::unordered_map<std::string, unsigned int> &prices,
                              float priceMultiplier) const {
     _addAmmountMessageToPlayer(player, "Gold", storedGold);
     for (const auto & storedItem : storedItems) {
         _addAmmountMessageToPlayer(player, storedItem.second.front()->getName(),
                                    prices.at(storedItem.first) * priceMultiplier);
-        /*
-        msgpack::type::tuple<std::string, int32_t, int32_t> productData
-                (storedItem.second.front()->getName(), storedItem.second.size(), prices.at(storedItem.first) * priceMultiplier);
-        msgpack::pack(data, productData);
-        */
     }
 }
-
-
-
-/*
-unsigned int Storage::getStorageData(std::list<ProductData> &products) const {
-    for (const auto & storedItem : storedItems) {
-        products.emplace_back(storedItem.second.front()->getName(), storedItem.second.size(), 0);
-    }
-    return storedGold;
-}
-*/
 
 void Storage::getStorageData(Player& player) const {
     _addAmmountMessageToPlayer(player, "Gold", storedGold);
@@ -106,12 +78,6 @@ void Storage::getStorageData(Player& player) const {
 bool Storage::isItemAvailable(const std::string &itemName) const {
     return storedItems.count(itemName) == 1;
 }
-
-/*
-unsigned int Storage::getItemPrice(const std::string &itemName) const {
-    return storedItems.at(itemName).front()->getPrice();
-}
-*/
 
 void Storage::increaseGoldReserves(int amount) {
     storedGold += amount;

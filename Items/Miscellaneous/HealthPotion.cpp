@@ -7,7 +7,6 @@
 
 using namespace GameType;
 
-//HealthPotion::HealthPotion(): Potion(Configuration::getInstance().configPotionData(HEALTH_POTION)) {
 HealthPotion::HealthPotion(): Potion(HEALTH_POTION) {
 
 }

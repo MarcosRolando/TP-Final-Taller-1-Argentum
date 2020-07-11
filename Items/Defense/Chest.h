@@ -15,8 +15,6 @@ private:
     friend ItemTests;
 
 public:
-    //Chest(unsigned int minDefense, unsigned int maxDefense);
-    //explicit Chest(const Config::ClothingData& stats);
     explicit Chest(GameType::Clothing clothing);
 
     GameType::EquipmentPlace use(Player& player) override;

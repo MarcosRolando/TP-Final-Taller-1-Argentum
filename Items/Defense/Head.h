@@ -15,8 +15,6 @@ private:
     friend ItemTests;
 
 public:
-    //Head(unsigned int minDefense, unsigned int maxDefense);
-    //explicit Head(const Config::ClothingData& stats);
     explicit Head(GameType::Clothing clothing);
 
     GameType::EquipmentPlace use(Player& player) override;
