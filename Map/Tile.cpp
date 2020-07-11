@@ -56,7 +56,7 @@ void Tile::removeEntity() {
     entity.reset();
 }
 
-void Tile::addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera, float x, float y) {
+void Tile::addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera) {
     if (!entity.expired()) {
         std::shared_ptr<Entity> _entity(entity);
         _entity->addSpell(newSpell);

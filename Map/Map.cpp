@@ -143,6 +143,8 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
         if (previousDirection == GameType::DIRECTION_STILL) { /*Se empezo a mover de tile*/
             Coordinate oldPosition = entities.at(nickname).second;
             Coordinate newPosition = _calculateNewTile(oldPosition, direction);
+            int tile = oldPosition.i*TOTAL_HORIZONTAL_TILES + oldPosition.j;
+            tiles.at(tile).removeEntity();
             entitiesToUpdateTilePosition.emplace_back(&entities.at(nickname).first,
                                                     newPosition, std::move(nickname));
         }
@@ -220,8 +222,7 @@ void Map::addSpell(Coordinate position, TextureID spellTexture) {
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     std::shared_ptr<Spell> spell(new Spell(textureRepo.getTexture(spellTexture),
             camera,position.j*TILE_WIDTH, position.i*TILE_HEIGHT));
-    tiles.at(tile).addSpell(spell, camera,
-                            position.j*TILE_WIDTH, position.i*TILE_HEIGHT);
+    tiles.at(tile).addSpell(spell, camera);
     spells.emplace_back(std::move(spell));
 }
 

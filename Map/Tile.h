@@ -48,7 +48,7 @@ public:
 
     void removeEntity();
 
-    void addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera, float x, float y);
+    void addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera);
 
     void destroyItem();
 };
