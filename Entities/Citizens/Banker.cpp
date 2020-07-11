@@ -26,7 +26,9 @@ void Banker::list(Player &player) {
 void Banker::withdraw(Player &player, const std::string &itemName) {
     try {
         std::pair<int32_t, Storage>& aux = playersStorages.at(player.getNickname());
-        aux.second.retreiveItem(itemName, player);
+        if (aux.second.retreiveItem(itemName, player)) {
+            aux.first--;
+        }
     } catch (...) {
         throw TPException("Intentaron withdrawear un item de un player que no existia!");
     }

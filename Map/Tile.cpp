@@ -27,8 +27,6 @@ Tile::Tile(bool _isOccupable, bool _isFromCity, GameType::FloorType _floor, Game
         entity = std::move(initialEntity);
         isOccupable = false;
     }
-
-    //FALTA AGREGAR ENTITY
 }
 
 void Tile::moveEntity(Tile& otherTile, Coordinate position) {

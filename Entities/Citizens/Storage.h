@@ -56,6 +56,7 @@ public:
 
     //Intenta pasar el item pedido de Storage a Player, si el item no existe o
     //el player no tiene espacio entonces no hace nada
+    //Retorna true si cambio la cantidad de items que guarda, sino retorna false
     bool retreiveItem(const std::string& itemName, Player& player);
 
     //Almacena en la lista instancias del struct ProductData, retorna la cantidad
