@@ -19,10 +19,10 @@ struct PlayerData {
     std::string nickname;
     GameType::Race pRace{};
     GameType::Class pClass{};
-    int32_t level{};
-    int32_t experience{};
-    int32_t gold{};
-    int32_t constitution{}, strength{}, agility{}, intelligence{};
+    int32_t level{1};
+    int32_t experience{0};
+    int32_t gold{0};
+    int32_t constitution{0}, strength{0}, agility{0}, intelligence{0};
     std::vector<std::tuple<GameType::ItemType, int32_t>> inventory;
     std::unordered_map<GameType::EquipmentPlace, int32_t> equipment; //todo habria que ver el tema del banker
 
@@ -59,6 +59,7 @@ struct PlayerData {
         agility = other.agility;
         mySize = other.mySize;
         other.mySize = 0;
+        isNewPlayer = other.isNewPlayer;
     }
 
     PlayerData(std::string&& _nickname, GameType::Race _pRace, GameType::Class _pClass) : PlayerData() {

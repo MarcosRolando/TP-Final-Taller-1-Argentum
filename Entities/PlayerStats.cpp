@@ -28,6 +28,7 @@ PlayerStats::PlayerStats(const PlayerData& data) {
     raceLifeMultiplier = raceModifier.lifeMultiplier;
     raceManaMultiplier = raceModifier.manaMultiplier;
     _loadInitialStats(classModifier, raceModifier, data);
+    _loadGenericStats(classModifier, raceModifier, data);
 }
 
 void PlayerStats::_loadGenericStats(Config::Modifiers& classM, Config::Modifiers& raceM,
@@ -146,7 +147,7 @@ void PlayerStats::restoreMana(unsigned int amount) {
 }
 
 bool PlayerStats::isDead() const {
-    return getCurrentLife() == 0;
+    return (getCurrentLife() == 0);
 }
 
 void PlayerStats::update(double timeStep) {

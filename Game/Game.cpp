@@ -171,7 +171,7 @@ void Game::pushEvent(std::unique_ptr<Event>&& event) {
 
 Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
     //todo ver si lo spawneamos en un area especifica tipo la capital o pueblos
-    int x = 99;
+    int x = 90;
     Coordinate position{};
     while (true) { //esto es solo por ahora para generar al player en el primer tile disponible
         position = {90, x};
