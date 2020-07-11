@@ -72,6 +72,9 @@ AttackResult Tile::attacked(int damage, unsigned int level, bool isAPlayer) {
     if (!entity) {
         return {0, 0, ""};
     }
+    if (isFromCity) {
+        return {0, 0, "You can't attack a tile inside a city\n"};
+    }
     return entity->attacked(damage, level, isAPlayer);
 }
 

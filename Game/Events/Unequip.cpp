@@ -29,6 +29,13 @@ void Unequip::operator()(ServerProtocol& protocol) {
         msgpack::type::tuple<std::string, GameType::EquipmentPlace>
                 unequipData(player.getNickname(), equipment);
         msgpack::pack(data, unequipData);
+        if (equipment == GameType::EQUIPMENT_PLACE_CHEST) {
+            msgpack::type::tuple<GameType::EventID> messageTypeEquipData(GameType::EQUIPPED);
+            msgpack::pack(data, messageTypeEquipData);
+            msgpack::type::tuple<std::string, GameType::EquipmentPlace, int32_t> useDataTuple
+                    (player.getNickname(), GameType::EQUIPMENT_PLACE_CHEST, GameType::COMMON_CLOTHING);
+            msgpack::pack(data, useDataTuple);
+        }
         protocol.addToGeneralData(data);
     }
 }
