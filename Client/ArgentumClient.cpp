@@ -29,7 +29,7 @@ void Client::_processConnection() {
     UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    initializer.loadPlayer("agusGay");
+    initializer.loadPlayer("TheKid", GameType::DWARF, GameType::WARRIOR);
     char serverAcceptedConnection;
     socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
     initializer.initializeGame();
@@ -65,6 +65,7 @@ void Client::_processConnection() {
             time2 = high_resolution_clock::now();
             timeStep = time2 - time1;
             time1 = high_resolution_clock::now();
+            game.getSoundPlayer().playSounds();
             game.render(timeStep.count());
             if (timeStep.count() < (1/60.f*1000)) {
                 usleep((1/60.f*1000 - timeStep.count())*1000);

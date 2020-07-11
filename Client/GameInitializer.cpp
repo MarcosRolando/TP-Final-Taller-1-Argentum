@@ -98,6 +98,7 @@ void GameInitializer::_loadMap(std::vector<char>& buffer) {
 
 void GameInitializer::loadPlayer(const std::string& nickname, GameType::Race race,
                                   GameType::Class _class) {
+    game.getMap().setePlayerNickname(nickname);//Para despues poder buscar la pos del player en Map
     std::stringstream msgBuffer;
     msgpack::type::tuple<GameType::PlayerEvent> event(GameType::CREATE_PLAYER);
     msgpack::type::tuple<std::string, GameType::Race, GameType::Class> playerInfo;
@@ -115,8 +116,9 @@ void GameInitializer::loadPlayer(const std::string& nickname, GameType::Race rac
 
 
 void GameInitializer::loadPlayer(const std::string& nickname) {
+    game.getMap().setePlayerNickname(nickname);//Para despues poder buscar la pos del player en Map
     std::stringstream msgBuffer;
-    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::LOAD_PLAYER);
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::CREATE_PLAYER);
     msgpack::type::tuple<std::string> playerInfo;
     playerInfo = {nickname};
     msgpack::pack(msgBuffer, event);

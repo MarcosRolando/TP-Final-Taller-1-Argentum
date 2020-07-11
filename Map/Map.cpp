@@ -138,11 +138,20 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
         GameType::Direction previousDirection = tiles.at(tile).moveEntity(direction,
                                             distanceTravelled, reachedDestination);
         if (previousDirection == GameType::DIRECTION_STILL) { /*Se empezo a mover de tile*/
+            _verifyQueueSound(tile);//Si esta cerca, encolo un sonido de movimiento
             std::unique_ptr<Entity> entity = tiles.at(tile).getEntity();
             entityPosition = _calculateNewTile(entityPosition, direction);
             entitiesToUpdateTilePosition.emplace_back(std::move(entity), entityPosition,
                                                 std::move(nickname));
         }
+    }
+}
+
+void Map::_verifyQueueSound(Coordinate tile) {
+    Coordinate playerPos = entities.at(playerNickname);//Aca faltaria el .second cuando mark cambie el u_map
+    int distance = std::abs(playerPos.j - tile.j) + std::abs(playerPos.i - tile.i);
+    if (distance < 4) {
+        soundPlayer.queueSound(StepDirt);
     }
 }
 
@@ -261,4 +270,8 @@ void Map::teleportEntity(const std::string &nickname, Coordinate newPosition,
     }
     tiles.at(newTile).addEntity(std::move(entity));
     entities.at(nickname) = newPosition;
+}
+
+void Map::setePlayerNickname(const std::string &nickname) {
+    playerNickname = nickname;
 }

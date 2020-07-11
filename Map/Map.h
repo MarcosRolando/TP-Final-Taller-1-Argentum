@@ -29,6 +29,7 @@ private:
     std::unordered_map<std::string, Coordinate> entities;
     std::list<std::tuple<std::unique_ptr<Entity>, Coordinate, std::string>> entitiesToUpdateTilePosition; /*Esto es para no pisar entities entre si cuando terminan de moverse*/
     std::list<std::shared_ptr<Spell>> spells; /*Comparto ownership cosa que si el entity muere no pierdo la animacion del hechizo*/
+    std::string playerNickname;
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera, SoundPlayer& soundPlayer);
@@ -74,10 +75,14 @@ public:
     void teleportEntity(const std::string& nickname, Coordinate newPosition,
                         bool isMyPlayer);
 
+    void setePlayerNickname(const std::string& nickname);
+
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
     void _updateSpellsFrame(float timeStep);
     void _moveEntitiesToNewTile();
+
+    void _verifyQueueSound(Coordinate tile);
 };
 
 
