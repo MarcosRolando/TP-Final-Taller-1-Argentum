@@ -11,7 +11,7 @@
 #define MAX_MSGS 24 //El maximo de mensajes qu ese van a ver al scrollear
 #define MAX_MSGS_TO_RENDER 8
 
-Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/font.ttf", 20),
+Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../SDL/Text/Raleway-Medium.ttf", 20),
                                 input(minichatFont,renderer), renderer(renderer) {
     focusOnMinichat = false;
     input.updateText(":");//Pongo el Accion:/ aca xq me parece al
