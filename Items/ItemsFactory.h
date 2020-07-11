@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <memory>
 #include <vector>
+#include "../Config/GameEnums.h"
 
 class Item;
 class ItemTests;
@@ -59,6 +60,11 @@ public:
     //Guarda una instancia del item pedido en item, si el nombre del item pasado
     //no existe entonces tira la exepcion out_of_range
     void storeItemInstance(const std::string& itemName, std::shared_ptr<Item>& item);
+
+    //Guarda una instancia del item pedido en item, si el nombre del item pasado
+    //no existe entonces tira la exepcion out_of_range
+    void storeItemInstance(GameType::ItemType type, int32_t instance,
+                                         std::shared_ptr<Item> &item);
 
     //Almacena un item aleatorio en item, goldMultiplier es el valor por el que se
     //multiplica el porcentaje de oro a generar (del 0 al 20%)

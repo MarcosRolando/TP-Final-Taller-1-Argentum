@@ -151,6 +151,29 @@ void ItemsFactory::storeItemInstance(const std::string& itemName, std::shared_pt
     itemsCreators.at(itemName)(item);
 }
 
+void ItemsFactory::storeItemInstance(GameType::ItemType type, int32_t instance,
+                                                    std::shared_ptr<Item> &item) {
+    Configuration& config = Configuration::getInstance();
+    switch (type) {
+        case GameType::ITEM_TYPE_CLOTHING:
+            itemsCreators.at(config.configClothingData(
+                    static_cast<GameType::Clothing>(instance)).name)(item);
+            break;
+        case GameType::ITEM_TYPE_WEAPON:
+            itemsCreators.at(config.configWeaponData(
+                    static_cast<GameType::Weapon>(instance)).name)(item);
+            break;
+        case GameType::ITEM_TYPE_POTION:
+            itemsCreators.at(config.configPotionData(
+                    static_cast<GameType::Potion>(instance)).name)(item);
+            break;
+        default:
+            //do nothing
+            break;
+    }
+}
+
+
 void ItemsFactory::storeRandomDrop(std::shared_ptr<Item> &item, unsigned int goldMultiplier) {
     int randomNumber = Calculator::getRandomInt(1, 100);
     if (randomNumber <= 18) {

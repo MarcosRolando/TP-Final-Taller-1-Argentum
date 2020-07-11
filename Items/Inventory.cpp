@@ -12,6 +12,7 @@
 #include <msgpack.hpp>
 #include "../Game/Game.h"
 #include "../Game/Events/Unequip.h"
+#include "ItemsFactory.h"
 
 MSGPACK_ADD_ENUM(GameType::ItemType)
 
@@ -90,11 +91,23 @@ void Inventory::_restoreDefaultEquipment() {
     }
 }
 
+void Inventory::_loadInitialInventory(const PlayerData& data) {
+    ItemsFactory& iFactory = ItemsFactory::getInstance();
+    storedItemsAmount = 0;
+    for (int i = 0; i < INVENTORY_SIZE; ++i) {
+        iFactory.storeItemInstance(std::get<0>(data.inventory.at(i)),
+                std::get<1>(data.inventory.at(i)), items.at(i));
+        if (items.at(i) != nullptr) {
+            ++storedItemsAmount;
+        }
+    }
+}
+
 
 //////////////////////////////PUBLIC/////////////////////////////
 
 Inventory::Inventory(const PlayerData& data) : items(INVENTORY_SIZE, nullptr) {
-    storedItemsAmount = 0; //todo cargar el inventario
+    _loadInitialInventory(data);
     clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_HEAD,
                     new Head(static_cast<GameType::Clothing>(data.equipment.at(
                             GameType::EQUIPMENT_PLACE_HEAD))));
