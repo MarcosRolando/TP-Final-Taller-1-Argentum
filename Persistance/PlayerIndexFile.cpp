@@ -45,6 +45,7 @@ void PlayerIndexFile::storeOldPlayer(const std::string& playerNickname, PlayerFi
     if (players.count(playerNickname) == 1) {
         indexFile.seekp(indexPlayersPosition.at(playerNickname), std::ios_base::beg);
         indexFile.write(reinterpret_cast<char*>(&filePosition.length), sizeof(filePosition.length));
+        indexFile.flush();
     } else {
         throw TPException("Intentaron guardar un player viejo que no existia!");
     }
@@ -71,6 +72,7 @@ void PlayerIndexFile::storeNewPlayer(const std::string &playerNickname,
     indexFile.write(reinterpret_cast<char*>(&filePosition.offset), sizeof(filePosition.offset));
     indexPlayersPosition.emplace(playerNickname, indexFile.tellp());
     indexFile.write(reinterpret_cast<char*>(&filePosition.length), sizeof(filePosition.length));
+    indexFile.flush();
 }
 
 bool PlayerIndexFile::playerExists(const std::string& nickname) const {
