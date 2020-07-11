@@ -195,11 +195,13 @@ bool Player::unequip() {
 const Item* Player::dropItem(unsigned int itemPosition) {
     std::shared_ptr<Item> aux = inventory.removeItem(itemPosition);
     //ItemData returnData = {GameType::ITEM_TYPE_NONE, -1, currentPosition};
+    const Item* returnData = aux.get();
     if (aux) {
         //returnData = {aux->getType(), aux->getId()};
+
         game.dropItems(std::move(aux), currentPosition);
     }
-    return aux.get();
+    return returnData;
 }
 
 void Player::buyFrom(const std::string &itemName, Coordinate npcPosition) {

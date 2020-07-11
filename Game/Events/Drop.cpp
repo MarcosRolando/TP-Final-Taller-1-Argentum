@@ -17,6 +17,7 @@ MSGPACK_ADD_ENUM(GameType::ItemType)
 Drop::Drop(Player &_player, int _inventoryPosition) {
     player = &_player;
     inventoryPosition = _inventoryPosition;
+    dropPosition = player->getPosition();
 }
 
 Drop::Drop(Game& _game, std::list<std::shared_ptr<Item>>&& _items, Coordinate _dropPosition) {
