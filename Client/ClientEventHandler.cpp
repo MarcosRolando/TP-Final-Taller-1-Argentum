@@ -108,7 +108,6 @@ void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
             game.getMinichat().handleBackspace();
             break;
         case SDLK_RETURN:
-            //todo manejar el parseo del mensaje
             _processCommandInput();
             break;
     }
@@ -117,12 +116,18 @@ void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
 void ClientEventHandler::_processCommandInput() {
     std::string cmd = game.getMinichat().handleReturnKey();
     if (cmd != " "){//Si apreto enter y no hay texto handleReturnKey me devuelve esto
-        std::unique_ptr<InputCommand> inputCmd;
-        inputCmd = cmdVerifier.verifyCommand(game, std::move(cmd));//Parsea el comando y me devuelve x ejemplo
-        if (inputCmd) {
-            (*inputCmd)(msgBuffer);//Arma el mensaje y lo packea en msgBuffer
+        if (cmd == "/clear") {
+            game.getMinichat().clearMinichat();
         } else {
-            //Mostrar mensaje de comando invalido
+            std::unique_ptr<InputCommand> inputCmd;
+            inputCmd = cmdVerifier.verifyCommand(game, std::move(
+                    cmd));//Parsea el comando y me devuelve x ejemplo
+            if (inputCmd) {
+                (*inputCmd)(
+                        msgBuffer);//Arma el mensaje y lo packea en msgBuffer
+            } else {
+                game.getMinichat().receiveText("Comando Invalido");
+            }
         }
     }
 }

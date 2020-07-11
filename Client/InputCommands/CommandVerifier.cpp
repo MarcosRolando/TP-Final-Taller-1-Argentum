@@ -19,7 +19,6 @@
 
 CommandVerifier::CommandVerifier() {
     _initCommands();
-    //_initItems();
 }
 
 void CommandVerifier::_initCommands() {
@@ -34,29 +33,6 @@ void CommandVerifier::_initCommands() {
     commands.emplace("/take", GameType::PLAYER_PICK_UP);
     commands.emplace("/drop", GameType::PLAYER_DROP);
 }
-
-/*void CommandVerifier::_initItems() {
-    items.emplace("longsword", GameType::LONGSWORD);
-    items.emplace("axe", GameType::AXE);
-    items.emplace("warhammer", GameType::WARHAMMER);
-    items.emplace("ash rod", GameType::ASH_ROD);
-    items.emplace("elven flute", GameType::ELVEN_FLUTE);
-    items.emplace("linked staff", GameType::LINKED_STAFF);
-    items.emplace("simple bow", GameType::SIMPLE_BOW);
-    items.emplace("composite bow", GameType::COMPOSITE_BOW);
-    items.emplace("gnarled staff", GameType::GNARLED_STAFF);
-
-    items.emplace("leather armor", GameType::LEATHER_ARMOR);
-    items.emplace("plate armor", GameType::PLATE_ARMOR);
-    items.emplace("blue tunic", GameType::BLUE_TUNIC);
-    items.emplace("hood", GameType::HOOD);
-    items.emplace("iron helmet", GameType::IRON_HELMET);
-    items.emplace("turtle shield", GameType::TURTLE_SHIELD);
-    items.emplace("iron shield", GameType::IRON_SHIELD);
-    items.emplace("magic hat", GameType::MAGIC_HAT);
-    items.emplace("health potion", GameType::HEALTH_POTION);
-    items.emplace("mana potion", GameType::MANA_POTION);
-}*/
 
 std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
         std::string&& inputCmd) {

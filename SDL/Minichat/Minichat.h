@@ -28,7 +28,7 @@ public:
     //Encola newText para imprimirlo en el minichat
     void queueText(std::string &newText);
     //Recibe texto y si es necesario lo separa en varias lineas del minichat
-    void receiveText(std::string &text);
+    void receiveText(const std::string &text);
     //Renderiza todos los mensajes del minichat + lo q escribio el usuario
     void render();
     //Borra la ultima letra del input
@@ -39,12 +39,16 @@ public:
     void handleMouseButtonDown(Coordinate click, Window &window);
     //Scrollea por los mensajes del minichat
     void handleMouseWheel(SDL_Event &e);
+    //Borra los mensajes del minichat
+    void clearMinichat();
+
 
     std::string handleReturnKey();
     ~Minichat();
 
 private:
     static bool _isInsideMinichat(int xClick, int yClick);
+
 };
 
 #endif //ARGENTUM_MINICHAT_H

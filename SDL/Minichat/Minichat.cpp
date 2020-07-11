@@ -80,7 +80,7 @@ void Minichat::handleMouseWheel(SDL_Event& e) {
     }
 }
 
-void Minichat::receiveText(std::string& text) {
+void Minichat::receiveText(const std::string& text) {
     //Separa un mensaje separado con \n en varias lineas
     int currPos = -1;
     int nextPos;
@@ -101,6 +101,13 @@ void Minichat::queueText(std::string& newText) {
         texts.pop_back();
         texts.emplace_front(minichatFont, renderer);
         texts.front().updateText(std::move(newText));
+    }
+}
+
+void Minichat::clearMinichat() {
+    std::lock_guard<std::mutex> l(generalMutex);
+    for (auto & text : texts) {
+        text.updateText(" ");
     }
 }
 
