@@ -23,17 +23,16 @@ MSGPACK_ADD_ENUM(GameType::EventID)
 
 ////////////////////////////////////PUBLIC///////////////////////////////
 
-Player::Player(Game& _game, Race _race, Class _class, unsigned int _level, unsigned int _experience
-                , Coordinate _initialPosition, std::string&& _nickname):
-               Entity(GameType::Entity::PLAYER, _initialPosition, std::move(_nickname), true),
-               stats(_race, _class, _level, _experience),
+Player::Player(Game& _game, Coordinate _initialPosition, PlayerData& data):
+               Entity(GameType::Entity::PLAYER, _initialPosition, std::move(data.nickname),
+                                                                                true),
+               inventory(data),
+               stats(data),
                game(_game) {
 
     speed = Configuration::getInstance().configPlayerSpeed();
-    race = _race;
-    gold = 0; //todo habria que recibir la cantidad de oro tambien,
-                //todo o pasar por referencia la clase que maneje el archivo de
-                //todo persistencia directamente
+    race = data.pRace;
+    gold = data.gold;
 }
 
 int32_t Player::attack(Coordinate target) {

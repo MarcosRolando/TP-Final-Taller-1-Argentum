@@ -19,29 +19,45 @@ const double TIME_FOR_RECOVERY = 3000.0; //3 seconds (timeStep is in miliseconds
 
 using namespace GameType;
 
-PlayerStats::PlayerStats(Race _race, Class _class, unsigned int _level, unsigned int _experience) {
+PlayerStats::PlayerStats(const PlayerData& data) {
     Configuration& config = Configuration::getInstance();
-    Config::Modifiers classModifier = config.configClassModifiers(_class);
-    Config::Modifiers raceModifier = config.configRaceModifiers(_race);
+    Config::Modifiers classModifier = config.configClassModifiers(data.pClass);
+    Config::Modifiers raceModifier = config.configRaceModifiers(data.pRace);
     classLifeMultiplier = classModifier.lifeMultiplier;
     classManaMultiplier = classModifier.manaMultiplier;
     raceLifeMultiplier = raceModifier.lifeMultiplier;
     raceManaMultiplier = raceModifier.manaMultiplier;
-    constitution = classModifier.constitution + raceModifier.constitution;
-    intelligence = classModifier.intelligence + raceModifier.intelligence;
-    agility = classModifier.agility + raceModifier.agility;
-    strength = classModifier.strength + raceModifier.strength;
+    _loadInitialStats(classModifier, raceModifier, data);
+}
+
+void PlayerStats::_loadGenericStats(Config::Modifiers& classM, Config::Modifiers& raceM,
+                                    const PlayerData& data) {
     isMeditating = false;
     timeElapsed = 0;
-    experience = _experience;
-    level = _level;
+    experience = data.experience;
+    level = data.level;
     maxLife = Calculator::calculateMaxLife(constitution, classLifeMultiplier, raceLifeMultiplier, level);
     maxMana = Calculator::calculateMaxMana(intelligence, classManaMultiplier, raceManaMultiplier, level);
     currentLife = maxLife;
     currentMana = maxMana;
     nextLevelExperience = Calculator::calculateNextLevelXP(level);
-    recoveryRate = raceModifier.recoveryRate;
-    meditationRate = classModifier.meditationRate;
+    recoveryRate = raceM.recoveryRate;
+    meditationRate = classM.meditationRate;
+}
+
+void PlayerStats::_loadInitialStats(Config::Modifiers& classM, Config::Modifiers& raceM,
+                                    const PlayerData& data) {
+    if (data.isNewPlayer) {
+        constitution += classM.constitution + raceM.constitution;
+        intelligence += classM.intelligence + raceM.intelligence;
+        agility += classM.agility + raceM.agility;
+        strength += classM.strength + raceM.strength;
+    } else {
+        constitution = data.constitution;
+        intelligence = data.intelligence;
+        agility = data.agility;
+        strength = data.strength;
+    }
 }
 
 int PlayerStats::getTotalDamage(int weaponDamage) const {

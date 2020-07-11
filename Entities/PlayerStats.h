@@ -8,6 +8,8 @@
 #include <sstream>
 #include <cstdint>
 #include "../Config/GameEnums.h"
+#include "../Server/PlayerData.hpp"
+#include "../Config/ConfigFileReader.h"
 
 class EntityTests;
 class MapTests;
@@ -15,34 +17,34 @@ class Minichat;
 
 class PlayerStats {
 private:
-    bool isMeditating;
-    double timeElapsed;
+    bool isMeditating{};
+    double timeElapsed{};
 
-    int32_t constitution;
-    int32_t  intelligence;
-    int32_t  agility;
-    int32_t  strength;
+    int32_t constitution{};
+    int32_t  intelligence{};
+    int32_t  agility{};
+    int32_t  strength{};
 
-    int32_t  classLifeMultiplier;
-    int32_t  raceLifeMultiplier;
-    int32_t  classManaMultiplier;
-    int32_t  raceManaMultiplier;
-    int32_t  recoveryRate;
-    int32_t  meditationRate;
+    int32_t  classLifeMultiplier{};
+    int32_t  raceLifeMultiplier{};
+    int32_t  classManaMultiplier{};
+    int32_t  raceManaMultiplier{};
+    int32_t  recoveryRate{};
+    int32_t  meditationRate{};
 
-    int32_t  experience;
-    int32_t  nextLevelExperience;
-    int32_t  level;
-    int32_t  currentMana;
-    int32_t  currentLife;
-    int32_t  maxMana;
-    int32_t  maxLife;
+    int32_t  experience{};
+    int32_t  nextLevelExperience{};
+    int32_t  level{};
+    int32_t  currentMana{};
+    int32_t  currentLife{};
+    int32_t  maxMana{};
+    int32_t  maxLife{};
 
     friend EntityTests;
     friend MapTests;
 
 public:
-    PlayerStats(GameType::Race _race, GameType::Class _class, unsigned int _level, unsigned int _experience);
+    explicit PlayerStats(const PlayerData& data);
 
     //Retorna el danio base que logro hacer el arma del player para el ataque
     int getTotalDamage(int weaponDamage) const;
@@ -95,6 +97,10 @@ public:
 
 private:
     void _increaseStats();
+    void _loadInitialStats(Config::Modifiers& classM, Config::Modifiers& raceM,
+                                        const PlayerData& data);
+    void _loadGenericStats(Config::Modifiers& classM, Config::Modifiers& raceM,
+                                        const PlayerData& data);
 };
 
 

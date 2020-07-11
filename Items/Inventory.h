@@ -12,6 +12,7 @@
 #include <list>
 #include "Item.h"
 #include "UseReturnData.h"
+#include "../Server/PlayerData.hpp"
 
 class ItemTests;
 class EntityTests;
@@ -44,7 +45,7 @@ private:
     void _restoreDefaultEquipment();
 
 public:
-    Inventory();
+    explicit Inventory(const PlayerData& data);
 
     //Adquiere el shared pointer recibido y lo guarda si hay espacio y retorna
     //true. Si no hay espacio o item es null no adquiere el puntero y retorna false

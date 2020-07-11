@@ -93,12 +93,19 @@ void Inventory::_restoreDefaultEquipment() {
 
 //////////////////////////////PUBLIC/////////////////////////////
 
-Inventory::Inventory() : items(INVENTORY_SIZE, nullptr) {
-    storedItemsAmount = 0;
-    clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_HEAD, new Head(GameType::Clothing::NO_HELMET));
-    clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_CHEST, new Chest(GameType::Clothing::COMMON_CLOTHING));
-    clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_SHIELD, new Shield(GameType::Clothing::NO_SHIELD));
-    equippedWeapon.reset(new Weapon(GameType::Weapon::FIST));
+Inventory::Inventory(const PlayerData& data) : items(INVENTORY_SIZE, nullptr) {
+    storedItemsAmount = 0; //todo cargar el inventario
+    clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_HEAD,
+                    new Head(static_cast<GameType::Clothing>(data.equipment.at(
+                            GameType::EQUIPMENT_PLACE_HEAD))));
+    clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_CHEST,
+            new Chest(static_cast<GameType::Clothing>(data.equipment.at(
+                    GameType::EQUIPMENT_PLACE_CHEST))));
+    clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_SHIELD,
+            new Shield(static_cast<GameType::Clothing>(data.equipment.at(
+                    GameType::EQUIPMENT_PLACE_SHIELD))));
+    equippedWeapon.reset(new Weapon(static_cast<GameType::Weapon>(data.equipment.at(
+                                    GameType::EQUIPMENT_PLACE_WEAPON))));
 }
 
 bool Inventory::addItem(std::shared_ptr<Item> &item) {
@@ -229,3 +236,4 @@ bool Inventory::hasItem(const std::string &itemName) {
     }
     return false;
 }
+
