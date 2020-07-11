@@ -138,7 +138,7 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
         GameType::Direction previousDirection = tiles.at(tile).moveEntity(direction,
                                             distanceTravelled, reachedDestination);
         if (previousDirection == GameType::DIRECTION_STILL) { /*Se empezo a mover de tile*/
-            _verifyQueueSound(tile);//Si esta cerca, encolo un sonido de movimiento
+            _verifyQueueSound(entityPosition);//Si esta cerca, encolo un sonido de movimiento
             std::unique_ptr<Entity> entity = tiles.at(tile).getEntity();
             entityPosition = _calculateNewTile(entityPosition, direction);
             entitiesToUpdateTilePosition.emplace_back(std::move(entity), entityPosition,
