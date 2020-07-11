@@ -14,8 +14,7 @@
 #include "UpdateReceiver.h"
 #include <chrono>
 #include "GameInitializer.h"
-#include "../SDL/Sound/SoundPlayer.h"
-#include "../SDL/Sound/SoundRepository.h"
+
 
 using namespace std::chrono;
 
@@ -33,7 +32,6 @@ void Client::_processConnection() {
     initializer.loadPlayer("agusGay");
     char serverAcceptedConnection;
     socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
-    //SoundPlayer soundPlayer;
     initializer.initializeGame();
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
     UpdateReceiver updater(protocol, updateEvents, socket, quit);
@@ -48,7 +46,7 @@ void Client::_processConnection() {
     duration<float, std::milli> timeStep{};
 
     time1 = high_resolution_clock::now();
-
+    game.getSoundPlayer().playMusic();
     try {
         while (!quit) {
             if (updateEvents.isUpdateAvailable()) {

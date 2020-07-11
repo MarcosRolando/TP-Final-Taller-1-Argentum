@@ -18,10 +18,12 @@
 #include "../Client/EntityData.h"
 #include "../Spells/Spell.h"
 #include "../Client/CitizenData.h"
+#include "../SDL/Sound/SoundPlayer.h"
 
 class Map {
 private:
     TextureRepository& textureRepo;
+    SoundPlayer& soundPlayer;
     std::vector<Tile> tiles;
     SDL_Rect& camera;
     std::unordered_map<std::string, Coordinate> entities;
@@ -29,7 +31,7 @@ private:
     std::list<std::shared_ptr<Spell>> spells; /*Comparto ownership cosa que si el entity muere no pierdo la animacion del hechizo*/
 
 public:
-    Map(TextureRepository& repo, SDL_Rect& camera);
+    Map(TextureRepository& repo, SDL_Rect& camera, SoundPlayer& soundPlayer);
 
     void renderGround();
 

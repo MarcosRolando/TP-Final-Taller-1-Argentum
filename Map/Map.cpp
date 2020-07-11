@@ -9,7 +9,8 @@
 #include "../Character/NPC.h"
 #include "../Character/Player.h"
 
-Map::Map(TextureRepository& repo, SDL_Rect& camera) : textureRepo(repo), camera(camera) {
+Map::Map(TextureRepository& repo, SDL_Rect& camera, SoundPlayer& soundPlayer) :
+                    textureRepo(repo), soundPlayer(soundPlayer),camera(camera){
     this->camera = camera;
 }
 

@@ -8,7 +8,7 @@ void GameGUI::setMapSize(int rows, int columns) {
     map.setSize(rows, columns);
 }
 
-GameGUI::GameGUI() : repo(screen.getRenderer()), map(repo, camera),
+GameGUI::GameGUI() : repo(screen.getRenderer()), map(repo, camera, soundPlayer),
                     minichat(screen.getRenderer()), infoGUI(screen.getRenderer())
                     ,inventoryGUI(repo, screen.getRenderer(), infoGUI),
                     background(repo.getTexture(Background)) {
@@ -93,7 +93,13 @@ Map &GameGUI::getMap() {
     return map;
 }
 
+SoundPlayer &GameGUI::getSoundPlayer() {
+    return soundPlayer;
+}
+
 void GameGUI::setCameraOn(Coordinate position) {
     map.setCameraOn(position);
 }
+
+
 

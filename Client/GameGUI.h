@@ -14,6 +14,7 @@
 #include "../SDL/GUI/PlayerInventoryGUI.h"
 #include "../SDL/GUI/PlayerInfoGUI.h"
 #include "../Texture/PlayerEquipment.h"
+#include "../SDL/Sound/SoundPlayer.h"
 #include "EntityData.h"
 #include "CitizenData.h"
 
@@ -22,6 +23,7 @@ private:
     Window screen;
     SDL_Rect camera{0, 0, DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT};
     TextureRepository repo;
+    SoundPlayer soundPlayer;
     Map map;
     Minichat minichat;
     Selector selector;
@@ -44,6 +46,7 @@ public:
     PlayerInfoGUI& getPlayerInfo();
     PlayerInventoryGUI& getPlayerInventory();
     Map& getMap();
+    SoundPlayer& getSoundPlayer();
 
     void setCameraOn(Coordinate position);
 
