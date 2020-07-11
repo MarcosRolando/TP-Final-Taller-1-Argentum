@@ -30,8 +30,7 @@ private:
 
 public:
     //El nivel minimo debe ser 1, sino tendra vida 0
-    Player(Game& _game, GameType::Race _race, GameType::Class _class, unsigned int _level,
-           unsigned int _experience, Coordinate _initialPosition, std::string&& nickname);
+    Player(Game& _game, Coordinate _initialPosition, PlayerData& data);
 
     //Indica si el jugador es target de un monster, un jugador es un target si esta vivo, si
     //esta muerto no lo es

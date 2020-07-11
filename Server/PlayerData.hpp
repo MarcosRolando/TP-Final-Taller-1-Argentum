@@ -15,6 +15,7 @@ const int INVENTORY_SIZE = 16;
 const int MAX_NICKNAME_SIZE = 15;
 
 struct PlayerData {
+    bool isNewPlayer{false};
     std::string nickname;
     GameType::Race pRace{};
     GameType::Class pClass{};
@@ -32,10 +33,10 @@ struct PlayerData {
             inventory.emplace_back(std::tuple<GameType::ItemType, int32_t>(
                                     GameType::ITEM_TYPE_NONE, 0));
         }
-        equipment.emplace(GameType::EQUIPMENT_PLACE_HEAD, 0);
-        equipment.emplace(GameType::EQUIPMENT_PLACE_CHEST, 0);
-        equipment.emplace(GameType::EQUIPMENT_PLACE_SHIELD, 0);
-        equipment.emplace(GameType::EQUIPMENT_PLACE_WEAPON, 0);
+        equipment.emplace(GameType::EQUIPMENT_PLACE_HEAD, GameType::NO_HELMET);
+        equipment.emplace(GameType::EQUIPMENT_PLACE_CHEST, GameType::COMMON_CLOTHING);
+        equipment.emplace(GameType::EQUIPMENT_PLACE_SHIELD, GameType::NO_SHIELD);
+        equipment.emplace(GameType::EQUIPMENT_PLACE_WEAPON, GameType::FIST);
         mySize = MAX_NICKNAME_SIZE*sizeof(char) + sizeof(pRace) + sizeof(pClass) +
                          sizeof(level) + sizeof(experience) + sizeof(gold) +
                          sizeof(constitution) + sizeof(strength) + sizeof(agility) +
@@ -64,6 +65,7 @@ struct PlayerData {
         nickname = std::move(_nickname);
         pRace = _pRace;
         pClass = _pClass;
+        isNewPlayer = true;
     }
 
     int32_t size() const {
