@@ -29,7 +29,8 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol) :
                        {GameType::PLAYER_WITHDRAW, &ClientHandler::_processWithdraw},
                        {GameType::PLAYER_DEPOSIT, &ClientHandler::_processDeposit},
                        {GameType::PLAYER_MEDITATE, &ClientHandler::_processMeditate},
-                       {GameType::PLAYER_RESURRECT, &ClientHandler::_processResurrect}};
+                       {GameType::PLAYER_RESURRECT, &ClientHandler::_processResurrect},
+                        {GameType::PLAYER_SEND_MSG, &ClientHandler::_processMessage}};
 }
 
 void ClientHandler::run() {

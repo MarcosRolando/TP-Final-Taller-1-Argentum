@@ -53,7 +53,7 @@ TileInfo MapFileReader::getTileInfo(unsigned int row, unsigned int column) {
     Json::Value& oData = layers[3]["data"]; /*isOccupable*/
     tile.isOccupable = (oData[row*mapDimensions.width + column].asInt() == 0);
     Json::Value& cData = layers[4]["data"]; /*isFromCity*/
-    tile.isOccupable = (cData[row*mapDimensions.width + column].asInt() != 0);
+    tile.isFromCity = (cData[row*mapDimensions.width + column].asInt() != 0);
     return tile;
 }
 

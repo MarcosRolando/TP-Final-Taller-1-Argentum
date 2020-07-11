@@ -104,8 +104,8 @@ void Map::_storePath(Coordinate initialPosition, Coordinate desiredPosition,
 
 
 bool Map::_isReachable(Coordinate position) const {
-    Coordinate topLeft;
-    Coordinate bottomRight;
+    Coordinate topLeft{};
+    Coordinate bottomRight{};
     Coordinate aux;
     _buildSearchRegion(position, 1, topLeft, bottomRight);
     for (int i = topLeft.iPosition; i <= bottomRight.iPosition; ++i) {
@@ -199,8 +199,6 @@ Map::Map(MapFileReader &mapFile, std::list<Coordinate>& priests) {
                 }
             }
 
-            //CAMBIAR, POR AHORA SE PONE TODO COMO OCUPABLE
-
             /*
             if (floors.count(aux.tileType) == 0) {
                 std::cout << "No existe el tile: " << aux.tileType << std::endl;
@@ -210,7 +208,7 @@ Map::Map(MapFileReader &mapFile, std::list<Coordinate>& priests) {
             }
             */
 
-            tiles[i].emplace_back(aux.isOccupable, aux.isFromCity, floors.at(aux.tileType), structures
+            tiles.at(i).emplace_back(aux.isOccupable, aux.isFromCity, floors.at(aux.tileType), structures
                     .at(aux.structureType), std::move(citizen));
         }
     }
