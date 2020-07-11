@@ -293,6 +293,10 @@ void Game::messagePlayer(const std::string &playerToMessage, const std::string &
     }
 }
 
+bool Game::playerExists(const std::string &nickname) const {
+    return (players.count(nickname) == 1);
+}
+
 bool PlayerShouldBeRemoved::operator()(const Player* player) {
     return (playerToRemove == player);
 }

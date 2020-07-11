@@ -129,6 +129,9 @@ public:
 
     //Envia un mensaje a otro jugador
     void messagePlayer(const std::string& playerToMessage, const std::string& message);
+
+    //Retorna true si el player se encuentra en el game, false en caso contrario
+    bool playerExists(const std::string& nickname) const;
 };
 
 

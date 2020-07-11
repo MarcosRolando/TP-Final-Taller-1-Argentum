@@ -6,6 +6,7 @@
 #include "../Game/Game.h"
 #include "PlayerData.hpp"
 #include "../Entities/PlayerProxy.h"
+#include "../TPException.h"
 
 PlayerProxy PlayerManager::addPlayer(PlayerData& playerData) {
     PlayerProxy player(&game, &game.createPlayer(playerData, protocol));
@@ -13,10 +14,12 @@ PlayerProxy PlayerManager::addPlayer(PlayerData& playerData) {
 }
 
 PlayerData PlayerManager::getSavedPlayerData(const std::string &nickname) {
-    return saveManager.getPlayerData(nickname);
+    if (!game.playerExists(nickname)) {
+        return saveManager.getPlayerData(nickname);
+    }
+    throw TPException("Intentaron cargar un player que ya esta loggeado!");
 }
 
 void PlayerManager::storeNewPlayer(const PlayerData& playerData) {
     saveManager.storeNewPlayer(playerData);
 }
-
