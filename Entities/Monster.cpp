@@ -137,7 +137,7 @@ Monster::Monster(Game &_game, Coordinate initialPosition,
 
 AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isAPlayer) {
     AttackResult result{0, 0, ""};
-    if (_damage == 0) return result;
+    if (_damage <= 0) return result;
     if (!isDead()) {
         result = stats.modifyLife(_damage, attackerLevel);
         result.resultMessage += "You damaged the Monster by " +
