@@ -250,3 +250,20 @@ bool Inventory::hasItem(const std::string &itemName) {
     return false;
 }
 
+void Inventory::getData(PlayerData &pData) const {
+    Item* item;
+    for (int i = 0; i < INVENTORY_SIZE; ++i) {
+        item = items.at(i).get();
+        if (item) {
+            pData.inventory.at(i) = std::make_tuple(item->getType(), item->getId());
+        }
+    }
+    pData.equipment.at(GameType::EQUIPMENT_PLACE_HEAD) =
+            clothingEquipment.at(GameType::EQUIPMENT_PLACE_HEAD)->getId();
+    pData.equipment.at(GameType::EQUIPMENT_PLACE_CHEST) =
+            clothingEquipment.at(GameType::EQUIPMENT_PLACE_CHEST)->getId();
+    pData.equipment.at(GameType::EQUIPMENT_PLACE_SHIELD) =
+            clothingEquipment.at(GameType::EQUIPMENT_PLACE_SHIELD)->getId();
+    pData.equipment.at(GameType::EQUIPMENT_PLACE_WEAPON) = equippedWeapon->getId();
+}
+

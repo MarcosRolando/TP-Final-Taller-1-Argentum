@@ -19,6 +19,7 @@ class MapTests;
 class Player: public Entity {
 private:
     GameType::Race race;
+    GameType::Class pClass;
     Inventory inventory;
     PlayerStats stats;
     int32_t gold;
@@ -125,6 +126,9 @@ public:
     void resetMovement();
 
     bool hasItem(const std::string& itemName);
+
+    //Retorna su data actual (las cosas guardadas, stats, etc)
+    PlayerData getData() const;
 
 private:
     void _dropItems();

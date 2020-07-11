@@ -23,3 +23,8 @@ PlayerData PlayerManager::getSavedPlayerData(const std::string &nickname) {
 void PlayerManager::storeNewPlayer(const PlayerData& playerData) {
     saveManager.storeNewPlayer(playerData);
 }
+
+void PlayerManager::storeOldPlayer(const PlayerData& playerData) {
+    saveManager.storeOldPlayer(playerData);
+}
+

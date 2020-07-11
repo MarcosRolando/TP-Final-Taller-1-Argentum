@@ -18,9 +18,11 @@ class ServerProtocol;
 class ClientShouldBeRemoved {
 private:
     ServerProtocol& protocol;
+    PlayerManager& manager;
 
 public:
-    explicit ClientShouldBeRemoved(ServerProtocol& _protocol) : protocol(_protocol) {}
+    explicit ClientShouldBeRemoved(ServerProtocol& _protocol, PlayerManager& _manager)
+                                : protocol(_protocol), manager(_manager) {}
     bool operator()(std::unique_ptr<ClientHandler>& client);
 };
 

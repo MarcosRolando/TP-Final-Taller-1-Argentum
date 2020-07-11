@@ -54,6 +54,9 @@ public:
 
     void setPlayerProxy(PlayerProxy&& _player);
 
+    //Retorna los datos actuales del jugador del cliente
+    PlayerData getPlayerData() const;
+
     //todo IMPLEMENTAR CONSTRUCTOR POR MOVIMIENTO
 
 private:

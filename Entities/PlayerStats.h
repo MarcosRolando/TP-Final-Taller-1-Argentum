@@ -94,6 +94,9 @@ public:
     //Guarda true si esta vivo, sino guarda false
     void storeLifeStatus(std::stringstream& buffer) const;
 
+    //Almacena las stats del player en pData, se usa para el backup del archivo
+    void getData(PlayerData& pData) const;
+
 
 private:
     void _increaseStats();

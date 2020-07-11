@@ -55,13 +55,15 @@ bool ClientsMonitor::hasWaitingClients() {
 }
 
 void ClientsMonitor::removeDisconnectedClients(ServerProtocol& protocol) {
-    ClientShouldBeRemoved shouldBeRemoved(protocol);
+    ClientShouldBeRemoved shouldBeRemoved(protocol, manager);
     clients.erase(std::remove_if(clients.begin(), clients.end(),
                                     shouldBeRemoved), clients.end());
 }
 
 bool ClientShouldBeRemoved::operator()(std::unique_ptr<ClientHandler> &client) {
     if (client->hasFinished()) {
+        PlayerData dataToStore = client->getPlayerData();
+        manager.storeOldPlayer(dataToStore);
         client->removePlayer();
         client->join();
         return true;

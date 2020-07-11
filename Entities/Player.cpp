@@ -31,6 +31,7 @@ Player::Player(Game& _game, Coordinate _initialPosition, PlayerData& data):
                game(_game) {
 
     speed = Configuration::getInstance().configPlayerSpeed();
+    pClass = data.pClass;
     race = data.pRace;
     gold = data.gold;
 }
@@ -284,4 +285,15 @@ void Player::resetMovement() {
 
 bool Player::hasItem(const std::string& itemName) {
     return inventory.hasItem(itemName);
+}
+
+PlayerData Player::getData() const {
+    PlayerData pData;
+    pData.nickname = getNickname();
+    pData.pRace = race;
+    pData.pClass = pClass;
+    pData.gold = gold;
+    stats.getData(pData);
+    inventory.getData(pData);
+    return pData;
 }

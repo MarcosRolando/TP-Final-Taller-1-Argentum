@@ -163,3 +163,7 @@ void PlayerProxy::remove(ServerProtocol& protocol) {
     game->removePlayer(player, protocol);
 }
 
+PlayerData PlayerProxy::getData() const {
+    return player->getData();
+}
+

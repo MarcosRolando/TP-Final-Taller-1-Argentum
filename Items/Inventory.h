@@ -87,6 +87,9 @@ public:
     int32_t getWeaponId();
 
     bool hasItem(const std::string& itemName);
+
+    //Almacena el inventario del player en pData, se usa para el backup del archivo
+    void getData(PlayerData& pData) const;
 };
 
 

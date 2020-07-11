@@ -29,6 +29,7 @@ public:
     PlayerProxy addPlayer(PlayerData& playerData);
     PlayerData getSavedPlayerData(const std::string& nickname);
     void storeNewPlayer(const PlayerData& playerData);
+    void storeOldPlayer(const PlayerData& playerData);
 };
 
 

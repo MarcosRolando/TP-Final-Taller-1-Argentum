@@ -174,29 +174,11 @@ Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
     int x = 99;
     Coordinate position{};
     while (true) { //esto es solo por ahora para generar al player en el primer tile disponible
-        position = {99, x};
+        position = {90, x};
         if (map.isPlaceAvailable(position)) break;
         --x;
     }
     std::shared_ptr<Player> player(new Player(*this, position, playerData));
-
-    std::shared_ptr<Item> item(new Weapon(GameType::LONGSWORD));
-    player->storeItem(item);
-    item.reset(new Weapon(GameType::GNARLED_STAFF));
-    player->storeItem(item);
-    item.reset(new Weapon(GameType::ASH_ROD));
-    player->storeItem(item);
-    item.reset(new Weapon(GameType::LINKED_STAFF));
-    player->storeItem(item);
-    item.reset(new Weapon(GameType::LONGSWORD));
-    player->storeItem(item);
-    item.reset(new Weapon(GameType::ELVEN_FLUTE));
-    player->storeItem(item);
-    item.reset(new Shield(GameType::IRON_SHIELD));
-    player->storeItem(item);
-    item.reset(new ManaPotion());
-    player->storeItem(item);
-    player->useItem(0);
     Player* playerAux = player.get();
     players.emplace(playerAux->getNickname(), playerAux);
     map.addEntity(position, std::move(player));

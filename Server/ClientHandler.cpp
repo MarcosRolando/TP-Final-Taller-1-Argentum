@@ -221,3 +221,7 @@ void ClientHandler::_processHeal(std::vector<char> &data) {
     handler->convert(healArguments);
     player.requestHeal({std::get<0>(healArguments), std::get<1>(healArguments)});
 }
+
+PlayerData ClientHandler::getPlayerData() const {
+    return player.getData();
+}

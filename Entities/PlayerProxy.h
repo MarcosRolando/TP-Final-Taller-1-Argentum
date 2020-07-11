@@ -46,6 +46,9 @@ public:
     void clearMinichat();
     void giveEventsToGame();
 
+    //Retorna los datos actuales del player
+    PlayerData getData() const;
+
     void remove(ServerProtocol& protocol);
 };
 

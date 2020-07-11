@@ -211,3 +211,12 @@ void PlayerStats::storeLifeStatus(std::stringstream& buffer) const {
     msgpack::pack(buffer, isAlive);
 }
 
+void PlayerStats::getData(PlayerData &pData) const {
+    pData.level = level;
+    pData.experience = experience;
+    pData.constitution = constitution;
+    pData.strength = strength;
+    pData.agility = agility;
+    pData.intelligence = intelligence;
+}
+
