@@ -287,8 +287,10 @@ bool Game::requestResurrect(Player &player, Coordinate selectedPosition) {
 }
 
 void Game::messagePlayer(const std::string &playerToMessage, const std::string &message) {
-    Player* player = players.at(playerToMessage);
-    player->addMessage(message);
+    if (players.count(playerToMessage) == 1) {
+        Player* player = players.at(playerToMessage);
+        player->addMessage(message);
+    }
 }
 
 bool PlayerShouldBeRemoved::operator()(const Player* player) {
