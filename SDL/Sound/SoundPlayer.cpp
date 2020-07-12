@@ -6,7 +6,9 @@
 
 #define QUEUE_SIZE 3
 
-SoundPlayer::SoundPlayer(){}
+SoundPlayer::SoundPlayer(){
+    srand(clock());
+}
 
 void SoundPlayer::playMusic() {
     std::lock_guard<std::mutex> l(m);
@@ -27,21 +29,16 @@ bool SoundPlayer::isMusicPlaying(){
 }
 
 SoundID SoundPlayer::_getRandomDeathSound() {
-    srand(clock());
     int rand = std::rand() % 3;
     switch (rand) {
         case 0:
             return Death;
-            break;
         case 1:
             return Death2;
-            break;
         case 2:
             return Death3;
-            break;
         default:
             return Death2;
-            break;
     }
 }
 
