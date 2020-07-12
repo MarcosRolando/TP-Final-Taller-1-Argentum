@@ -7,6 +7,7 @@
 
 #include <unordered_map>
 #include "../Entity.h"
+#include "../../Server/PlayerData.hpp"
 
 class Storage;
 
@@ -16,7 +17,6 @@ class EntityTests;
 //El jugador puede darle oro o items nuevos para que guarde o sacar oro o items
 class Banker: public Entity {
 private:
-    //static std::unordered_map<std::string, Storage> playersStorages;
     static std::unordered_map<std::string, std::pair<unsigned int, Storage>> playersStorages;
 
     friend EntityTests;
@@ -55,6 +55,8 @@ public:
     //EN EL NICKNAME RECIBIDO
     static void addPlayerItems(const std::string& playerName, const std::unordered_map<std::string, unsigned int>&
                                initialItemsAmounts, unsigned int gold);
+
+    static void getPlayerItems(PlayerData& playerData);
 };
 
 

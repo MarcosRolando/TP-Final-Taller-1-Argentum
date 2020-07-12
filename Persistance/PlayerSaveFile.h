@@ -37,6 +37,8 @@ private:
     void _loadPlayerGeneralStats(PlayerData& playerData,
                                                  std::vector<char>& playerDataBuffer);
     void _loadPlayerInventory(PlayerData& playerData, std::vector<char>& playerDataBuffer);
+    static void _packBankItems(std::stringstream& dataToStore, const PlayerData& playerData);
+    void _loadPlayerBank(PlayerData& playerData, std::vector<char>& playerDataBuffer);
 };
 
 

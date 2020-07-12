@@ -61,6 +61,11 @@ void Banker::addPlayerItems(const std::string& playerName, const std::unordered_
                     (_getNumberOfItemsStored(initialItemsAmounts), Storage(initialItemsAmounts, gold)));
 }
 
+void Banker::getPlayerItems(PlayerData &playerData) {
+    auto & playerStorageData = playersStorages.at(playerData.nickname);
+    playerStorageData.second.getPlayerData(playerData);
+}
+
 ////////////////////////////////////PRIVATE//////////////////////////////////////////
 
 int32_t Banker::_getNumberOfItemsStored(const std::unordered_map<std::string, unsigned int> &

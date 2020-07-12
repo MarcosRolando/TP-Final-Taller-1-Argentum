@@ -11,6 +11,7 @@
 #include <utility>
 #include <memory>
 #include "ProductData.h"
+#include "../../Server/PlayerData.hpp"
 
 class Item;
 class Player;
@@ -36,8 +37,8 @@ private:
 
     friend EntityTests;
 private:
-    void _addAmmountMessageToPlayer(Player& player, const std::string& itemName,
-                                    int concatenatedNumber) const;
+    static void _addAmmountMessageToPlayer(Player& player, const std::string& itemName,
+                                    int concatenatedNumber) ;
 
 public:
 
@@ -77,6 +78,7 @@ public:
 
     bool decreaseGoldReserves(int amount);
 
+    void getPlayerData(PlayerData& playerData) const;
 };
 
 

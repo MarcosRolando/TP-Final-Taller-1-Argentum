@@ -12,6 +12,7 @@
 #include <msgpack.hpp>
 
 const int INVENTORY_SIZE = 16;
+const int BANK_SIZE = 20;
 const int MAX_NICKNAME_SIZE = 15;
 
 struct PlayerData {
@@ -25,6 +26,8 @@ struct PlayerData {
     int32_t constitution{0}, strength{0}, agility{0}, intelligence{0};
     std::vector<std::tuple<GameType::ItemType, int32_t>> inventory;
     std::unordered_map<GameType::EquipmentPlace, int32_t> equipment; //todo habria que ver el tema del banker
+    std::vector<std::tuple<GameType::ItemType, int32_t>> bankerItems;
+    int32_t bankerGold{0};
 
     int32_t mySize{};
 
@@ -32,6 +35,10 @@ struct PlayerData {
         for (int i = 0; i < INVENTORY_SIZE; ++i) {
             inventory.emplace_back(std::tuple<GameType::ItemType, int32_t>(
                                     GameType::ITEM_TYPE_NONE, 0));
+        }
+        for (int i = 0; i < BANK_SIZE; ++i) {
+            bankerItems.emplace_back(std::tuple<GameType::ItemType, int32_t>(
+                    GameType::ITEM_TYPE_NONE, 0));
         }
         equipment.emplace(GameType::EQUIPMENT_PLACE_HEAD, GameType::NO_HELMET);
         equipment.emplace(GameType::EQUIPMENT_PLACE_CHEST, GameType::COMMON_CLOTHING);
@@ -41,6 +48,7 @@ struct PlayerData {
                          sizeof(level) + sizeof(experience) + sizeof(gold) +
                          sizeof(constitution) + sizeof(strength) + sizeof(agility) +
                          sizeof(intelligence) + sizeof(std::tuple<GameType::ItemType, int32_t>)*INVENTORY_SIZE +
+                         + sizeof(std::tuple<GameType::ItemType, int32_t>)*BANK_SIZE +
                          sizeof(int32_t)*4; /*Los 4 items equipados*/
     }
 
@@ -53,6 +61,8 @@ struct PlayerData {
         gold = other.gold;
         inventory = std::move(other.inventory);
         equipment = std::move(other.equipment);
+        bankerItems = std::move(other.bankerItems);
+        bankerGold = other.bankerGold;
         constitution = other.constitution;
         intelligence = other.intelligence;
         strength = other.strength;

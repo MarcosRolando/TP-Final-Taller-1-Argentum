@@ -103,10 +103,23 @@ Storage::Storage() {
     storedGold = 0;
 }
 
+void Storage::getPlayerData(PlayerData &playerData) const {
+    int stored = 0;
+    for (auto & item : storedItems) {
+        GameType::ItemType type = item.second.front()->getType();
+        int32_t id = item.second.front()->getId();
+        for (std::size_t i = 0; i < item.second.size(); ++i) {
+            playerData.bankerItems.at(stored) = std::make_tuple(type, id);
+            ++stored;
+        }
+    }
+    playerData.bankerGold = storedGold;
+}
+
 ///////////////////////////////PRIVATE/////////////////////////////
 
 void Storage::_addAmmountMessageToPlayer(Player &player, const std::string &itemName,
-                                         int concatenatedNumber) const {
+                                         int concatenatedNumber) {
     player.addMessage(itemName);
     player.addMessage(": ");
     player.addMessage(std::to_string(concatenatedNumber));

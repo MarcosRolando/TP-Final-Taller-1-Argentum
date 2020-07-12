@@ -37,10 +37,24 @@ PlayerData PlayerSaveFile::getPlayerData(const std::string& playerNickname,
     }
     _loadPlayerGeneralStats(playerData, playerDataBuffer);
     _loadPlayerInventory(playerData, playerDataBuffer);
+    _loadPlayerBank(playerData, playerDataBuffer);
     return playerData;
 }
 
+void PlayerSaveFile::_loadPlayerBank(PlayerData& playerData,
+                                          std::vector<char>& playerDataBuffer) {
 
+    for (auto & currItem : playerData.bankerItems) {
+        msgpack::type::tuple<GameType::ItemType, int32_t> item;
+        handler = msgpack::unpack(playerDataBuffer.data(), playerData.size(), readData);
+        handler->convert(item);
+        currItem = item;
+    }
+    msgpack::type::tuple<int32_t> bankGold;
+    handler = msgpack::unpack(playerDataBuffer.data(), playerData.size(), readData);
+    handler->convert(bankGold);
+    playerData.bankerGold = std::get<0>(bankGold);
+}
 
 void PlayerSaveFile::_loadPlayerInventory(PlayerData& playerData,
                                              std::vector<char>& playerDataBuffer) {
@@ -103,7 +117,7 @@ PlayerFilePosition PlayerSaveFile::storePlayerData(const PlayerData& playerData,
     _packPlayerType(dataToStore, playerData);
     _packPlayerGeneralStats(dataToStore, playerData);
     _packPlayerInventory(dataToStore, playerData);
-    //todo agregar los items que guarda el banker
+    _packBankItems(dataToStore, playerData);
     std::string strDataToStore = dataToStore.str();
     playerPosition.length = strDataToStore.length();
     saveFile.seekp(fileOffset, std::ios_base::beg);
@@ -113,6 +127,16 @@ PlayerFilePosition PlayerSaveFile::storePlayerData(const PlayerData& playerData,
     saveFile.write(paddingBuffer.data(), paddingSize);
     saveFile.flush();
     return playerPosition;
+}
+
+void PlayerSaveFile::_packBankItems(std::stringstream& dataToStore,
+                                    const PlayerData& playerData) {
+    for (auto & currItem : playerData.bankerItems) {
+        msgpack::type::tuple<GameType::ItemType, int32_t> item(currItem);
+        msgpack::pack(dataToStore, item);
+    }
+    msgpack::type::tuple<int32_t> gold(playerData.bankerGold);
+    msgpack::pack(dataToStore, gold);
 }
 
 void PlayerSaveFile::_packPlayerType(std::stringstream& dataToStore,
