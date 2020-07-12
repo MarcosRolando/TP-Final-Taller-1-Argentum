@@ -13,6 +13,7 @@ void UpdateAttack::operator()(GameGUI &game) {
             break;
         case GameType::ELVEN_FLUTE:
             game.getMap().addSpell(position, Heal);
+            game.getMap().verifyQueueSound(position, Healing, 6);
             break;
         case GameType::LINKED_STAFF:
             game.getMap().addSpell(position, Explosion);
