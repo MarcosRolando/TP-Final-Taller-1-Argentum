@@ -31,7 +31,7 @@ void SoundRepository::_loadSounds(){
 
 void SoundRepository::_loadMusic(){
     music = Mix_LoadMUS("../Sounds/hkost.wav");
-    Mix_VolumeMusic(10);
+    Mix_VolumeMusic(5);
     if(music == NULL ) {
         throw TPException("Failed to load beat music! SDL_mixer Error: "
                            "%s\n", Mix_GetError());

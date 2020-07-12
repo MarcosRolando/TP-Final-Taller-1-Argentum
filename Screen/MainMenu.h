@@ -16,12 +16,13 @@ struct Button{
 class MainMenu {
 private:
     Window& window;
+    Font mainMenuFont;
     Text text;
     Texture& mainMenuBackground;
     Button startGameButton{};
     Button exitButton{};
 public:
-    MainMenu(Texture& texture, Window& window, Font& font);
+    MainMenu(Texture& texture, Window& window);
     void loop(bool& quit);
     ~MainMenu();
 

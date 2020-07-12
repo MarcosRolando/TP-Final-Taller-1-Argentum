@@ -8,8 +8,9 @@
 #define START_GAME_BUTTON {50,100,135,25}
 #define EXIT_BUTTON {50,875,90,25}
 
-MainMenu::MainMenu(Texture& texture, Window& window, Font& font) : window(window),
-text(font, window.getRenderer()), mainMenuBackground(texture) {
+MainMenu::MainMenu(Texture& texture, Window& window) : window(window),
+mainMenuFont("../SDL/Text/medieval.ttf", 25),
+text(mainMenuFont, window.getRenderer()), mainMenuBackground(texture) {
     startGameButton.buttonEdges = START_GAME_BUTTON;
     exitButton.buttonEdges = EXIT_BUTTON;
     startGameButton.color = {0x00,0x00,0x00};

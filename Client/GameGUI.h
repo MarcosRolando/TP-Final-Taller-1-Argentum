@@ -39,7 +39,8 @@ public:
     void createItem(Coordinate position, TextureID itemTexture);
     void addNPC(EntityData& entityData);
     void addPlayer(MapPlayerData& playerData);
-
+    void setCameraOn(std::string& playerNickname);
+    void render(float timeStep);
     Window& getWindow();
     Minichat& getMinichat();
     Selector& getSelector();
@@ -48,9 +49,7 @@ public:
     Map& getMap();
     SoundPlayer& getSoundPlayer();
 
-    void setCameraOn(std::string& playerNickname);
-
-    void render(float timeStep);
+    TextureRepository &getTextureRepo();
 };
 
 

@@ -1,9 +1,6 @@
 #include <netdb.h>
 #include "ArgentumClient.h"
 #include "ClientProtocol.h"
-#include <cstring>
-#include "User.h"
-#include "../TPException.h"
 #include <string>
 #include <vector>
 #include <utility>
@@ -14,6 +11,7 @@
 #include "UpdateReceiver.h"
 #include <chrono>
 #include "GameInitializer.h"
+#include "../Screen/MainMenu.h"
 
 
 using namespace std::chrono;
@@ -24,6 +22,7 @@ using namespace std::chrono;
 void Client::_processConnection() {
     bool quit = false;
     GameGUI game;
+    //_mainMenuLoop(game, quit);
     Window& window = game.getWindow();
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
     UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
@@ -84,6 +83,13 @@ void Client::_processConnection() {
     eventHandler.join();
     updater.join();
 }
+
+/*void Client::_mainMenuLoop(GameGUI& game, bool& quit, std::string& _host, std::string& _port) {
+    class MainMenu mainMenu(game.getTextureRepo().getTexture(MainMenu),
+            game.getWindow());
+
+    mainMenu.loop(quit);
+}*/
 
 void Client::connect() {
     socket.connect(host, port);
