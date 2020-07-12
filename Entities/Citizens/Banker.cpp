@@ -15,7 +15,7 @@
 #define ROOM_AVAILABLE_MESSAGE "Items stored: "
 #define INVALID_GOLD_PARAMETERS "Invalid parameters for gold deposit/withdrawal\n"
 #define INSUFFICIENT_GOLD_MESSAGE "Insufficient gold\n"
-#define GOLD_AMMOUNT_SEPARATOR ' '
+#define GOLD_AMOUNT_SEPARATOR ' '
 
 std::unordered_map<std::string, std::pair<unsigned int, Storage>> Banker::playersStorages;
 
@@ -104,27 +104,27 @@ void Banker::erasePlayerItems(const std::string playerNickname) {
 
 int32_t Banker::_getNumberOfItemsStored(const std::unordered_map<std::string, unsigned int> &
                                             initialItemsAmounts) {
-    int32_t storedItemsAmmount = 0;
+    int32_t storedItemsAmount = 0;
     for (const auto & itemList: initialItemsAmounts) {
-        storedItemsAmmount += itemList.second;
+        storedItemsAmount += itemList.second;
     }
-    return storedItemsAmmount;
+    return storedItemsAmount;
 }
 
-void Banker::_storeAvailableRoomMessage(Player &player, unsigned int storedItemsAmmount) {
-    player.addMessage(ROOM_AVAILABLE_MESSAGE + std::to_string(storedItemsAmmount) + "/"
+void Banker::_storeAvailableRoomMessage(Player &player, unsigned int storedItemsAmount) {
+    player.addMessage(ROOM_AVAILABLE_MESSAGE + std::to_string(storedItemsAmount) + "/"
                       + std::to_string(MAX_NUMBER_OF_ITEMS_PER_PLAYER) + "\n");
 }
 
 void Banker::_modifyGoldReserves(Storage& playerStorage, Player &player,
                         const std::string& itemName, ModifyGold modifyGold) {
-    int goldAmmount = 0;
-    size_t separatorPosition = itemName.find(GOLD_AMMOUNT_SEPARATOR);
+    int goldAmount = 0;
+    size_t separatorPosition = itemName.find(GOLD_AMOUNT_SEPARATOR);
     if ((separatorPosition != std::string::npos) &&
         (separatorPosition != itemName.size() - 1)) {
         try {
-            goldAmmount = std::stoi(itemName.substr(separatorPosition + 1));
-            modifyGold(playerStorage, player, goldAmmount);
+            goldAmount = std::stoi(itemName.substr(separatorPosition + 1));
+            modifyGold(playerStorage, player, goldAmount);
         } catch (std::invalid_argument &e) {
             player.addMessage(INVALID_GOLD_PARAMETERS);
         } catch (std::out_of_range &e) {
@@ -135,17 +135,17 @@ void Banker::_modifyGoldReserves(Storage& playerStorage, Player &player,
     }
 }
 
-void Banker::_depositGold(Storage &playerStorage, Player &player, int goldAmmount) {
-    if (player.spendGold(goldAmmount)) {
-        playerStorage.increaseGoldReserves(goldAmmount);
+void Banker::_depositGold(Storage &playerStorage, Player &player, int goldAmount) {
+    if (player.spendGold(goldAmount)) {
+        playerStorage.increaseGoldReserves(goldAmount);
     } else {
         player.addMessage(INSUFFICIENT_GOLD_MESSAGE);
     }
 }
 
-void Banker::_withdrawGold(Storage &playerStorage, Player &player, int goldAmmount) {
-    if (playerStorage.decreaseGoldReserves(goldAmmount)) {
-        player.receiveGold(goldAmmount);
+void Banker::_withdrawGold(Storage &playerStorage, Player &player, int goldAmount) {
+    if (playerStorage.decreaseGoldReserves(goldAmount)) {
+        player.receiveGold(goldAmount);
     } else {
         player.addMessage(INSUFFICIENT_GOLD_MESSAGE);
     }
