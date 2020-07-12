@@ -37,16 +37,14 @@ void Tile::createItem(Texture& _itemTexture) {
     item.setItem(&_itemTexture);
 }
 
-void Tile::addEntity(std::unique_ptr<Entity> _entity) {
-    if (entity) {
-        std::cerr << "pisaste un entity capo" << std::endl;
-    }
-    entity = std::move(_entity);
+void Tile::addEntity(std::shared_ptr<Entity>& _entity) {
+    entity = _entity;
 }
 
 void Tile::renderEntity() {
-    if (entity) {
-        entity->render();
+    if (!entity.expired()) {
+        std::shared_ptr<Entity> _entity(entity);
+        _entity->render();
     }
     if (!spell.expired()) {
         std::shared_ptr<Spell> _spell(spell);
@@ -54,61 +52,14 @@ void Tile::renderEntity() {
     }
 }
 
-GameType::Direction Tile::moveEntity(GameType::Direction direction, unsigned int distanceTravelled,
-                        bool reachedDestination) {
-    if (entity) {
-        return entity->move(direction, distanceTravelled, reachedDestination);
-    }
-    throw TPException("Intentaron mover una entity que no existia en el tile");
-}
-
-std::unique_ptr<Entity> Tile::getEntity() {
-    if (entity) {
-        return std::move(entity);
-    }
-    return nullptr;
-}
-
-void Tile::setCameraOn() {
-    if (entity) {
-        entity->activateCamera();
-    }
-}
-
 void Tile::removeEntity() {
-    if (entity) {
-        spell = entity->getSpell(); /*Para que la animacion quede y no muera si mataste al entity*/
-        entity = nullptr;
-    }
+    entity.reset();
 }
 
-void Tile::equipOnPlayer(GameType::EquipmentPlace place, TextureID equipment) {
-    Entity* entityToCast = entity.get();
-    auto player = dynamic_cast<Player*>(entityToCast);
-    if (player) {
-        player->equip(place, equipment);
-    }
-}
-
-void Tile::killPlayer() {
-    Entity* entityToCast = entity.get();
-    auto player = dynamic_cast<Player*>(entityToCast);
-    if (player) {
-        player->kill();
-    }
-}
-
-void Tile::revivePlayer() {
-    Entity* entityToCast = entity.get();
-    auto player = dynamic_cast<Player*>(entityToCast);
-    if (player) {
-        player->revive();
-    }
-}
-
-void Tile::addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera, float x, float y) {
-    if (entity) {
-        entity->addSpell(newSpell);
+void Tile::addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera) {
+    if (!entity.expired()) {
+        std::shared_ptr<Entity> _entity(entity);
+        _entity->addSpell(newSpell);
     } else {
         spell = newSpell;
     }

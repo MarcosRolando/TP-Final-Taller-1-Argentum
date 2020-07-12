@@ -148,7 +148,7 @@ void GameInitializer::_receivePlayerData() {
         game.getPlayerInventory().addInventoryItem(std::get<0>(item),
                                                    std::get<1>(item));
     }
-    game.setCameraOn(data.generalInfo.position);
+    game.setCameraOn(data.generalInfo.nickname);
     game.getPlayerInfo().update(data.generalInfo);
     game.getMinichat().receiveText(data.minichatText);
 }
