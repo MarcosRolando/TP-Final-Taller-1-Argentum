@@ -39,10 +39,14 @@ Storage::Storage(const std::unordered_map<std::string, unsigned int>&
     }
 }
 
-void Storage::storeItem(std::shared_ptr<Item> &&item) {
+bool Storage::storeItem(std::shared_ptr<Item> &&item) {
     if (item) {
         storedItems[item->getName()].push_back(std::move(item));
     }
+
+    //VER EL CASO DE ORO
+
+    return true;
 }
 
 bool Storage::retreiveItem(const std::string& itemName, Player &player) {

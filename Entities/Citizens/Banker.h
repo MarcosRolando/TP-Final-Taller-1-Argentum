@@ -17,14 +17,14 @@ class EntityTests;
 class Banker: public Entity {
 private:
     //static std::unordered_map<std::string, Storage> playersStorages;
-    static std::unordered_map<std::string, std::pair<int32_t, Storage>> playersStorages;
+    static std::unordered_map<std::string, std::pair<unsigned int, Storage>> playersStorages;
 
     friend EntityTests;
 
 private:
     static int32_t _getNumberOfItemsStored(const std::unordered_map<std::string, unsigned int>&
                                                         initialItemsAmounts) ;
-
+    static void _storeAvailableRoomMessage(Player &player, unsigned int storedItemsAmmount);
 public:
     explicit Banker(Coordinate initialPosition);
 

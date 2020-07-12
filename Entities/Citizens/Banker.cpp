@@ -10,8 +10,10 @@
 #include "../../TPException.h"
 
 #define MAX_NUMBER_OF_ITEMS_PER_PLAYER 20
+#define NO_ROOM_AVAILABLE_MESSAGE "You don't have more storage room, the limit is "
+#define ROOM_AVAILABLE_MESSAGE "Items stored: "
 
-std::unordered_map<std::string, Storage> Banker::playersStorages;
+std::unordered_map<std::string, std::pair<unsigned int, Storage>> Banker::playersStorages;
 
 Banker::Banker(Coordinate initialPosition): Entity(GameType::BANKER,
                                                    initialPosition, "Banker") {
@@ -19,15 +21,18 @@ Banker::Banker(Coordinate initialPosition): Entity(GameType::BANKER,
 }
 
 void Banker::list(Player &player) {
-    playersStorages.at(player.getNickname()).second.getStorageData(player);
+    const std::pair<unsigned int, Storage>& aux = playersStorages.at(player.getNickname());
+    aux.second.getStorageData(player);
+    _storeAvailableRoomMessage(player, aux.first);
 }
 
 
 void Banker::withdraw(Player &player, const std::string &itemName) {
     try {
-        std::pair<int32_t, Storage>& aux = playersStorages.at(player.getNickname());
+        std::pair<unsigned int, Storage>& aux = playersStorages.at(player.getNickname());
         if (aux.second.retreiveItem(itemName, player)) {
             aux.first--;
+            _storeAvailableRoomMessage(player, aux.first);
         }
     } catch (...) {
         throw TPException("Intentaron withdrawear un item de un player que no existia!");
@@ -37,10 +42,13 @@ void Banker::withdraw(Player &player, const std::string &itemName) {
 void Banker::deposit(Player &player, const std::string& itemName) {
     try {
         //AGREGAR UN OR POR SI SE RECIBE ORO, AHI NO IMPORTA CUANTOS ITEMS TIENE GUARDADOS
-        std::pair<int32_t, Storage>& aux = playersStorages.at(player.getNickname());
-        if (aux.first < MAX_NUMBER_OF_ITEMS_PER_PLAYER) {
-            playersStorages.at(player.getNickname()).second.storeItem(player.removeItem(itemName));
+        std::pair<unsigned int, Storage>& aux = playersStorages.at(player.getNickname());
+        if ((aux.first < MAX_NUMBER_OF_ITEMS_PER_PLAYER) &&
+                        (playersStorages.at(player.getNickname()).second.storeItem(player.removeItem(itemName)))) {
             aux.first++;
+            _storeAvailableRoomMessage(player, aux.first);
+        } else {
+            player.addMessage(NO_ROOM_AVAILABLE_MESSAGE + std::to_string(MAX_NUMBER_OF_ITEMS_PER_PLAYER) + "\n");
         }
     } catch(...) {
         throw TPException("Intentaron depositar un item de un player que no existia!");
@@ -62,5 +70,10 @@ int32_t Banker::_getNumberOfItemsStored(const std::unordered_map<std::string, un
         storedItemsAmmount += itemList.second;
     }
     return storedItemsAmmount;
+}
+
+void Banker::_storeAvailableRoomMessage(Player &player, unsigned int storedItemsAmmount) {
+    player.addMessage(ROOM_AVAILABLE_MESSAGE + std::to_string(storedItemsAmmount) + "/"
+                      + std::to_string(MAX_NUMBER_OF_ITEMS_PER_PLAYER) + "\n");
 }
 

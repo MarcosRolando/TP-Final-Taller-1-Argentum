@@ -52,11 +52,14 @@ public:
                      initialItemsAmounts, unsigned int gold);
 
     //Almacena el item, apropiandose de el
-    void storeItem(std::shared_ptr<Item>&& item);
+    //Retorna true si cambio la cantidad de items guardados, sino retorna false
+    //La cantidad cambia si se recibe algo que no sea oro
+    bool storeItem(std::shared_ptr<Item>&& item);
 
     //Intenta pasar el item pedido de Storage a Player, si el item no existe o
     //el player no tiene espacio entonces no hace nada
     //Retorna true si cambio la cantidad de items que guarda, sino retorna false
+    //La cantidad cambia si se saca algo que no sea oro
     bool retreiveItem(const std::string& itemName, Player& player);
 
     //Almacena en la lista instancias del struct ProductData, retorna la cantidad
