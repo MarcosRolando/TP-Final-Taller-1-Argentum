@@ -45,7 +45,7 @@ public:
 
     Storage(Storage&& other) noexcept;
 
-    Storage& operator=(Storage&& other) noexcept ;
+    Storage& operator=(Storage&& other) noexcept;
 
     //Se apropia de los contenidos de initialProducts
     explicit Storage(const std::unordered_map<std::string, unsigned int>&
