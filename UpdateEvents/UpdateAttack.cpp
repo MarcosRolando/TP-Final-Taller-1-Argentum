@@ -19,6 +19,9 @@ void UpdateAttack::operator()(GameGUI &game) {
         case GameType::ASH_ROD:
             game.getMap().addSpell(position, MagicArrow);
             break;
+        case GameType::LONGSWORD:
+            game.getMap().verifyQueueSound(position, Attack, 6);
+            break;
         default:
             break;
     }
