@@ -93,8 +93,8 @@ void Banker::addPlayerItems(const PlayerData &playerData) {
 }
 
 
-void Banker::erasePlayerItems(const PlayerData &playerData) {
-
+void Banker::erasePlayerItems(const std::string playerNickname) {
+    playersStorages.erase(playerNickname);
 }
 
 
