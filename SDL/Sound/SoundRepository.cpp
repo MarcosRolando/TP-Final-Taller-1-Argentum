@@ -10,10 +10,19 @@ SoundRepository::SoundRepository() {
 
 void SoundRepository::_loadSounds(){
     try {
-        sounds.emplace(Explotion, "../Sounds/explotion.wav");
-        sounds.emplace(Attack,"../Sounds/attack.wav");
+        sounds.emplace(SwordAttack, "../Sounds/swordAttack.wav");
+        sounds.emplace(HeavyAttack, "../Sounds/HeavyAttack.wav");
+        sounds.emplace(Attack, "../Sounds/genericAttack.wav");
+        sounds.emplace(Arrow, "../Sounds/arrow.wav");
         sounds.emplace(Punch, "../Sounds/punch.wav");
-        sounds.emplace(StepDirt, "../Sounds/stepdirt_1.wav");
+        sounds.emplace(Step1, "../Sounds/step1.wav");
+        sounds.emplace(Step2, "../Sounds/step2.wav");
+        sounds.emplace(Explotion, "../Sounds/explotion.wav");
+        sounds.emplace(Explotion1, "../Sounds/Explotion1.wav");
+        sounds.emplace(Explotion2, "../Sounds/Explotion2.wav");
+        sounds.emplace(Explotion3, "../Sounds/Explotion3.wav");
+        sounds.emplace(Death, "../Sounds/deathScream.wav");
+
     } catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
     }

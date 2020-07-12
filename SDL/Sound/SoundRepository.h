@@ -8,7 +8,8 @@
 #include "../../TPException.h"
 #include "Sound.h"
 
-enum SoundID {Attack, Explotion, Punch, StepDirt};
+enum SoundID {SwordAttack, Arrow, Explotion, Explotion1, Explotion2, Explotion3,
+        Punch, Death, Attack, HeavyAttack, Step1, Step2};
 
 class SoundRepository {
 private:

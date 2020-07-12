@@ -132,6 +132,7 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
                                         distanceTravelled, reachedDestination);
         if (previousDirection == GameType::DIRECTION_STILL) { /*Se empezo a mover de tile*/
             Coordinate oldPosition = entities.at(nickname).second;
+            verifyQueueSound(oldPosition, Step2, 3);
             Coordinate newPosition = _calculateNewTile(oldPosition, direction);
             int tile = oldPosition.i*TOTAL_HORIZONTAL_TILES + oldPosition.j;
             tiles.at(tile).removeEntity();
@@ -202,6 +203,8 @@ void Map::equipOnPlayer(std::string &nickname, GameType::EquipmentPlace place,
 
 void Map::killPlayer(std::string &nickname) {
     Entity* entity = entities.at(nickname).first.get();
+    Coordinate position = entities.at(nickname).second;
+    verifyQueueSound(position, Arrow, 6);
     auto player = dynamic_cast<Player*>(entity);
     if (player) {
         player->kill();
@@ -217,7 +220,6 @@ void Map::revivePlayer(std::string &nickname) {
 }
 
 void Map::addSpell(Coordinate position, TextureID spellTexture) {
-    verifyQueueSound(position, Explotion, 6);
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     std::shared_ptr<Spell> spell(new Spell(textureRepo.getTexture(spellTexture),
             camera,position.j*TILE_WIDTH, position.i*TILE_HEIGHT));

@@ -29,7 +29,7 @@ void Client::_processConnection() {
     UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    initializer.loadPlayer("Hola");
+    initializer.loadPlayer("Ivan");
     char serverAcceptedConnection;
     socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
     initializer.initializeGame();
