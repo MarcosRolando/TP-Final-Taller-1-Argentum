@@ -28,6 +28,8 @@ public:
 
 
     static bool isMusicPlaying();
+
+    static SoundID _getRandomDeathSound();
 };
 
 

@@ -26,9 +26,28 @@ bool SoundPlayer::isMusicPlaying(){
     return !Mix_PausedMusic();
 }
 
+SoundID SoundPlayer::_getRandomDeathSound() {
+    srand(clock());
+    int rand = std::rand() % 3;
+    switch (rand) {
+        case 0:
+            return Death;
+            break;
+        case 1:
+            return Death2;
+            break;
+        case 2:
+            return Death3;
+            break;
+        default:
+            return Death2;
+            break;
+    }
+}
 
 void SoundPlayer::queueSound(SoundID id) {
     std::lock_guard<std::mutex> l(m);
+    if (id == Death) id = _getRandomDeathSound();
     if (soundQueue.size() < QUEUE_SIZE)
         soundQueue.push(id);
 }

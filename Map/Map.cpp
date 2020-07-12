@@ -207,7 +207,7 @@ void Map::equipOnPlayer(std::string &nickname, GameType::EquipmentPlace place,
 void Map::killPlayer(std::string &nickname) {
     Entity* entity = entities.at(nickname).first.get();
     Coordinate position = entities.at(nickname).second;
-    verifyQueueSound(position, Death, 6);
+    verifyQueueSound(position, Death2, 6);
     auto player = dynamic_cast<Player*>(entity);
     if (player) {
         player->kill();

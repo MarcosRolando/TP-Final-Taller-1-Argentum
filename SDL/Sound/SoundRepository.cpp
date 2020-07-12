@@ -13,19 +13,22 @@ void SoundRepository::_loadSounds(){
         sounds.emplace(SwordAttack, "../Sounds/swordAttack.wav");
         sounds.emplace(HeavyAttack, "../Sounds/HeavyAttack.wav");
         sounds.emplace(Attack, "../Sounds/genericAttack.wav");
+        sounds.emplace(Attack2, "../Sounds/genericAttack2.wav");
         sounds.emplace(Arrow, "../Sounds/arrow.wav");
         sounds.emplace(Punch, "../Sounds/punch.wav");
+        sounds.emplace(Death, "../Sounds/Death.wav");
+        sounds.emplace(Death2, "../Sounds/HarryPotterDeath.wav");
+        sounds.emplace(Death3, "../Sounds/YodaDeath.wav");
+        sounds.emplace(Step, "../Sounds/Step.wav");
         sounds.emplace(Step1, "../Sounds/step1.wav");
         sounds.emplace(Step2, "../Sounds/step2.wav");
-        sounds.emplace(Explotion, "../Sounds/explotion.wav");
         sounds.emplace(Explotion1, "../Sounds/Explotion1.wav");
         sounds.emplace(Explotion2, "../Sounds/Explotion2.wav");
         sounds.emplace(Explotion3, "../Sounds/Explotion3.wav");
-        sounds.emplace(Death, "../Sounds/deathScream.wav");
-
     } catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
     }
+    Mix_Volume(-1, 40);
 }
 
 void SoundRepository::_loadMusic(){

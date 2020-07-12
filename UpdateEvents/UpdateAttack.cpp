@@ -9,7 +9,7 @@ void UpdateAttack::operator()(GameGUI &game) {
     switch (weapon) {
         case GameType::GNARLED_STAFF:
             game.getMap().addSpell(position, MagicMissile);
-            game.getMap().verifyQueueSound(position, Explotion, 6);
+            game.getMap().verifyQueueSound(position, Explotion3, 6);
             break;
         case GameType::ELVEN_FLUTE:
             game.getMap().addSpell(position, Heal);
