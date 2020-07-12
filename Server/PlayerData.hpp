@@ -49,7 +49,7 @@ struct PlayerData {
                          sizeof(constitution) + sizeof(strength) + sizeof(agility) +
                          sizeof(intelligence) + sizeof(std::tuple<GameType::ItemType, int32_t>)*INVENTORY_SIZE +
                          + sizeof(std::tuple<GameType::ItemType, int32_t>)*BANK_SIZE +
-                         sizeof(int32_t)*4; /*Los 4 items equipados*/
+                         + sizeof(bankerGold) + sizeof(int32_t)*4; /*Los 4 items equipados*/
     }
 
     PlayerData(PlayerData&& other) noexcept {
