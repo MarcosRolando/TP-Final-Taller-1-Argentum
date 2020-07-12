@@ -59,9 +59,11 @@ bool Storage::retreiveItem(const std::string& itemName, Player &player) {
         if (storedItems[itemName].empty()) {
             storedItems.erase(itemName);
         }
+    } else {
+        player.addMessage(UNEXISTING_ITEM_MESSAGE);
+        return false;
     }
-    player.addMessage(UNEXISTING_ITEM_MESSAGE);
-    return false;
+    return true;
 }
 
 void Storage::getStorageData(Player& player, const std::unordered_map<std::string, unsigned int> &prices,

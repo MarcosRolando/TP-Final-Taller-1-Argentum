@@ -30,7 +30,6 @@ private:
 
     static std::string _translateItemTypeToName(std::tuple<GameType::ItemType, int32_t> item);
 
->>>>>>> 78108c3d27c877013fe60164ad6a5751878d7cac
 public:
     explicit Banker(Coordinate initialPosition);
 
