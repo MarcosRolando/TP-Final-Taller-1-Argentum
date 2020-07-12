@@ -89,9 +89,9 @@ void Banker::addPlayerItems(const PlayerData &playerData) {
             initialItemsAmounts.emplace(itemName, itemAmount);
             itemAmount = 0;
             currItemType = item;
-        } else {
-            ++itemAmount;
+
         }
+        ++itemAmount;
     }
     unsigned int gold = playerData.bankerGold;
     playersStorages.emplace(playerData.nickname, std::pair<int32_t, Storage>

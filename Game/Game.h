@@ -133,7 +133,7 @@ public:
     void requestRestore(Player& player, Coordinate target);
 
     //Guarda en playerData los items que tiene guardados en el banker
-    void getPlayerBank(PlayerData& playerData) const;
+    static void getPlayerBank(PlayerData& playerData) ;
 };
 
 

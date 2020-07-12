@@ -203,6 +203,7 @@ void Game::removePlayer(Player *player, ServerProtocol& protocol) {
     msgpack::pack(data, removedPlayerNickname);
     protocol.addToGeneralData(data);
     players.erase(player->getNickname());
+    Banker::erasePlayerItems(player->getNickname());
     map.removeEntity(player->getPosition());
 }
 
@@ -265,7 +266,7 @@ void Game::requestRestore(Player& player, Coordinate target) {
     map.requestRestore(player, target);
 }
 
-void Game::getPlayerBank(PlayerData &playerData) const {
+void Game::getPlayerBank(PlayerData &playerData) {
     Banker::getPlayerItems(playerData);
 }
 
