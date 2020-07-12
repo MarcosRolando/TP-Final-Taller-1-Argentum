@@ -106,7 +106,7 @@ void Map::_storePath(Coordinate initialPosition, Coordinate desiredPosition,
 bool Map::_isReachable(Coordinate position) const {
     Coordinate topLeft{};
     Coordinate bottomRight{};
-    Coordinate aux;
+    Coordinate aux{};
     _buildSearchRegion(position, 1, topLeft, bottomRight);
     for (int i = topLeft.iPosition; i <= bottomRight.iPosition; ++i) {
         for (int j = topLeft.jPosition; j <= bottomRight.jPosition; ++j) {

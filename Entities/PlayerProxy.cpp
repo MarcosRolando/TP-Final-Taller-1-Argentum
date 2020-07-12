@@ -164,6 +164,8 @@ void PlayerProxy::remove(ServerProtocol& protocol) {
 }
 
 PlayerData PlayerProxy::getData() const {
-    return player->getData();
+    PlayerData data = player->getData();
+    game->getPlayerBank(data);
+    return data;
 }
 

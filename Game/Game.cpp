@@ -13,6 +13,7 @@
 #include "ShouldPlayerBeRevived.h"
 #include <iostream>
 #include "../Server/PlayerData.hpp"
+#include "../Entities/Citizens/Banker.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 
@@ -178,6 +179,7 @@ Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
         if (map.isPlaceAvailable(position)) break;
         --x;
     }
+    Banker::addPlayerItems(playerData);
     std::shared_ptr<Player> player(new Player(*this, position, playerData));
     Player* playerAux = player.get();
     players.emplace(playerAux->getNickname(), playerAux);
@@ -261,6 +263,10 @@ bool Game::playerExists(const std::string &nickname) const {
 
 void Game::requestRestore(Player& player, Coordinate target) {
     map.requestRestore(player, target);
+}
+
+void Game::getPlayerBank(PlayerData &playerData) const {
+    Banker::getPlayerItems(playerData);
 }
 
 bool PlayerShouldBeRemoved::operator()(const Player* player) {

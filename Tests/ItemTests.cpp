@@ -111,5 +111,5 @@ bool ItemTests::testCorrectItemsNames() {
 bool ItemTests::testCorrectGoldAmount() {
     unsigned int amount = 504;
     Gold gold(amount);
-    return (amount == gold.getamount());
+    return (amount == gold.getAmount());
 }
