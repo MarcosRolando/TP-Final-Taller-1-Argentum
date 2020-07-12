@@ -205,7 +205,7 @@ Map::Map(MapFileReader &mapFile, std::list<Coordinate>& priests) {
 }
 
 
-AttackResult Map::attackTile(int damage, unsigned int level, bool isAPlayer,
+std::pair<AttackResult, bool> Map::attackTile(int damage, unsigned int level, bool isAPlayer,
                              Coordinate coordinate) {
     return tiles[coordinate.iPosition][coordinate.jPosition].attacked(damage, level, isAPlayer);
 }

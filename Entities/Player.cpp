@@ -45,11 +45,13 @@ int32_t Player::attack(Coordinate target) {
                                                     stats.getCurrentMana());
         int totalDamage = stats.getTotalDamage(weaponDamage);
         if (totalDamage != 0) {
-            AttackResult result = game.attackPosition(totalDamage, stats.getLevel(),
+            std::pair<AttackResult, bool> result = game.attackPosition(totalDamage, stats.getLevel(),
                                                       true, target);
-            stats.increaseExperience(result.experience);
-            chat.addMessage(std::move(result.resultMessage));
-            returnValue = inventory.getWeaponId();
+            stats.increaseExperience(result.first.experience);
+            chat.addMessage(std::move(result.first.resultMessage));
+            if (result.second) {
+                returnValue = inventory.getWeaponId();
+            }
         }
     }
     return returnValue;

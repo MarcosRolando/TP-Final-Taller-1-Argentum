@@ -69,7 +69,7 @@ public:
 
     explicit Game(MapFileReader&& mapFile);
 
-    AttackResult attackPosition(int damage, unsigned int level, bool isAPlayer,
+    std::pair<AttackResult, bool> attackPosition(int damage, unsigned int level, bool isAPlayer,
                             Coordinate coordinate);
 
     //Llama a Map para que guarde los items recibidos en el tile que corresponde
