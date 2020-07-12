@@ -13,6 +13,9 @@ class Storage;
 
 class EntityTests;
 
+class Banker;
+typedef void (*ModifyGold)(Storage &playerStorage, Player &player, int goldAmmount);
+
 //Clase que se encarga de guardar todos los items que le otorgue el jugador
 //El jugador puede darle oro o items nuevos para que guarde o sacar oro o items
 class Banker: public Entity {
@@ -26,9 +29,14 @@ private:
                                                         initialItemsAmounts) ;
     static void _storeAvailableRoomMessage(Player &player, unsigned int storedItemsAmmount);
 
-    static void _depositGold(std::pair<unsigned int, Storage>& playerStorage, Player &player, const std::string& itemName);
+    static void _modifyGoldReserves(Storage& playerStorage, Player &player,
+                        const std::string& itemName, ModifyGold modifier);
 
     static std::string _translateItemTypeToName(std::tuple<GameType::ItemType, int32_t> item);
+
+    static void _depositGold(Storage &playerStorage, Player &player, int goldAmmount);
+
+    static void _withdrawGold(Storage &playerStorage, Player &player, int goldAmmount);
 
 public:
     explicit Banker(Coordinate initialPosition);

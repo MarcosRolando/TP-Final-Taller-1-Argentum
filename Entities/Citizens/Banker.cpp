@@ -34,7 +34,9 @@ void Banker::list(Player &player) {
 void Banker::withdraw(Player &player, const std::string &itemName) {
     try {
         std::pair<unsigned int, Storage>& aux = playersStorages.at(player.getNickname());
-        if (aux.second.retreiveItem(itemName, player)) {
+        if (itemName.find(Configuration::getInstance().configGetGoldName()) != std::string::npos) {
+            _modifyGoldReserves(aux.second, player, itemName, _withdrawGold);
+        } else if (aux.second.retreiveItem(itemName, player)) {
             aux.first--;
             _storeAvailableRoomMessage(player, aux.first);
         }
@@ -47,7 +49,7 @@ void Banker::deposit(Player &player, const std::string& itemName) {
     try {
         std::pair<unsigned int, Storage>& aux = playersStorages.at(player.getNickname());
         if (itemName.find(Configuration::getInstance().configGetGoldName()) != std::string::npos) {
-            _depositGold(aux, player, itemName);
+            _modifyGoldReserves(aux.second, player, itemName, _depositGold);
         } else if ((aux.first < MAX_NUMBER_OF_ITEMS_PER_PLAYER) &&
                         (playersStorages.at(player.getNickname()).second.storeItem(player.removeItem(itemName)))) {
             aux.first++;
@@ -114,18 +116,15 @@ void Banker::_storeAvailableRoomMessage(Player &player, unsigned int storedItems
                       + std::to_string(MAX_NUMBER_OF_ITEMS_PER_PLAYER) + "\n");
 }
 
-void Banker::_depositGold(std::pair<unsigned int, Storage>& playerStorage, Player &player, const std::string& itemName) {
+void Banker::_modifyGoldReserves(Storage& playerStorage, Player &player,
+                        const std::string& itemName, ModifyGold modifyGold) {
     int goldAmmount = 0;
     size_t separatorPosition = itemName.find(GOLD_AMMOUNT_SEPARATOR);
     if ((separatorPosition != std::string::npos) &&
         (separatorPosition != itemName.size() - 1)) {
         try {
             goldAmmount = std::stoi(itemName.substr(separatorPosition + 1));
-            if (player.spendGold(goldAmmount)) {
-                playerStorage.second.increaseGoldReserves(goldAmmount);
-            } else {
-                player.addMessage(INSUFFICIENT_GOLD_MESSAGE);
-            }
+            modifyGold(playerStorage, player, goldAmmount);
         } catch (std::invalid_argument &e) {
             player.addMessage(INVALID_GOLD_PARAMETERS);
         } catch (std::out_of_range &e) {
@@ -133,6 +132,22 @@ void Banker::_depositGold(std::pair<unsigned int, Storage>& playerStorage, Playe
         }
     } else {
         player.addMessage(INVALID_GOLD_PARAMETERS);
+    }
+}
+
+void Banker::_depositGold(Storage &playerStorage, Player &player, int goldAmmount) {
+    if (player.spendGold(goldAmmount)) {
+        playerStorage.increaseGoldReserves(goldAmmount);
+    } else {
+        player.addMessage(INSUFFICIENT_GOLD_MESSAGE);
+    }
+}
+
+void Banker::_withdrawGold(Storage &playerStorage, Player &player, int goldAmmount) {
+    if (playerStorage.decreaseGoldReserves(goldAmmount)) {
+        player.receiveGold(goldAmmount);
+    } else {
+        player.addMessage(INSUFFICIENT_GOLD_MESSAGE);
     }
 }
 
