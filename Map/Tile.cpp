@@ -66,14 +66,14 @@ std::shared_ptr<Item> Tile::removeItem() {
     return return_item;
 }
 
-AttackResult Tile::attacked(int damage, unsigned int level, bool isAPlayer) {
-    if (!entity) {
-        return {0, 0, ""};
-    }
+std::pair<AttackResult, bool> Tile::attacked(int damage, unsigned int level, bool isAPlayer) {
     if (isFromCity) {
-        return {0, 0, "You can't attack a tile inside a city\n"};
+        return {{0, 0, "You can't attack a tile inside a city\n"}, false};
     }
-    return entity->attacked(damage, level, isAPlayer);
+    if (!entity) {
+        return {{0, 0, ""}, true};
+    }
+    return {entity->attacked(damage, level, isAPlayer), true};
 }
 
 bool Tile::hasMonsterTarget() const {

@@ -100,7 +100,7 @@ void Game::_updateDeadPlayersTimer(ServerProtocol& protocol, double timestep) {
 
 /////////////////////////////////PUBLIC//////////////////////////
 
-AttackResult Game::attackPosition(int damage, unsigned int level, bool isAPlayer,
+std::pair<AttackResult, bool> Game::attackPosition(int damage, unsigned int level, bool isAPlayer,
                                     Coordinate coordinate) {
     return map.attackTile(damage, level, isAPlayer, coordinate);
 }
