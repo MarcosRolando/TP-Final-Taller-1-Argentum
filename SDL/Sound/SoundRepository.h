@@ -10,7 +10,7 @@
 
 //Despues prob dejems un solo Step/Attack/Explosion
 enum SoundID {SwordAttack, Arrow, Explotion1, Explotion2, Explotion3,
-        Punch, Death, Death2, Death3, Attack, Attack2, HeavyAttack, Step, Step1, Step2};
+        Death, Death1, Attack, Attack2, HeavyAttack, Step};
 
 class SoundRepository {
 private:

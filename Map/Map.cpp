@@ -132,7 +132,7 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
                                         distanceTravelled, reachedDestination);
         if (previousDirection == GameType::DIRECTION_STILL) { /*Se empezo a mover de tile*/
             Coordinate oldPosition = entities.at(nickname).second;
-            verifyQueueSound(oldPosition, Step2, 3);
+            verifyQueueSound(oldPosition, Step, 3);
             Coordinate newPosition = _calculateNewTile(oldPosition, direction);
             int tile = oldPosition.i*TOTAL_HORIZONTAL_TILES + oldPosition.j;
             tiles.at(tile).removeEntity();

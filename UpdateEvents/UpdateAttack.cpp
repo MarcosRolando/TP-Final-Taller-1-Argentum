@@ -25,6 +25,15 @@ void UpdateAttack::operator()(GameGUI &game) {
         case GameType::LONGSWORD:
             game.getMap().verifyQueueSound(position, SwordAttack, 6);
             break;
+        case GameType::AXE:
+            game.getMap().verifyQueueSound(position, Attack2, 6);
+            break;
+        case GameType::WARHAMMER:
+            game.getMap().verifyQueueSound(position, HeavyAttack, 6);
+            break;
+        case GameType::COMPOSITE_BOW:
+            game.getMap().verifyQueueSound(position, Arrow, 6);
+            break;
         case GameType::SIMPLE_BOW:
             game.getMap().verifyQueueSound(position, Arrow, 6);
         default:
