@@ -8,6 +8,7 @@
 #include "../../Items/Item.h"
 #include "../Player.h"
 #include "msgpack.hpp"
+#include "../../Config/Configuration.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 
@@ -42,11 +43,9 @@ Storage::Storage(const std::unordered_map<std::string, unsigned int>&
 bool Storage::storeItem(std::shared_ptr<Item> &&item) {
     if (item) {
         storedItems[item->getName()].push_back(std::move(item));
+        return true;
     }
-
-    //VER EL CASO DE ORO
-
-    return true;
+    return false;
 }
 
 bool Storage::retreiveItem(const std::string& itemName, Player &player) {
@@ -67,7 +66,7 @@ bool Storage::retreiveItem(const std::string& itemName, Player &player) {
 
 void Storage::getStorageData(Player& player, const std::unordered_map<std::string, unsigned int> &prices,
                              float priceMultiplier) const {
-    _addAmmountMessageToPlayer(player, "Gold", storedGold);
+    _addAmmountMessageToPlayer(player, Configuration::getInstance().configGetGoldName(), storedGold);
     for (const auto & storedItem : storedItems) {
         _addAmmountMessageToPlayer(player, storedItem.second.front()->getName(),
                                    prices.at(storedItem.first) * priceMultiplier);
@@ -75,7 +74,7 @@ void Storage::getStorageData(Player& player, const std::unordered_map<std::strin
 }
 
 void Storage::getStorageData(Player& player) const {
-    _addAmmountMessageToPlayer(player, "Gold", storedGold);
+    _addAmmountMessageToPlayer(player, Configuration::getInstance().configGetGoldName(), storedGold);
     for (const auto & storedItem : storedItems) {
         _addAmmountMessageToPlayer(player, storedItem.second.front()->getName(),
                                    storedItem.second.size());

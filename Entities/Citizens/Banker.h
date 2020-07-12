@@ -25,8 +25,12 @@ private:
     static int32_t _getNumberOfItemsStored(const std::unordered_map<std::string, unsigned int>&
                                                         initialItemsAmounts) ;
     static void _storeAvailableRoomMessage(Player &player, unsigned int storedItemsAmmount);
+
+    static void _depositGold(std::pair<unsigned int, Storage>& playerStorage, Player &player, const std::string& itemName);
+
     static std::string _translateItemTypeToName(std::tuple<GameType::ItemType, int32_t> item);
 
+>>>>>>> 78108c3d27c877013fe60164ad6a5751878d7cac
 public:
     explicit Banker(Coordinate initialPosition);
 

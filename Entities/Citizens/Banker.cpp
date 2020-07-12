@@ -13,6 +13,9 @@
 #define MAX_NUMBER_OF_ITEMS_PER_PLAYER 20
 #define NO_ROOM_AVAILABLE_MESSAGE "You don't have more storage room, the limit is "
 #define ROOM_AVAILABLE_MESSAGE "Items stored: "
+#define INVALID_GOLD_PARAMETERS "Invalid parameters for gold deposit/withdrawal\n"
+#define INSUFFICIENT_GOLD_MESSAGE "Insufficient gold\n"
+#define GOLD_AMMOUNT_SEPARATOR ' '
 
 std::unordered_map<std::string, std::pair<unsigned int, Storage>> Banker::playersStorages;
 
@@ -42,9 +45,10 @@ void Banker::withdraw(Player &player, const std::string &itemName) {
 
 void Banker::deposit(Player &player, const std::string& itemName) {
     try {
-        //AGREGAR UN OR POR SI SE RECIBE ORO, AHI NO IMPORTA CUANTOS ITEMS TIENE GUARDADOS
         std::pair<unsigned int, Storage>& aux = playersStorages.at(player.getNickname());
-        if ((aux.first < MAX_NUMBER_OF_ITEMS_PER_PLAYER) &&
+        if (itemName.find(Configuration::getInstance().configGetGoldName()) != std::string::npos) {
+
+        } else if ((aux.first < MAX_NUMBER_OF_ITEMS_PER_PLAYER) &&
                         (playersStorages.at(player.getNickname()).second.storeItem(player.removeItem(itemName)))) {
             aux.first++;
             _storeAvailableRoomMessage(player, aux.first);
@@ -102,6 +106,28 @@ int32_t Banker::_getNumberOfItemsStored(const std::unordered_map<std::string, un
 void Banker::_storeAvailableRoomMessage(Player &player, unsigned int storedItemsAmmount) {
     player.addMessage(ROOM_AVAILABLE_MESSAGE + std::to_string(storedItemsAmmount) + "/"
                       + std::to_string(MAX_NUMBER_OF_ITEMS_PER_PLAYER) + "\n");
+}
+
+void Banker::_depositGold(std::pair<unsigned int, Storage>& playerStorage, Player &player, const std::string& itemName) {
+    int goldAmmount = 0;
+    size_t separatorPosition = itemName.find(GOLD_AMMOUNT_SEPARATOR);
+    if ((separatorPosition != std::string::npos) &&
+        (separatorPosition != itemName.size() - 1)) {
+        try {
+            goldAmmount = std::stoi(itemName.substr(separatorPosition + 1));
+            if (player.spendGold(goldAmmount)) {
+                playerStorage.second.increaseGoldReserves(goldAmmount);
+            } else {
+                player.addMessage(INSUFFICIENT_GOLD_MESSAGE);
+            }
+        } catch (std::invalid_argument &e) {
+            player.addMessage(INVALID_GOLD_PARAMETERS);
+        } catch (std::out_of_range &e) {
+            player.addMessage(INVALID_GOLD_PARAMETERS);
+        }
+    } else {
+        player.addMessage(INVALID_GOLD_PARAMETERS);
+    }
 }
 
 std::string Banker::_translateItemTypeToName(std::tuple<GameType::ItemType, int32_t> item) {
