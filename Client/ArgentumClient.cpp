@@ -21,13 +21,22 @@ using namespace std::chrono;
 
 void Client::_processConnection() {
     bool quit = false;
+    GameStartInfo gameStartInfo{};
     GameGUI game;
-    //_mainMenuLoop(game, quit);
+    _mainMenuLoop(game, quit, gameStartInfo);
+    //if (!quit)
+    //socket.connect(host, port);
     Window& window = game.getWindow();
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
     UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
+    /*if (gameStartInfo.createPlayer) {
+        initializer.loadPlayer(gameStartInfo.myNickname, gameStartInfo.myRace,
+                               gameStartInfo.myClass);
+    } else {
+        initializer.loadPlayer(gameStartInfo.myNickname);
+    }*/
     initializer.loadPlayer("Ivan");
     char serverAcceptedConnection;
     socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
@@ -84,12 +93,12 @@ void Client::_processConnection() {
     updater.join();
 }
 
-/*void Client::_mainMenuLoop(GameGUI& game, bool& quit, std::string& _host, std::string& _port) {
+void Client::_mainMenuLoop(GameGUI& game, bool& quit, GameStartInfo& startInfo) {
     class MainMenu mainMenu(game.getTextureRepo().getTexture(MainMenu),
             game.getWindow());
 
-    mainMenu.loop(quit);
-}*/
+    mainMenu.loop(quit, host, port, startInfo);
+}
 
 void Client::connect() {
     socket.connect(host, port);

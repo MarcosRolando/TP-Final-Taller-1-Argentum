@@ -11,13 +11,15 @@
 MainMenu::MainMenu(Texture& texture, Window& window) : window(window),
 mainMenuFont("../SDL/Text/medieval.ttf", 25),
 text(mainMenuFont, window.getRenderer()), mainMenuBackground(texture) {
+
     startGameButton.buttonEdges = START_GAME_BUTTON;
     exitButton.buttonEdges = EXIT_BUTTON;
     startGameButton.color = {0x00,0x00,0x00};
     exitButton.color = {0xFF,0xFF,0xFF};
 }
 
-void MainMenu::loop(bool& quit){
+void MainMenu::loop(bool& quit, std::string& _host,
+                    std::string& _port, GameStartInfo& startInfo){
     SDL_Event e;
     bool inMainMenu = true;
     while (inMainMenu){
@@ -30,34 +32,42 @@ void MainMenu::loop(bool& quit){
             window.handleEvent(e);
 
             if (e.type == SDL_MOUSEMOTION){
-                int x = 0, y = 0;
-                SDL_GetMouseState( &x, &y );
-                x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
-                y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
-
-                //Seteo los colores default asi no quedan en rojo si pase el
-                // mouse por encima
-                startGameButton.color = {0x00,0x00,0x00};
-                exitButton.color = {0xFF,0xFF,0xFF};
-                if (_isInsideRect(x,y,startGameButton.buttonEdges)){
-                    startGameButton.color = {0xFF,0x00,0x00};
-                } else if (_isInsideRect(x,y,exitButton.buttonEdges)){
-                    exitButton.color = {0xFF,0x00,0x00};
-                }
+                _handleMouseMotion();
             } else if (e.type == SDL_MOUSEBUTTONDOWN){
-                int x = 0, y = 0;
-                SDL_GetMouseState( &x, &y );
-                x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
-                y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
-                if (_isInsideRect(x,y,startGameButton.buttonEdges)){
-                    inMainMenu = false;
-                } else if (_isInsideRect(x,y,exitButton.buttonEdges)){
-                    quit = true;
-                    inMainMenu = false;
-                }
+                _handleMouseButtonDown(inMainMenu, quit);
             }
         }
         _render();
+    }
+}
+
+void MainMenu::_handleMouseMotion() {
+    int x = 0, y = 0;
+    SDL_GetMouseState( &x, &y );
+    x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
+    y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
+
+    //Seteo los colores default asi no quedan en rojo si pase el
+    // mouse por encima
+    startGameButton.color = {0x00,0x00,0x00};
+    exitButton.color = {0xFF,0xFF,0xFF};
+    if (_isInsideRect(x,y,startGameButton.buttonEdges)){
+        startGameButton.color = {0xFF,0x00,0x00};
+    } else if (_isInsideRect(x,y,exitButton.buttonEdges)){
+        exitButton.color = {0xFF,0x00,0x00};
+    }
+}
+
+void MainMenu::_handleMouseButtonDown(bool& inMainMenu, bool& quit) {
+    int x = 0, y = 0;
+    SDL_GetMouseState( &x, &y );
+    x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
+    y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
+    if (_isInsideRect(x,y,startGameButton.buttonEdges)){
+        inMainMenu = false;
+    } else if (_isInsideRect(x,y,exitButton.buttonEdges)){
+        quit = true;
+        inMainMenu = false;
     }
 }
 

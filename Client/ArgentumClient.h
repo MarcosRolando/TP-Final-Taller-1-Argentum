@@ -9,6 +9,8 @@
 #include <string>
 #include "ClientEventHandler.h"
 
+struct GameStartInfo;
+
 class Client {
 private:
     std::string host, port;
@@ -31,7 +33,7 @@ private:
     static void _closeSDL();
     static void _setCursor();
 
-    //static void _mainMenuLoop(GameGUI &game, bool &quit);
+    void _mainMenuLoop(GameGUI& game, bool& quit, GameStartInfo& startInfo);
 };
 
 
