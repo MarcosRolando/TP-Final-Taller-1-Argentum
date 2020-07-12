@@ -75,13 +75,14 @@ public:
     void teleportEntity(const std::string& nickname, Coordinate newPosition,
                         bool isMyPlayer);
 
-    void setePlayerNickname(const std::string& nickname);
+    void setPlayerNickname(const std::string& nickname);
+    void verifyQueueSound(Coordinate tile, SoundID sound, int maxDistance);
+
 
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
     void _updateSpellsFrame(float timeStep);
     void _moveEntitiesToNewTile();
-    void _verifyQueueSound(Coordinate tile, SoundID sound);
     void _addEntity(EntityData& data, std::shared_ptr<Entity>& entity);
 };
 

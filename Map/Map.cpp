@@ -141,10 +141,10 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
     }
 }
 
-void Map::_verifyQueueSound(Coordinate tile, SoundID sound) {
+void Map::verifyQueueSound(Coordinate tile, SoundID sound, int maxDistance) {
     Coordinate playerPos = entities.at(playerNickname).second;
     int distance = std::abs(playerPos.j - tile.j) + std::abs(playerPos.i - tile.i);
-    if (distance <= 3) {
+    if (distance <= maxDistance) {
         soundPlayer.queueSound(sound);
     }
 }
@@ -217,7 +217,7 @@ void Map::revivePlayer(std::string &nickname) {
 }
 
 void Map::addSpell(Coordinate position, TextureID spellTexture) {
-    _verifyQueueSound(position,Explotion);
+    verifyQueueSound(position, Explotion, 6);
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     std::shared_ptr<Spell> spell(new Spell(textureRepo.getTexture(spellTexture),
             camera,position.j*TILE_WIDTH, position.i*TILE_HEIGHT));
@@ -269,6 +269,6 @@ void Map::teleportEntity(const std::string &nickname, Coordinate newPosition,
     entities.at(nickname).second = newPosition;
 }
 
-void Map::setePlayerNickname(const std::string &nickname) {
+void Map::setPlayerNickname(const std::string &nickname) {
     playerNickname = nickname;
 }
