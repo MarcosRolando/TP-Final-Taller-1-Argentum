@@ -25,6 +25,8 @@ private:
     static int32_t _getNumberOfItemsStored(const std::unordered_map<std::string, unsigned int>&
                                                         initialItemsAmounts) ;
     static void _storeAvailableRoomMessage(Player &player, unsigned int storedItemsAmmount);
+    static std::string _translateItemTypeToName(std::tuple<GameType::ItemType, int32_t> item);
+
 public:
     explicit Banker(Coordinate initialPosition);
 
@@ -53,8 +55,12 @@ public:
     //Recibe los items de un player y su nickname, y los agrega a lo que tiene guardado
     //HACER QUE RECIBA PARAMETROS COMO LOS DE STORAGE, PORQUE SE VA A CONSTRUIR UN STORAGE
     //EN EL NICKNAME RECIBIDO
+    /*
     static void addPlayerItems(const std::string& playerName, const std::unordered_map<std::string, unsigned int>&
                                initialItemsAmounts, unsigned int gold);
+    */
+
+    static void addPlayerItems(const PlayerData& playerData);
 
     static void getPlayerItems(PlayerData& playerData);
 };

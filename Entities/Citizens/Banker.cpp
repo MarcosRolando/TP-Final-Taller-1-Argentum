@@ -8,6 +8,7 @@
 #include "../Player.h"
 #include "Storage.h"
 #include "../../TPException.h"
+#include "../../Config/Configuration.h"
 
 #define MAX_NUMBER_OF_ITEMS_PER_PLAYER 20
 #define NO_ROOM_AVAILABLE_MESSAGE "You don't have more storage room, the limit is "
@@ -55,15 +56,36 @@ void Banker::deposit(Player &player, const std::string& itemName) {
     }
 }
 
+/*
 void Banker::addPlayerItems(const std::string& playerName, const std::unordered_map<std::string, unsigned int>
                             &initialItemsAmounts, unsigned int gold) {
     playersStorages.emplace(playerName, std::pair<int32_t, Storage>
                     (_getNumberOfItemsStored(initialItemsAmounts), Storage(initialItemsAmounts, gold)));
 }
+*/
 
 void Banker::getPlayerItems(PlayerData &playerData) {
     auto & playerStorageData = playersStorages.at(playerData.nickname);
     playerStorageData.second.getPlayerData(playerData);
+}
+
+void Banker::addPlayerItems(const PlayerData &playerData) {
+    std::unordered_map<std::string, unsigned int> initialItemsAmounts;
+    unsigned int itemAmount = 0;
+    std::tuple<GameType::ItemType, int32_t> currItemType = playerData.bankerItems.at(0);
+    for (auto & item : playerData.bankerItems) {
+        if (currItemType != item) {
+            std::string itemName = _translateItemTypeToName(currItemType);
+            initialItemsAmounts.emplace(itemName, itemAmount);
+            itemAmount = 0;
+            currItemType = item;
+        } else {
+            ++itemAmount;
+        }
+    }
+    unsigned int gold = playerData.bankerGold;
+    playersStorages.emplace(playerData.nickname, std::pair<int32_t, Storage>
+            (_getNumberOfItemsStored(initialItemsAmounts), Storage(initialItemsAmounts, gold)));
 }
 
 ////////////////////////////////////PRIVATE//////////////////////////////////////////
@@ -80,5 +102,23 @@ int32_t Banker::_getNumberOfItemsStored(const std::unordered_map<std::string, un
 void Banker::_storeAvailableRoomMessage(Player &player, unsigned int storedItemsAmmount) {
     player.addMessage(ROOM_AVAILABLE_MESSAGE + std::to_string(storedItemsAmmount) + "/"
                       + std::to_string(MAX_NUMBER_OF_ITEMS_PER_PLAYER) + "\n");
+}
+
+std::string Banker::_translateItemTypeToName(std::tuple<GameType::ItemType, int32_t> item) {
+    Configuration& config = Configuration::getInstance();
+    switch (std::get<0>(item)) {
+        case GameType::ITEM_TYPE_CLOTHING:
+            return config.configClothingData(
+                    static_cast<GameType::Clothing>(std::get<1>(item))).name;
+        case GameType::ITEM_TYPE_WEAPON:
+            return config.configWeaponData(
+                    static_cast<GameType::Weapon>(std::get<1>(item))).name;
+        case GameType::ITEM_TYPE_POTION:
+            return config.configPotionData(
+                    static_cast<GameType::Potion>(std::get<1>(item))).name;
+        default:
+            //do nothing
+            throw TPException("El jugador guardaba items de banker invalidos!");
+    }
 }
 

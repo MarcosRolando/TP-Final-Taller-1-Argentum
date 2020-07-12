@@ -179,6 +179,7 @@ Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
         if (map.isPlaceAvailable(position)) break;
         --x;
     }
+    Banker::addPlayerItems(playerData);
     std::shared_ptr<Player> player(new Player(*this, position, playerData));
     Player* playerAux = player.get();
     players.emplace(playerAux->getNickname(), playerAux);
