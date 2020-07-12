@@ -47,7 +47,7 @@ void Banker::deposit(Player &player, const std::string& itemName) {
     try {
         std::pair<unsigned int, Storage>& aux = playersStorages.at(player.getNickname());
         if (itemName.find(Configuration::getInstance().configGetGoldName()) != std::string::npos) {
-
+            _depositGold(aux, player, itemName);
         } else if ((aux.first < MAX_NUMBER_OF_ITEMS_PER_PLAYER) &&
                         (playersStorages.at(player.getNickname()).second.storeItem(player.removeItem(itemName)))) {
             aux.first++;
@@ -91,6 +91,12 @@ void Banker::addPlayerItems(const PlayerData &playerData) {
     playersStorages.emplace(playerData.nickname, std::pair<int32_t, Storage>
             (_getNumberOfItemsStored(initialItemsAmounts), Storage(initialItemsAmounts, gold)));
 }
+
+
+void Banker::erasePlayerItems(const PlayerData &playerData) {
+
+}
+
 
 ////////////////////////////////////PRIVATE//////////////////////////////////////////
 
