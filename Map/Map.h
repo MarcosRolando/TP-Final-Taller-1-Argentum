@@ -82,7 +82,7 @@ private:
     void _updateSpellsFrame(float timeStep);
     void _moveEntitiesToNewTile();
 
-    void _verifyQueueSound(Coordinate tile);
+    void _verifyQueueSound(Coordinate tile, SoundID sound);
 };
 
 

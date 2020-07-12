@@ -138,7 +138,7 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
         GameType::Direction previousDirection = tiles.at(tile).moveEntity(direction,
                                             distanceTravelled, reachedDestination);
         if (previousDirection == GameType::DIRECTION_STILL) { /*Se empezo a mover de tile*/
-            _verifyQueueSound(entityPosition);//Si esta cerca, encolo un sonido de movimiento
+            //_verifyQueueSound(entityPosition, StepDirt);//Si esta cerca, encolo un sonido de movimiento
             std::unique_ptr<Entity> entity = tiles.at(tile).getEntity();
             entityPosition = _calculateNewTile(entityPosition, direction);
             entitiesToUpdateTilePosition.emplace_back(std::move(entity), entityPosition,
@@ -147,11 +147,11 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
     }
 }
 
-void Map::_verifyQueueSound(Coordinate tile) {
+void Map::_verifyQueueSound(Coordinate tile, SoundID sound) {
     Coordinate playerPos = entities.at(playerNickname);//Aca faltaria el .second cuando mark cambie el u_map
     int distance = std::abs(playerPos.j - tile.j) + std::abs(playerPos.i - tile.i);
-    if (distance < 4) {
-        soundPlayer.queueSound(StepDirt);
+    if (distance <= 3) {
+        soundPlayer.queueSound(sound);
     }
 }
 
@@ -221,6 +221,7 @@ void Map::revivePlayer(std::string &nickname) {
 }
 
 void Map::addSpell(Coordinate position, TextureID spellTexture) {
+    _verifyQueueSound(position,Explotion);
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     std::shared_ptr<Spell> spell(new Spell(textureRepo.getTexture(spellTexture),
             camera,position.j*TILE_WIDTH, position.i*TILE_HEIGHT));
