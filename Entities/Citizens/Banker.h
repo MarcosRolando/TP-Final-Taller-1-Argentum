@@ -73,7 +73,7 @@ public:
 
     static void addPlayerItems(const PlayerData& playerData);
 
-    static void erasePlayerItems(const std::string playerNickname);
+    static void erasePlayerItems(const std::string& playerNickname);
 
     static void getPlayerItems(PlayerData& playerData);
 };
