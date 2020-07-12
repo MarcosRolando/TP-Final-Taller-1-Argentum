@@ -53,6 +53,10 @@ void Tile::renderEntity() {
 }
 
 void Tile::removeEntity() {
+    if (!entity.expired()) {
+        std::shared_ptr<Entity> _entity(entity);
+        spell = _entity->getSpell();
+    }
     entity.reset();
 }
 
