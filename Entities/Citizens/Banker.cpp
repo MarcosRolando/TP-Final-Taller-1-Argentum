@@ -13,6 +13,7 @@
 #define MAX_NUMBER_OF_ITEMS_PER_PLAYER 20
 #define NO_ROOM_AVAILABLE_MESSAGE "You don't have more storage room, the limit is "
 #define ROOM_AVAILABLE_MESSAGE "Items stored: "
+#define NO_ITEM_MESSAGE "You don't have that item in you inventory\n"
 #define INVALID_GOLD_PARAMETERS "Invalid parameters for gold deposit/withdrawal\n"
 #define INSUFFICIENT_GOLD_MESSAGE "Insufficient gold\n"
 #define GOLD_AMOUNT_SEPARATOR ' '
@@ -50,10 +51,13 @@ void Banker::deposit(Player &player, const std::string& itemName) {
         std::pair<unsigned int, Storage>& aux = playersStorages.at(player.getNickname());
         if (itemName.find(Configuration::getInstance().configGetGoldName()) != std::string::npos) {
             _modifyGoldReserves(aux.second, player, itemName, _depositGold);
-        } else if ((aux.first < MAX_NUMBER_OF_ITEMS_PER_PLAYER) &&
-                        (playersStorages.at(player.getNickname()).second.storeItem(player.removeItem(itemName)))) {
-            aux.first++;
-            _storeAvailableRoomMessage(player, aux.first);
+        } else if (aux.first < MAX_NUMBER_OF_ITEMS_PER_PLAYER) {
+            if (playersStorages.at(player.getNickname()).second.storeItem(player.removeItem(itemName))) {
+                aux.first++;
+                _storeAvailableRoomMessage(player, aux.first);
+            } else {
+                player.addMessage(NO_ITEM_MESSAGE);
+            }
         } else {
             player.addMessage(NO_ROOM_AVAILABLE_MESSAGE + std::to_string(MAX_NUMBER_OF_ITEMS_PER_PLAYER) + "\n");
         }
