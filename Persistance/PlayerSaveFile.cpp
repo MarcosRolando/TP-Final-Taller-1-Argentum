@@ -125,7 +125,7 @@ PlayerFilePosition PlayerSaveFile::storePlayerData(const PlayerData& playerData,
     int32_t paddingSize = (playerData.size() - playerPosition.length);
     std::vector<char> paddingBuffer(paddingSize, 0);
     saveFile.write(paddingBuffer.data(), paddingSize);
-    saveFile.flush();
+    saveFile.sync();
     return playerPosition;
 }
 
