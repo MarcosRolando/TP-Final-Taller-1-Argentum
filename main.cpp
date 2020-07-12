@@ -6,7 +6,6 @@
 #include "Character/NPC.h"
 #include "Map/Map.h"
 #include "GameConstants.h"
-#include "Timer.h"
 #include "Screen/Window.h"
 #include "SDL/GUI/PlayerInfoGUI.h"
 #include "SDL/GUI/PlayerInventoryGUI.h"

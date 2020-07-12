@@ -16,7 +16,7 @@ SDL/Sound/SoundRepository.cpp SDL/Sound/SoundRepository.h SDL/Text/Font.cpp
 SDL/Text/Font.h SDL/Sound/Sound.cpp
 SDL/Sound/Sound.h
 Map/Tile.cpp Map/Tile.h Map/Map.cpp Map/Map.h Character/Player.cpp
-Character/Player.h Timer.cpp Timer.h GameConstants.h Character/NPC.cpp
+Character/Player.h GameConstants.h Character/NPC.cpp
 Character/NPC.h Character/Entity.cpp Character/Entity.h
 Screen/Window.cpp Screen/Window.h SDL/Text/Text.cpp SDL/Text/Text.h SDL/GUI/PlayerInfoGUI.cpp
 SDL/GUI/PlayerInfoGUI.h SDL/GUI/PlayerInventoryGUI.cpp SDL/GUI/PlayerInventoryGUI.h
