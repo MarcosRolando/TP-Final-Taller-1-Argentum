@@ -94,9 +94,15 @@ AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPl
                     stats.getLevel(), stats.getMaxLife());
             game.pushEvent(std::unique_ptr<Event>(new NotifyDeath(*this)));
         }
-        attackedMessage += "You damaged " + getNickname() + " by " + std::to_string(totalDamage);
+        std::string damageString = std::to_string(totalDamage);
+        attackedMessage += "You damaged " + getNickname() + " by " + damageString;
         attackedMessage += " (Remaining Life: " + std::to_string(stats.getCurrentLife()) +
                             " , XP Gained: " + std::to_string(experience) + ")\n";
+        if (totalDamage >= 0) {
+            chat.addMessage("You lost " + damageString + " health points\n");
+        } else if (totalDamage < 0) {
+            chat.addMessage("You healed " + damageString + " health points\n");
+        }
         return {totalDamage, experience, std::move(attackedMessage)};
     } else {
         return {0, 0, PLAYER_IS_DEAD_MESSAGE};
