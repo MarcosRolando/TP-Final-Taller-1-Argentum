@@ -24,7 +24,7 @@ void Client::_processConnection() {
     bool quit = false;
     GameStartInfo gameStartInfo{};
     GameGUI game;
-    _mainMenuLoop(game, quit, gameStartInfo);
+    //_mainMenuLoop(game, quit, gameStartInfo);
     Window& window = game.getWindow();
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
