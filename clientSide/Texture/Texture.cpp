@@ -129,7 +129,10 @@ void Texture::loadFromRenderedText(const std::string& textureText, SDL_Color
     } else {
         //Create texture from surface pixels
         mTexture = SDL_CreateTextureFromSurface( &renderer, textSurface );
+
         if( mTexture == nullptr ) {
+            //Get rid of old surface
+            SDL_FreeSurface(textSurface);
             throw TPException("Unable to create texture from rendered text! Graphics Error: %s\n", SDL_GetError());
         } else {
             //Get image dimensions
@@ -138,7 +141,7 @@ void Texture::loadFromRenderedText(const std::string& textureText, SDL_Color
         }
 
         //Get rid of old surface
-        SDL_FreeSurface( textSurface );
+        SDL_FreeSurface(textSurface);
     }
 }
 
