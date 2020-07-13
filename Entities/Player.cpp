@@ -283,6 +283,7 @@ bool Player::isDead() {
 void Player::resetMovement() {
     movement.movedDistance = 0;
     movement.direction = DIRECTION_STILL;
+    movement.isMoving = false;
 }
 
 bool Player::hasItem(const std::string& itemName) {

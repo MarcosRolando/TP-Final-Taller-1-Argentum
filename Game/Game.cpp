@@ -91,8 +91,8 @@ void Game::_removeMonsters(ServerProtocol& protocol) {
 
 void Game::_updateDeadPlayersTimer(ServerProtocol& protocol, double timestep) {
     std::stringstream data;
-    ShouldPlayerBeRevived sholdBeRevived(map, data, timestep);
-    playersToResurrect.erase(std::remove_if(playersToResurrect.begin(), playersToResurrect.end(), sholdBeRevived),
+    ShouldPlayerBeRevived shouldBeRevived(map, data, timestep);
+    playersToResurrect.erase(std::remove_if(playersToResurrect.begin(), playersToResurrect.end(), shouldBeRevived),
                              playersToResurrect.end());
     protocol.addToGeneralData(data);
 }
