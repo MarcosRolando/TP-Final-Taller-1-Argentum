@@ -40,9 +40,13 @@ void UpdateAttack::operator()(GameGUI &game) {
         default:
             break;
     }
+    game.getMap().changeEntityLookDirection(nickname, attackDir);
 }
 
-UpdateAttack::UpdateAttack(Coordinate _position, int32_t _weapon) {
+UpdateAttack::UpdateAttack(std::string& _nickname, Coordinate _position,
+                        int32_t _weapon, GameType::Direction _attackDir) {
+    nickname = std::move(_nickname);
     position = _position;
     weapon = static_cast<GameType::Weapon>(_weapon);
+    attackDir = _attackDir;
 }

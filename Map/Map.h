@@ -76,8 +76,10 @@ public:
                         bool isMyPlayer);
 
     void setPlayerNickname(const std::string& nickname);
+
     void verifyQueueSound(Coordinate tile, SoundID sound, int maxDistance);
 
+    void changeEntityLookDirection(std::string& nickname, GameType::Direction direction);
 
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
