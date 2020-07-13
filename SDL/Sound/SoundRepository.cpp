@@ -30,8 +30,8 @@ void SoundRepository::_loadSounds(){
 }
 
 void SoundRepository::_loadMusic(){
-    music = Mix_LoadMUS("../Sounds/hkost.wav");
-    Mix_VolumeMusic(5);
+    music = Mix_LoadMUS("../Sounds/argentumOnlineOST.mp3");
+    Mix_VolumeMusic(20);
     if(music == NULL ) {
         throw TPException("Failed to load beat music! SDL_mixer Error: "
                            "%s\n", Mix_GetError());
