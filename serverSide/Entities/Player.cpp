@@ -41,8 +41,7 @@ int32_t Player::attack(Coordinate target) {
     if (!stats.isDead()) {
         stats.stopMeditating(chat);
         int weaponDamage;
-        weaponDamage = inventory.getWeaponDamage(currentPosition, target,
-                                                    stats.getCurrentMana());
+        weaponDamage = inventory.getWeaponDamage(currentPosition, target, stats);
         int totalDamage = stats.getTotalDamage(weaponDamage);
         if (totalDamage != 0) {
             std::pair<AttackResult, bool> result = game.attackPosition(totalDamage, stats.getLevel(),

@@ -76,7 +76,7 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
                     command = _processDeposit(game);
                     break;
                 case GameType::PLAYER_MEDITATE:
-                    _processMeditate();
+                    command = _processMeditate();
                     break;
                 default:
                     break;

@@ -6,6 +6,7 @@
 #include "../../Config/Calculator.h"
 #include "../../Map/Coordinate.h"
 #include "../../Config/Configuration.h"
+#include "../../Entities/PlayerStats.h"
 #include <ctime>
 #include <cstdlib>
 
@@ -36,13 +37,10 @@ Weapon::Weapon(GameType::Weapon weapon): Item(GameType::ITEM_TYPE_WEAPON,
     _initializeData(stats.minDmg, stats.maxDmg, stats.manaConsumption, stats.range);
 }
 
-int Weapon::getDamage(Coordinate attackPosition, Coordinate attackedPosition,
-                    int32_t& currentMana) const {
-    if (!_isTargetReachable(attackPosition, attackedPosition) ||
-        manaConsumption > currentMana ) {
+int Weapon::getDamage(Coordinate attackPosition, Coordinate attackedPosition, PlayerStats& stats) const {
+    if (!_isTargetReachable(attackPosition, attackedPosition) || !stats.consumeMana(manaConsumption)) {
         return 0;
     }
-    currentMana -= manaConsumption;
     return Calculator::getRandomInt(minDamage, maxDamage);
 }
 

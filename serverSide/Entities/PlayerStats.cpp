@@ -34,7 +34,8 @@ PlayerStats::PlayerStats(const PlayerData& data) {
 void PlayerStats::_loadGenericStats(Config::Modifiers& classM, Config::Modifiers& raceM,
                                     const PlayerData& data) {
     isMeditating = false;
-    timeElapsed = 0;
+    timeElapsedLife = 0;
+    timeElapsedMana = 0;
     experience = data.experience;
     level = data.level;
     maxLife = Calculator::calculateMaxLife(constitution, classLifeMultiplier, raceLifeMultiplier, level);
@@ -119,7 +120,9 @@ int PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int
             currentLife = 0;
             currentMana = 0;
         }
-        if (totalDamage > 0) timeElapsed = 0.0;
+        if (totalDamage > 0) {
+            timeElapsedLife = 0.0;
+        }
         return totalDamage;
     }
 }
@@ -154,19 +157,27 @@ void PlayerStats::update(double timeStep) {
     if (isDead()) {
         return;
     }
-    timeElapsed += timeStep;
-    if (timeElapsed >= TIME_FOR_RECOVERY) {
-        currentLife += Calculator::lifeRecovered(recoveryRate, timeElapsed);
-        if (currentLife > maxLife) currentLife = maxLife;
-        if (isMeditating) {
-            currentMana += Calculator::manaRecoveredNoMeditation(recoveryRate,
-                                                                timeElapsed);
-        } else {
-            currentMana += Calculator::manaRecoveredWithMeditation(meditationRate,
-                                                        intelligence, timeElapsed);
+    timeElapsedLife += timeStep;
+    timeElapsedMana += timeStep;
+    if (timeElapsedLife >= TIME_FOR_RECOVERY) {
+        currentLife += Calculator::lifeRecovered(recoveryRate, timeElapsedLife);
+        if (currentLife > maxLife) {
+            currentLife = maxLife;
         }
-        if (currentMana >= maxMana) currentMana = maxMana;
-        timeElapsed = 0.0;
+        timeElapsedLife = 0.0;
+    }
+    if (timeElapsedMana >= TIME_FOR_RECOVERY) {
+        if (isMeditating) {
+            currentMana += Calculator::manaRecoveredWithMeditation(meditationRate,
+                                                                   intelligence, timeElapsedMana);
+        } else {
+            currentMana += Calculator::manaRecoveredNoMeditation(recoveryRate,
+                                                                 timeElapsedMana);
+        }
+        if (currentMana >= maxMana) {
+            currentMana = maxMana;
+        }
+        timeElapsedMana = 0.0;
     }
 }
 
@@ -219,5 +230,16 @@ void PlayerStats::getData(PlayerData &pData) const {
     pData.strength = strength;
     pData.agility = agility;
     pData.intelligence = intelligence;
+}
+
+bool PlayerStats::consumeMana(unsigned int amount) {
+    if (currentMana < static_cast<int>(amount)) {
+        return false;
+    }
+    if (amount != 0) {
+        currentMana -= amount;
+        timeElapsedMana = 0;
+    }
+    return true;
 }
 
