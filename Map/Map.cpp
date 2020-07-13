@@ -278,6 +278,7 @@ void Map::setPlayerNickname(const std::string &nickname) {
     playerNickname = nickname;
 }
 
-void Map::changeEntityLookDirection(GameType::Direction direction) {
-
+void Map::changeEntityLookDirection(std::string& nickname, GameType::Direction direction) {
+    Entity* entity = entities.at(nickname).first.get();
+    entity->setLookDirection(direction);
 }

@@ -195,3 +195,7 @@ void Entity::setPosition(float _xPosition, float _yPosition) {
     currentFrame = 0;
     totalDistanceMoved = 0;
 }
+
+void Entity::setLookDirection(GameType::Direction direction) {
+    lastDirection = direction;
+}

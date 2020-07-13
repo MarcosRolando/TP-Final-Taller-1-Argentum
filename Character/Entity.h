@@ -36,6 +36,7 @@ public:
     void addSpell(std::shared_ptr<Spell>& _spell);
     std::weak_ptr<Spell>& getSpell();
     void setPosition(float _xPosition, float _yPosition);
+    void setLookDirection(GameType::Direction direction);
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);

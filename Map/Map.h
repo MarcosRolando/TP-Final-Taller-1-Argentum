@@ -79,7 +79,7 @@ public:
 
     void verifyQueueSound(Coordinate tile, SoundID sound, int maxDistance);
 
-    void changeEntityLookDirection(GameType::Direction direction);
+    void changeEntityLookDirection(std::string& nickname, GameType::Direction direction);
 
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
