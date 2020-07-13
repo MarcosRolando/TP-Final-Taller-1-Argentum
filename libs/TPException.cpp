@@ -2,8 +2,9 @@
 // Created by marcos on 6/6/20.
 //
 
+#include <cstdarg>
+#include <cstdio>
 #include "TPException.h"
-#include <SDL.h>
 
 TPException::TPException(const char *fmt, ...) {
     va_list args;
