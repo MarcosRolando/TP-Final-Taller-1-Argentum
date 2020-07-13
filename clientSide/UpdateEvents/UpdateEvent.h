@@ -12,6 +12,7 @@ class GameGUI;
 class UpdateEvent {
 public:
     virtual void operator()(GameGUI& game) = 0;
+    virtual ~UpdateEvent() = default;
 };
 
 

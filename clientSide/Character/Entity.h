@@ -37,6 +37,7 @@ public:
     std::weak_ptr<Spell>& getSpell();
     void setPosition(float _xPosition, float _yPosition);
     void setLookDirection(GameType::Direction direction);
+    virtual ~Entity() = default;
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);

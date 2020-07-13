@@ -135,6 +135,7 @@ void Client::_setCursor() {
         throw TPException("No se pudo crear el cursor");
     }
     cursor = SDL_CreateColorCursor(surface, 0, 0);
+    SDL_FreeSurface(surface);
     if (!cursor) {
         throw TPException("No se pudo crear el cursor");
     }

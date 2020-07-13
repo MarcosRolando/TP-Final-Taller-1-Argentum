@@ -16,6 +16,7 @@ public:
     virtual void renderRight(int x, int y, int frame) = 0;
     virtual void renderLeft(int x, int y, int frame) = 0;
     static void render(Texture* texture, int x, int y, int spritePosition);
+    virtual ~EntityTexture() = default;
 };
 
 
