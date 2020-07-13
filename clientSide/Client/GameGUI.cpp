@@ -19,8 +19,11 @@ void GameGUI::loadTileData(Coordinate position, FloorTypeTexture floor,
     map.loadTileData(position, floor, structure, citizen);
 }
 
-void GameGUI::render(float timeStep) {
+void GameGUI::update(float timeStep) {
     map.update(timeStep);
+}
+
+void GameGUI::render() {
     screen.clear();
     screen.setViewport(ScreenViewport);
     background.render(0, 0);

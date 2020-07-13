@@ -7,7 +7,7 @@
 Font::Font(const std::string& path, int fontSize) {
     //load media
     font = TTF_OpenFont(path.c_str(), fontSize);
-    if(font == NULL ){
+    if(font == nullptr ){
         throw TPException("Failed to load lazy font! SDL_ttf Error: %s\n",
                           TTF_GetError() );
     }
