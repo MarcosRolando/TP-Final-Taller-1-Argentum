@@ -19,6 +19,7 @@ private:
     float sellingMultiplier{};
     Storage storage;
     std::unordered_map<std::string, unsigned int> prices;
+    std::unordered_set<std::string> acceptedProducts;
 
     friend EntityTests;
 
@@ -27,7 +28,7 @@ public:
     Shop();
 
     Shop(const std::unordered_map<std::string, unsigned int>&
-         initialItemsAmounts, float buyingMultiplier, float sellingMultiplier);
+         initialItemsAmounts, std::unordered_set<std::string>&& acceptedProducts, float buyingMultiplier, float sellingMultiplier);
 
     Shop(Shop&& other) noexcept;
 

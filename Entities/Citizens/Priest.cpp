@@ -9,11 +9,12 @@
 using namespace GameType;
 
 #define INITIAL_WEAPONS_AMOUNT 10
-#define INITIAL_POTIONS_AMOUNT 30
+#define INITIAL_POTIONS_AMOUNT 40
 #define BUYING_PRICE_MULTIPLIER 1.25
 #define SELLING_PRICE_MULTIPLIER 0.75
 
 Priest::Priest(Coordinate initialPosition): Entity(GameType::PRIEST, initialPosition, "Priest") {
+    std::unordered_set<std::string> acceptedProducts;
     Configuration& config = Configuration::getInstance();
     std::unordered_map<std::string, unsigned int> initialItemsAmounts;
     initialItemsAmounts[config.configWeaponData(LINKED_STAFF).name] = INITIAL_WEAPONS_AMOUNT;
@@ -24,7 +25,11 @@ Priest::Priest(Coordinate initialPosition): Entity(GameType::PRIEST, initialPosi
     initialItemsAmounts[config.configPotionData(HEALTH_POTION).name] = INITIAL_POTIONS_AMOUNT;
     initialItemsAmounts[config.configPotionData(MANA_POTION).name] = INITIAL_POTIONS_AMOUNT;
 
-    Shop aux(initialItemsAmounts, BUYING_PRICE_MULTIPLIER, SELLING_PRICE_MULTIPLIER);
+    for (const auto & item: initialItemsAmounts) {
+        acceptedProducts.emplace(item.first);
+    }
+
+    Shop aux(initialItemsAmounts, std::move(acceptedProducts), BUYING_PRICE_MULTIPLIER, SELLING_PRICE_MULTIPLIER);
     shop = std::move(aux);
 }
 

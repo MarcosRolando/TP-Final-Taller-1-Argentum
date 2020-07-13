@@ -12,6 +12,7 @@
 using namespace GameType;
 
 Trader::Trader(Coordinate initialPosition) : Entity(GameType::TRADER, initialPosition, "Trader") {
+    std::unordered_set<std::string> acceptedProducts;
     Configuration& config = Configuration::getInstance();
     std::unordered_map<std::string, unsigned int> initialItemsAmounts;
 
@@ -33,7 +34,11 @@ Trader::Trader(Coordinate initialPosition) : Entity(GameType::TRADER, initialPos
     initialItemsAmounts[config.configPotionData(MANA_POTION).name] = INITIAL_ITEMS_AMOUNT;
     initialItemsAmounts[config.configPotionData(HEALTH_POTION).name] = INITIAL_ITEMS_AMOUNT;
 
-    Shop aux(initialItemsAmounts, BUYING_PRICE_MULTIPLIER, SELLING_PRICE_MULTIPLIER);
+    for (const auto & item: initialItemsAmounts) {
+        acceptedProducts.emplace(item.first);
+    }
+
+    Shop aux(initialItemsAmounts, std::move(acceptedProducts), BUYING_PRICE_MULTIPLIER, SELLING_PRICE_MULTIPLIER);
     shop = std::move(aux);
 }
 
