@@ -28,7 +28,7 @@ namespace GameType {
         HUMAN, ELF, DWARF, GNOME
     };
 
-    enum Class {
+    enum Class : int32_t {
         WIZARD, CLERIC, PALADIN, WARRIOR
     };
 
@@ -69,7 +69,7 @@ namespace GameType {
         RIP_STONE, TREE, VERY_DEAD_GUY, SUNKEN_COLUMN, SUNKEN_SHIP, NO_STRUCTURE
     };
 
-    enum Direction: int32_t {
+    enum Direction : int32_t {
         DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT, DIRECTION_STILL
     };
 
@@ -77,7 +77,6 @@ namespace GameType {
         EQUIPMENT_PLACE_NONE, EQUIPMENT_PLACE_HEAD, EQUIPMENT_PLACE_CHEST, EQUIPMENT_PLACE_WEAPON,
         EQUIPMENT_PLACE_SHIELD
     };
-
 }
 
 #endif //ARGENTUM_GAMEENUMS_H

@@ -8,7 +8,7 @@ include_directories(${jsoncpp_INCLUDE_DIRS})
 
 add_subdirectory(Tests)
 
-add_executable(argentumServer main.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Attack/Weapon.h
+add_executable(argentumServer serverMain.cpp Items/Item.h Items/Attack/Weapon.cpp Items/Attack/Weapon.h
         Items/Miscellaneous/Gold.cpp Items/Miscellaneous/Gold.h Map/Tile.cpp Map/Tile.h Entities/Entity.h
         Map/Coordinate.h Entities/Monster.cpp Entities/Monster.h Game/Game.cpp Game/Game.h Map/Map.cpp
         Map/Map.h Items/Inventory.cpp Items/Inventory.h Entities/Player.cpp Entities/Player.h
