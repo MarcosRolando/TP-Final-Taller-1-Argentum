@@ -78,7 +78,7 @@ void Shop::buy(Player &player, const std::string &itemName) {
 
 void Shop::sell(Player &player, const std::string& itemName) {
     unsigned int price;
-    price = static_cast<unsigned int>(static_cast<float>(prices[itemName])
+    price = static_cast<unsigned int>(static_cast<float>(prices.at(itemName))
                                       * sellingMultiplier);
     if (acceptedProducts.count(itemName) == 0) {
         player.addMessage(NOT_ACCEPTED_PRODUCT_MESSAGE + itemName + "s\n");
