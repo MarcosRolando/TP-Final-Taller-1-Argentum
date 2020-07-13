@@ -16,12 +16,29 @@ Attack::Attack(Entity& _entity, Coordinate _target) : entity(_entity) {
 void Attack::operator()(ServerProtocol& protocol) {
     int32_t usedWeapon = entity.attack(target);
     if (usedWeapon != -1) {
+        GameType::Direction attackDir = _attackDirection(entity.getPosition());
         std::stringstream data;
         msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::ATTACK);
         msgpack::pack(data, messageTypeData);
-        msgpack::type::tuple<int32_t, int32_t, int32_t> attackCoordinateData
-                                (target.iPosition, target.jPosition, usedWeapon);
+        msgpack::type::tuple<int32_t, int32_t, int32_t, GameType::Direction> attackCoordinateData
+                                (target.iPosition, target.jPosition, usedWeapon, attackDir);
         msgpack::pack(data, attackCoordinateData);
         protocol.addToGeneralData(data);
+    }
+}
+
+GameType::Direction Attack::_attackDirection(Coordinate attackerPosition) const {
+    if (attackerPosition.iPosition == target.iPosition) {
+        if (attackerPosition.jPosition > target.jPosition) {
+            return GameType::DIRECTION_LEFT;
+        } else {
+            return GameType::DIRECTION_RIGHT;
+        }
+    } else {
+        if (attackerPosition.iPosition < target.iPosition) {
+            return GameType::DIRECTION_DOWN;
+        } else {
+            return GameType::DIRECTION_UP;
+        }
     }
 }

@@ -8,6 +8,7 @@
 
 #include "Event.h"
 #include "../../Map/Coordinate.h"
+#include "../../Config/GameEnums.h"
 
 class Entity;
 
@@ -19,6 +20,9 @@ private:
 public:
     Attack(Entity& _entity, Coordinate _target);
     void operator()(ServerProtocol& protocol) override;
+
+private:
+    GameType::Direction _attackDirection(Coordinate attackerPosition) const;
 };
 
 
