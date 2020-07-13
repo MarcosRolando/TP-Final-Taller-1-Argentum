@@ -232,7 +232,7 @@ void Map::addSpell(Coordinate position, TextureID spellTexture) {
     spells.emplace_back(std::move(spell));
 }
 
-void Map::update(float timeStep) {
+void Map::update(double timeStep) {
     _moveEntitiesToNewTile();
     _updateSpellsFrame(timeStep);
 }
@@ -244,7 +244,7 @@ static bool shouldSpellBeRemoved(std::shared_ptr<Spell>& spell) {
     return true;
 }
 
-void Map::_updateSpellsFrame(float timeStep) {
+void Map::_updateSpellsFrame(double timeStep) {
     if (!spells.empty()) {
         for (auto & spell : spells) {
             if (spell) {
