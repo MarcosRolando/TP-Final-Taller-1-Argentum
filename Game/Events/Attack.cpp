@@ -20,8 +20,10 @@ void Attack::operator()(ServerProtocol& protocol) {
         std::stringstream data;
         msgpack::type::tuple<GameType::EventID> messageTypeData(GameType::ATTACK);
         msgpack::pack(data, messageTypeData);
-        msgpack::type::tuple<int32_t, int32_t, int32_t, GameType::Direction> attackCoordinateData
-                                (target.iPosition, target.jPosition, usedWeapon, attackDir);
+        msgpack::type::tuple<std::string, int32_t, int32_t, int32_t,
+                                    GameType::Direction> attackCoordinateData
+                                (entity.getNickname(), target.iPosition, target.jPosition,
+                                        usedWeapon, attackDir);
         msgpack::pack(data, attackCoordinateData);
         protocol.addToGeneralData(data);
     }
