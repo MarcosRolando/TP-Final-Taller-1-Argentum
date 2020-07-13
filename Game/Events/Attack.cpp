@@ -7,6 +7,7 @@
 #include "../../Server/ServerProtocol.h"
 #include "msgpack.hpp"
 
+MSGPACK_ADD_ENUM(GameType::Direction)
 MSGPACK_ADD_ENUM(GameType::EventID)
 
 Attack::Attack(Entity& _entity, Coordinate _target) : entity(_entity) {
