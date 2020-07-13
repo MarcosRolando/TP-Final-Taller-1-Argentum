@@ -18,14 +18,19 @@
 void Client::_processConnection() {
     //Start Menu loop
     bool quit = false;
-    GameStartInfo gameStartInfo{};
+    //GameStartInfo gameStartInfo{};
     GameGUI game;
     Timer timer;
-    _mainMenuLoop(game, quit, gameStartInfo);
+    class MainMenu mainMenu(game.getTextureRepo().getTexture(MainMenu),
+                            game.getWindow());
+
+    mainMenu.connectLoop(quit, host, port, socket);
     Window& window = game.getWindow();
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    initializer.loadPlayer("DrasungorGP");
+ //   mainMenu.playerSelectionLoop(quit, initializer, socket);
+    //playerSelectionLoop
+    initializer.loadPlayer("Ivan");
     /*if (gameStartInfo.createPlayer) {
         initializer.loadPlayer(gameStartInfo.myNickname, gameStartInfo.myRace,
                                gameStartInfo.myClass);
@@ -34,7 +39,6 @@ void Client::_processConnection() {
     }*/
     char serverAcceptedConnection;
     socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
-    //End menu loop
 
     //Game start
     initializer.initializeGame();
@@ -91,11 +95,11 @@ void Client::_processConnection() {
 }
 
 void Client::_mainMenuLoop(GameGUI& game, bool& quit, GameStartInfo& startInfo) {
-    class MainMenu mainMenu(game.getTextureRepo().getTexture(MainMenu),
+    /*class MainMenu mainMenu(game.getTextureRepo().getTexture(MainMenu),
             game.getWindow());
 
     //mainMenu.loop(quit, host, port, startInfo);
-    mainMenu.connectLoop(quit, host, port, socket);
+    mainMenu.connectLoop(quit, host, port, socket);*/
 }
 
 void Client::connect() {

@@ -52,7 +52,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
                 clients.mergeWaitingClients(game, protocol);
             }
             lastFrameTime = timer.getTime();
-            std::cout << lastFrameTime << std::endl;
+            //std::cout << lastFrameTime << std::endl;
             if (lastFrameTime < FRAME_TIME*1000) {
                 usleep((FRAME_TIME*1000 - lastFrameTime) * 1000);
                 lastFrameTime = FRAME_TIME*1000;
