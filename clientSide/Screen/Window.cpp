@@ -155,12 +155,6 @@ SDL_Renderer& Window::getRenderer() {
 Window::~Window() {
     if (renderer != nullptr) SDL_DestroyRenderer(renderer);
     if (mWindow != nullptr) SDL_DestroyWindow(mWindow);
-    mMouseFocus = false;
-    mKeyboardFocus = false;
-    mWidth = 0;
-    mHeight = 0;
-    renderer = nullptr;
-    mWindow = nullptr;
 }
 
 void Window::clear() {
