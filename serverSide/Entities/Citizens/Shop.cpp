@@ -7,6 +7,7 @@
 #include "../../Config/Configuration.h"
 
 
+#define PRODUCT_NOT_IN_STORAGE_MESSAGE "I don't have a "
 #define NOT_ACCEPTED_PRODUCT_MESSAGE "I don't buy "
 #define NOT_ENOUGH_GOLD_STORED_MESSAGE "I don't have enough gold\n"
 #define PLAYER_CANT_AFFORD_MESSAGE "You don't have enough gold\n"
@@ -79,6 +80,8 @@ void Shop::buy(Player &player, const std::string &itemName) {
         } else {
             player.addMessage(PLAYER_CANT_AFFORD_MESSAGE);
         }
+    } else {
+        player.addMessage(PRODUCT_NOT_IN_STORAGE_MESSAGE + itemName + "\n");
     }
 }
 
