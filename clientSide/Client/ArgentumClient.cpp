@@ -28,7 +28,7 @@ void Client::_processConnection() {
     Window& window = game.getWindow();
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    initializer.loadPlayer("Drasungor");
+    initializer.loadPlayer("Ivan");
 
     /*if (gameStartInfo.createPlayer) {
         initializer.loadPlayer(gameStartInfo.myNickname, gameStartInfo.myRace,
@@ -154,16 +154,22 @@ void Client::_initializeSDL() {
         //Initialize PNG loading
         int imgFlags = IMG_INIT_PNG;
         if(!(IMG_Init(imgFlags) & imgFlags)) {
+            SDL_Quit();
             throw TPException("SDL_image could not initialize! SDL_mage Error: %s\n", IMG_GetError() );
         }
     }
     if(Mix_OpenAudio(FREQUENCY, MIX_DEFAULT_FORMAT, 2,
-                      CHUNKSIZE) < 0){
+                                                            CHUNKSIZE) < 0) {
+        IMG_Quit();
+        SDL_Quit();
         throw TPException("SDL_mixer could not initialize!"
                           " SDL_mixer Error: %s\n", Mix_GetError());
     }
     //Initialize SDL_ttf
     if(TTF_Init() == -1) {
+        Mix_Quit();
+        IMG_Quit();
+        SDL_Quit();
         throw TPException("SDL_ttf could not initialize! SDL_ttf Error:"
                           " %s\n", TTF_GetError());
     }

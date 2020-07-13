@@ -45,7 +45,7 @@ private:
     void _updateConstitution(int32_t constitution);
     void _updateAgility(int32_t agility);
     void _updateIntelligence(int32_t intelligence);
-    void _updateNickname(std::string name);
+    void _updateNickname(std::string&& name);
 };
 
 

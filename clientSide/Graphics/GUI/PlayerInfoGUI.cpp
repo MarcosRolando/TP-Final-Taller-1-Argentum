@@ -3,6 +3,8 @@
 //
 
 #include "PlayerInfoGUI.h"
+
+#include <utility>
 #include "../../Client/GameConstants.h"
 
 PlayerInfoGUI::PlayerInfoGUI(SDL_Renderer &renderer) : infoFont("../../clientSide/Graphics/Text/medieval.ttf", 25),
@@ -60,8 +62,8 @@ void PlayerInfoGUI::_updatePosition(Coordinate position) {
     pInfo.position = position;
 }
 
-void PlayerInfoGUI::_updateNickname(std::string name){
-    pInfo.nickname = name;
+void PlayerInfoGUI::_updateNickname(std::string&& name){
+    pInfo.nickname = std::move(name);
 }
 
 void PlayerInfoGUI::render() {
@@ -141,5 +143,5 @@ void PlayerInfoGUI::update(GUIPlayerInfo &generalInfo) {
     _updateConstitution(generalInfo.constitution);
     _updateAgility(generalInfo.agility);
     _updateIntelligence(generalInfo.intelligence);
-    _updateNickname(generalInfo.nickname);
+    _updateNickname(std::move(generalInfo.nickname));
 }
