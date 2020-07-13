@@ -28,7 +28,7 @@ void Client::_processConnection() {
     Window& window = game.getWindow();
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    initializer.loadPlayer("Manolo");
+    initializer.loadPlayer("Drasungor");
 
     /*if (gameStartInfo.createPlayer) {
         initializer.loadPlayer(gameStartInfo.myNickname, gameStartInfo.myRace,
@@ -56,10 +56,10 @@ void Client::_processConnection() {
     high_resolution_clock::time_point time2;
     duration<float, std::milli> timeStep{};
 
+    time1 = high_resolution_clock::now();
     game.getSoundPlayer().playMusic();
     try {
         while (!quit) {
-            time1 = high_resolution_clock::now();
             if (updateEvents.isUpdateAvailable()) {
                 while (!updateEvents.empty()) {
                     update = updateEvents.pop();
@@ -73,14 +73,12 @@ void Client::_processConnection() {
                     event.reset(new SDL_Event());
                 }
             }
-
-            game.getSoundPlayer().playSounds();
             time2 = high_resolution_clock::now();
             timeStep = time2 - time1;
+            time1 = high_resolution_clock::now();
+            game.getSoundPlayer().playSounds();
             game.update(timeStep.count());
             game.render();
-            time2 = high_resolution_clock::now();
-            timeStep = time2 - time1;
             if (timeStep.count() < (1/60.f*1000)) {
                 usleep((1/60.f*1000 - timeStep.count())*1000);
             }
@@ -123,7 +121,8 @@ void Client::connect() {
     _processConnection();
 }
 
-Client::Client() : finished(false) {
+Client::Client(std::string &&host, std::string &&port)  : host(host), port(port),
+                                                    finished(false) {
     _initializeSDL();
     _setCursor();
 }
