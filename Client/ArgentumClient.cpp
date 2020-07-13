@@ -20,27 +20,23 @@ using namespace std::chrono;
 #define CHUNKSIZE 2048
 
 void Client::_processConnection() {
+    //Start Menu loop
     bool quit = false;
     GameStartInfo gameStartInfo{};
     GameGUI game;
     _mainMenuLoop(game, quit, gameStartInfo);
-    //if (!quit)
-    //socket.connect(host, port);
     Window& window = game.getWindow();
-    BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
-    UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    /*if (gameStartInfo.createPlayer) {
-        initializer.loadPlayer(gameStartInfo.myNickname, gameStartInfo.myRace,
-                               gameStartInfo.myClass);
-    } else {
-        initializer.loadPlayer(gameStartInfo.myNickname);
-    }*/
-    initializer.loadPlayer("Ivan");
+    initializer.loadPlayer("Yoda");
     char serverAcceptedConnection;
     socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
+    //End menu loop
+
+    //Game start
     initializer.initializeGame();
+    BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
+    UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
     UpdateReceiver updater(protocol, updateEvents, socket, quit);
     eventHandler();
@@ -97,10 +93,22 @@ void Client::_mainMenuLoop(GameGUI& game, bool& quit, GameStartInfo& startInfo) 
     class MainMenu mainMenu(game.getTextureRepo().getTexture(MainMenu),
             game.getWindow());
 
-    mainMenu.loop(quit, host, port, startInfo);
+    //mainMenu.loop(quit, host, port, startInfo);
+    //mainMenu.connectLoop(quit, host, port);
 }
 
 void Client::connect() {
+    /*bool connected = false;
+    while (!connected) {
+        try {
+            std::cin >> host;               NO BORRAR ESTO; LO NECESITO DE REFERENCIA
+            std::cin >> port;
+            socket.connect(host, port);
+            connected = true;//Si no tira excepcion es q conecte
+        } catch (std::exception& e) {
+            std::cerr << e.what() << std::endl;
+        }
+    }*/
     socket.connect(host, port);
     _processConnection();
 }

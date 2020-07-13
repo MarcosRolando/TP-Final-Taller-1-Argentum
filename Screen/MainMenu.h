@@ -19,6 +19,7 @@ struct GameStartInfo {
 struct Button{
     SDL_Rect buttonEdges;
     SDL_Color color;
+    bool available;
 };
 
 class MainMenu {
@@ -26,6 +27,7 @@ private:
     Window& window;
     Font mainMenuFont;
     Text text;
+    Text inputText;
     Texture& mainMenuBackground;
     Button startGameButton{};
     Button exitButton{};
@@ -33,6 +35,8 @@ public:
     MainMenu(Texture& texture, Window& window);
     void loop(bool& quit, std::string& _host,
               std::string& _port, GameStartInfo& startInfo);
+    void connectLoop(bool &quit, std::string &_host, std::string &_port);
+
     ~MainMenu();
 
 private:
@@ -43,6 +47,7 @@ private:
     void _handleMouseMotion();
 
     void _handleMouseButtonDown(bool &inMainMenu, bool &quit);
+
 };
 
 

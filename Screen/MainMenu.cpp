@@ -10,7 +10,8 @@
 
 MainMenu::MainMenu(Texture& texture, Window& window) : window(window),
 mainMenuFont("../SDL/Text/medieval.ttf", 25),
-text(mainMenuFont, window.getRenderer()), mainMenuBackground(texture) {
+text(mainMenuFont, window.getRenderer()),
+inputText(mainMenuFont, window.getRenderer()), mainMenuBackground(texture) {
 
     startGameButton.buttonEdges = START_GAME_BUTTON;
     exitButton.buttonEdges = EXIT_BUTTON;
@@ -39,6 +40,10 @@ void MainMenu::loop(bool& quit, std::string& _host,
         }
         _render();
     }
+}
+
+void MainMenu::connectLoop(bool& quit, std::string& _host,
+                    std::string& _port) {
 }
 
 void MainMenu::_handleMouseMotion() {
