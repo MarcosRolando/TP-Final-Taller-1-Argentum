@@ -45,7 +45,7 @@ add_executable(argentumClient clientMain.cpp ../libs/TPException.cpp ../libs/TPE
         Client/InputCommands/SellCommand.cpp Client/InputCommands/SellCommand.h Client/InputCommands/BuyCommand.cpp
         Client/InputCommands/BuyCommand.h UpdateEvents/UpdatePlayerResurrect.cpp UpdateEvents/UpdatePlayerResurrect.h
         Client/InputCommands/HealCommand.cpp Client/InputCommands/HealCommand.h UpdateEvents/UpdateTeleportEntity.h
-        UpdateEvents/UpdateTeleportEntity.cpp Client/InputCommands/DepositCommand.cpp Client/InputCommands/DepositCommand.h Client/InputCommands/WithdrawCommand.cpp Client/InputCommands/WithdrawCommand.h Client/InputCommands/MessageToPlayerCommand.cpp Client/InputCommands/MessageToPlayerCommand.h)
+        UpdateEvents/UpdateTeleportEntity.cpp Client/InputCommands/DepositCommand.cpp Client/InputCommands/DepositCommand.h Client/InputCommands/WithdrawCommand.cpp Client/InputCommands/WithdrawCommand.h Client/InputCommands/MessageToPlayerCommand.cpp Client/InputCommands/MessageToPlayerCommand.h ../libs/Timer.cpp ../libs/Timer.h)
 
 
 
