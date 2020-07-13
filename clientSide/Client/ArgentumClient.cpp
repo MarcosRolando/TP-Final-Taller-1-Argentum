@@ -79,9 +79,11 @@ void Client::_processConnection() {
             game.getSoundPlayer().playSounds();
             game.update(timeStep.count());
             game.render();
+            /*
             if (timeStep.count() < (1/60.f*1000)) {
                 usleep((1/60.f*1000 - timeStep.count())*1000);
             }
+             */
         }
     } catch (std::exception& e) {
         std::cerr << e.what() << " in Main Game Loop" << std::endl;
