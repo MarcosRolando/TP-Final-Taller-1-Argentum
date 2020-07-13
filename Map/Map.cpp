@@ -277,3 +277,7 @@ void Map::teleportEntity(const std::string &nickname, Coordinate newPosition,
 void Map::setPlayerNickname(const std::string &nickname) {
     playerNickname = nickname;
 }
+
+void Map::changeEntityLookDirection(GameType::Direction direction) {
+
+}

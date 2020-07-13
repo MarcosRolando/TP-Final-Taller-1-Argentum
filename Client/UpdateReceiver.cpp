@@ -111,12 +111,13 @@ void UpdateReceiver::_processDestroyItem() {
 }
 
 void UpdateReceiver::_processAttack() {
-    msgpack::type::tuple<int32_t, int32_t, GameType::Weapon> player;
+    msgpack::type::tuple<int32_t, int32_t, GameType::Weapon, GameType::Direction> player;
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     handler->convert(player);
     updates.push(std::unique_ptr<UpdateEvent>(
             new UpdateAttack({std::get<0>(player),
-                    std::get<1>(player)}, std::get<2>(player))));
+                    std::get<1>(player)}, std::get<2>(player)),
+                    std::get<3>(player)));
 }
 
 

@@ -13,10 +13,10 @@ class UpdateAttack : public UpdateEvent {
 private:
     Coordinate position{};
     GameType::Weapon weapon;
+    GameType::Direction attackDir;
 
 public:
-    UpdateAttack(Coordinate _position, int32_t _weapon);
-
+    UpdateAttack(Coordinate _position, int32_t _weapon, GameType::Direction _attackDir);
     void operator()(GameGUI& game) override;
 };
 

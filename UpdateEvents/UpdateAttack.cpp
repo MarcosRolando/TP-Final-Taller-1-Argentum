@@ -7,6 +7,7 @@
 
 void UpdateAttack::operator()(GameGUI &game) {
     switch (weapon) {
+        game.getMap().changeEntityLookDirection(attackDir);
         case GameType::GNARLED_STAFF:
             game.getMap().addSpell(position, MagicMissile);
             game.getMap().verifyQueueSound(position, Explotion3, 6);
@@ -42,7 +43,8 @@ void UpdateAttack::operator()(GameGUI &game) {
     }
 }
 
-UpdateAttack::UpdateAttack(Coordinate _position, int32_t _weapon) {
+UpdateAttack::UpdateAttack(Coordinate _position, int32_t _weapon, GameType::Direction _attackDir) {
     position = _position;
     weapon = static_cast<GameType::Weapon>(_weapon);
+    attackDir = _attackDir;
 }
