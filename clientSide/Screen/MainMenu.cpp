@@ -4,9 +4,9 @@
 
 #include "MainMenu.h"
 #include "../Client/GameConstants.h"
+#include "../Client/GameInitializer.h"
 #include "../../libs/Socket.h"
 
-#define START_GAME_BUTTON {50,100,135,25}
 #define CONNECT_BUTTON {1375, 875, 100, 25}
 #define EXIT_BUTTON {50,875,90,25}
 
@@ -68,6 +68,41 @@ void MainMenu::connectLoop(bool& quit, std::string& _host,
             }
         }
         _renderConnectScreen();
+    }
+}
+
+void MainMenu::playerSelectionLoop(bool& quit, GameInitializer& initializer, Socket& socket) {
+    bool finished = false;
+    SDL_Event e;
+    while (!finished){
+        while (SDL_PollEvent(&e) != 0){
+            if (e.type == SDL_QUIT){
+                quit = true;
+                finished = true;
+            }
+            //Por si hago resize
+            window.handleEvent(e);
+            if (e.type == SDL_MOUSEBUTTONDOWN){
+                int x = 0, y = 0;
+                SDL_GetMouseState( &x, &y );
+                x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
+                y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
+                if (_isInsideRect(x,y,EXIT_BUTTON)) {
+                    quit = true;
+                    finished = true;
+                }
+            } else if (e.type == SDL_TEXTINPUT){
+                _handleTextInput(e);
+            } else if (e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.sym == SDLK_BACKSPACE) {
+                    _handleBackspace();
+                }
+            }
+        }
+        //_renderConnectScreen();
+        window.clear();
+        window.setViewport(ScreenViewport);
+        mainMenuBackground.render(0,0);
     }
 }
 
