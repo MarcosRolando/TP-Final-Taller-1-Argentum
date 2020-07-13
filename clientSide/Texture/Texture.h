@@ -59,9 +59,6 @@ public:
     /*Especifica una dimension (un clip) que representa un sprite de la textura*/
     void addSprite(int x, int y, int width, int height);
 
-    //Deallocates texture
-    void free();
-
     /*Hago sobrecarga para poder pasar por parametro default a la escala de la textura
      * cuando la cree*/
     void render(int x, int y, int spritePosition = 0, double angle = 0);
@@ -77,7 +74,8 @@ public:
     void renderText(int x, int y);
 
 private:
-
+    //Deallocates texture
+    void _free();
 };
 
 
