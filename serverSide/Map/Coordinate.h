@@ -23,7 +23,7 @@ struct Coordinate {
     }
 
     unsigned int calculateDistance(const Coordinate& other) {
-        return std::abs((iPosition - other.iPosition) + (jPosition - other.jPosition));
+        return std::abs(iPosition - other.iPosition) + std::abs(jPosition - other.jPosition);
     }
 };
 
