@@ -4,6 +4,7 @@
 
 #include "MainMenu.h"
 #include "../GameConstants.h"
+#include "../Client/Socket.h"
 
 #define START_GAME_BUTTON {50,100,135,25}
 #define EXIT_BUTTON {50,875,90,25}
@@ -11,7 +12,9 @@
 MainMenu::MainMenu(Texture& texture, Window& window) : window(window),
 mainMenuFont("../SDL/Text/medieval.ttf", 25),
 text(mainMenuFont, window.getRenderer()),
-inputText(mainMenuFont, window.getRenderer()), mainMenuBackground(texture) {
+hostInputText(mainMenuFont, window.getRenderer()),
+portInputText(mainMenuFont, window.getRenderer()) ,
+nicknameInputText(mainMenuFont, window.getRenderer()), mainMenuBackground(texture) {
 
     startGameButton.buttonEdges = START_GAME_BUTTON;
     exitButton.buttonEdges = EXIT_BUTTON;
@@ -43,7 +46,24 @@ void MainMenu::loop(bool& quit, std::string& _host,
 }
 
 void MainMenu::connectLoop(bool& quit, std::string& _host,
-                    std::string& _port) {
+                    std::string& _port, Socket& socket) {
+    SDL_Event e;
+    bool finished = false;
+    while (!finished){
+        while (SDL_PollEvent(&e) != 0){
+            if (e.type == SDL_QUIT){
+                quit = true;
+                finished = true;
+            }
+            //Por si hago resize
+            window.handleEvent(e);
+
+            /*if (e.type == SDL_MOUSEBUTTONDOWN){
+                _handleMouseButtonDown(finished, quit);
+            }*/
+        }
+        _renderConnectScreen();
+    }
 }
 
 void MainMenu::_handleMouseMotion() {
@@ -72,7 +92,7 @@ void MainMenu::_handleMouseButtonDown(bool& inMainMenu, bool& quit) {
         inMainMenu = false;
     } else if (_isInsideRect(x,y,exitButton.buttonEdges)){
         quit = true;
-        inMainMenu = false;
+        inMainMenu = true;
     }
 }
 
@@ -89,6 +109,23 @@ void MainMenu::_render(){
     text.render(50, 100, startGameButton.color);
     text.updateText("Exit");
     text.render(50, 875, exitButton.color);
+    window.show();
+}
+
+void MainMenu::_renderConnectScreen(){
+    window.clear();
+    window.setViewport(ScreenViewport);
+    mainMenuBackground.render(0,0);
+
+    text.updateText("Host: ");
+    text.render(50, 100, {0x00,0x00,0x00});
+    text.updateText("Port: ");
+    text.render(50, 200, {0x00,0x00,0x00});
+
+    text.updateText("Connect");
+    text.render(1375, 875, {0xff,0xff,0xff});
+    text.updateText("Exit");
+    text.render(50, 875, {0xff,0xff,0xff});
     window.show();
 }
 

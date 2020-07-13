@@ -26,7 +26,7 @@ void SoundRepository::_loadSounds(){
     } catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
     }
-    Mix_Volume(-1, 35);
+    Mix_Volume(-1, 25);
 }
 
 void SoundRepository::_loadMusic(){

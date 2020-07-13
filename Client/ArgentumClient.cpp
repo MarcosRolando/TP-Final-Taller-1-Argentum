@@ -28,7 +28,7 @@ void Client::_processConnection() {
     Window& window = game.getWindow();
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    initializer.loadPlayer("Yoda");
+    initializer.loadPlayer("Ivan");
 
     /*if (gameStartInfo.createPlayer) {
         initializer.loadPlayer(gameStartInfo.myNickname, gameStartInfo.myRace,
@@ -101,7 +101,7 @@ void Client::_mainMenuLoop(GameGUI& game, bool& quit, GameStartInfo& startInfo) 
             game.getWindow());
 
     //mainMenu.loop(quit, host, port, startInfo);
-    //mainMenu.connectLoop(quit, host, port);
+    mainMenu.connectLoop(quit, host, port, socket);
 }
 
 void Client::connect() {

@@ -9,6 +9,8 @@
 #include "Window.h"
 #include "../Shared/GameEnums.h"
 
+class Socket;
+
 struct GameStartInfo {
     bool createPlayer;
     std::string myNickname;
@@ -27,7 +29,9 @@ private:
     Window& window;
     Font mainMenuFont;
     Text text;
-    Text inputText;
+    Text hostInputText;
+    Text portInputText;
+    Text nicknameInputText;
     Texture& mainMenuBackground;
     Button startGameButton{};
     Button exitButton{};
@@ -35,7 +39,7 @@ public:
     MainMenu(Texture& texture, Window& window);
     void loop(bool& quit, std::string& _host,
               std::string& _port, GameStartInfo& startInfo);
-    void connectLoop(bool &quit, std::string &_host, std::string &_port);
+    void connectLoop(bool &quit, std::string &_host, std::string &_port, Socket& socket);
 
     ~MainMenu();
 
@@ -48,6 +52,7 @@ private:
 
     void _handleMouseButtonDown(bool &inMainMenu, bool &quit);
 
+    void _renderConnectScreen();
 };
 
 
