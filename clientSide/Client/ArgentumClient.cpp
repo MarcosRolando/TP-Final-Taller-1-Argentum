@@ -8,7 +8,6 @@
 #include <SDL_mixer.h>
 #include "../UpdateEvents/UpdateEvent.h"
 #include "UpdateReceiver.h"
-#include <chrono>
 #include "GameInitializer.h"
 #include "../Screen/MainMenu.h"
 #include "../../libs/Timer.h"
