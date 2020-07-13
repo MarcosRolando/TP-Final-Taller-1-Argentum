@@ -12,8 +12,9 @@ Shop::Shop() {
 }
 
 Shop::Shop(const std::unordered_map<std::string, unsigned int> &initialItemsAmounts,
-           float _buyingMultiplier, float _sellingMultiplier):
+           std::unordered_set<std::string>&& _acceptedProducts, float _buyingMultiplier, float _sellingMultiplier):
            storage(initialItemsAmounts, Configuration::getInstance().configInitialMerchantGold()) {
+    acceptedProducts = std::move(_acceptedProducts);
     Configuration& config = Configuration::getInstance();
     const auto & weaponsData = config.configAllWeaponsData();
     const auto & clothesData = config.configAllClothingData();
