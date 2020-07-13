@@ -54,10 +54,10 @@ void MainMenu::loop(bool& quit, std::string& _host,
 
 void MainMenu::connectLoop(bool& quit, std::string& _host,
                     std::string& _port, Socket& socket) {
-    bool inputHost = false;
+    bool inputHost = false;//Estos bools estan para ver donde escribir el input
     bool inputPort = false;
-    SDL_Event e;
     bool finished = false;
+    SDL_Event e;
     while (!finished){
         while (SDL_PollEvent(&e) != 0){
             if (e.type == SDL_QUIT){

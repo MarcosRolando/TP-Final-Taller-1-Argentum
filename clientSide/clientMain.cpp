@@ -223,5 +223,5 @@ int main(int argc, char* args[]) {
 
 #include "Client/ArgentumClientSide.h"
 int main(int argc, char** argv) {
-    return ArgentumClientSide::run(argc, argv);
+    return ArgentumClientSide::run(argc);
 }

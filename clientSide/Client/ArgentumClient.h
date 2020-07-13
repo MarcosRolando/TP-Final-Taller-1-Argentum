@@ -18,7 +18,7 @@ private:
     bool finished;
 
 public:
-    Client(std::string&& host, std::string&& port);
+    Client();
     Client(const Client&) = delete; /*Borro los constructores por copia*/
     Client operator=(const Client&) = delete;
 
