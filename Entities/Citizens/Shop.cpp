@@ -6,6 +6,9 @@
 #include "../Player.h"
 #include "../../Config/Configuration.h"
 
+
+#define NOT_ACCEPTED_PRODUCT_MESSAGE "I don't buy "
+
 Shop::Shop() {
     sellingMultiplier = 1;
     buyingMultiplier = 1;
@@ -77,7 +80,10 @@ void Shop::sell(Player &player, const std::string& itemName) {
     unsigned int price;
     price = static_cast<unsigned int>(static_cast<float>(prices[itemName])
                                       * sellingMultiplier);
-
+    if (acceptedProducts.count(itemName) == 0) {
+        player.addMessage(NOT_ACCEPTED_PRODUCT_MESSAGE + itemName + "s\n");
+        return;
+    }
     if (player.hasItem(itemName) && storage.decreaseGoldReserves(price)) {
         player.receiveGold(price);
         storage.storeItem(player.removeItem(itemName));
