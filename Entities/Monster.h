@@ -21,6 +21,7 @@ private:
     const unsigned int timeBetweenActions;
     double elapsedTime;
     MonsterStats stats;
+    GameType::Weapon monsterWeapon;
 
     //Guarda parte del camino para no llamar al pathfinding cada vez que se
     //quiera mover
@@ -47,7 +48,7 @@ private:
 public:
 
     Monster(Game& _game, Coordinate initialPositionunsigned,
-            GameType::Entity _type);
+            GameType::Entity _type, GameType::Weapon _weapon);
 
 
     //Daña el monstruo, retorna la cantidad de danio recibido

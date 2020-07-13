@@ -13,19 +13,19 @@
 ////////////////////////////////////PRIVATE///////////////////////////
 
 void MonstersFactory::_storeSpider(Game& game, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
-    monster.reset(new Monster(game, initialPosition, GameType::SPIDER));
+    monster.reset(new Monster(game, initialPosition, GameType::SPIDER, GameType::SPIDER_ATTACK));
 }
 
 void MonstersFactory::_storeSkeleton(Game& game, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
-    monster.reset(new Monster(game, initialPosition, GameType::SKELETON));
+    monster.reset(new Monster(game, initialPosition, GameType::SKELETON, GameType::SKELETON_ATTACK));
 }
 
 void MonstersFactory::_storeZombie(Game& game,Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
-    monster.reset(new Monster(game,initialPosition, GameType::ZOMBIE));
+        monster.reset(new Monster(game,initialPosition, GameType::ZOMBIE, GameType::ZOMBIE_ATTACK   ));
 }
 
 void MonstersFactory::_storeGoblin(Game& game, Coordinate initialPosition, std::shared_ptr<Monster>& monster) {
-    monster.reset(new Monster(game, initialPosition, GameType::GOBLIN));
+    monster.reset(new Monster(game, initialPosition, GameType::GOBLIN, GameType::GOBLIN_ATTACK));
 }
 
 ////////////////////////////////////PUBLIC///////////////////////////

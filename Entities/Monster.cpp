@@ -123,16 +123,15 @@ void Monster::_move() {
 ////////////////////////PUBLIC/////////////////////////
 
 Monster::Monster(Game &_game, Coordinate initialPosition,
-                 GameType::Entity _type):
+                 GameType::Entity _type, GameType::Weapon _weapon):
                  Entity(_type, initialPosition, "Monster"),
                  timeBetweenActions(Configuration::getInstance().configMonsterStats(_type).reactionSpeed * 200),
                  stats(_type), map(_game.getMap()), game(_game) {
+    monsterWeapon = _weapon;
     elapsedTime = 0;
     type = _type;
     speed = Configuration::getInstance().configMonsterStats(_type).speed;
 }
-
-#include <iostream>
 
 AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isAPlayer) {
     AttackResult result{0, 0, ""};
@@ -171,6 +170,6 @@ bool Monster::isDead() const {
 
 int32_t Monster::attack(Coordinate attackedPosition) {
     game.attackPosition(stats.getDamage(), stats.getLevel(), false, attackedPosition);
-    return GameType::FIST;
+    return monsterWeapon;
 }
 
