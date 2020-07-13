@@ -34,7 +34,6 @@ public:
     explicit MapFileReader(const std::string& path);
     TileInfo getTileInfo(unsigned int x, unsigned int y);
     MapSize getMapDimensions() const;
-    ~MapFileReader();
 
 private:
     void _readMapSize();

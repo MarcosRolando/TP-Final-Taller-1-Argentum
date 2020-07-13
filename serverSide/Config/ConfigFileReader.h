@@ -117,8 +117,6 @@ namespace Config {
 
         void loadPotionData(std::unordered_map<GameType::Potion, PotionData>& stats);
 
-        ~ConfigFileReader();
-
         void loadMonsterSpawnData(unsigned int &maxMonsterAmount,
                                   unsigned int &timeBetweenMonsterSpawns,
                                   unsigned int &monsterSpawnAmount);

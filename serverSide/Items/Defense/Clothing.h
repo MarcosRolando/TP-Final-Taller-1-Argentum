@@ -26,7 +26,7 @@ public:
     //sepa reconocer los default y no los tire
     virtual bool isDefault() const = 0;
 
-    ~Clothing() override = default;
+    virtual ~Clothing() = default;
 };
 
 

@@ -11,6 +11,7 @@ class ServerProtocol;
 class Event {
 public:
     virtual void operator()(ServerProtocol& protocol) = 0;
+    virtual ~Event() = default;
 };
 
 

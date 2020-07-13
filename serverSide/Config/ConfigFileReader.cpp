@@ -31,10 +31,6 @@ Config::ConfigFileReader::ConfigFileReader(const std::string& path) :
     }
 }
 
-Config::ConfigFileReader::~ConfigFileReader() {
-    file.close();
-}
-
 void Config::ConfigFileReader::loadClassModifiers(std::unordered_map<Class, Modifiers>& mods) {
     Json::Value& classModifiers = obj["Class"];
     Modifiers currMods{};

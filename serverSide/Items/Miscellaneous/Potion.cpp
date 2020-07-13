@@ -15,5 +15,3 @@ Potion::Potion(GameType::Potion potion):
     recoveryValue = Configuration::getInstance().configPotionData(potion).recoveryValue;
     id = potion;
 }
-
-Potion::~Potion() = default;
