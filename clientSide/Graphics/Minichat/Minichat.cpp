@@ -107,7 +107,7 @@ void Minichat::queueText(std::string& newText) {
 void Minichat::clearMinichat() {
     std::lock_guard<std::mutex> l(generalMutex);
     for (auto & text : texts) {
-        text.updateText(" ");
+        text.updateText("");
     }
 }
 

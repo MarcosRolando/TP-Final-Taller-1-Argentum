@@ -80,7 +80,6 @@ void MainMenu::connectLoop(bool& quit, std::string& _host,
                     inputPort = true;
                 } else if (_isInsideRect(x,y,CONNECT_BUTTON)) {
                     try {
-                        hostInputText.getText().erase(0,1);//Le borro un espacio que se mete nose xq
                         socket.connect(hostInputText.getText(), portInputText.getText());
                         finished = true;
                     } catch (std::exception& e) {
@@ -97,9 +96,9 @@ void MainMenu::connectLoop(bool& quit, std::string& _host,
                 }
             } else if (e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.sym == SDLK_BACKSPACE) {
-                    if (inputHost && hostInputText.getTextLength() > 1) {
+                    if (inputHost) {
                         hostInputText.eraseText();
-                    } else if (inputPort && portInputText.getTextLength() > 1) {
+                    } else if (inputPort) {
                         portInputText.eraseText();
                     }
                 }
