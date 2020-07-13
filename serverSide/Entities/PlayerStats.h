@@ -18,7 +18,8 @@ class Minichat;
 class PlayerStats {
 private:
     bool isMeditating{};
-    double timeElapsed{};
+    double timeElapsedLife{};
+    double timeElapsedMana{};
 
     int32_t constitution{};
     int32_t  intelligence{};
@@ -97,6 +98,8 @@ public:
     //Almacena las stats del player en pData, se usa para el backup del archivo
     void getData(PlayerData& pData) const;
 
+
+    bool consumeMana(unsigned int amount);
 
 private:
     void _increaseStats();

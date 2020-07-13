@@ -68,7 +68,7 @@ public:
 
     void addSpell(Coordinate position, TextureID spellTexture);
 
-    void update(float timeStep = 0);
+    void update(double timeStep = 0);
 
     void destroyItem(Coordinate itemPosition);
 
@@ -83,7 +83,7 @@ public:
 
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
-    void _updateSpellsFrame(float timeStep);
+    void _updateSpellsFrame(double timeStep);
     void _moveEntitiesToNewTile();
     void _addEntity(EntityData& data, std::shared_ptr<Entity>& entity);
 };

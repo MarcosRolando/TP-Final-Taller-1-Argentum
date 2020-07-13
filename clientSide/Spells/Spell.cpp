@@ -18,7 +18,7 @@ Spell::Spell(Texture& texture, SDL_Rect &camera, float x, float y) :
     height = (float)TILE_HEIGHT/2 + 15;
 }
 
-void Spell::updateFrame(float timeStep) {
+void Spell::updateFrame(double timeStep) {
     //Calculate time step
     float offset = SPELL_SPEED*timeStep;
     if ( (timePassed + offset) >= ANIMATION_TIME) {

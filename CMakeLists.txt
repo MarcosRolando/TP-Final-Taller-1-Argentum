@@ -3,4 +3,5 @@ project(Argentum)
 
 add_subdirectory(serverSide)
 add_subdirectory(clientSide)
+add_subdirectory(libs)
 

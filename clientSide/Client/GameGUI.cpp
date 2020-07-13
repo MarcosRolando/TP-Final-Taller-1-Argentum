@@ -19,7 +19,7 @@ void GameGUI::loadTileData(Coordinate position, FloorTypeTexture floor,
     map.loadTileData(position, floor, structure, citizen);
 }
 
-void GameGUI::update(float timeStep) {
+void GameGUI::update(double timeStep) {
     map.update(timeStep);
 }
 

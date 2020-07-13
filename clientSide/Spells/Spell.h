@@ -21,7 +21,7 @@ private:
 public:
     Spell(Texture& texture, SDL_Rect& camera, float x, float y);
     void render();
-    void updateFrame(float stepTime);
+    void updateFrame(double timeStep);
     bool finishedAnimation() const;
     void updatePosition(float x, float y);
 

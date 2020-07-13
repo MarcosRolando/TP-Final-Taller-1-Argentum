@@ -10,7 +10,7 @@
 #include "../../../libs/GameEnums.h"
 
 class ItemTests;
-
+class PlayerStats;
 struct Coordinate;
 
 class Weapon : public Item {
@@ -39,8 +39,7 @@ public:
     //no lo realiza retorna 0
     //Podria recibir la distancia, pero esto permite encapsular la forma de
     //calcular la distancia en la Weapon
-    int getDamage(Coordinate attackPosition, Coordinate attackedPosition,
-                  int32_t& currentMana) const;
+    int getDamage(Coordinate attackPosition, Coordinate attackedPosition, PlayerStats& stats) const;
 
     GameType::EquipmentPlace use(Player& player) override;
 
