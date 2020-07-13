@@ -78,16 +78,16 @@ void Inventory::_storeNullItemData(std::stringstream &buffer) {
 
 void Inventory::_restoreDefaultEquipment() {
     if (!clothingEquipment.at(GameType::EQUIPMENT_PLACE_HEAD)) {
-        clothingEquipment.at(GameType::EQUIPMENT_PLACE_HEAD).reset(new Head(GameType::Clothing::NO_HELMET));
+        clothingEquipment.at(GameType::EQUIPMENT_PLACE_HEAD) = std::make_shared<Head>(GameType::Clothing::NO_HELMET);
     }
     if (!clothingEquipment.at(GameType::EQUIPMENT_PLACE_CHEST)) {
-        clothingEquipment.at(GameType::EQUIPMENT_PLACE_CHEST).reset(new Chest(GameType::Clothing::COMMON_CLOTHING));
+        clothingEquipment.at(GameType::EQUIPMENT_PLACE_CHEST) = std::make_shared<Chest>(GameType::Clothing::COMMON_CLOTHING);
     }
     if (!clothingEquipment.at(GameType::EQUIPMENT_PLACE_SHIELD)) {
-        clothingEquipment.at(GameType::EQUIPMENT_PLACE_SHIELD).reset(new Shield(GameType::Clothing::NO_SHIELD));
+        clothingEquipment.at(GameType::EQUIPMENT_PLACE_SHIELD) = std::make_shared<Shield>(GameType::Clothing::NO_SHIELD);
     }
     if (!equippedWeapon) {
-        equippedWeapon.reset(new Weapon(GameType::Weapon::FIST));
+        equippedWeapon = std::make_shared<Weapon>(GameType::Weapon::FIST);
     }
 }
 
@@ -109,16 +109,16 @@ void Inventory::_loadInitialInventory(const PlayerData& data) {
 Inventory::Inventory(const PlayerData& data) : items(INVENTORY_SIZE, nullptr) {
     _loadInitialInventory(data);
     clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_HEAD,
-                    new Head(static_cast<GameType::Clothing>(data.equipment.at(
+                    std::make_shared<Head>(static_cast<GameType::Clothing>(data.equipment.at(
                             GameType::EQUIPMENT_PLACE_HEAD))));
     clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_CHEST,
-            new Chest(static_cast<GameType::Clothing>(data.equipment.at(
+                    std::make_shared<Chest>(static_cast<GameType::Clothing>(data.equipment.at(
                     GameType::EQUIPMENT_PLACE_CHEST))));
     clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_SHIELD,
-            new Shield(static_cast<GameType::Clothing>(data.equipment.at(
+                    std::make_shared<Shield>(static_cast<GameType::Clothing>(data.equipment.at(
                     GameType::EQUIPMENT_PLACE_SHIELD))));
-    equippedWeapon.reset(new Weapon(static_cast<GameType::Weapon>(data.equipment.at(
-                                    GameType::EQUIPMENT_PLACE_WEAPON))));
+    equippedWeapon = std::make_shared<Weapon>(static_cast<GameType::Weapon>(data.equipment.at(
+                                    GameType::EQUIPMENT_PLACE_WEAPON)));
 }
 
 bool Inventory::addItem(std::shared_ptr<Item> &item) {

@@ -64,7 +64,7 @@ void Player::_dropItems() {
     goldDropped = std::max(goldDropped, 0);
     gold -= goldDropped;
     if (goldDropped > 0) {
-        items.emplace_back(new Gold(goldDropped));
+        items.emplace_back(std::make_shared<Gold>(goldDropped));
     }
     if (!items.empty()) {
         //game.dropItems(std::move(items), currentPosition);

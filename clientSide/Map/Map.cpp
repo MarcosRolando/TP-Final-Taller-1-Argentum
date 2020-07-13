@@ -103,17 +103,17 @@ void Map::_addEntity(EntityData& data, std::shared_ptr<Entity>& entity) {
 
 void Map::addNPC(EntityData& data) {
     if (entities.count(data.nickname) == 0) {
-        std::shared_ptr<Entity> npc(new NPC(textureRepo,
-                camera, data.pos.j*TILE_WIDTH,data.pos.i*TILE_HEIGHT, data.texture));
+        std::shared_ptr<Entity> npc = std::make_shared<NPC>(textureRepo,
+                camera, data.pos.j*TILE_WIDTH,data.pos.i*TILE_HEIGHT, data.texture);
         _addEntity(data, npc);
     }
 }
 
 void Map::addPlayer(MapPlayerData& playerData) {
     if (entities.count(playerData.entityData.nickname) == 0) {
-        std::shared_ptr<Entity> player(new Player(textureRepo,camera,
+        std::shared_ptr<Entity> player = std::make_shared<Player>(textureRepo,camera,
                 playerData.entityData.pos.j*TILE_WIDTH,playerData.entityData.pos.i*TILE_HEIGHT,
-                playerData.equipment, playerData.isAlive));
+                playerData.equipment, playerData.isAlive);
         _addEntity(playerData.entityData, player);
     }
 }
@@ -225,7 +225,9 @@ void Map::revivePlayer(std::string &nickname) {
 void Map::addSpell(Coordinate position, TextureID spellTexture) {
     int tile = position.i*TOTAL_HORIZONTAL_TILES + position.j;
     std::shared_ptr<Spell> spell(new Spell(textureRepo.getTexture(spellTexture),
-            camera,position.j*TILE_WIDTH, position.i*TILE_HEIGHT));
+            camera,position.j*TILE_WIDTH, position.i*TILE_HEIGHT)); //No uso make shared ya que el spell
+                                                                            //no lo borro del weak ptr al destruirse
+                                                                            // y con make shared eso resultaria en conservar mas memoria
     tiles.at(tile).addSpell(spell, camera);
     spells.emplace_back(std::move(spell));
 }

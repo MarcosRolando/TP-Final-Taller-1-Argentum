@@ -10,16 +10,16 @@
 ////////////////////////////PRIVATE////////////////////////////////
 
 void CitizenFactory::_storeTrader(std::shared_ptr<Entity>& citizen, Coordinate initialPosition) {
-    citizen.reset(new Trader(initialPosition));
+    citizen = std::make_shared<Trader>(initialPosition);
 }
 
 
 void CitizenFactory::_storePriest(std::shared_ptr<Entity>& citizen, Coordinate initialPosition) {
-    citizen.reset(new Priest(initialPosition));
+    citizen = std::make_shared<Priest>(initialPosition);
 }
 
 void CitizenFactory::_storeBanker(std::shared_ptr<Entity> &citizen, Coordinate initialPosition) {
-    citizen.reset(new Banker(initialPosition));
+    citizen = std::make_shared<Banker>(initialPosition);
 }
 
 ////////////////////////////PUBLIC////////////////////////////////

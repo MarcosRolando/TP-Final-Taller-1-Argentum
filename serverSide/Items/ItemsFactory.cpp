@@ -51,85 +51,85 @@ ItemsFactory::ItemsFactory() {
 }
 
 void ItemsFactory::_storeBlueTunic(std::shared_ptr<Item> &item) {
-    item.reset(new Chest(GameType::BLUE_TUNIC));
+    item = std::make_shared<Chest>(GameType::BLUE_TUNIC);
 }
 
 void ItemsFactory::_storeLeatherArmor(std::shared_ptr<Item> &item) {
-    item.reset(new Chest(GameType::LEATHER_ARMOR));
+    item = std::make_shared<Chest>(GameType::LEATHER_ARMOR);
 }
 
 void ItemsFactory::_storePlateArmor(std::shared_ptr<Item> &item) {
-    item.reset(new Chest(GameType::PLATE_ARMOR));
+    item = std::make_shared<Chest>(GameType::PLATE_ARMOR);
 }
 
 void ItemsFactory::_storeHood(std::shared_ptr<Item> &item) {
-    item.reset(new Head(GameType::HOOD));
+    item = std::make_shared<Head>(GameType::HOOD);
 }
 
 void ItemsFactory::_storeIronHelmet(std::shared_ptr<Item> &item) {
-    item.reset(new Head(GameType::IRON_HELMET));
+    item = std::make_shared<Head>(GameType::IRON_HELMET);
 }
 
 void ItemsFactory::_storeMagicHat(std::shared_ptr<Item> &item) {
-    item.reset(new Head(GameType::MAGIC_HAT));
+    item = std::make_shared<Head>(GameType::MAGIC_HAT);
 }
 
 void ItemsFactory::_storeIronShield(std::shared_ptr<Item> &item) {
-    item.reset(new Shield(GameType::IRON_SHIELD));
+    item = std::make_shared<Shield>(GameType::IRON_SHIELD);
 }
 
 void ItemsFactory::_storeTurtleShield(std::shared_ptr<Item> &item) {
-    item.reset(new Shield(GameType::TURTLE_SHIELD));
+    item = std::make_shared<Shield>(GameType::TURTLE_SHIELD);
 }
 
 void ItemsFactory::_storeAshRod(std::shared_ptr<Item> &item) {
-    item.reset(new Weapon(GameType::ASH_ROD));
+    item = std::make_shared<Weapon>(GameType::ASH_ROD);
 }
 
 void ItemsFactory::_storeCompositeBow(std::shared_ptr<Item> &item) {
-    item.reset(new Weapon(GameType::COMPOSITE_BOW));
+    item = std::make_shared<Weapon>(GameType::COMPOSITE_BOW);
 }
 
 void ItemsFactory::_storeElvenFlute(std::shared_ptr<Item> &item) {
-    item.reset(new Weapon(GameType::ELVEN_FLUTE));
+    item = std::make_shared<Weapon>(GameType::ELVEN_FLUTE);
 }
 
 void ItemsFactory::_storeGnarledStaff(std::shared_ptr<Item> &item) {
-    item.reset(new Weapon(GameType::GNARLED_STAFF));
+    item = std::make_shared<Weapon>(GameType::GNARLED_STAFF);
 }
 
 void ItemsFactory::_storeLinkedStaff(std::shared_ptr<Item> &item) {
-    item.reset(new Weapon(GameType::LINKED_STAFF));
+    item = std::make_shared<Weapon>(GameType::LINKED_STAFF);
 }
 
 void ItemsFactory::_storeLongsword(std::shared_ptr<Item> &item) {
-    item.reset(new Weapon(GameType::LONGSWORD));
+    item = std::make_shared<Weapon>(GameType::LONGSWORD);
 }
 
 void ItemsFactory::_storeSimpleBow(std::shared_ptr<Item> &item) {
-    item.reset(new Weapon(GameType::SIMPLE_BOW));
+    item = std::make_shared<Weapon>(GameType::SIMPLE_BOW);
 }
 
 void ItemsFactory::_storeWarhammer(std::shared_ptr<Item> &item) {
-    item.reset(new Weapon(GameType::WARHAMMER));
+    item = std::make_shared<Weapon>(GameType::WARHAMMER);
 }
 
 void ItemsFactory::_storeAxe(std::shared_ptr<Item> &item) {
-    item.reset(new Weapon(GameType::AXE));
+    item = std::make_shared<Weapon>(GameType::AXE);
 }
 
 void ItemsFactory::_storeGold(std::shared_ptr<Item> &item, unsigned int amount) {
     if (amount > 0) {
-        item.reset(new Gold(amount));
+        item = std::make_shared<Gold>(amount);
     }
 }
 
 void ItemsFactory::_storeManaPotion(std::shared_ptr<Item> &item) {
-    item.reset(new ManaPotion());
+    item = std::make_shared<ManaPotion>();
 }
 
 void ItemsFactory::_storeHealthPotion(std::shared_ptr<Item> &item) {
-    item.reset(new HealthPotion());
+    item = std::make_shared<HealthPotion>();
 }
 
 void ItemsFactory::_storeRandomPotion(std::shared_ptr<Item> &item) {

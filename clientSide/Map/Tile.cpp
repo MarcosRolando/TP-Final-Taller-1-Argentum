@@ -42,27 +42,27 @@ void Tile::addEntity(std::shared_ptr<Entity>& _entity) {
 }
 
 void Tile::renderEntity() {
-    if (!entity.expired()) {
-        std::shared_ptr<Entity> _entity(entity);
+    auto _entity = entity.lock();
+    if (_entity) {
         _entity->render();
     }
-    if (!spell.expired()) {
-        std::shared_ptr<Spell> _spell(spell);
+    auto _spell = spell.lock();
+    if (_spell) {
         _spell->render();
     }
 }
 
 void Tile::removeEntity() {
-    if (!entity.expired()) {
-        std::shared_ptr<Entity> _entity(entity);
+    auto _entity = entity.lock();
+    if (_entity) {
         spell = _entity->getSpell();
     }
     entity.reset();
 }
 
 void Tile::addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera) {
-    if (!entity.expired()) {
-        std::shared_ptr<Entity> _entity(entity);
+    auto _entity = entity.lock();
+    if (_entity) {
         _entity->addSpell(newSpell);
     } else {
         spell = newSpell;

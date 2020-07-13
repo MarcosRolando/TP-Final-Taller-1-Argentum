@@ -180,7 +180,7 @@ Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
         --x;
     }
     Banker::addPlayerItems(playerData);
-    std::shared_ptr<Player> player(new Player(*this, position, playerData));
+    auto player = std::make_shared<Player>(*this, position, playerData);
     Player* playerAux = player.get();
     players.emplace(playerAux->getNickname(), playerAux);
     map.addEntity(position, std::move(player));
