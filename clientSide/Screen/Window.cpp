@@ -5,9 +5,7 @@
 #include "Window.h"
 #include "../Client/GameConstants.h"
 #include "../../libs/TPException.h"
-#include <iostream>
 #include <SDL.h>
-#include <SDL_image.h>
 
 Window::Window() {
     //Initialize non-existant window

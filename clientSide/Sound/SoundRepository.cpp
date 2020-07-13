@@ -1,5 +1,4 @@
 #include "SoundRepository.h"
-#include <unistd.h>
 
 #define QUEUE_SIZE 3
 
@@ -32,7 +31,7 @@ void SoundRepository::_loadSounds(){
 void SoundRepository::_loadMusic(){
     music = Mix_LoadMUS("../../clientSide/Sounds/argentumOnlineOST.mp3");
     Mix_VolumeMusic(20);
-    if(music == NULL ) {
+    if(music == nullptr ) {
         throw TPException("Failed to load beat music! SDL_mixer Error: "
                            "%s\n", Mix_GetError());
     }

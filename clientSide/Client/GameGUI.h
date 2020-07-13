@@ -40,7 +40,7 @@ public:
     void addNPC(EntityData& entityData);
     void addPlayer(MapPlayerData& playerData);
     void setCameraOn(std::string& playerNickname);
-    void render(float timeStep);
+    void render();
     Window& getWindow();
     Minichat& getMinichat();
     Selector& getSelector();
@@ -48,7 +48,7 @@ public:
     PlayerInventoryGUI& getPlayerInventory();
     Map& getMap();
     SoundPlayer& getSoundPlayer();
-
+    void update(float timeStep);
     TextureRepository &getTextureRepo();
 };
 
