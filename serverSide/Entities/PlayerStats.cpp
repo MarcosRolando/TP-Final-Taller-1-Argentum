@@ -232,3 +232,14 @@ void PlayerStats::getData(PlayerData &pData) const {
     pData.intelligence = intelligence;
 }
 
+bool PlayerStats::consumeMana(unsigned int amount) {
+    if (currentMana < static_cast<int>(amount)) {
+        return false;
+    }
+    if (amount != 0) {
+        currentMana -= amount;
+        timeElapsedMana = 0;
+    }
+    return true;
+}
+

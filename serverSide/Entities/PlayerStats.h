@@ -99,6 +99,8 @@ public:
     void getData(PlayerData& pData) const;
 
 
+    bool consumeMana(unsigned int amount);
+
 private:
     void _increaseStats();
     void _loadInitialStats(Config::Modifiers& classM, Config::Modifiers& raceM,

@@ -18,7 +18,7 @@ class ItemTests;
 class EntityTests;
 class MapTests;
 class Game;
-
+class PlayerStats;
 class Weapon;
 class Player;
 class Clothing;
@@ -67,8 +67,7 @@ public:
     UseReturnData useItem(Player& player, unsigned int itemPosition);
 
     //Retorna el danio generado por el arma en el rango de ella
-    int getWeaponDamage(Coordinate currentPosition, Coordinate target,
-                        int32_t& currentMana) const;
+    int getWeaponDamage(Coordinate currentPosition, Coordinate target, PlayerStats& stats) const;
 
     //Retorna la defensa total provista por la armadura equipada (casco, chest, shield)
     unsigned int getDefense();

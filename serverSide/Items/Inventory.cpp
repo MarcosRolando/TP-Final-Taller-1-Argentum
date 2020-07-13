@@ -13,6 +13,7 @@
 #include "../Game/Game.h"
 #include "../Game/Events/Unequip.h"
 #include "ItemsFactory.h"
+#include "../Entities/PlayerStats.h"
 
 MSGPACK_ADD_ENUM(GameType::ItemType)
 
@@ -164,9 +165,8 @@ std::shared_ptr<Item> Inventory::removeItem(const std::string &itemName) {
     return returnItem;
 }
 
-int Inventory::getWeaponDamage(Coordinate currentPosition, Coordinate target,
-                               int32_t& currentMana) const {
-    return equippedWeapon->getDamage(currentPosition, target, currentMana);
+int Inventory::getWeaponDamage(Coordinate currentPosition, Coordinate target, PlayerStats& stats) const {
+    return equippedWeapon->getDamage(currentPosition, target, stats);
 }
 
 unsigned int Inventory::getDefense() {
