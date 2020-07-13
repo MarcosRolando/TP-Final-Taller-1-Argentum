@@ -120,8 +120,7 @@ void Client::connect() {
     _processConnection();
 }
 
-Client::Client(std::string &&host, std::string &&port)  : host(host), port(port),
-                                                    finished(false) {
+Client::Client() : finished(false) {
     _initializeSDL();
     _setCursor();
 }
