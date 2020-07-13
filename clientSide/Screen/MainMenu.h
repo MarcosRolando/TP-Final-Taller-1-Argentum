@@ -33,12 +33,10 @@ private:
     Text portInputText;
     Text nicknameInputText;
     Texture& mainMenuBackground;
-    Button startGameButton{};
-    Button exitButton{};
 public:
     MainMenu(Texture& texture, Window& window);
-    void loop(bool& quit, std::string& _host,
-              std::string& _port, GameStartInfo& startInfo);
+    //void loop(bool& quit, std::string& _host,
+      //        std::string& _port, GameStartInfo& startInfo);
     void connectLoop(bool &quit, std::string &_host, std::string &_port, Socket& socket);
 
     ~MainMenu();

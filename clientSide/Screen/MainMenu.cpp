@@ -23,13 +23,9 @@ hostInputText(mainMenuFont, window.getRenderer()),
 portInputText(mainMenuFont, window.getRenderer()) ,
 nicknameInputText(mainMenuFont, window.getRenderer()), mainMenuBackground(texture) {
 
-    startGameButton.buttonEdges = START_GAME_BUTTON;
-    exitButton.buttonEdges = EXIT_BUTTON;
-    startGameButton.color = {0x00,0x00,0x00};
-    exitButton.color = {0xFF,0xFF,0xFF};
 }
 
-void MainMenu::loop(bool& quit, std::string& _host,
+/*void MainMenu::loop(bool& quit, std::string& _host,
                     std::string& _port, GameStartInfo& startInfo){
     SDL_Event e;
     bool inMainMenu = true;
@@ -50,7 +46,7 @@ void MainMenu::loop(bool& quit, std::string& _host,
         }
         _render();
     }
-}
+}*/
 
 void MainMenu::connectLoop(bool& quit, std::string& _host,
                     std::string& _port, Socket& socket) {
@@ -84,6 +80,9 @@ void MainMenu::connectLoop(bool& quit, std::string& _host,
                         finished = true;
                     } catch (std::exception& e) {
                     }
+                } else if (_isInsideRect(x,y,EXIT_BUTTON)) {
+                    quit = true;
+                    finished = true;
                 }
             } else if (e.type == SDL_TEXTINPUT){
                 std::string newInput = e.text.text;
@@ -109,7 +108,7 @@ void MainMenu::connectLoop(bool& quit, std::string& _host,
 }
 
 void MainMenu::_handleMouseMotion() {
-    int x = 0, y = 0;
+    /*int x = 0, y = 0;
     SDL_GetMouseState( &x, &y );
     x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
     y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
@@ -122,11 +121,11 @@ void MainMenu::_handleMouseMotion() {
         startGameButton.color = {0xFF,0x00,0x00};
     } else if (_isInsideRect(x,y,exitButton.buttonEdges)){
         exitButton.color = {0xFF,0x00,0x00};
-    }
+    }*/
 }
 
 void MainMenu::_handleMouseButtonDown(bool& inMainMenu, bool& quit) {
-    int x = 0, y = 0;
+    /*int x = 0, y = 0;
     SDL_GetMouseState( &x, &y );
     x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
     y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
@@ -135,7 +134,7 @@ void MainMenu::_handleMouseButtonDown(bool& inMainMenu, bool& quit) {
     } else if (_isInsideRect(x,y,exitButton.buttonEdges)){
         quit = true;
         inMainMenu = true;
-    }
+    }*/
 }
 
 bool MainMenu::_isInsideRect(int x, int y, SDL_Rect rect){
@@ -144,14 +143,14 @@ bool MainMenu::_isInsideRect(int x, int y, SDL_Rect rect){
 }
 
 void MainMenu::_render(){
-    window.clear();
+    /*window.clear();
     window.setViewport(ScreenViewport);
     mainMenuBackground.render(0,0);
     text.updateText("Start Game");
     text.render(50, 100, startGameButton.color);
     text.updateText("Exit");
     text.render(50, 875, exitButton.color);
-    window.show();
+    window.show();*/
 }
 
 void MainMenu::_renderConnectScreen(){
