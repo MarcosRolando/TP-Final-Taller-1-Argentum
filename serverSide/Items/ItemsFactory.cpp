@@ -176,11 +176,11 @@ void ItemsFactory::storeItemInstance(GameType::ItemType type, int32_t instance,
 
 void ItemsFactory::storeRandomDrop(std::shared_ptr<Item> &item, unsigned int goldMultiplier) {
     int randomNumber = Calculator::getRandomInt(1, 100);
-    if (randomNumber <= 18) {
+    if (randomNumber <= 40) {
         _storeGold(item, Calculator::calculateGoldDrop(goldMultiplier));
-    } else if (randomNumber == 19) {
+    } else if (randomNumber == 41) {
         _storeRandomPotion(item);
-    } else if (randomNumber == 20) {
+    } else if (randomNumber == 42) {
         const std::string& healthPotionName = Configuration::getInstance().configPotionData(GameType::HEALTH_POTION).name;
         const std::string& manaPotionName = Configuration::getInstance().configPotionData(GameType::MANA_POTION).name;
         randomNumber = Calculator::getRandomInt(0, (int)itemsNames.size() - 1);
