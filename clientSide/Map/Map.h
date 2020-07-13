@@ -18,7 +18,7 @@
 #include "../Client/EntityData.h"
 #include "../Spells/Spell.h"
 #include "../Client/CitizenData.h"
-#include "../Graphics/Sound/SoundPlayer.h"
+#include "../Sound/SoundPlayer.h"
 
 class Map {
 private:

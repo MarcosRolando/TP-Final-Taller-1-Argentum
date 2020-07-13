@@ -38,7 +38,6 @@ enum TextureID {
     AxeDrop,
     CompositeBow,
     CompositeBowDrop,
-    ElvenFlute,
     ElvenFluteDrop,
     LinkedStaff,
     LinkedStaffDrop,

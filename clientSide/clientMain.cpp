@@ -79,7 +79,7 @@ int main(int argc, char* args[]) {
         //Setea un cursor custom
         SDL_Surface *surface = NULL;
         SDL_Cursor *cursor = NULL;
-        surface = SDL_LoadBMP("../Images/UI/Cursor.bmp");
+        surface = SDL_LoadBMP("../../clientSide/Images/UI/Cursor.bmp");
         if (!surface) {
             return 0;
         }

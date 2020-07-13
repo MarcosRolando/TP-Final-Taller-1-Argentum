@@ -19,7 +19,7 @@
 
 PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &renderer,
                                        PlayerInfoGUI& playerInfo) :
-                                       textFont("../Graphics/Text/medieval.ttf", 25),
+                                       textFont("../../clientSide/Graphics/Text/medieval.ttf", 25),
                                             text(textFont,renderer), repo(repo),
                                             renderer(renderer), pInfo(playerInfo) {
     gold = 0;

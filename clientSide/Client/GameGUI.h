@@ -14,7 +14,7 @@
 #include "../Graphics/GUI/PlayerInventoryGUI.h"
 #include "../Graphics/GUI/PlayerInfoGUI.h"
 #include "../Texture/PlayerEquipment.h"
-#include "../Graphics/Sound/SoundPlayer.h"
+#include "../Sound/SoundPlayer.h"
 #include "EntityData.h"
 #include "CitizenData.h"
 

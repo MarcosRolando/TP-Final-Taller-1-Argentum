@@ -8,7 +8,7 @@
 #include <SDL_mixer.h>
 #include <string>
 
-#include "../../../libs/TPException.h"
+#include "../../libs/TPException.h"
 
 class Sound {
 private:

@@ -5,7 +5,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <queue>
-#include "../../../libs/TPException.h"
+#include "../../libs/TPException.h"
 #include "Sound.h"
 
 //Despues prob dejems un solo Step/Attack/Explosion

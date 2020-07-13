@@ -130,7 +130,7 @@ void Client::_setCursor() {
     //Setea un cursor custom
     SDL_Surface *surface = nullptr;
     SDL_Cursor *cursor = nullptr;
-    surface = SDL_LoadBMP("../Images/UI/Cursor.bmp");
+    surface = SDL_LoadBMP("../../clientSide/Images/UI/Cursor.bmp");
     if (!surface) {
         throw TPException("No se pudo crear el cursor");
     }

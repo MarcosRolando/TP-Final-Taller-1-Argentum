@@ -5,7 +5,7 @@
 #include "PlayerInfoGUI.h"
 #include "../../Client/GameConstants.h"
 
-PlayerInfoGUI::PlayerInfoGUI(SDL_Renderer &renderer) : infoFont("../Graphics/Text/medieval.ttf", 25),
+PlayerInfoGUI::PlayerInfoGUI(SDL_Renderer &renderer) : infoFont("../../clientSide/Graphics/Text/medieval.ttf", 25),
                                                     info(infoFont, renderer), renderer(renderer) {
     pInfo = {};
 }

@@ -10,7 +10,7 @@
 #define EXIT_BUTTON {50,875,90,25}
 
 MainMenu::MainMenu(Texture& texture, Window& window) : window(window),
-mainMenuFont("../Graphics/Text/medieval.ttf", 25),
+mainMenuFont("../../clientSide/Graphics/Text/medieval.ttf", 25),
 text(mainMenuFont, window.getRenderer()),
 hostInputText(mainMenuFont, window.getRenderer()),
 portInputText(mainMenuFont, window.getRenderer()) ,
