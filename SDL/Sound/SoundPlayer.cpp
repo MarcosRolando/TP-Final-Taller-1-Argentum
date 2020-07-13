@@ -6,7 +6,9 @@
 
 #define QUEUE_SIZE 3
 
-SoundPlayer::SoundPlayer(){}
+SoundPlayer::SoundPlayer() {
+    std::srand(std::clock());
+}
 
 void SoundPlayer::playMusic() {
     std::lock_guard<std::mutex> l(m);
@@ -54,8 +56,4 @@ void SoundPlayer::playSounds() {
         Mix_PlayChannel(-1, soundToPlay, 0);
         soundQueue.pop();
     }
-}
-
-SoundPlayer::~SoundPlayer() {
-
 }

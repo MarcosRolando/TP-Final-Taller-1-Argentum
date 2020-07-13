@@ -29,6 +29,13 @@ void Client::_processConnection() {
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
     initializer.loadPlayer("Yoda");
+
+    /*if (gameStartInfo.createPlayer) {
+        initializer.loadPlayer(gameStartInfo.myNickname, gameStartInfo.myRace,
+                               gameStartInfo.myClass);
+    } else {
+        initializer.loadPlayer(gameStartInfo.myNickname);
+    }*/
     char serverAcceptedConnection;
     socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
     //End menu loop
