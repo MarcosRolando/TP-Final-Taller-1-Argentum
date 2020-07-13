@@ -7,7 +7,7 @@
 
 #include "../Text/Text.h"
 #include "../../Screen/Window.h"
-#include "../../GameConstants.h"
+#include "../../Client/GameConstants.h"
 #include <list>
 #include "../../Map/Coordinate.h"
 #include <mutex>

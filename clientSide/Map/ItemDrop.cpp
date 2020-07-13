@@ -3,7 +3,7 @@
 //
 
 #include "ItemDrop.h"
-#include "../GameConstants.h"
+#include "../Client/GameConstants.h"
 
 ItemDrop::ItemDrop(Coordinate position) : sTexture(nullptr) {
     box = {position.j*TILE_WIDTH, position.i*TILE_HEIGHT, 0, 0};

@@ -3,7 +3,7 @@
 //
 
 #include "Structure.h"
-#include "../GameConstants.h"
+#include "../Client/GameConstants.h"
 
 Structure::Structure(Coordinate position, Texture* sTexture) : sTexture(sTexture) {
     if (sTexture != nullptr) {

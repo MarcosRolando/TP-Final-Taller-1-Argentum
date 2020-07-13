@@ -3,7 +3,7 @@
 //
 
 #include "PlayerInventoryGUI.h"
-#include "../../GameConstants.h"
+#include "../../Client/GameConstants.h"
 
 #define INVENTORY_SIZE 16 //////////////////////////////USAR EL GENERAL
 

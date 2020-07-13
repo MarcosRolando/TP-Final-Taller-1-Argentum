@@ -3,7 +3,7 @@
 //
 
 #include "Spell.h"
-#include "../GameConstants.h"
+#include "../Client/GameConstants.h"
 
 const float ANIMATION_TIME = 20000.f;
 const int SPELL_SPEED = 30;

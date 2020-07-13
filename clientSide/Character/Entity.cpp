@@ -3,7 +3,7 @@
 //
 
 #include "Entity.h"
-#include "../GameConstants.h"
+#include "../Client/GameConstants.h"
 #include <algorithm>
 
 const unsigned int TILE_DISTANCE_IN_METERS = 2000;

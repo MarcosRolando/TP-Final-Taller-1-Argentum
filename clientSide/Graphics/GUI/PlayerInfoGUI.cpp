@@ -3,7 +3,7 @@
 //
 
 #include "PlayerInfoGUI.h"
-#include "../../GameConstants.h"
+#include "../../Client/GameConstants.h"
 
 PlayerInfoGUI::PlayerInfoGUI(SDL_Renderer &renderer) : infoFont("../Graphics/Text/medieval.ttf", 25),
                                                     info(infoFont, renderer), renderer(renderer) {

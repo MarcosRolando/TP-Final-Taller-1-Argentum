@@ -15,11 +15,11 @@ add_executable(argentumClient clientMain.cpp ../libs/TPException.cpp ../libs/TPE
         Graphics/Text/Font.h Graphics/Sound/Sound.cpp
         Graphics/Sound/Sound.h
         Map/Tile.cpp Map/Tile.h Map/Map.cpp Map/Map.h Character/Player.cpp
-        Character/Player.h GameConstants.h Character/NPC.cpp
+        Character/Player.h Client/GameConstants.h Character/NPC.cpp
         Character/NPC.h Character/Entity.cpp Character/Entity.h
         Screen/Window.cpp Screen/Window.h Graphics/Text/Text.cpp Graphics/Text/Text.h Graphics/GUI/PlayerInfoGUI.cpp
         Graphics/GUI/PlayerInfoGUI.h Graphics/GUI/PlayerInventoryGUI.cpp Graphics/GUI/PlayerInventoryGUI.h
-        Spells/Spell.cpp Spells/Spell.h MapFileReader.cpp MapFileReader.h Graphics/Minichat/Minichat.cpp
+        Spells/Spell.cpp Spells/Spell.h Graphics/Minichat/Minichat.cpp
         Graphics/Minichat/Minichat.h Graphics/Selector.cpp Graphics/Selector.h Graphics/Sound/SoundPlayer.cpp
         Graphics/Sound/SoundPlayer.h Screen/MainMenu.cpp Screen/MainMenu.h
         Client/ClientProtocol.cpp Client/ClientProtocol.h Client/ArgentumClientSide.cpp

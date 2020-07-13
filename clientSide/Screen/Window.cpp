@@ -3,7 +3,7 @@
 //
 
 #include "Window.h"
-#include "../GameConstants.h"
+#include "../Client/GameConstants.h"
 #include "../../libs/TPException.h"
 #include <iostream>
 #include <SDL.h>

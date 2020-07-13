@@ -5,7 +5,7 @@
 #include "Map.h"
 #include <fstream>
 #include <algorithm>
-#include "../GameConstants.h"
+#include "../Client/GameConstants.h"
 #include "../Character/NPC.h"
 #include "../Character/Player.h"
 

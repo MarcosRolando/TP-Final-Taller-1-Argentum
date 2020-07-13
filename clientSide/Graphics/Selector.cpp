@@ -2,7 +2,7 @@
 // Created by ivan on 20/6/20.
 //
 
-#include "../GameConstants.h"
+#include "../Client/GameConstants.h"
 #include "Selector.h"
 #include <iostream>
 

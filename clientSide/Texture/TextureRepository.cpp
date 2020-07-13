@@ -3,7 +3,7 @@
 //
 
 #include "TextureRepository.h"
-#include "../GameConstants.h"
+#include "../Client/GameConstants.h"
 
 #define PLAYER_GHOST_PATH "../Images/Miscellaneous/PlayerGhost.png"
 #define BLUE_TUNIC_PATH "../Images/Clothing/BlueTunic.png"

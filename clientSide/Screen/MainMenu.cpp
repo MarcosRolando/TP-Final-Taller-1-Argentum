@@ -3,7 +3,7 @@
 //
 
 #include "MainMenu.h"
-#include "../GameConstants.h"
+#include "../Client/GameConstants.h"
 #include "../../libs/Socket.h"
 
 #define START_GAME_BUTTON {50,100,135,25}

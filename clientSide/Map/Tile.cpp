@@ -3,7 +3,7 @@
 //
 
 #include "Tile.h"
-#include "../GameConstants.h"
+#include "../Client/GameConstants.h"
 #include "../Character/Player.h"
 
 Tile::Tile(Coordinate position) : item(position), structure(position) {

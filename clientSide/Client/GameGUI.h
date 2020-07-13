@@ -7,7 +7,7 @@
 
 #include "../Screen/Window.h"
 #include "../Texture/TextureRepository.h"
-#include "../GameConstants.h"
+#include "GameConstants.h"
 #include "../Map/Map.h"
 #include "../Graphics/Minichat/Minichat.h"
 #include "../Graphics/Selector.h"
