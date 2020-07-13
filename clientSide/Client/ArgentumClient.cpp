@@ -1,7 +1,6 @@
 #include <netdb.h>
 #include "ArgentumClient.h"
 #include "ClientProtocol.h"
-#include <string>
 #include <vector>
 #include <utility>
 #include "BlockingQueue.hpp"
@@ -9,12 +8,9 @@
 #include <SDL_mixer.h>
 #include "../UpdateEvents/UpdateEvent.h"
 #include "UpdateReceiver.h"
-#include <chrono>
 #include "GameInitializer.h"
 #include "../Screen/MainMenu.h"
-
-
-using namespace std::chrono;
+#include "../../libs/Timer.h"
 
 #define FREQUENCY 44100
 #define CHUNKSIZE 2048
@@ -24,6 +20,7 @@ void Client::_processConnection() {
     bool quit = false;
     GameStartInfo gameStartInfo{};
     GameGUI game;
+    Timer timer;
     _mainMenuLoop(game, quit, gameStartInfo);
     Window& window = game.getWindow();
     ClientProtocol protocol(socket);
@@ -52,14 +49,10 @@ void Client::_processConnection() {
     std::unique_ptr<SDL_Event> event(new SDL_Event());
     std::unique_ptr<UpdateEvent> update;
 
-    high_resolution_clock::time_point time1;
-    high_resolution_clock::time_point time2;
-    duration<float, std::milli> timeStep{};
-
+    timer.start();
     game.getSoundPlayer().playMusic();
     try {
         while (!quit) {
-            time1 = high_resolution_clock::now();
             if (updateEvents.isUpdateAvailable()) {
                 while (!updateEvents.empty()) {
                     update = updateEvents.pop();
@@ -73,17 +66,16 @@ void Client::_processConnection() {
                     event.reset(new SDL_Event());
                 }
             }
-
+            double timeStep = timer.getTime();
+            timer.start();
             game.getSoundPlayer().playSounds();
-            time2 = high_resolution_clock::now();
-            timeStep = time2 - time1;
-            game.update(timeStep.count());
+            game.update(timeStep);
             game.render();
-            time2 = high_resolution_clock::now();
-            timeStep = time2 - time1;
+            /* //todo ver si vuelvo esto porque ya tengo el vsync
             if (timeStep.count() < (1/60.f*1000)) {
                 usleep((1/60.f*1000 - timeStep.count())*1000);
             }
+             */
         }
     } catch (std::exception& e) {
         std::cerr << e.what() << " in Main Game Loop" << std::endl;

@@ -5,7 +5,7 @@
 #include "Spell.h"
 #include "../Client/GameConstants.h"
 
-const float ANIMATION_TIME = 100.f;
+const float ANIMATION_TIME = 20000.f;
 const int SPELL_SPEED = 30;
 
 Spell::Spell(Texture& texture, SDL_Rect &camera, float x, float y) :
