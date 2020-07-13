@@ -89,6 +89,10 @@ int Calculator::calculateDamage(unsigned int strength, int weaponDamage) {
 
 bool Calculator::canDodge(unsigned int agility) {
     float random = _getRandomFloat(0, 1);
+    agility -= 5;
+    if (agility < 0) {
+        agility = 0;
+    }
     return (pow(random, agility) < 0.001);
 }
 
