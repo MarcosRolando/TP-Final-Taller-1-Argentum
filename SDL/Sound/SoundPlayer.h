@@ -24,9 +24,6 @@ public:
     /* Pausa la musica */
     void pauseMusic();
 
-    ~SoundPlayer();
-
-
     static bool isMusicPlaying();
 
     static SoundID _getRandomDeathSound();

@@ -37,7 +37,7 @@ void Client::_processConnection() {
     } else {
         initializer.loadPlayer(gameStartInfo.myNickname);
     }*/
-    initializer.loadPlayer("Ivan");
+    initializer.loadPlayer("Mark");
     char serverAcceptedConnection;
     socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
     initializer.initializeGame();
