@@ -18,7 +18,8 @@ class Minichat;
 class PlayerStats {
 private:
     bool isMeditating{};
-    double timeElapsed{};
+    double timeElapsedLife{};
+    double timeElapsedMana{};
 
     int32_t constitution{};
     int32_t  intelligence{};
