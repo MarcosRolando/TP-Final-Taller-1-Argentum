@@ -41,6 +41,7 @@ Shop &Shop::operator=(Shop &&other) noexcept {
     buyingMultiplier = other.buyingMultiplier;
     sellingMultiplier = other.sellingMultiplier;
     prices = std::move(other.prices);
+    acceptedProducts = std::move(other.acceptedProducts);
     return *this;
 }
 
