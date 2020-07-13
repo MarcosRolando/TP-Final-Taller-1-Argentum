@@ -28,31 +28,31 @@ class MainMenu {
 private:
     Window& window;
     Font mainMenuFont;
-    Text text;
-    Text hostInputText;
-    Text portInputText;
-    Text nicknameInputText;
+    Text text;//El texto general. "Exit" "Connect" etc
+    Text hostInputText;//Para ver que host pone el usuario
+    Text portInputText;//Idem anterior pero con port
+    Text nicknameInputText;//idem anterior pero con nickname
+    Text errorText;//Para texto de error
+    bool hostInput, portInput, nickInput; //Me dicen en donde hice click para ver donde pongo el input
     Texture& mainMenuBackground;
-    Button startGameButton{};
-    Button exitButton{};
 public:
     MainMenu(Texture& texture, Window& window);
-    void loop(bool& quit, std::string& _host,
-              std::string& _port, GameStartInfo& startInfo);
+    //void loop(bool& quit, std::string& _host,
+      //        std::string& _port, GameStartInfo& startInfo);
     void connectLoop(bool &quit, std::string &_host, std::string &_port, Socket& socket);
 
     ~MainMenu();
 
 private:
-    bool _isInsideRect(int x, int y, SDL_Rect rect);
-
-    void _render();
-
-    void _handleMouseMotion();
-
-    void _handleMouseButtonDown(bool &inMainMenu, bool &quit);
+    static bool _isInsideRect(int x, int y, SDL_Rect rect);
 
     void _renderConnectScreen();
+
+    void _attemptToConnect(Socket &socket, bool &finished);
+
+    void _handleTextInput(SDL_Event &e);
+
+    void _handleBackspace();
 };
 
 
