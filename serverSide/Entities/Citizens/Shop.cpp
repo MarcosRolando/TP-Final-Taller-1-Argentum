@@ -8,6 +8,8 @@
 
 
 #define NOT_ACCEPTED_PRODUCT_MESSAGE "I don't buy "
+#define NOT_ENOUGH_GOLD_STORED_MESSAGE "I don't have enough gold\n"
+#define PLAYER_CANT_AFFORD_MESSAGE "You don't have enough gold\n"
 
 Shop::Shop() {
     sellingMultiplier = 1;
@@ -74,6 +76,8 @@ void Shop::buy(Player &player, const std::string &itemName) {
         if (player.spendGold(price)) {
             storage.increaseGoldReserves(price);
             storage.retreiveItem(itemName, player);
+        } else {
+            player.addMessage(PLAYER_CANT_AFFORD_MESSAGE);
         }
     }
 }
@@ -86,8 +90,12 @@ void Shop::sell(Player &player, const std::string& itemName) {
     unsigned int price;
     price = static_cast<unsigned int>(static_cast<float>(prices.at(itemName))
                                       * sellingMultiplier);
-    if (player.hasItem(itemName) && storage.decreaseGoldReserves(price)) {
-        player.receiveGold(price);
-        storage.storeItem(player.removeItem(itemName));
+    if (player.hasItem(itemName)) {
+        if (storage.decreaseGoldReserves(price)) {
+            player.receiveGold(price);
+            storage.storeItem(player.removeItem(itemName));
+        } else {
+            player.addMessage(NOT_ENOUGH_GOLD_STORED_MESSAGE);
+        }
     }
 }
