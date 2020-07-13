@@ -159,7 +159,7 @@ void Client::_initializeSDL() {
         }
     }
     if(Mix_OpenAudio(FREQUENCY, MIX_DEFAULT_FORMAT, 2,
-                      CHUNKSIZE) < 0) {
+                                                            CHUNKSIZE) < 0) {
         IMG_Quit();
         SDL_Quit();
         throw TPException("SDL_mixer could not initialize!"

@@ -16,16 +16,13 @@ Texture::Texture(SDL_Renderer& renderer) : renderer(renderer) {
 
 Texture::~Texture() {
     //Deallocate
-    free();
+    _free();
 }
 
 void Texture::loadFromFile(const std::string& path, ColorKey_t key, int xOff, int yOff,
                                                                 int scale) {
     //Get rid of preexisting texture
-    free();
-
-    //The final texture
-    SDL_Texture* newTexture;
+    _free();
 
     //Load image at specified path
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
@@ -41,8 +38,8 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key, int xOff, in
         }
 
         //Create texture from surface pixels
-        newTexture = SDL_CreateTextureFromSurface(&renderer, loadedSurface);
-        if (newTexture == nullptr) {
+        mTexture = SDL_CreateTextureFromSurface(&renderer, loadedSurface);
+        if (mTexture == nullptr) {
             //Get rid of old loaded surface
             SDL_FreeSurface(loadedSurface);
             throw TPException("Unable to create texture from %s! "
@@ -57,14 +54,12 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key, int xOff, in
         SDL_FreeSurface(loadedSurface);
     }
 
-    mTexture = newTexture;
-
     xOffset = xOff;
     yOffset = yOff;
     defaultScale = scale;
 }
 
-void Texture::free() {
+void Texture::_free() {
     //Free texture if it exists
     if (mTexture != nullptr) {
         SDL_DestroyTexture(mTexture);
@@ -118,7 +113,7 @@ SpriteDimensions_t Texture::getSpriteDimensions(int spritePosition) {
 void Texture::loadFromRenderedText(const std::string& textureText, SDL_Color
                                                 textColor, TTF_Font* font ) {
     //Get rid of preexisting texture
-    free();
+    _free();
 
     //Render text surface
     SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str
