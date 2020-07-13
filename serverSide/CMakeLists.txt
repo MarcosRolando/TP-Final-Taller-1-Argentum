@@ -45,7 +45,9 @@ add_executable(argentumServer serverMain.cpp Items/Item.h Items/Attack/Weapon.cp
         Game/Events/RequestResurrect.cpp Game/Events/RequestResurrect.h Game/ShouldPlayerBeRevived.cpp
         Game/ShouldPlayerBeRevived.h Game/Events/RequestResurrect.cpp Game/Events/RequestResurrect.h
         Persistance/PlayerIndexFile.cpp Persistance/PlayerIndexFile.h Persistance/PlayerSaveFile.cpp
-        Persistance/PlayerSaveFile.h Persistance/PlayerFilePosition.h Persistance/SaveFileManager.cpp Persistance/SaveFileManager.h Game/Events/Message.cpp Game/Events/Message.h Game/Events/RestoreStats.cpp Game/Events/RestoreStats.h)
+        Persistance/PlayerSaveFile.h Persistance/PlayerFilePosition.h Persistance/SaveFileManager.cpp
+        Persistance/SaveFileManager.h Game/Events/Message.cpp Game/Events/Message.h Game/Events/RestoreStats.cpp
+        Game/Events/RestoreStats.h ../libs/Timer.cpp)
 
 
 target_compile_options (argentumServer PRIVATE -std=c++11 -Wall -Werror -pedantic -pedantic-errors

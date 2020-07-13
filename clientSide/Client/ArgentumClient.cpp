@@ -8,7 +8,6 @@
 #include <SDL_mixer.h>
 #include "../UpdateEvents/UpdateEvent.h"
 #include "UpdateReceiver.h"
-#include <chrono>
 #include "GameInitializer.h"
 #include "../Screen/MainMenu.h"
 #include "../../libs/Timer.h"
@@ -26,8 +25,7 @@ void Client::_processConnection() {
     Window& window = game.getWindow();
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-    initializer.loadPlayer("DrasungorGP");
-
+    initializer.loadPlayer("Ivan");
     /*if (gameStartInfo.createPlayer) {
         initializer.loadPlayer(gameStartInfo.myNickname, gameStartInfo.myRace,
                                gameStartInfo.myClass);
