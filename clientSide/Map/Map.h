@@ -16,7 +16,7 @@
 #include "../Texture/PlayerEquipment.h"
 #include <list>
 #include "../Client/EntityData.h"
-#include "../Spells/Spell.h"
+#include "../Miscellaneous/Spell.h"
 #include "../Client/CitizenData.h"
 #include "../Sound/SoundPlayer.h"
 

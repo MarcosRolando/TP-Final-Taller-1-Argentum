@@ -118,7 +118,7 @@ void Monster::_move() {
         game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
         pathCache.pop_front();
         inactiveCycles = 0;
-    } else if (inactiveCycles >= 10){
+    } else if (inactiveCycles >= 10) {
         Coordinate newPosition = map.getMonsterRandomPosition(currentPosition);
         Coordinate noPositions = {-1, -1};
         if (newPosition != noPositions) {

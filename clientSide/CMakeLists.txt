@@ -15,7 +15,7 @@ add_subdirectory(Graphics)
 add_subdirectory(Client)
 add_subdirectory(UpdateEvents)
 
-add_executable(argentumClient clientMain.cpp Spells/Spell.cpp)
+add_executable(argentumClient clientMain.cpp Miscellaneous/Spell.cpp)
 
 target_link_libraries(argentumClient jsoncpp ${Boost_LIBRARIES} )
 

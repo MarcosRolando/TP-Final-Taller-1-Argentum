@@ -9,7 +9,7 @@
 #include "../../libs/GameEnums.h"
 #include <list>
 #include <memory>
-#include "../Spells/Spell.h"
+#include "../Miscellaneous/Spell.h"
 
 /*Clase Abstracta*/
 
