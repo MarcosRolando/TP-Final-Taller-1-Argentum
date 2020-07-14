@@ -10,6 +10,7 @@
 #include "../Game/Events/Attack.h"
 #include "../Game/Events/Move.h"
 #include "../Game/Events/Drop.h"
+#include "../Config/Calculator.h"
 
 #define MAX_NUMBER_OF_CACHED_NODES 4
 
@@ -78,7 +79,7 @@ bool Monster::_tryToAttack() {
             std::unique_ptr<Attack> attackFunction(new Attack(*this, target));
             game.pushEvent(std::move(attackFunction));
             pathCache.clear();
-            elapsedTime = 0;
+            inactiveCycles = 0;
             return true;
         }
     }
@@ -116,15 +117,15 @@ void Monster::_move() {
         movement.direction = _getMoveDirection(pathCache.front());
         game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
         pathCache.pop_front();
-        elapsedTime = 0;
-    } else if (elapsedTime >= 10 * timeBetweenActions){
+        inactiveCycles = 0;
+    } else if (inactiveCycles >= 10){
         Coordinate newPosition = map.getMonsterRandomPosition(currentPosition);
         Coordinate noPositions = {-1, -1};
         if (newPosition != noPositions) {
             movement.direction = _getMoveDirection(newPosition);
             game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
-            elapsedTime = 0;
         }
+        inactiveCycles = 0;
     }
 }
 
@@ -138,6 +139,7 @@ Monster::Monster(Game &_game, Coordinate initialPosition,
                  stats(_type), map(_game.getMap()), game(_game) {
     monsterWeapon = _weapon;
     elapsedTime = 0;
+    inactiveCycles = 0;
     type = _type;
     speed = Configuration::getInstance().configMonsterStats(_type).speed;
 }
@@ -146,11 +148,19 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
     AttackResult result{0, 0, ""};
     if (_damage <= 0) return result;
     if (!isDead()) {
-        result = stats.modifyLife(_damage, attackerLevel);
-        result.resultMessage += "You damaged the Monster by " +
-                    std::to_string(result.damage) + " (Remaining Life: " +
-                    std::to_string(stats.getCurrentLife()) +
-                    " , XP Gained: " + std::to_string(result.experience) + ")\n";
+        //result = stats.modifyLife(_damage, attackerLevel);
+        std::pair<int, bool> realAttackResult = stats.modifyLife(_damage);
+
+        if (realAttackResult.second) {
+            result.resultMessage += "The monster dodged your attack\n";
+        } else {
+            unsigned int experience = Calculator::calculateKillXP(attackerLevel, stats.getLevel(), stats.getMaxLife());
+            result = {realAttackResult.first, experience, ""};
+            result.resultMessage += "You damaged the Monster by " +
+                                    std::to_string(result.damage) + " (Remaining Life: " +
+                                    std::to_string(stats.getCurrentLife()) +
+                                    " , XP Gained: " + std::to_string(result.experience) + ")\n";
+        }
         if (isDead()) {
             std::shared_ptr<Item> drop;
             ItemsFactory::getInstance().storeRandomDrop(drop, stats.getMaxLife());
@@ -166,10 +176,11 @@ void Monster::update(double timeStep) {
     Entity::update(timeStep, game);
     elapsedTime += timeStep;
     if (elapsedTime >= timeBetweenActions) {
+        elapsedTime = 0;
+        ++inactiveCycles;
         if (!_tryToAttack() && !isMoving()) {
             _move();
         }
-        //elapsedTime = 0;
     }
 }
 
