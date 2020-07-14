@@ -33,7 +33,6 @@ void Client::_processConnection() {
     //mainMenu.playerSelectionLoop(quit, initializer, socket);
     //playerSelection
     initializer.loadPlayer("Ivan");
-
     /*if (gameStartInfo.createPlayer) {
         initializer.loadPlayer(gameStartInfo.myNickname, gameStartInfo.myRace,
                                gameStartInfo.myClass);

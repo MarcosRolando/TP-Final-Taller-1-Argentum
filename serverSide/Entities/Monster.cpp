@@ -78,14 +78,14 @@ bool Monster::_tryToAttack() {
             std::unique_ptr<Attack> attackFunction(new Attack(*this, target));
             game.pushEvent(std::move(attackFunction));
             pathCache.clear();
+            elapsedTime = 0;
             return true;
         }
     }
     return false;
 }
 
-GameType::Direction Monster::_getMoveDirection() {
-    Coordinate destination = pathCache.front();
+GameType::Direction Monster::_getMoveDirection(Coordinate destination) {
     Coordinate difference = {destination.iPosition - currentPosition.iPosition,
                              destination.jPosition - currentPosition.jPosition};
     if (difference.iPosition  == 1) {
@@ -113,9 +113,18 @@ void Monster::_move() {
         _storeNearestPlayerPathCache();
     }
     if (!pathCache.empty()) {
-        movement.direction = _getMoveDirection();
+        movement.direction = _getMoveDirection(pathCache.front());
         game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
         pathCache.pop_front();
+        elapsedTime = 0;
+    } else if (elapsedTime >= 10 * timeBetweenActions){
+        Coordinate newPosition = map.getMonsterRandomPosition(currentPosition);
+        Coordinate noPositions = {-1, -1};
+        if (newPosition != noPositions) {
+            movement.direction = _getMoveDirection(newPosition);
+            game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
+            elapsedTime = 0;
+        }
     }
 }
 
@@ -160,7 +169,7 @@ void Monster::update(double timeStep) {
         if (!_tryToAttack() && !isMoving()) {
             _move();
         }
-        elapsedTime = 0;
+        //elapsedTime = 0;
     }
 }
 
