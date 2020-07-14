@@ -7,12 +7,16 @@
 
 #include "SoundRepository.h"
 #include <mutex>
+#include "../../libs/Timer.h"
 
 class SoundPlayer {
 private:
     std::queue<SoundID> soundQueue;
     SoundRepository repo;
     std::mutex m;
+    Timer timer;
+    bool blocked{false}; /*Para regular que no le puedan meter muchos sonidos en poco tiempo*/
+
 public:
     SoundPlayer();
 

@@ -6,8 +6,11 @@
 
 #define QUEUE_SIZE 3
 
+const int TIME_BETWEEN_SOUND_UPDATES = 250;
+
 SoundPlayer::SoundPlayer() {
     std::srand(std::clock());
+    timer.start();
 }
 
 void SoundPlayer::playMusic() {
@@ -42,9 +45,14 @@ SoundID SoundPlayer::_getRandomDeathSound() {
 
 void SoundPlayer::queueSound(SoundID id) {
     std::lock_guard<std::mutex> l(m);
-    if (id == Death1Sound) id = _getRandomDeathSound();
-    if (soundQueue.size() < QUEUE_SIZE)
-        soundQueue.push(id);
+    if (timer.getTime() > TIME_BETWEEN_SOUND_UPDATES) {
+        blocked = false;
+    }
+    if (!blocked) {
+        if (id == Death1Sound) id = _getRandomDeathSound();
+        if (soundQueue.size() < QUEUE_SIZE)
+            soundQueue.push(id);
+    }
 }
 
 void SoundPlayer::playSounds() {
@@ -55,5 +63,9 @@ void SoundPlayer::playSounds() {
         soundToPlay = repo.getSound(soundQueue.front());
         Mix_PlayChannel(-1, soundToPlay, 0);
         soundQueue.pop();
+    }
+    if (!blocked) {
+        blocked = true;
+        timer.start();
     }
 }

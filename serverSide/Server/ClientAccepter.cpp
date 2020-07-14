@@ -26,7 +26,11 @@ void ClientAccepter::run() {
                 clients.pushToWaitingList(std::move(clientSocket), protocol, std::move(playerData));
             } catch(std::exception& e) {
                 std::cerr << e.what() << std::endl;
-                clientSocket.send(&deniedConnection, sizeof(deniedConnection));
+                try {
+                    clientSocket.send(&deniedConnection, sizeof(deniedConnection));
+                } catch(...) {
+                    //do nothing
+                }
             }
         }
     } catch (std::exception& e) {
