@@ -15,6 +15,7 @@
 #define ATTACKER_IS_NEWBIE_MESSAGE "I won't lose my time on a low level newbie like you!\n"
 #define PLAYER_IS_A_NEWBIE_MESSAGE "Surely you have better things to do than attack a low level newbie like me...\n"
 #define PLAYER_IS_DEAD_MESSAGE "You can't kill a ghost, you know?\n"
+#define DODGED_ATTACK_MESSAGE "You dodged an attack\n"
 
 using namespace GameType;
 
@@ -56,20 +57,6 @@ int32_t Player::attack(Coordinate target) {
     return returnValue;
 }
 
-void Player::_dropItems() {
-    std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();
-    int goldDropped = static_cast<int>(gold -
-                                       Calculator::calculateMaxSafeGold(stats.getLevel()));
-    goldDropped = std::max(goldDropped, 0);
-    gold -= goldDropped;
-    if (goldDropped > 0) {
-        items.emplace_back(std::make_shared<Gold>(goldDropped));
-    }
-    if (!items.empty()) {
-        //game.dropItems(std::move(items), currentPosition);
-        game.pushEvent(std::unique_ptr<Event>(new Drop(game, std::move(items), currentPosition)));
-    }
-}
 
 AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPlayer) {
     stats.stopMeditating(chat);
@@ -82,27 +69,7 @@ AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPl
                 return {0, 0, ATTACKER_IS_NEWBIE_MESSAGE};
             }
         }
-        std::string attackedMessage;
-        unsigned int defense = inventory.getDefense();
-        int totalDamage = stats.modifyLife(damage, attackerLevel, defense, isAPlayer, attackedMessage);
-        unsigned int experience = Calculator::calculateAttackXP(totalDamage,
-                                    attackerLevel, stats.getLevel());
-        if (stats.isDead() && totalDamage > 0) {
-            _dropItems();
-            experience += Calculator::calculateKillXP(attackerLevel,
-                    stats.getLevel(), stats.getMaxLife());
-            game.pushEvent(std::unique_ptr<Event>(new NotifyDeath(*this)));
-        }
-        std::string damageString = std::to_string(totalDamage);
-        attackedMessage += "You damaged " + getNickname() + " by " + damageString;
-        attackedMessage += " (Remaining Life: " + std::to_string(stats.getCurrentLife()) +
-                            " , XP Gained: " + std::to_string(experience) + ")\n";
-        if (totalDamage >= 0) {
-            chat.addMessage("You lost " + damageString + " health points\n");
-        } else if (totalDamage < 0) {
-            chat.addMessage("You healed " + damageString + " health points\n");
-        }
-        return {totalDamage, experience, std::move(attackedMessage)};
+        return _receiveDamage(damage, attackerLevel, isAPlayer);
     } else {
         return {0, 0, PLAYER_IS_DEAD_MESSAGE};
     }
@@ -223,17 +190,6 @@ void Player::withdrawFrom(const std::string &itemName, Coordinate npcPosition) {
     game.withdraw(*this, itemName, npcPosition);
 }
 
-/*
-void Player::listFrom(Coordinate npcPosition) {
-    std::list<ProductData> products;
-    game.list(*this, products, npcPosition);
-
-    //FALTA HACER QUE SE MANDE AL CLIENTE
-
-}
-*/
-
-
 void Player::listFrom(Coordinate npcPosition) {
     game.list(*this, npcPosition);
 }
@@ -310,4 +266,56 @@ PlayerData Player::getData() const {
     stats.getData(pData);
     inventory.getData(pData);
     return pData;
+}
+
+
+
+void Player::_dropItems() {
+    std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();
+    int goldDropped = static_cast<int>(gold -
+                                       Calculator::calculateMaxSafeGold(stats.getLevel()));
+    goldDropped = std::max(goldDropped, 0);
+    gold -= goldDropped;
+    if (goldDropped > 0) {
+        items.emplace_back(std::make_shared<Gold>(goldDropped));
+    }
+    if (!items.empty()) {
+        //game.dropItems(std::move(items), currentPosition);
+        game.pushEvent(std::unique_ptr<Event>(new Drop(game, std::move(items), currentPosition)));
+    }
+}
+
+void Player::_storeAttackedResultMessage(std::string& resultMessage, std::pair<int, bool> attackResult,
+                                  unsigned int experience) {
+    std::string damageString = std::to_string(attackResult.first);
+    if (attackResult.second) {
+        resultMessage += getNickname() + " dodged your attack\n";
+    } else {
+        resultMessage += "You damaged " + getNickname() + " by " + damageString;
+        resultMessage += " (Remaining Life: " + std::to_string(stats.getCurrentLife()) +
+                           " , XP Gained: " + std::to_string(experience) + ")\n";
+    }
+    if (attackResult.second) {
+        chat.addMessage(DODGED_ATTACK_MESSAGE);
+    } else if (attackResult.first >= 0) {
+        chat.addMessage("You lost " + damageString + " health points\n");
+    } else if (attackResult.first < 0) {
+        chat.addMessage("You healed " + damageString + " health points\n");
+    }
+}
+
+AttackResult Player::_receiveDamage(int damage, unsigned int attackerLevel, bool isAPlayer) {
+    std::string attackedMessage;
+    unsigned int defense = inventory.getDefense();
+    std::pair<int, bool> result = stats.modifyLife(damage, attackerLevel, defense, isAPlayer, attackedMessage);
+    unsigned int experience = Calculator::calculateAttackXP(result.first,
+                                                            attackerLevel, stats.getLevel());
+    if (stats.isDead() && result.first > 0) {
+        _dropItems();
+        experience += Calculator::calculateKillXP(attackerLevel,
+                                                  stats.getLevel(), stats.getMaxLife());
+        game.pushEvent(std::unique_ptr<Event>(new NotifyDeath(*this)));
+    }
+    _storeAttackedResultMessage(attackedMessage, result, experience);
+    return {result.first, experience, std::move(attackedMessage)};
 }

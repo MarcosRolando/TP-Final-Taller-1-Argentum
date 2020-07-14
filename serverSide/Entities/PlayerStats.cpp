@@ -93,26 +93,26 @@ void PlayerStats::increaseExperience(unsigned int _experience) {
     }
 }
 
-int PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defense,
+std::pair<int, bool> PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defense,
                             bool isAPlayer, std::string& attackedMessage) {
     if (damage < 0) {
         currentLife += damage;
         if (currentLife > maxLife) currentLife = maxLife;
         currentMana = 0;
-        return damage;
+        return {damage, false};
     } else {
         Configuration& config = Configuration::getInstance();
         if (isAPlayer && std::abs(static_cast<int>(attackerLevel - level)) >
                          config.configMaxLevelDif()) {
             attackedMessage += MUCH_LEVEL_DIFF_MESSAGE + std::to_string(level) + "\n";
-            return 0;
+            return {0, false};
         }
         if (Calculator::isCritical()) {
             attackedMessage += CRITICAL_MESSAGE;
             damage = damage * 2;
         } else if (Calculator::canDodge(agility)) {
             attackedMessage += DODGE_MESSAGE;
-            return 0;
+            return {0, true};
         }
         int totalDamage = std::max(damage - static_cast<int>(defense), 0);
         currentLife -= totalDamage;
@@ -123,7 +123,7 @@ int PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int
         if (totalDamage > 0) {
             timeElapsedLife = 0.0;
         }
-        return totalDamage;
+        return {totalDamage, false};
     }
 }
 

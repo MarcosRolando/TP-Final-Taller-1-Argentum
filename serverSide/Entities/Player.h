@@ -134,6 +134,9 @@ public:
 
 private:
     void _dropItems();
+    void _storeAttackedResultMessage(std::string& resultMessage, std::pair<int, bool> attackResult,
+                                     unsigned int experience);
+    AttackResult _receiveDamage(int damage, unsigned int attackerLevel, bool isAPlayer);
 };
 
 
