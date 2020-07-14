@@ -11,6 +11,7 @@
 #include "GameInitializer.h"
 #include "../Screen/MainMenu.h"
 #include "../../libs/Timer.h"
+#include "UpdateManager.h"
 
 #define FREQUENCY 44100
 #define CHUNKSIZE 2048
@@ -43,25 +44,28 @@ void Client::_processConnection() {
     //Game start
     initializer.initializeGame();
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
-    UpdateQueue<std::unique_ptr<UpdateEvent>> updateEvents;
+    UpdateManager updateManager;
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
-    UpdateReceiver updater(protocol, updateEvents, socket, quit);
+    UpdateReceiver updater(protocol, updateManager, socket, quit);
     eventHandler();
     updater();
     //Aca falta lo del main menu y la seleccion de server/player etc
     std::unique_ptr<SDL_Event> event(new SDL_Event());
-    std::unique_ptr<UpdateEvent> update;
 
     timer.start();
     game.getSoundPlayer().playMusic();
     try {
         while (!quit) {
-            if (updateEvents.isUpdateAvailable()) {
-                while (!updateEvents.empty()) {
-                    update = updateEvents.pop();
-                    (*update)(game);
+            int updatesAvailable = updateManager.updatesAvailable();
+            if (updatesAvailable > 0 && updatesAvailable < 5) {
+                updatesAvailable = 1;
+            }
+            for (int i = 0; i < updatesAvailable; ++i) {
+                auto update = updateManager.pop();
+                while (!update.empty()) {
+                    auto updateEvent = update.pop();
+                    (*updateEvent)(game);
                 }
-                updateEvents.consumedUpdate();
             }
             while(SDL_PollEvent(event.get()) != 0) {
                 if (!window.handleEvent(*event)) {
@@ -88,7 +92,6 @@ void Client::_processConnection() {
 
     quit = true;
     socket.close();
-    updateEvents.consumedUpdate();
     sdlEvents.doneAdding();
     eventHandler.join();
     updater.join();
