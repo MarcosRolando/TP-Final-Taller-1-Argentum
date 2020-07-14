@@ -23,6 +23,7 @@ class Weapon;
 class Player;
 class Clothing;
 class Item;
+class Minichat;
 struct Coordinate;
 
 
@@ -86,6 +87,8 @@ public:
     int32_t getWeaponId();
 
     bool hasItem(const std::string& itemName);
+
+    void getInventoryNames(Minichat& chat);
 
     //Almacena el inventario del player en pData, se usa para el backup del archivo
     void getData(PlayerData& pData) const;

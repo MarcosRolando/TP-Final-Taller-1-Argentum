@@ -295,6 +295,12 @@ bool Player::hasItem(const std::string& itemName) {
     return inventory.hasItem(itemName);
 }
 
+
+void Player::getInventoryNames() {
+    inventory.getInventoryNames(chat);
+}
+
+
 PlayerData Player::getData() const {
     PlayerData pData;
     pData.nickname = getNickname();

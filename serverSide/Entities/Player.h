@@ -127,6 +127,8 @@ public:
 
     bool hasItem(const std::string& itemName);
 
+    void getInventoryNames();
+
     //Retorna su data actual (las cosas guardadas, stats, etc)
     PlayerData getData() const;
 
