@@ -18,6 +18,7 @@
 MSGPACK_ADD_ENUM(GameType::EventID)
 
 #define WAITING_TIME_MESSAGE "The estimated waiting time to resurrect is "
+const Coordinate defaultSpawnPoint = {88,83};
 
 /////////////////////////////////PRIVATE//////////////////////////
 
@@ -171,19 +172,17 @@ void Game::pushEvent(std::unique_ptr<Event>&& event) {
 #include "../Items/Miscellaneous/ManaPotion.h"
 
 Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
-    //todo ver si lo spawneamos en un area especifica tipo la capital o pueblos
-    int x = 90;
-    Coordinate position{};
-    while (true) { //esto es solo por ahora para generar al player en el primer tile disponible
-        position = {90, x};
-        if (map.isPlaceAvailable(position)) break;
-        --x;
-    }
+    Coordinate spawnPosition{};
+    if (!priests.empty()) {
+        spawnPosition = map.getSpawnCoordinateArroundPosition(priests.front());
+    } else {
+        spawnPosition = map.getSpawnCoordinateArroundPosition(defaultSpawnPoint);
+    };
     Banker::addPlayerItems(playerData);
-    auto player = std::make_shared<Player>(*this, position, playerData);
+    auto player = std::make_shared<Player>(*this, spawnPosition, playerData);
     Player* playerAux = player.get();
     players.emplace(playerAux->getNickname(), playerAux);
-    map.addEntity(position, std::move(player));
+    map.addEntity(spawnPosition, std::move(player));
     std::stringstream data;
     (*playerAux) >> data;
     protocol.addToGeneralData(data);
