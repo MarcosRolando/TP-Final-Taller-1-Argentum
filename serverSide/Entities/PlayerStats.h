@@ -57,7 +57,8 @@ public:
     void increaseExperience(unsigned int _experience);
 
     //Modifica la vida del player acorde al danio/curacion ocasionados
-    int modifyLife(int damage, unsigned int attackerLevel, unsigned int defense,
+    //Retorna el pair(danio total recibido, pudo esquivar)
+    std::pair<int, bool> modifyLife(int damage, unsigned int attackerLevel, unsigned int defense,
                    bool isAPlayer, std::string& attackedMessage);
 
     //Retorna la maxima vida que puede tener el player dado su nivel actual
