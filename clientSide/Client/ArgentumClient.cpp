@@ -31,7 +31,7 @@ void Client::_processConnection() {
 
     //mainMenu.playerSelectionLoop(quit, initializer, socket);
     //playerSelection
-    initializer.loadPlayer("Ivan");
+    initializer.loadPlayer("Manolo");
     /*if (gameStartInfo.createPlayer) {
         initializer.loadPlayer(gameStartInfo.myNickname, gameStartInfo.myRace,
                                gameStartInfo.myClass);
@@ -61,6 +61,9 @@ void Client::_processConnection() {
                 updatesAvailable = 1;
             }
             for (int i = 0; i < updatesAvailable; ++i) {
+                if (i != 0) {
+                    game.update();
+                }
                 auto update = updateManager.pop();
                 while (!update.empty()) {
                     auto updateEvent = update.pop();

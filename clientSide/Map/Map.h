@@ -83,7 +83,7 @@ public:
 
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
-    void _updateSpellsFrame(double timeStep);
+    void _updateSpellsFrame(double timeStep = 0);
     void _moveEntitiesToNewTile();
     void _addEntity(EntityData& data, std::shared_ptr<Entity>& entity);
 };
