@@ -71,5 +71,4 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     accepter.join();
 }
 
-ArgentumServer::ArgentumServer() {
-}
+ArgentumServer::ArgentumServer() = default;

@@ -14,6 +14,7 @@
 #include "../Game/Events/Unequip.h"
 #include "ItemsFactory.h"
 #include "../Entities/PlayerStats.h"
+#include "../Entities/Minichat.h"
 
 MSGPACK_ADD_ENUM(GameType::ItemType)
 
@@ -265,5 +266,13 @@ void Inventory::getData(PlayerData &pData) const {
     pData.equipment.at(GameType::EQUIPMENT_PLACE_SHIELD) =
             clothingEquipment.at(GameType::EQUIPMENT_PLACE_SHIELD)->getId();
     pData.equipment.at(GameType::EQUIPMENT_PLACE_WEAPON) = equippedWeapon->getId();
+}
+
+void Inventory::getInventoryNames(Minichat& chat) {
+    for (unsigned int i = 0; i < items.size(); ++i) {
+        if (items.at(i)) {
+            chat.addMessage(std::to_string(i) + ": " + items.at(i)->getName() + "\n");
+        }
+    }
 }
 

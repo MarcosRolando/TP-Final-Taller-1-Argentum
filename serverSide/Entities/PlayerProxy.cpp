@@ -21,6 +21,7 @@
 #include "../Game/Events/RequestResurrect.h"
 #include "../Game/Events/Message.h"
 #include "../Game/Events/RestoreStats.h"
+#include "../Game/Events/GetInventoryNames.h"
 
 #define MAX_EVENTS_STORED 3
 
@@ -141,6 +142,12 @@ void PlayerProxy::messageOtherPlayer(std::string &&playerToMessage, std::string 
 void PlayerProxy::requestHeal(Coordinate selectedPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
         storedEvents.emplace(new RestoreStats(*game, *player, selectedPosition));
+    }
+}
+
+void PlayerProxy::getInventoryNames() {
+    if (storedEvents.size() < MAX_EVENTS_STORED) {
+        storedEvents.emplace(new GetInventoryNames(*player));
     }
 }
 
