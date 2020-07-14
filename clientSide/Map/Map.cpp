@@ -14,7 +14,7 @@ Map::Map(TextureRepository& repo, SDL_Rect& camera, SoundPlayer& soundPlayer) :
     this->camera = camera;
 }
 
-void Map::renderGround() {
+void Map::_renderGround() {
     for (int i = 0; i < (VISIBLE_VERTICAL_TILES + 1); ++i) {
         for (int j = 0; j < (VISIBLE_HORIZONTAL_TILES + 1); ++j) {
             float x = (float)camera.x + (float)j * TILE_WIDTH;
@@ -29,7 +29,7 @@ void Map::renderGround() {
     }
 }
 
-void Map::renderStructures() {
+void Map::_renderStructures() {
     for (int i = -1; i < (VISIBLE_VERTICAL_TILES + 3); ++i) {
         for (int j = -1; j < (VISIBLE_HORIZONTAL_TILES + 3); ++j) {
             float x = (float)camera.x + (float)j * TILE_WIDTH;
@@ -44,7 +44,7 @@ void Map::renderStructures() {
     }
 }
 
-void Map::renderNPCS() {
+void Map::_renderNPCS() {
     for (int i = -2; i < (VISIBLE_VERTICAL_TILES + 2); ++i) {
         for (int j = -2; j < (VISIBLE_HORIZONTAL_TILES + 2); ++j) {
             float x = (float)camera.x + (float)j * TILE_WIDTH;
@@ -232,9 +232,17 @@ void Map::addSpell(Coordinate position, TextureID spellTexture) {
     spells.emplace_back(std::move(spell));
 }
 
+void Map::addArrow(std::string& archerNickname, Coordinate target, TextureID arrowTexture) {
+    Coordinate archerPosition = entities.at(archerNickname).second;
+    arrows.emplace_back(new Arrow(textureRepo.getTexture(arrowTexture), camera,
+                archerPosition.j*TILE_WIDTH, archerPosition.i*TILE_HEIGHT,
+                target.j*TILE_WIDTH, target.i*TILE_HEIGHT));
+}
+
 void Map::update(double timeStep) {
     _moveEntitiesToNewTile();
-    _updateSpellsFrame(timeStep);
+    _updateSpells(timeStep);
+    _updateArrows(timeStep);
 }
 
 static bool shouldSpellBeRemoved(std::shared_ptr<Spell>& spell) {
@@ -244,7 +252,26 @@ static bool shouldSpellBeRemoved(std::shared_ptr<Spell>& spell) {
     return true;
 }
 
-void Map::_updateSpellsFrame(double timeStep) {
+static bool shouldArrowBeRemoved(std::unique_ptr<Arrow>& arrow) {
+    if (arrow) {
+        return arrow->reachedTarget();
+    }
+    return true;
+}
+
+void Map::_updateArrows(double timeStep) {
+    if (!arrows.empty()) {
+        for (auto & arrow : arrows) {
+            if (arrow) {
+                arrow->updatePosition(timeStep);
+            }
+        }
+        arrows.erase(std::remove_if(arrows.begin(), arrows.end(),
+                                    shouldArrowBeRemoved), arrows.end());
+    }
+}
+
+void Map::_updateSpells(double timeStep) {
     if (!spells.empty()) {
         for (auto & spell : spells) {
             if (spell) {
@@ -283,4 +310,17 @@ void Map::setPlayerNickname(const std::string &nickname) {
 void Map::changeEntityLookDirection(std::string& nickname, GameType::Direction direction) {
     Entity* entity = entities.at(nickname).first.get();
     entity->setLookDirection(direction);
+}
+
+void Map::render() {
+    _renderGround();
+    _renderNPCS();
+    _renderArrows();
+    _renderStructures();
+}
+
+void Map::_renderArrows() {
+    for (auto & arrow : arrows) {
+        arrow->render();
+    }
 }

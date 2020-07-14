@@ -88,6 +88,7 @@
 #define HEAL_PATH "../../clientSide/Images/Spells/Heal.png"
 #define GOLD_PATH "../../clientSide/Images/Miscellaneous/Gold.png"
 #define SIMPLE_ARROW_PATH "../../clientSide/Images/Miscellaneous/SimpleArrow.png"
+#define COMPOSITE_ARROW_PATH "../../clientSide/Images/Miscellaneous/CompositeArrow.png"
 #define BACKGROUND_PATH "../../clientSide/Images/UI/Background.png"
 #define MAIN_MENU_PATH "../../clientSide/Images/UI/MainMenuTest.png"
 
@@ -116,6 +117,7 @@ void TextureRepository::_loadMiscellaneous() {
     _setSpellImage(MagicMissile, MAGIC_MISSILE_PATH, 128, 128, 8, 5);
     _setSpellImage(Heal, HEAL_PATH, 76, 76, 25, 20);
     _setImage(SimpleArrow, SIMPLE_ARROW_PATH, 32, 32, 45, 45, 1);
+    _setImage(CompositeArrow, COMPOSITE_ARROW_PATH, 32, 32, 45, 45, 1);
 }
 
 void TextureRepository::_loadDrops() {
@@ -224,7 +226,7 @@ void TextureRepository::_setImage(TextureID TextureID, std::string&& image,
         textures.emplace(TextureID, renderer);
         Texture& texture = textures.at(TextureID);
         texture.loadFromFile(image, key, xOffset, yOffset, scale);
-        _addStructureSprites(texture, width, height);
+        _addSprites(texture, width, height);
     } catch (TPException& e) {
         throw TPException("Failed to load %s sprite sheet texture!\n", image.c_str());
     }
@@ -420,7 +422,7 @@ void TextureRepository::_addTileSprites(Texture& texture, int y, bool individual
     }
 }
 
-void TextureRepository::_addStructureSprites(Texture& texture, int width, int height) {
+void TextureRepository::_addSprites(Texture& texture, int width, int height) {
     texture.addSprite(0, 0, width, height);
 }
 

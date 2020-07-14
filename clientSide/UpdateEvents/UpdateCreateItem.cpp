@@ -13,7 +13,7 @@ UpdateCreateItem::UpdateCreateItem(GameType::ItemType _type, int32_t _item,
     try {
         switch (_type) {
             case GameType::ITEM_TYPE_GOLD:
-                item = SimpleArrow;
+                item = Gold;
                 break;
             case GameType::ITEM_TYPE_WEAPON:
                 item = translator.getWeaponDropTexture(static_cast<GameType::Weapon>(_item));

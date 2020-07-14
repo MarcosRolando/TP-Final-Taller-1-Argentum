@@ -50,7 +50,7 @@ private:
     static void _addShieldSprites(Texture& texture, int y, bool lateralSide);
     static void _addNPCSprites(Texture& texture, int y, bool lateralSide, int width, int height);
     static void _addTileSprites(Texture& texture, int y, bool individualTile);
-    static void _addStructureSprites(Texture& texture, int width, int height);
+    static void _addSprites(Texture& texture, int width, int height);
     static void _addSpellSprites(Texture& texture, int y, int width, int height);
 };
 

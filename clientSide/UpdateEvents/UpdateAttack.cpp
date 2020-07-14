@@ -33,10 +33,12 @@ void UpdateAttack::operator()(GameGUI &game) {
             game.getMap().verifyQueueSound(position, HeavyAttack, 6);
             break;
         case GameType::COMPOSITE_BOW:
-            game.getMap().verifyQueueSound(position, Arrow, 6);
+            game.getMap().addArrow(nickname, position, CompositeArrow);
+            game.getMap().verifyQueueSound(position, ArrowSound, 6);
             break;
         case GameType::SIMPLE_BOW:
-            game.getMap().verifyQueueSound(position, Arrow, 6);
+            game.getMap().addArrow(nickname, position, SimpleArrow);
+            game.getMap().verifyQueueSound(position, ArrowSound, 6);
         default:
             break;
     }

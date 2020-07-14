@@ -21,7 +21,7 @@ public:
     Arrow(Texture& texture, SDL_Rect& camera, float x, float y,
                                              float xTarget, float yTarget);
     void render();
-    void update(double timeStep);
+    void updatePosition(double timeStep);
     bool reachedTarget() const;
 
 private:

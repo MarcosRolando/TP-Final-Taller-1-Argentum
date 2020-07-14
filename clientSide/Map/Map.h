@@ -19,6 +19,7 @@
 #include "../Miscellaneous/Spell.h"
 #include "../Client/CitizenData.h"
 #include "../Sound/SoundPlayer.h"
+#include "../Miscellaneous/Arrow.h"
 
 class Map {
 private:
@@ -28,17 +29,14 @@ private:
     SDL_Rect& camera;
     std::unordered_map<std::string, std::pair<std::shared_ptr<Entity>, Coordinate>> entities;
     std::list<std::tuple<std::shared_ptr<Entity>*, Coordinate, std::string>> entitiesToUpdateTilePosition; /*Esto es para no pisar entities entre si cuando terminan de moverse*/
-    std::list<std::shared_ptr<Spell>> spells; /*Comparto ownership cosa que si el entity muere no pierdo la animacion del hechizo*/
+    std::list<std::shared_ptr<Spell>> spells;
+    std::list<std::unique_ptr<Arrow>> arrows;
     std::string playerNickname;
 
 public:
     Map(TextureRepository& repo, SDL_Rect& camera, SoundPlayer& soundPlayer);
 
-    void renderGround();
 
-    void renderStructures();
-
-    void renderNPCS();
 
     void setSize(int rows, int columns);
 
@@ -68,6 +66,8 @@ public:
 
     void addSpell(Coordinate position, TextureID spellTexture);
 
+    void addArrow(std::string& archerNickname, Coordinate target, TextureID arrowTexture);
+
     void update(double timeStep = 0);
 
     void destroyItem(Coordinate itemPosition);
@@ -81,11 +81,18 @@ public:
 
     void changeEntityLookDirection(std::string& nickname, GameType::Direction direction);
 
+    void render();
+
 private:
     static Coordinate _calculateNewTile(Coordinate position, GameType::Direction direction);
-    void _updateSpellsFrame(double timeStep);
+    void _updateSpells(double timeStep);
+    void _updateArrows(double timeStep);
     void _moveEntitiesToNewTile();
     void _addEntity(EntityData& data, std::shared_ptr<Entity>& entity);
+    void _renderGround();
+    void _renderStructures();
+    void _renderNPCS();
+    void _renderArrows();
 };
 
 
