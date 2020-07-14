@@ -30,7 +30,7 @@ public:
     void run() override;
 
 private:
-    void _handleMoveKeys(SDL_Event& e);
+    void _handleKeyDown(SDL_Event& e);
 
     void _sendMessage();
 
@@ -43,6 +43,8 @@ private:
     void _processUnequipItem(GameType::EquipmentPlace _equipment);
 
     void _processCommandInput();
+
+    void _handleKeyUp(SDL_Event& e);
 };
 
 
