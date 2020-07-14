@@ -12,13 +12,14 @@ add_subdirectory(Character)
 add_subdirectory(Sound)
 add_subdirectory(Screen)
 add_subdirectory(Graphics)
+add_subdirectory(Miscellaneous)
 add_subdirectory(Client)
 add_subdirectory(UpdateEvents)
 
-add_executable(argentumClient clientMain.cpp Miscellaneous/Spell.cpp Miscellaneous/Arrow.cpp Miscellaneous/Arrow.h)
+add_executable(argentumClient clientMain.cpp)
 
 target_link_libraries(argentumClient jsoncpp ${Boost_LIBRARIES} )
 
 target_link_libraries(argentumClient ${SDL2_LIBRARIES} SDL2_image SDL2_ttf SDL2_mixer
                         texture clientMap character sound graphics client screen updateEvents
-                        inputCommands libs)
+                        inputCommands libs clientMiscellaneous)

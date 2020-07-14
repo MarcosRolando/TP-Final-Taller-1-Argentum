@@ -6,4 +6,4 @@ add_subdirectory(Attack)
 add_subdirectory(Defense)
 add_subdirectory(Miscellaneous)
 
-target_link_libraries(items PUBLIC attack defense miscellaneous)
+target_link_libraries(items PUBLIC attack defense serverMiscellaneous)
