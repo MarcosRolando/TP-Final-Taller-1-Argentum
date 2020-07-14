@@ -17,7 +17,7 @@ MSGPACK_ADD_ENUM(GameType::EquipmentPlace)
 
 ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol) :
                         socket(std::move(socket)), protocol(_protocol) {
-    eventProcessors = {{GameType::MOVE, &ClientHandler::_processMove},
+    eventProcessors = {{GameType::PLAYER_MOVE, &ClientHandler::_processMove},
                        {GameType::PLAYER_ATTACK, &ClientHandler::_processAttack},
                        {GameType::PLAYER_USE_ITEM, &ClientHandler::_processUseItem},
                        {GameType::PLAYER_UNEQUIP, &ClientHandler::_processUnequip},

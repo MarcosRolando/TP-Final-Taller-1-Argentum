@@ -77,7 +77,7 @@ void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
 
 //Cambiarle el nombre a handleKeyDown
 void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
-    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::MOVE);
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_MOVE);
     msgpack::type::tuple<GameType::Direction> direction;
     switch (e.key.keysym.sym) {
         case SDLK_UP:
