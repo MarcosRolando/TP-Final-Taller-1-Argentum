@@ -32,17 +32,17 @@ SoundID SoundPlayer::_getRandomDeathSound() {
     int rand = std::rand() % 2;
     switch (rand) {
         case 0:
-            return Death;
+            return Death1Sound;
         case 1:
-            return Death1;
+            return Death2Sound;
         default:
-            return Death;
+            return Death1Sound;
     }
 }
 
 void SoundPlayer::queueSound(SoundID id) {
     std::lock_guard<std::mutex> l(m);
-    if (id == Death) id = _getRandomDeathSound();
+    if (id == Death1Sound) id = _getRandomDeathSound();
     if (soundQueue.size() < QUEUE_SIZE)
         soundQueue.push(id);
 }

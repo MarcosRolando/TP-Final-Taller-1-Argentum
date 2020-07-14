@@ -132,7 +132,7 @@ void Map::moveEntity(std::string &nickname, GameType::Direction direction,
                                         distanceTravelled, reachedDestination);
         if (previousDirection == GameType::DIRECTION_STILL) { /*Se empezo a mover de tile*/
             Coordinate oldPosition = entities.at(nickname).second;
-            verifyQueueSound(oldPosition, Step, 3);
+            verifyQueueSound(oldPosition, StepSound, 3);
             Coordinate newPosition = _calculateNewTile(oldPosition, direction);
             int tile = oldPosition.i*TOTAL_HORIZONTAL_TILES + oldPosition.j;
             tiles.at(tile).removeEntity();
@@ -207,7 +207,7 @@ void Map::equipOnPlayer(std::string &nickname, GameType::EquipmentPlace place,
 void Map::killPlayer(std::string &nickname) {
     Entity* entity = entities.at(nickname).first.get();
     Coordinate position = entities.at(nickname).second;
-    verifyQueueSound(position, Death, 10);
+    verifyQueueSound(position, Death1Sound, 10);
     auto player = dynamic_cast<Player*>(entity);
     if (player) {
         player->kill();

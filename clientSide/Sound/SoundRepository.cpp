@@ -2,6 +2,21 @@
 
 #define QUEUE_SIZE 3
 
+#define SWORD_ATTACK_PATH "../../clientSide/Sounds/swordAttack.wav"
+#define HEAVY_ATTACK_PATH "../../clientSide/Sounds/HeavyAttack.wav"
+#define ATTACK_1_PATH "../../clientSide/Sounds/genericAttack1.wav"
+#define ATTACK_2_PATH "../../clientSide/Sounds/genericAttack2.wav"
+#define ARROW_PATH "../../clientSide/Sounds/arrow.wav"
+#define DEATH_1_PATH "../../clientSide/Sounds/Death.wav"
+#define DEATH_2_PATH "../../clientSide/Sounds/YodaDeath.wav"
+#define STEP_PATH "../../clientSide/Sounds/Step.wav"
+#define EXPLOTION_1_PATH "../../clientSide/Sounds/Explotion1.wav"
+#define EXPLOTION_2_PATH "../../clientSide/Sounds/Explotion2.wav"
+#define EXPLOTION_3_PATH "../../clientSide/Sounds/Explotion3.wav"
+#define HEALING_PATH "../../clientSide/Sounds/heal.wav"
+#define ZOMBIE_PATH "../../clientSide/Sounds/Zombie.mp3"
+#define SPIDER_PATH "../../clientSide/Sounds/Spider.mp3"
+
 SoundRepository::SoundRepository() {
     _loadSounds();
     _loadMusic();
@@ -9,18 +24,20 @@ SoundRepository::SoundRepository() {
 
 void SoundRepository::_loadSounds() {
     try {
-        sounds.emplace(SwordAttack, "../../clientSide/Sounds/swordAttack.wav");
-        sounds.emplace(HeavyAttack, "../../clientSide/Sounds/HeavyAttack.wav");
-        sounds.emplace(Attack, "../../clientSide/Sounds/genericAttack.wav");
-        sounds.emplace(Attack2, "../../clientSide/Sounds/genericAttack2.wav");
-        sounds.emplace(ArrowSound, "../../clientSide/Sounds/arrow.wav");
-        sounds.emplace(Death, "../../clientSide/Sounds/Death.wav");
-        sounds.emplace(Death1, "../../clientSide/Sounds/YodaDeath.wav");
-        sounds.emplace(Step, "../../clientSide/Sounds/Step.wav");
-        sounds.emplace(Explotion1, "../../clientSide/Sounds/Explotion1.wav");
-        sounds.emplace(Explotion2, "../../clientSide/Sounds/Explotion2.wav");
-        sounds.emplace(Explotion3, "../../clientSide/Sounds/Explotion3.wav");
-        sounds.emplace(Healing, "../../clientSide/Sounds/heal.wav");
+        sounds.emplace(SwordAttackSound, SWORD_ATTACK_PATH);
+        sounds.emplace(HeavyAttackSound, HEAVY_ATTACK_PATH);
+        sounds.emplace(Attack1Sound, ATTACK_1_PATH);
+        sounds.emplace(Attack2Sound, ATTACK_2_PATH);
+        sounds.emplace(ArrowSound, ARROW_PATH);
+        sounds.emplace(Death1Sound, DEATH_1_PATH);
+        sounds.emplace(Death2Sound, DEATH_2_PATH);
+        sounds.emplace(StepSound, STEP_PATH);
+        sounds.emplace(Explotion1Sound, EXPLOTION_1_PATH);
+        sounds.emplace(Explotion2Sound, EXPLOTION_2_PATH);
+        sounds.emplace(Explotion3Sound, EXPLOTION_3_PATH);
+        sounds.emplace(HealingSound, HEALING_PATH);
+        sounds.emplace(ZombieSound, ZOMBIE_PATH);
+        sounds.emplace(SpiderSound, SPIDER_PATH);
 
     } catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
