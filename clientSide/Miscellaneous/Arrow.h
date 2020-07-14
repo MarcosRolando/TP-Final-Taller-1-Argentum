@@ -1,32 +1,32 @@
 //
-// Created by marcos on 6/13/20.
+// Created by marcos on 14/7/20.
 //
 
-#ifndef ARGENTUM_SPELL_H
-#define ARGENTUM_SPELL_H
+#ifndef ARGENTUM_ARROW_H
+#define ARGENTUM_ARROW_H
 
 #include "../Texture/Texture.h"
 
-class Spell {
+class Arrow {
 private:
     Texture& sTexture;
     SDL_Rect& camera;
-    float timePassed;
-    int currentFrame;
+    float angle, distance;
     float xPosition, width;
     float yPosition, height;
     bool finished{false};
 
 public:
-    Spell(Texture& texture, SDL_Rect& camera, float x, float y);
+    Arrow(Texture& texture, SDL_Rect& camera, float x, float y,
+                                             float xTarget, float yTarget);
     void render();
-    void updateFrame(double timeStep);
     bool finishedAnimation() const;
     void updatePosition(float x, float y);
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);
+    void _calculateTrajectory(float xTarget, float yTarget);
 };
 
 
-#endif //ARGENTUM_SPELL_H
+#endif //ARGENTUM_ARROW_H
