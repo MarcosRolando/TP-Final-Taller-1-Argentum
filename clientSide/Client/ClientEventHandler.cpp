@@ -8,15 +8,12 @@
 #include "../../libs/Socket.h"
 #include "ClientProtocol.h"
 #include "InputCommands/InputCommand.h"
-#include "InputCommands/CommandVerifier.h"
 
 MSGPACK_ADD_ENUM(GameType::Direction)
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 
 void ClientEventHandler::run() {
-    //Selector& selector = game.getSelector();
     Minichat& minichat = game.getMinichat();
-   // Window& window = game.getWindow();
 
     try {
         while (!quit) {
@@ -95,7 +92,6 @@ void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
     }
 }
 
-
 void ClientEventHandler::_handleKeyDown(SDL_Event& e) {
     msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_START_MOVING);
     msgpack::type::tuple<GameType::Direction> direction;
@@ -144,7 +140,7 @@ void ClientEventHandler::_handleKeyDown(SDL_Event& e) {
 
 void ClientEventHandler::_processCommandInput() {
     std::string cmd = game.getMinichat().handleReturnKey();
-    if (cmd != " "){//Si apreto enter y no hay texto handleReturnKey me devuelve esto
+    if (cmd != " "){ //Si apreto enter y no hay texto handleReturnKey me devuelve esto
         if (cmd == "/clear") {
             game.getMinichat().clearMinichat();
         } else {
