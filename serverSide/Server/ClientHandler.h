@@ -79,6 +79,7 @@ private:
     void _processResurrect(std::vector<char>& data);
     void _processMessage(std::vector<char>& data);
     void _processHeal(std::vector<char>& data);
+    void _processInventoryNames(std::vector<char>& data);
 };
 
 

@@ -30,8 +30,9 @@ ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol) :
                        {GameType::PLAYER_DEPOSIT, &ClientHandler::_processDeposit},
                        {GameType::PLAYER_MEDITATE, &ClientHandler::_processMeditate},
                        {GameType::PLAYER_RESURRECT, &ClientHandler::_processResurrect},
-                        {GameType::PLAYER_SEND_MSG, &ClientHandler::_processMessage},
-                       {GameType::PLAYER_HEAL, &ClientHandler::_processHeal}};
+                       {GameType::PLAYER_SEND_MSG, &ClientHandler::_processMessage},
+                       {GameType::PLAYER_HEAL, &ClientHandler::_processHeal},
+                       {GameType::PLAYER_REQUEST_INVENTORY_NAMES, &ClientHandler::_processInventoryNames}};
 }
 
 void ClientHandler::run() {
@@ -222,6 +223,13 @@ void ClientHandler::_processHeal(std::vector<char> &data) {
     player.requestHeal({std::get<0>(healArguments), std::get<1>(healArguments)});
 }
 
+
+void ClientHandler::_processInventoryNames(std::vector<char> &data) {
+    player.getInventoryNames();
+}
+
+
 PlayerData ClientHandler::getPlayerData() const {
     return player.getData();
 }
+

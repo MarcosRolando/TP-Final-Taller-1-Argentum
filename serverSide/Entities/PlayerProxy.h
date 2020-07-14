@@ -42,6 +42,7 @@ public:
     void pickUpItem();
     void requesResurrect(Coordinate selectedPosition);
     void requestHeal(Coordinate selectedPosition);
+    void getInventoryNames();
     void storeAllRelevantData(std::stringstream& data) const;
     void clearMinichat();
     void giveEventsToGame();
