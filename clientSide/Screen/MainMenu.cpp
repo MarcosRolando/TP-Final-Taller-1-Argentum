@@ -12,6 +12,7 @@
 
 #define INPUT_HOST {115,100,200,25}
 #define INPUT_PORT {115,200,200,25}
+#define INPUT_NICKNAME {115,100,200,25}
 
 #define LOAD_PLAYER_BUTTON {50,200,175,25}
 #define CREATE_PLAYER_BUTTON {50,100,175,25}
@@ -72,6 +73,8 @@ void MainMenu::connectLoop(bool& quit, std::string& _host,
         }
         _renderConnectScreen();
     }
+    hostInput = false;
+    portInput = false;
 }
 
 void MainMenu::playerSelectionLoop(bool& quit, GameInitializer& initializer, Socket& socket) {
@@ -127,6 +130,37 @@ void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer)
 void MainMenu::_loadPlayer(bool &quit, bool &success, GameInitializer &initializer,
                            Socket &socket) {
 
+    bool finished = false;
+    SDL_Event e;
+    while (!finished){
+        while (SDL_PollEvent(&e) != 0){
+            if (e.type == SDL_QUIT){
+                quit = true;
+                finished = true;
+            }
+            //Por si hago resize
+            window.handleEvent(e);
+            if (e.type == SDL_MOUSEBUTTONDOWN){
+                int x = 0, y = 0;
+                SDL_GetMouseState( &x, &y );
+                x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
+                y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
+                if (_isInsideRect(x,y,INPUT_NICKNAME)){
+                    nickInput = true;
+                } else if (_isInsideRect(x,y,EXIT_BUTTON)) {
+                    quit = true;
+                    finished = true;
+                }
+            } else if (e.type == SDL_TEXTINPUT){
+                _handleTextInput(e);
+            } else if (e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.sym == SDLK_BACKSPACE) {
+                    _handleBackspace();
+                }
+            }
+        }
+        _renderConnectScreen();
+    }
 }
 
 void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initializer,
