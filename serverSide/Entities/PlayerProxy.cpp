@@ -151,8 +151,6 @@ void PlayerProxy::getInventoryNames() {
     }
 }
 
-
-
 void PlayerProxy::giveEventsToGame() {
     while (!storedEvents.empty()) {
         game->pushEvent(std::move(storedEvents.front()));
