@@ -29,20 +29,17 @@ void Client::_processConnection() {
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
 
-    //mainMenu.playerSelectionLoop(quit, initializer, socket);
+    mainMenu.playerSelectionLoop(quit, initializer, socket);
     //playerSelection
-    initializer.loadPlayer("Manolo");
-    /*if (gameStartInfo.createPlayer) {
-        initializer.loadPlayer(gameStartInfo.myNickname, gameStartInfo.myRace,
-                               gameStartInfo.myClass);
-    } else {
-        initializer.loadPlayer(gameStartInfo.myNickname);
-    }*/
-    char serverAcceptedConnection;
-    socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
+    //initializer.loadPlayer("a");
+    //char serverAcceptedConnection;
+    //socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
 
     //Game start
-    initializer.initializeGame();
+    if (!quit){
+        initializer.initializeGame();//Lo pongo aca xq si hago quit en el menu principal
+                                    //Me voy a quedar esperando aca
+    }
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
     UpdateManager updateManager;
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
@@ -51,7 +48,6 @@ void Client::_processConnection() {
     updater();
     //Aca falta lo del main menu y la seleccion de server/player etc
     std::unique_ptr<SDL_Event> event(new SDL_Event());
-
     timer.start();
     game.getSoundPlayer().playMusic();
     try {

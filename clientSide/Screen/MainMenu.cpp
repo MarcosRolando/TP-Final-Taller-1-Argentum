@@ -7,12 +7,14 @@
 #include "../Client/GameInitializer.h"
 #include "../../libs/Socket.h"
 
+#define START_BUTTON {1375, 875, 100, 25}
 #define CONNECT_BUTTON {1375, 875, 100, 25}
 #define EXIT_BUTTON {50,875,90,25}
 
 #define INPUT_HOST {115,100,200,25}
 #define INPUT_PORT {115,200,200,25}
-#define INPUT_NICKNAME {115,100,200,25}
+#define INPUT_NICKNAME {165,100,200,25}
+
 
 #define LOAD_PLAYER_BUTTON {50,200,175,25}
 #define CREATE_PLAYER_BUTTON {50,100,175,25}
@@ -31,6 +33,7 @@ errorText(mainMenuFont, window.getRenderer()), mainMenuBackground(texture) {
     hostInput = false;
     portInput = false;
     nickInput = false;
+    SDL_StartTextInput();
 }
 
 
@@ -75,6 +78,7 @@ void MainMenu::connectLoop(bool& quit, std::string& _host,
     }
     hostInput = false;
     portInput = false;
+    errorText.updateText("");
 }
 
 void MainMenu::playerSelectionLoop(bool& quit, GameInitializer& initializer, Socket& socket) {
@@ -82,13 +86,11 @@ void MainMenu::playerSelectionLoop(bool& quit, GameInitializer& initializer, Soc
     bool loadPlayer = false;
     bool success = false;
 
-    while (!success) {
+    while (!success && !quit) {
         playerSelection(quit, createPlayer, loadPlayer);//Veo si quiere hacer load o create
         if (!quit) {
             if (createPlayer) _createPlayer(quit, success, initializer, socket);
             else if (loadPlayer) _loadPlayer(quit, success, initializer, socket);
-        } else {
-            break;//Si hago quit
         }
     }
 }
@@ -150,6 +152,12 @@ void MainMenu::_loadPlayer(bool &quit, bool &success, GameInitializer &initializ
                 } else if (_isInsideRect(x,y,EXIT_BUTTON)) {
                     quit = true;
                     finished = true;
+                } else if (_isInsideRect(x,y,START_BUTTON)) {
+                    if (!nicknameInputText.getText().empty() && nicknameInputText.getText().find(' ')
+                                                                == std::string::npos) {
+                        _connectPlayer(initializer, socket, success);
+                        finished = success;
+                    }
                 }
             } else if (e.type == SDL_TEXTINPUT){
                 _handleTextInput(e);
@@ -159,13 +167,24 @@ void MainMenu::_loadPlayer(bool &quit, bool &success, GameInitializer &initializ
                 }
             }
         }
-        _renderConnectScreen();
+        _renderLoadPlayerScreen();
     }
 }
 
 void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initializer,
                              Socket &socket) {
 
+}
+
+void MainMenu::_connectPlayer(GameInitializer& initializer, Socket& socket, bool& success) {
+        initializer.loadPlayer(nicknameInputText.getText());
+        char serverAcceptedConnection;
+        socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
+        if (serverAcceptedConnection == 1)
+            success = true;
+        else {
+            errorText.updateText("Player does not exist");
+        }
 }
 
 
@@ -238,7 +257,6 @@ void MainMenu::_renderPlayerSelectionScreen() {
     window.clear();
     window.setViewport(ScreenViewport);
     mainMenuBackground.render(0,0);
-    nicknameInputText.render(50, 300, {0x00,0x00,0x00});
     text.updateText("Create Player");
     text.render(50, 100, {0x00,0x00,0x00});
     text.updateText("Load Player");
@@ -248,5 +266,26 @@ void MainMenu::_renderPlayerSelectionScreen() {
     window.show();
 }
 
-MainMenu::~MainMenu(){}
+void MainMenu::_renderLoadPlayerScreen() {
+    window.clear();
+    window.setViewport(ScreenViewport);
+    mainMenuBackground.render(0,0);
+    SDL_Rect outlineRect = INPUT_NICKNAME;
+    SDL_SetRenderDrawColor(&window.getRenderer(), 0x3f, 0x2a,
+                           0x14, 0xFF);
+    SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
+    text.updateText("Nickname ");
+    text.render(50, 100, {0x00,0x00,0x00});
+    nicknameInputText.render(165, 100,{0x00,0x00,0x00});
+    errorText.render(650, 875, {0xff,0xff,0xff});
+    text.updateText("Start");
+    text.render(1375, 875, {0xff,0xff,0xff});
+    text.updateText("Exit");
+    text.render(50, 875, {0xff,0xff,0xff});
+    window.show();
+}
+
+MainMenu::~MainMenu(){
+    SDL_StopTextInput();
+}
 

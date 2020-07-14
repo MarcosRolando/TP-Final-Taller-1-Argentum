@@ -58,6 +58,10 @@ private:
     void _loadPlayer(bool &quit, bool& success, GameInitializer &initializer, Socket &socket);
     void playerSelection(bool &quit, bool& createPlayer, bool& loadPlayer);
 
+    void
+    _connectPlayer(GameInitializer &initializer, Socket &socket, bool &success);
+
+    void _renderLoadPlayerScreen();
 };
 
 
