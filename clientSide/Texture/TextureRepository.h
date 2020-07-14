@@ -27,7 +27,7 @@ private:
     void _loadStructures();
     void _loadNPCS();
     void _loadDrops();
-    void _loadSpells();
+    void _loadMiscellaneous();
     void _loadUI();
 
     void _setImage(TextureID TextureID, std::string&& image,
