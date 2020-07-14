@@ -10,6 +10,7 @@
 #include "../Config/Configuration.h"
 #include "../Game/Events/Drop.h"
 #include "../Game/Events/NotifyDeath.h"
+#include "../Game/Events/Move.h"
 #include <msgpack.hpp>
 
 #define ATTACKER_IS_NEWBIE_MESSAGE "I won't lose my time on a low level newbie like you!\n"
@@ -152,6 +153,10 @@ void Player::meditate() {
 
 void Player::update(double timeStep) {
     Entity::update(timeStep, game); /*actualiza movimiento*/
+    if (!movement.isMoving && isFollowingRoad) {
+        game.pushEvent(std::unique_ptr<Event>(new Move(game, *this,
+                            movement.direction)));
+    }
     stats.update(timeStep); /*actualiza la vida y manda en base al tiempo/meditacion*/
 }
 
