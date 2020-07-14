@@ -43,20 +43,20 @@ public:
     void connectLoop(bool &quit, std::string &_host, std::string &_port, Socket& socket);
 
     //Deja al player elegir cargar/crear personaje e iniciar la partida
-    void playerSelectionLoop(bool &quit, GameInitializer &initializer, Socket& socket);
+    void playerSelectionLoop(bool& quit, GameInitializer& initializer, Socket& socket);
+
     ~MainMenu();
 
 private:
     static bool _isInsideRect(int x, int y, SDL_Rect rect);
-
     void _renderConnectScreen();
-
     void _attemptToConnect(Socket &socket, bool &finished);
-
     void _handleTextInput(SDL_Event &e);
-
     void _handleBackspace();
-
+    void _renderPlayerSelectionScreen();
+    void _createPlayer(bool &quit, GameInitializer &initializer, Socket &socket);
+    void _loadPlayer(bool &quit, GameInitializer &initializer, Socket &socket);
+    void playerSelection(bool &quit, bool& createPlayer, bool& loadPlayer);
 
 };
 

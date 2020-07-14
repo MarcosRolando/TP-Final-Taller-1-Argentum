@@ -13,6 +13,9 @@
 #define INPUT_HOST {115,100,200,25}
 #define INPUT_PORT {115,200,200,25}
 
+#define LOAD_PLAYER_BUTTON {50,200,175,25}
+#define CREATE_PLAYER_BUTTON {50,100,175,25}
+
 #define MAX_TEXT_LEN 50
 
 
@@ -72,6 +75,15 @@ void MainMenu::connectLoop(bool& quit, std::string& _host,
 }
 
 void MainMenu::playerSelectionLoop(bool& quit, GameInitializer& initializer, Socket& socket) {
+    bool createPlayer = false;
+    bool loadPlayer = false;
+    if (!quit) {
+        if (createPlayer) _createPlayer(quit, initializer, socket);
+        else if (loadPlayer) _loadPlayer(quit, initializer, socket);
+    }
+}
+
+void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer) {
     bool finished = false;
     SDL_Event e;
     while (!finished){
@@ -90,6 +102,12 @@ void MainMenu::playerSelectionLoop(bool& quit, GameInitializer& initializer, Soc
                 if (_isInsideRect(x,y,EXIT_BUTTON)) {
                     quit = true;
                     finished = true;
+                } else if (_isInsideRect(x,y,CREATE_PLAYER_BUTTON)) {
+                    createPlayer = true;
+                    finished = true;
+                } else if (_isInsideRect(x,y,LOAD_PLAYER_BUTTON)) {
+                    loadPlayer = true;
+                    finished = true;
                 }
             } else if (e.type == SDL_TEXTINPUT){
                 _handleTextInput(e);
@@ -99,11 +117,12 @@ void MainMenu::playerSelectionLoop(bool& quit, GameInitializer& initializer, Soc
                 }
             }
         }
-        //_renderConnectScreen();
-        window.clear();
-        window.setViewport(ScreenViewport);
-        mainMenuBackground.render(0,0);
+        _renderPlayerSelectionScreen();
     }
+}
+
+void MainMenu::_createPlayer(bool& quit, GameInitializer& initializer, Socket& socket) {
+
 }
 
 void MainMenu::_attemptToConnect(Socket& socket, bool& finished) {
@@ -166,6 +185,20 @@ void MainMenu::_renderConnectScreen(){
     errorText.render(650, 875, {0xff,0xff,0xff});
     text.updateText("Connect");
     text.render(1375, 875, {0xff,0xff,0xff});
+    text.updateText("Exit");
+    text.render(50, 875, {0xff,0xff,0xff});
+    window.show();
+}
+
+void MainMenu::_renderPlayerSelectionScreen() {
+    window.clear();
+    window.setViewport(ScreenViewport);
+    mainMenuBackground.render(0,0);
+    nicknameInputText.render(50, 300, {0x00,0x00,0x00});
+    text.updateText("Create Player");
+    text.render(50, 100, {0x00,0x00,0x00});
+    text.updateText("Load Player");
+    text.render(50, 200, {0x00,0x00,0x00});
     text.updateText("Exit");
     text.render(50, 875, {0xff,0xff,0xff});
     window.show();
