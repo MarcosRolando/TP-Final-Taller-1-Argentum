@@ -30,7 +30,7 @@ void Client::_processConnection() {
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
 
-    //mainMenu.playerSelection(quit, initializer, socket);
+    //mainMenu.playerSelectionLoop(quit, initializer, socket);
     //playerSelection
     initializer.loadPlayer("Ivan");
 

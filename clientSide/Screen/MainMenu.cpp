@@ -77,9 +77,16 @@ void MainMenu::connectLoop(bool& quit, std::string& _host,
 void MainMenu::playerSelectionLoop(bool& quit, GameInitializer& initializer, Socket& socket) {
     bool createPlayer = false;
     bool loadPlayer = false;
-    if (!quit) {
-        if (createPlayer) _createPlayer(quit, initializer, socket);
-        else if (loadPlayer) _loadPlayer(quit, initializer, socket);
+    bool success = false;
+
+    while (!success) {
+        playerSelection(quit, createPlayer, loadPlayer);//Veo si quiere hacer load o create
+        if (!quit) {
+            if (createPlayer) _createPlayer(quit, success, initializer, socket);
+            else if (loadPlayer) _loadPlayer(quit, success, initializer, socket);
+        } else {
+            break;//Si hago quit
+        }
     }
 }
 
@@ -94,26 +101,22 @@ void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer)
             }
             //Por si hago resize
             window.handleEvent(e);
-            if (e.type == SDL_MOUSEBUTTONDOWN){
+            if (e.type == SDL_MOUSEBUTTONDOWN) {
                 int x = 0, y = 0;
-                SDL_GetMouseState( &x, &y );
-                x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
-                y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
-                if (_isInsideRect(x,y,EXIT_BUTTON)) {
+                SDL_GetMouseState(&x, &y);
+                x = (float) x *
+                    ((float) DEFAULT_SCREEN_WIDTH / (float) window.getWidth());
+                y = (float) y * ((float) DEFAULT_SCREEN_HEIGHT /
+                                 (float) window.getHeight());
+                if (_isInsideRect(x, y, EXIT_BUTTON)) {
                     quit = true;
                     finished = true;
-                } else if (_isInsideRect(x,y,CREATE_PLAYER_BUTTON)) {
+                } else if (_isInsideRect(x, y, CREATE_PLAYER_BUTTON)) {
                     createPlayer = true;
                     finished = true;
-                } else if (_isInsideRect(x,y,LOAD_PLAYER_BUTTON)) {
+                } else if (_isInsideRect(x, y, LOAD_PLAYER_BUTTON)) {
                     loadPlayer = true;
                     finished = true;
-                }
-            } else if (e.type == SDL_TEXTINPUT){
-                _handleTextInput(e);
-            } else if (e.type == SDL_KEYDOWN) {
-                if (e.key.keysym.sym == SDLK_BACKSPACE) {
-                    _handleBackspace();
                 }
             }
         }
@@ -121,9 +124,16 @@ void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer)
     }
 }
 
-void MainMenu::_createPlayer(bool& quit, GameInitializer& initializer, Socket& socket) {
+void MainMenu::_loadPlayer(bool &quit, bool &success, GameInitializer &initializer,
+                           Socket &socket) {
 
 }
+
+void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initializer,
+                             Socket &socket) {
+
+}
+
 
 void MainMenu::_attemptToConnect(Socket& socket, bool& finished) {
     try {
@@ -176,9 +186,9 @@ void MainMenu::_renderConnectScreen(){
                            0x14, 0xFF);
     SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
 
-    text.updateText("Host: ");
+    text.updateText("Host ");
     text.render(50, 100, {0x00,0x00,0x00});
-    text.updateText("Port: ");
+    text.updateText("Port ");
     text.render(50, 200, {0x00,0x00,0x00});
     hostInputText.render(115, 100);
     portInputText.render(115, 200);
@@ -205,3 +215,4 @@ void MainMenu::_renderPlayerSelectionScreen() {
 }
 
 MainMenu::~MainMenu(){}
+

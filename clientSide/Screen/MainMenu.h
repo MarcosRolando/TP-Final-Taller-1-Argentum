@@ -54,8 +54,8 @@ private:
     void _handleTextInput(SDL_Event &e);
     void _handleBackspace();
     void _renderPlayerSelectionScreen();
-    void _createPlayer(bool &quit, GameInitializer &initializer, Socket &socket);
-    void _loadPlayer(bool &quit, GameInitializer &initializer, Socket &socket);
+    void _createPlayer(bool &quit, bool& success, GameInitializer &initializer, Socket &socket);
+    void _loadPlayer(bool &quit, bool& success, GameInitializer &initializer, Socket &socket);
     void playerSelection(bool &quit, bool& createPlayer, bool& loadPlayer);
 
 };
