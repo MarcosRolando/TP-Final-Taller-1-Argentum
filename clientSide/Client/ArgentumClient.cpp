@@ -4,7 +4,6 @@
 #include <vector>
 #include <utility>
 #include "BlockingQueue.hpp"
-#include "UpdateQueue.hpp"
 #include <SDL_mixer.h>
 #include "../UpdateEvents/UpdateEvent.h"
 #include "UpdateReceiver.h"
@@ -31,7 +30,7 @@ void Client::_processConnection() {
     GameInitializer initializer(game, socket, protocol);
  //   mainMenu.playerSelectionLoop(quit, initializer, socket);
     //playerSelectionLoop
-    initializer.loadPlayer("DrasungorGPq");
+    initializer.loadPlayer("Drasungor");
     /*if (gameStartInfo.createPlayer) {
         initializer.loadPlayer(gameStartInfo.myNickname, gameStartInfo.myRace,
                                gameStartInfo.myClass);
