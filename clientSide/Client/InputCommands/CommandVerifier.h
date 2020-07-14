@@ -15,7 +15,6 @@ class GameGUI;
 class CommandVerifier {
 private:
     std::unordered_map<std::string, GameType::PlayerEvent> commands;
-    //std::unordered_map<std::string, int32_t> items;
     std::string input;
 
 public:
@@ -24,7 +23,6 @@ public:
 
 private:
     void _initCommands();
-    //void _initItems();
     std::unique_ptr<InputCommand> _processMeditate();
     std::unique_ptr<InputCommand> _processPickUp();
     std::unique_ptr<InputCommand> _processDrop(GameGUI& game);
@@ -33,14 +31,13 @@ private:
     std::unique_ptr<InputCommand> _processSell(GameGUI &game);
     std::unique_ptr<InputCommand> _processBuy(GameGUI &game);
     std::unique_ptr<InputCommand> _processHeal(GameGUI& game);
-
     std::unique_ptr<InputCommand> _processDeposit(GameGUI &game);
+    std::unique_ptr<InputCommand> _processWithdraw(GameGUI &game);
+    std::unique_ptr<InputCommand> _processSendMessageToPlayer();
+    std::unique_ptr<InputCommand> _processRequestInventoryNames();
 
     static void _processGold(std::string &parameter);
 
-    std::unique_ptr<InputCommand> _processWithdraw(GameGUI &game);
-
-    std::unique_ptr<InputCommand> _processSendMessageToPlayer();
 };
 
 

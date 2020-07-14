@@ -13,6 +13,9 @@
 #define INPUT_HOST {115,100,200,25}
 #define INPUT_PORT {115,200,200,25}
 
+#define LOAD_PLAYER_BUTTON {50,200,175,25}
+#define CREATE_PLAYER_BUTTON {50,100,175,25}
+
 #define MAX_TEXT_LEN 50
 
 
@@ -72,6 +75,22 @@ void MainMenu::connectLoop(bool& quit, std::string& _host,
 }
 
 void MainMenu::playerSelectionLoop(bool& quit, GameInitializer& initializer, Socket& socket) {
+    bool createPlayer = false;
+    bool loadPlayer = false;
+    bool success = false;
+
+    while (!success) {
+        playerSelection(quit, createPlayer, loadPlayer);//Veo si quiere hacer load o create
+        if (!quit) {
+            if (createPlayer) _createPlayer(quit, success, initializer, socket);
+            else if (loadPlayer) _loadPlayer(quit, success, initializer, socket);
+        } else {
+            break;//Si hago quit
+        }
+    }
+}
+
+void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer) {
     bool finished = false;
     SDL_Event e;
     while (!finished){
@@ -82,29 +101,39 @@ void MainMenu::playerSelectionLoop(bool& quit, GameInitializer& initializer, Soc
             }
             //Por si hago resize
             window.handleEvent(e);
-            if (e.type == SDL_MOUSEBUTTONDOWN){
+            if (e.type == SDL_MOUSEBUTTONDOWN) {
                 int x = 0, y = 0;
-                SDL_GetMouseState( &x, &y );
-                x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
-                y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
-                if (_isInsideRect(x,y,EXIT_BUTTON)) {
+                SDL_GetMouseState(&x, &y);
+                x = (float) x *
+                    ((float) DEFAULT_SCREEN_WIDTH / (float) window.getWidth());
+                y = (float) y * ((float) DEFAULT_SCREEN_HEIGHT /
+                                 (float) window.getHeight());
+                if (_isInsideRect(x, y, EXIT_BUTTON)) {
                     quit = true;
                     finished = true;
-                }
-            } else if (e.type == SDL_TEXTINPUT){
-                _handleTextInput(e);
-            } else if (e.type == SDL_KEYDOWN) {
-                if (e.key.keysym.sym == SDLK_BACKSPACE) {
-                    _handleBackspace();
+                } else if (_isInsideRect(x, y, CREATE_PLAYER_BUTTON)) {
+                    createPlayer = true;
+                    finished = true;
+                } else if (_isInsideRect(x, y, LOAD_PLAYER_BUTTON)) {
+                    loadPlayer = true;
+                    finished = true;
                 }
             }
         }
-        //_renderConnectScreen();
-        window.clear();
-        window.setViewport(ScreenViewport);
-        mainMenuBackground.render(0,0);
+        _renderPlayerSelectionScreen();
     }
 }
+
+void MainMenu::_loadPlayer(bool &quit, bool &success, GameInitializer &initializer,
+                           Socket &socket) {
+
+}
+
+void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initializer,
+                             Socket &socket) {
+
+}
+
 
 void MainMenu::_attemptToConnect(Socket& socket, bool& finished) {
     try {
@@ -157,9 +186,9 @@ void MainMenu::_renderConnectScreen(){
                            0x14, 0xFF);
     SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
 
-    text.updateText("Host: ");
+    text.updateText("Host ");
     text.render(50, 100, {0x00,0x00,0x00});
-    text.updateText("Port: ");
+    text.updateText("Port ");
     text.render(50, 200, {0x00,0x00,0x00});
     hostInputText.render(115, 100);
     portInputText.render(115, 200);
@@ -171,4 +200,19 @@ void MainMenu::_renderConnectScreen(){
     window.show();
 }
 
+void MainMenu::_renderPlayerSelectionScreen() {
+    window.clear();
+    window.setViewport(ScreenViewport);
+    mainMenuBackground.render(0,0);
+    nicknameInputText.render(50, 300, {0x00,0x00,0x00});
+    text.updateText("Create Player");
+    text.render(50, 100, {0x00,0x00,0x00});
+    text.updateText("Load Player");
+    text.render(50, 200, {0x00,0x00,0x00});
+    text.updateText("Exit");
+    text.render(50, 875, {0xff,0xff,0xff});
+    window.show();
+}
+
 MainMenu::~MainMenu(){}
+

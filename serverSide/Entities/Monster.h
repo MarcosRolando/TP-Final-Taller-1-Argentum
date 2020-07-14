@@ -43,7 +43,7 @@ private:
 
     void _move();
 
-    GameType::Direction _getMoveDirection();
+    GameType::Direction _getMoveDirection(Coordinate destination);
 
 public:
 

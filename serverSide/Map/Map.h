@@ -145,6 +145,10 @@ public:
     Coordinate getSpawnCoordinateArroundPosition(Coordinate refference);
 
     void requestRestore(Player& player, Coordinate target);
+
+    //Retorna una coordenada aleatoria alrededor de refference que no este ocupada ni
+    //pertenezca a una ciudad
+    Coordinate getMonsterRandomPosition(Coordinate refference) const;
 };
 
 

@@ -15,6 +15,7 @@
 #include "DepositCommand.h"
 #include "WithdrawCommand.h"
 #include "MessageToPlayerCommand.h"
+#include "RequestInventoryNamesCommand.h"
 #include "../GameGUI.h"
 
 CommandVerifier::CommandVerifier() {
@@ -32,6 +33,7 @@ void CommandVerifier::_initCommands() {
     commands.emplace("/sell", GameType::PLAYER_SELL);
     commands.emplace("/take", GameType::PLAYER_PICK_UP);
     commands.emplace("/drop", GameType::PLAYER_DROP);
+    commands.emplace("/inventory", GameType::PLAYER_REQUEST_INVENTORY_NAMES);
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
@@ -78,6 +80,9 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
                 case GameType::PLAYER_MEDITATE:
                     command = _processMeditate();
                     break;
+                case GameType::PLAYER_REQUEST_INVENTORY_NAMES:
+                    command = _processRequestInventoryNames();
+                    break;
                 default:
                     break;
             }
@@ -86,6 +91,13 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
         }
     }
     return command;
+}
+
+std::unique_ptr<InputCommand> CommandVerifier::_processRequestInventoryNames() {
+    if (input.size() > input.find(' ', 0)) {
+        return nullptr;
+    }
+    return std::unique_ptr<InputCommand>(new RequestInventoryNamesCommand());
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processMeditate() {

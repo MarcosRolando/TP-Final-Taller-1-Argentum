@@ -446,6 +446,25 @@ Coordinate Map::getSpawnCoordinateArroundPosition(Coordinate refference) {
     return {-1, -1};
 }
 
+Coordinate Map::getMonsterRandomPosition(Coordinate refference) const {
+    std::vector<Coordinate> positions;
+    Coordinate topLeft{}, bottomRight{}, aux{};
+    _buildSearchRegion(refference, 1, topLeft, bottomRight);
+    for (int i = topLeft.iPosition; i <= bottomRight.iPosition; ++i) {
+        for (int j = topLeft.jPosition; j <= bottomRight.jPosition; ++j) {
+            aux = {i, j};
+            if ((refference.calculateDistance(aux) == 1) && (tiles[i][j].isAvailable()) &&
+                (!tiles[i][j].isInCity())) {
+                positions.push_back(aux);
+            }
+        }
+    }
+    if (positions.empty()) {
+        return {-1, -1};
+    }
+    return positions[Calculator::getRandomInt(0, positions.size() - 1)];
+}
+
 void Map::requestRestore(Player &player, Coordinate target) {
     if (_isCoordinateValid(target)) {
         tiles[target.iPosition][target.jPosition].requestRestore(player);
