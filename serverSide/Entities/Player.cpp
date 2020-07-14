@@ -16,6 +16,7 @@
 #define PLAYER_IS_A_NEWBIE_MESSAGE "Surely you have better things to do than attack a low level newbie like me...\n"
 #define PLAYER_IS_DEAD_MESSAGE "You can't kill a ghost, you know?\n"
 #define DODGED_ATTACK_MESSAGE "You dodged an attack\n"
+#define GHOSTS_CANT_RESTORE_STATS_MESSAGE "Ghosts can't restore stats\n"
 
 using namespace GameType;
 
@@ -129,12 +130,16 @@ UseReturnData Player::useItem(int itemPosition) {
 void Player::restoreLife(unsigned int amount) {
     if (!stats.isDead()) {
         stats.restoreLife(amount);
+    } else {
+        chat.addMessage(GHOSTS_CANT_RESTORE_STATS_MESSAGE);
     }
 }
 
 void Player::restoreMana(unsigned int amount) {
     if (!stats.isDead()) {
         stats.restoreMana(amount);
+    } else {
+        chat.addMessage(GHOSTS_CANT_RESTORE_STATS_MESSAGE);
     }
 }
 
@@ -239,6 +244,9 @@ void Player::restoreStats(bool isBeingRevived) {
     //cuando llame a resucitar si es que esta vivo y para que no resucite si esta vivo
     if ((!stats.isDead() && !isBeingRevived) || (isBeingRevived && stats.isDead())) {
         stats.restore();
+    }
+    if (!stats.isDead() && !isBeingRevived) {
+        chat.addMessage(GHOSTS_CANT_RESTORE_STATS_MESSAGE);
     }
 }
 
