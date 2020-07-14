@@ -54,32 +54,33 @@ void Client::_processConnection() {
 
     timer.start();
     game.getSoundPlayer().playMusic();
+    double timeStep;
+
     try {
         while (!quit) {
-            int updatesAvailable = updateManager.updatesAvailable();
-            if (updatesAvailable > 0 && updatesAvailable < 5) {
-                updatesAvailable = 1;
-            }
-            for (int i = 0; i < updatesAvailable; ++i) {
-                if (i != 0) {
-                    game.update();
-                }
-                auto update = updateManager.pop();
-                while (!update.empty()) {
-                    auto updateEvent = update.pop();
-                    (*updateEvent)(game);
-                }
-            }
             while(SDL_PollEvent(event.get()) != 0) {
                 if (!window.handleEvent(*event)) {
                     sdlEvents.push(std::move(event));
                     event.reset(new SDL_Event());
                 }
             }
-            double timeStep = timer.getTime();
-            timer.start();
+
+            int updatesAvailable = updateManager.updatesAvailable();
+            if (updatesAvailable > 0 && updatesAvailable < 5) {
+                updatesAvailable = 1;
+            }
+            for (int i = 0; i < updatesAvailable; ++i) {
+                auto update = updateManager.pop();
+                while (!update.empty()) {
+                    auto updateEvent = update.pop();
+                    (*updateEvent)(game);
+                }
+                timeStep = timer.getTime();
+                timer.start();
+                game.update(timeStep);
+            }
+
             game.getSoundPlayer().playSounds();
-            game.update(timeStep);
             game.render();
             /* //todo ver si vuelvo esto porque ya tengo el vsync
             if (timeStep.count() < (1/60.f*1000)) {
