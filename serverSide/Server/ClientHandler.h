@@ -64,7 +64,7 @@ private:
     * por el thread*/
     void run() override;
     void _processClientAction(std::vector<char>& data);
-    void _processMove(std::vector<char>& data);
+    //void _processMove(std::vector<char>& data);
     void _processAttack(std::vector<char>& data);
     void _processUseItem(std::vector<char>& data);
     void _processUnequip(std::vector<char>& data);
@@ -80,6 +80,8 @@ private:
     void _processMessage(std::vector<char>& data);
     void _processHeal(std::vector<char>& data);
     void _processInventoryNames(std::vector<char>& data);
+    void _processStartMoving(std::vector<char>& data);
+    void _processStopMoving(std::vector<char>& data);
 };
 
 

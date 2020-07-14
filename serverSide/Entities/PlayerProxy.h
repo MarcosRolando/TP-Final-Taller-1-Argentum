@@ -30,7 +30,7 @@ public:
     void attack(Coordinate target);
     void useItem(int32_t itemPosition);
     void meditate();
-    void move(GameType::Direction direction);
+    //void move(GameType::Direction direction);
     void buyFrom(std::string&& itemName, Coordinate npcPosition);
     void sellTo(std::string&& itemName, Coordinate npcPosition);
     void withdrawFrom(std::string&& itemName, Coordinate npcPosition);
@@ -46,6 +46,8 @@ public:
     void storeAllRelevantData(std::stringstream& data) const;
     void clearMinichat();
     void giveEventsToGame();
+    void startMoving(GameType::Direction direction);
+    void stopMoving();
 
     //Retorna los datos actuales del player
     PlayerData getData() const;

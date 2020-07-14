@@ -25,6 +25,7 @@ private:
     int32_t gold;
     Minichat chat;
     Game& game;
+    bool isFollowingRoad;
 
     friend EntityTests;
     friend MapTests;

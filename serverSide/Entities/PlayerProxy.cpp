@@ -72,11 +72,13 @@ void PlayerProxy::meditate() {
     player->meditate();
 }
 
+/*
 void PlayerProxy::move(GameType::Direction direction) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
         storedEvents.emplace(new Move(*game, *player, direction));
     }
 }
+*/
 
 void PlayerProxy::buyFrom(std::string &&itemName, Coordinate npcPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
@@ -151,6 +153,17 @@ void PlayerProxy::getInventoryNames() {
     }
 }
 
+
+void PlayerProxy::startMoving(GameType::Direction direction) {
+    player.startMovement(direction);
+}
+
+
+void PlayerProxy::stopMoving() {
+    player.stopMovement();
+}
+
+
 void PlayerProxy::giveEventsToGame() {
     while (!storedEvents.empty()) {
         game->pushEvent(std::move(storedEvents.front()));
@@ -175,4 +188,5 @@ PlayerData PlayerProxy::getData() const {
     game->getPlayerBank(data);
     return data;
 }
+
 

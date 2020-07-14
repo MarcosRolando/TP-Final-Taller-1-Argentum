@@ -17,7 +17,8 @@ MSGPACK_ADD_ENUM(GameType::EquipmentPlace)
 
 ClientHandler::ClientHandler(Socket &&socket, ServerProtocol& _protocol) :
                         socket(std::move(socket)), protocol(_protocol) {
-    eventProcessors = {{GameType::PLAYER_MOVE, &ClientHandler::_processMove},
+    eventProcessors = {{GameType::PLAYER_START_MOVING, &ClientHandler::_processStartMoving},
+                       {GameType::PLAYER_STOP_MOVING, &ClientHandler::_processStopMoving},
                        {GameType::PLAYER_ATTACK, &ClientHandler::_processAttack},
                        {GameType::PLAYER_USE_ITEM, &ClientHandler::_processUseItem},
                        {GameType::PLAYER_UNEQUIP, &ClientHandler::_processUnequip},
@@ -118,12 +119,14 @@ void ClientHandler::_processClientAction(std::vector<char>& data) {
     }
 }
 
+/*
 void ClientHandler::_processMove(std::vector<char> &data) {
     msgpack::type::tuple<GameType::Direction> moveInfo;
     handler = msgpack::unpack(data.data(), data.size(), offset);
     handler->convert(moveInfo);
     player.move(std::get<0>(moveInfo));
 }
+*/
 
 void ClientHandler::_processAttack(std::vector<char> &data) {
     msgpack::type::tuple<int32_t, int32_t> attackInfo;
@@ -229,7 +232,20 @@ void ClientHandler::_processInventoryNames(std::vector<char> &data) {
 }
 
 
+void ClientHandler::_processStartMoving(std::vector<char> &data) {
+    msgpack::type::tuple<GameType::Direction> moveInfo;
+    handler = msgpack::unpack(data.data(), data.size(), offset);
+    handler->convert(moveInfo);
+    player.startMoving(std::get<0>(moveInfo));
+}
+
+
+void ClientHandler::_processStopMoving(std::vector<char> &data) {
+    player.stopMoving();
+}
+
 PlayerData ClientHandler::getPlayerData() const {
     return player.getData();
 }
+
 

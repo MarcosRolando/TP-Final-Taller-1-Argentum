@@ -36,6 +36,7 @@ Player::Player(Game& _game, Coordinate _initialPosition, PlayerData& data):
     pClass = data.pClass;
     race = data.pRace;
     gold = data.gold;
+    isFollowingRoad = false;
 }
 
 int32_t Player::attack(Coordinate target) {
