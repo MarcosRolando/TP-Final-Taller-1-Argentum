@@ -11,7 +11,8 @@ class Arrow {
 private:
     Texture& sTexture;
     SDL_Rect& camera;
-    float angle, distance;
+    float angle, distanceToTravel;
+    float currDistance;
     float xPosition, width;
     float yPosition, height;
     bool finished{false};
@@ -20,8 +21,8 @@ public:
     Arrow(Texture& texture, SDL_Rect& camera, float x, float y,
                                              float xTarget, float yTarget);
     void render();
-    bool finishedAnimation() const;
-    void updatePosition(float x, float y);
+    void update(double timeStep);
+    bool reachedTarget() const;
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);

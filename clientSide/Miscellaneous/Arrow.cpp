@@ -5,12 +5,12 @@
 #include "Arrow.h"
 #include "../Client/GameConstants.h"
 
-const float ANIMATION_TIME = 20000.f;
-const int SPELL_SPEED = 30;
+const int ARROW_SPEED = 30;
 
 Arrow::Arrow(Texture& texture, SDL_Rect &camera, float xPos, float yPos,
                 float xTarget, float yTarget) :
         sTexture(texture), camera(camera) {
+    currDistance = 0;
     xPosition = xPos;
     yPosition = yPos;
     _calculateTrajectory(xTarget, yTarget);
@@ -50,21 +50,28 @@ void Arrow::_calculateTrajectory(float xTarget, float yTarget) {
     float relativeXTarget = xTarget - xPosition; /*Lo llevo relativo al origen que es la posicion de mi flecha*/
     float relativeYTarget = yPosition - yTarget;
     angle = atan2(relativeYTarget, relativeXTarget) * 180 / M_PI; /*Calculo el angulo de la recta*/
-    distance = sqrt(pow(xTarget, 2.0) + pow(yTarget, 2.0));
+    distanceToTravel = sqrt(pow(xTarget, 2.0) + pow(yTarget, 2.0));
 }
 
 void Arrow::render() {
     if (_checkCollision(camera, {(int)xPosition, (int)yPosition, (int)width, (int)height})) {
         sTexture.render((int)(xPosition) - camera.x,
-                        (int)(yPosition) - camera.y);
+                        (int)(yPosition) - camera.y, 0, angle - 120);
     };
 }
 
-bool Arrow::finishedAnimation() const {
-    return finished;
+void Arrow::update(double timeStep) {
+    if (!finished) {
+        float moved = ARROW_SPEED * timeStep;
+        xPosition += moved * cos(angle);
+        yPosition += moved * sin(angle);
+        currDistance += moved;
+        if (currDistance >= distanceToTravel) {
+            finished = true;
+        }
+    }
 }
 
-void Arrow::updatePosition(float x, float y) {
-    xPosition = x;
-    yPosition = y;
+bool Arrow::reachedTarget() const {
+    return finished;
 }
