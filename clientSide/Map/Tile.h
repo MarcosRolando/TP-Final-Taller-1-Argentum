@@ -13,7 +13,7 @@
 #include <memory>
 #include "../../libs/GameEnums.h"
 #include <list>
-#include "../Spells/Spell.h"
+#include "../Miscellaneous/Spell.h"
 
 class Tile {
 private:

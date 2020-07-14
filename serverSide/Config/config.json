@@ -166,20 +166,20 @@
       "MaxDmg" : 5,
       "Range" : 1,
       "ManaConsumption" : 0,
-      "Price" : 100
+      "Price" : 150
     },
     {
       "Name" : "Warhammer",
-      "MinDmg" : 1,
-      "MaxDmg" : 9,
+      "MinDmg" : 5,
+      "MaxDmg" : 15,
       "Range" : 1,
       "ManaConsumption" : 0,
-      "Price" : 100
+      "Price" : 300
     },
     {
       "Name" : "AshRod",
       "MinDmg" : 2,
-      "MaxDmg" : 4,
+      "MaxDmg" : 6,
       "Range" : 5,
       "ManaConsumption" : 5,
       "Price" : 100
@@ -190,7 +190,7 @@
       "MaxDmg" : -200,
       "Range" : 5,
       "ManaConsumption" : 100,
-      "Price" : 100
+      "Price" : 200
     },
     {
       "Name" : "LinkedStaff",
@@ -198,7 +198,7 @@
       "MaxDmg" : 20,
       "Range" : 5,
       "ManaConsumption" : 30,
-      "Price" : 100
+      "Price" : 250
     },
     {
       "Name" : "SimpleBow",
@@ -214,7 +214,7 @@
       "MaxDmg" : 16,
       "Range" : 10,
       "ManaConsumption" : 0,
-      "Price" : 100
+      "Price" : 300
     },
     {
       "Name": "GnarledStaff",
@@ -243,15 +243,15 @@
     },
     {
       "Name": "LeatherArmor",
-      "MinDefense": 2,
-      "MaxDefense": 6,
-      "Price" : 100
+      "MinDefense": 10,
+      "MaxDefense": 17,
+      "Price" : 150
     },
     {
       "Name": "PlateArmor",
-      "MinDefense": 15,
-      "MaxDefense": 30,
-      "Price" : 100
+      "MinDefense": 25,
+      "MaxDefense": 35,
+      "Price" : 300
     },
     {
       "Name": "BlueTunic",
@@ -261,32 +261,32 @@
     },
     {
       "Name": "Hood",
-      "MinDefense": 1,
-      "MaxDefense": 4,
-      "Price" : 100
+      "MinDefense": 5,
+      "MaxDefense": 10,
+      "Price" : 70
     },
     {
       "Name": "IronHelmet",
-      "MinDefense":4,
-      "MaxDefense": 8,
-      "Price" : 100
+      "MinDefense":20,
+      "MaxDefense": 27,
+      "Price" : 200
     },
     {
       "Name": "TurtleShield",
-      "MinDefense": 1,
-      "MaxDefense": 2,
+      "MinDefense": 10,
+      "MaxDefense": 20,
       "Price" : 100
     },
     {
       "Name": "IronShield",
-      "MinDefense": 1,
-      "MaxDefense": 4,
-      "Price" : 100
+      "MinDefense": 15,
+      "MaxDefense": 25,
+      "Price" : 200
     },
     {
       "Name": "MagicHat",
-      "MinDefense": 4,
-      "MaxDefense": 12,
+      "MinDefense": 7,
+      "MaxDefense": 15,
       "Price" : 100
     },
     {
@@ -313,13 +313,13 @@
   "Potion" : [
     {
       "Name": "HealthPotion",
-      "RecoveryValue": 100,
-      "Price": 100
+      "RecoveryValue": 500,
+      "Price": 70
     },
     {
       "Name": "ManaPotion",
-      "RecoveryValue": 100,
-      "Price": 100
+      "RecoveryValue": 500,
+      "Price": 70
     }
   ],
 
@@ -337,6 +337,6 @@
   "PlayerSpeed" : 5,
   "CritAttackProb" : 0.1,
   "DodgeProb" : 0.1,
-  "NewbieLevel" : 1,
+  "NewbieLevel" : 5,
   "MaxLevelDif" : 10
 }

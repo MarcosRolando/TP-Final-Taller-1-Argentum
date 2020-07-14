@@ -34,8 +34,8 @@
 #define ASH_ROD_DROP_PATH "../../clientSide/Images/Items/AshRodDrop.png"
 #define AXE_PATH "../../clientSide/Images/Items/Axe.png"
 #define AXE_DROP_PATH "../../clientSide/Images/Items/AxeDrop.png"
-#define COMPOUND_BOW_PATH "../../clientSide/Images/Items/CompositeBow.png"
-#define COMPOUND_BOW_DROP_PATH "../../clientSide/Images/Items/CompositeBowDrop.png"
+#define COMPOSITE_BOW_PATH "../../clientSide/Images/Items/CompositeBow.png"
+#define COMPOSITE_BOW_DROP_PATH "../../clientSide/Images/Items/CompositeBowDrop.png"
 #define ELVEN_FLUTE_DROP_PATH "../../clientSide/Images/Items/ElvenFluteDrop.png"
 #define LINKED_STAFF_PATH "../../clientSide/Images/Items/LinkedStaff.png"
 #define LINKED_STAFF_DROP_PATH "../../clientSide/Images/Items/LinkedStaffDrop.png"
@@ -87,6 +87,8 @@
 #define MAGIC_MISSILE_PATH "../../clientSide/Images/Spells/MagicMissile.png"
 #define HEAL_PATH "../../clientSide/Images/Spells/Heal.png"
 #define GOLD_PATH "../../clientSide/Images/Miscellaneous/Gold.png"
+#define SIMPLE_ARROW_PATH "../../clientSide/Images/Miscellaneous/SimpleArrow.png"
+#define COMPOSITE_ARROW_PATH "../../clientSide/Images/Miscellaneous/CompositeArrow.png"
 #define BACKGROUND_PATH "../../clientSide/Images/UI/Background.png"
 #define MAIN_MENU_PATH "../../clientSide/Images/UI/MainMenuTest.png"
 
@@ -98,7 +100,7 @@ TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer
     _loadStructures();
     _loadNPCS();
     _loadDrops();
-    _loadSpells();
+    _loadMiscellaneous();
     _loadUI();
 }
 
@@ -109,11 +111,13 @@ void TextureRepository::_loadUI() {
             0, 1, {-1, -1, -1});
 }
 
-void TextureRepository::_loadSpells() {
+void TextureRepository::_loadMiscellaneous() {
     _setSpellImage(Explosion, EXPLOSION_PATH, 256, 256, -10, -10);
     _setSpellImage(MagicArrow, MAGIC_ARROW_PATH, 96, 100, 20, 15);
     _setSpellImage(MagicMissile, MAGIC_MISSILE_PATH, 128, 128, 8, 5);
     _setSpellImage(Heal, HEAL_PATH, 76, 76, 25, 20);
+    _setImage(SimpleArrow, SIMPLE_ARROW_PATH, 32, 32, 45, 45, 1);
+    _setImage(CompositeArrow, COMPOSITE_ARROW_PATH, 32, 32, 45, 45, 1);
 }
 
 void TextureRepository::_loadDrops() {
@@ -134,7 +138,7 @@ void TextureRepository::_loadDrops() {
     _setImage(TurtleShieldDrop, TURTLE_SHIELD_DROP_PATH, 32, 32, 50, 45);
     _setImage(AshRodDrop, ASH_ROD_DROP_PATH, 32, 32, 35, 30, 2);
     _setImage(AxeDrop, AXE_DROP_PATH, 32, 32, 32, 30, 2);
-    _setImage(CompositeBowDrop, COMPOUND_BOW_DROP_PATH, 32, 32, 32, 30, 2);
+    _setImage(CompositeBowDrop, COMPOSITE_BOW_DROP_PATH, 32, 32, 32, 30, 2);
     _setImage(ElvenFluteDrop, ELVEN_FLUTE_DROP_PATH, 32, 32, 32, 30, 2);
     _setImage(SimpleBowDrop, SIMPLE_BOW_DROP_PATH, 32, 32, 32, 30, 2);
     _setImage(WarHammerDrop, WAR_HAMMER_DROP_PATH, 32, 32, 32, 28, 2);
@@ -164,7 +168,7 @@ void TextureRepository::_loadHeads() {
 void TextureRepository::_loadWeapons() {
     _setWeaponImage(AshRod, ASH_ROD_PATH);
     _setWeaponImage(Axe, AXE_PATH);
-    _setWeaponImage(CompositeBow, COMPOUND_BOW_PATH);
+    _setWeaponImage(CompositeBow, COMPOSITE_BOW_PATH);
     _setWeaponImage(LinkedStaff, LINKED_STAFF_PATH);
     _setWeaponImage(GnarledStaff, GNARLED_STAFF_PATH);
     _setWeaponImage(LongSword, LONG_SWORD_PATH);
@@ -222,7 +226,7 @@ void TextureRepository::_setImage(TextureID TextureID, std::string&& image,
         textures.emplace(TextureID, renderer);
         Texture& texture = textures.at(TextureID);
         texture.loadFromFile(image, key, xOffset, yOffset, scale);
-        _addStructureSprites(texture, width, height);
+        _addSprites(texture, width, height);
     } catch (TPException& e) {
         throw TPException("Failed to load %s sprite sheet texture!\n", image.c_str());
     }
@@ -418,7 +422,7 @@ void TextureRepository::_addTileSprites(Texture& texture, int y, bool individual
     }
 }
 
-void TextureRepository::_addStructureSprites(Texture& texture, int width, int height) {
+void TextureRepository::_addSprites(Texture& texture, int width, int height) {
     texture.addSprite(0, 0, width, height);
 }
 

@@ -6,7 +6,6 @@
 #define ARGENTUM_SPELL_H
 
 #include "../Texture/Texture.h"
-#include <vector>
 
 class Spell {
 private:

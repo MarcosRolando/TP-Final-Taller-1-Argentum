@@ -30,9 +30,7 @@ void GameGUI::render() {
 
     //Mapa
     screen.setViewport(MapViewport);
-    map.renderGround();
-    map.renderNPCS();
-    map.renderStructures();
+    map.render();
 
     //Inventario
     screen.setViewport(InventoryViewport);

@@ -40,6 +40,7 @@ unsigned int MonsterStats::getLevel() const {
     return level;
 }
 
+/*
 AttackResult MonsterStats::modifyLife(int _damage, unsigned int attackerLevel) {
     AttackResult result {0, 0, ""};
     if (Calculator::canDodge(getAgility())) {
@@ -59,6 +60,32 @@ AttackResult MonsterStats::modifyLife(int _damage, unsigned int attackerLevel) {
     result.experience = experience;
     return result;
 }
+*/
+
+
+std::pair<int, bool> MonsterStats::modifyLife(int _damage) {
+    //AttackResult result {0, 0, ""};
+    if (Calculator::canDodge(getAgility())) {
+        //result.resultMessage += DODGE_MESSAGE;
+        return {0, true};
+    }
+    currentLife -= _damage;
+    if (currentLife < 0) {
+        currentLife = 0;
+    }
+    return {_damage, false};
+    //unsigned int experience = Calculator::calculateAttackXP(_damage, attackerLevel, level);
+    /*
+    if (_isDead() && _damage > 0) {
+        experience += Calculator::calculateKillXP(attackerLevel, level, maxLife);
+    }
+    */
+    //result.damage = _damage;
+    //result.experience = experience;
+    //return result;
+}
+
+
 
 int MonsterStats::getCurrentLife() const {
     return currentLife;

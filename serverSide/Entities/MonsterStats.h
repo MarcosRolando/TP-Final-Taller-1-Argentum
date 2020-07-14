@@ -35,7 +35,8 @@ public:
 
     unsigned int getLevel() const;
 
-    AttackResult modifyLife(int _damage, unsigned int attackerLevel);
+    //AttackResult modifyLife(int _damage, unsigned int attackerLevel);
+    std::pair<int, bool> modifyLife(int _damage);
 
     int getCurrentLife() const;
 

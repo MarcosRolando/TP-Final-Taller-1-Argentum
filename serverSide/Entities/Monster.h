@@ -20,6 +20,7 @@ class Monster: public Entity {
 private:
     const unsigned int timeBetweenActions;
     double elapsedTime;
+    int inactiveCycles;
     MonsterStats stats;
     GameType::Weapon monsterWeapon;
 

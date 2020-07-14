@@ -54,7 +54,7 @@ void MainMenu::connectLoop(bool& quit, std::string& _host,
                 SDL_GetMouseState( &x, &y );
                 x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
                 y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
-                if (_isInsideRect(x,y,INPUT_HOST)){
+                if (_isInsideRect(x,y,INPUT_HOST)) {
                     hostInput = true;
                     portInput = false;
                 } else if (_isInsideRect(x,y,INPUT_PORT)) {
@@ -195,7 +195,6 @@ void MainMenu::_connectPlayer(GameInitializer& initializer, Socket& socket, bool
             errorText.updateText("Player does not exist");
         }
 }
-
 
 void MainMenu::_attemptToConnect(Socket& socket, bool& finished) {
     try {
