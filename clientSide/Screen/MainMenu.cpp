@@ -91,6 +91,15 @@ void MainMenu::playerSelectionLoop(bool& quit, GameInitializer& initializer, Soc
         if (!quit) {
             if (createPlayer) _createPlayer(quit, success, initializer, socket);
             else if (loadPlayer) _loadPlayer(quit, success, initializer, socket);
+
+            if (success)
+                break;
+            else {
+                bool reconnect = false;
+                socket.close();
+                _attemptToConnect(socket, reconnect);
+                if (!reconnect) quit = true; //Aca seria q me cerraron el socket.
+            }
         }
     }
 }
@@ -153,10 +162,10 @@ void MainMenu::_loadPlayer(bool &quit, bool &success, GameInitializer &initializ
                     quit = true;
                     finished = true;
                 } else if (_isInsideRect(x,y,START_BUTTON)) {
-                    if (!nicknameInputText.getText().empty() && nicknameInputText.getText().find(' ')
-                                                                == std::string::npos) {
+                    if (!nicknameInputText.getText().empty()) {
                         _connectPlayer(initializer, socket, success);
                         finished = success;
+                        if (!finished) return;//Xq si fallo la conexion el server me desconecta
                     }
                 }
             } else if (e.type == SDL_TEXTINPUT){
@@ -262,6 +271,7 @@ void MainMenu::_renderPlayerSelectionScreen() {
     text.render(50, 200, {0x00,0x00,0x00});
     text.updateText("Exit");
     text.render(50, 875, {0xff,0xff,0xff});
+    errorText.render(650, 875, {0xff,0xff,0xff});
     window.show();
 }
 
