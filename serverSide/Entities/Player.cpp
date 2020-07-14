@@ -233,8 +233,13 @@ void Player::move(Coordinate newPosition) {
     Entity::move(newPosition);
 }
 
-void Player::restoreStats() {
-    stats.restore();
+void Player::restoreStats(bool isBeingRevived) {
+    //if ((esta vivo y no pide que lo resuciten) || (pide que lo resuciten y esta muerto)))
+    //Esta funcion se usa para curar y para cuando se resucite, se chequea para que no se cure
+    //cuando llame a resucitar si es que esta vivo y para que no resucite si esta vivo
+    if ((!stats.isDead() && !isBeingRevived) || (isBeingRevived && stats.isDead())) {
+        stats.restore();
+    }
 }
 
 bool Player::isDead() {
