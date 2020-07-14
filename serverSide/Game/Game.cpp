@@ -17,7 +17,7 @@
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 
-#define WAITING_TIME_MESSAGE "The estimated waiting time to resurrect in ms is "
+#define WAITING_TIME_MESSAGE "The estimated waiting time to resurrect is "
 
 /////////////////////////////////PRIVATE//////////////////////////
 
@@ -246,7 +246,7 @@ bool Game::requestResurrect(Player &player, Coordinate selectedPosition) {
     //Por cada tile de distancia espera 200ms
     auto waitingTime = static_cast<double>(playerPosition.calculateDistance(nearestPriest) * 200);
     player.addMessage(WAITING_TIME_MESSAGE);
-    player.addMessage(std::to_string(waitingTime) + "\n");
+    player.addMessage(std::to_string(static_cast<int>(waitingTime/1000)) + " seconds\n");
     playersToResurrect.push_back({waitingTime, 0, nearestPriest, &player});
     return false;
 }
