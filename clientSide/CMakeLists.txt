@@ -20,5 +20,5 @@ add_executable(argentumClient clientMain.cpp Spells/Spell.cpp)
 target_link_libraries(argentumClient jsoncpp ${Boost_LIBRARIES} )
 
 target_link_libraries(argentumClient ${SDL2_LIBRARIES} SDL2_image SDL2_ttf SDL2_mixer
-                        texture map character sound graphics client screen updateEvents
+                        texture clientMap character sound graphics client screen updateEvents
                         inputCommands libs)

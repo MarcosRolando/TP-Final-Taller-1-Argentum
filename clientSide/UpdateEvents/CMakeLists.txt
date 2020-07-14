@@ -5,4 +5,4 @@ add_library(updateEvents UpdateAttack.cpp UpdateCreateItem.cpp UpdateCreateNPC.c
             UpdateGUI.cpp UpdateMove.cpp UpdatePlayerDeath.cpp
             UpdatePlayerResurrect.cpp UpdateRemoveEntity.cpp UpdateTeleportEntity.cpp)
 
-target_link_libraries(updateEvents map)
+target_link_libraries(updateEvents clientMap)
