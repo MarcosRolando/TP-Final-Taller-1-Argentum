@@ -48,7 +48,7 @@ public:
     PlayerInventoryGUI& getPlayerInventory();
     Map& getMap();
     SoundPlayer& getSoundPlayer();
-    void update(double timeStep);
+    void update(double timeStep = 0);
     TextureRepository &getTextureRepo();
 };
 

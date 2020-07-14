@@ -44,7 +44,7 @@ void GameGUI::render() {
 
     //Minichat
     screen.setViewport(MinichatViewport);
-    minichat.render();//todo race condition
+    minichat.render();
     screen.show();
 }
 
