@@ -11,15 +11,15 @@
 #define CONNECT_BUTTON {1375, 875, 100, 25}
 #define EXIT_BUTTON {50,875,90,25}
 
-#define INPUT_HOST {115,100,200,25}
-#define INPUT_PORT {115,200,200,25}
-#define INPUT_NICKNAME {165,100,200,25}
+#define INPUT_HOST {115,100,365,25}
+#define INPUT_PORT {115,200,365,25}
+#define INPUT_NICKNAME {165,100,365,25}
 
 
 #define LOAD_PLAYER_BUTTON {50,200,175,25}
 #define CREATE_PLAYER_BUTTON {50,100,175,25}
 
-#define MAX_TEXT_LEN 50
+#define MAX_TEXT_LEN 25
 
 
 MainMenu::MainMenu(Texture& texture, Window& window) : window(window),

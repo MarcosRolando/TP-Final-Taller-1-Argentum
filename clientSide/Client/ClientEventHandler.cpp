@@ -55,16 +55,16 @@ void ClientEventHandler::run() {
 void ClientEventHandler::_handleKeyUp(SDL_Event& e) {
     switch (e.key.keysym.sym) {
         case SDLK_UP:
-            msgpack::pack(msgBuffer, GameType::STOP_MOVING);
+            msgpack::pack(msgBuffer, GameType::PLAYER_STOP_MOVING);
             break;
         case SDLK_DOWN:
-            msgpack::pack(msgBuffer, GameType::STOP_MOVING);
+            msgpack::pack(msgBuffer, GameType::PLAYER_STOP_MOVING);
             break;
         case SDLK_LEFT:
-            msgpack::pack(msgBuffer, GameType::STOP_MOVING);
+            msgpack::pack(msgBuffer, GameType::PLAYER_STOP_MOVING);
             break;
         case SDLK_RIGHT:
-            msgpack::pack(msgBuffer, GameType::STOP_MOVING);
+            msgpack::pack(msgBuffer, GameType::PLAYER_STOP_MOVING);
             break;
     }
 }
@@ -95,9 +95,9 @@ void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
     }
 }
 
-//Cambiarle el nombre a handleKeyDown
+
 void ClientEventHandler::_handleKeyDown(SDL_Event& e) {
-    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::MOVE);
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_START_MOVING);
     msgpack::type::tuple<GameType::Direction> direction;
     if (e.key.repeat == 0) {
         switch (e.key.keysym.sym) {

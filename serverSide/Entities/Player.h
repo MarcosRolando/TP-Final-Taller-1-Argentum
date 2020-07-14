@@ -119,7 +119,7 @@ public:
     //Le confirma a entity el request de movimiento para comenzar la interpolacion
     void move(Coordinate newPosition) override;
 
-    void restoreStats();
+    void restoreStats(bool isBeingRevived);
 
     bool isDead();
 

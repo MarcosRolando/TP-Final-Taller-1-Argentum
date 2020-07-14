@@ -46,6 +46,6 @@ void Priest::sell(Player &player, const std::string& itemName) {
 }
 
 void Priest::requestHeal(Player &player) {
-    player.restoreStats();
+    player.restoreStats(false);
 }
 

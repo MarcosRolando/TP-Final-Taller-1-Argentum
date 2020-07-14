@@ -29,7 +29,7 @@ bool ShouldPlayerBeRevived::operator()(ResurrectData &resurrectData) {
         if (positionToTeleport != noFreePositionReturn) {
             map.moveEntity(resurrectData.playerToResurrect->getPosition(), positionToTeleport);
             resurrectData.playerToResurrect->resetMovement();
-            resurrectData.playerToResurrect->restoreStats();
+            resurrectData.playerToResurrect->restoreStats(true);
             _storeResurrectMessage(resurrectData);
             _storeTeleportMessage(resurrectData, positionToTeleport);
             return true;
