@@ -154,18 +154,15 @@ void PlayerProxy::getInventoryNames() {
     }
 }
 
-
 void PlayerProxy::startMoving(GameType::Direction direction) {
     //player->startMovement(direction);
     storedEvents.emplace(new ModifyPlayerMovement(*player, direction));
 }
 
-
 void PlayerProxy::stopMoving() {
     //player->stopMovement();
     storedEvents.emplace(new ModifyPlayerMovement(*player));
 }
-
 
 void PlayerProxy::giveEventsToGame() {
     while (!storedEvents.empty()) {

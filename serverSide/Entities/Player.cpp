@@ -271,7 +271,6 @@ bool Player::hasItem(const std::string& itemName) {
     return inventory.hasItem(itemName);
 }
 
-
 void Player::getInventoryNames() {
     inventory.getInventoryNames(chat);
 }
@@ -282,12 +281,9 @@ void Player::startMovement(GameType::Direction direction) {
     movementBackup.direction = direction;
 }
 
-
 void Player::stopMovement() {
     movementBackup.isFollowingRoad = false;
 }
-
-
 
 PlayerData Player::getData() const {
     PlayerData pData;
