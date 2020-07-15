@@ -252,7 +252,7 @@ void Player::restoreStats(bool isBeingRevived) {
     if ((!stats.isDead() && !isBeingRevived) || (isBeingRevived && stats.isDead())) {
         stats.restore();
     }
-    if (!stats.isDead() && !isBeingRevived) {
+    if (stats.isDead() && !isBeingRevived) {
         chat.addMessage(GHOSTS_CANT_RESTORE_STATS_MESSAGE);
     }
 }
