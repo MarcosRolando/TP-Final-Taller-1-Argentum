@@ -62,11 +62,15 @@ private:
             ,GameType::Class myClass, GameType::Race myRace);
     void _renderLoadPlayerScreen();
 
-    void _verifyClassSelection(GameType::Class &myClass, int x, int y);
+    static void _verifyClassSelection(GameType::Class &myClass, int x, int y);
 
-    void _verifyRaceSelection(GameType::Race race, int x, int y);
+    static void _verifyRaceSelection(GameType::Race& race, int x, int y);
 
-    void _renderCreatePlayerScreen();
+    void _renderCreatePlayerScreen(GameType::Race race, GameType::Class myClass);
+
+    void _renderRace(GameType::Race race);
+
+    void _renderClass(GameType::Class myClass);
 };
 
 

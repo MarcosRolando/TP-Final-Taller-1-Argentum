@@ -20,6 +20,11 @@
 #define CLERIC_BUTTON {450, 200, 100, 25}
 #define PALADIN_BUTTON {600, 200, 100, 25}
 
+#define HUMAN_BUTTON {150, 300, 100, 25}
+#define ELF_BUTTON {300, 300, 100, 25}
+#define DWARF_BUTTON {450, 300, 100, 25}
+#define GNOME_BUTTON {600, 300, 100, 25}
+
 #define LOAD_PLAYER_BUTTON {50,200,175,25}
 #define CREATE_PLAYER_BUTTON {50,100,175,25}
 
@@ -131,9 +136,11 @@ void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer)
                     finished = true;
                 } else if (_isInsideRect(x, y, CREATE_PLAYER_BUTTON)) {
                     createPlayer = true;
+                    loadPlayer = false;
                     finished = true;
                 } else if (_isInsideRect(x, y, LOAD_PLAYER_BUTTON)) {
                     loadPlayer = true;
+                    createPlayer = false;
                     finished = true;
                 }
             }
@@ -223,7 +230,7 @@ void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initial
                 }
             }
         }
-        _renderCreatePlayerScreen();
+        _renderCreatePlayerScreen(myRace, myClass);
     }
 }
 
@@ -234,14 +241,20 @@ void MainMenu::_verifyClassSelection(GameType::Class& myClass, int x, int y){
     else if (_isInsideRect(x,y,PALADIN_BUTTON)) myClass = GameType::PALADIN;
 }
 
-void MainMenu::_verifyRaceSelection(GameType::Race race, int x, int y) {
-
+void MainMenu::_verifyRaceSelection(GameType::Race& race, int x, int y) {
+    if (_isInsideRect(x,y,HUMAN_BUTTON)) race = GameType::HUMAN;
+    else if (_isInsideRect(x,y,ELF_BUTTON)) race = GameType::ELF;
+    else if (_isInsideRect(x,y,DWARF_BUTTON)) race = GameType::DWARF;
+    else if (_isInsideRect(x,y,GNOME_BUTTON)) race = GameType::GNOME;
 }
 
 void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socket, bool& success
                                             ,GameType::Class myClass, GameType::Race myRace) {
-    const long unsigned int separator = nicknameInputText.getText().find(' ');
-    if (!nicknameInputText.getText().empty() && separator == std::string::npos) {
+    if (nicknameInputText.getText().find(' ') != std::string::npos) {
+        errorText.updateText("Player nickname can not contain spaces");
+        return;
+    }
+    if (!nicknameInputText.getText().empty()) {
         initializer.loadPlayer(nicknameInputText.getText(), myRace, myClass);
         char serverAcceptedConnection;
         socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
@@ -317,9 +330,9 @@ void MainMenu::_renderConnectScreen(){
                            0x14, 0xFF);
     SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
 
-    text.updateText("Host ");
+    text.updateText("Host: ");
     text.render(50, 100, {0x00,0x00,0x00});
-    text.updateText("Port ");
+    text.updateText("Port: ");
     text.render(50, 200, {0x00,0x00,0x00});
     hostInputText.render(115, 100);
     portInputText.render(115, 200);
@@ -353,7 +366,7 @@ void MainMenu::_renderLoadPlayerScreen() {
     SDL_SetRenderDrawColor(&window.getRenderer(), 0x3f, 0x2a,
                            0x14, 0xFF);
     SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
-    text.updateText("Nickname ");
+    text.updateText("Nickname: ");
     text.render(50, 100, {0x00,0x00,0x00});
     nicknameInputText.render(165, 100,{0x00,0x00,0x00});
     errorText.render(650, 875, {0xff,0xff,0xff});
@@ -364,7 +377,7 @@ void MainMenu::_renderLoadPlayerScreen() {
     window.show();
 }
 
-void MainMenu::_renderCreatePlayerScreen() {
+void MainMenu::_renderCreatePlayerScreen(GameType::Race race, GameType::Class myClass) {
     window.clear();
     window.setViewport(ScreenViewport);
     mainMenuBackground.render(0,0);
@@ -372,29 +385,82 @@ void MainMenu::_renderCreatePlayerScreen() {
     SDL_SetRenderDrawColor(&window.getRenderer(), 0x3f, 0x2a,
                            0x14, 0xFF);
     SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
-    text.updateText("Nickname ");
+    text.updateText("Nickname: ");
     text.render(50, 100, {0x00,0x00,0x00});
 
-    text.updateText("Class ");
-    text.render(50, 200, {0x00,0x00,0x00});
-    text.updateText("Warrior ");
-    text.render(150, 200, {0x00,0x00,0x00});
-    text.updateText("Wizard ");
-    text.render(300, 200, {0x00,0x00,0x00});
-    text.updateText("Cleric ");
-    text.render(450, 200, {0x00,0x00,0x00});
-    text.updateText("Paladin ");
-    text.render(600, 200, {0x00,0x00,0x00});
+    _renderClass(myClass);
+    _renderRace(race);
 
     nicknameInputText.render(165, 100,{0x00,0x00,0x00});
     errorText.render(650, 875, {0xff,0xff,0xff});
-
 
     text.updateText("Start");
     text.render(1375, 875, {0xff,0xff,0xff});
     text.updateText("Exit");
     text.render(50, 875, {0xff,0xff,0xff});
     window.show();
+}
+
+void MainMenu::_renderClass(GameType::Class myClass) {
+    text.updateText("Class: ");
+    text.render(50, 200, {0x00,0x00,0x00});
+    text.updateText("Warrior");
+    text.render(150, 200, {0x00,0x00,0x00});
+    text.updateText("Wizard");
+    text.render(300, 200, {0x00,0x00,0x00});
+    text.updateText("Cleric");
+    text.render(450, 200, {0x00,0x00,0x00});
+    text.updateText("Paladin");
+    text.render(600, 200, {0x00,0x00,0x00});
+    SDL_Rect outlineRect;
+    switch (myClass) {
+        case GameType::WARRIOR:
+            outlineRect = WARRIOR_BUTTON;
+            break;
+        case GameType::WIZARD:
+            outlineRect = WIZARD_BUTTON;
+            break;
+        case GameType::CLERIC:
+            outlineRect = CLERIC_BUTTON;
+            break;
+        case GameType::PALADIN:
+            outlineRect = PALADIN_BUTTON;
+            break;
+    }
+    SDL_SetRenderDrawColor(&window.getRenderer(), 0x3f, 0x2a,
+                           0x14, 0xFF);
+    SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
+}
+
+void MainMenu::_renderRace(GameType::Race race) {
+    text.updateText("Race: ");
+    text.render(50, 300, {0x00,0x00,0x00});
+    text.updateText("Human");
+    text.render(150, 300, {0x00,0x00,0x00});
+    text.updateText("Elf");
+    text.render(300, 300, {0x00,0x00,0x00});
+    text.updateText("Dwarf");
+    text.render(450, 300, {0x00,0x00,0x00});
+    text.updateText("Gnome");
+    text.render(600, 300, {0x00,0x00,0x00});
+    SDL_Rect outlineRect;
+    switch (race) {
+        case GameType::HUMAN:
+            outlineRect = HUMAN_BUTTON;
+            break;
+        case GameType::ELF:
+            outlineRect = ELF_BUTTON;
+            break;
+        case GameType::DWARF:
+            outlineRect = DWARF_BUTTON;
+            break;
+        case GameType::GNOME:
+            outlineRect = GNOME_BUTTON;
+            break;
+    }
+    SDL_SetRenderDrawColor(&window.getRenderer(), 0x3f, 0x2a,
+                           0x14, 0xFF);
+    SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
 }
 
 MainMenu::~MainMenu(){
