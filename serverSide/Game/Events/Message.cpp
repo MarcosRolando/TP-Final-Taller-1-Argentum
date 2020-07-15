@@ -3,16 +3,16 @@
 //
 
 #include "Message.h"
-#include "../../Entities/Entity.h"
+#include "../../Entities/Player.h"
 #include "../Game.h"
 
 void Message::operator()(ServerProtocol &protocol) {
-    game.messagePlayer(playerToMessage, message);
+    game.messagePlayer(playerWhoMessaged, playerToMessage, message);
 }
 
-Message::Message(Game &_game, Entity &_playerWhoMessaged,
+Message::Message(Game &_game, Player &_playerWhoMessaged,
                  std::string &&_playerToMessage, std::string &&_message)
-                 : game(_game), playerToMessage(std::move(_playerToMessage)) {
+                 : game(_game), playerWhoMessaged(_playerWhoMessaged), playerToMessage(std::move(_playerToMessage)) {
 
     message = _playerWhoMessaged.getNickname() + ": " + _message;
 }

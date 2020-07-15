@@ -9,16 +9,17 @@
 #include <string>
 
 class Game;
-class Entity;
+class Player;
 
 class Message : public Event {
 private:
     Game& game;
+    Player& playerWhoMessaged;
     std::string playerToMessage;
     std::string message;
 
 public:
-    Message(Game& _game, Entity& _playerWhoMessaged, std::string&& _playerToMessage,
+    Message(Game& _game, Player& _playerWhoMessaged, std::string&& _playerToMessage,
             std::string&& _message);
 
     void operator()(ServerProtocol& protocol) override;

@@ -18,6 +18,7 @@
 MSGPACK_ADD_ENUM(GameType::EventID)
 
 #define WAITING_TIME_MESSAGE "The estimated waiting time to resurrect is "
+#define NO_PLAYER_MESSAGE "That player does not exist or is not connected\n"
 const Coordinate defaultSpawnPoint = {88,83};
 
 /////////////////////////////////PRIVATE//////////////////////////
@@ -250,10 +251,12 @@ bool Game::requestResurrect(Player &player, Coordinate selectedPosition) {
     return false;
 }
 
-void Game::messagePlayer(const std::string &playerToMessage, const std::string &message) {
+void Game::messagePlayer(Player& playerWhoMessaged, const std::string &playerToMessage, const std::string &message) {
     if (players.count(playerToMessage) == 1) {
         Player* player = players.at(playerToMessage);
         player->addMessage(message);
+    } else {
+        playerWhoMessaged.addMessage(NO_PLAYER_MESSAGE);
     }
 }
 
