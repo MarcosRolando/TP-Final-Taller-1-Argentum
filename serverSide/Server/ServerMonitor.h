@@ -9,16 +9,17 @@
 class ServerMonitor : public Thread {
 private:
     ArgentumServer& server;
+    bool reading{true};
 
 public:
     explicit ServerMonitor(ArgentumServer& server) : server(server) {}
+    void join() override;
 
 private:
     /*Implementa la funcion run heredada de Thread, la cual para esta clase
     * correra el metodo stopOnCommand*/
     void run() override;
-
-    void _stopOnCommand() const;
+    void _stopOnCommand();
 };
 
 

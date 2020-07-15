@@ -30,8 +30,8 @@ public:
     /*Levanta el servidor en el puerto recibido*/
     void connect(const std::string& _port, const std::string& mapFilePath);
 
-    /*Hace que el servidor deje de aceptar nuevos clientes*/
-    void forceFinish();
+    /*Fuerza el cierre del servidor*/
+    void finish();
 
 private:
     void _execute(const std::string& mapFilePath);
