@@ -21,6 +21,9 @@ public:
     UpdateAttack(std::string& _nickname, Coordinate _position, int32_t _weapon,
                                             GameType::Direction _attackDir);
     void operator()(GameGUI& game) override;
+
+private:
+    bool _shouldPlaySound(); //Para no spammear siempre sonidos de ataque de los monstruos
 };
 
 

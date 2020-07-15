@@ -4,6 +4,9 @@
 
 #include "UpdateAttack.h"
 #include "../Client/GameGUI.h"
+#include <random>
+
+const float MONSTER_SOUND_PROBABILITY = 0.33;
 
 void UpdateAttack::operator()(GameGUI &game) {
     switch (weapon) {
@@ -39,14 +42,18 @@ void UpdateAttack::operator()(GameGUI &game) {
         case GameType::SIMPLE_BOW:
             game.getMap().addArrow(nickname, position, SimpleArrow);
             game.getMap().verifyQueueSound(position, ArrowSound, 6);
+            break;
         case GameType::ZOMBIE_ATTACK:
-            game.getMap().verifyQueueSound(position, ZombieSound, 6);
+            if (_shouldPlaySound())
+                game.getMap().verifyQueueSound(position, ZombieSound, 6);
             break;
         case GameType::SPIDER_ATTACK:
-            game.getMap().verifyQueueSound(position, SpiderSound, 6);
+            if (_shouldPlaySound())
+                game.getMap().verifyQueueSound(position, SpiderSound, 6);
             break;
         case GameType::SKELETON_ATTACK:
-            game.getMap().verifyQueueSound(position, SkeletonSound, 6);
+            if (_shouldPlaySound())
+                game.getMap().verifyQueueSound(position, SkeletonSound, 6);
             break;
         default:
             break;
@@ -60,4 +67,11 @@ UpdateAttack::UpdateAttack(std::string& _nickname, Coordinate _position,
     position = _position;
     weapon = static_cast<GameType::Weapon>(_weapon);
     attackDir = _attackDir;
+}
+
+bool UpdateAttack::_shouldPlaySound() {
+    std::random_device seed;
+    std::default_random_engine generator(seed());
+    std::bernoulli_distribution dist(MONSTER_SOUND_PROBABILITY);
+    return dist(generator);
 }
