@@ -15,7 +15,10 @@ public:
     void operator()();
 
     /*Joinea el thread*/
-    void join();
+    virtual void join();
+
+    /*Libera el thread violentamente*/
+    void detach();
 
     virtual ~Thread() = default;
 

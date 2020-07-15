@@ -7,3 +7,7 @@ void Thread::operator()() {
 void Thread::join() {
     thread.join();
 }
+
+void Thread::detach() {
+    thread.detach();
+}

@@ -3,14 +3,23 @@
 
 const char FINISH_CHAR = 'q';
 
-void ServerMonitor::_stopOnCommand() const {
+void ServerMonitor::_stopOnCommand() {
     char input = 0;
     while (input != FINISH_CHAR) {
-        std::cin >> input;
+        input = std::getchar();
     }
-    server.forceFinish();
+    reading = false;
+    server.finish();
 }
 
 void ServerMonitor::run() {
     _stopOnCommand();
+}
+
+void ServerMonitor::join() {
+    if (reading) {
+        Thread::detach();
+    } else {
+        Thread::join();
+    }
 }

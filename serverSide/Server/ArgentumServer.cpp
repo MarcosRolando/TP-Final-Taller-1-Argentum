@@ -14,7 +14,7 @@ using namespace std::chrono;
 
 const int MAX_LISTENERS = 10;
 
-void ArgentumServer::forceFinish() {
+void ArgentumServer::finish() {
     keepRunning = false;
     socket.close();
 }
@@ -65,7 +65,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         std::cerr << "Error desconocido en el main loop!" << std::endl;
     }
 
-    forceFinish();
+    finish();
     monitor.join(); /*Joineamos los threads*/
     clients.join();
     accepter.join();
