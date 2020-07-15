@@ -22,6 +22,7 @@
 #include "../Game/Events/Message.h"
 #include "../Game/Events/RestoreStats.h"
 #include "../Game/Events/GetInventoryNames.h"
+#include "../Game/Events/ModifyPlayerMovement.h"
 
 #define MAX_EVENTS_STORED 3
 
@@ -72,11 +73,13 @@ void PlayerProxy::meditate() {
     player->meditate();
 }
 
+/*
 void PlayerProxy::move(GameType::Direction direction) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
         storedEvents.emplace(new Move(*game, *player, direction));
     }
 }
+*/
 
 void PlayerProxy::buyFrom(std::string &&itemName, Coordinate npcPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
@@ -151,6 +154,16 @@ void PlayerProxy::getInventoryNames() {
     }
 }
 
+void PlayerProxy::startMoving(GameType::Direction direction) {
+    //player->startMovement(direction);
+    storedEvents.emplace(new ModifyPlayerMovement(*player, direction));
+}
+
+void PlayerProxy::stopMoving() {
+    //player->stopMovement();
+    storedEvents.emplace(new ModifyPlayerMovement(*player));
+}
+
 void PlayerProxy::giveEventsToGame() {
     while (!storedEvents.empty()) {
         game->pushEvent(std::move(storedEvents.front()));
@@ -175,4 +188,5 @@ PlayerData PlayerProxy::getData() const {
     game->getPlayerBank(data);
     return data;
 }
+
 

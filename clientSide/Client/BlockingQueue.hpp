@@ -14,10 +14,11 @@
 template <class T>
 class BlockingQueue {
 private:
-    std::queue<T> queue; //todo preguntarle a fefo si usar el heap o copiar 300 bytes para cada evento
+    std::queue<T> queue;
     std::mutex mtx;
     std::condition_variable cv;
     bool finishedAdding{false};
+
 public:
     void push(T element);
     T pop();

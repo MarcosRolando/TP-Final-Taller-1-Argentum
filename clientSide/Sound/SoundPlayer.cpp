@@ -4,9 +4,9 @@
 
 #include "SoundPlayer.h"
 
-#define QUEUE_SIZE 3
+#define QUEUE_SIZE 10
 
-const int TIME_BETWEEN_SOUND_UPDATES = 250;
+const int TIME_BETWEEN_SOUND_UPDATES = 125;
 
 SoundPlayer::SoundPlayer() {
     std::srand(std::clock());
@@ -27,7 +27,7 @@ void SoundPlayer::pauseMusic() {
     Mix_PauseMusic();
 }
 
-bool SoundPlayer::isMusicPlaying(){
+bool SoundPlayer::isMusicPlaying() {
     return !Mix_PausedMusic();
 }
 

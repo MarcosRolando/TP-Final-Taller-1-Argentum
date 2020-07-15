@@ -8,15 +8,12 @@
 #include "../../libs/Socket.h"
 #include "ClientProtocol.h"
 #include "InputCommands/InputCommand.h"
-#include "InputCommands/CommandVerifier.h"
 
 MSGPACK_ADD_ENUM(GameType::Direction)
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 
 void ClientEventHandler::run() {
-    //Selector& selector = game.getSelector();
     Minichat& minichat = game.getMinichat();
-   // Window& window = game.getWindow();
 
     try {
         while (!quit) {
@@ -27,7 +24,10 @@ void ClientEventHandler::run() {
                         quit = true;
                         break;
                     case SDL_KEYDOWN:
-                        _handleMoveKeys(*e);
+                        _handleKeyDown(*e);
+                        break;
+                    case SDL_KEYUP:
+                        _handleKeyUp(*e);
                         break;
                     case SDL_MOUSEBUTTONDOWN:
                         _handleMouseButtonDown(*e);
@@ -49,6 +49,24 @@ void ClientEventHandler::run() {
     }
 }
 
+void ClientEventHandler::_handleKeyUp(SDL_Event& e) {
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_STOP_MOVING);
+    switch (e.key.keysym.sym) {
+        case SDLK_UP:
+            msgpack::pack(msgBuffer, event);
+            break;
+        case SDLK_DOWN:
+            msgpack::pack(msgBuffer, event);
+            break;
+        case SDLK_LEFT:
+            msgpack::pack(msgBuffer, event);
+            break;
+        case SDLK_RIGHT:
+            msgpack::pack(msgBuffer, event);
+            break;
+    }
+}
+
 void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
     int clickX, clickY;
     SDL_GetMouseState(&clickX, &clickY);
@@ -66,63 +84,64 @@ void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
         if (Selector::hasSelectedTile({clickY, clickX})) {
             _processAttack(game.getSelector().getSelectedTile());
         }
-        if (Selector::hasSelectedSlot({clickY, clickX})){
+        if (Selector::hasSelectedSlot({clickY, clickX})) {
             _processUseItem(game.getSelector().getInventorySlot());
         }
-        if (Selector::hasSelectedEquipment({clickY, clickX})){
+        if (Selector::hasSelectedEquipment({clickY, clickX})) {
             _processUnequipItem(game.getSelector().getSelectedEquipment());
         }
     }
 }
 
-//Cambiarle el nombre a handleKeyDown
-void ClientEventHandler::_handleMoveKeys(SDL_Event& e) {
-    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_MOVE);
+void ClientEventHandler::_handleKeyDown(SDL_Event& e) {
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_START_MOVING);
     msgpack::type::tuple<GameType::Direction> direction;
-    switch (e.key.keysym.sym) {
-        case SDLK_UP:
-            game.getSelector().resetTileSelection();
-            direction = {GameType::DIRECTION_UP};
-            msgpack::pack(msgBuffer, event);
-            msgpack::pack(msgBuffer, direction);
-            break;
-        case SDLK_DOWN:
-            game.getSelector().resetTileSelection();
-            direction = {GameType::DIRECTION_DOWN};
-            msgpack::pack(msgBuffer, event);
-            msgpack::pack(msgBuffer, direction);
-            break;
-        case SDLK_LEFT:
-            game.getSelector().resetTileSelection();
-            direction = {GameType::DIRECTION_LEFT};
-            msgpack::pack(msgBuffer, event);
-            msgpack::pack(msgBuffer, direction);
-            break;
-        case SDLK_RIGHT:
-            game.getSelector().resetTileSelection();
-            direction = {GameType::DIRECTION_RIGHT};
-            msgpack::pack(msgBuffer, event);
-            msgpack::pack(msgBuffer, direction);
-            break;
-        case SDLK_BACKSPACE:
-            game.getMinichat().handleBackspace();
-            break;
-        case SDLK_RETURN:
-            _processCommandInput();
-            break;
-        case SDLK_SPACE:
-            if (SoundPlayer::isMusicPlaying()) {
-                game.getSoundPlayer().pauseMusic();
-            } else {
-                game.getSoundPlayer().playMusic();
-            }
-            break;
+    if (e.key.repeat == 0) {
+        switch (e.key.keysym.sym) {
+            case SDLK_UP:
+                game.getSelector().resetTileSelection();
+                direction = {GameType::DIRECTION_UP};
+                msgpack::pack(msgBuffer, event);
+                msgpack::pack(msgBuffer, direction);
+                break;
+            case SDLK_DOWN:
+                game.getSelector().resetTileSelection();
+                direction = {GameType::DIRECTION_DOWN};
+                msgpack::pack(msgBuffer, event);
+                msgpack::pack(msgBuffer, direction);
+                break;
+            case SDLK_LEFT:
+                game.getSelector().resetTileSelection();
+                direction = {GameType::DIRECTION_LEFT};
+                msgpack::pack(msgBuffer, event);
+                msgpack::pack(msgBuffer, direction);
+                break;
+            case SDLK_RIGHT:
+                game.getSelector().resetTileSelection();
+                direction = {GameType::DIRECTION_RIGHT};
+                msgpack::pack(msgBuffer, event);
+                msgpack::pack(msgBuffer, direction);
+                break;
+            case SDLK_BACKSPACE:
+                game.getMinichat().handleBackspace();
+                break;
+            case SDLK_RETURN:
+                _processCommandInput();
+                break;
+            case SDLK_SPACE:
+                if (SoundPlayer::isMusicPlaying()) {
+                    game.getSoundPlayer().pauseMusic();
+                } else {
+                    game.getSoundPlayer().playMusic();
+                }
+                break;
+        }
     }
 }
 
 void ClientEventHandler::_processCommandInput() {
     std::string cmd = game.getMinichat().handleReturnKey();
-    if (cmd != " "){//Si apreto enter y no hay texto handleReturnKey me devuelve esto
+    if (cmd != " "){ //Si apreto enter y no hay texto handleReturnKey me devuelve esto
         if (cmd == "/clear") {
             game.getMinichat().clearMinichat();
         } else {

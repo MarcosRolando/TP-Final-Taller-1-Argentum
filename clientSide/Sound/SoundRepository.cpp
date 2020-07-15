@@ -16,6 +16,7 @@
 #define HEALING_PATH "../../clientSide/Sounds/heal.wav"
 #define ZOMBIE_PATH "../../clientSide/Sounds/Zombie.mp3"
 #define SPIDER_PATH "../../clientSide/Sounds/Spider.mp3"
+#define SKELETON_PATH "../../clientSide/Sounds/Skeleton.mp3"
 
 SoundRepository::SoundRepository() {
     _loadSounds();
@@ -38,6 +39,7 @@ void SoundRepository::_loadSounds() {
         sounds.emplace(HealingSound, HEALING_PATH);
         sounds.emplace(ZombieSound, ZOMBIE_PATH);
         sounds.emplace(SpiderSound, SPIDER_PATH);
+        sounds.emplace(SkeletonSound, SKELETON_PATH);
 
     } catch (std::exception& e) {
         std::cerr << e.what() << std::endl;

@@ -11,6 +11,7 @@
 #include "PlayerStats.h"
 #include "Minichat.h"
 #include "../Items/ItemData.h"
+#include "MovementBackup.h"
 
 class Game;
 class EntityTests;
@@ -25,6 +26,7 @@ private:
     int32_t gold;
     Minichat chat;
     Game& game;
+    MovementBackup movementBackup;
 
     friend EntityTests;
     friend MapTests;
@@ -128,6 +130,10 @@ public:
     bool hasItem(const std::string& itemName);
 
     void getInventoryNames();
+
+    void startMovement(GameType::Direction direction);
+
+    void stopMovement();
 
     //Retorna su data actual (las cosas guardadas, stats, etc)
     PlayerData getData() const;

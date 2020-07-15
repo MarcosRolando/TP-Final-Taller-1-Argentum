@@ -10,6 +10,7 @@
 #include "../Config/Configuration.h"
 #include "../Game/Events/Drop.h"
 #include "../Game/Events/NotifyDeath.h"
+#include "../Game/Events/Move.h"
 #include <msgpack.hpp>
 
 #define ATTACKER_IS_NEWBIE_MESSAGE "I won't lose my time on a low level newbie like you!\n"
@@ -36,6 +37,7 @@ Player::Player(Game& _game, Coordinate _initialPosition, PlayerData& data):
     pClass = data.pClass;
     race = data.pRace;
     gold = data.gold;
+    movementBackup = {false, GameType::DIRECTION_STILL};
 }
 
 int32_t Player::attack(Coordinate target) {
@@ -151,6 +153,11 @@ void Player::meditate() {
 
 void Player::update(double timeStep) {
     Entity::update(timeStep, game); /*actualiza movimiento*/
+    if (!movement.isMoving && movementBackup.isFollowingRoad) {
+        game.pushEvent(std::unique_ptr<Event>(new Move(game, *this,
+                        movementBackup.direction)));
+        movement.direction = movementBackup.direction;
+    }
     stats.update(timeStep); /*actualiza la vida y manda en base al tiempo/meditacion*/
 }
 
@@ -264,11 +271,19 @@ bool Player::hasItem(const std::string& itemName) {
     return inventory.hasItem(itemName);
 }
 
-
 void Player::getInventoryNames() {
     inventory.getInventoryNames(chat);
 }
 
+
+void Player::startMovement(GameType::Direction direction) {
+    movementBackup.isFollowingRoad = true;
+    movementBackup.direction = direction;
+}
+
+void Player::stopMovement() {
+    movementBackup.isFollowingRoad = false;
+}
 
 PlayerData Player::getData() const {
     PlayerData pData;

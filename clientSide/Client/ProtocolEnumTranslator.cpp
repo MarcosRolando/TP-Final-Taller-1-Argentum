@@ -91,7 +91,7 @@ void ProtocolEnumTranslator::_translateWeapons() {
     weaponsMap.emplace(GameType::Weapon::AXE, Axe);
     weaponsMap.emplace(GameType::Weapon::WARHAMMER, WarHammer);
     weaponsMap.emplace(GameType::Weapon::ASH_ROD, AshRod);
-    weaponsMap.emplace(GameType::Weapon::ELVEN_FLUTE, Nothing); //todo volar el elven flute solo
+    weaponsMap.emplace(GameType::Weapon::ELVEN_FLUTE, Nothing);
     weaponsMap.emplace(GameType::Weapon::LINKED_STAFF, LinkedStaff);
     weaponsMap.emplace(GameType::Weapon::SIMPLE_BOW, SimpleBow);
     weaponsMap.emplace(GameType::Weapon::COMPOSITE_BOW, CompositeBow);

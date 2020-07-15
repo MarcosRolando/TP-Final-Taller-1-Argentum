@@ -160,7 +160,7 @@ void PlayerStats::update(double timeStep) {
     timeElapsedLife += timeStep;
     timeElapsedMana += timeStep;
     if (timeElapsedLife >= TIME_FOR_RECOVERY) {
-        currentLife += Calculator::lifeRecovered(recoveryRate, timeElapsedLife);
+        currentLife += Calculator::lifeRecovered(recoveryRate, timeElapsedLife/1000);
         if (currentLife > maxLife) {
             currentLife = maxLife;
         }
@@ -169,10 +169,10 @@ void PlayerStats::update(double timeStep) {
     if (timeElapsedMana >= TIME_FOR_RECOVERY) {
         if (isMeditating) {
             currentMana += Calculator::manaRecoveredWithMeditation(meditationRate,
-                                                                   intelligence, timeElapsedMana);
+                                                                   intelligence, timeElapsedMana/1000);
         } else {
             currentMana += Calculator::manaRecoveredNoMeditation(recoveryRate,
-                                                                 timeElapsedMana);
+                                                                 timeElapsedMana/1000);
         }
         if (currentMana >= maxMana) {
             currentMana = maxMana;
@@ -199,12 +199,10 @@ int32_t& PlayerStats::getCurrentMana() {
     return currentMana;
 }
 
-
 void PlayerStats::restore() {
     currentMana = maxMana;
     currentLife = maxLife;
 }
-
 
 void PlayerStats::storeAllRelevantData(std::stringstream& buffer) const {
     msgpack::type::tuple<int32_t, int32_t, int32_t> xpData(experience, nextLevelExperience, level);
