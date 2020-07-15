@@ -49,8 +49,9 @@ void PlayerInventoryGUI::addEquipableItem(TextureID texture, EquippedItems item)
     }
 }
 
-void PlayerInventoryGUI::updateGold(int32_t _gold) {
+void PlayerInventoryGUI::updateGold(int32_t _gold, int32_t _safeGold) {
     gold = _gold;
+    safeGold = _safeGold;
 }
 
 void PlayerInventoryGUI::render(int32_t selectedSlotX) {
@@ -65,7 +66,7 @@ void PlayerInventoryGUI::_renderText() {
     text.updateText("INVENTORY");
     text.render(160, 225, SDL_Color{0xFF,0xFF,0xFF});
 
-    text.updateText("GOLD: " + std::to_string(gold));
+    text.updateText("GOLD: " + std::to_string(gold) + "(" + std::to_string(safeGold) + ")");
     text.render(161, 565, SDL_Color{0xFF,0xFF,0x00});
 
     text.updateText(std::to_string(pInfo.getLevel()));

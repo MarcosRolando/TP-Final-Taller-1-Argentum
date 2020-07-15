@@ -117,9 +117,10 @@ MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer, msgpa
 
 void ClientProtocol::_addInventoryItems(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
-    msgpack::type::tuple<int32_t> gold;
+    msgpack::type::tuple<int32_t, int32_t> gold;
     handler->convert(gold);
     data.generalInfo.gold = std::get<0>(gold);
+    data.generalInfo.safeGold = std::get<1>(gold);
     //Aca recibe los items del inventario
     _addEquippedItems(data, offset);
     _fillInventory(data, offset);

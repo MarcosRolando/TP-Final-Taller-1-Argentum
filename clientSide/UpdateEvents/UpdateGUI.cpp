@@ -6,7 +6,7 @@
 #include "../Client/GameGUI.h"
 
 void UpdateGUI::operator()(GameGUI &game) {
-    game.getPlayerInventory().updateGold(data.generalInfo.gold);
+    game.getPlayerInventory().updateGold(data.generalInfo.gold, data.generalInfo.safeGold);
     for (const auto & item : data.equippedItems) {
         game.getPlayerInventory().addEquipableItem(std::get<0>(item),
                                                    std::get<1>(item));
