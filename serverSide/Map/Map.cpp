@@ -438,7 +438,7 @@ Coordinate Map::getSpawnCoordinateArroundPosition(Coordinate refference) {
     _buildSearchRegion(refference, RESPAWN_RANGE, topLeft, bottomRight);
     for (int i = topLeft.iPosition; i <= bottomRight.iPosition; ++i) {
         for (int j = topLeft.jPosition; j <= bottomRight.jPosition; ++j) {
-            if (tiles[i][j].isAvailable()) {
+            if (tiles[i][j].isAvailable() && tiles[i][j].isInCity()) {
                 return {i, j};
             }
         }
