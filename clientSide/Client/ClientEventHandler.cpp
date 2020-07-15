@@ -50,18 +50,19 @@ void ClientEventHandler::run() {
 }
 
 void ClientEventHandler::_handleKeyUp(SDL_Event& e) {
+    msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_STOP_MOVING);
     switch (e.key.keysym.sym) {
         case SDLK_UP:
-            msgpack::pack(msgBuffer, GameType::PLAYER_STOP_MOVING);
+            msgpack::pack(msgBuffer, event);
             break;
         case SDLK_DOWN:
-            msgpack::pack(msgBuffer, GameType::PLAYER_STOP_MOVING);
+            msgpack::pack(msgBuffer, event);
             break;
         case SDLK_LEFT:
-            msgpack::pack(msgBuffer, GameType::PLAYER_STOP_MOVING);
+            msgpack::pack(msgBuffer, event);
             break;
         case SDLK_RIGHT:
-            msgpack::pack(msgBuffer, GameType::PLAYER_STOP_MOVING);
+            msgpack::pack(msgBuffer, event);
             break;
     }
 }
