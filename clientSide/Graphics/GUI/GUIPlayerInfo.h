@@ -13,7 +13,7 @@ struct GUIPlayerInfo {
     int32_t health, mana, xp;
     int32_t level;
     int32_t constitution, strength, agility, intelligence;
-    int32_t gold;
+    int32_t gold, safeGold;
     Coordinate position;
 };
 enum EquippedItems {

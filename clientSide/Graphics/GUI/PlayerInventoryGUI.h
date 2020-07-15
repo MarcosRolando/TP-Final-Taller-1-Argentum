@@ -20,13 +20,13 @@ private:
     std::vector<Texture*> inventoryTextures;
     std::unordered_map<EquippedItems, Texture*> equippedTextures;
     PlayerInfoGUI& pInfo;
-    int32_t gold;
+    int32_t gold, safeGold;
 
 public:
     PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer, PlayerInfoGUI& playerInfo);
     void addInventoryItem(TextureID texture, int32_t slot);
     void addEquipableItem(TextureID texture, EquippedItems item);
-    void updateGold(int32_t gold);
+    void updateGold(int32_t gold, int32_t _safeGold);
     void render(int32_t selectedSlot);
 
 private:

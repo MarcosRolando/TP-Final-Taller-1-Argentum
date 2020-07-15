@@ -139,7 +139,7 @@ void GameInitializer::_receivePlayerData() {
     std::vector<char> buffer(length);
     socket.receive(buffer.data(), length);
     PlayerData data = protocol.processAddPlayerData(&buffer);
-    game.getPlayerInventory().updateGold(data.generalInfo.gold);
+    game.getPlayerInventory().updateGold(data.generalInfo.gold, data.generalInfo.safeGold);
     for (const auto & item : data.equippedItems) {
         game.getPlayerInventory().addEquipableItem(std::get<0>(item),
                                                    std::get<1>(item));
