@@ -57,11 +57,16 @@ private:
     void _createPlayer(bool &quit, bool& success, GameInitializer &initializer, Socket &socket);
     void _loadPlayer(bool &quit, bool& success, GameInitializer &initializer, Socket &socket);
     void playerSelection(bool &quit, bool& createPlayer, bool& loadPlayer);
-
-    void
-    _connectPlayer(GameInitializer &initializer, Socket &socket, bool &success);
-
+    void _connectLoadedPlayer(GameInitializer &initializer, Socket &socket, bool &success);
+    void _connectCreatedPlayer(GameInitializer& initializer, Socket& socket, bool& success
+            ,GameType::Class myClass, GameType::Race myRace);
     void _renderLoadPlayerScreen();
+
+    void _verifyClassSelection(GameType::Class &myClass, int x, int y);
+
+    void _verifyRaceSelection(GameType::Race race, int x, int y);
+
+    void _renderCreatePlayerScreen();
 };
 
 
