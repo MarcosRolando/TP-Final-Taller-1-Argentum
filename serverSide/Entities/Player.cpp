@@ -219,7 +219,7 @@ void Player::operator>>(std::stringstream &buffer) const {
 }
 
 void Player::storeAllRelevantData(std::stringstream& buffer) const {
-    msgpack::type::tuple<int32_t> data(gold);
+    msgpack::type::tuple<int32_t, int32_t> data(gold, Calculator::calculateMaxSafeGold(stats.getLevel()));
     msgpack::pack(buffer, data);
     inventory.storeAllData(buffer);
     stats.storeAllRelevantData(buffer);
