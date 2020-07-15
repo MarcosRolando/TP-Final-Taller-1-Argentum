@@ -27,7 +27,7 @@ void SoundPlayer::pauseMusic() {
     Mix_PauseMusic();
 }
 
-bool SoundPlayer::isMusicPlaying(){
+bool SoundPlayer::isMusicPlaying() {
     return !Mix_PausedMusic();
 }
 

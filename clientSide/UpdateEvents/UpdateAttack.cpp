@@ -45,6 +45,9 @@ void UpdateAttack::operator()(GameGUI &game) {
         case GameType::SPIDER_ATTACK:
             game.getMap().verifyQueueSound(position, SpiderSound, 6);
             break;
+        case GameType::SKELETON_ATTACK:
+            game.getMap().verifyQueueSound(position, SkeletonSound, 6);
+            break;
         default:
             break;
     }

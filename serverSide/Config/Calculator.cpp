@@ -111,15 +111,15 @@ int Calculator::getRandomInt(int minRange, int maxRange) {
 }
 
 int Calculator::lifeRecovered(unsigned int recoveryRate, double timeElpased) {
-    return static_cast<int>(static_cast<double>(recoveryRate) * timeElpased)/200;
+    return static_cast<int>(static_cast<double>(recoveryRate) * timeElpased);
 }
 
 unsigned int Calculator::manaRecoveredNoMeditation(unsigned int recoveryRate, double timeElpased) {
-    return static_cast<int>(static_cast<double>(recoveryRate) * timeElpased)/200;
+    return static_cast<int>(static_cast<double>(recoveryRate) * timeElpased);
 }
 
 unsigned int Calculator::manaRecoveredWithMeditation(unsigned int meditationRate,
                                         unsigned int intelligence, double timeElpased) {
 
-    return static_cast<int>(static_cast<double>(meditationRate * intelligence) * timeElpased)/1000;
+    return static_cast<int>(static_cast<double>(meditationRate * intelligence) * timeElpased);
 }

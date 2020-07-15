@@ -57,8 +57,6 @@ public:
     //Retorna los datos actuales del jugador del cliente
     PlayerData getPlayerData() const;
 
-    //todo IMPLEMENTAR CONSTRUCTOR POR MOVIMIENTO
-
 private:
     /*Implementa el metodo virtual run de Thread, que sera el metodo ejecutado
     * por el thread*/

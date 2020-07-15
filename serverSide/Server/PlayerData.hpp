@@ -25,7 +25,7 @@ struct PlayerData {
     int32_t gold{0};
     int32_t constitution{0}, strength{0}, agility{0}, intelligence{0};
     std::vector<std::tuple<GameType::ItemType, int32_t>> inventory;
-    std::unordered_map<GameType::EquipmentPlace, int32_t> equipment; //todo habria que ver el tema del banker
+    std::unordered_map<GameType::EquipmentPlace, int32_t> equipment;
     std::vector<std::tuple<GameType::ItemType, int32_t>> bankerItems;
     int32_t bankerGold{0};
 
