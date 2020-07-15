@@ -22,6 +22,7 @@
 #include "../Game/Events/Message.h"
 #include "../Game/Events/RestoreStats.h"
 #include "../Game/Events/GetInventoryNames.h"
+#include "../Game/Events/ModifyPlayerMovement.h"
 
 #define MAX_EVENTS_STORED 3
 
@@ -155,12 +156,14 @@ void PlayerProxy::getInventoryNames() {
 
 
 void PlayerProxy::startMoving(GameType::Direction direction) {
-    player.startMovement(direction);
+    //player->startMovement(direction);
+    storedEvents.emplace(new ModifyPlayerMovement(*player, direction));
 }
 
 
 void PlayerProxy::stopMoving() {
-    player.stopMovement();
+    //player->stopMovement();
+    storedEvents.emplace(new ModifyPlayerMovement(*player));
 }
 
 

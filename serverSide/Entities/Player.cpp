@@ -37,7 +37,7 @@ Player::Player(Game& _game, Coordinate _initialPosition, PlayerData& data):
     pClass = data.pClass;
     race = data.pRace;
     gold = data.gold;
-    isFollowingRoad = false;
+    movementBackup = {false, GameType::DIRECTION_STILL};
 }
 
 int32_t Player::attack(Coordinate target) {
@@ -153,9 +153,10 @@ void Player::meditate() {
 
 void Player::update(double timeStep) {
     Entity::update(timeStep, game); /*actualiza movimiento*/
-    if (!movement.isMoving && isFollowingRoad) {
+    if (!movement.isMoving && movementBackup.isFollowingRoad) {
         game.pushEvent(std::unique_ptr<Event>(new Move(game, *this,
-                            movement.direction)));
+                        movementBackup.direction)));
+        movement.direction = movementBackup.direction;
     }
     stats.update(timeStep); /*actualiza la vida y manda en base al tiempo/meditacion*/
 }
@@ -274,6 +275,18 @@ bool Player::hasItem(const std::string& itemName) {
 void Player::getInventoryNames() {
     inventory.getInventoryNames(chat);
 }
+
+
+void Player::startMovement(GameType::Direction direction) {
+    movementBackup.isFollowingRoad = true;
+    movementBackup.direction = direction;
+}
+
+
+void Player::stopMovement() {
+    movementBackup.isFollowingRoad = false;
+}
+
 
 
 PlayerData Player::getData() const {
