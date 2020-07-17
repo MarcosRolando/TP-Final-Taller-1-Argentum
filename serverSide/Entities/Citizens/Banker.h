@@ -41,40 +41,29 @@ private:
 public:
     explicit Banker(Coordinate initialPosition);
 
-    //Almacena una lista con los datos de los items y oro almacenados
-    //NO TIENE QUE ALMACENAR PRODUCTDATA, CAMBIAR
-    //unsigned int list(const Player &player, std::list<ProductData>& products) override;
+    /*Almacena una lista con los datos de los items y oro almacenados*/
     void list(Player &player) override;
 
-    //Intenta sacar el item del banco y almacenarlo en el inventario del jugador
-    //Si el item no esta guardado en el banco o el judador no tiene espacio en
-    //su inventario entonces no hace nada
-    //Si se intenta sacar mas oro del guardado, entonces saca el oro disponible
-    //Si se quiere sacar oro se debe poner en itemName "oro <cantidad>" sin incluir
-    //los <>
+    /*Intenta sacar el item del banco y almacenarlo en el inventario del jugador
+    Si el item no esta guardado en el banco o el judador no tiene espacio en
+    su inventario entonces no hace nada
+    Si se intenta sacar mas oro del guardado, entonces saca el oro disponible*/
     void withdraw(Player& player, const std::string& itemName) override;
 
-    //Intenta guardar el item en el banco, sacandolo del inventario del jugador
-    //Si el item no esta en el inventario del judador entonces no hace nada
-    //No se pueden guardar items equipados
-    //Si se intenta depositar mas oro del guardado, entonces deposita la totalidad del oro
-    //Si se quiere depositar oro se debe poner en itemName "oro <cantidad>" sin incluir
-    //los <>
+    /*Intenta guardar el item en el banco, sacandolo del inventario del jugador
+    Si el item no esta en el inventario del judador entonces no hace nada
+    No se pueden guardar items equipados
+    Si se intenta depositar mas oro del guardado, entonces deposita la totalidad del oro*/
     void deposit(Player& player, const std::string& itemName) override;
 
-
-    //Recibe los items de un player y su nickname, y los agrega a lo que tiene guardado
-    //HACER QUE RECIBA PARAMETROS COMO LOS DE STORAGE, PORQUE SE VA A CONSTRUIR UN STORAGE
-    //EN EL NICKNAME RECIBIDO
-    /*
-    static void addPlayerItems(const std::string& playerName, const std::unordered_map<std::string, unsigned int>&
-                               initialItemsAmounts, unsigned int gold);
-    */
-
+    /*Carga en el banker los items provenientes del player provenientes del archivo,
+     * esto se hace cuando un player se conecta*/
     static void addPlayerItems(const PlayerData& playerData);
 
+    /*Borra del banker los items almacenados por el player, esto se hace cuando un player se desconecta*/
     static void erasePlayerItems(const std::string& playerNickname);
 
+    /*Retorna los items del player almacenados para ser guardados en el archivo de persistencia*/
     static void getPlayerItems(PlayerData& playerData);
 };
 

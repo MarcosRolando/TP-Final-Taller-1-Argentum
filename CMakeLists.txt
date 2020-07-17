@@ -10,3 +10,9 @@ add_subdirectory(serverSide)
 add_subdirectory(clientSide)
 add_subdirectory(libs)
 
+file(COPY clientSide/Images clientSide/Sounds DESTINATION ./)
+file(COPY serverSide/Config/config.json serverSide/Config/map.json DESTINATION ./)
+
+INSTALL(TARGETS argentumServer argentumClient DESTINATION /usr/bin)
+INSTALL(DIRECTORY clientSide/Images clientSide/Sounds DESTINATION /var/Argentum)
+INSTALL(FILES defaultWeapons.yaml serverConfig.yaml DESTINATION /etc/Argentum)

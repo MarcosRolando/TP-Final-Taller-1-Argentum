@@ -32,7 +32,11 @@ private:
 
 public:
     explicit MapFileReader(const std::string& path);
+
+    /*Retorna los datos del tile (si es ocupable, pertence a una ciudad, tiene un NPC/estructura*/
     TileInfo getTileInfo(unsigned int x, unsigned int y);
+
+    /*Retorna las dimensiones MxN del mapa*/
     MapSize getMapDimensions() const;
 
 private:
