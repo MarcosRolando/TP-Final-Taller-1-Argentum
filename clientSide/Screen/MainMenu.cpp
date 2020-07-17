@@ -262,13 +262,14 @@ void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socke
     if (!nicknameInputText.getText().empty()) {
         initializer.loadPlayer(nicknameInputText.getText(), myRace, myClass);
         GameType::ConnectionResponse response{};
-        socket.receive(reinterpret_cast<char*>(response), sizeof(response));
+        socket.receive(reinterpret_cast<char*>(&response), sizeof(response));
+        response = static_cast<GameType::ConnectionResponse>(ntohl(response));
         switch (response) {
             case GameType::ACCEPTED:
                 success = true;
                 break;
             case GameType::UNAVAILABLE_PLAYER:
-                errorText.updateText("Inexistent player");
+                errorText.updateText("Unavailable player");
                 break;
             case GameType::UNKOWN_SERVER_ERROR:
                 errorText.updateText("Unknown Server Error");

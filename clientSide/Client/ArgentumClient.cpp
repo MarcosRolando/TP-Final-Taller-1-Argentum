@@ -24,12 +24,14 @@ void Client::_processConnection() {
     class MainMenu mainMenu(game.getTextureRepo().getTexture(MainMenu),
                             game.getWindow());
 
-    mainMenu.connectLoop(quit, socket);
     Window& window = game.getWindow();
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
 
+    mainMenu.connectLoop(quit, socket);
     mainMenu.playerSelectionLoop(quit, initializer, socket);
+    //mainMenu.connectLoop(quit, socket);
+
     //playerSelection
 
     //initializer.loadPlayer("a");
