@@ -42,6 +42,7 @@ public:
     void sendGameUpdate();
     void join();
     bool hasWaitingClients();
+    void backup();
 };
 
 
