@@ -332,11 +332,16 @@
     "KillXPModifier" : 10
   },
 
-  "PlayerVisionRange" : 5,
+  "MonsterSpawnData" : {
+    "MaxAmount" : 300,
+    "TimeBetweenSpawns" : 100,
+    "SpawnAmount" : 20
+  },
+
   "InitialMerchantGold": 1000,
   "PlayerSpeed" : 5,
-  "CritAttackProb" : 0.1,
-  "DodgeProb" : 0.1,
+  "CritAttackProb" : 0.05,
+  "DodgeCoeff" : 0.0001,
   "NewbieLevel" : 5,
   "MaxLevelDif" : 10
 }
