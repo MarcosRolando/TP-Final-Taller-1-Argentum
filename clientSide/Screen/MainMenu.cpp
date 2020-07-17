@@ -37,7 +37,12 @@ text(mainMenuFont, window.getRenderer()),
 hostInputText(mainMenuFont, window.getRenderer()),
 portInputText(mainMenuFont, window.getRenderer()) ,
 nicknameInputText(mainMenuFont, window.getRenderer()),
-errorText(mainMenuFont, window.getRenderer()), mainMenuBackground(texture) {
+errorText(mainMenuFont, window.getRenderer()),
+strength(mainMenuFont, window.getRenderer()),
+constitution(mainMenuFont, window.getRenderer()),
+intelligence(mainMenuFont, window.getRenderer()),
+agility(mainMenuFont, window.getRenderer()),
+mainMenuBackground(texture) {
 
     hostInput = false;
     portInput = false;
@@ -388,8 +393,16 @@ void MainMenu::_renderCreatePlayerScreen(GameType::Race race, GameType::Class my
     text.updateText("Nickname: ");
     text.render(50, 100, {0x00,0x00,0x00});
 
+    strength.updateText("Strength");
+    constitution.updateText("Constitution");
+    intelligence.updateText("Intelligence");
+    agility.updateText("Agility");
     _renderClass(myClass);
     _renderRace(race);
+    strength.render(50, 400, {0x00,0x00,0x00});
+    constitution.render(50, 500, {0x00,0x00,0x00});
+    intelligence.render(50, 600, {0x00,0x00,0x00});
+    agility.render(50, 700, {0x00,0x00,0x00});
 
     nicknameInputText.render(165, 100,{0x00,0x00,0x00});
     errorText.render(650, 875, {0xff,0xff,0xff});
@@ -412,19 +425,24 @@ void MainMenu::_renderClass(GameType::Class myClass) {
     text.render(450, 200, {0x00,0x00,0x00});
     text.updateText("Paladin");
     text.render(600, 200, {0x00,0x00,0x00});
+
     SDL_Rect outlineRect;
     switch (myClass) {
         case GameType::WARRIOR:
             outlineRect = WARRIOR_BUTTON;
+            _updateWarriorSkills();
             break;
         case GameType::WIZARD:
             outlineRect = WIZARD_BUTTON;
+            _updateWizardSkills();
             break;
         case GameType::CLERIC:
             outlineRect = CLERIC_BUTTON;
+            _updateClericSkills();
             break;
         case GameType::PALADIN:
             outlineRect = PALADIN_BUTTON;
+            _updatePaladinSkills();
             break;
     }
     SDL_SetRenderDrawColor(&window.getRenderer(), 0x3f, 0x2a,
@@ -447,20 +465,80 @@ void MainMenu::_renderRace(GameType::Race race) {
     switch (race) {
         case GameType::HUMAN:
             outlineRect = HUMAN_BUTTON;
+            _updateHumanSkills();
             break;
         case GameType::ELF:
             outlineRect = ELF_BUTTON;
+            _updateElfSkills();
             break;
         case GameType::DWARF:
             outlineRect = DWARF_BUTTON;
+            _updateDwarfSkills();
             break;
         case GameType::GNOME:
             outlineRect = GNOME_BUTTON;
+            _updateGnomeSkills();
             break;
     }
     SDL_SetRenderDrawColor(&window.getRenderer(), 0x3f, 0x2a,
                            0x14, 0xFF);
     SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
+}
+
+void MainMenu::_updateWarriorSkills() {
+    strength.appendText("++++");
+    constitution.appendText("+++");
+    intelligence.appendText("");
+    agility.appendText("");
+}
+
+void MainMenu::_updateWizardSkills() {
+    strength.appendText("");
+    constitution.appendText("");
+    intelligence.appendText("+++++");
+    agility.appendText("");
+}
+
+void MainMenu::_updateClericSkills() {
+    strength.appendText("++");
+    constitution.appendText("++");
+    intelligence.appendText("+++");
+    agility.appendText("");
+}
+
+void MainMenu::_updatePaladinSkills() {
+    strength.appendText("+++");
+    constitution.appendText("+++");
+    intelligence.appendText("+");
+    agility.appendText("");
+}
+
+void MainMenu::_updateHumanSkills() {
+    strength.appendText("++");
+    constitution.appendText("++");
+    intelligence.appendText("++");
+    agility.appendText("++");
+}
+
+void MainMenu::_updateElfSkills() {
+    strength.appendText("");
+    constitution.appendText("");
+    intelligence.appendText("++++");
+    agility.appendText("+++");
+}
+
+void MainMenu::_updateDwarfSkills() {
+    strength.appendText("++++");
+    constitution.appendText("+++");
+    intelligence.appendText("");
+    agility.appendText("");
+}
+
+void MainMenu::_updateGnomeSkills() {
+    strength.appendText("++");
+    constitution.appendText("+++");
+    intelligence.appendText("++");
+    agility.appendText("");
 }
 
 MainMenu::~MainMenu(){

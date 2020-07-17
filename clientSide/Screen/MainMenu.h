@@ -34,6 +34,10 @@ private:
     Text portInputText;//Idem anterior pero con port
     Text nicknameInputText;//idem anterior pero con nickname
     Text errorText;//Para texto de error
+    Text strength;
+    Text constitution;
+    Text intelligence;
+    Text agility;
     bool hostInput, portInput, nickInput; //Me dicen en donde hice click para ver donde pongo el input
     Texture& mainMenuBackground;
 public:
@@ -61,16 +65,19 @@ private:
     void _connectCreatedPlayer(GameInitializer& initializer, Socket& socket, bool& success
             ,GameType::Class myClass, GameType::Race myRace);
     void _renderLoadPlayerScreen();
-
     static void _verifyClassSelection(GameType::Class &myClass, int x, int y);
-
     static void _verifyRaceSelection(GameType::Race& race, int x, int y);
-
     void _renderCreatePlayerScreen(GameType::Race race, GameType::Class myClass);
-
     void _renderRace(GameType::Race race);
-
     void _renderClass(GameType::Class myClass);
+    void _updateWarriorSkills();
+    void _updatePaladinSkills();
+    void _updateClericSkills();
+    void _updateWizardSkills();
+    void _updateGnomeSkills();
+    void _updateDwarfSkills();
+    void _updateHumanSkills();
+    void _updateElfSkills();
 };
 
 
