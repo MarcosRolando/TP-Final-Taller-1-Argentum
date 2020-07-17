@@ -19,12 +19,6 @@ struct GameStartInfo {
     GameType::Race myRace;
 };
 
-struct Button{
-    SDL_Rect buttonEdges;
-    SDL_Color color;
-    bool available;
-};
-
 class MainMenu {
 private:
     Window& window;
@@ -44,7 +38,7 @@ public:
     MainMenu(Texture& texture, Window& window);
 
     //Toma el host y port e intenta conectarse
-    void connectLoop(bool &quit, std::string &_host, std::string &_port, Socket& socket);
+    void connectLoop(bool &quit, Socket& socket);
 
     //Deja al player elegir cargar/crear personaje e iniciar la partida
     void playerSelectionLoop(bool& quit, GameInitializer& initializer, Socket& socket);

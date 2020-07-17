@@ -261,12 +261,21 @@ void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socke
     }
     if (!nicknameInputText.getText().empty()) {
         initializer.loadPlayer(nicknameInputText.getText(), myRace, myClass);
-        char serverAcceptedConnection;
-        socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
-        if (serverAcceptedConnection == 1)
-            success = true;
-        else {
-            errorText.updateText("Could not create player");
+        GameType::ConnectionResponse response;
+        socket.receive(reinterpret_cast<char*>(response), sizeof(response));
+        switch (response) {
+            case GameType::ACCEPTED:
+                success = true;
+                break;
+            case GameType::INEXISTENT_PLAYER:
+                errorText.updateText("Inexistent player");
+                break;
+            case GameType::UNKOWN_SERVER_ERROR:
+                errorText.updateText("Unknown Server Error");
+                break;
+            default:
+                errorText.updateText("Unknown Error");
+                break;
         }
     }
 }
@@ -274,12 +283,21 @@ void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socke
 void MainMenu::_connectLoadedPlayer(GameInitializer& initializer, Socket& socket, bool& success) {
     if (!nicknameInputText.getText().empty()) {
         initializer.loadPlayer(nicknameInputText.getText());
-        char serverAcceptedConnection;
-        socket.receive(&serverAcceptedConnection,sizeof(serverAcceptedConnection));
-        if (serverAcceptedConnection == 1)
-            success = true;
-        else {
-            errorText.updateText("Player does not exist");
+        GameType::ConnectionResponse response;
+        socket.receive(reinterpret_cast<char*>(response), sizeof(response));
+        switch (response) {
+            case GameType::ACCEPTED:
+                success = true;
+                break;
+            case GameType::UNAVAILABLE_PLAYER:
+                errorText.updateText("Unavailable player");
+                break;
+            case GameType::UNKOWN_SERVER_ERROR:
+                errorText.updateText("Unknown Server Error");
+                break;
+            default:
+                errorText.updateText("Unknown Error");
+                break;
         }
     }
 }
