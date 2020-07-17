@@ -13,8 +13,6 @@ class Socket;
 class GameInitializer;
 
 struct GameStartInfo {
-    bool createPlayer;
-    std::string myNickname;
     GameType::Class myClass;
     GameType::Race myRace;
 };
@@ -34,18 +32,15 @@ private:
     Text agility;
     bool hostInput, portInput, nickInput; //Me dicen en donde hice click para ver donde pongo el input
     Texture& mainMenuBackground;
+    GameStartInfo info;
 public:
     MainMenu(Texture& texture, Window& window);
-
-    //Toma el host y port e intenta conectarse
-    void connectLoop(bool &quit, Socket& socket);
-
     //Deja al player elegir cargar/crear personaje e iniciar la partida
-    void playerSelectionLoop(bool& quit, GameInitializer& initializer, Socket& socket);
-
+    void menuScreen(bool& quit, GameInitializer& initializer, Socket& socket);
     ~MainMenu();
 
 private:
+    void connectLoop(bool &quit, Socket& socket);
     static bool _isInsideRect(int x, int y, SDL_Rect rect);
     void _renderConnectScreen();
     void _attemptToConnect(Socket &socket, bool &finished);
@@ -53,17 +48,16 @@ private:
     void _handleBackspace();
     void _renderPlayerSelectionScreen();
     void _createPlayer(bool &quit, bool& success, GameInitializer &initializer, Socket &socket);
-    void _loadPlayer(bool &quit, bool& success, GameInitializer &initializer, Socket &socket);
+    void _loadPlayer(bool &quit, GameInitializer &initializer, Socket &socket);
     void playerSelection(bool &quit, bool& createPlayer, bool& loadPlayer);
     void _connectLoadedPlayer(GameInitializer &initializer, Socket &socket, bool &success);
-    void _connectCreatedPlayer(GameInitializer& initializer, Socket& socket, bool& success
-            ,GameType::Class myClass, GameType::Race myRace);
+    void _connectCreatedPlayer(GameInitializer& initializer, Socket& socket, bool& success);
     void _renderLoadPlayerScreen();
-    static void _verifyClassSelection(GameType::Class &myClass, int x, int y);
-    static void _verifyRaceSelection(GameType::Race& race, int x, int y);
-    void _renderCreatePlayerScreen(GameType::Race race, GameType::Class myClass);
-    void _renderRace(GameType::Race race);
-    void _renderClass(GameType::Class myClass);
+    void _verifyClassSelection(int x, int y);
+    void _verifyRaceSelection(int x, int y);
+    void _renderCreatePlayerScreen();
+    void _renderRace();
+    void _renderClass();
     void _updateWarriorSkills();
     void _updatePaladinSkills();
     void _updateClericSkills();

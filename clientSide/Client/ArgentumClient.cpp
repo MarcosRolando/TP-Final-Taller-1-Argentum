@@ -16,32 +16,20 @@
 #define CHUNKSIZE 2048
 
 void Client::_processConnection() {
-    //Start Menu loop
     bool quit = false;
-    //GameStartInfo gameStartInfo{};
     GameGUI game;
     Timer timer;
     class MainMenu mainMenu(game.getTextureRepo().getTexture(MainMenu),
                             game.getWindow());
-
     Window& window = game.getWindow();
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
 
-    mainMenu.connectLoop(quit, socket);
-    mainMenu.playerSelectionLoop(quit, initializer, socket);
-    //mainMenu.connectLoop(quit, socket);
-
-    //playerSelection
-
-    //initializer.loadPlayer("a");
-    //char serverAcceptedConnection;
-    //socket.receive(&serverAcceptedConnection, sizeof(serverAcceptedConnection));
+    mainMenu.menuScreen(quit, initializer, socket);
 
     //Game start
     if (!quit){
-        initializer.initializeGame();//Lo pongo aca xq si hago quit en el menu principal
-                                    //Me voy a quedar esperando aca
+        initializer.initializeGame();
     }
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
     UpdateManager updateManager;
@@ -49,7 +37,6 @@ void Client::_processConnection() {
     UpdateReceiver updater(protocol, updateManager, socket, quit);
     eventHandler();
     updater();
-    //Aca falta lo del main menu y la seleccion de server/player etc
     std::unique_ptr<SDL_Event> event(new SDL_Event());
     timer.start();
     game.getSoundPlayer().playMusic();
@@ -100,27 +87,7 @@ void Client::_processConnection() {
     updater.join();
 }
 
-void Client::_mainMenuLoop(GameGUI& game, bool& quit, GameStartInfo& startInfo) {
-    /*class MainMenu mainMenu(game.getTextureRepo().getTexture(MainMenu),
-            game.getWindow());
-
-    //mainMenu.loop(quit, host, port, startInfo);
-    mainMenu.connectLoop(quit, host, port, socket);*/
-}
-
 void Client::connect() {
-    /*bool connected = false;
-    while (!connected) {
-        try {
-            std::cin >> host;               NO BORRAR ESTO; LO NECESITO DE REFERENCIA
-            std::cin >> port;
-            socket.connect(host, port);
-            connected = true;//Si no tira excepcion es q conecte
-        } catch (std::exception& e) {
-            std::cerr << e.what() << std::endl;
-        }
-    }*/
-    //socket.connect(host, port);
     _processConnection();
 }
 

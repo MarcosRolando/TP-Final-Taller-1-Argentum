@@ -49,11 +49,36 @@ mainMenuBackground(texture) {
     portInput = false;
     nickInput = false;
     SDL_StartTextInput();
+    info = {GameType::WARRIOR, GameType::HUMAN};
 }
 
+void MainMenu::menuScreen(bool& quit, GameInitializer& initializer, Socket& socket) {
+    bool createPlayer = false;
+    bool loadPlayer = false;
+    bool success = false;
+
+    while (!success && !quit) {
+        playerSelection(quit, createPlayer, loadPlayer);//Veo si quiere hacer load o create
+        if (createPlayer) {
+            _createPlayer(quit, success, initializer, socket);
+            connectLoop(quit, socket);
+            if (!quit)//xq puedo hacer quit en el connect
+                _connectCreatedPlayer(initializer, socket, success);
+        }
+        else if (loadPlayer) {
+            _loadPlayer(quit, initializer, socket);
+            connectLoop(quit, socket);
+            if (!quit)//xq puedo hacer quit en el connect
+                _connectLoadedPlayer(initializer, socket, success);
+        }
+        if (!success) {
+            socket.close();
+        }
+    }
+}
 
 void MainMenu::connectLoop(bool& quit, Socket& socket) {
-    bool finished = false;
+    bool finished = quit;
     SDL_Event e;
     while (!finished){
         while (SDL_PollEvent(&e) != 0){
@@ -95,31 +120,8 @@ void MainMenu::connectLoop(bool& quit, Socket& socket) {
     errorText.updateText("");
 }
 
-void MainMenu::playerSelectionLoop(bool& quit, GameInitializer& initializer, Socket& socket) {
-    bool createPlayer = false;
-    bool loadPlayer = false;
-    bool success = false;
-
-    while (!success && !quit) {
-        playerSelection(quit, createPlayer, loadPlayer);//Veo si quiere hacer load o create
-        if (!quit) {
-            if (createPlayer) _createPlayer(quit, success, initializer, socket);
-            else if (loadPlayer) _loadPlayer(quit, success, initializer, socket);
-
-            if (success)
-                break;
-            else {
-                bool reconnect = false;
-                socket.close();
-                _attemptToConnect(socket, reconnect);
-                if (!reconnect) quit = true; //Aca seria q me cerraron el socket.
-            }
-        }
-    }
-}
-
 void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer) {
-    bool finished = false;
+    bool finished = quit;
     SDL_Event e;
     while (!finished){
         while (SDL_PollEvent(&e) != 0){
@@ -154,10 +156,9 @@ void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer)
     }
 }
 
-void MainMenu::_loadPlayer(bool &quit, bool &success, GameInitializer &initializer,
+void MainMenu::_loadPlayer(bool &quit, GameInitializer &initializer,
                            Socket &socket) {
-
-    bool finished = false;
+    bool finished = quit;
     SDL_Event e;
     while (!finished){
         while (SDL_PollEvent(&e) != 0){
@@ -178,9 +179,7 @@ void MainMenu::_loadPlayer(bool &quit, bool &success, GameInitializer &initializ
                     quit = true;
                     finished = true;
                 } else if (_isInsideRect(x,y,START_BUTTON)) {
-                    _connectLoadedPlayer(initializer, socket, success);
-                    finished = success;
-                    if (!finished) return;//Xq si fallo la conexion el server me desconecta
+                    finished = true;
                 }
             } else if (e.type == SDL_TEXTINPUT){
                 _handleTextInput(e);
@@ -196,9 +195,7 @@ void MainMenu::_loadPlayer(bool &quit, bool &success, GameInitializer &initializ
 
 void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initializer,
                              Socket &socket) {
-    bool finished = false;
-    GameType::Class myClass = GameType::WARRIOR;
-    GameType::Race myRace = GameType::HUMAN;
+    bool finished = quit;
     SDL_Event e;
     while (!finished){
         while (SDL_PollEvent(&e) != 0){
@@ -219,13 +216,10 @@ void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initial
                     quit = true;
                     finished = true;
                 } else if (_isInsideRect(x,y,START_BUTTON)) {
-                    _connectCreatedPlayer(initializer, socket, success,
-                            myClass, myRace);
-                    finished = success;
-                    if (!finished) return;//Xq si fallo la conexion el server me desconecta
+                   finished = true;
                 } else {
-                    _verifyClassSelection(myClass, x, y);
-                    _verifyRaceSelection(myRace, x, y);
+                    _verifyClassSelection(x, y);
+                    _verifyRaceSelection(x, y);
                 }
             } else if (e.type == SDL_TEXTINPUT){
                 _handleTextInput(e);
@@ -235,32 +229,31 @@ void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initial
                 }
             }
         }
-        _renderCreatePlayerScreen(myRace, myClass);
+        _renderCreatePlayerScreen();
     }
 }
 
-void MainMenu::_verifyClassSelection(GameType::Class& myClass, int x, int y){
-    if (_isInsideRect(x,y,WARRIOR_BUTTON)) myClass = GameType::WARRIOR;
-    else if (_isInsideRect(x,y,WIZARD_BUTTON)) myClass = GameType::WIZARD;
-    else if (_isInsideRect(x,y,CLERIC_BUTTON)) myClass = GameType::CLERIC;
-    else if (_isInsideRect(x,y,PALADIN_BUTTON)) myClass = GameType::PALADIN;
+void MainMenu::_verifyClassSelection(int x, int y){
+    if (_isInsideRect(x,y,WARRIOR_BUTTON)) info.myClass = GameType::WARRIOR;
+    else if (_isInsideRect(x,y,WIZARD_BUTTON)) info.myClass = GameType::WIZARD;
+    else if (_isInsideRect(x,y,CLERIC_BUTTON)) info.myClass = GameType::CLERIC;
+    else if (_isInsideRect(x,y,PALADIN_BUTTON)) info.myClass = GameType::PALADIN;
 }
 
-void MainMenu::_verifyRaceSelection(GameType::Race& race, int x, int y) {
-    if (_isInsideRect(x,y,HUMAN_BUTTON)) race = GameType::HUMAN;
-    else if (_isInsideRect(x,y,ELF_BUTTON)) race = GameType::ELF;
-    else if (_isInsideRect(x,y,DWARF_BUTTON)) race = GameType::DWARF;
-    else if (_isInsideRect(x,y,GNOME_BUTTON)) race = GameType::GNOME;
+void MainMenu::_verifyRaceSelection(int x, int y) {
+    if (_isInsideRect(x,y,HUMAN_BUTTON)) info.myRace = GameType::HUMAN;
+    else if (_isInsideRect(x,y,ELF_BUTTON)) info.myRace = GameType::ELF;
+    else if (_isInsideRect(x,y,DWARF_BUTTON)) info.myRace = GameType::DWARF;
+    else if (_isInsideRect(x,y,GNOME_BUTTON)) info.myRace = GameType::GNOME;
 }
 
-void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socket, bool& success
-                                            ,GameType::Class myClass, GameType::Race myRace) {
+void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socket, bool& success) {
     if (nicknameInputText.getText().find(' ') != std::string::npos) {
         errorText.updateText("Player nickname can not contain spaces");
         return;
     }
     if (!nicknameInputText.getText().empty()) {
-        initializer.loadPlayer(nicknameInputText.getText(), myRace, myClass);
+        initializer.loadPlayer(nicknameInputText.getText(), info.myRace, info.myClass);
         GameType::ConnectionResponse response{};
         socket.receive(reinterpret_cast<char*>(&response), sizeof(response));
         response = static_cast<GameType::ConnectionResponse>(ntohl(response));
@@ -402,7 +395,7 @@ void MainMenu::_renderLoadPlayerScreen() {
     window.show();
 }
 
-void MainMenu::_renderCreatePlayerScreen(GameType::Race race, GameType::Class myClass) {
+void MainMenu::_renderCreatePlayerScreen() {
     window.clear();
     window.setViewport(ScreenViewport);
     mainMenuBackground.render(0,0);
@@ -417,8 +410,8 @@ void MainMenu::_renderCreatePlayerScreen(GameType::Race race, GameType::Class my
     constitution.updateText("Constitution");
     intelligence.updateText("Intelligence");
     agility.updateText("Agility");
-    _renderClass(myClass);
-    _renderRace(race);
+    _renderClass();
+    _renderRace();
     strength.render(50, 400, {0x00,0x00,0x00});
     constitution.render(50, 500, {0x00,0x00,0x00});
     intelligence.render(50, 600, {0x00,0x00,0x00});
@@ -434,7 +427,7 @@ void MainMenu::_renderCreatePlayerScreen(GameType::Race race, GameType::Class my
     window.show();
 }
 
-void MainMenu::_renderClass(GameType::Class myClass) {
+void MainMenu::_renderClass() {
     text.updateText("Class: ");
     text.render(50, 200, {0x00,0x00,0x00});
     text.updateText("Warrior");
@@ -447,7 +440,7 @@ void MainMenu::_renderClass(GameType::Class myClass) {
     text.render(600, 200, {0x00,0x00,0x00});
 
     SDL_Rect outlineRect;
-    switch (myClass) {
+    switch (info.myClass) {
         case GameType::WARRIOR:
             outlineRect = WARRIOR_BUTTON;
             _updateWarriorSkills();
@@ -470,7 +463,7 @@ void MainMenu::_renderClass(GameType::Class myClass) {
     SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
 }
 
-void MainMenu::_renderRace(GameType::Race race) {
+void MainMenu::_renderRace() {
     text.updateText("Race: ");
     text.render(50, 300, {0x00,0x00,0x00});
     text.updateText("Human");
@@ -482,7 +475,7 @@ void MainMenu::_renderRace(GameType::Race race) {
     text.updateText("Gnome");
     text.render(600, 300, {0x00,0x00,0x00});
     SDL_Rect outlineRect;
-    switch (race) {
+    switch (info.myRace) {
         case GameType::HUMAN:
             outlineRect = HUMAN_BUTTON;
             _updateHumanSkills();
@@ -564,8 +557,3 @@ void MainMenu::_updateGnomeSkills() {
 MainMenu::~MainMenu(){
     SDL_StopTextInput();
 }
-
-
-
-
-
