@@ -253,7 +253,8 @@ bool MapTests::testGetTargetsOnEmptyMapReturnsEmptyList() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     std::vector<Coordinate> targets;
-    map.getTargets({25, 25}, 25, targets);
+    map.getAttackTargets({25, 25}, 25, targets);
+    //map.getTargets({25, 25}, 25, targets);
     return targets.empty();
 }
 
@@ -267,7 +268,7 @@ bool MapTests::testGetTargetsOnMapWithPlayerReturnsListWithOneElement() {
                                           {25, 25}, "Name"));
     map.addEntity({25, 25}, player);
     std::vector<Coordinate> targets;
-    map.getTargets({25, 25}, 25, targets);
+    map.getAttackTargets({25, 25}, 25, targets);
     return (targets.size() == 1) && (targets[0].jPosition == 25) && (targets[0].iPosition == 25);
 }
 

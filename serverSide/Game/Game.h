@@ -66,7 +66,7 @@ private:
 public:
 
     //Este constructor debe ser utilizado unicamente para las pruebas
-    //explicit Game(ClientsMonitor&& clientAux = ClientsMonitor());
+    //explicit Game(ClientsMonitor&& clientAux = ClientsMonitor()){};
 
     explicit Game(MapFileReader&& mapFile);
 
