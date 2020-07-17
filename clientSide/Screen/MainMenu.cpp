@@ -6,6 +6,7 @@
 #include "../Client/GameConstants.h"
 #include "../Client/GameInitializer.h"
 #include "../../libs/Socket.h"
+#include <netdb.h>
 
 #define START_BUTTON {1375, 875, 100, 25}
 #define CONNECT_BUTTON {1375, 875, 100, 25}
@@ -51,8 +52,7 @@ mainMenuBackground(texture) {
 }
 
 
-void MainMenu::connectLoop(bool& quit, std::string& _host,
-                    std::string& _port, Socket& socket) {
+void MainMenu::connectLoop(bool& quit, Socket& socket) {
     bool finished = false;
     SDL_Event e;
     while (!finished){
@@ -261,13 +261,13 @@ void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socke
     }
     if (!nicknameInputText.getText().empty()) {
         initializer.loadPlayer(nicknameInputText.getText(), myRace, myClass);
-        GameType::ConnectionResponse response;
+        GameType::ConnectionResponse response{};
         socket.receive(reinterpret_cast<char*>(response), sizeof(response));
         switch (response) {
             case GameType::ACCEPTED:
                 success = true;
                 break;
-            case GameType::INEXISTENT_PLAYER:
+            case GameType::UNAVAILABLE_PLAYER:
                 errorText.updateText("Inexistent player");
                 break;
             case GameType::UNKOWN_SERVER_ERROR:
@@ -283,13 +283,14 @@ void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socke
 void MainMenu::_connectLoadedPlayer(GameInitializer& initializer, Socket& socket, bool& success) {
     if (!nicknameInputText.getText().empty()) {
         initializer.loadPlayer(nicknameInputText.getText());
-        GameType::ConnectionResponse response;
-        socket.receive(reinterpret_cast<char*>(response), sizeof(response));
+        GameType::ConnectionResponse response{};
+        socket.receive(reinterpret_cast<char*>(&response), sizeof(int32_t));
+        response = static_cast<GameType::ConnectionResponse>(ntohl(response));
         switch (response) {
             case GameType::ACCEPTED:
                 success = true;
                 break;
-            case GameType::UNAVAILABLE_PLAYER:
+            case GameType::INEXISTENT_PLAYER:
                 errorText.updateText("Unavailable player");
                 break;
             case GameType::UNKOWN_SERVER_ERROR:

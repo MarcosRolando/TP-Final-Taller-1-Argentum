@@ -24,7 +24,7 @@ void Client::_processConnection() {
     class MainMenu mainMenu(game.getTextureRepo().getTexture(MainMenu),
                             game.getWindow());
 
-    mainMenu.connectLoop(quit, host, port, socket);
+    mainMenu.connectLoop(quit, socket);
     Window& window = game.getWindow();
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
