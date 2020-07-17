@@ -67,7 +67,7 @@ void PlayerInventoryGUI::_renderText() {
     text.render(160, 225, SDL_Color{0xFF,0xFF,0xFF});
 
     text.updateText("GOLD: " + std::to_string(gold) + "(" + std::to_string(safeGold) + ")");
-    text.render(161, 565, SDL_Color{0xFF,0xFF,0x00});
+    text.render(140, 565, SDL_Color{0xFF,0xFF,0x00});
 
     text.updateText(std::to_string(pInfo.getLevel()));
     text.render(70, 50, SDL_Color{0xFF,0xFF,0xFF});

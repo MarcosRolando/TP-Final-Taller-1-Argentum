@@ -6,7 +6,7 @@
 
 #define QUEUE_SIZE 10
 
-const int TIME_BETWEEN_SOUND_UPDATES = 125;
+const int TIME_BETWEEN_SOUND_UPDATES = 50;
 
 SoundPlayer::SoundPlayer() {
     std::srand(std::clock());

@@ -11,7 +11,7 @@
 //Despues prob dejems un solo Step/Attack/Explosion
 enum SoundID {SwordAttackSound, ArrowSound, Explotion1Sound, Explotion2Sound, Explotion3Sound,
         Death1Sound, Death2Sound, Attack1Sound, Attack2Sound, HeavyAttackSound, StepSound, HealingSound,
-        ZombieSound, SpiderSound, SkeletonSound};
+        ZombieSound, SpiderSound, SkeletonSound, GoblinSound};
 
 class SoundRepository {
 private:

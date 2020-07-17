@@ -55,6 +55,10 @@ void UpdateAttack::operator()(GameGUI &game) {
             if (_shouldPlaySound())
                 game.getMap().verifyQueueSound(position, SkeletonSound, 6);
             break;
+        case GameType::GOBLIN_ATTACK:
+            if (_shouldPlaySound())
+                game.getMap().verifyQueueSound(position, GoblinSound, 6);
+            break;
         default:
             break;
     }
