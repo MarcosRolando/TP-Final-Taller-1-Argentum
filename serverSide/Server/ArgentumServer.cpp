@@ -9,7 +9,7 @@
 
 const double  FRAME_TIME = 1/60.f; /*ms que tarda en actualizarse el juego*/
 const double TIME_FOR_CLIENTS_INITIALIZATION = 3; //ms dejados para mandarle la data inicial a los clientes
-const double BACKUP_TIME = 60; /*5 minutos*/
+const double BACKUP_TIME = 5*60; /*5 minutos*/
 
 using namespace std::chrono;
 
@@ -55,7 +55,6 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
             if (lastBackupTime / 1000 >= BACKUP_TIME) {
                 clients.backup();
                 timeBetweenBackups.start();
-                std::cerr << "backup hecho" << std::endl;
             }
             if (clients.hasWaitingClients() &&
                 (FRAME_TIME*1000 - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
