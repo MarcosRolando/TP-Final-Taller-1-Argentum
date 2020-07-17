@@ -6,14 +6,13 @@
 #include "Configuration.h"
 #include <random>
 
-const float CRITICAL_PROBABILITY = 0.05;
-
 using namespace Config;
 
 bool Calculator::isCritical() {
+    Configuration& config = Configuration::getInstance();
     std::random_device seed;
     std::default_random_engine generator(seed());
-    std::bernoulli_distribution dist(CRITICAL_PROBABILITY);
+    std::bernoulli_distribution dist(config.configCriticalAttackChance());
     return dist(generator);
 }
 
@@ -89,11 +88,8 @@ int Calculator::calculateDamage(unsigned int strength, int weaponDamage) {
 
 bool Calculator::canDodge(unsigned int agility) {
     float random = _getRandomFloat(0, 1);
-    agility -= 5;
-    if (agility < 0) {
-        agility = 0;
-    }
-    return (pow(random, agility) < 0.001);
+    Configuration& config = Configuration::getInstance();
+    return (pow(random, agility) < config.configDodgeChance());
 }
 
 float Calculator::_getRandomFloat(float minRange, float maxRange) {

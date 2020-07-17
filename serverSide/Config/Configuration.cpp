@@ -36,7 +36,6 @@ Configuration::Configuration() {
 
     newbieLevel = fileReader.loadNewbieLevel();
     maxLevelDif = fileReader.loadmaxLevelDif();
-    playerVisionRange = fileReader.loadPlayerVisionRange();
     playerSpeed = fileReader.loadPlayerSpeed();
     goldName = "Gold"; /*Lo guardamos por el tema de guardar las referencias a los nombres de los items*/
 }
@@ -87,10 +86,6 @@ unsigned int Configuration::configNewbieLevel() const{
 
 unsigned int Configuration::configMaxLevelDif() const{
     return maxLevelDif;
-}
-
-unsigned int Configuration::configPlayerVisionRange() const {
-    return playerVisionRange;
 }
 
 unsigned int Configuration::configTimeBetweenMonsterSpawns() const {
