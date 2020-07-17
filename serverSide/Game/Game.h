@@ -12,7 +12,7 @@
 #include "Events/Event.h"
 #include "../Items/ItemData.h"
 #include "ResurrectData.h"
-#include "../Server/ClientsMonitor.h"
+#include "../../libs/Timer.h"
 
 class EntityTests;
 struct PlayerData;
@@ -40,8 +40,8 @@ private:
 
     unsigned int monsterCreationRate;
     unsigned int maxNumberOfMonsters;
-    unsigned int spawnTimer;
     unsigned int  spawnInterval;
+    Timer monsterSpawnTimer;
     MonstersFactory monstersFactory;
 
     std::list<Monster*> monsters;
@@ -60,7 +60,7 @@ private:
     void _updateMonsters(double timeStep);
     void _updatePlayers(double timeStep);
     void _executeQueueOperations(ServerProtocol& protocol);
-    void _repopulateMap(double timePassed, ServerProtocol& protocol);
+    void _repopulateMap(ServerProtocol& protocol);
     void _updateDeadPlayersTimer(ServerProtocol& protocol, double timestep);
 
 public:

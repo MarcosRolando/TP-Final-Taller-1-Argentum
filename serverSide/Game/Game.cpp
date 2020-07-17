@@ -14,6 +14,7 @@
 #include <iostream>
 #include "../Server/PlayerData.hpp"
 #include "../Entities/Citizens/Banker.h"
+#include "../Config/Configuration.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 
@@ -27,14 +28,14 @@ const Coordinate defaultSpawnPoint = {88,83};
 //Carga hasta monsterCreationRate monstruos nuevos cada cierto invervalo de tiempo
 //Si la cantidad que se desea crear sobrepasa la cantidad maxima, entonces crea hasta
 //conseguir la cantidad maxima
-void Game::_repopulateMap(double timePassed, ServerProtocol& protocol) {
+void Game::_repopulateMap(ServerProtocol& protocol) {
     Coordinate aux{};
     std::stringstream data;
-    spawnTimer += static_cast<unsigned int>(timePassed);
-    if (spawnTimer >= spawnInterval) {
+    double timePassed = monsterSpawnTimer.getTime();
+    if (timePassed >= spawnInterval) {
         unsigned int monstersToCreate = monsterCreationRate;
         std::shared_ptr<Monster> monster;
-        spawnTimer = 0;
+        monsterSpawnTimer.start();
         if ((monstersToCreate + monsters.size()) > maxNumberOfMonsters) {
             monstersToCreate = maxNumberOfMonsters - monsters.size();
         }
@@ -124,7 +125,7 @@ void Game::dropItems(std::shared_ptr<Item> &&item, Coordinate position) {
 }
 
 void Game::update(double timeStep, ServerProtocol& protocol) {
-    _repopulateMap(timeStep, protocol);
+    _repopulateMap(protocol);
     _updateMonsters(timeStep);
     _updatePlayers(timeStep);
     _executeQueueOperations(protocol);
@@ -133,10 +134,11 @@ void Game::update(double timeStep, ServerProtocol& protocol) {
 }
 
 Game::Game(MapFileReader&& mapFile): priests(),  map(mapFile, priests) {
-    monsterCreationRate = 20;
-    maxNumberOfMonsters = 300;
-    spawnInterval = 100;
-    spawnTimer = 0;
+    Configuration& config = Configuration::getInstance();
+    monsterCreationRate = config.configMonsterSpawnAmount();
+    maxNumberOfMonsters = config.configMaxMonsterAmount();
+    spawnInterval = config.configTimeBetweenMonsterSpawns();
+    monsterSpawnTimer.start();
 }
 
 const Map& Game::getMap() const {
@@ -166,11 +168,6 @@ void Game::sell(Player &player, const std::string &itemName, Coordinate coordina
 void Game::pushEvent(std::unique_ptr<Event>&& event) {
     eventQueue.push(std::move(event));
 }
-
-#include "../Items/Attack/Weapon.h"
-#include "../Items/Defense/Head.h"
-#include "../Items/Defense/Shield.h"
-#include "../Items/Miscellaneous/ManaPotion.h"
 
 Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
     Coordinate spawnPosition{};

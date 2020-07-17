@@ -125,10 +125,6 @@ unsigned int Config::ConfigFileReader::loadmaxLevelDif() {
     return obj["MaxLevelDif"].asUInt();
 }
 
-unsigned int Config::ConfigFileReader::loadPlayerVisionRange() {
-    return obj["PlayerVisionRange"].asUInt();
-}
-
 void Config::ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
     modifier.lifeMultiplier = currModifier["Life"].asUInt();
     modifier.manaMultiplier = currModifier["Mana"].asUInt();

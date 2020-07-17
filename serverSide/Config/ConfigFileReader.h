@@ -74,6 +74,9 @@ namespace Config {
         float killXPMaxRange;
     };
 
+    /*La clase ConfigFileReader es la encargada de parsear el archivo de configuracion de json que contiene los datos
+     * tuneables del juego*/
+
     class ConfigFileReader {
     private:
         Json::Reader reader;
@@ -89,38 +92,51 @@ namespace Config {
     public:
         explicit ConfigFileReader(const std::string &path);
 
+        /*Carga los modificadores de las clases*/
         void loadClassModifiers(std::unordered_map<GameType::Class, Modifiers> &mods);
 
+        /*Carga los modificadores de las razas*/
         void loadRaceModifiers(std::unordered_map<GameType::Race, Modifiers> &mods);
 
+        /*Carga los stats de los monsters*/
         void loadMonsterStats(std::unordered_map<GameType::Entity, MonsterStats> &stats);
 
+        /*Carga los datos de las armas*/
         void loadWeaponData(std::unordered_map<GameType::Weapon, WeaponData> &stats);
 
+        /*Carga los datos de la ropa*/
         void loadClothingData(std::unordered_map<GameType::Clothing, ClothingData> &stats);
 
+        /*Carga los modificadores del oro*/
         void loadGoldModifiers(GoldModifiers &goldModifiers);
 
+        /*Carga los modificadores de la XP*/
         void loadXPModifiers(XPModifiers &xpModifiers);
 
+        /*Carga la probabilidad de ataque critico*/
         float loadCritAttackChance();
 
+        /*Carga la probabilidad de esquivar un ataque*/
         float loadDodgeChance();
 
+        /*Carga el nivel de newbie de player*/
         unsigned int loadNewbieLevel();
 
+        /*Carga la maxima diferencia de nivel permitida para el ataque entre players*/
         unsigned int loadmaxLevelDif();
 
-        unsigned int loadPlayerVisionRange();
-
+        /*Carga la velocidad de los players para caminar*/
         unsigned int loadPlayerSpeed();
 
+        /*Carga la data de las pociones (vida/mana recuperado)*/
         void loadPotionData(std::unordered_map<GameType::Potion, PotionData>& stats);
 
+        /*Carga la data de spawn de los monsters (cada cuanto respawnean, cantidad que respawnean, etc)*/
         void loadMonsterSpawnData(unsigned int &maxMonsterAmount,
                                   unsigned int &timeBetweenMonsterSpawns,
                                   unsigned int &monsterSpawnAmount);
 
+        /*Carga el oro incial que tienen los mercaderes (para comprar items de los players)*/
         unsigned int loadInitialMerchantGold();
 
     private:

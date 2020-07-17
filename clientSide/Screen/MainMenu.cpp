@@ -11,10 +11,11 @@
 #define START_BUTTON {1375, 875, 100, 25}
 #define CONNECT_BUTTON {1375, 875, 100, 25}
 #define EXIT_BUTTON {50,875,90,25}
+#define BACK_BUTTON {50,875,90,25}
 
-#define INPUT_HOST {115,100,365,25}
-#define INPUT_PORT {115,200,365,25}
-#define INPUT_NICKNAME {165,100,365,25}
+#define INPUT_HOST_BOX {115,100,365,25}
+#define INPUT_PORT_BOX {115,200,365,25}
+#define INPUT_NICKNAME_BOX {165,100,365,25}
 
 #define WARRIOR_BUTTON {150, 200, 100, 25}
 #define WIZARD_BUTTON {300, 200, 100, 25}
@@ -47,7 +48,7 @@ mainMenuBackground(texture) {
 
     hostInput = false;
     portInput = false;
-    nickInput = false;
+    nicknameInput = false;
     SDL_StartTextInput();
     info = {GameType::WARRIOR, GameType::HUMAN};
 }
@@ -56,28 +57,38 @@ void MainMenu::menuScreen(bool& quit, GameInitializer& initializer, Socket& sock
     bool createPlayer = false;
     bool loadPlayer = false;
     bool success = false;
+    bool goBack;
 
     while (!success && !quit) {
-        playerSelection(quit, createPlayer, loadPlayer);//Veo si quiere hacer load o create
+        _playerSelectionScreen(quit, createPlayer, loadPlayer);//Veo si quiere hacer load o create
         if (createPlayer) {
-            _createPlayer(quit, success, initializer, socket);
-            connectLoop(quit, socket);
-            if (!quit)//xq puedo hacer quit en el connect
-                _connectCreatedPlayer(initializer, socket, success);
+            do {
+                goBack = false;
+                _playerCreationScreen(quit, goBack);
+                if (goBack) break;
+                _connectScreen(quit, goBack, socket);
+                if (!quit && !goBack)//xq puedo hacer quit en el connect
+                    _connectCreatedPlayer(initializer, socket, success);
+            } while (goBack);
+        } else if (loadPlayer) {
+            do {
+                goBack = false;
+                _playerLoadScreen(quit, goBack);
+                if (goBack) break;
+                _connectScreen(quit, goBack, socket);
+                if (!quit && !goBack)//xq puedo hacer quit en el connect
+                    _connectLoadedPlayer(initializer, socket, success);
+            } while (goBack);
         }
-        else if (loadPlayer) {
-            _loadPlayer(quit, initializer, socket);
-            connectLoop(quit, socket);
-            if (!quit)//xq puedo hacer quit en el connect
-                _connectLoadedPlayer(initializer, socket, success);
-        }
-        if (!success) {
+        //Chequeo goBack porque si no me trate de conectar no tengo que cerrar el socket
+        if (!success && !goBack) {
             socket.close();
         }
     }
 }
 
-void MainMenu::connectLoop(bool& quit, Socket& socket) {
+/* Intenta conectarse al host/port que ingresa el usuario */
+void MainMenu::_connectScreen(bool& quit, bool& goBack, Socket& socket) {
     bool finished = quit;
     SDL_Event e;
     while (!finished){
@@ -86,23 +97,22 @@ void MainMenu::connectLoop(bool& quit, Socket& socket) {
                 quit = true;
                 finished = true;
             }
-            //Por si hago resize
             window.handleEvent(e);
             if (e.type == SDL_MOUSEBUTTONDOWN){
                 int x = 0, y = 0;
                 SDL_GetMouseState( &x, &y );
-                x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
-                y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
-                if (_isInsideRect(x,y,INPUT_HOST)) {
+                x = (float)x * ((float)DEFAULT_SCREEN_WIDTH / (float)window.getWidth());
+                y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT / (float)window.getHeight());
+                if (_isInsideRect(x, y, INPUT_HOST_BOX)) {
                     hostInput = true;
                     portInput = false;
-                } else if (_isInsideRect(x,y,INPUT_PORT)) {
+                } else if (_isInsideRect(x, y, INPUT_PORT_BOX)) {
                     hostInput = false;
                     portInput = true;
                 } else if (_isInsideRect(x,y,CONNECT_BUTTON)) {
                     _attemptToConnect(socket, finished);
-                } else if (_isInsideRect(x,y,EXIT_BUTTON)) {
-                    quit = true;
+                } else if (_isInsideRect(x,y,BACK_BUTTON)) {
+                    goBack = true;
                     finished = true;
                 }
             } else if (e.type == SDL_TEXTINPUT){
@@ -120,7 +130,8 @@ void MainMenu::connectLoop(bool& quit, Socket& socket) {
     errorText.updateText("");
 }
 
-void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer) {
+/* Chequea si el usuario quiere cargar un jugador o crear uno nuevo */
+void MainMenu::_playerSelectionScreen(bool& quit, bool& createPlayer, bool& loadPlayer) {
     bool finished = quit;
     SDL_Event e;
     while (!finished){
@@ -129,15 +140,12 @@ void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer)
                 quit = true;
                 finished = true;
             }
-            //Por si hago resize
             window.handleEvent(e);
             if (e.type == SDL_MOUSEBUTTONDOWN) {
                 int x = 0, y = 0;
                 SDL_GetMouseState(&x, &y);
-                x = (float) x *
-                    ((float) DEFAULT_SCREEN_WIDTH / (float) window.getWidth());
-                y = (float) y * ((float) DEFAULT_SCREEN_HEIGHT /
-                                 (float) window.getHeight());
+                x = (float) x * ((float) DEFAULT_SCREEN_WIDTH / (float) window.getWidth());
+                y = (float) y * ((float) DEFAULT_SCREEN_HEIGHT / (float) window.getHeight());
                 if (_isInsideRect(x, y, EXIT_BUTTON)) {
                     quit = true;
                     finished = true;
@@ -156,8 +164,9 @@ void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer)
     }
 }
 
-void MainMenu::_loadPlayer(bool &quit, GameInitializer &initializer,
-                           Socket &socket) {
+/* Permite al usuario elegir el nickname del player que quiere cargar */
+void MainMenu::_playerLoadScreen(bool &quit, bool& goBack) {
+    errorText.updateText("");
     bool finished = quit;
     SDL_Event e;
     while (!finished){
@@ -173,10 +182,10 @@ void MainMenu::_loadPlayer(bool &quit, GameInitializer &initializer,
                 SDL_GetMouseState( &x, &y );
                 x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
                 y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
-                if (_isInsideRect(x,y,INPUT_NICKNAME)){
-                    nickInput = true;
-                } else if (_isInsideRect(x,y,EXIT_BUTTON)) {
-                    quit = true;
+                if (_isInsideRect(x, y, INPUT_NICKNAME_BOX)){
+                    nicknameInput = true;
+                } else if (_isInsideRect(x,y,BACK_BUTTON)) {
+                    goBack = true;
                     finished = true;
                 } else if (_isInsideRect(x,y,START_BUTTON)) {
                     finished = true;
@@ -191,10 +200,12 @@ void MainMenu::_loadPlayer(bool &quit, GameInitializer &initializer,
         }
         _renderLoadPlayerScreen();
     }
+    nicknameInput = false;
 }
 
-void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initializer,
-                             Socket &socket) {
+/* Permite al usuario elegir los datos del jugador que quiere crear */
+void MainMenu::_playerCreationScreen(bool &quit, bool &goBack) {
+    errorText.updateText("");
     bool finished = quit;
     SDL_Event e;
     while (!finished){
@@ -210,10 +221,10 @@ void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initial
                 SDL_GetMouseState( &x, &y );
                 x = (float)x * ((float)DEFAULT_SCREEN_WIDTH/(float)window.getWidth());
                 y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
-                if (_isInsideRect(x,y,INPUT_NICKNAME)){
-                    nickInput = true;
-                } else if (_isInsideRect(x,y,EXIT_BUTTON)) {
-                    quit = true;
+                if (_isInsideRect(x, y, INPUT_NICKNAME_BOX)){
+                    nicknameInput = true;
+                } else if (_isInsideRect(x,y,BACK_BUTTON)) {
+                    goBack = true;
                     finished = true;
                 } else if (_isInsideRect(x,y,START_BUTTON)) {
                    finished = true;
@@ -231,8 +242,10 @@ void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initial
         }
         _renderCreatePlayerScreen();
     }
+    nicknameInput = false;
 }
 
+/* Verifica si se hizo click en alguna clase */
 void MainMenu::_verifyClassSelection(int x, int y){
     if (_isInsideRect(x,y,WARRIOR_BUTTON)) info.myClass = GameType::WARRIOR;
     else if (_isInsideRect(x,y,WIZARD_BUTTON)) info.myClass = GameType::WIZARD;
@@ -240,6 +253,7 @@ void MainMenu::_verifyClassSelection(int x, int y){
     else if (_isInsideRect(x,y,PALADIN_BUTTON)) info.myClass = GameType::PALADIN;
 }
 
+/* Verifica si se hizo click en alguna raza */
 void MainMenu::_verifyRaceSelection(int x, int y) {
     if (_isInsideRect(x,y,HUMAN_BUTTON)) info.myRace = GameType::HUMAN;
     else if (_isInsideRect(x,y,ELF_BUTTON)) info.myRace = GameType::ELF;
@@ -247,9 +261,10 @@ void MainMenu::_verifyRaceSelection(int x, int y) {
     else if (_isInsideRect(x,y,GNOME_BUTTON)) info.myRace = GameType::GNOME;
 }
 
+/* Intenta conectarse al servidor con el player que se quiere crear */
 void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socket, bool& success) {
     if (nicknameInputText.getText().find(' ') != std::string::npos) {
-        errorText.updateText("Player nickname can not contain spaces");
+        errorText.updateText("Nickname can not contain spaces");
         return;
     }
     if (!nicknameInputText.getText().empty()) {
@@ -262,7 +277,8 @@ void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socke
                 success = true;
                 break;
             case GameType::UNAVAILABLE_PLAYER:
-                errorText.updateText("Unavailable player");
+                errorText.updateText("Nickname \"" + nicknameInputText.getText() +
+                                                                "\" is already in use");
                 break;
             case GameType::UNKOWN_SERVER_ERROR:
                 errorText.updateText("Unknown Server Error");
@@ -274,6 +290,7 @@ void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socke
     }
 }
 
+/* Intenta conectarse al servidor con el player que se quiere cargar */
 void MainMenu::_connectLoadedPlayer(GameInitializer& initializer, Socket& socket, bool& success) {
     if (!nicknameInputText.getText().empty()) {
         initializer.loadPlayer(nicknameInputText.getText());
@@ -285,7 +302,8 @@ void MainMenu::_connectLoadedPlayer(GameInitializer& initializer, Socket& socket
                 success = true;
                 break;
             case GameType::INEXISTENT_PLAYER:
-                errorText.updateText("Unavailable player");
+                errorText.updateText("Player \"" + nicknameInputText.getText()
+                                                                + "\" does not exist");
                 break;
             case GameType::UNKOWN_SERVER_ERROR:
                 errorText.updateText("Unknown Server Error");
@@ -297,6 +315,7 @@ void MainMenu::_connectLoadedPlayer(GameInitializer& initializer, Socket& socket
     }
 }
 
+/* Intenta establecer una conexion con el servidor */
 void MainMenu::_attemptToConnect(Socket& socket, bool& finished) {
     try {
         socket.connect(hostInputText.getText(), portInputText.getText());
@@ -306,6 +325,7 @@ void MainMenu::_attemptToConnect(Socket& socket, bool& finished) {
     }
 }
 
+/* Chequea en donde se quiere hacer el input y lo procesa */
 void MainMenu::_handleTextInput(SDL_Event& e) {
     std::string newInput = e.text.text;
     if (hostInput) {
@@ -314,51 +334,55 @@ void MainMenu::_handleTextInput(SDL_Event& e) {
     } else if (portInput) {
         if (portInputText.getTextLength() < MAX_TEXT_LEN)
             portInputText.appendText(std::move(newInput));
-    } else if (nickInput) {
+    } else if (nicknameInput) {
         if (nicknameInputText.getTextLength() < MAX_TEXT_LEN)
             nicknameInputText.appendText(std::move(newInput));
     }
 }
 
+/* Borra una letra del texto donde se hizo click */
 void MainMenu::_handleBackspace() {
     if (hostInput) {
         hostInputText.eraseText();
     } else if (portInput) {
         portInputText.eraseText();
-    } else if (nickInput) {
+    } else if (nicknameInput) {
         nicknameInputText.eraseText();
     }
 }
 
+/* Chequea si se hizo click dentro de un rectangulo */
 bool MainMenu::_isInsideRect(int x, int y, SDL_Rect rect){
     return ((x > rect.x) && (x < rect.x + rect.w) && (y > rect.y) && (y <
     rect.y + rect.h));
 }
 
+/* Renderiza la pantalla de conexion */
 void MainMenu::_renderConnectScreen(){
     window.clear();
     window.setViewport(ScreenViewport);
     mainMenuBackground.render(0,0);
-    SDL_Rect outlineRect = INPUT_HOST;
-    SDL_SetRenderDrawColor(&window.getRenderer(), 0x3f, 0x2a,
-                           0x14, 0xFF);
-    SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
-    outlineRect = INPUT_PORT;
-    SDL_SetRenderDrawColor(&window.getRenderer(), 0x3f, 0x2a,
-                           0x14, 0xFF);
-    SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
 
+    /* Outline de la text box para el input de host y port */
+    SDL_Rect outlineRect = INPUT_HOST_BOX;
+    SDL_SetRenderDrawColor(&window.getRenderer(), 0x00, 0x00,
+                           0x00, 0xFF);
+    SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
+    outlineRect = INPUT_PORT_BOX;
+    SDL_SetRenderDrawColor(&window.getRenderer(),  0x00, 0x00,
+                           0x00, 0xFF);
+    SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
     text.updateText("Host: ");
-    text.render(50, 100, {0x00,0x00,0x00});
+    text.render(50, 100);
     text.updateText("Port: ");
-    text.render(50, 200, {0x00,0x00,0x00});
+    text.render(50, 200);
+    text.updateText("Connect");
+    text.render(1375, 875, {0xff,0xff,0xff});
+    text.updateText("Back");
+    text.render(50, 875, {0xff,0xff,0xff});
     hostInputText.render(115, 100);
     portInputText.render(115, 200);
     errorText.render(650, 875, {0xff,0xff,0xff});
-    text.updateText("Connect");
-    text.render(1375, 875, {0xff,0xff,0xff});
-    text.updateText("Exit");
-    text.render(50, 875, {0xff,0xff,0xff});
     window.show();
 }
 
@@ -367,9 +391,9 @@ void MainMenu::_renderPlayerSelectionScreen() {
     window.setViewport(ScreenViewport);
     mainMenuBackground.render(0,0);
     text.updateText("Create Player");
-    text.render(50, 100, {0x00,0x00,0x00});
+    text.render(50, 100);
     text.updateText("Load Player");
-    text.render(50, 200, {0x00,0x00,0x00});
+    text.render(50, 200);
     text.updateText("Exit");
     text.render(50, 875, {0xff,0xff,0xff});
     errorText.render(650, 875, {0xff,0xff,0xff});
@@ -380,18 +404,19 @@ void MainMenu::_renderLoadPlayerScreen() {
     window.clear();
     window.setViewport(ScreenViewport);
     mainMenuBackground.render(0,0);
-    SDL_Rect outlineRect = INPUT_NICKNAME;
-    SDL_SetRenderDrawColor(&window.getRenderer(), 0x3f, 0x2a,
-                           0x14, 0xFF);
+    /* Outline de la text box para el input de nickname */
+    SDL_Rect outlineRect = INPUT_NICKNAME_BOX;
+    SDL_SetRenderDrawColor(&window.getRenderer(), 0x00, 0x00,
+                           0x00, 0xFF);
     SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
     text.updateText("Nickname: ");
-    text.render(50, 100, {0x00,0x00,0x00});
-    nicknameInputText.render(165, 100,{0x00,0x00,0x00});
-    errorText.render(650, 875, {0xff,0xff,0xff});
+    text.render(50, 100);
     text.updateText("Start");
     text.render(1375, 875, {0xff,0xff,0xff});
-    text.updateText("Exit");
+    text.updateText("Back");
     text.render(50, 875, {0xff,0xff,0xff});
+    nicknameInputText.render(165, 100);
+    errorText.render(650, 875, {0xff,0xff,0xff});
     window.show();
 }
 
@@ -399,13 +424,13 @@ void MainMenu::_renderCreatePlayerScreen() {
     window.clear();
     window.setViewport(ScreenViewport);
     mainMenuBackground.render(0,0);
-    SDL_Rect outlineRect = INPUT_NICKNAME;
-    SDL_SetRenderDrawColor(&window.getRenderer(), 0x3f, 0x2a,
-                           0x14, 0xFF);
+    /* Outline de la text box para el input de nickname */
+    SDL_Rect outlineRect = INPUT_NICKNAME_BOX;
+    SDL_SetRenderDrawColor(&window.getRenderer(),  0x00, 0x00,
+                           0x00, 0xFF);
     SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
     text.updateText("Nickname: ");
-    text.render(50, 100, {0x00,0x00,0x00});
-
+    text.render(50, 100);
     strength.updateText("Strength");
     constitution.updateText("Constitution");
     intelligence.updateText("Intelligence");
@@ -416,13 +441,11 @@ void MainMenu::_renderCreatePlayerScreen() {
     constitution.render(50, 500, {0x00,0x00,0x00});
     intelligence.render(50, 600, {0x00,0x00,0x00});
     agility.render(50, 700, {0x00,0x00,0x00});
-
     nicknameInputText.render(165, 100,{0x00,0x00,0x00});
     errorText.render(650, 875, {0xff,0xff,0xff});
-
     text.updateText("Start");
     text.render(1375, 875, {0xff,0xff,0xff});
-    text.updateText("Exit");
+    text.updateText("Back");
     text.render(50, 875, {0xff,0xff,0xff});
     window.show();
 }
@@ -438,7 +461,7 @@ void MainMenu::_renderClass() {
     text.render(450, 200, {0x00,0x00,0x00});
     text.updateText("Paladin");
     text.render(600, 200, {0x00,0x00,0x00});
-
+    /* Outline de la clase que tengo seleccionada */
     SDL_Rect outlineRect;
     switch (info.myClass) {
         case GameType::WARRIOR:
@@ -474,6 +497,7 @@ void MainMenu::_renderRace() {
     text.render(450, 300, {0x00,0x00,0x00});
     text.updateText("Gnome");
     text.render(600, 300, {0x00,0x00,0x00});
+    /* Outline de la raza que tengo seleccionada */
     SDL_Rect outlineRect;
     switch (info.myRace) {
         case GameType::HUMAN:
