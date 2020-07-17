@@ -40,16 +40,16 @@ public:
     ~MainMenu();
 
 private:
-    void connectLoop(bool &quit, Socket& socket);
+    void _playerSelectionScreen(bool &quit, bool& createPlayer, bool& loadPlayer);
+    void _connectScreen(bool &quit, bool& goBack, Socket& socket);
+    void _playerCreationScreen(bool &quit, bool& goBack);
+    void _playerLoadScreen(bool &quit, bool& goBack);
     static bool _isInsideRect(int x, int y, SDL_Rect rect);
     void _renderConnectScreen();
     void _attemptToConnect(Socket &socket, bool &finished);
     void _handleTextInput(SDL_Event &e);
     void _handleBackspace();
     void _renderPlayerSelectionScreen();
-    void _createPlayer(bool &quit, bool& success, GameInitializer &initializer, Socket &socket);
-    void _loadPlayer(bool &quit, GameInitializer &initializer, Socket &socket);
-    void playerSelection(bool &quit, bool& createPlayer, bool& loadPlayer);
     void _connectLoadedPlayer(GameInitializer &initializer, Socket &socket, bool &success);
     void _connectCreatedPlayer(GameInitializer& initializer, Socket& socket, bool& success);
     void _renderLoadPlayerScreen();

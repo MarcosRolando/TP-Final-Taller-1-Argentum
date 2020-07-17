@@ -11,6 +11,8 @@
 #define START_BUTTON {1375, 875, 100, 25}
 #define CONNECT_BUTTON {1375, 875, 100, 25}
 #define EXIT_BUTTON {50,875,90,25}
+#define BACK_BUTTON {50,875,90,25}
+
 
 #define INPUT_HOST {115,100,365,25}
 #define INPUT_PORT {115,200,365,25}
@@ -56,28 +58,36 @@ void MainMenu::menuScreen(bool& quit, GameInitializer& initializer, Socket& sock
     bool createPlayer = false;
     bool loadPlayer = false;
     bool success = false;
+    bool goBack;
 
     while (!success && !quit) {
-        playerSelection(quit, createPlayer, loadPlayer);//Veo si quiere hacer load o create
+        _playerSelectionScreen(quit, createPlayer, loadPlayer);//Veo si quiere hacer load o create
         if (createPlayer) {
-            _createPlayer(quit, success, initializer, socket);
-            connectLoop(quit, socket);
-            if (!quit)//xq puedo hacer quit en el connect
-                _connectCreatedPlayer(initializer, socket, success);
+            do {
+                goBack = false;
+                _playerCreationScreen(quit, goBack);
+                if (goBack) break;
+                _connectScreen(quit, goBack, socket);
+                if (!quit && !goBack)//xq puedo hacer quit en el connect
+                    _connectCreatedPlayer(initializer, socket, success);
+            } while (goBack);
+        } else if (loadPlayer) {
+            do {
+                goBack = false;
+                _playerLoadScreen(quit, goBack);
+                if (goBack) break;
+                _connectScreen(quit, goBack, socket);
+                if (!quit && !goBack)//xq puedo hacer quit en el connect
+                    _connectLoadedPlayer(initializer, socket, success);
+            } while (goBack);
         }
-        else if (loadPlayer) {
-            _loadPlayer(quit, initializer, socket);
-            connectLoop(quit, socket);
-            if (!quit)//xq puedo hacer quit en el connect
-                _connectLoadedPlayer(initializer, socket, success);
-        }
-        if (!success) {
+        if (!success && !goBack) {
             socket.close();
         }
     }
 }
 
-void MainMenu::connectLoop(bool& quit, Socket& socket) {
+void MainMenu::_connectScreen(bool& quit, bool& goBack, Socket& socket) {
     bool finished = quit;
     SDL_Event e;
     while (!finished){
@@ -101,8 +111,8 @@ void MainMenu::connectLoop(bool& quit, Socket& socket) {
                     portInput = true;
                 } else if (_isInsideRect(x,y,CONNECT_BUTTON)) {
                     _attemptToConnect(socket, finished);
-                } else if (_isInsideRect(x,y,EXIT_BUTTON)) {
-                    quit = true;
+                } else if (_isInsideRect(x,y,BACK_BUTTON)) {
+                    goBack = true;
                     finished = true;
                 }
             } else if (e.type == SDL_TEXTINPUT){
@@ -120,7 +130,7 @@ void MainMenu::connectLoop(bool& quit, Socket& socket) {
     errorText.updateText("");
 }
 
-void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer) {
+void MainMenu::_playerSelectionScreen(bool& quit, bool& createPlayer, bool& loadPlayer) {
     bool finished = quit;
     SDL_Event e;
     while (!finished){
@@ -156,8 +166,8 @@ void MainMenu::playerSelection(bool& quit, bool& createPlayer, bool& loadPlayer)
     }
 }
 
-void MainMenu::_loadPlayer(bool &quit, GameInitializer &initializer,
-                           Socket &socket) {
+void MainMenu::_playerLoadScreen(bool &quit, bool& goBack) {
+    errorText.updateText("");
     bool finished = quit;
     SDL_Event e;
     while (!finished){
@@ -175,8 +185,8 @@ void MainMenu::_loadPlayer(bool &quit, GameInitializer &initializer,
                 y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
                 if (_isInsideRect(x,y,INPUT_NICKNAME)){
                     nickInput = true;
-                } else if (_isInsideRect(x,y,EXIT_BUTTON)) {
-                    quit = true;
+                } else if (_isInsideRect(x,y,BACK_BUTTON)) {
+                    goBack = true;
                     finished = true;
                 } else if (_isInsideRect(x,y,START_BUTTON)) {
                     finished = true;
@@ -191,10 +201,11 @@ void MainMenu::_loadPlayer(bool &quit, GameInitializer &initializer,
         }
         _renderLoadPlayerScreen();
     }
+    nickInput = false;
 }
 
-void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initializer,
-                             Socket &socket) {
+void MainMenu::_playerCreationScreen(bool &quit, bool &goBack) {
+    errorText.updateText("");
     bool finished = quit;
     SDL_Event e;
     while (!finished){
@@ -212,8 +223,8 @@ void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initial
                 y = (float)y * ((float)DEFAULT_SCREEN_HEIGHT/(float)window.getHeight());
                 if (_isInsideRect(x,y,INPUT_NICKNAME)){
                     nickInput = true;
-                } else if (_isInsideRect(x,y,EXIT_BUTTON)) {
-                    quit = true;
+                } else if (_isInsideRect(x,y,BACK_BUTTON)) {
+                    goBack = true;
                     finished = true;
                 } else if (_isInsideRect(x,y,START_BUTTON)) {
                    finished = true;
@@ -231,6 +242,7 @@ void MainMenu::_createPlayer(bool &quit, bool &success, GameInitializer &initial
         }
         _renderCreatePlayerScreen();
     }
+    nickInput = false;
 }
 
 void MainMenu::_verifyClassSelection(int x, int y){
@@ -249,7 +261,7 @@ void MainMenu::_verifyRaceSelection(int x, int y) {
 
 void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socket, bool& success) {
     if (nicknameInputText.getText().find(' ') != std::string::npos) {
-        errorText.updateText("Player nickname can not contain spaces");
+        errorText.updateText("Nickname can not contain spaces");
         return;
     }
     if (!nicknameInputText.getText().empty()) {
@@ -262,7 +274,8 @@ void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socke
                 success = true;
                 break;
             case GameType::UNAVAILABLE_PLAYER:
-                errorText.updateText("Unavailable player");
+                errorText.updateText("Nickname " + nicknameInputText.getText() +
+                                                                " is already in use");
                 break;
             case GameType::UNKOWN_SERVER_ERROR:
                 errorText.updateText("Unknown Server Error");
@@ -285,7 +298,8 @@ void MainMenu::_connectLoadedPlayer(GameInitializer& initializer, Socket& socket
                 success = true;
                 break;
             case GameType::INEXISTENT_PLAYER:
-                errorText.updateText("Unavailable player");
+                errorText.updateText("Player " + nicknameInputText.getText()
+                                                                + " does not exist");
                 break;
             case GameType::UNKOWN_SERVER_ERROR:
                 errorText.updateText("Unknown Server Error");
@@ -357,7 +371,7 @@ void MainMenu::_renderConnectScreen(){
     errorText.render(650, 875, {0xff,0xff,0xff});
     text.updateText("Connect");
     text.render(1375, 875, {0xff,0xff,0xff});
-    text.updateText("Exit");
+    text.updateText("Back");
     text.render(50, 875, {0xff,0xff,0xff});
     window.show();
 }
@@ -390,7 +404,7 @@ void MainMenu::_renderLoadPlayerScreen() {
     errorText.render(650, 875, {0xff,0xff,0xff});
     text.updateText("Start");
     text.render(1375, 875, {0xff,0xff,0xff});
-    text.updateText("Exit");
+    text.updateText("Back");
     text.render(50, 875, {0xff,0xff,0xff});
     window.show();
 }
@@ -422,7 +436,7 @@ void MainMenu::_renderCreatePlayerScreen() {
 
     text.updateText("Start");
     text.render(1375, 875, {0xff,0xff,0xff});
-    text.updateText("Exit");
+    text.updateText("Back");
     text.render(50, 875, {0xff,0xff,0xff});
     window.show();
 }
