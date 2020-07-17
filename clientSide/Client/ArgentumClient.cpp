@@ -24,13 +24,8 @@ void Client::_processConnection() {
     Window& window = game.getWindow();
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
-
     mainMenu.menuScreen(quit, initializer, socket);
-
-    //Game start
-    if (!quit){
-        initializer.initializeGame();
-    }
+    if (!quit) initializer.initializeGame();
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
     UpdateManager updateManager;
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
@@ -68,11 +63,6 @@ void Client::_processConnection() {
 
             game.getSoundPlayer().playSounds();
             game.render();
-            /* //todo ver si vuelvo esto porque ya tengo el vsync
-            if (timeStep.count() < (1/60.f*1000)) {
-                usleep((1/60.f*1000 - timeStep.count())*1000);
-            }
-             */
         }
     } catch (std::exception& e) {
         std::cerr << e.what() << " in Main Game Loop" << std::endl;

@@ -22,9 +22,10 @@ CommandVerifier::CommandVerifier() {
     _initCommands();
 }
 
+/* Inicializa el unordered_map de comandos */
 void CommandVerifier::_initCommands() {
     commands.emplace("/meditate", GameType::PLAYER_MEDITATE);
-    commands.emplace("/resurrect", GameType::PLAYER_RESURRECT);
+    commands.emplace("/revive", GameType::PLAYER_RESURRECT);
     commands.emplace("/heal", GameType::PLAYER_HEAL);
     commands.emplace("/deposit", GameType::PLAYER_DEPOSIT);
     commands.emplace("/withdraw", GameType::PLAYER_WITHDRAW);
@@ -44,7 +45,7 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
     //Agarro lo que tenga antes de un espacio. Eso deberia ser el comando
     std::string cmd = input.substr(0, input.find(' ', 0));
     GameType::PlayerEvent event;
-    if (cmd.front() == '@') {
+    if (cmd.front() == '@') {//Antes de ver si es un comando veo si es un nickname
         command = _processSendMessageToPlayer();
     } else {
         try {
@@ -87,6 +88,8 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
                     break;
             }
         } catch (std::exception& e) {
+            //Si no encuentra el comando en el unordered_map es que no es un comando
+            //valido asi que devuelvo nullptr
             return nullptr;
         }
     }
@@ -94,6 +97,7 @@ std::unique_ptr<InputCommand> CommandVerifier::verifyCommand(GameGUI& game,
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processRequestInventoryNames() {
+    //Chequeo que no haya nada escrito despues del comando
     if (input.size() > input.find(' ', 0)) {
         return nullptr;
     }
@@ -101,6 +105,7 @@ std::unique_ptr<InputCommand> CommandVerifier::_processRequestInventoryNames() {
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processMeditate() {
+    //Chequeo que no haya nada escrito despues del comando
     if (input.size() > input.find(' ', 0)) {
         return nullptr;
     }
@@ -148,9 +153,9 @@ std::unique_ptr<InputCommand> CommandVerifier::_processHeal(GameGUI& game) {
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processSell(GameGUI& game) {
-    //Agarro lo que haya dsps del espacio que deberian ser los parametros
     std::string parameters;
     if (input.size() > input.find(' ', 0)) {
+        //Agarro lo que haya dsps del espacio que deberia ser el item que quiero vender
         parameters = input.substr(input.find(' ', 0) + 1, input.size());
         if (!parameters.empty()) {
             return std::unique_ptr<InputCommand>(new SellCommand(
@@ -161,9 +166,9 @@ std::unique_ptr<InputCommand> CommandVerifier::_processSell(GameGUI& game) {
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processBuy(GameGUI& game) {
-    //Agarro lo que haya dsps del espacio que deberian ser los parametros
     std::string parameters;
     if (input.size() > input.find(' ', 0)) {
+        //Agarro lo que haya dsps del espacio que deberian ser los parametros
         parameters = input.substr(input.find(' ', 0) + 1, input.size());
         if (!parameters.empty()) {
             return std::unique_ptr<InputCommand>(new BuyCommand(
@@ -174,12 +179,13 @@ std::unique_ptr<InputCommand> CommandVerifier::_processBuy(GameGUI& game) {
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processDeposit(GameGUI& game) {
-    //Agarro lo que haya dsps del espacio que deberian ser los parametros
     std::string parameters;
     int separator = input.find(' ', 0);
     if ((int)input.size() > separator && separator != -1) {
+        //Agarro lo que haya dsps del espacio que deberian ser los parametros
         parameters = input.substr(separator + 1, input.size());
-        if (parameters.find("Gold", 0) != std::string::npos) {//Dice gold en el string
+        //Como para el gold tambien necesito una cantidad lo proceso distinto a un item
+        if (parameters.find("Gold", 0) != std::string::npos) {
             _processGold(parameters);
         }
         if (!parameters.empty()){
@@ -191,12 +197,13 @@ std::unique_ptr<InputCommand> CommandVerifier::_processDeposit(GameGUI& game) {
 }
 
 std::unique_ptr<InputCommand> CommandVerifier::_processWithdraw(GameGUI& game) {
-    //Agarro lo que haya dsps del espacio que deberian ser los parametros
     std::string parameters;
     int separator = input.find(' ', 0);
     if ((int)input.size() > separator && separator != -1) {
+        //Agarro lo que haya dsps del espacio que deberian ser los parametros
         parameters = input.substr(separator + 1, input.size());
-        if (parameters.find("Gold", 0) != std::string::npos) {//Dice gold en el string
+        //Como para el gold tambien necesito una cantidad lo proceso distinto a un item
+        if (parameters.find("Gold", 0) != std::string::npos) {
             _processGold(parameters);
         }
         if (!parameters.empty()){
@@ -210,7 +217,7 @@ std::unique_ptr<InputCommand> CommandVerifier::_processWithdraw(GameGUI& game) {
 void CommandVerifier::_processGold(std::string& parameter) {
     int separator = parameter.find(' ', 0);
     if ((int)parameter.size() > separator && separator != -1) {
-        //Agarro la parte del string q deberia tener la cant de gold
+        //Agarro la parte del string que deberia tener la cantidad de gold
         std::string goldAmount = parameter.substr(parameter.find(' ', 0) + 1,
                                                   parameter.size());
         try {
@@ -219,7 +226,7 @@ void CommandVerifier::_processGold(std::string& parameter) {
             parameter = "";//Si la cantidad no es un numero
         }
     } else {
-        parameter = "";
+        parameter = "";//Si no tengo una cantidad de oro
     }
 }
 
