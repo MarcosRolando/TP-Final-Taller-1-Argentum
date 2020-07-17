@@ -12,6 +12,7 @@
 #include "Events/Event.h"
 #include "../Items/ItemData.h"
 #include "ResurrectData.h"
+#include "../Server/ClientsMonitor.h"
 
 class EntityTests;
 struct PlayerData;
@@ -65,7 +66,7 @@ private:
 public:
 
     //Este constructor debe ser utilizado unicamente para las pruebas
-    //explicit Game(ClientsMonitor&& clientAux = ClientsMonitor());
+    //explicit Game(ClientsMonitor&& clientAux = ClientsMonitor()){};
 
     explicit Game(MapFileReader&& mapFile);
 
