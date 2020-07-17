@@ -102,8 +102,8 @@ std::pair<int, bool> PlayerStats::modifyLife(int damage, unsigned int attackerLe
         return {damage, false};
     } else {
         Configuration& config = Configuration::getInstance();
-        if (isAPlayer && std::abs(static_cast<int>(attackerLevel - level)) >
-                         config.configMaxLevelDif()) {
+        if (isAPlayer && std::abs(static_cast<int32_t>(attackerLevel) - level) >
+                                    static_cast<int32_t>(config.configMaxLevelDif())) {
             attackedMessage += MUCH_LEVEL_DIFF_MESSAGE + std::to_string(level) + "\n";
             return {0, false};
         }
