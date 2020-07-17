@@ -7,32 +7,52 @@
 #include "ClientHandler.h"
 #include "ClientsMonitor.h"
 #include <iostream>
-#include "../../libs/TPException.h"
 #include "PlayerManager.h"
+#include "../Exceptions/UnavailablePlayerException.h"
+#include "../Exceptions/InexistentPlayerException.h"
 
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 MSGPACK_ADD_ENUM(GameType::Class)
 MSGPACK_ADD_ENUM(GameType::Race)
 
-void ClientAccepter::run() {
-    const char acceptedConnection = 1;
-    const char deniedConnection = 0;
-    try {
-        while (keepRunning) {
-            Socket clientSocket = serverSocket.accept();
-            try {
-                PlayerData playerData = _receivePlayerInfo(clientSocket);
-                clientSocket.send(&acceptedConnection, sizeof(acceptedConnection));
+void ClientAccepter::_acceptClients() {
+    GameType::ConnectionResponse status;
+    while (keepRunning) {
+        Socket clientSocket = serverSocket.accept();
+        try {
+            PlayerData playerData = _receivePlayerInfo(clientSocket);
+            status = GameType::ACCEPTED;
+            if (_sendResponseToClient(clientSocket, status)) {
                 clients.pushToWaitingList(std::move(clientSocket), protocol, std::move(playerData));
-            } catch(std::exception& e) {
-                std::cerr << e.what() << std::endl;
-                try {
-                    clientSocket.send(&deniedConnection, sizeof(deniedConnection));
-                } catch(...) {
-                    //do nothing
-                }
             }
+        } catch(InexistentPlayerException& e) {
+            status = GameType::INEXISTENT_PLAYER;
+            _sendResponseToClient(clientSocket, status);
+        } catch (UnavailablePlayerException& e) {
+            status = GameType::UNAVAILABLE_PLAYER;
+            _sendResponseToClient(clientSocket, status);
+        } catch(...) {
+            std::cerr << "Uknown error while reading a client player information in accepter!" << std::endl;
+            status = GameType::UNKOWN_SERVER_ERROR;
+            _sendResponseToClient(clientSocket, status);
         }
+    }
+}
+
+bool ClientAccepter::_sendResponseToClient(Socket& clientSocket, GameType::ConnectionResponse status) {
+    status = static_cast<GameType::ConnectionResponse>(htonl(status));
+    try {
+        clientSocket.send(reinterpret_cast<char*>(&status), sizeof(status));
+    } catch(...) {
+        std::cerr << "Client disconnected suddenly in accepter" << std::endl;
+        return false;
+    }
+    return true;
+}
+
+void ClientAccepter::run() {
+    try {
+        _acceptClients();
     } catch (std::exception& e) {
         std::cerr << e.what() << " in accepter socket" << std::endl;
     } catch (...) {

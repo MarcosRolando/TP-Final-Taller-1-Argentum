@@ -7,6 +7,7 @@
 #include <arpa/inet.h>
 #include <vector>
 #include "../../libs/TPException.h"
+#include "../Exceptions/InexistentPlayerException.h"
 
 PlayerIndexFile::PlayerIndexFile(const std::string& filePath) {
     indexFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary);
@@ -55,7 +56,7 @@ PlayerFilePosition PlayerIndexFile::getPlayerPosition(const std::string& nicknam
     if (playerExists(nickname)) {
         return players.at(nickname);
     }
-    throw TPException("Intentaron conseguir un player que no existe!");
+    throw InexistentPlayerException();
 }
 
 void PlayerIndexFile::storeNewPlayer(const std::string &playerNickname,

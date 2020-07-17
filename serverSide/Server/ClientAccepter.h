@@ -42,6 +42,8 @@ private:
     PlayerData _receivePlayerInfo(Socket& clientSocket);
     PlayerData _createPlayer(std::vector<char>& buffer, std::size_t& offset);
     PlayerData _loadPlayer(std::vector<char>& buffer, std::size_t& offset);
+    void _acceptClients();
+    static bool _sendResponseToClient(Socket& clientSocket, GameType::ConnectionResponse status);
 };
 
 

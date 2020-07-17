@@ -10,7 +10,7 @@
 namespace GameType {
 
     enum ConnectionResponse : int32_t {
-        ACCEPTED, INEXISTENT_PLAYER, UNAVAILABLE_PLAYER
+        ACCEPTED, INEXISTENT_PLAYER, UNAVAILABLE_PLAYER, UNKOWN_SERVER_ERROR
     };
 
     enum PlayerEvent : int32_t {
