@@ -7,8 +7,9 @@
 #include "../../libs/Timer.h"
 #include <unistd.h>
 
-#define FRAME_TIME 1/60.f /*ms que tarda en actualizarse el juego*/
-#define TIME_FOR_CLIENTS_INITIALIZATION 3 //ms dejados para mandarle la data inicial a los clientes
+const double  FRAME_TIME = 1/60.f; /*ms que tarda en actualizarse el juego*/
+const double TIME_FOR_CLIENTS_INITIALIZATION = 3; //ms dejados para mandarle la data inicial a los clientes
+const double BACKUP_TIME = 60; /*5 minutos*/
 
 using namespace std::chrono;
 
@@ -26,7 +27,7 @@ void ArgentumServer::connect(const std::string& _port, const std::string& mapFil
 }
 #include <iostream>
 void ArgentumServer::_execute(const std::string& mapFilePath) {
-    Timer timer;
+    Timer timeBetweenUpdates, timeBetweenBackups;
     Game game((MapFileReader(mapFilePath)));
     ServerProtocol protocol(game);
     PlayerManager manager(game, protocol, "indexFile", "saveFile");
@@ -36,22 +37,31 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     ClientAccepter accepter(clients, protocol, socket, keepRunning, manager);
     accepter(); /*Acepta conexiones de clientes*/
 
+    timeBetweenBackups.start();
+
     try {
         double lastFrameTime = 0;
+        double lastBackupTime = 0;
         while (keepRunning) {
-            timer.start();
+            timeBetweenUpdates.start();
             clients.removeDisconnectedClients(protocol);
             clients.mergeClientsEvents();
             game.update(lastFrameTime, protocol);
             protocol.buildGeneralDataBuffer();
             clients.sendGameUpdate();
 
-            lastFrameTime = timer.getTime();
+            lastFrameTime = timeBetweenUpdates.getTime();
+            lastBackupTime = timeBetweenBackups.getTime();
+            if (lastBackupTime / 1000 >= BACKUP_TIME) {
+                clients.backup();
+                timeBetweenBackups.start();
+                std::cerr << "backup hecho" << std::endl;
+            }
             if (clients.hasWaitingClients() &&
                 (FRAME_TIME*1000 - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
                 clients.mergeWaitingClients(game, protocol);
             }
-            lastFrameTime = timer.getTime();
+            lastFrameTime = timeBetweenUpdates.getTime();
             std::cout << lastFrameTime << std::endl;
             if (lastFrameTime < FRAME_TIME*1000) {
                 usleep((FRAME_TIME*1000 - lastFrameTime) * 1000);

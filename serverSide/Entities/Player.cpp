@@ -18,6 +18,7 @@
 #define PLAYER_IS_DEAD_MESSAGE "You can't kill a ghost, you know?\n"
 #define DODGED_ATTACK_MESSAGE "You dodged an attack\n"
 #define GHOSTS_CANT_RESTORE_STATS_MESSAGE "Ghosts can't restore stats\n"
+#define WARRIOR_CANT_MEDITATE_MESSAGE "You are a Warrior and Warriors cannot meditate!\n"
 
 using namespace GameType;
 
@@ -147,7 +148,11 @@ void Player::restoreMana(unsigned int amount) {
 
 void Player::meditate() {
     if (!stats.isDead()) {
-        stats.startMeditating(chat);
+        if (pClass != GameType::WARRIOR) {
+            stats.startMeditating(chat);
+        } else {
+            addMessage(WARRIOR_CANT_MEDITATE_MESSAGE);
+        }
     }
 }
 
@@ -275,7 +280,6 @@ void Player::getInventoryNames() {
     inventory.getInventoryNames(chat);
 }
 
-
 void Player::startMovement(GameType::Direction direction) {
     movementBackup.isFollowingRoad = true;
     movementBackup.direction = direction;
@@ -295,7 +299,6 @@ PlayerData Player::getData() const {
     inventory.getData(pData);
     return pData;
 }
-
 
 
 void Player::_dropItems() {

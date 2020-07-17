@@ -60,6 +60,13 @@ void ClientsMonitor::removeDisconnectedClients(ServerProtocol& protocol) {
                                     shouldBeRemoved), clients.end());
 }
 
+void ClientsMonitor::backup() {
+    for (auto & client : clients) {
+        PlayerData dataToStore = client->getPlayerData();
+        manager.storeOldPlayer(dataToStore);
+    }
+}
+
 bool ClientShouldBeRemoved::operator()(std::unique_ptr<ClientHandler> &client) {
     if (client->hasFinished()) {
         PlayerData dataToStore = client->getPlayerData();
