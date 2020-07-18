@@ -5,8 +5,6 @@
 #include "catch.hpp"
 #include "EntityTests.h"
 
-using namespace fakeit;
-
 TEST_CASE("Store Item In Player Inventory Test") {
     REQUIRE(EntityTests::testStoreItem());
 }

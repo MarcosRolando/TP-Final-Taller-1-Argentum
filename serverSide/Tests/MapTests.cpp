@@ -268,7 +268,7 @@ bool MapTests::testGetTargetsOnMapWithPlayerReturnsListWithOneElement() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    std::shared_ptr<Player> player(new Player(reinterpret_cast<Game &>(game), {25,25}, PlayerData()));
+    std::shared_ptr<Player> player(new Player(game.get(), {25,25}, PlayerData()));
     map.addEntity({25, 25}, player);
     std::vector<Coordinate> targets;
     map.getAttackTargets({25, 25}, 25, targets);
@@ -281,7 +281,7 @@ bool MapTests::testGetTargetsOnMapWithDeadPlayerReturnsEmptyList() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    std::shared_ptr<Player> player(new Player(reinterpret_cast<Game &>(game), {25,25}, PlayerData()));
+    std::shared_ptr<Player> player(new Player(game.get(), {25,25}, PlayerData()));
     player->stats.currentLife = 0;
     map.addEntity({25, 25}, player);
     std::vector<Coordinate> targets;
@@ -295,7 +295,7 @@ bool MapTests::testPositionWithPlayerIsOccupied() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    std::shared_ptr<Player> player(new Player(reinterpret_cast<Game &>(game), {25,25}, PlayerData()));
+    std::shared_ptr<Player> player(new Player(game.get(), {25,25}, PlayerData()));
     map.addEntity({25, 25}, std::move(player));
     return !map.tiles[25][25].isAvailable();
 }
@@ -306,7 +306,7 @@ bool MapTests::testPositionWithMonsterIsOccupied() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    std::shared_ptr<Monster> monster(new Monster(reinterpret_cast<Game &>(game), {25, 25}, GameType::SKELETON, GameType::SKELETON_ATTACK));
+    std::shared_ptr<Monster> monster(new Monster(game.get(), {25, 25}, GameType::SKELETON, GameType::SKELETON_ATTACK));
     map.addEntity({25, 25}, std::move(monster));
     return !map.tiles[25][25].isAvailable();
 }
@@ -326,13 +326,14 @@ bool MapTests::testListOnEmptyTileReturnsEmptyList() {
 }
 
 bool MapTests::testListOnEmptyMapReturnsEmptyList() {
+    /*
     Map map;
     int mapXSize = 50;
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     std::list<ProductData> products;
     Mock<Game> game;
-    Player player(reinterpret_cast<Game &>(game), {0, 0}, PlayerData());
+    Player player(game.get(), {0, 0}, PlayerData());
     for (int i = 0; i < mapXSize; ++i) {
         for (int j = 0; j < mapYSize; ++j) {
             map.list(player, {i, j});
@@ -343,6 +344,8 @@ bool MapTests::testListOnEmptyMapReturnsEmptyList() {
         }
     }
     return true;
+    */
+    return false;
 }
 
 bool MapTests::testWithdrawOnEmptyTileGetsNoItem() {
@@ -351,7 +354,7 @@ bool MapTests::testWithdrawOnEmptyTileGetsNoItem() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    Player player(reinterpret_cast<Game &>(game), {0, 0}, PlayerData());
+    Player player(game.get(), {0, 0}, PlayerData());
     map.withdraw(player, "product", {5, 5});
     return player.inventory.storedItemsAmount == 0;
 }
@@ -362,7 +365,7 @@ bool MapTests::testWithdrawOnEmptyMapGetsNoItem() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    Player player(reinterpret_cast<Game &>(game), {0, 0}, PlayerData());
+    Player player(game.get(), {0, 0}, PlayerData());
     for (int i = 0; i < mapXSize; ++i) {
         for (int j = 0; j < mapYSize; ++j) {
             map.withdraw(player, "product", {i, j});
@@ -380,7 +383,7 @@ bool MapTests::testDepositExistentItemOnEmptyTileGetsNoItem() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    Player player(reinterpret_cast<Game &>(game), {0, 0}, PlayerData());
+    Player player(game.get(), {0, 0}, PlayerData());
     std::shared_ptr<Item> item(new Weapon(GameType::GNARLED_STAFF));
     player.storeItem(item);
     map.deposit(player, "product", {5, 5});
@@ -393,7 +396,7 @@ bool MapTests::testDepositExistentItemOnEmptyMapGetsNoItem() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    Player player(reinterpret_cast<Game &>(game), {0, 0}, PlayerData());
+    Player player(game.get(), {0, 0}, PlayerData());
     std::shared_ptr<Item> item(new Weapon(GameType::GNARLED_STAFF));
     player.storeItem(item);
     for (int i = 0; i < mapXSize; ++i) {
@@ -414,7 +417,7 @@ bool MapTests::testBuyItemFromEmptyTileGetsNoItem() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    Player player(reinterpret_cast<Game &>(game), {0, 0}, PlayerData());
+    Player player(game.get(), {0, 0}, PlayerData());
     map.buy(player, "product", {5, 5});
     return player.inventory.storedItemsAmount == 0;
 }
@@ -425,7 +428,7 @@ bool MapTests::testBuyItemFromEmptyMapGetsNoItem() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    Player player(reinterpret_cast<Game &>(game), {0, 0}, PlayerData());
+    Player player(game.get(), {0, 0}, PlayerData());
     for (int i = 0; i < mapXSize; ++i) {
         for (int j = 0; j < mapYSize; ++j) {
             map.buy(player, "product", {5, 5});
@@ -443,7 +446,7 @@ bool MapTests::testSellExistentItemToEmptyTileGetsNoItem() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    Player player(reinterpret_cast<Game &>(game), {0, 0}, PlayerData());
+    Player player(game.get(), {0, 0}, PlayerData());
     std::shared_ptr<Item> item(new Weapon(GameType::GNARLED_STAFF));
     player.storeItem(item);
     map.sell(player, "product", {5, 5});
@@ -456,7 +459,7 @@ bool MapTests::testSellExistentItemToEmptyMapGetsNoItem() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    Player player(reinterpret_cast<Game &>(game), {0, 0}, PlayerData());
+    Player player(game.get(), {0, 0}, PlayerData());
     std::shared_ptr<Item> item(new Weapon(GameType::GNARLED_STAFF));
     player.storeItem(item);
     for (int i = 0; i < mapXSize; ++i) {
@@ -476,7 +479,7 @@ bool MapTests::testMoveEntity() {
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
     Mock<Game> game;
-    std::shared_ptr<Monster> monster(new Monster(reinterpret_cast<Game &>(game), {25, 25}, GameType::SKELETON, GameType::SKELETON_ATTACK));
+    std::shared_ptr<Monster> monster(new Monster(game.get(), {25, 25}, GameType::SKELETON, GameType::SKELETON_ATTACK));
     map.addEntity({25, 25}, std::move(monster));
     map.moveEntity({25, 25}, {26, 26});
     return map.isPlaceAvailable({25, 25}) && !map.isPlaceAvailable({26, 26});
