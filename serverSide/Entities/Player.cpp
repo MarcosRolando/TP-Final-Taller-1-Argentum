@@ -28,8 +28,7 @@ MSGPACK_ADD_ENUM(GameType::EventID)
 ////////////////////////////////////PUBLIC///////////////////////////////
 
 Player::Player(Game& _game, Coordinate _initialPosition, const PlayerData& data):
-               Entity(GameType::Entity::PLAYER, _initialPosition, std::move(data.nickname),
-                                                                                true),
+               Entity(GameType::Entity::PLAYER, _initialPosition, data.nickname, true),
                inventory(data),
                stats(data),
                game(_game) {

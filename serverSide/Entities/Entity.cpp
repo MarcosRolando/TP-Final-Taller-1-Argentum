@@ -17,8 +17,8 @@ MSGPACK_ADD_ENUM(GameType::Direction)
 
 unsigned int Entity::availableId = 0;
 
-Entity::Entity(GameType::Entity _type, Coordinate initialPosition, std::string&& _nicknamePrefix,
-               bool isPrefixUnique /*= false*/) {
+Entity::Entity(GameType::Entity _type, Coordinate initialPosition,
+        const std::string& _nicknamePrefix, bool isPrefixUnique /*= false*/) {
     currentPosition.iPosition = initialPosition.iPosition;
     currentPosition.jPosition = initialPosition.jPosition;
     movement.movedDistance = 0;
