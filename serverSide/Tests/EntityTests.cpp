@@ -23,8 +23,10 @@ using namespace fakeit;
 
 bool EntityTests::testStoreItem() {
     Mock<Game> game;
+    PlayerData data;
+    data.isNewPlayer = true;
     Configuration& config = Configuration::getInstance();
-    Player player(game.get(), {0,0}, PlayerData());
+    Player player(game.get(), {0,0}, data);
     std::shared_ptr<Item> item(new Weapon(GameType::Weapon::LONGSWORD));
     player.storeItem(item);
     return (player.removeItem(config.configWeaponData(GameType::Weapon::LONGSWORD).name)->getName()
@@ -98,7 +100,9 @@ bool EntityTests::testLifeAndManaRecovery() {
 }
 
 bool EntityTests::_testUnequipWeapon(Game& game) {
-    Player player(reinterpret_cast<Game &>(game), {0,0}, PlayerData());
+    PlayerData data;
+    data.isNewPlayer = true;
+    Player player(game, {0,0}, data);
     player.unequip(); /*No deberia hacer nada*/
     if (player.inventory.items[0]) return false;
     std::shared_ptr<Item> item(new Weapon(GameType::GNARLED_STAFF));
@@ -108,12 +112,13 @@ bool EntityTests::_testUnequipWeapon(Game& game) {
     if (!player.inventory.equippedWeapon) return false;
     player.unequip();
     if (!player.inventory.items[0]) return false;
-    if (player.inventory.equippedWeapon) return false;
-    return true;
+    return (player.inventory.equippedWeapon->getId() == GameType::FIST);
 }
 
 bool EntityTests::_testUnequipClothing(Game& game) {
-    Player player(reinterpret_cast<Game &>(game), {0,0}, PlayerData());
+    PlayerData data;
+    data.isNewPlayer = true;
+    Player player(reinterpret_cast<Game &>(game), {0,0}, data);
     player.unequip(GameType::EQUIPMENT_PLACE_CHEST); /*No deberia hacer nada*/
     if (player.inventory.items[0]) return false;
     std::shared_ptr<Item> item(new Chest(GameType::PLATE_ARMOR));
@@ -123,8 +128,8 @@ bool EntityTests::_testUnequipClothing(Game& game) {
     if (!player.inventory.clothingEquipment.at(GameType::EQUIPMENT_PLACE_CHEST)) return false;
     player.unequip(GameType::EQUIPMENT_PLACE_CHEST);
     if (!player.inventory.items[0]) return false;
-    if (player.inventory.clothingEquipment.at(GameType::EQUIPMENT_PLACE_CHEST)) return false;
-    return true;
+    return (player.inventory.clothingEquipment.at(
+            GameType::EQUIPMENT_PLACE_CHEST)->getId() == GameType::COMMON_CLOTHING);
 }
 
 bool EntityTests::testUnequipGear() {
@@ -258,7 +263,9 @@ bool EntityTests::testMonsterAttacksPlayer() {
 
 bool EntityTests::testPlayerSellsItem() {
     Mock<Game> game;
-    Player player(game.get(), {0,0}, PlayerData());
+    PlayerData data;
+    data.isNewPlayer = true;
+    Player player(game.get(), {0,0}, data);
     Trader trader({0, 1});
     std::shared_ptr<Item> weapon(new Weapon(GameType::LONGSWORD));
     player.storeItem(weapon);
