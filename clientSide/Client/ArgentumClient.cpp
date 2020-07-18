@@ -113,25 +113,25 @@ void Client::_initializeSDL() {
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
         throw TPException("Graphics could not initialize! Graphics Error: %s\n", SDL_GetError());
     } else {
-        //Set texture filtering to linear
+        //Setea filtrado de texturas lineal
         if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "MipmapLinearNearest")) {
             std::cerr << "Warning: Linear texture filtering not enabled!" << std::endl;
         }
-        //Initialize PNG loading
+        //Inicializa la carga de png
         int imgFlags = IMG_INIT_PNG;
         if(!(IMG_Init(imgFlags) & imgFlags)) {
             SDL_Quit();
             throw TPException("SDL_image could not initialize! SDL_mage Error: %s\n", IMG_GetError() );
         }
     }
-    if(Mix_OpenAudio(FREQUENCY, MIX_DEFAULT_FORMAT, 2,
-                                                            CHUNKSIZE) < 0) {
+    //Inicializa el reproductor de audio
+    if(Mix_OpenAudio(FREQUENCY, MIX_DEFAULT_FORMAT, 2, CHUNKSIZE) < 0) {
         IMG_Quit();
         SDL_Quit();
         throw TPException("SDL_mixer could not initialize!"
                           " SDL_mixer Error: %s\n", Mix_GetError());
     }
-    //Initialize SDL_ttf
+    //Inicializa el cargado de fonts para texto
     if(TTF_Init() == -1) {
         Mix_Quit();
         IMG_Quit();

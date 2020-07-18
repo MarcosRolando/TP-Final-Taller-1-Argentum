@@ -19,48 +19,39 @@ enum Viewports {
 
 class Window {
 private:
-    //Window data
     SDL_Window* mWindow;
     SDL_Renderer* renderer;
 
     std::unordered_map<Viewports, SDL_Rect> viewports;
-    //Window dimensions
     int mWidth;
     int mHeight;
 
-    //Window focus
-    bool mMouseFocus; /*Por ahora no los uso*/
-    bool mKeyboardFocus;
     bool mFullScreen;
     bool mMinimized;
 
 public:
-    //Intializes internals
+    /* Constructor */
     Window();
+    /* Maneja los eventos de la ventana. Por ejemplo resize o minimizar */
+    bool handleEvent(SDL_Event& e);
+    //bool isMinimized() const;
+    /* Limpia la ventana para poder renderizar */
+    void clear();
+    /* Muestra lo que haya renderizado */
+    void show();
+    /* Setea un viewport */
+    void setViewport(Viewports viewport);
 
     SDL_Renderer& getRenderer();
-
-    //Handles window events, returns true if it was handled, false otherwise
-    bool handleEvent(SDL_Event& e);
-
-    bool isMinimized() const;
-
-    void clear();
-
-    void show();
-
     int getWidth() const;
     int getHeight() const;
 
+    /* Destructor */
     ~Window();
-
-    void setViewport(Viewports viewport);
 
 private:
     void _createViewports();
-    //Creates window
     void _createWindow();
-    //Creates renderer from internal window
     void _createRenderer();
 };
 

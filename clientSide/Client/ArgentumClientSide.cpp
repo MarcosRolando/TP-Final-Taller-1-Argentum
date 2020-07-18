@@ -2,7 +2,7 @@
 #include "ArgentumClient.h"
 #include <iostream>
 
-#define INVALID_ARGUMENTS_MESSAGE "Error: argumentos invalidos."
+#define INVALID_ARGUMENTS_MESSAGE "Error: Invalid Arguments."
 #define ARGUMENT_AMOUNT 1
 
 int ArgentumClientSide::run(int argc) {

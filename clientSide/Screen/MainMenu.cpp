@@ -32,9 +32,11 @@
 
 #define MAX_TEXT_LEN 13
 
+#define MAIN_MENU_FONT_PATH "../../clientSide/Graphics/Text/medieval.ttf"
+
 
 MainMenu::MainMenu(Texture& texture, Window& window) : window(window),
-mainMenuFont("../../clientSide/Graphics/Text/medieval.ttf", 25),
+mainMenuFont(MAIN_MENU_FONT_PATH, 25),
 text(mainMenuFont, window.getRenderer()),
 hostInputText(mainMenuFont, window.getRenderer()),
 portInputText(mainMenuFont, window.getRenderer()) ,

@@ -5,7 +5,7 @@
 #include "PlayerInventoryGUI.h"
 #include "../../Client/GameConstants.h"
 
-#define INVENTORY_SIZE 16 //////////////////////////////USAR EL GENERAL
+#define INVENTORY_SIZE 16
 
 #define INVENTORY_ITEMS_X_OFFSET 45
 #define INVENTORY_ITEMS_Y_OFFSET 235
@@ -16,10 +16,11 @@
 #define INVENTORY_OUTLINES_X_OFFSET 73
 #define INVENTORY_OUTLINES_Y_OFFSET 260
 
+#define INVENTORY_FONT_PATH "../../clientSide/Graphics/Text/medieval.ttf"
 
 PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &renderer,
                                        PlayerInfoGUI& playerInfo) :
-                                       textFont("../../clientSide/Graphics/Text/medieval.ttf", 25),
+                                       textFont(INVENTORY_FONT_PATH, 25),
                                             text(textFont,renderer), repo(repo),
                                             renderer(renderer), pInfo(playerInfo) {
     gold = 0;
@@ -79,7 +80,7 @@ void PlayerInventoryGUI::_renderText() {
     text.render(200, 880, {0xFF, 0xFF, 0xFF});
 
     text.updateText(pInfo.getNickname());
-    text.render(145,100, {0xFF,0xFF,0xFF});
+    text.render(210,95, {0xFF,0xFF,0xFF});
 }
 
 void PlayerInventoryGUI::_renderSkills(){

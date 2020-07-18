@@ -10,7 +10,7 @@ ItemDrop::ItemDrop(Coordinate position) : sTexture(nullptr) {
 }
 
 void ItemDrop::render(SDL_Rect& camera) {
-    //If the tile is on screen
+    //Si el tile se ve en la pantalla
     if (sTexture != nullptr) {
         sTexture->render(box.x - camera.x, box.y - camera.y, 0, -90);
     }
