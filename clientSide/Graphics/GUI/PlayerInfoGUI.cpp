@@ -7,14 +7,12 @@
 #include <utility>
 #include "../../Client/GameConstants.h"
 
-#define PLAYER_INFO_FONT_PATH "../../clientSide/Graphics/Text/medieval.ttf"
+#define PLAYER_INFO_FONT_PATH "../../clientSide/Assets/Fonts/medieval.ttf"
 
 PlayerInfoGUI::PlayerInfoGUI(SDL_Renderer &renderer, SoundPlayer& soundPlayer) :
 infoFont(PLAYER_INFO_FONT_PATH, 25), info(infoFont, renderer), renderer(renderer),
 soundPlayer(soundPlayer) {
     pInfo = {};
-    pInfo.level = 1; //Lo inicializo en 1 porque sino al empezar con un nuevo personaje
-                    // se reproduce el sonido de subir de nivel
 }
 
 void PlayerInfoGUI::_updateHealth(int32_t currHealth){

@@ -11,7 +11,7 @@
 #define MAX_MSGS 24 //El maximo de mensajes qu ese van a ver al scrollear
 #define MAX_MSGS_TO_RENDER 8
 
-#define MINICHAT_FONT_PATH "../../clientSide/Graphics/Text/Raleway-Medium.ttf"
+#define MINICHAT_FONT_PATH "../../clientSide/Assets/Fonts/Raleway-Medium.ttf"
 
 Minichat::Minichat(SDL_Renderer& renderer) : minichatFont(MINICHAT_FONT_PATH, 20),
                                 input(minichatFont,renderer), renderer(renderer) {
