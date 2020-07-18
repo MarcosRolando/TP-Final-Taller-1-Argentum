@@ -14,6 +14,8 @@
 class Entity;
 class ServerProtocol;
 
+//Clase que se almacena en la cola de eventos para notificarle a los clientes que
+//un entity se desplazo
 class Moved: public Event {
 private:
     Entity& entity;
@@ -22,6 +24,9 @@ private:
 
 public:
     Moved(Entity& entity, GameType::Direction direction, int32_t displacement);
+
+    //Almacena en el protocolo el mensaje del desplazamiento de un entity para
+    //comunicarselo a todos los clientes
     void operator()(ServerProtocol& protocol) override;
 };
 
