@@ -12,7 +12,7 @@ int ArgentumClientSide::run(int argc) {
     }
     try {
         Client client;
-        client.connect();
+        client.run();
     } catch(std::exception& e) {
         std::cerr << e.what() << std::endl;
     }

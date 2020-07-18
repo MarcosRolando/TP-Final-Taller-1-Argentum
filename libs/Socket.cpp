@@ -4,7 +4,7 @@
 #include "TPException.h"
 #include <cstring>
 
-#define CONNECT_ERROR_MSG "Could not connect. "
+#define CONNECT_ERROR_MSG "Could not run. "
 #define BIND_ERROR_MSG "Could not bind. "
 #define ACCEPT_ERROR_MSG "Error in accept: "
 #define SEND_ERROR_MSG "Error in send: "

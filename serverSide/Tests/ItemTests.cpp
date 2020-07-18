@@ -14,10 +14,8 @@
 
 bool ItemTests::testInitialValues() {
     std::string name = "Mi nombre es Item!";
-    //unsigned int price = 100;
     Item item(GameType::ITEM_TYPE_CLOTHING, name/*, price*/);
     bool status = (item.getName() == name);
-    //status = status && (item.getPrice() == price);
     status = status && (item.type == GameType::ITEM_TYPE_CLOTHING);
     return status;
 }

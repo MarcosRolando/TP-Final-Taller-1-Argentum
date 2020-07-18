@@ -79,7 +79,7 @@ void PlayerInventoryGUI::_renderText() {
     text.render(200, 880, {0xFF, 0xFF, 0xFF});
 
     text.updateText(pInfo.getNickname());
-    text.render(100,100, {0xFF,0xFF,0xFF});
+    text.render(145,100, {0xFF,0xFF,0xFF});
 }
 
 void PlayerInventoryGUI::_renderSkills(){

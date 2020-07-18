@@ -13,27 +13,24 @@ struct GameStartInfo;
 
 class Client {
 private:
-    std::string host, port;
     Socket socket;
-    bool finished;
 
 public:
+    /* Constructor */
     Client();
     Client(const Client&) = delete; /*Borro los constructores por copia*/
     Client operator=(const Client&) = delete;
 
-    /*Levanta el cliente en el host y puerto especificados en el constructor*/
-    void connect();
-
+    /* Comienza la ejecucion del cliente */
+    void run();
+    /* Destructor */
     ~Client();
 
 private:
-    void _processConnection();
+    void _gameLoop();
     static void _initializeSDL();
     static void _closeSDL();
     static void _setCursor();
-
-    void _mainMenuLoop(GameGUI& game, bool& quit, GameStartInfo& startInfo);
 };
 
 
