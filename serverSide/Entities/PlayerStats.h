@@ -48,6 +48,8 @@ private:
     friend MapTests;
 
 public:
+    //Construye el PlayerStats utilizando los datos almacenados en la instancia de PlayerData
+    //Esta pensado para cargar los stats que tuvo un jugador antes de desconectarse
     explicit PlayerStats(const PlayerData& data);
 
     //Retorna el danio base que logro hacer el arma del player para el ataque
@@ -56,7 +58,7 @@ public:
     //Retorna el level actual del player
     unsigned int getLevel() const;
 
-    //Aumenta el xp del player
+    //Aumenta la xp del player
     void increaseExperience(unsigned int _experience);
 
     //Modifica la vida del player acorde al danio/curacion ocasionados
@@ -64,7 +66,7 @@ public:
     std::pair<int, bool> modifyLife(int damage, unsigned int attackerLevel, unsigned int defense,
                    bool isAPlayer, std::string& attackedMessage);
 
-    //Retorna la maxima vida que puede tener el player dado su nivel actual
+    //Retorna la maxima vida que puede tener el player dados sus stats actuales
     int getMaxLife() const;
 
     //Retorna la vida actual del player
@@ -90,19 +92,21 @@ public:
 
     int32_t& getCurrentMana();
 
+    //Setea el mana y la vida actual en sus valores maximos
     void restore();
 
     //Guarda experiencia, experiencia para proximo nivel, nivel, mana actual, mana maximo,
-    //vida, vida maxima y si esta vivo (true) o muerto (false)
+    //vida, vida maxima y si esta vivo (true) o muerto (false) en buffer
     void storeAllRelevantData(std::stringstream& buffer) const;
 
-    //Guarda true si esta vivo, sino guarda false
+    //Guarda true si esta vivo, sino guarda false en buffer
     void storeLifeStatus(std::stringstream& buffer) const;
 
     //Almacena las stats del player en pData, se usa para el backup del archivo
     void getData(PlayerData& pData) const;
 
-
+    //Intenta consumir amount cantidad de mana, retorna true si lo pudo hacer,
+    //sino retorna false
     bool consumeMana(unsigned int amount);
 
 private:
