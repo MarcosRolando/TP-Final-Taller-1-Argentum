@@ -24,6 +24,7 @@ private:
     std::stringstream msgBuffer;
 
 public:
+    /* Constructor */
     ClientEventHandler(Socket& _socket, bool& quit, GameGUI& game,
                             BlockingQueue<std::unique_ptr<SDL_Event>>& _events)
                         : socket(_socket), quit(quit), game(game), events(_events) {};
@@ -31,19 +32,12 @@ public:
 
 private:
     void _handleKeyDown(SDL_Event& e);
-
     void _sendMessage();
-
     void _handleMouseButtonDown(SDL_Event &e);
-
     void _processAttack(Coordinate coordinate);
-
     void _processUseItem(int _inventorySlot);
-
     void _processUnequipItem(GameType::EquipmentPlace _equipment);
-
     void _processCommandInput();
-
     void _handleKeyUp(SDL_Event& e);
 };
 
