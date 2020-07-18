@@ -30,7 +30,7 @@
 #define LOAD_PLAYER_BUTTON {50,200,175,25}
 #define CREATE_PLAYER_BUTTON {50,100,175,25}
 
-#define MAX_TEXT_LEN 25
+#define MAX_TEXT_LEN 13
 
 
 MainMenu::MainMenu(Texture& texture, Window& window) : window(window),
@@ -67,7 +67,7 @@ void MainMenu::menuScreen(bool& quit, GameInitializer& initializer, Socket& sock
                 _playerCreationScreen(quit, goBack);
                 if (goBack) break;
                 _connectScreen(quit, goBack, socket);
-                if (!quit && !goBack)//xq puedo hacer quit en el connect
+                if (!quit && !goBack)
                     _connectCreatedPlayer(initializer, socket, success);
             } while (goBack);
         } else if (loadPlayer) {
@@ -76,7 +76,7 @@ void MainMenu::menuScreen(bool& quit, GameInitializer& initializer, Socket& sock
                 _playerLoadScreen(quit, goBack);
                 if (goBack) break;
                 _connectScreen(quit, goBack, socket);
-                if (!quit && !goBack)//xq puedo hacer quit en el connect
+                if (!quit && !goBack)//xq puedo hacer quit en el run
                     _connectLoadedPlayer(initializer, socket, success);
             } while (goBack);
         }

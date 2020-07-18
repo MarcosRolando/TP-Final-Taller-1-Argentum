@@ -155,7 +155,7 @@ void ClientEventHandler::_processCommandInput() {
             if (inputCmd) {
                 (*inputCmd)(msgBuffer);//Arma el mensaje y lo packea en msgBuffer
             } else {
-                game.getMinichat().receiveText("Comando Invalido");
+                game.getMinichat().receiveText("Invalid command");
             }
         }
     }

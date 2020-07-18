@@ -15,7 +15,8 @@
 #define FREQUENCY 44100
 #define CHUNKSIZE 2048
 
-void Client::_processConnection() {
+
+void Client::_gameLoop() {
     bool quit = false;
     GameGUI game;
     Timer timer;
@@ -24,15 +25,20 @@ void Client::_processConnection() {
     Window& window = game.getWindow();
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
+
     mainMenu.menuScreen(quit, initializer, socket);
-    if (!quit) initializer.initializeGame();
+
+    if (quit) return;
+
+    initializer.initializeGame();
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
     UpdateManager updateManager;
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
     UpdateReceiver updater(protocol, updateManager, socket, quit);
+    std::unique_ptr<SDL_Event> event(new SDL_Event());
+
     eventHandler();
     updater();
-    std::unique_ptr<SDL_Event> event(new SDL_Event());
     timer.start();
     game.getSoundPlayer().playMusic();
     double timeStep;
@@ -77,33 +83,33 @@ void Client::_processConnection() {
     updater.join();
 }
 
-void Client::connect() {
-    _processConnection();
+void Client::run() {
+    _gameLoop();
 }
 
-Client::Client() : finished(false) {
+Client::Client(){
     _initializeSDL();
     _setCursor();
 }
 
+//Setea un cursor custom
 void Client::_setCursor() {
-    //Setea un cursor custom
     SDL_Surface *surface = nullptr;
     SDL_Cursor *cursor = nullptr;
     surface = SDL_LoadBMP("../../clientSide/Images/UI/Cursor.bmp");
     if (!surface) {
-        throw TPException("No se pudo crear el cursor");
+        throw TPException("Could not create cursor");
     }
     cursor = SDL_CreateColorCursor(surface, 0, 0);
     SDL_FreeSurface(surface);
     if (!cursor) {
-        throw TPException("No se pudo crear el cursor");
+        throw TPException("Could not create cursor");
     }
     SDL_SetCursor(cursor);
 }
 
 void Client::_initializeSDL() {
-    //Initialize Graphics
+    //Inicializa audio y video
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
         throw TPException("Graphics could not initialize! Graphics Error: %s\n", SDL_GetError());
     } else {
