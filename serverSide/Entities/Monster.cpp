@@ -21,29 +21,8 @@ unsigned int Monster::_getDistance(Coordinate a, Coordinate b) {
     return std::abs(a.iPosition - b.iPosition) + std::abs(a.jPosition - b.jPosition);
 }
 
-/*
-//Retorna la coordenada a menor distancia de refference, no deberia ser llamada
-//en un vector vacio
-Coordinate Monster::_getNearestPosition(Coordinate refference, std::vector<Coordinate> positions) {
-    Coordinate nearest = positions[0];
-    unsigned int minDistance = _getDistance(refference, nearest);
-    unsigned int aux;
-    for (int i = 0; i < positions.size(); ++i) {
-        aux = _getDistance(refference, positions[i]);
-        if (aux < minDistance) {
-            aux = minDistance;
-            nearest = positions[i];
-        }
-    }
-    return nearest;
-}
-*/
-
-
-#include <iostream>
-
-//Guarda parte del camino al jugador al cual tiene que moverse la menor cantidad
-//de veces para alcanzarlo
+/*Guarda parte del camino al jugador al cual tiene que moverse la menor cantidad
+de veces para alcanzarlo*/
 void Monster::_storeNearestPlayerPathCache() {
     unsigned int nearestTargetIndex = 0;
     std::vector<Coordinate> positions;
@@ -69,8 +48,8 @@ void Monster::_storeNearestPlayerPathCache() {
     }
 }
 
-//Intenta atacar en sus alrededores, si no encuentra un jugador a quien atacar
-//no hace nada y retorna false, sino vacia pathCache, ataca y retorna true
+/*Intenta atacar en sus alrededores, si no encuentra un jugador a quien atacar
+no hace nada y retorna false, sino vacia pathCache, ataca y retorna true*/
 bool Monster::_tryToAttack() {
     std::vector<Coordinate> targets;
     map.getAttackTargets(currentPosition, stats.getRangeOfVision(), targets);
@@ -100,12 +79,12 @@ GameType::Direction Monster::_getMoveDirection(Coordinate destination) {
     }
 }
 
-//Pide al game que lo mueva a la siguiente posicion en pathCache, si pathCache
-//esta vacio entonces busca el jugador mas cercano en su rango de vision y le
-//pide al mapa un camino a este
-//Si la proxima posicion a la que se va a mover esta ocupada entonces vuelve a
-//calcular el camino al jugador mas cercano (esto puede pasar si un monstruo se
-//pone en su camino)
+/*Pide al game que lo mueva a la siguiente posicion en pathCache, si pathCache
+esta vacio entonces busca el jugador mas cercano en su rango de vision y le
+pide al mapa un camino a este
+Si la proxima posicion a la que se va a mover esta ocupada entonces vuelve a
+calcular el camino al jugador mas cercano (esto puede pasar si un monstruo se
+pone en su camino)*/
 void Monster::_move() {
     if (!map.isPlaceAvailable(pathCache.front())) {
         pathCache.clear();
@@ -148,7 +127,6 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
     AttackResult result{0, 0, ""};
     if (_damage <= 0) return result;
     if (!isDead()) {
-        //result = stats.modifyLife(_damage, attackerLevel);
         bool isCritical = Calculator::isCritical();
         if (isCritical) {
             _damage *= 2;
@@ -158,7 +136,8 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
         if (realAttackResult.second) {
             result.resultMessage += "The monster dodged your attack\n";
         } else {
-            unsigned int experience = Calculator::calculateKillXP(attackerLevel, stats.getLevel(), stats.getMaxLife());
+            unsigned int experience = Calculator::calculateKillXP(attackerLevel,
+                        stats.getLevel(), stats.getMaxLife());
             result = {realAttackResult.first, experience, ""};
             result.resultMessage += "You damaged the Monster by " +
                                     std::to_string(result.damage) + " (Remaining Life: " +
@@ -169,7 +148,8 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
             std::shared_ptr<Item> drop;
             ItemsFactory::getInstance().storeRandomDrop(drop, stats.getMaxLife());
             if (drop) {
-                game.pushEvent(std::unique_ptr<Event>(new Drop(game, std::move(drop), currentPosition)));
+                game.pushEvent(std::unique_ptr<Event>(new Drop(game,
+                        std::move(drop), currentPosition)));
             }
         }
     }

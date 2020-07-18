@@ -12,9 +12,14 @@ private:
     std::string message;
 
 public:
+    /*Agrega un mensaje al minichat del player*/
     void addMessage(std::string&& msg);
     void addMessage(const std::string& msg);
+
+    /*Retorna el string del minichat (el minichat en si digamos)*/
     std::string getMessages() const;
+
+    /*Limpia el minichat (elimina el string)*/
     void clear();
 };
 

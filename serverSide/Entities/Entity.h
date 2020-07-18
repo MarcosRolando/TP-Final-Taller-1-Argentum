@@ -40,7 +40,7 @@ private:
     Coordinate _calculatePreviousPosition() const;
 
  public:
-    Entity(GameType::Entity _type, Coordinate initialPosition, std::string&& _nicknamePrefix,
+    Entity(GameType::Entity _type, Coordinate initialPosition, const std::string& _nicknamePrefix,
            bool isPrefixUnique = false);
 
     /*Implementa el comportamiento realizado al atacar,

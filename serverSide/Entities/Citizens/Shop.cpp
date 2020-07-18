@@ -56,26 +56,17 @@ Shop::Shop(Shop &&other) noexcept {
     acceptedProducts = std::move(other.acceptedProducts);
 }
 
-
-/*
-unsigned int Shop::list(const Player &player, std::list<ProductData> &products) {
-    return storage.getStorageData(products, prices, buyingMultiplier);
-}
-*/
-
 void Shop::list(Player &player) const {
     storage.getStorageData(player, prices, buyingMultiplier);
 }
-
-
 
 void Shop::buy(Player &player, const std::string &itemName) {
     unsigned int price;
     if (storage.isItemAvailable(itemName)) {
         price = static_cast<unsigned int>(static_cast<float>(prices[itemName])
                                                             * buyingMultiplier);
-        if (player.spendGold(price)) {
-            storage.increaseGoldReserves(price);
+        if (player.spendGold(static_cast<int>(price))) {
+            storage.increaseGoldReserves(static_cast<int>(price));
             storage.retreiveItem(itemName, player);
         } else {
             player.addMessage(PLAYER_CANT_AFFORD_MESSAGE);
@@ -94,7 +85,7 @@ void Shop::sell(Player &player, const std::string& itemName) {
     price = static_cast<unsigned int>(static_cast<float>(prices.at(itemName))
                                       * sellingMultiplier);
     if (player.hasItem(itemName)) {
-        if (storage.decreaseGoldReserves(price)) {
+        if (storage.decreaseGoldReserves(static_cast<int>(price))) {
             player.receiveGold(price);
             storage.storeItem(player.removeItem(itemName));
         } else {

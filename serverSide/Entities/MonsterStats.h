@@ -29,24 +29,29 @@ private:
 public:
     explicit MonsterStats(GameType::Entity type);
 
+    /*Retorna el rango de vision del monster*/
     unsigned int getRangeOfVision() const;
 
+    /*Retorna el danio del monster*/
     int getDamage() const;
 
+    /*Retorna el nivel del monster*/
     unsigned int getLevel() const;
 
-    //AttackResult modifyLife(int _damage, unsigned int attackerLevel);
+    /*Recibe el danio y modifica la vida del monster acorde a este, retorna luego
+     * un pair con el danio neto recibido y un bool en true en caso de que haya
+     * logrado esquivar el ataque (esto es asi ya que queda extendible por si el
+     * monstruo pudiera tener defensa y el danio fuera 0 sin haber esquivado)*/
     std::pair<int, bool> modifyLife(int _damage);
 
+    /*Retorna la vida actual del monstruo*/
     int getCurrentLife() const;
 
+    /*Retorna la vida maxima del monstruo*/
     int getMaxLife() const;
 
+    /*Retorna la agilidad del monstruo*/
     unsigned int getAgility() const;
-
-private:
-    //Retorna true si el monstruo esta muerto, false si esta vivo
-    bool _isDead() const;
 };
 
 
