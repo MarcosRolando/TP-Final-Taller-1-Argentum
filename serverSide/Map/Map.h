@@ -53,8 +53,8 @@ public:
 
     Map() = default; /*Crea mapa de 0x0, lo usamos para las pruebas*/
 
-    //Ataca la tile y retorna cuanto danio le hizo al entity guardado y el
-    // xp ganado, si no hay un etity devuelve 0 en ambos
+    //Ataca la tile y retorna el resultado del ataque, el booleano indica si el ataque
+    //fue realizado (true) o no (false)
     std::pair<AttackResult, bool> attackTile(int damage, unsigned int level, bool isAPlayer,
                             Coordinate coordinate);
 
@@ -62,11 +62,11 @@ public:
     //center de lado 2*range+1
     void getMoveTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const;
 
-    //Almacena en el vector la cantidad de targets de un monstruo en un cuadrado centrado en
+    //Almacena en el vector la cantidad de targets de un monstruo para atacar en un cuadrado centrado en
     //center de lado 2*range+1
     void getAttackTargets(Coordinate center, unsigned int range, std::vector<Coordinate>& targets) const;
 
-    //Almacena en el vector el camino que se debe seguir para llegar a la coordenada deseada
+    //Almacena en la lista el camino que se debe seguir para llegar a la coordenada deseada
     //Si existe un camino retorna true y la informacion es guardada en path, sino retorna
     //false y no guarda nada
     bool getPath(Coordinate currentPosition, Coordinate desiredPosition, std::list<Coordinate>& path) const;
@@ -125,16 +125,13 @@ public:
     //Delega el comportamiento a la entity que guarda, si es que guarda una
     void sell(Player& player, const std::string& itemName, Coordinate coordinate);
 
+    //Guarda el estado actual del mapa para que pueda ser enviado a un nuevo cliente
     void operator>>(std::stringstream& mapBuffer) const;
-
-    //Saca del tile el item que se le muestra a los jugadores y lo retorna
-    std::shared_ptr<Item> getItemFromTile(Coordinate coordinate);
 
     //Retorna un pair que almacena el tipo del item y su id, si la coordenada es inexistente
     //guarda -2 en el id (second), si el tile no tiene items guarda -1, sino guarda el it del item
     //std::pair<GameType::ItemType, int32_t> peekShowedItemData(Coordinate coordinate);
     const Item* peekShowedItemData(Coordinate coordinate);
-
 
     //Retorna una posicion disponible alrededor de la posicion recibida
     Coordinate getSpawnCoordinateArroundPosition(Coordinate refference);

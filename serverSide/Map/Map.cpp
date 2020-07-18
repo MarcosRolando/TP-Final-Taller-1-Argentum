@@ -352,14 +352,6 @@ void Map::operator>>(std::stringstream &mapBuffer) const {
     }
 }
 
-std::shared_ptr<Item> Map::getItemFromTile(Coordinate coordinate) {
-    std::shared_ptr<Item> retreivedItem;
-    if (!_isCoordinateValid(coordinate)) {
-        return retreivedItem;
-    }
-    return tiles[coordinate.iPosition][coordinate.jPosition].removeItem();
-}
-
 const Item* Map::peekShowedItemData(Coordinate coordinate) {
     if (!_isCoordinateValid(coordinate)) {
         throw std::invalid_argument("Invalid coordinate in peekShoedItemData");
