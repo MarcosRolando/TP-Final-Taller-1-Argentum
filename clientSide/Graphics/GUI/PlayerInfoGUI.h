@@ -8,6 +8,7 @@
 #include "../Text/Text.h"
 #include "GUIPlayerInfo.h"
 #include "../../Map/Coordinate.h"
+#include "../../Sound/SoundPlayer.h"
 
 class PlayerInfoGUI {
 private:
@@ -15,10 +16,11 @@ private:
     Text info;
     SDL_Renderer& renderer;
     GUIPlayerInfo pInfo{};
+    SoundPlayer& soundPlayer;
 
 public:
     /* Constructor */
-    explicit PlayerInfoGUI(SDL_Renderer& renderer);
+    PlayerInfoGUI(SDL_Renderer& renderer, SoundPlayer& soundPlayer);
 
     int32_t getLevel() const;
     int32_t getXPos() const;
