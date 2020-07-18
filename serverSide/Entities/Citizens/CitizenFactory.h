@@ -14,6 +14,7 @@ class Entity;
 
 typedef void (*CitizenCreator)(std::shared_ptr<Entity>& citizen, Coordinate initialPosition);
 
+/*Factory de citizens*/
 
 class CitizenFactory {
 private:
@@ -26,6 +27,8 @@ private:
 
 public:
     CitizenFactory();
+
+    /*Crea un citizen y lo almacena en el shared_ptr*/
     void storeCitizen(std::shared_ptr<Entity>& citizen, GameType::Entity _type, Coordinate initialPosition);
 };
 
