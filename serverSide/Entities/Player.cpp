@@ -7,7 +7,6 @@
 #include "AttackResult.h"
 #include "../Game/Game.h"
 #include "../Items/Miscellaneous/Gold.h"
-#include "../Config/Configuration.h"
 #include "../Game/Events/Drop.h"
 #include "../Game/Events/NotifyDeath.h"
 #include "../Game/Events/Move.h"
@@ -181,14 +180,10 @@ bool Player::unequip() {
     return false;
 }
 
-//ItemData Player::dropItem(unsigned int itemPosition) {
 const Item* Player::dropItem(unsigned int itemPosition) {
     std::shared_ptr<Item> aux = inventory.removeItem(itemPosition);
-    //ItemData returnData = {GameType::ITEM_TYPE_NONE, -1, currentPosition};
     const Item* returnData = aux.get();
     if (aux) {
-        //returnData = {aux->getType(), aux->getId()};
-
         game.dropItems(std::move(aux), currentPosition);
     }
     return returnData;

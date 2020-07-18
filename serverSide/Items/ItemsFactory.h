@@ -13,6 +13,9 @@
 class Item;
 class ItemTests;
 
+/*Esta es una factory de items, para no estar hardcodeando cada vez que necesitemos
+ * crear un item particular (ya que como se crea un item depende del tipo)*/
+
 typedef void (*objectCreator) (std::shared_ptr<Item>&);
 
 class ItemsFactory {
@@ -57,17 +60,17 @@ public:
 
     static ItemsFactory& getInstance();
 
-    //Guarda una instancia del item pedido en item, si el nombre del item pasado
-    //no existe entonces tira la exepcion out_of_range
+    /*Guarda una instancia del item pedido en item, si el nombre del item pasado
+    no existe entonces tira la exepcion out_of_range*/
     void storeItemInstance(const std::string& itemName, std::shared_ptr<Item>& item);
 
-    //Guarda una instancia del item pedido en item, si el nombre del item pasado
-    //no existe entonces tira la exepcion out_of_range
+    /*Guarda una instancia del item pedido en item, si el nombre del item pasado
+    no existe entonces tira la exepcion out_of_range*/
     void storeItemInstance(GameType::ItemType type, int32_t instance,
                                          std::shared_ptr<Item> &item);
 
-    //Almacena un item aleatorio en item, goldMultiplier es el valor por el que se
-    //multiplica el porcentaje de oro a generar (del 0 al 20%)
+    /*Almacena un item aleatorio en item, goldMultiplier es el valor por el que se
+    multiplica el porcentaje de oro a generar (del 0 al 20%)*/
     void storeRandomDrop(std::shared_ptr<Item>& item, unsigned int goldMultiplier);
 };
 

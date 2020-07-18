@@ -7,6 +7,9 @@
 
 #include "Item.h"
 
+/*Este struct es util para cuando mandamos los updates a los players de lo que
+ * se equipo otro jugador*/
+
 struct UseReturnData {
     GameType::EquipmentPlace equipmentPlace;
     int32_t id;

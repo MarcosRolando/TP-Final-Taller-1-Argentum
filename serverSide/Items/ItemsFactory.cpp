@@ -3,7 +3,6 @@
 //
 
 #include "ItemsFactory.h"
-
 #include "../Config/Configuration.h"
 #include "../Config/Calculator.h"
 #include "Miscellaneous/Gold.h"
