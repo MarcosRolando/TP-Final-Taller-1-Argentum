@@ -15,8 +15,6 @@
 #include "../Game/Events/Drop.h"
 #include "../Game/Events/Unequip.h"
 #include "../Game/Events/UseItem.h"
-#include "../Game/Events/Move.h"
-#include "../../libs/GameEnums.h"
 #include "../Game/Events/PickUpItem.h"
 #include "../Game/Events/RequestResurrect.h"
 #include "../Game/Events/Message.h"
@@ -24,13 +22,7 @@
 #include "../Game/Events/GetInventoryNames.h"
 #include "../Game/Events/ModifyPlayerMovement.h"
 
-#define MAX_EVENTS_STORED 3
-
-
-PlayerProxy::PlayerProxy() {
-    game = nullptr;
-    player = nullptr;
-}
+const unsigned int MAX_EVENTS_STORED = 3;
 
 PlayerProxy::PlayerProxy(PlayerProxy &&other) noexcept {
     game = other.game;
@@ -62,7 +54,7 @@ void PlayerProxy::attack(Coordinate target) {
         }
     }
 }
-#include <iostream>
+
 void PlayerProxy::useItem(int32_t itemPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
         storedEvents.emplace(new UseItem(*player, itemPosition));
@@ -72,14 +64,6 @@ void PlayerProxy::useItem(int32_t itemPosition) {
 void PlayerProxy::meditate() {
     player->meditate();
 }
-
-/*
-void PlayerProxy::move(GameType::Direction direction) {
-    if (storedEvents.size() < MAX_EVENTS_STORED) {
-        storedEvents.emplace(new Move(*game, *player, direction));
-    }
-}
-*/
 
 void PlayerProxy::buyFrom(std::string &&itemName, Coordinate npcPosition) {
     if (storedEvents.size() < MAX_EVENTS_STORED) {
@@ -154,13 +138,15 @@ void PlayerProxy::getInventoryNames() {
     }
 }
 
+/*Aca no lo limitamos al tamanio de la cola porque es un evento que no
+ * deberiamos ignorar nunca*/
 void PlayerProxy::startMoving(GameType::Direction direction) {
-    //player->startMovement(direction);
     storedEvents.emplace(new ModifyPlayerMovement(*player, direction));
 }
 
+/*Aca no lo limitamos al tamanio de la cola porque es un evento que no
+ * deberiamos ignorar nunca*/
 void PlayerProxy::stopMoving() {
-    //player->stopMovement();
     storedEvents.emplace(new ModifyPlayerMovement(*player));
 }
 

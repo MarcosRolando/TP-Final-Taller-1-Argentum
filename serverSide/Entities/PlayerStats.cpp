@@ -240,4 +240,3 @@ bool PlayerStats::consumeMana(unsigned int amount) {
     }
     return true;
 }
-

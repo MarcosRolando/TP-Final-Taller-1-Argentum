@@ -143,12 +143,13 @@ public:
      * inventario para que el cliente sepa como se llaman*/
     void getInventoryNames();
 
-    /*Comienza la interpolacion del player*/
+    /*Setea la direccion de movimiento del player en direction*/
     void startMovement(GameType::Direction direction);
 
+    /*Deja de mover al player*/
     void stopMovement();
 
-    //Retorna su data actual (las cosas guardadas, stats, etc)
+    /*Retorna su data actual (las cosas guardadas, stats, etc)*/
     PlayerData getData() const;
 
 private:
