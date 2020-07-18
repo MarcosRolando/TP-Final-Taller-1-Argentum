@@ -9,7 +9,7 @@ void GameGUI::setMapSize(int rows, int columns) {
 }
 
 GameGUI::GameGUI() : repo(screen.getRenderer()), map(repo, camera, soundPlayer),
-                    minichat(screen.getRenderer()), infoGUI(screen.getRenderer())
+                    minichat(screen.getRenderer()), infoGUI(screen.getRenderer(), soundPlayer)
                     ,inventoryGUI(repo, screen.getRenderer(), infoGUI),
                     background(repo.getTexture(Background)) {
 }

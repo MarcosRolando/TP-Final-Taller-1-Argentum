@@ -18,6 +18,7 @@
 #define SPIDER_PATH "../../clientSide/Sounds/Spider.mp3"
 #define SKELETON_PATH "../../clientSide/Sounds/Skeleton.mp3"
 #define GOBLIN_PATH "../../clientSide/Sounds/Goblin.wav"
+#define LEVEL_UP_SOUND "../../clientSide/Sounds/LevelUp.wav"
 
 #define MUSIC_PATH "../../clientSide/Sounds/argentumOnlineOST.mp3"
 
@@ -44,6 +45,7 @@ void SoundRepository::_loadSounds() {
         sounds.emplace(SpiderSound, SPIDER_PATH);
         sounds.emplace(SkeletonSound, SKELETON_PATH);
         sounds.emplace(GoblinSound, GOBLIN_PATH);
+        sounds.emplace(LevelUpSound, LEVEL_UP_SOUND);
 
     } catch (std::exception& e) {
         std::cerr << e.what() << std::endl;

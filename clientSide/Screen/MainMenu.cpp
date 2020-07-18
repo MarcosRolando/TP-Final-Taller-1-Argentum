@@ -30,7 +30,8 @@
 #define LOAD_PLAYER_BUTTON {50,200,175,25}
 #define CREATE_PLAYER_BUTTON {50,100,175,25}
 
-#define MAX_TEXT_LEN 13
+#define MAX_TEXT_LEN 25
+#define MAX_NICKNAME_LEN 13
 
 #define MAIN_MENU_FONT_PATH "../../clientSide/Graphics/Text/medieval.ttf"
 
@@ -338,7 +339,7 @@ void MainMenu::_handleTextInput(SDL_Event& e) {
         if (portInputText.getTextLength() < MAX_TEXT_LEN)
             portInputText.appendText(std::move(newInput));
     } else if (nicknameInput) {
-        if (nicknameInputText.getTextLength() < MAX_TEXT_LEN)
+        if (nicknameInputText.getTextLength() < MAX_NICKNAME_LEN)
             nicknameInputText.appendText(std::move(newInput));
     }
 }
