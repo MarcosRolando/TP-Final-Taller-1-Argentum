@@ -122,8 +122,8 @@ bool EntityTests::_testUnequipClothing(Game& game) {
 
 bool EntityTests::testUnequipGear() {
     Mock<Game> game;
-    if (!_testUnequipWeapon(game)) return false;
-    return _testUnequipClothing(game);
+    if (!_testUnequipWeapon(reinterpret_cast<Game &>(game))) return false;
+    return _testUnequipClothing(reinterpret_cast<Game &>(game));
 }
 
 bool EntityTests::testPlayerAttacksMonster() {
@@ -131,9 +131,8 @@ bool EntityTests::testPlayerAttacksMonster() {
     Map map;
     _fillEmptyMap(map, 10, 10, false);
     Player player(reinterpret_cast<Game &>(game), {0,0}, PlayerData());
-    MonstersFactory factory;
-    std::shared_ptr<Monster> monster;
-    factory.storeRandomMonster(game, monster);
+    std::shared_ptr<Monster> monster(new Monster(reinterpret_cast<Game &>(game), {0, 1},
+                                                 GameType::SPIDER, GameType::SPIDER_ATTACK));
     monster->stats.agility = 0; /*Para que no esquive el ataque*/
     map.addEntity({0, 1}, std::static_pointer_cast<Entity>(monster));
     player.attack({0, 1});
@@ -145,9 +144,8 @@ bool EntityTests::testPlayerAttacksMonsterAndConsumesMana() {
     Map map;
     _fillEmptyMap(map, 10, 10, false);
     Player player(reinterpret_cast<Game &>(game), {0,0}, PlayerData());
-    MonstersFactory factory;
-    std::shared_ptr<Monster> monster;
-    factory.storeRandomMonster(game, monster);
+    std::shared_ptr<Monster> monster(new Monster(reinterpret_cast<Game &>(game), {0, 1},
+                                     GameType::SKELETON, GameType::SKELETON_ATTACK));
     monster->stats.agility = 0; /*Para que no esquive el ataque*/
     map.addEntity({0, 1}, std::static_pointer_cast<Entity>(monster));
     std::shared_ptr<Item> weapon(new Weapon(GameType::ASH_ROD));
@@ -188,11 +186,11 @@ bool EntityTests::testPlayerAttacksPlayerWithPastLevelDifferenceAndViceversa() {
     Map map;
     _fillEmptyMap(map, 10, 10, false);
     std::shared_ptr<Player> player1(new Player(reinterpret_cast<Game &>(game), {0,0}, PlayerData()));
-    std::shared_ptr<Player> player2(new Player(reinterpret_cast<Game &>(game), {0,1}, PlayerData());
+    std::shared_ptr<Player> player2(new Player(reinterpret_cast<Game &>(game), {0,1}, PlayerData()));
     std::shared_ptr<Entity> aux = player1;
-    addEntity({0, 0}, std::move(aux));
+    map.addEntity({0, 0}, std::move(aux));
     aux = player2;
-    addEntity({0, 1}, std::move(aux));
+    map.addEntity({0, 1}, std::move(aux));
     player1->stats.agility = 0; /*Para que no esquiven*/
     player2->stats.agility = 0; /*Para que no esquiven*/
     std::shared_ptr<Item> weapon(new Weapon(GameType::LONGSWORD));
@@ -210,15 +208,15 @@ bool EntityTests::testPlayerAttacksPlayerWithPastLevelDifferenceAndViceversa() {
 bool EntityTests::testPlayersAttackEachOther() {
     Mock<Game> game;
     Map map;
-    _fillEmptyMap(game.map, 10, 10, false);
+    _fillEmptyMap(map, 10, 10, false);
     std::shared_ptr<Player> player1(new Player(reinterpret_cast<Game &>(game), {0,0}, PlayerData()));
     std::shared_ptr<Player> player2(new Player(reinterpret_cast<Game &>(game), {0,1}, PlayerData()));
     std::shared_ptr<Entity> aux = player1;
     map.addEntity({0, 0}, std::move(aux));
     aux = player2;
     map.addEntity({0, 1}, std::move(aux));
-    player1->stats.agility = 0; /*Para que no esquiven*/
-    player2->stats.agility = 0; /*Para que no esquiven*/
+    player1->stats.agility = 0; //Para que no esquiven
+    player2->stats.agility = 0; //Para que no esquiven
     std::shared_ptr<Item> weapon(new Weapon(GameType::LONGSWORD));
     player1->storeItem(weapon);
     player1->useItem(0);
@@ -235,10 +233,10 @@ bool EntityTests::testMonsterAttacksPlayer() {
     Mock<Game> game;
     Map map;
     _fillEmptyMap(map, 10, 10, false);
-    std::shared_ptr<Player> player(new Player(reinterpret_cast<Game &>(game), {0,1}, PlayerData()););
+    std::shared_ptr<Player> player(new Player(reinterpret_cast<Game &>(game), {0,0}, PlayerData()));
     MonstersFactory factory;
     std::shared_ptr<Monster> monster;
-    factory.storeRandomMonster(game, monster);
+    factory.storeRandomMonster(reinterpret_cast<Game &>(game), monster);
     player->stats.agility = 0; /*Para que no esquive el ataque*/
     map.addEntity({0, 1}, std::static_pointer_cast<Entity>(player));
     monster->attack({0, 1});
@@ -246,9 +244,8 @@ bool EntityTests::testMonsterAttacksPlayer() {
 }
 
 bool EntityTests::testPlayerSellsItem() {
-    Game game;
-    Player player(game, GameType::DWARF, GameType::CLERIC,
-            1, 0, {0, 0}, "CrispyBurritos");
+    Mock<Game> game;
+    Player player(reinterpret_cast<Game &>(game), {0,0}, PlayerData());
     Trader trader({0, 1});
     std::shared_ptr<Item> weapon(new Weapon(GameType::LONGSWORD));
     player.storeItem(weapon);
@@ -259,19 +256,21 @@ bool EntityTests::testPlayerSellsItem() {
 }
 
 bool EntityTests::testPlayerDepositsAnItem() {
-    Game game;
-    Player player(game, GameType::DWARF, GameType::CLERIC,
-                  1, 0, {0, 0}, "CrispyBurritos");
+    /*
+    Mock<Game> game;
+    Player player(reinterpret_cast<Game &>(game), {0,0}, PlayerData());
     Banker banker({0, 1});
     std::shared_ptr<Item> weapon(new Weapon(GameType::LONGSWORD));
     player.storeItem(weapon);
     std::unordered_map<std::string, unsigned int> aux;
     Banker::addPlayerItems(player.getNickname(), aux, 0);
     banker.deposit(player, "Longsword");
-    banker.deposit(player, "Longsword"); /*No deberia hacer nada*/
+    banker.deposit(player, "Longsword"); //No deberia hacer nada
     if (player.inventory.items[0]) return false;
     banker.withdraw(player, "Longsword");
     return (player.inventory.items[0]->getName() == "Longsword");
+    */
+    return false;
 }
 
 void EntityTests::_fillEmptyMap(Map &map, int iSize, int jSize, bool isCity) {

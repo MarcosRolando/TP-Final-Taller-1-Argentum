@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 add_executable(tests tests.cpp MapTests.cpp MapTests.h ItemTests.cpp
-        ItemTests.h GameTests.cpp GameTests.h EntityTests.cpp EntityTests.h item_tests.cpp ../Items/Item.h ../Items/Attack/Weapon.cpp ../Items/Attack/Weapon.h
+        ItemTests.h EntityTests.cpp EntityTests.h item_tests.cpp ../Items/Item.h ../Items/Attack/Weapon.cpp ../Items/Attack/Weapon.h
         ../Items/Miscellaneous/Gold.cpp ../Items/Miscellaneous/Gold.h ../Map/Tile.cpp ../Map/Tile.h ../Entities/Entity.h
         ../Map/Coordinate.h ../Entities/Monster.cpp ../Entities/Monster.h ../Game/Game.cpp ../Game/Game.h ../Map/Map.cpp
         ../Map/Map.h ../Items/Inventory.cpp ../Items/Inventory.h ../Entities/Player.cpp ../Entities/Player.h
