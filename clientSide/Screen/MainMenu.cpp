@@ -60,7 +60,7 @@ void MainMenu::menuScreen(bool& quit, GameInitializer& initializer, Socket& sock
     bool createPlayer = false;
     bool loadPlayer = false;
     bool success = false;
-    bool goBack;
+    bool goBack = false;
 
     while (!success && !quit) {
         _playerSelectionScreen(quit, createPlayer, loadPlayer);//Veo si quiere hacer load o create
