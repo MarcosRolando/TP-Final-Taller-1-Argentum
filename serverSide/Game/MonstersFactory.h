@@ -19,6 +19,8 @@ class Map;
 typedef void (*monsterCreator)(Game& game, Coordinate initialPosition,
                                std::shared_ptr<Monster>& monster);
 
+//Esta clase se encarga de crear un monstruo aleatorio, se utiliza para realizar
+//los spawns aleatorios de monsters
 class MonstersFactory {
 private:
     std::unordered_map<GameType::Entity, monsterCreator> monsterCreators;
