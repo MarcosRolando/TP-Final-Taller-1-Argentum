@@ -33,7 +33,7 @@ private:
 
 public:
     //El nivel minimo debe ser 1, sino tendra vida 0
-    Player(Game& _game, Coordinate _initialPosition, PlayerData& data);
+    Player(Game& _game, Coordinate _initialPosition, const PlayerData& data);
 
     //Indica si el jugador es target de un monster, un jugador es un target si esta vivo, si
     //esta muerto no lo es
