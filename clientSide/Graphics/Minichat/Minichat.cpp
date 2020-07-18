@@ -14,9 +14,7 @@
 Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../../clientSide/Graphics/Text/Raleway-Medium.ttf", 20),
                                 input(minichatFont,renderer), renderer(renderer) {
     focusOnMinichat = false;
-    input.updateText(":");//Pongo el Accion:/ aca xq me parece al
-    // pedo crear un text solo para eso, pero capaz tengo q hacerlo por el
-    // tema del protocolo
+    input.updateText(":");
 
     //Lleno el vector con mensajes vacios
     for (int i = 0; i < MAX_MSGS; ++i) {
@@ -25,26 +23,21 @@ Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../../clientSide/Grap
     firstToRender = 0;
 }
 
-//Ver esta funcion xq esta muy rancia
 std::string Minichat::handleReturnKey() {
     std::lock_guard<std::mutex> l(inputMutex);
-    std::string& toPrint = input.getText();
-    std::string toParse;//por ahora hago esto choto pero dsps lo cambiamos
-    if (toPrint.size() > 1) {
-        toPrint.erase(0, 1);//Le saco ":"
-        toParse = toPrint;
-        receiveText(toPrint);//Imprimo el comando en el minichat
+    std::string cmd = input.getText();
+    if (cmd.size() > 1) {
+        cmd.erase(0, 1);//Le saco ":"
+        receiveText(cmd);//Imprimo el comando en el minichat
         input.updateText(":");
-        return toParse;
+        return cmd;
     }
-    return " ";
+    return "";
 }
 
 void Minichat::handleBackspace() {
     std::lock_guard<std::mutex> l(inputMutex);
     if (input.getTextLength() > 1) {
-        //Va un 9 asi no borro la parte fija que dice Accion
-        //borro una letra
         input.eraseText();
     }
 }

@@ -23,10 +23,15 @@ private:
     int32_t gold, safeGold;
 
 public:
+    /* Constructor */
     PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer, PlayerInfoGUI& playerInfo);
+    /* Agrega la textura del item al slot correspondiente */
     void addInventoryItem(TextureID texture, int32_t slot);
+    /* Agrega un item a la posicion correspondiente de los equipables */
     void addEquipableItem(TextureID texture, EquippedItems item);
+    /* Actualiza la cantidad de oro y oro seguro */
     void updateGold(int32_t gold, int32_t _safeGold);
+    /* Renderiza el inventario y la informacion del jugador */
     void render(int32_t selectedSlot);
 
 private:

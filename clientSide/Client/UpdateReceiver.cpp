@@ -25,6 +25,8 @@ MSGPACK_ADD_ENUM(GameType::EquipmentPlace)
 MSGPACK_ADD_ENUM(GameType::ItemType)
 MSGPACK_ADD_ENUM(GameType::Weapon)
 
+/* Recibe un update del server, lo procesa y lo encola en una queue de functors
+ * para que sea ejecutado en el thread principal */
 void UpdateReceiver::run() {
     try {
         uint32_t msgLength = 0;
@@ -46,6 +48,7 @@ void UpdateReceiver::run() {
     quit = true;
 }
 
+/* Chequea que tipo de evento recibio y lo procesa. Luego recibe toda la informacion del jugador */
 void UpdateReceiver::_processUpdate(uint32_t msgLength) {
     msgpack::type::tuple<GameType::EventID> id;
     while (offset < msgLength) {
@@ -192,6 +195,7 @@ void UpdateReceiver::_processCreateEntity() {
     }
 }
 
+/* Recibe la informacion del jugador para poder mostrarla en la interfaz grafica */
 void UpdateReceiver::_receivePlayerData() {
     uint32_t length = 0;
     socket.receive(reinterpret_cast<char*>(&length), sizeof(uint32_t));
