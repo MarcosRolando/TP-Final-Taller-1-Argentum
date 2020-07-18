@@ -12,7 +12,8 @@
 
 class Player;
 
-//Clase utilizada para notificar a todos los clientes de la muerte de un jugador
+//Clase que se almacena en la cola de eventos para notificarle a los clientes que
+//un player murio, por lo que ahora es un fantasma
 class NotifyDeath: public Event {
 private:
     const Player& player;
@@ -22,6 +23,10 @@ private:
 
 public:
     explicit NotifyDeath(const Player& player);
+
+    //Guarda en el protocolo los mensajes de muerte y desequipamiento de items,
+    //ademas del equipamiento de los items default, para que se envie a todos los
+    //clientes
     void operator()(ServerProtocol& protocol) override;
 };
 
