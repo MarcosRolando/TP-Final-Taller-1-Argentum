@@ -19,6 +19,8 @@
 #define SKELETON_PATH "../../clientSide/Sounds/Skeleton.mp3"
 #define GOBLIN_PATH "../../clientSide/Sounds/Goblin.wav"
 
+#define MUSIC_PATH "../../clientSide/Sounds/argentumOnlineOST.mp3"
+
 SoundRepository::SoundRepository() {
     _loadSounds();
     _loadMusic();
@@ -50,7 +52,7 @@ void SoundRepository::_loadSounds() {
 }
 
 void SoundRepository::_loadMusic(){
-    music = Mix_LoadMUS("../../clientSide/Sounds/argentumOnlineOST.mp3");
+    music = Mix_LoadMUS(MUSIC_PATH);
     Mix_VolumeMusic(20);
     if(music == nullptr ) {
         throw TPException("Failed to load beat music! SDL_mixer Error: "

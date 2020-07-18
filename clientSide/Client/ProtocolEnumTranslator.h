@@ -27,17 +27,32 @@ private:
     std::unordered_map<GameType::Potion,TextureID>potionsMap;
 
 public:
+    /* Constructor */
     ProtocolEnumTranslator();
+    /* Devuelve el id de la textura perteneciente a "entity" */
     TextureID getEntityTexture(GameType::Entity entity);
-    FloorTypeTexture getFloorTypeTexture(GameType::FloorType entity);
+    /* Devuelve el id de la textura perteneciente a "floorType". Tambien recibe el
+     * indice para saber que tile de la textura usar */
+    FloorTypeTexture getFloorTypeTexture(GameType::FloorType floorType);
+    /* Devuelve el id de la textura perteneciente a "structure" */
     TextureID getStructureTexture(GameType::Structure structure);
+    /* Devuelve el id de la textura perteneciente a la raza "race" */
     TextureID getRaceTexture(GameType::Race race);
+    /* Devuelve el id de la textura perteneciente a "weapon". Esta es la textura
+     * que se usa para mostrar equipada en el jugador */
     TextureID getWeaponTexture(GameType::Weapon weapon);
+    /* Devuelve el id de la textura perteneciente a "weapon". Esta es la textura
+     * que se usa para mostrar como drop y en el inventario */
     TextureID getWeaponDropTexture(GameType::Weapon weapon);
+    /* Devuelve el id de la textura perteneciente a la vestimenta "clothing". Esta es la textura
+     * que se usa para mostrar equipada en el jugador */
     TextureID getClothingTexture(GameType::Clothing clothing);
+    /* Devuelve el id de la textura perteneciente a "clothing". Esta es la textura
+    * que se usa para mostrar como drop y en el inventario */
     TextureID getClothingDropTexture(GameType::Clothing clothing);
+    /* Devuelve el id de la textura perteneciente a "potion" */
     TextureID getPotionTexture(GameType::Potion potion);
-
+    /* Destructor */
     ~ProtocolEnumTranslator();
 
 private:

@@ -29,7 +29,7 @@ public:
     void queueText(std::string &newText);
     //Recibe texto y si es necesario lo separa en varias lineas del minichat
     void receiveText(const std::string &text);
-    //Renderiza todos los mensajes del minichat + lo q escribio el usuario
+    //Renderiza todos los mensajes del minichat + lo que escribio el usuario
     void render();
     //Borra la ultima letra del input
     void handleBackspace();
@@ -41,9 +41,9 @@ public:
     void handleMouseWheel(SDL_Event &e);
     //Borra los mensajes del minichat
     void clearMinichat();
-
-
+    /* Devuelve el input del usuario en el minichat para que sea parseado como comando */
     std::string handleReturnKey();
+    /* Destructor */
     ~Minichat();
 
 private:

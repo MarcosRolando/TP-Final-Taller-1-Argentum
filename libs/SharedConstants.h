@@ -1,0 +1,10 @@
+//
+// Created by marcos on 17/7/20.
+//
+
+#ifndef ARGENTUM_SHAREDCONSTANTS_H
+#define ARGENTUM_SHAREDCONSTANTS_H
+
+const unsigned int TILE_DISTANCE_IN_METERS = 2000;
+
+#endif //ARGENTUM_SHAREDCONSTANTS_H

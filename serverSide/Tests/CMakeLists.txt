@@ -24,7 +24,7 @@ add_executable(tests tests.cpp MapTests.cpp MapTests.h ItemTests.cpp
         ../Game/Events/Move.cpp ../Game/Events/Move.h ../Game/Events/List.cpp ../Game/Events/List.h
         ../Game/Events/Withdraw.cpp ../Game/Events/Withdraw.h ../Game/Events/Deposit.cpp ../Game/Events/Deposit.h
         ../Game/Events/Buy.cpp ../Game/Events/Buy.h ../Game/Events/Sell.cpp ../Game/Events/Sell.h
-        ../Game/Events/Drop.cpp ../Game/Events/Drop.h ../Entities/Citizens/ProductData.h
+        ../Game/Events/Drop.cpp ../Game/Events/Drop.h
         ../Entities/PlayerProxy.cpp ../Entities/PlayerProxy.cpp ../Entities/PlayerProxy.h
         ../Game/Events/UseItem.cpp ../Game/Events/UseItem.h ../Game/Events/Unequip.cpp ../Game/Events/Unequip.h
         map_tests.cpp entity_tests.cpp ../Server/ClientHandler.h ../Server/ClientHandler.cpp ../../libs/Socket.h

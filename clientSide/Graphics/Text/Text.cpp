@@ -24,8 +24,6 @@ void Text::render(int x, int y, SDL_Color color){
     }
 }
 
-Text::~Text() = default;
-
 void Text::eraseText() {
     if (!text.empty())
         text.pop_back();
@@ -39,5 +37,4 @@ std::string &Text::getText() {
     return text;
 }
 
-
-
+Text::~Text() = default;

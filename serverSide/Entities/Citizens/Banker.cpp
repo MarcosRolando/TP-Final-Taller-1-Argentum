@@ -4,7 +4,6 @@
 
 #include "Banker.h"
 
-#include <memory>
 #include "../Player.h"
 #include "Storage.h"
 #include "../../../libs/TPException.h"
@@ -65,14 +64,6 @@ void Banker::deposit(Player &player, const std::string& itemName) {
         throw TPException("Intentaron depositar un item de un player que no existia!");
     }
 }
-
-/*
-void Banker::addPlayerItems(const std::string& playerName, const std::unordered_map<std::string, unsigned int>
-                            &initialItemsAmounts, unsigned int gold) {
-    playersStorages.emplace(playerName, std::pair<int32_t, Storage>
-                    (_getNumberOfItemsStored(initialItemsAmounts), Storage(initialItemsAmounts, gold)));
-}
-*/
 
 void Banker::getPlayerItems(PlayerData &playerData) {
     auto & playerStorageData = playersStorages.at(playerData.nickname);

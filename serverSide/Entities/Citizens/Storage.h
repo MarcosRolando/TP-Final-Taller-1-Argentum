@@ -10,7 +10,6 @@
 #include <list>
 #include <utility>
 #include <memory>
-#include "ProductData.h"
 #include "../../Server/PlayerData.hpp"
 
 class Item;
@@ -35,7 +34,7 @@ private:
 
 private:
     static void _addAmmountMessageToPlayer(Player& player, const std::string& itemName,
-                                    int concatenatedNumber) ;
+                                    int concatenatedNumber);
 
 public:
     Storage();
@@ -44,7 +43,6 @@ public:
 
     Storage& operator=(Storage&& other) noexcept;
 
-    //Se apropia de los contenidos de initialProducts
     explicit Storage(const std::unordered_map<std::string, unsigned int>&
                      initialItemsAmounts, unsigned int gold);
 
@@ -60,20 +58,25 @@ public:
     bool retreiveItem(const std::string& itemName, Player& player);
 
     /*Agrega en el minichat del player la lista con los items disponibles y su
-     * precio*/
+     * precio, la usan los vendedores*/
     void getStorageData(Player& player, const std::unordered_map<std::string,
                         unsigned int>& prices, float priceMultiplier) const;
 
-
+    /*Agrega en el minichat del player la lista con los items disponibles,
+     * la usa el banker*/
     void getStorageData(Player& player) const;
 
-    //Indica si el item con el nombre indicado se encuentra guardado
+    /*Indica si el item con el nombre indicado se encuentra guardado*/
     bool isItemAvailable(const std::string& itemName) const;
 
+    /*Aumenta la cantidad de oro guardado en el storage*/
     void increaseGoldReserves(int amount);
 
+    /*Disminuye la cantidad de oro guardado en el storage*/
     bool decreaseGoldReserves(int amount);
 
+    /*Retorna en el struct playerData los datos de los items que el player
+     * tiene guardados*/
     void getPlayerData(PlayerData& playerData) const;
 };
 

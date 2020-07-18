@@ -26,7 +26,7 @@ private:
     int32_t gold;
     Minichat chat;
     Game& game;
-    MovementBackup movementBackup;
+    MovementBackup movementBackup{};
 
     friend EntityTests;
     friend MapTests;

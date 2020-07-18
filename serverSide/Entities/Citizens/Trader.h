@@ -20,20 +20,13 @@ private:
 public:
     explicit Trader(Coordinate initialPosition);
 
-    //Implementa el comportamiento realizado al pedirle una lista de los items
-    //que tiene en venta, por default no hace nada, debe ser reimplementada
-    //si la clase hija tiene objetos en venta para listar
-    //unsigned int list(const Player &player, std::list<ProductData>& products) override;
+    /*Retorna por le minichat del player los items que tiene el Priest a la venta junto con su precio*/
     void list(Player &player) override;
 
-    //Implementa el comportamiento realizado al intentar el jugador comprar un item
-    //con el nombre pasado, por default no hace nada, debe ser reimplementada
-    //si la clase hija puede comprar y vender items
+    /*Le vende al player el item pedido en caso de tenerlo, caso contrario no sucede nada*/
     void buy(Player& player, const std::string& itemName) override;
 
-    //Implementa el comportamiento realizado al intentar el jugador vender un item que se
-    //encuentra en la posicion pasada, por default no hace nada, debe ser reimplementada
-    //si la clase hija puede comprar y vender items
+    /*Le compra al player el item pedido en caso de tenerlo, caso contrario no sucede nada*/
     void sell(Player& player, const std::string& itemName) override;
 };
 

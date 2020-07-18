@@ -12,9 +12,8 @@ PlayerInfoGUI::PlayerInfoGUI(SDL_Renderer &renderer) : infoFont("../../clientSid
     pInfo = {};
 }
 
-
 void PlayerInfoGUI::_updateHealth(int32_t currHealth){
-    pInfo.health = currHealth;//Ver que pasa si me mandan una vida mayor a la total
+    pInfo.health = currHealth;
 }
 
 void PlayerInfoGUI::_updateTotalHealth(int32_t _totalHealth){
@@ -126,8 +125,7 @@ int32_t PlayerInfoGUI::getIntelligence() const {
 }
 
 std::string PlayerInfoGUI::getNickname() const {
-    return pInfo.nickname;//Ver si esta bien devoler el string asi
-    //return " ";//Pongo esto para q no se queje clion de q no devuelvo nada
+    return pInfo.nickname;
 }
 
 void PlayerInfoGUI::update(GUIPlayerInfo &generalInfo) {

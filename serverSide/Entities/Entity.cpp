@@ -9,17 +9,16 @@
 #include "../../libs/GameEnums.h"
 #include "../Game/Events/Moved.h"
 #include <msgpack.hpp>
+#include "../../libs/SharedConstants.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::Entity)
 MSGPACK_ADD_ENUM(GameType::Direction)
 
-const unsigned int DISTANCE_TO_MOVE = 2000;
-
 unsigned int Entity::availableId = 0;
 
-Entity::Entity(GameType::Entity _type, Coordinate initialPosition, std::string&& _nicknamePrefix,
-               bool isPrefixUnique /*= false*/) {
+Entity::Entity(GameType::Entity _type, Coordinate initialPosition,
+        const std::string& _nicknamePrefix, bool isPrefixUnique /*= false*/) {
     currentPosition.iPosition = initialPosition.iPosition;
     currentPosition.jPosition = initialPosition.jPosition;
     movement.movedDistance = 0;
@@ -49,25 +48,20 @@ AttackResult Entity::attacked(int damage, unsigned int level, bool isAPlayer) {
     return {0, 0};
 }
 
-/*
-unsigned int Entity::list(const Player &player, std::list<ProductData>& products) {
-    return 0;
-}
-*/
 void Entity::list(Player &player) {
-
+    //DO NOTHING
 }
 
 void Entity::withdraw(Player &player, const std::string& itemName) {
-    //NO NOTHING
+    //DO NOTHING
 }
 
 void Entity::deposit(Player &player, const std::string& itemName) {
-    //NO NOTHING
+    //DO NOTHING
 }
 
 void Entity::buy(Player &player, const std::string &itemName) {
-    //NO NOTHING
+    //DO NOTHING
 }
 
 void Entity::sell(Player &player, const std::string& itemName) {
@@ -119,11 +113,6 @@ void Entity::operator>>(std::stringstream& buffer) const {
     msgpack::pack(buffer, currentMovementData);
 }
 
-bool Entity::isCitizen() {
-    return (type == GameType::Entity::BANKER) || (type == GameType::Entity::TRADER) ||
-           (type == GameType::Entity::PRIEST);
-}
-
 const std::string &Entity::getNickname() const {
     return nickname;
 }
@@ -132,8 +121,8 @@ int32_t Entity::executeDisplacement(int32_t displacement, bool& hasFinished) {
     int32_t realDisplacement = displacement;
     movement.movedDistance += displacement;
     hasFinished = false;
-    if (movement.movedDistance >= DISTANCE_TO_MOVE) {
-        realDisplacement = displacement - (movement.movedDistance - DISTANCE_TO_MOVE);
+    if (movement.movedDistance >= TILE_DISTANCE_IN_METERS) {
+        realDisplacement = displacement - (movement.movedDistance - TILE_DISTANCE_IN_METERS);
         movement.movedDistance = 0;
         movement.direction = GameType::DIRECTION_STILL;
         movement.isMoving = false;

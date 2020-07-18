@@ -17,6 +17,7 @@ private:
     GUIPlayerInfo pInfo{};
 
 public:
+    /* Constructor */
     explicit PlayerInfoGUI(SDL_Renderer& renderer);
 
     int32_t getLevel() const;
@@ -27,7 +28,10 @@ public:
     int32_t getAgility() const;
     int32_t getIntelligence() const;
     std::string getNickname() const;
+
+    /* Actualiza todas las stats del jugador */
     void update(GUIPlayerInfo& generalInfo);
+    /* Renderiza las barras de vida, xp y mana */
     void render();
 
 private:

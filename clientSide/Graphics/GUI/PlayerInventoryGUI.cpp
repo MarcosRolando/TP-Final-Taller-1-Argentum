@@ -79,7 +79,7 @@ void PlayerInventoryGUI::_renderText() {
     text.render(200, 880, {0xFF, 0xFF, 0xFF});
 
     text.updateText(pInfo.getNickname());
-    text.render(200,100, {0xFF,0xFF,0xFF});
+    text.render(100,100, {0xFF,0xFF,0xFF});
 }
 
 void PlayerInventoryGUI::_renderSkills(){
@@ -123,6 +123,7 @@ void PlayerInventoryGUI::_renderEquipableItems() {
     }
 }
 
+/* Renderiza los cuadrados en los que se divide el inventario */
 void PlayerInventoryGUI::_drawInventoryOutlines(int32_t selectedSlot) {
     SDL_Rect outlineRect;
     for (int i = 0; i < 4; ++i) {
@@ -141,6 +142,7 @@ void PlayerInventoryGUI::_drawInventoryOutlines(int32_t selectedSlot) {
     }
 }
 
+/* Renderiza los cuadrados donde se muestran los items equipados */
 void PlayerInventoryGUI::_drawEquipableOutlines() {
     SDL_Rect outlineRect;
     for (int j = 0; j < 2; ++j) {
