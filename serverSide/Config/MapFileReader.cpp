@@ -4,6 +4,7 @@
 
 #include "MapFileReader.h"
 #include "../../libs/TPException.h"
+#include <memory>
 
 MapFileReader::MapFileReader(const std::string& path) {
     mapDimensions.width = 0;
@@ -14,10 +15,8 @@ MapFileReader::MapFileReader(const std::string& path) {
                           " asegurese de que el archivo existe!");
     }
     try {
-        Json::Reader reader;
-        reader.parse(file, obj);
+        file >> obj;
     } catch (...) {
-        file.close();
         throw TPException("Fallo el parseo del Mapa!");
     }
     _readMapSize();

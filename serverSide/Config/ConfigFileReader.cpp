@@ -4,6 +4,7 @@
 
 #include "ConfigFileReader.h"
 #include "../../libs/TPException.h"
+#include <memory>
 
 using namespace GameType;
 
@@ -29,8 +30,7 @@ Config::ConfigFileReader::ConfigFileReader(const std::string& path) :
     }
 
     try {
-        Json::Reader reader;
-        reader.parse(file, obj);
+        file >> obj;
     } catch (...) {
         throw TPException("Fallo el parseo del Config de Json!");
     }
