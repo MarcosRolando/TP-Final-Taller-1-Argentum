@@ -9,6 +9,7 @@
 
 class Player;
 
+//struct auxiliar para guardar la informacion de un player que sera resucitado
 struct ResurrectData {
     double timeToWait;
     double timeWaited;
