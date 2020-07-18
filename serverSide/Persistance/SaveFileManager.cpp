@@ -3,7 +3,6 @@
 //
 
 #include "SaveFileManager.h"
-#include "../../libs/TPException.h"
 #include "../Exceptions/UnavailablePlayerException.h"
 
 PlayerData SaveFileManager::getPlayerData(const std::string &playerNickname) {

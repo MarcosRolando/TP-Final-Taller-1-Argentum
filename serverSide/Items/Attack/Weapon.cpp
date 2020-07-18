@@ -24,7 +24,7 @@ void Weapon::_initializeData(int _minDamage, int _maxDamage, unsigned int _manaC
                             unsigned int _range) {
     minDamage = _minDamage;
     maxDamage = _maxDamage;
-    manaConsumption = _manaConsumption;
+    manaConsumption = static_cast<int>(_manaConsumption);
     attackRange = _range;
 }
 

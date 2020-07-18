@@ -4,10 +4,6 @@
 
 #include "Shield.h"
 
-Shield::Shield(GameType::Clothing clothing): Clothing(clothing) {
-
-}
-
 GameType::EquipmentPlace Shield::use(Player &player) {
     return GameType::EQUIPMENT_PLACE_SHIELD;
 }
