@@ -22,7 +22,8 @@ public:
 
     //Intenta desequipar el item del lugar recibido en el constructor, si logra
     //hacerlo entonces le comunica a los clientes que ese item ya no se encuentra
-    //equipado, agregandolo al protocolo
+    //equipado, agregandolo al protocolo, si el equipment place es el del pecho,
+    //entonces notifica tambien que el player se equipo ropa default
     void operator()(ServerProtocol& protocol) override;
 };
 
