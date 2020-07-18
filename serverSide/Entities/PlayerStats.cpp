@@ -28,6 +28,7 @@ PlayerStats::PlayerStats(const PlayerData& data) {
     _loadGenericStats(classModifier, raceModifier, data);
 }
 
+//Funcion auxiliar para inicializar el resto de los atributos de la clase
 void PlayerStats::_loadGenericStats(Config::Modifiers& classM, Config::Modifiers& raceM,
                                     const PlayerData& data) {
     isMeditating = false;
@@ -44,6 +45,7 @@ void PlayerStats::_loadGenericStats(Config::Modifiers& classM, Config::Modifiers
     meditationRate = classM.meditationRate;
 }
 
+//Setea los valores de los stats del player segun sea un jugador nuevo o uno ya existente
 void PlayerStats::_loadInitialStats(Config::Modifiers& classM, Config::Modifiers& raceM,
                                     const PlayerData& data) {
     if (data.isNewPlayer) {
@@ -67,6 +69,8 @@ unsigned int PlayerStats::getLevel() const {
     return level;
 }
 
+//Aumenta en 1 el nivel de los atributos guardados y recalcula los nuevos valores
+//maximos de mana y vida, asignandole tambien estos a los valores actuales
 void PlayerStats::_increaseStats() {
     ++strength;
     ++agility;
