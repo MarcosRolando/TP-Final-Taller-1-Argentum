@@ -16,8 +16,8 @@ class EntityTests;
 class Banker;
 typedef void (*ModifyGold)(Storage &playerStorage, Player &player, int goldAmount);
 
-//Clase que se encarga de guardar todos los items que le otorgue el jugador
-//El jugador puede darle oro o items nuevos para que guarde o sacar oro o items
+/*Clase que se encarga de guardar todos los items que le otorgue el jugador
+El jugador puede darle oro o items nuevos para que guarde o sacar oro o items*/
 class Banker: public Entity {
 private:
     static std::unordered_map<std::string, std::pair<unsigned int, Storage>> playersStorages;
