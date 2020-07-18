@@ -11,6 +11,8 @@
 
 class Player;
 
+//Clase que se almacena en la cola de eventos cuando un player quiere desplazarse
+//en alguna direccion
 class ModifyPlayerMovement: public Event {
 private:
     Player& player;
@@ -25,6 +27,8 @@ public:
     //constructor que le indica a movement que debe dejar de moverse
     explicit ModifyPlayerMovement(Player& player);
 
+    //Guarda el proximo estado de movimiento para que sea ejecutado una vez que
+    //termine de realizar el movimiento que se este realizando en el momento
     void operator()(ServerProtocol& protocol) override;
 };
 

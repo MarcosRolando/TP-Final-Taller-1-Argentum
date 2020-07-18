@@ -47,8 +47,10 @@ void Tile::addEntity(std::shared_ptr<Entity>&& received_entity) {
 }
 
 void Tile::removeEntity() {
-    entity.reset();
-    isOccupable = true;
+    if (entity) {
+        entity.reset();
+        isOccupable = true;
+    }
 }
 
 void Tile::addItem(std::shared_ptr<Item>&& received_item) {
@@ -143,7 +145,7 @@ void Tile::operator>>(std::stringstream &mapBuffer) const {
     msgpack::pack(mapBuffer, tileInfo);
 }
 
-Item* Tile::peekShowedItemData() {
+const Item* Tile::peekShowedItemData() {
     if (items.empty()) {
         return nullptr;
     }

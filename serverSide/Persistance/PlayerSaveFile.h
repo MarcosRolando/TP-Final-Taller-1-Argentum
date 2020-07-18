@@ -20,10 +20,18 @@ private:
 
 public:
     explicit PlayerSaveFile(const std::string& filePath);
+
+    /*Retorna la data guardada del player (stats, inventario, banker items, etc)*/
     PlayerData getPlayerData(const std::string& playerNickname,
                              PlayerFilePosition filePosition);
+
+    /*Almacena la informacion del player provisto en la posicion especificada
+     * en el offset*/
     PlayerFilePosition storePlayerData(const PlayerData& playerData,
                                        int32_t fileOffset);
+
+    /*Sobrecarga para storePlayerData, esta funcion se usa para almacenar un nuevo
+     * player en el archivo (no recibe offset porque siempre ira al final del archivo*/
     PlayerFilePosition storePlayerData(const PlayerData& playerData);
 
 private:

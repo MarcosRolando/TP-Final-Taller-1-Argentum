@@ -24,7 +24,7 @@ public:
     Buy(Player& player, std::string&& _itemName, Coordinate _npcPosition);
 
     //Intenta comprar el item con el nombre guardado al entity que se encuentre
-    //en la coordenada guardada
+    //en la coordenada guardada, pidiendole a map que realice esa accion
     void operator()(ServerProtocol& protocol) override;
 };
 

@@ -10,6 +10,8 @@
 #include "../../Items/Defense/Clothing.h"
 #include "../../../libs/GameEnums.h"
 
+//Clase que se almacena en la cola de eventos cuando un player quiere desequiparse
+//un item
 class Unequip : public Event {
 private:
     Player& player;
@@ -17,6 +19,11 @@ private:
 
 public:
     Unequip(Player& player, GameType::EquipmentPlace equipment);
+
+    //Intenta desequipar el item del lugar recibido en el constructor, si logra
+    //hacerlo entonces le comunica a los clientes que ese item ya no se encuentra
+    //equipado, agregandolo al protocolo, si el equipment place es el del pecho,
+    //entonces notifica tambien que el player se equipo ropa default
     void operator()(ServerProtocol& protocol) override;
 };
 

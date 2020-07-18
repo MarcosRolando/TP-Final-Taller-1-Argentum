@@ -12,6 +12,8 @@
 class Player;
 class Game;
 
+//Clase que se almacena en la cola de eventos cuando un player quiere ejecutar
+//el comando resurrect
 class RequestResurrect: public Event {
 private:
     Player& player;
@@ -20,6 +22,11 @@ private:
 
 public:
     RequestResurrect(Game& game, Player& player, Coordinate selectedPosition);
+
+    //Pide a game que reviva al player, mandandole la coordenada a la que player
+    //le hace el pedido, si es resucitado al realizarlo entonces se agrega esta
+    //informacion al protocolo para que le llegue a todos los clientes y sepan
+    //que el player esta vivo
     void operator()(ServerProtocol& protocol) override;
 };
 

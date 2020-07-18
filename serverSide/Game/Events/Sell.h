@@ -12,6 +12,8 @@
 
 class Player;
 
+//Clase que se almacena en la cola de eventos cuando un player quiere ejecutar
+//el comando sell
 class Sell: public Event {
 private:
     Player& player;
@@ -19,6 +21,9 @@ private:
     std::string itemName;
 public:
     Sell(Player& player, std::string&& itemName, Coordinate position);
+
+    //Intenta llamar a sell en la posicion guardada en el constructor, pidiendole
+    //a map que realice esa accion
     void operator()(ServerProtocol& protocol) override;
 };
 

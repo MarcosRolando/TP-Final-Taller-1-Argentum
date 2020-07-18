@@ -115,7 +115,7 @@ void ClientHandler::_processClientAction(std::vector<char>& data) {
     try {
         (this->*eventProcessors.at(std::get<0>(event)))(data);
     } catch(std::out_of_range& e) {
-        std::cerr << "Se recibio un comando desconocido" << std::endl;
+        std::cerr << "Received an unknown command from the client" << std::endl;
     }
 }
 

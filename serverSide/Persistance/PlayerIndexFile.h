@@ -21,9 +21,17 @@ private:
 
 public:
     explicit PlayerIndexFile(const std::string& filePath);
+
+    /*Almacena los datos actualizados de un player player ya estaba almacenado en el archivo*/
     void storeOldPlayer(const std::string& playerNickname, PlayerFilePosition filePosition);
+
+    /*Almacena en el archivo los datos de un player que acaba de ser creado*/
     void storeNewPlayer(const std::string& playerNickname, PlayerFilePosition filePosition);
+
+    /*Retorna la posicion del player en el archivo que contiene todos sus datos*/
     PlayerFilePosition getPlayerPosition(const std::string& nickname);
+
+    /*Retorna true si el player existe en el archivo de datos, false en caso contrario*/
     bool playerExists(const std::string& nickname) const;
 
 private:

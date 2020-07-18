@@ -8,11 +8,13 @@
 
 #include "Potion.h"
 
+/*Esta clase representa la pocion de vida que puede consumir el player*/
+
 class HealthPotion: public Potion {
 private:
     void restoreStat(Player& player) override;
 public:
-    HealthPotion();
+    explicit HealthPotion(): Potion(GameType::HEALTH_POTION) {}
     ~HealthPotion() override;
 };
 

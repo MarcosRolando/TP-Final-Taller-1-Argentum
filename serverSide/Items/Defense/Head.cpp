@@ -4,10 +4,6 @@
 
 #include "Head.h"
 
-Head::Head(GameType::Clothing clothing) : Clothing(clothing) {
-
-}
-
 GameType::EquipmentPlace Head::use(Player &player) {
     return GameType::EQUIPMENT_PLACE_HEAD;
 }

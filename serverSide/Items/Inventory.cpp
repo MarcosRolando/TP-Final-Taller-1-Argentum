@@ -3,7 +3,6 @@
 //
 
 #include "Inventory.h"
-
 #include "../Map/Coordinate.h"
 #include "Attack/Weapon.h"
 #include "Defense/Chest.h"
@@ -11,7 +10,6 @@
 #include "Defense/Shield.h"
 #include <msgpack.hpp>
 #include "../Game/Game.h"
-#include "../Game/Events/Unequip.h"
 #include "ItemsFactory.h"
 #include "../Entities/PlayerStats.h"
 #include "../Entities/Minichat.h"
@@ -23,11 +21,12 @@ MSGPACK_ADD_ENUM(GameType::ItemType)
 #define INVENTORY_SIZE 16
 
 //////////////////////////////PRIVATE/////////////////////////////
-//Mueve el item al lugar de equipamiendo indicado si es que tiene uno
-UseReturnData Inventory::_manageItemPlacement(GameType::EquipmentPlace equipmentPlace, unsigned int itemPosition) {
+/*Mueve el item al lugar de equipamiendo indicado si es que tiene uno*/
+UseReturnData Inventory::_manageItemPlacement(GameType::EquipmentPlace equipmentPlace,
+                                            unsigned int itemPosition) {
     if (equipmentPlace == GameType::EQUIPMENT_PLACE_NONE) {
         items[itemPosition] = nullptr;
-        storedItemsAmount--;
+        --storedItemsAmount;
         return {GameType::EQUIPMENT_PLACE_NONE, -1};
     }
     if (equipmentPlace == GameType::EQUIPMENT_PLACE_WEAPON) {
@@ -38,7 +37,7 @@ UseReturnData Inventory::_manageItemPlacement(GameType::EquipmentPlace equipment
                 items[itemPosition] = std::move(equippedWeapon);
             } else {
                 items[itemPosition] = nullptr;
-                storedItemsAmount--;
+                --storedItemsAmount;
             }
             equippedWeapon = std::move(weaponPtrAux);
             return {GameType::EQUIPMENT_PLACE_WEAPON, equippedWeapon->getId()};
@@ -51,7 +50,7 @@ UseReturnData Inventory::_manageItemPlacement(GameType::EquipmentPlace equipment
                 items[itemPosition] = std::move(clothingEquipment.at(equipmentPlace));
             } else {
                 items[itemPosition] = nullptr;
-                storedItemsAmount--;
+                --storedItemsAmount;
             }
             clothingEquipment.at(equipmentPlace) = std::move(clothingPtrAux);
             return {equipmentPlace, clothingEquipment.at(equipmentPlace)->getId()};
@@ -109,7 +108,6 @@ void Inventory::_loadInitialInventory(const PlayerData& data) {
 
 
 //////////////////////////////PUBLIC/////////////////////////////
-#include <iostream>
 Inventory::Inventory(const PlayerData& data) : items(INVENTORY_SIZE, nullptr) {
     _loadInitialInventory(data);
     clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_HEAD,

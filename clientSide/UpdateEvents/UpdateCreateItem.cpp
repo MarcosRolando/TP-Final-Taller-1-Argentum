@@ -28,7 +28,7 @@ UpdateCreateItem::UpdateCreateItem(GameType::ItemType _type, int32_t _item,
                 throw TPException("Tried to create a null item");
         }
     } catch (std::exception& e) {
-        std::cerr << e.what() << " prob intentaro crear un item que yo no tenia traducido" << std::endl;
+        std::cerr << e.what() << "Tried to create an unknown item" << std::endl;
     }
 }
 

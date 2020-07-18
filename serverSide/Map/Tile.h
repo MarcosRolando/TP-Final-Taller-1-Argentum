@@ -29,24 +29,19 @@ private:
     friend MapTests;
 
 public:
-    //Inicializa el tile, dependiendo tel tipo de piso que reciba seteara el
-    //tile como ocupable o no ocupable
     explicit Tile(bool isOccupable, bool isFromCity, GameType::FloorType floor,
                   GameType::Structure structure, std::shared_ptr<Entity>&& initialEntity);
 
-    //El tile se queda con la entity de other y setea la de other en nullptr
+    //El tile se queda con la entity de other y setea la de other en nullptr,
+    //actualizando tambien el estado de si es ocupable o no en ambos tiles
     void moveEntity(Tile& otherTile, Coordinate position);
 
     //Intenta agregar la entity al tile
-    //Si la posicion es ocupable entonces se apropia
-    //del puntero y retorna true, sino no se apropia de de el y retorna false
+    //Si la posicion es ocupable entonces se apropia del puntero
     void addEntity(std::shared_ptr<Entity>&& received_entity);
 
     //Elimina la entity guardada, habilita la ocupacion del tile por otra
     //entity
-    //La funcion no chequea si el tile es ocupable o no debido a FloorType,
-    //una llamada a esa funcion en un tile no ocupable lo hara ocupable
-    //independientemente del tile
     void removeEntity();
 
     //Intenta agregar el item al tile, sumandolo a los items ya guardados
@@ -61,7 +56,9 @@ public:
 
     //Ataca la entidad que se encuentre guardada en el mapa
     //Retorna la cantidad de daño que recibio la entidad atacada, si no hay
-    //una entidad retorna 0
+    //una entidad retorna 0, el booleano indica si se realizo o no el ataque al tile,
+    //valiendo true si se realizo, false en otro caso (que no haya un entity no hace
+    //necesariamente que sea false)
     std::pair<AttackResult, bool> attacked(int damage, unsigned int level, bool isAPlayer);
 
     //Retorna true si almacena un entity que es un target de un monster
@@ -90,12 +87,15 @@ public:
     //Retorna si es de una city
     bool isInCity() const;
 
+    //Guarda en el buffer el entity almacenado en el tile, junto con el tipo de
+    //piso y la estructura almacenadas
     void operator>>(std::stringstream & mapBuffer) const;
 
-    //Guarda el tipo del item y el id del item a mostrar, si no hay items en el
-    //tile guarda -1 en el lugar del id (second)
-    Item* peekShowedItemData();
+    //Retorna un puntero al item que se debe mostrar en el mapa
+    const Item* peekShowedItemData();
 
+    //Le pide al entity guardado en el tile que restaure la vida y el mana del
+    //player recibido, si no hay un entity entonces no hace nada
     void requestRestore(Player& player);
 };
 

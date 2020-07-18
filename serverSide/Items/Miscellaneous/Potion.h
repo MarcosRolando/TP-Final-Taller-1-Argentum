@@ -11,6 +11,9 @@
 
 class ItemTests;
 
+/*Esta clase encapsula el comportamiento global de las pociones que
+ * son consumibles por el player (pociones de vida/mana)*/
+
 class Potion: public Item {
 protected:
     unsigned int recoveryValue;
@@ -20,10 +23,10 @@ protected:
 public:
     explicit Potion(GameType::Potion potion);
 
-    //Indica que una vez que son usadas las pociones son descartadas
+    /*Indica que una vez que son usadas las pociones son descartadas*/
     GameType::EquipmentPlace use(Player& player) override;
 
-    //Debe llamar a la funcion de player que restaura el atributo correspondiente
+    /*Debe llamar a la funcion de player que restaura el atributo correspondiente*/
     virtual void restoreStat(Player& player) = 0;
 
     virtual ~Potion() = default;
