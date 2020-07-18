@@ -22,7 +22,8 @@ private:
 public:
     List(Player& player, Coordinate _npcPosition);
 
-    //Intenta llamar a list en la posicion guardada en el constructor
+    //Intenta llamar a list en la posicion guardada en el constructor, pidiendole
+    //a map que realice esa accion
     void operator()(ServerProtocol& protocol) override;
 };
 

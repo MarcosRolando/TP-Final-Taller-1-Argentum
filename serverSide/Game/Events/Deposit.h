@@ -24,7 +24,7 @@ public:
     Deposit(Player& player, std::string&& _itemName, Coordinate _npcPosition);
 
     //Intenta depositar el item con el nombre en el entity que se encuentre
-    //en la coordenada guardada
+    //en la coordenada guardada, pidiendole a map que realice esa accion
     void operator()(ServerProtocol& protocol) override;
 
 };
