@@ -23,7 +23,7 @@ public:
     Attack(Entity& _entity, Coordinate _target);
 
     //Realiza el ataque y de ser necesario almacena el evento en el protocolo
-    //para comunicarselo a los clientes
+    //para comunicarselo a los clientes, pidiendole a map que realice esa accion
     void operator()(ServerProtocol& protocol) override;
 
 private:

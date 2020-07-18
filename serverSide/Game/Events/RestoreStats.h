@@ -12,6 +12,8 @@
 class Player;
 class Game;
 
+//Clase que se almacena en la cola de eventos cuando un player quiere ejecutar
+//el comando heal
 class RestoreStats: public Event {
 private:
     Game& game;
@@ -20,6 +22,8 @@ private:
 
 public:
     RestoreStats(Game& game, Player& player, Coordinate target);
+
+    //Pide a game que llame a restore para el mapa en la coordenada recibida
     void operator()(ServerProtocol& serverProtocol) override;
 };
 
