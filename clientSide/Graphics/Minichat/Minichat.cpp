@@ -110,8 +110,8 @@ void Minichat::clearMinichat() {
 }
 
 void Minichat::render() {
-    std::lock_guard<std::mutex> l(generalMutex);
-    //renderizo input
+    std::lock_guard<std::mutex> lg(generalMutex);
+    std::lock_guard<std::mutex> li(inputMutex);
     input.render(0,178, SDL_Color{0xFF,0xFF,0xFF,0xFF});
     //renderizo mensajes encolados. Prob haya una mejor forma de iterar esto
     int textNum = 0;
