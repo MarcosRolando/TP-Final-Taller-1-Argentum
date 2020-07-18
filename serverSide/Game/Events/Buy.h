@@ -12,6 +12,8 @@
 
 class Player;
 
+//Clase que se almacena en la cola de eventos cuando un player quiere ejecutar
+//el comando de comprar en un tile
 class Buy : public Event {
 private:
     Player& player;
@@ -20,6 +22,9 @@ private:
 
 public:
     Buy(Player& player, std::string&& _itemName, Coordinate _npcPosition);
+
+    //Intenta comprar el item con el nombre guardado al entity que se encuentre
+    //en la coordenada guardada
     void operator()(ServerProtocol& protocol) override;
 };
 

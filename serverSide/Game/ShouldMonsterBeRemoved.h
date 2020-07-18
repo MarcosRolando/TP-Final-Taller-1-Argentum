@@ -26,9 +26,4 @@ public:
     bool operator()(const Monster* monster);
 };
 
-
-
-
-
-
 #endif //ARGENTUM_SHOULDMONSTERBEREMOVED_H
