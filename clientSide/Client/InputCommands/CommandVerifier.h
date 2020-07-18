@@ -18,7 +18,9 @@ private:
     std::string input;
 
 public:
+    /* Constructor */
     CommandVerifier();
+    /* Verifica que comando ingrese y devuelve el functor */
     std::unique_ptr<InputCommand> verifyCommand(GameGUI& game, std::string&& cmd);
 
 private:
