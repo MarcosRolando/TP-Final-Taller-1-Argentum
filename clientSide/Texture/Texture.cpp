@@ -5,7 +5,6 @@
 #include "Texture.h"
 
 Texture::Texture(SDL_Renderer& renderer) : renderer(renderer) {
-    //Initialize
     mTexture = nullptr;
     mWidth = 0;
     mHeight = 0;
@@ -15,42 +14,39 @@ Texture::Texture(SDL_Renderer& renderer) : renderer(renderer) {
 }
 
 Texture::~Texture() {
-    //Deallocate
     _free();
 }
 
 void Texture::loadFromFile(const std::string& path, ColorKey_t key, int xOff, int yOff,
                                                                 int scale) {
-    //Get rid of preexisting texture
+    //Libero la textura anterior
     _free();
 
-    //Load image at specified path
+    //cargo la imagen de path
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == nullptr) {
         throw TPException("Unable to load image %s! SDL_image Error: %s\n",
                           path.c_str(), IMG_GetError() );
     } else {
-        //Color key image
         if (key.red > -1 && key.green > -1 && key.blue > -1) {
             SDL_SetColorKey(loadedSurface, SDL_TRUE,
                             SDL_MapRGB(loadedSurface->format, key.red, key.green, key.blue));
             /*Con esto aclaras que pixel hacer transparente*/
         }
 
-        //Create texture from surface pixels
+        //Crea la textura
         mTexture = SDL_CreateTextureFromSurface(&renderer, loadedSurface);
         if (mTexture == nullptr) {
-            //Get rid of old loaded surface
+            //Si falla libero la superficie
             SDL_FreeSurface(loadedSurface);
             throw TPException("Unable to create texture from %s! "
                                "Graphics Error: %s\n", path.c_str(), SDL_GetError());
         } else {
-            //Get image dimensions
             mWidth = loadedSurface->w;
             mHeight = loadedSurface->h;
         }
 
-        //Get rid of old loaded surface
+        //Libero la superficie
         SDL_FreeSurface(loadedSurface);
     }
 
@@ -60,7 +56,6 @@ void Texture::loadFromFile(const std::string& path, ColorKey_t key, int xOff, in
 }
 
 void Texture::_free() {
-    //Free texture if it exists
     if (mTexture != nullptr) {
         SDL_DestroyTexture(mTexture);
         mTexture = nullptr;
@@ -70,15 +65,14 @@ void Texture::_free() {
 }
 
 void Texture::render(int x, int y, int spritePosition, double angle, int scale) {
-    //Set rendering space and _render to screen
     SDL_Rect renderQuad = {x + xOffset, y + yOffset, mWidth, mHeight};
     SDL_Rect& clip = gSpriteClips.at(spritePosition);
 
-    //Set clip rendering dimensions
+    //Setea las dimensiones del rectangulo a renderizar
     renderQuad.w = clip.w*scale;
     renderQuad.h = clip.h*scale;
 
-    //Render to screen
+    //Renderiza
     SDL_RenderCopyEx(&renderer, mTexture, &clip, &renderQuad, angle, nullptr, SDL_FLIP_NONE);
 }
 
@@ -110,40 +104,36 @@ SpriteDimensions_t Texture::getSpriteDimensions(int spritePosition) {
 }
 
 /* Crea una textura con texto */
-void Texture::loadFromRenderedText(const std::string& textureText, SDL_Color
+void Texture::loadFromRenderedText(const std::string& text, SDL_Color
                                                 textColor, TTF_Font* font ) {
-    //Get rid of preexisting texture
+    //Libero la textura anterior
     _free();
 
-    //Render text surface
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str
-            (), textColor);
+    //Creo una superficie con el texto
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
     if( textSurface == nullptr ) {
         throw TPException("Unable to _render text surface! SDL_ttf Error:"
                            " %s\n", TTF_GetError());
     } else {
-        //Create texture from surface pixels
+        //Crea la textura
         mTexture = SDL_CreateTextureFromSurface( &renderer, textSurface );
 
         if( mTexture == nullptr ) {
-            //Get rid of old surface
+            //Si falla libera la superficie
             SDL_FreeSurface(textSurface);
             throw TPException("Unable to create texture from rendered text! Graphics Error: %s\n", SDL_GetError());
         } else {
-            //Get image dimensions
             mWidth = textSurface->w;
             mHeight = textSurface->h;
         }
 
-        //Get rid of old surface
+        //Libero al superficie
         SDL_FreeSurface(textSurface);
     }
 }
 
 void Texture::renderText(int x, int y) {
-//Set rendering space and _render to screen
     SDL_Rect renderQuad = { x, y, mWidth, mHeight };
-    //Render to screen
     SDL_RenderCopy(&renderer, mTexture, nullptr, &renderQuad);
 }
 

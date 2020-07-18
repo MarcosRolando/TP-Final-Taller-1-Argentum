@@ -15,37 +15,35 @@ Structure::Structure(Coordinate position, Texture* sTexture) : sTexture(sTexture
 }
 
 bool Structure::_checkCollision(SDL_Rect a, SDL_Rect b) {
-    //The sides of the rectangles
     int leftA, leftB;
     int rightA, rightB;
     int topA, topB;
     int bottomA, bottomB;
-    //Calculate the sides of rect A
+    //Calculo los lados de A
     leftA = a.x;
     rightA = a.x + a.w;
     topA = a.y;
     bottomA = a.y + a.h;
 
-    //Calculate the sides of rect B
+    //Calculo los lados de B
     leftB = b.x;
     rightB = b.x + b.w + TILE_WIDTH/2;
     topB = b.y  + TILE_HEIGHT/2 - b.h; /*NO ES IGUAL A LAS OTRAS, OJO!*/
     bottomB = b.y + TILE_HEIGHT/2; /*Porque centro las estructuras en el medio del tile*/
 
-    //If any of the sides from A are outside of B
+    //Si alguno de los lados de A esta fuera de B
     if(bottomA <= topB) return false;
     if(topA >= bottomB) return false;
     if(rightA <= leftB) return false;
     if(leftA >= rightB) return false;
 
-    //If none of the sides from A are outside B
+    //    //Si ningun lado de A esta fuera de B
     return true;
 }
 
 void Structure::render(SDL_Rect& camera) {
-    //If the tile is on screen
+    //Si se ve el tile en la pantalla
     if (sTexture != nullptr && _checkCollision(camera, box)) {
-        //Show the tile
         sTexture->render(box.x - camera.x, box.y - camera.y);
     }
 }

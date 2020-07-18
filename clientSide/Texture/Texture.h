@@ -68,7 +68,7 @@ public:
 
     SpriteDimensions_t getSpriteDimensions(int spritePosition = 0);
 
-    void loadFromRenderedText( const std::string& textureText, SDL_Color
+    void loadFromRenderedText(const std::string& text, SDL_Color
     textColor, TTF_Font* font );
 
     void renderText(int x, int y);

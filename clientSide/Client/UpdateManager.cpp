@@ -17,7 +17,7 @@ UpdateQueue<std::unique_ptr<UpdateEvent>> UpdateManager::pop() {
         updates.pop();
         return update;
     }
-    throw TPException("Intentaron tomar un update de una cola vacia!");
+    throw TPException("An update was requested from an empty queue!");
 }
 
 int UpdateManager::updatesAvailable() {

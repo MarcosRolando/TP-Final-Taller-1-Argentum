@@ -19,7 +19,7 @@ Spell::Spell(Texture& texture, SDL_Rect &camera, float x, float y) :
 }
 
 void Spell::updateFrame(double timeStep) {
-    //Calculate time step
+    //Calculo time step
     float offset = SPELL_SPEED*timeStep;
     if ( (timePassed + offset) >= ANIMATION_TIME) {
         timePassed = ANIMATION_TIME;
@@ -41,30 +41,26 @@ void Spell::updateFrame(double timeStep) {
 }
 
 bool Spell::_checkCollision(SDL_Rect a, SDL_Rect b) {
-    //The sides of the rectangles
     int leftA, leftB;
     int rightA, rightB;
     int topA, topB;
     int bottomA, bottomB;
-    //Calculate the sides of rect A
+
     leftA = a.x;
     rightA = a.x + a.w;
     topA = a.y;
     bottomA = a.y + a.h;
 
-    //Calculate the sides of rect B
     leftB = b.x;
     rightB = b.x + b.w;
     topB = b.y;
     bottomB = b.y + b.h;
 
-    //If any of the sides from A are outside of B
     if(bottomA <= topB) return false;
     if(topA >= bottomB) return false;
     if(rightA <= leftB) return false;
     if(leftA >= rightB) return false;
 
-    //If none of the sides from A are outside B
     return true;
 }
 

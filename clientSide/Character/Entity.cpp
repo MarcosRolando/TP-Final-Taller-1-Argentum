@@ -38,30 +38,29 @@ void Entity::_updateFrame(bool reachedDestination) {
 }
 
 bool Entity::_checkCollision(SDL_Rect a, SDL_Rect b) {
-    //The sides of the rectangles
+    //Los lados de los rect
     int leftA, leftB;
     int rightA, rightB;
     int topA, topB;
     int bottomA, bottomB;
-    //Calculate the sides of rect A
+    //Calculo los lados del rect A
     leftA = a.x;
     rightA = a.x + a.w;
     topA = a.y;
     bottomA = a.y + a.h;
 
-    //Calculate the sides of rect B
+    //Calculo los lados del rect B
     leftB = b.x;
     rightB = b.x + b.w;
     topB = b.y;
     bottomB = b.y + b.h;
 
-    //If any of the sides from A are outside of B
+    //Si cualquiera de los lados de A estan fuera de B no hay colision
     if(bottomA <= topB) return false;
     if(topA >= bottomB) return false;
     if(rightA <= leftB) return false;
     if(leftA >= rightB) return false;
 
-    //If none of the sides from A are outside B
     return true;
 }
 
@@ -120,11 +119,11 @@ void Entity::_renderLastDirection(EntityTexture& eTexture) {
 }
 
 void Entity::updateCamera() {
-    //Center the camera over the entity
+    //Centro la camara sobre el jugador
     camera.x = ((int)xPosition + 55 / 2 ) - DEFAULT_MAP_WIDTH / 2;
     camera.y = ((int)yPosition + 100 / 2 ) - DEFAULT_MAP_HEIGHT / 2;
 
-    //Keep the camera in bounds
+    //Mantengo la camara en los bordes
     if (camera.x < 0) {
         camera.x = 0;
     }
