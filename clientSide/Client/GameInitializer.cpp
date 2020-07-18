@@ -24,6 +24,7 @@ void GameInitializer::initializeGame() {
     _receiveCurrentGameState();
 }
 
+/* Recibe la informacion del mapa */
 void GameInitializer::_receiveMapInfo() {
     int32_t msgLength;
     socket.receive((char*)(&msgLength), sizeof(msgLength));
@@ -33,6 +34,7 @@ void GameInitializer::_receiveMapInfo() {
     _loadMap(buffer);
 }
 
+/* Recibe el estado inicial del juego */
 void GameInitializer::_receiveCurrentGameState() {
     int32_t msgLength;
     socket.receive((char*)(&msgLength), sizeof(msgLength));
@@ -57,7 +59,7 @@ void GameInitializer::_receiveCurrentGameState() {
     _receivePlayerData();
 }
 
-
+/* Procesa la entidad que recibe del server y la agrega al juego */
 void GameInitializer::_processAddEntity(std::vector<char>& buffer, std::size_t& offset) {
     msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     msgpack::type::tuple<GameType::Entity, std::string> entityData;
@@ -71,7 +73,7 @@ void GameInitializer::_processAddEntity(std::vector<char>& buffer, std::size_t& 
     }
 }
 
-
+/* Carga las texturas de cada tile del mapa*/
 void GameInitializer::_loadMap(std::vector<char>& buffer) {
     std::size_t offset = 0;
     msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
@@ -96,8 +98,8 @@ void GameInitializer::_loadMap(std::vector<char>& buffer) {
     }
 }
 
-void GameInitializer::loadPlayer(const std::string& nickname, GameType::Race race,
-                                  GameType::Class _class) {
+void GameInitializer::createPlayer(const std::string& nickname, GameType::Race race,
+                                   GameType::Class _class) {
     game.getMap().setPlayerNickname(nickname);//Para despues poder buscar la pos del player en Map
     std::stringstream msgBuffer;
     msgpack::type::tuple<GameType::PlayerEvent> event(GameType::CREATE_PLAYER);
@@ -112,8 +114,7 @@ void GameInitializer::loadPlayer(const std::string& nickname, GameType::Race rac
     ClientProtocol::loadBytes(sendBuffer, &length, sizeof(uint32_t));
     std::copy(aux.begin(), aux.end(), std::back_inserter(sendBuffer));
     socket.send(sendBuffer.data(), sendBuffer.size());
-} //todo no repetir el codigo para las 2 funciones
-
+}
 
 void GameInitializer::loadPlayer(const std::string& nickname) {
     game.getMap().setPlayerNickname(nickname);//Para despues poder buscar la pos del player en Map
@@ -132,6 +133,7 @@ void GameInitializer::loadPlayer(const std::string& nickname) {
     socket.send(sendBuffer.data(), sendBuffer.size());
 }
 
+/* Recibe toda la informacion inicial del jugador */
 void GameInitializer::_receivePlayerData() {
     uint32_t length = 0;
     socket.receive(reinterpret_cast<char*>(&length), sizeof(uint32_t));

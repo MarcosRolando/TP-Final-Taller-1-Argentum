@@ -20,7 +20,6 @@ MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 MSGPACK_ADD_ENUM(GameType::Direction)
 
 
-//La copie de ClientEventHandler pero creo q va mejor aca
 void ClientProtocol::loadBytes(std::vector<char>& loadBuffer, void* data, unsigned int size) {
     for (unsigned int i = 0; i < size; ++i) {
         loadBuffer[i] = *(reinterpret_cast<char *>(data) + i);
@@ -28,7 +27,6 @@ void ClientProtocol::loadBytes(std::vector<char>& loadBuffer, void* data, unsign
 }
 
 ItemData ClientProtocol::processAddItem(std::vector<char>* _buffer, std::size_t& offset) {
-
     buffer = _buffer;
     TextureID itemTexture = Nothing;
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
@@ -55,7 +53,6 @@ ItemData ClientProtocol::processAddItem(std::vector<char>* _buffer, std::size_t&
 
 EntityData ClientProtocol::processAddNPC(std::vector<char>* _buffer, msgpack::type::tuple<GameType::Entity,
         std::string>& entityData, std::size_t& offset) {
-
     buffer = _buffer;
     EntityData npcData;
     npcData.texture = translator.getEntityTexture(std::get<0>(entityData));
@@ -71,11 +68,10 @@ EntityData ClientProtocol::processAddNPC(std::vector<char>* _buffer, msgpack::ty
 
 MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer, msgpack::type::tuple<GameType::Entity,
         std::string>& entityData, std::size_t& offset) {
-
     buffer = _buffer;
     MapPlayerData pData;
     PlayerEquipment equipment{};
-    pData.entityData.texture = Nothing; /*no lo usamos para nada despues igual*/
+    pData.entityData.texture = Nothing;
     pData.entityData.nickname = std::get<1>(entityData);
     msgpack::type::tuple<int32_t, int32_t, GameType::Direction, int32_t> position;
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
@@ -91,7 +87,7 @@ MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer, msgpa
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     handler->convert(isAlive);
     equipment.head = translator.getRaceTexture(
-            static_cast<GameType::Race>(std::get<0>(playerRace))); //todo ver si hago funcion privada para la ropa
+            static_cast<GameType::Race>(std::get<0>(playerRace)));
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     handler->convert(item); /*Recibo en orden el helmet, armor, shield y weapon*/
     equipment.helmet = translator.getClothingTexture(
@@ -115,6 +111,7 @@ MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer, msgpa
     return pData;
 }
 
+/* Agrega la informacion correspondiente al inventario a PlayerData*/
 void ClientProtocol::_addInventoryItems(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     msgpack::type::tuple<int32_t, int32_t> gold;
@@ -126,6 +123,7 @@ void ClientProtocol::_addInventoryItems(PlayerData& data, size_t& offset) {
     _fillInventory(data, offset);
 }
 
+/* Agrega los items equipados a PlayerData */
 void ClientProtocol::_addEquippedItems(PlayerData& info, size_t& offset){
     _addClothing(info, offset, Helmet);//Esto carga el helmet
     _addClothing(info, offset, Armor);//Esto carga la armadura
@@ -133,6 +131,7 @@ void ClientProtocol::_addEquippedItems(PlayerData& info, size_t& offset){
     _addWeapon(info, offset);
 }
 
+/* Llena el inventario con los items recibidos por el server */
 void ClientProtocol::_fillInventory(PlayerData& info, size_t& offset){
     for (int i = 0; i < 16; ++i) {
         handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
@@ -142,6 +141,7 @@ void ClientProtocol::_fillInventory(PlayerData& info, size_t& offset){
     }
 }
 
+/* Agrega un item al inventario */
 void ClientProtocol::_addItem(PlayerData& info, GameType::ItemType type, int32_t id, int position) {
     TextureID texture;
     switch (type) {
@@ -166,6 +166,7 @@ void ClientProtocol::_addItem(PlayerData& info, GameType::ItemType type, int32_t
     info.inventoryItems.emplace_back(texture, position);
 }
 
+/* Agrega las stats del jugador recibida por el server a PlayerData */
 void ClientProtocol::_addPlayerStats(PlayerData& data, size_t& offset) {
     _addXPData(data, offset);
     _addManaData(data, offset);
@@ -176,6 +177,7 @@ void ClientProtocol::_addPlayerStats(PlayerData& data, size_t& offset) {
     _addNickname(data, offset);
 }
 
+/* Agrega el nickname a PlayerData */
 void ClientProtocol::_addNickname(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     msgpack::type::tuple<std::string> name;
@@ -183,6 +185,7 @@ void ClientProtocol::_addNickname(PlayerData& data, size_t& offset) {
     data.generalInfo.nickname = std::get<0>(name);
 }
 
+/* Agrega un item de vestimenta a PlayerData */
 void ClientProtocol::_addClothing(PlayerData& info, size_t& offset, EquippedItems item) {
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     msgpack::type::tuple<int32_t> equippedClothing;
@@ -191,6 +194,7 @@ void ClientProtocol::_addClothing(PlayerData& info, size_t& offset, EquippedItem
             (static_cast<GameType::Clothing>(std::get<0>(equippedClothing))), item);
 }
 
+/* Agrega el arma equipada a PlayerData */
 void ClientProtocol::_addWeapon(PlayerData& info, size_t& offset){
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     msgpack::type::tuple<int32_t> equippedWeapon;

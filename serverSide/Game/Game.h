@@ -70,6 +70,9 @@ public:
 
     explicit Game(MapFileReader&& mapFile);
 
+    //Destructor virtual para poder hacer un stub con fakeit
+    virtual ~Game() = default;
+
     std::pair<AttackResult, bool> attackPosition(int damage, unsigned int level, bool isAPlayer,
                             Coordinate coordinate);
 

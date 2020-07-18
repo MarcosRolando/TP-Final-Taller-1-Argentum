@@ -12,6 +12,7 @@
 MSGPACK_ADD_ENUM(GameType::Direction)
 MSGPACK_ADD_ENUM(GameType::PlayerEvent)
 
+/* Procesa los eventos del usuario y manda dicho evento con su informacion correspondiente al server */
 void ClientEventHandler::run() {
     Minichat& minichat = game.getMinichat();
 
@@ -49,6 +50,7 @@ void ClientEventHandler::run() {
     }
 }
 
+/* Porcesa el evento de cuando se deja de apretar una tecla */
 void ClientEventHandler::_handleKeyUp(SDL_Event& e) {
     msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_STOP_MOVING);
     switch (e.key.keysym.sym) {
@@ -67,6 +69,7 @@ void ClientEventHandler::_handleKeyUp(SDL_Event& e) {
     }
 }
 
+/* Procesa el evento de cuando se hace click */
 void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
     int clickX, clickY;
     SDL_GetMouseState(&clickX, &clickY);
@@ -93,6 +96,7 @@ void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
     }
 }
 
+/* Procesa el evento de cuando se apreta una tecla */
 void ClientEventHandler::_handleKeyDown(SDL_Event& e) {
     msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_START_MOVING);
     msgpack::type::tuple<GameType::Direction> direction;
@@ -128,7 +132,7 @@ void ClientEventHandler::_handleKeyDown(SDL_Event& e) {
             case SDLK_RETURN:
                 _processCommandInput();
                 break;
-            case SDLK_SPACE:
+            case SDLK_TAB:
                 if (SoundPlayer::isMusicPlaying()) {
                     game.getSoundPlayer().pauseMusic();
                 } else {
@@ -139,6 +143,7 @@ void ClientEventHandler::_handleKeyDown(SDL_Event& e) {
     }
 }
 
+/* Procesa el evento cuando apreto enter para ejecutar un comando del minichat */
 void ClientEventHandler::_processCommandInput() {
     std::string cmd = game.getMinichat().handleReturnKey();
     if (cmd != " "){ //Si apreto enter y no hay texto handleReturnKey me devuelve esto
@@ -146,8 +151,7 @@ void ClientEventHandler::_processCommandInput() {
             game.getMinichat().clearMinichat();
         } else {
             std::unique_ptr<InputCommand> inputCmd;
-            inputCmd = cmdVerifier.verifyCommand(game, std::move(
-                    cmd));//Parsea el comando y me devuelve x ejemplo
+            inputCmd = cmdVerifier.verifyCommand(game, std::move(cmd));
             if (inputCmd) {
                 (*inputCmd)(msgBuffer);//Arma el mensaje y lo packea en msgBuffer
             } else {
@@ -157,6 +161,7 @@ void ClientEventHandler::_processCommandInput() {
     }
 }
 
+/* Arma el buffer y lo envia para el evento de desequipar un item */
 void ClientEventHandler::_processUnequipItem(GameType::EquipmentPlace _equipment){
     msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_UNEQUIP);
     msgpack::type::tuple<int32_t> equipment;
@@ -165,6 +170,7 @@ void ClientEventHandler::_processUnequipItem(GameType::EquipmentPlace _equipment
     msgpack::pack(msgBuffer, equipment);
 }
 
+/* Arma el buffer y lo envia para el evento de equiparse un item */
 void ClientEventHandler::_processUseItem(int _inventorySlot) {
     msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_USE_ITEM);
     msgpack::type::tuple<int32_t> inventorySlot;
@@ -173,6 +179,7 @@ void ClientEventHandler::_processUseItem(int _inventorySlot) {
     msgpack::pack(msgBuffer, inventorySlot);
 }
 
+/* Arma el buffer y lo envia para el evento de atacar a una posicion */
 void ClientEventHandler::_processAttack(Coordinate selectedTile) {
     msgpack::type::tuple<GameType::PlayerEvent> event(GameType::PLAYER_ATTACK);
     msgpack::type::tuple<int32_t, int32_t> targetPosition;
@@ -181,6 +188,7 @@ void ClientEventHandler::_processAttack(Coordinate selectedTile) {
     msgpack::pack(msgBuffer, targetPosition);
 }
 
+/* Envia el mensaje con el evento y su informacion al servidor */
 void ClientEventHandler::_sendMessage() {
     std::string aux = msgBuffer.str();
     uint32_t length = htonl(aux.size());
