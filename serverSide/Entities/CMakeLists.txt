@@ -5,4 +5,4 @@ add_library(entities Entity.cpp Minichat.cpp Monster.cpp MonsterStats.cpp
 
 add_subdirectory(Citizens)
 
-target_link_libraries(entities PUBLIC citizens items)
+target_link_libraries(entities PUBLIC citizens items server)

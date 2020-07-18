@@ -41,7 +41,8 @@ bool EntityTests::testIsMonsterTarget() {
 
 bool EntityTests::testSpendGold() {
     Mock<Game> game;
-    Player player(game.get(), {0,0}, PlayerData());
+    PlayerData data;
+    Player player(game.get(), {0,0}, data);
     player.receiveGold(30);
     if (player.gold != 30) return false;
     std::shared_ptr<Item> gold(new Gold(105));

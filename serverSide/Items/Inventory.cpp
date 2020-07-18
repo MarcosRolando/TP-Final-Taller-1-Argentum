@@ -109,20 +109,20 @@ void Inventory::_loadInitialInventory(const PlayerData& data) {
 
 
 //////////////////////////////PUBLIC/////////////////////////////
-
+#include <iostream>
 Inventory::Inventory(const PlayerData& data) : items(INVENTORY_SIZE, nullptr) {
     _loadInitialInventory(data);
     clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_HEAD,
-                    std::make_shared<Head>(static_cast<GameType::Clothing>(data.equipment.at(
-                            GameType::EQUIPMENT_PLACE_HEAD))));
+                              std::make_shared<Head>(static_cast<GameType::Clothing>(data.equipment.at(
+                                      GameType::EQUIPMENT_PLACE_HEAD))));
     clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_CHEST,
-                    std::make_shared<Chest>(static_cast<GameType::Clothing>(data.equipment.at(
-                    GameType::EQUIPMENT_PLACE_CHEST))));
+                              std::make_shared<Chest>(static_cast<GameType::Clothing>(data.equipment.at(
+                                      GameType::EQUIPMENT_PLACE_CHEST))));
     clothingEquipment.emplace(GameType::EQUIPMENT_PLACE_SHIELD,
-                    std::make_shared<Shield>(static_cast<GameType::Clothing>(data.equipment.at(
-                    GameType::EQUIPMENT_PLACE_SHIELD))));
+                              std::make_shared<Shield>(static_cast<GameType::Clothing>(data.equipment.at(
+                                      GameType::EQUIPMENT_PLACE_SHIELD))));
     equippedWeapon = std::make_shared<Weapon>(static_cast<GameType::Weapon>(data.equipment.at(
-                                    GameType::EQUIPMENT_PLACE_WEAPON)));
+                                GameType::EQUIPMENT_PLACE_WEAPON)));
 }
 
 bool Inventory::addItem(std::shared_ptr<Item> &item) {

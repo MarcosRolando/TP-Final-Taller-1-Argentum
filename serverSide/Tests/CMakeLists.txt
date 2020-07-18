@@ -8,5 +8,5 @@ target_compile_options (tests PRIVATE -std=c++11 -Wall -Werror -pedantic -pedant
 
 target_link_options(tests PRIVATE -lm -pthread)
 
-target_link_libraries(tests server persistance serverMap items game
-                         entities config libs)
+target_link_libraries(tests PRIVATE persistance serverMap items entities game server
+                          config libs)

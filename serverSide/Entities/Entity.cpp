@@ -5,8 +5,6 @@
 #include "Entity.h"
 #include "AttackResult.h"
 #include "../Game/Game.h"
-#include "../Game/Events/Move.h"
-#include "../../libs/GameEnums.h"
 #include "../Game/Events/Moved.h"
 #include <msgpack.hpp>
 #include "../../libs/SharedConstants.h"
