@@ -340,6 +340,7 @@
 
   "InitialMerchantGold": 1000,
   "PlayerSpeed" : 5,
+  "TimeForPlayerRecoveryInSeconds" : 10,
   "CritAttackProb" : 0.05,
   "DodgeCoeff" : 0.0001,
   "NewbieLevel" : 5,

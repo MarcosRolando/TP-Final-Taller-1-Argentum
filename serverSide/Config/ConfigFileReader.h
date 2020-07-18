@@ -79,9 +79,7 @@ namespace Config {
 
     class ConfigFileReader {
     private:
-        Json::Reader reader;
         Json::Value obj;
-        std::ifstream file;
         std::unordered_map<std::string, GameType::Class> classes;
         std::unordered_map<std::string, GameType::Race> races;
         std::unordered_map<std::string, GameType::Entity> monsters;
@@ -138,6 +136,9 @@ namespace Config {
 
         /*Carga el oro incial que tienen los mercaderes (para comprar items de los players)*/
         unsigned int loadInitialMerchantGold();
+
+        /*Carga el tiempo (en segundos) que debe pasar para que el player recupere vida/mana*/
+        double loadTimeForPlayerRecovery();
 
     private:
         static void

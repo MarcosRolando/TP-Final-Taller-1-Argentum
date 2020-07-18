@@ -4,15 +4,19 @@
 
 #include "MapFileReader.h"
 #include "../../libs/TPException.h"
+#include <memory>
 
 MapFileReader::MapFileReader(const std::string& path) {
     mapDimensions.width = 0;
     mapDimensions.height = 0;
-    file.open(path);
+    std::ifstream file(path);
+    if (!file.is_open()) {
+        throw TPException("No se pudo abrir el arcvio del Mapa,"
+                          " asegurese de que el archivo existe!");
+    }
     try {
-        reader.parse(file, obj);
+        file >> obj;
     } catch (...) {
-        file.close();
         throw TPException("Fallo el parseo del Mapa!");
     }
     _readMapSize();

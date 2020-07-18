@@ -44,7 +44,7 @@ T BlockingQueue<T>::pop() {
         queue.pop();
         return element;
     }
-    throw TPException("La cola bloqueante se cerro!");
+    throw TPException("Blocking queue is closed!");
 }
 
 template <typename T>

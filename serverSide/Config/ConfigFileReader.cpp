@@ -4,6 +4,7 @@
 
 #include "ConfigFileReader.h"
 #include "../../libs/TPException.h"
+#include <memory>
 
 using namespace GameType;
 
@@ -22,12 +23,16 @@ Config::ConfigFileReader::ConfigFileReader(const std::string& path) :
             {"NoHelmet", NO_HELMET}, {"NoShield", NO_SHIELD}},
     potions {{"HealthPotion", HEALTH_POTION}, {"ManaPotion", MANA_POTION}} {
 
-    file.open(path);
+    std::ifstream file(path);
+    if (!file.is_open()) {
+        throw TPException("No se pudo abrir el arcvio de Config,"
+                          " asegurese de que el archivo existe!");
+    }
+
     try {
-        reader.parse(file, obj);
+        file >> obj;
     } catch (...) {
-        file.close();
-        throw TPException("Fallo el parseo del Config!");
+        throw TPException("Fallo el parseo del Config de Json!");
     }
 }
 
@@ -186,4 +191,8 @@ unsigned int Config::ConfigFileReader::loadInitialMerchantGold() {
 
 unsigned int Config::ConfigFileReader::loadPlayerSpeed() {
     return obj["PlayerSpeed"].asUInt();
+}
+
+double Config::ConfigFileReader::loadTimeForPlayerRecovery() {
+    return obj["TimeForPlayerRecoveryInSeconds"].asUInt();
 }

@@ -11,7 +11,9 @@
 #define MAX_MSGS 24 //El maximo de mensajes qu ese van a ver al scrollear
 #define MAX_MSGS_TO_RENDER 8
 
-Minichat::Minichat(SDL_Renderer& renderer) : minichatFont("../../clientSide/Graphics/Text/Raleway-Medium.ttf", 20),
+#define MINICHAT_FONT_PATH "../../clientSide/Graphics/Text/Raleway-Medium.ttf"
+
+Minichat::Minichat(SDL_Renderer& renderer) : minichatFont(MINICHAT_FONT_PATH, 20),
                                 input(minichatFont,renderer), renderer(renderer) {
     focusOnMinichat = false;
     input.updateText(":");
@@ -37,8 +39,10 @@ std::string Minichat::handleReturnKey() {
 
 void Minichat::handleBackspace() {
     std::lock_guard<std::mutex> l(inputMutex);
-    if (input.getTextLength() > 1) {
-        input.eraseText();
+    if (focusOnMinichat) {
+        if (input.getTextLength() > 1) {
+            input.eraseText();
+        }
     }
 }
 
@@ -59,17 +63,18 @@ void Minichat::handleMouseButtonDown(Coordinate click, Window& window) {
 
 void Minichat::handleMouseWheel(SDL_Event& e) {
     std::lock_guard<std::mutex> l(generalMutex);
-    if(e.wheel.y > 0) // scroll up
-    {
-        firstToRender += 1;
-        if (firstToRender > MAX_MSGS - MAX_MSGS_TO_RENDER)
+    if (focusOnMinichat) {
+        if (e.wheel.y > 0) // scroll up
+        {
+            firstToRender += 1;
+            if (firstToRender > MAX_MSGS - MAX_MSGS_TO_RENDER)
+                firstToRender -= 1;
+        } else if (e.wheel.y < 0) // scroll down
+        {
             firstToRender -= 1;
-    }
-    else if(e.wheel.y < 0) // scroll down
-    {
-        firstToRender -= 1;
-        if (firstToRender < 0)
-            firstToRender = 0;
+            if (firstToRender < 0)
+                firstToRender = 0;
+        }
     }
 }
 

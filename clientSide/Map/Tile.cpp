@@ -12,13 +12,9 @@ Tile::Tile(Coordinate position) : item(position), structure(position) {
 }
 
 void Tile::renderGround(SDL_Rect& camera) {
-    //If the tile is on screen
+    //Si se ve el tile en la pantalla
     tileTexture->render(box.x - camera.x, box.y - camera.y, type);
     item.render(camera);
-}
-
-void Tile::setStructure(Texture& sTexture) {
-    structure.setTexture(sTexture);
 }
 
 void Tile::renderStructure(SDL_Rect &camera) {

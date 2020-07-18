@@ -10,6 +10,7 @@
 #include "../../libs/GameEnums.h"
 #include "../Server/PlayerData.hpp"
 #include "../Config/ConfigFileReader.h"
+#include "../Config/Configuration.h"
 
 class EntityTests;
 class MapTests;
@@ -40,6 +41,8 @@ private:
     int32_t  currentLife{};
     int32_t  maxMana{};
     int32_t  maxLife{};
+
+    const double TIME_FOR_RECOVERY{Configuration::getInstance().configPlayerRecoveryTime()*1000};
 
     friend EntityTests;
     friend MapTests;

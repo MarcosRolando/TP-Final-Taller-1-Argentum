@@ -222,7 +222,6 @@ void TextureRepository::_loadNPCS() {
 void TextureRepository::_setImage(TextureID TextureID, std::string&& image,
                     int width, int height, int xOffset, int yOffset, int scale, ColorKey_t key) {
     try {
-        //Load sprite sheet texture
         textures.emplace(TextureID, renderer);
         Texture& texture = textures.at(TextureID);
         texture.loadFromFile(image, key, xOffset, yOffset, scale);
@@ -235,7 +234,6 @@ void TextureRepository::_setImage(TextureID TextureID, std::string&& image,
 void TextureRepository::_setSpellImage(TextureID TextureID, std::string&& spellImage,
                                            int width, int height, int xOffset, int yOffset) {
     try {
-        //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
         textures.emplace(TextureID, renderer);
         Texture& texture = textures.at(TextureID);
@@ -251,7 +249,6 @@ void TextureRepository::_setSpellImage(TextureID TextureID, std::string&& spellI
 
 void TextureRepository::_setTileImage(TextureID TextureID, std::string&& tileImage, bool individualTile) {
     try {
-        //Load sprite sheet texture
         textures.emplace(TextureID, renderer);
         Texture& texture = textures.at(TextureID);
         texture.loadFromFile(tileImage);
@@ -264,7 +261,6 @@ void TextureRepository::_setTileImage(TextureID TextureID, std::string&& tileIma
 void TextureRepository::_setNPCImage(TextureID TextureID, std::string&& npcImage, int width, int height
                                         , int xOffset, int yOffset) {
     try {
-        //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
         textures.emplace(TextureID, renderer);
         Texture& texture = textures.at(TextureID);
@@ -292,7 +288,6 @@ void TextureRepository::_addNPCSprites(Texture& texture, int y, bool lateralSide
 
 void TextureRepository::_setBodyImage(TextureID TextureID, std::string&& bodyImage) {
     try {
-        //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
         textures.emplace(TextureID, renderer);
         Texture& texture = textures.at(TextureID);
@@ -312,7 +307,6 @@ void TextureRepository::_setBodyImage(TextureID TextureID, std::string&& bodyIma
 
 void TextureRepository::_setWeaponImage(TextureID TextureID, std::string&& weaponImage) {
     try {
-        //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
         textures.emplace(TextureID, renderer);
         Texture& texture = textures.at(TextureID);
@@ -352,7 +346,6 @@ void TextureRepository::_addBodySprites(Texture& texture, int y, bool lateralSid
 
 void TextureRepository::_setHeadImage(TextureID TextureID, std::string&& headImage) {
     try {
-        //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
         textures.emplace(TextureID, renderer);
         Texture& texture = textures.at(TextureID);
@@ -369,7 +362,6 @@ void TextureRepository::_setHeadImage(TextureID TextureID, std::string&& headIma
 void TextureRepository::_setHelmetImage(TextureID TextureID, std::string&& helmetImage,
                                                 int xOffset, int yOffset) {
     try {
-        //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
         textures.emplace(TextureID, renderer);
         Texture& texture = textures.at(TextureID);
@@ -385,7 +377,6 @@ void TextureRepository::_setHelmetImage(TextureID TextureID, std::string&& helme
 
 void TextureRepository::_setShieldImage(TextureID TextureID, std::string&& shieldImage) {
     try {
-        //Load sprite sheet texture
         ColorKey_t key = {0, 0, 0};
         textures.emplace(TextureID, renderer);
         Texture& texture = textures.at(TextureID);

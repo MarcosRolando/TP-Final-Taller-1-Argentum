@@ -89,7 +89,7 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 _processPlayerResurrect();
                 break;
             default:
-                std::cerr << std::get<0>(id) << " comando no reconocido" << std::endl;
+                std::cerr << std::get<0>(id) << " is an unknown command" << std::endl;
                 break;
         }
     }
