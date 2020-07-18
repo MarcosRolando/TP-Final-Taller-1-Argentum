@@ -6,6 +6,8 @@
 #include "../../libs/TPException.h"
 #include <memory>
 
+using json = nlohmann::json;
+
 MapFileReader::MapFileReader(const std::string& path) {
     mapDimensions.width = 0;
     mapDimensions.height = 0;
@@ -24,17 +26,17 @@ MapFileReader::MapFileReader(const std::string& path) {
 }
 
 void MapFileReader::_readMapSize() {
-    mapDimensions.width = obj["width"].asInt();
-    mapDimensions.height = obj["height"].asInt();
+    mapDimensions.width = obj["width"].get<int>();
+    mapDimensions.height = obj["height"].get<int>();
 }
 
 void MapFileReader::_readIDs() {
-    Json::Value& tilesets = obj["tilesets"];
+    json& tilesets = obj["tilesets"];
     mapElements.emplace(0, "Nothing");
     for (auto & tileset : tilesets) {
-        std::string name = tileset["name"].asString();
-        int id = tileset["firstgid"].asInt();
-        int tilecount = tileset["tilecount"].asInt();
+        std::string name = tileset["name"].get<std::string>();
+        int id = tileset["firstgid"].get<int>();
+        int tilecount = tileset["tilecount"].get<int>();
         if (tilecount > 1) {
             for (int i = 0; i < tilecount; ++i) {
                 mapElements.emplace(id + i, name + std::to_string(i));
@@ -46,18 +48,18 @@ void MapFileReader::_readIDs() {
 }
 
 TileInfo MapFileReader::getTileInfo(unsigned int row, unsigned int column) {
-    Json::Value& layers = obj["layers"];
-    Json::Value& tileData = layers[0]["data"];
+    json& layers = obj["layers"];
+    json& tileData = layers[0]["data"];
     TileInfo tile;
-    tile.tileType = mapElements.at(tileData[row*mapDimensions.width + column].asInt());
-    Json::Value& sData = layers[1]["data"];
-    tile.structureType = mapElements.at(sData[row*mapDimensions.width + column].asInt());
-    Json::Value& eData = layers[2]["data"];
-    tile.entityType = mapElements.at(eData[row*mapDimensions.width + column].asInt());
-    Json::Value& oData = layers[3]["data"]; /*isOccupable*/
-    tile.isOccupable = (oData[row*mapDimensions.width + column].asInt() == 0);
-    Json::Value& cData = layers[4]["data"]; /*isFromCity*/
-    tile.isFromCity = (cData[row*mapDimensions.width + column].asInt() != 0);
+    tile.tileType = mapElements.at(tileData[row*mapDimensions.width + column].get<int>());
+    json& sData = layers[1]["data"];
+    tile.structureType = mapElements.at(sData[row*mapDimensions.width + column].get<int>());
+    json& eData = layers[2]["data"];
+    tile.entityType = mapElements.at(eData[row*mapDimensions.width + column].get<int>());
+    json& oData = layers[3]["data"]; /*isOccupable*/
+    tile.isOccupable = (oData[row*mapDimensions.width + column].get<int>() == 0);
+    json& cData = layers[4]["data"]; /*isFromCity*/
+    tile.isFromCity = (cData[row*mapDimensions.width + column].get<int>() != 0);
     return tile;
 }
 

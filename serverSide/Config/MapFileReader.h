@@ -6,7 +6,7 @@
 #define ARGENTUM_MAPFILEREADER_H
 
 #include <fstream>
-#include "jsoncpp/json/json.h"
+#include "json.hpp"
 #include <unordered_map>
 
 struct TileInfo {
@@ -24,7 +24,7 @@ struct MapSize {
 
 class MapFileReader {
 private:
-    Json::Value obj;
+    nlohmann::json obj;
     std::unordered_map<int, std::string> mapElements;
     MapSize mapDimensions{};
 

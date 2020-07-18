@@ -6,9 +6,9 @@
 #define ARGENTUM_CONFIGFILEREADER_H
 
 #include <fstream>
-#include "jsoncpp/json/json.h"
 #include <unordered_map>
 #include "../../libs/GameEnums.h"
+#include "json.hpp"
 
 namespace Config {
 
@@ -79,7 +79,7 @@ namespace Config {
 
     class ConfigFileReader {
     private:
-        Json::Value obj;
+        nlohmann::json obj;
         std::unordered_map<std::string, GameType::Class> classes;
         std::unordered_map<std::string, GameType::Race> races;
         std::unordered_map<std::string, GameType::Entity> monsters;
@@ -142,18 +142,18 @@ namespace Config {
 
     private:
         static void
-        _getModifiers(Modifiers &modifier, Json::Value &currModifier);
+        _getModifiers(Modifiers &modifier, nlohmann::json &currModifier);
 
         static void
-        _getMonsterStats(MonsterStats &stats, Json::Value &currMonster);
+        _getMonsterStats(MonsterStats &stats, nlohmann::json &currMonster);
 
         static void
-        _getWeaponData(WeaponData &stats, Json::Value &currWeapon);
+        _getWeaponData(WeaponData &stats, nlohmann::json &currWeapon);
 
         static void
-        _getClothingData(ClothingData &stats, Json::Value &currClothing);
+        _getClothingData(ClothingData &stats, nlohmann::json &currClothing);
 
-        static void _getPotionData(PotionData &stats, Json::Value &currPotion);
+        static void _getPotionData(PotionData &stats, nlohmann::json &currPotion);
     };
 }
 

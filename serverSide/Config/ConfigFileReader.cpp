@@ -7,6 +7,7 @@
 #include <memory>
 
 using namespace GameType;
+using json = nlohmann::json;
 
 Config::ConfigFileReader::ConfigFileReader(const std::string& path) :
     classes{{"Warrior", WARRIOR}, {"Wizard", WIZARD}, {"Paladin", PALADIN},
@@ -28,7 +29,6 @@ Config::ConfigFileReader::ConfigFileReader(const std::string& path) :
         throw TPException("Could not open Config File, check whether"
                           " it exists or not");
     }
-
     try {
         file >> obj;
     } catch (...) {
@@ -37,162 +37,162 @@ Config::ConfigFileReader::ConfigFileReader(const std::string& path) :
 }
 
 void Config::ConfigFileReader::loadClassModifiers(std::unordered_map<Class, Modifiers>& mods) {
-    Json::Value& classModifiers = obj["Class"];
+    json& classModifiers = obj["Class"];
     Modifiers currMods{};
     for (auto & classModifier : classModifiers) {
        _getModifiers(currMods, classModifier);
-        currMods.meditationRate = classModifier["MeditationRate"].asUInt();
+        currMods.meditationRate = classModifier["MeditationRate"].get<uint>();
         currMods.recoveryRate = 0;
-        mods.emplace(classes.at(classModifier["Name"].asString()), currMods);
+        mods.emplace(classes.at(classModifier["Name"].get<std::string>()), currMods);
     }
 }
 
 void Config::ConfigFileReader::loadRaceModifiers(std::unordered_map<Race, Modifiers>& mods) {
-    Json::Value& raceModifiers = obj["Race"];
+    json& raceModifiers = obj["Race"];
     Modifiers currMods{};
     for (auto & raceModifier : raceModifiers) {
         _getModifiers(currMods, raceModifier);
-        currMods.recoveryRate = raceModifier["RecoveryRate"].asUInt();
+        currMods.recoveryRate = raceModifier["RecoveryRate"].get<uint>();
         currMods.meditationRate = 0;
-        mods.emplace(races.at(raceModifier["Name"].asString()), currMods);
+        mods.emplace(races.at(raceModifier["Name"].get<std::string>()), currMods);
     }
 }
 
 void Config::ConfigFileReader::loadWeaponData(std::unordered_map<Weapon, WeaponData>& stats) {
-    Json::Value& weaponsStats = obj["Weapon"];
+    json& weaponsStats = obj["Weapon"];
     WeaponData currStats{};
     for (auto & weaponStat : weaponsStats) {
         _getWeaponData(currStats, weaponStat);
-        stats.emplace(weapons.at(weaponStat["Name"].asString()), currStats);
+        stats.emplace(weapons.at(weaponStat["Name"].get<std::string>()), currStats);
     }
 }
 
 void Config::ConfigFileReader::loadClothingData(std::unordered_map<Clothing, ClothingData>& stats) {
-    Json::Value& clothingsStats = obj["Clothing"];
+    json& clothingsStats = obj["Clothing"];
     ClothingData currStats{};
     for (auto & clothingStat : clothingsStats) {
         _getClothingData(currStats, clothingStat);
-        stats.emplace(clothing.at(clothingStat["Name"].asString()), currStats);
+        stats.emplace(clothing.at(clothingStat["Name"].get<std::string>()), currStats);
     }
 }
 
 void Config::ConfigFileReader::loadPotionData(std::unordered_map<Potion, PotionData>& stats) {
-    Json::Value& potionData = obj["Potion"];
+    json& potionData = obj["Potion"];
     PotionData currPotion{};
     for (auto & potion : potionData) {
         _getPotionData(currPotion, potion);
-        stats.emplace(potions.at(potion["Name"].asString()), currPotion);
+        stats.emplace(potions.at(potion["Name"].get<std::string>()), currPotion);
     }
 }
 
 
 void Config::ConfigFileReader::loadMonsterStats(std::unordered_map<GameType::Entity, MonsterStats>& stats) {
-    Json::Value& monsterStats = obj["Monster"];
+    json& monsterStats = obj["Monster"];
     MonsterStats currStats{};
     for (auto & monsterStat : monsterStats) {
         _getMonsterStats(currStats, monsterStat);
-        stats.emplace(monsters.at(monsterStat["Name"].asString()), currStats);
+        stats.emplace(monsters.at(monsterStat["Name"].get<std::string>()), currStats);
     }
 }
 
 void Config::ConfigFileReader::loadGoldModifiers(GoldModifiers& goldModifiers) {
-    Json::Value& modifiers = obj["GoldModifiers"];
-    goldModifiers.safeGoldFactor = modifiers["MaxSafeGoldFactor"].asUInt();
+    json& modifiers = obj["GoldModifiers"];
+    goldModifiers.safeGoldFactor = modifiers["MaxSafeGoldFactor"].get<uint>();
     goldModifiers.safeGoldLevelModifier = modifiers["MaxGoldLevelModifier"]
-            .asFloat();
-    goldModifiers.goldDropFactorMin = modifiers["MinRange"].asFloat();
-    goldModifiers.goldDropFactorMax = modifiers["MaxRange"].asFloat();
+            .get<float>();
+    goldModifiers.goldDropFactorMin = modifiers["MinRange"].get<float>();
+    goldModifiers.goldDropFactorMax = modifiers["MaxRange"].get<float>();
 }
 
 void Config::ConfigFileReader::loadXPModifiers(XPModifiers& xpModifiers) {
-    Json::Value& modifiers = obj["XPModifiers"];
-    xpModifiers.attackXPModifier = modifiers["AttackXPModifier"].asUInt();
-    xpModifiers.killXPMinRange = modifiers["MinKillXPModifier"].asFloat();
-    xpModifiers.killXPMaxRange = modifiers["MaxKillXPModifier"].asFloat();
-    xpModifiers.nextLevelModifier = modifiers["NextLevelModifier"].asFloat();
-    xpModifiers.nextLevelFactor = modifiers["NextLevelFactor"].asUInt();
-    xpModifiers.killXPModifier = modifiers["KillXPModifier"].asUInt();
+    json& modifiers = obj["XPModifiers"];
+    xpModifiers.attackXPModifier = modifiers["AttackXPModifier"].get<unsigned int>();
+    xpModifiers.killXPMinRange = modifiers["MinKillXPModifier"].get<float>();
+    xpModifiers.killXPMaxRange = modifiers["MaxKillXPModifier"].get<float>();
+    xpModifiers.nextLevelModifier = modifiers["NextLevelModifier"].get<float>();
+    xpModifiers.nextLevelFactor = modifiers["NextLevelFactor"].get<unsigned int>();
+    xpModifiers.killXPModifier = modifiers["KillXPModifier"].get<unsigned int>();
 }
 
 float Config::ConfigFileReader::loadCritAttackChance() {
-    return obj["CritAttackProb"].asFloat();
+    return obj["CritAttackProb"].get<float>();
 }
 
 float Config::ConfigFileReader::loadDodgeChance() {
-    return obj["DodgeProb"].asFloat();
+    return obj["DodgeCoeff"].get<float>();
 }
 
 unsigned int Config::ConfigFileReader::loadNewbieLevel() {
-    return obj["NewbieLevel"].asUInt();
+    return obj["NewbieLevel"].get<unsigned int>();
 }
 
 unsigned int Config::ConfigFileReader::loadmaxLevelDif() {
-    return obj["MaxLevelDif"].asUInt();
+    return obj["MaxLevelDif"].get<unsigned int>();
 }
 
-void Config::ConfigFileReader::_getModifiers(Modifiers& modifier, Json::Value& currModifier){
-    modifier.lifeMultiplier = currModifier["Life"].asUInt();
-    modifier.manaMultiplier = currModifier["Mana"].asUInt();
-    modifier.constitution = currModifier["Constitution"].asUInt();
-    modifier.intelligence = currModifier["Intelligence"].asUInt();
-    modifier.agility = currModifier["Agility"].asUInt();
-    modifier.strength = currModifier["Strength"].asUInt();
+void Config::ConfigFileReader::_getModifiers(Modifiers& modifier, json& currModifier){
+    modifier.lifeMultiplier = currModifier["Life"].get<unsigned int>();
+    modifier.manaMultiplier = currModifier["Mana"].get<unsigned int>();
+    modifier.constitution = currModifier["Constitution"].get<unsigned int>();
+    modifier.intelligence = currModifier["Intelligence"].get<unsigned int>();
+    modifier.agility = currModifier["Agility"].get<unsigned int>();
+    modifier.strength = currModifier["Strength"].get<unsigned int>();
 }
 
-void Config::ConfigFileReader::_getMonsterStats(MonsterStats& stats, Json::Value& currMonster){
-    stats.life = currMonster["Life"].asUInt();
-    stats.damage = currMonster["Damage"].asUInt();
-    stats.rangeOfVision = currMonster["VisionRange"].asUInt();
-    stats.minLevel = currMonster["LevelMin"].asUInt();
-    stats.maxLevel = currMonster["LevelMax"].asUInt();
-    stats.constitution = currMonster["Constitution"].asUInt();
-    stats.agility = currMonster["Agility"].asUInt();
-    stats.strength = currMonster["Strength"].asUInt();
-    stats.reactionSpeed = currMonster["ReactionSpeed"].asUInt();
-    stats.speed = currMonster["Speed"].asUInt();
+void Config::ConfigFileReader::_getMonsterStats(MonsterStats& stats, json& currMonster){
+    stats.life = currMonster["Life"].get<unsigned int>();
+    stats.damage = currMonster["Damage"].get<unsigned int>();
+    stats.rangeOfVision = currMonster["VisionRange"].get<unsigned int>();
+    stats.minLevel = currMonster["LevelMin"].get<unsigned int>();
+    stats.maxLevel = currMonster["LevelMax"].get<unsigned int>();
+    stats.constitution = currMonster["Constitution"].get<unsigned int>();
+    stats.agility = currMonster["Agility"].get<unsigned int>();
+    stats.strength = currMonster["Strength"].get<unsigned int>();
+    stats.reactionSpeed = currMonster["ReactionSpeed"].get<unsigned int>();
+    stats.speed = currMonster["Speed"].get<unsigned int>();
 }
 
-void Config::ConfigFileReader::_getWeaponData(WeaponData& stats, Json::Value& currWeapon){
-    stats.name = currWeapon["Name"].asString();
-    stats.maxDmg = currWeapon["MaxDmg"].asInt();
-    stats.minDmg = currWeapon["MinDmg"].asInt();
-    stats.manaConsumption = currWeapon["ManaConsumption"].asUInt();
-    stats.range = currWeapon["Range"].asUInt();
-    stats.price = currWeapon["Price"].asUInt();
+void Config::ConfigFileReader::_getWeaponData(WeaponData& stats, json& currWeapon){
+    stats.name = currWeapon["Name"].get<std::string>();
+    stats.maxDmg = currWeapon["MaxDmg"].get<int>();
+    stats.minDmg = currWeapon["MinDmg"].get<int>();
+    stats.manaConsumption = currWeapon["ManaConsumption"].get<unsigned int>();
+    stats.range = currWeapon["Range"].get<unsigned int>();
+    stats.price = currWeapon["Price"].get<unsigned int>();
 }
 
-void Config::ConfigFileReader::_getClothingData(ClothingData& stats, Json::Value&
+void Config::ConfigFileReader::_getClothingData(ClothingData& stats, json&
                                         currClothing){
-    stats.name = currClothing["Name"].asString();
-    stats.maxDefense = currClothing["MaxDefense"].asUInt();
-    stats.minDefense = currClothing["MinDefense"].asUInt();
-    stats.price = currClothing["Price"].asUInt();
+    stats.name = currClothing["Name"].get<std::string>();
+    stats.maxDefense = currClothing["MaxDefense"].get<unsigned int>();
+    stats.minDefense = currClothing["MinDefense"].get<unsigned int>();
+    stats.price = currClothing["Price"].get<unsigned int>();
 }
 
-void Config::ConfigFileReader::_getPotionData(PotionData& stats, Json::Value&
+void Config::ConfigFileReader::_getPotionData(PotionData& stats, json&
                                         currPotion){
-    stats.name = currPotion["Name"].asString();
-    stats.recoveryValue = currPotion["RecoveryValue"].asUInt();
-    stats.price = currPotion["Price"].asUInt();
+    stats.name = currPotion["Name"].get<std::string>();
+    stats.recoveryValue = currPotion["RecoveryValue"].get<unsigned int>();
+    stats.price = currPotion["Price"].get<unsigned int>();
 }
 
 void Config::ConfigFileReader::loadMonsterSpawnData(unsigned int &maxMonsterAmount,
                                                unsigned int &timeBetweenMonsterSpawns,
                                                unsigned int &monsterSpawnAmount) {
-    Json::Value& data = obj["MonsterSpawnData"];
-    maxMonsterAmount = data["MaxAmount"].asUInt();
-    timeBetweenMonsterSpawns = data["TimeBetweenSpawns"].asUInt();
-    monsterSpawnAmount = data["SpawnAmount"].asUInt();
+    json& data = obj["MonsterSpawnData"];
+    maxMonsterAmount = data["MaxAmount"].get<unsigned int>();
+    timeBetweenMonsterSpawns = data["TimeBetweenSpawns"].get<unsigned int>();
+    monsterSpawnAmount = data["SpawnAmount"].get<unsigned int>();
 }
 
 unsigned int Config::ConfigFileReader::loadInitialMerchantGold() {
-    return obj["InitialMerchantGold"].asUInt();
+    return obj["InitialMerchantGold"].get<unsigned int>();
 }
 
 unsigned int Config::ConfigFileReader::loadPlayerSpeed() {
-    return obj["PlayerSpeed"].asUInt();
+    return obj["PlayerSpeed"].get<unsigned int>();
 }
 
 double Config::ConfigFileReader::loadTimeForPlayerRecovery() {
-    return obj["TimeForPlayerRecoveryInSeconds"].asUInt();
+    return obj["TimeForPlayerRecoveryInSeconds"].get<unsigned int>();
 }
