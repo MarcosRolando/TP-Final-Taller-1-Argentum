@@ -29,24 +29,19 @@ private:
     friend MapTests;
 
 public:
-    //Inicializa el tile, dependiendo tel tipo de piso que reciba seteara el
-    //tile como ocupable o no ocupable
     explicit Tile(bool isOccupable, bool isFromCity, GameType::FloorType floor,
                   GameType::Structure structure, std::shared_ptr<Entity>&& initialEntity);
 
-    //El tile se queda con la entity de other y setea la de other en nullptr
+    //El tile se queda con la entity de other y setea la de other en nullptr,
+    //actualizando tambien el estado de si es ocupable o no en ambos tiles
     void moveEntity(Tile& otherTile, Coordinate position);
 
     //Intenta agregar la entity al tile
-    //Si la posicion es ocupable entonces se apropia
-    //del puntero y retorna true, sino no se apropia de de el y retorna false
+    //Si la posicion es ocupable entonces se apropia del puntero
     void addEntity(std::shared_ptr<Entity>&& received_entity);
 
     //Elimina la entity guardada, habilita la ocupacion del tile por otra
     //entity
-    //La funcion no chequea si el tile es ocupable o no debido a FloorType,
-    //una llamada a esa funcion en un tile no ocupable lo hara ocupable
-    //independientemente del tile
     void removeEntity();
 
     //Intenta agregar el item al tile, sumandolo a los items ya guardados
