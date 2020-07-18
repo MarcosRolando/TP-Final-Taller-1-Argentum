@@ -71,7 +71,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     } catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
     } catch (...) {
-        std::cerr << "Error desconocido en el main loop!" << std::endl;
+        std::cerr << "Uknown error in Main Game Loop!" << std::endl;
     }
 
     finish();

@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
     } catch (TPException& e) {
         std::cerr << e.what() << std::endl;
     } catch (...) {
-        std::cerr << "Algo rompio bro" << std::endl;
+        std::cerr << "Uknown error in Server!" << std::endl;
     }
     return 0;
 }
