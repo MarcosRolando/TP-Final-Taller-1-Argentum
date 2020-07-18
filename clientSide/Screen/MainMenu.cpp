@@ -268,7 +268,8 @@ void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socke
         return;
     }
     if (!nicknameInputText.getText().empty()) {
-        initializer.loadPlayer(nicknameInputText.getText(), info.myRace, info.myClass);
+        initializer.createPlayer(nicknameInputText.getText(), info.myRace,
+                                 info.myClass);
         GameType::ConnectionResponse response{};
         socket.receive(reinterpret_cast<char*>(&response), sizeof(response));
         response = static_cast<GameType::ConnectionResponse>(ntohl(response));

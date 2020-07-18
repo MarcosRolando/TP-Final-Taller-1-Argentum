@@ -20,11 +20,15 @@ private:
     ClientProtocol& protocol;
 
 public:
+    /* Constructor */
     GameInitializer(GameGUI& _game, Socket& _socket, ClientProtocol& _protocol) :
                     game(_game), socket(_socket), protocol(_protocol) {}
-    void loadPlayer(const std::string &nickname, GameType::Race race,
-                       GameType::Class _class);
+    /* Manda al servidor la informacion para crear un nuevo jugador */
+    void createPlayer(const std::string &nickname, GameType::Race race,
+                      GameType::Class _class);
+    /* Manda al servidor la informacion para cargar un jugador */
     void loadPlayer(const std::string &nickname);
+    /* Recibe el estado inicial del juego */
     void initializeGame();
 
 private:
