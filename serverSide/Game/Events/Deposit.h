@@ -12,6 +12,8 @@
 
 class Player;
 
+//Clase que se almacena en la cola de eventos cuando un player quiere ejecutar
+//el comando de deposit en un tile
 class Deposit : public Event {
 private:
     Player& player;
@@ -20,6 +22,9 @@ private:
 
 public:
     Deposit(Player& player, std::string&& _itemName, Coordinate _npcPosition);
+
+    //Intenta depositar el item con el nombre en el entity que se encuentre
+    //en la coordenada guardada
     void operator()(ServerProtocol& protocol) override;
 
 };
