@@ -15,4 +15,4 @@ file(COPY serverSide/Config/config.json serverSide/Config/map.json DESTINATION .
 
 INSTALL(TARGETS argentumServer argentumClient DESTINATION /usr/bin)
 INSTALL(DIRECTORY clientSide/Images clientSide/Sounds DESTINATION /var/Argentum)
-INSTALL(FILES defaultWeapons.yaml serverConfig.yaml DESTINATION /etc/Argentum)
+INSTALL(FILES serverSide/Config/config.json serverSide/Config/map.json DESTINATION /etc/Argentum)
