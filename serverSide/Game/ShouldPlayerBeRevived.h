@@ -11,6 +11,10 @@
 struct ResurrectData;
 class Map;
 
+//Functor que indica cuando un jugador debe ser eliminado de la lista de jugadores
+//a revivir, se debe pasar a remove_if para la ista de monsters
+//Almacena en la lista recibida las coordenadas de los monsters que se eliminaron para
+//sacarlos despues del mapa
 class ShouldPlayerBeRevived {
 private:
     Map& map;
