@@ -16,7 +16,7 @@
 #define INVENTORY_OUTLINES_X_OFFSET 73
 #define INVENTORY_OUTLINES_Y_OFFSET 260
 
-#define INVENTORY_FONT_PATH "../../clientSide/Graphics/Text/medieval.ttf"
+#define INVENTORY_FONT_PATH "../../clientSide/Assets/Fonts/medieval.ttf"
 
 PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &renderer,
                                        PlayerInfoGUI& playerInfo) :

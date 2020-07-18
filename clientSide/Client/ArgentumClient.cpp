@@ -96,7 +96,7 @@ Client::Client(){
 void Client::_setCursor() {
     SDL_Surface *surface = nullptr;
     SDL_Cursor *cursor = nullptr;
-    surface = SDL_LoadBMP("../../clientSide/Images/UI/Cursor.bmp");
+    surface = SDL_LoadBMP("../../clientSide/Assets/Images/UI/Cursor.bmp");
     if (!surface) {
         throw TPException("Could not create cursor");
     }

@@ -33,7 +33,7 @@
 #define MAX_TEXT_LEN 25
 #define MAX_NICKNAME_LEN 13
 
-#define MAIN_MENU_FONT_PATH "../../clientSide/Graphics/Text/medieval.ttf"
+#define MAIN_MENU_FONT_PATH "../../clientSide/Assets/Fonts/medieval.ttf"
 
 
 MainMenu::MainMenu(Texture& texture, Window& window) : window(window),
