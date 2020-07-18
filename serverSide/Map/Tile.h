@@ -56,7 +56,9 @@ public:
 
     //Ataca la entidad que se encuentre guardada en el mapa
     //Retorna la cantidad de daño que recibio la entidad atacada, si no hay
-    //una entidad retorna 0
+    //una entidad retorna 0, el booleano indica si se realizo o no el ataque al tile,
+    //valiendo true si se realizo, false en otro caso (que no haya un entity no hace
+    //necesariamente que sea false)
     std::pair<AttackResult, bool> attacked(int damage, unsigned int level, bool isAPlayer);
 
     //Retorna true si almacena un entity que es un target de un monster
@@ -85,12 +87,15 @@ public:
     //Retorna si es de una city
     bool isInCity() const;
 
+    //Guarda en el buffer el entity almacenado en el tile, junto con el tipo de
+    //piso y la estructura almacenadas
     void operator>>(std::stringstream & mapBuffer) const;
 
-    //Guarda el tipo del item y el id del item a mostrar, si no hay items en el
-    //tile guarda -1 en el lugar del id (second)
-    Item* peekShowedItemData();
+    //Retorna un puntero al item que se debe mostrar en el mapa
+    const Item* peekShowedItemData();
 
+    //Le pide al entity guardado en el tile que restaure la vida y el mana del
+    //player recibido, si no hay un entity entonces no hace nada
     void requestRestore(Player& player);
 };
 

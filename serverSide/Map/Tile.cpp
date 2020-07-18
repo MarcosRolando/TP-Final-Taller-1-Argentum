@@ -145,7 +145,7 @@ void Tile::operator>>(std::stringstream &mapBuffer) const {
     msgpack::pack(mapBuffer, tileInfo);
 }
 
-Item* Tile::peekShowedItemData() {
+const Item* Tile::peekShowedItemData() {
     if (items.empty()) {
         return nullptr;
     }
