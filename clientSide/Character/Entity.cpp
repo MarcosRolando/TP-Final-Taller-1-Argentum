@@ -5,8 +5,7 @@
 #include "Entity.h"
 #include "../Client/GameConstants.h"
 #include <algorithm>
-
-const unsigned int TILE_DISTANCE_IN_METERS = 2000;
+#include "../../libs/SharedConstants.h"
 
 Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
     currentFrame = 0;
