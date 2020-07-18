@@ -9,15 +9,15 @@ Text::Text(Font& font, SDL_Renderer& renderer) : font(font),
     text = "";
 }
 
-void Text::updateText(std::string&& newText){
+void Text::updateText(std::string&& newText) {
     text = std::move(newText);
 }
 
-void Text::appendText(std::string&& newText){
+void Text::appendText(std::string&& newText) {
     text += newText;
 }
 
-void Text::render(int x, int y, SDL_Color color){
+void Text::render(int x, int y, SDL_Color color) {
     if (!text.empty()){
         textTexture.loadFromRenderedText(text, color, font.getFont());
         textTexture.renderText(x, y);
