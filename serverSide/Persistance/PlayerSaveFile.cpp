@@ -14,8 +14,8 @@ MSGPACK_ADD_ENUM(GameType::EquipmentPlace)
 PlayerSaveFile::PlayerSaveFile(const std::string &filePath) {
     saveFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary);
     if (!saveFile.is_open()) {
-        std::cout << "No se encontro un archivo previo de jugadores con el nombre provisto."
-                     " Se creo uno" << std::endl;
+        std::cout << "Could not find a Save File with the provided name."
+                     "Creating one now" << std::endl;
         std::ofstream newSaveFile(filePath);
         newSaveFile.close();
         saveFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary);
