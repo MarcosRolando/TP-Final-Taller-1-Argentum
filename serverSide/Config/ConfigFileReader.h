@@ -79,7 +79,6 @@ namespace Config {
 
     class ConfigFileReader {
     private:
-        Json::Reader reader;
         Json::Value obj;
         std::unordered_map<std::string, GameType::Class> classes;
         std::unordered_map<std::string, GameType::Race> races;

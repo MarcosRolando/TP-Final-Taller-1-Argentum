@@ -22,11 +22,17 @@ Config::ConfigFileReader::ConfigFileReader(const std::string& path) :
             {"NoHelmet", NO_HELMET}, {"NoShield", NO_SHIELD}},
     potions {{"HealthPotion", HEALTH_POTION}, {"ManaPotion", MANA_POTION}} {
 
+    std::ifstream file(path);
+    if (!file.is_open()) {
+        throw TPException("No se pudo abrir el arcvio de Config,"
+                          " asegurese de que el archivo existe!");
+    }
+
     try {
-        std::ifstream file(path);
+        Json::Reader reader;
         reader.parse(file, obj);
     } catch (...) {
-        throw TPException("Fallo el parseo del Config! Asegurese que el archivo de config existe");
+        throw TPException("Fallo el parseo del Config de Json!");
     }
 }
 

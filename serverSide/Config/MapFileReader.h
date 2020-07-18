@@ -24,9 +24,7 @@ struct MapSize {
 
 class MapFileReader {
 private:
-    Json::Reader reader;
     Json::Value obj;
-    std::ifstream file;
     std::unordered_map<int, std::string> mapElements;
     MapSize mapDimensions{};
 

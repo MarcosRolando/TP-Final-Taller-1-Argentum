@@ -8,8 +8,13 @@
 MapFileReader::MapFileReader(const std::string& path) {
     mapDimensions.width = 0;
     mapDimensions.height = 0;
-    file.open(path);
+    std::ifstream file(path);
+    if (!file.is_open()) {
+        throw TPException("No se pudo abrir el arcvio del Mapa,"
+                          " asegurese de que el archivo existe!");
+    }
     try {
+        Json::Reader reader;
         reader.parse(file, obj);
     } catch (...) {
         file.close();
