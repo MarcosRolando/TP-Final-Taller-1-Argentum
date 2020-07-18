@@ -12,6 +12,8 @@
 
 class Player;
 
+//Clase que se almacena en la cola de eventos cuando un player quiere ejecutar
+//el comando list
 class List : public Event {
 private:
     Player& player;
@@ -19,6 +21,8 @@ private:
 
 public:
     List(Player& player, Coordinate _npcPosition);
+
+    //Intenta llamar a list en la posicion guardada en el constructor
     void operator()(ServerProtocol& protocol) override;
 };
 

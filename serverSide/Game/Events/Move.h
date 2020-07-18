@@ -13,6 +13,8 @@
 class Game;
 class Entity;
 
+//Clase que se almacena en la cola de eventos cuando un entity quiere concretar su
+//desplazamiento en alguna direccion
 class Move: public Event {
 private:
     Game& game;
@@ -21,6 +23,10 @@ private:
 
 public:
     Move(Game& _game, Entity& _entity, GameType::Direction moveDirection);
+
+    //Intenta mover el entity guardado en la direccion recibida en el constructor,
+    //pasandola inmediatamente al tile si es que esta disponible para el entity,
+    //empezando asi su desplazamiento "visual" hacia este
     void operator()(ServerProtocol& protocol) override;
 };
 
