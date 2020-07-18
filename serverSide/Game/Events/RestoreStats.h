@@ -23,7 +23,7 @@ private:
 public:
     RestoreStats(Game& game, Player& player, Coordinate target);
 
-    //Pide a game que llame a heal para el mapa en la coordenada recibida
+    //Pide a game que llame a restore para el mapa en la coordenada recibida
     void operator()(ServerProtocol& serverProtocol) override;
 };
 
