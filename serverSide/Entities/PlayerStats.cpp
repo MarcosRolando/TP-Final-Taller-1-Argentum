@@ -4,7 +4,6 @@
 
 #include "PlayerStats.h"
 #include "../Config/Calculator.h"
-#include "../Config/Configuration.h"
 #include "Minichat.h"
 #include <algorithm>
 #include <msgpack.hpp>
@@ -14,8 +13,6 @@
 #define DODGE_MESSAGE "Too weak, too slow. "
 #define STARTED_MEDITATING_MESSAGE "Started meditating\n"
 #define STOPPED_MEDITATING_MESSAGE "Stopped meditating\n"
-
-const double TIME_FOR_RECOVERY = 3000.0; //3 seconds (timeStep is in miliseconds) //todo poder modificarlo desde el archivo
 
 using namespace GameType;
 

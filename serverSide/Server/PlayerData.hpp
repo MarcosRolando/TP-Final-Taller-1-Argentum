@@ -72,6 +72,27 @@ struct PlayerData {
         isNewPlayer = other.isNewPlayer;
     }
 
+    PlayerData& operator=(PlayerData&& other) noexcept {
+        nickname = std::move(other.nickname);
+        pRace = other.pRace;
+        pClass = other.pClass;
+        level = other.level;
+        experience = other.experience;
+        gold = other.gold;
+        inventory = std::move(other.inventory);
+        equipment = std::move(other.equipment);
+        bankerItems = std::move(other.bankerItems);
+        bankerGold = other.bankerGold;
+        constitution = other.constitution;
+        intelligence = other.intelligence;
+        strength = other.strength;
+        agility = other.agility;
+        mySize = other.mySize;
+        other.mySize = 0;
+        isNewPlayer = other.isNewPlayer;
+        return *this;
+    }
+
     PlayerData(std::string&& _nickname, GameType::Race _pRace, GameType::Class _pClass) : PlayerData() {
         nickname = std::move(_nickname);
         pRace = _pRace;

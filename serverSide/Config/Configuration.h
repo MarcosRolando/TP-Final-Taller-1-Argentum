@@ -39,6 +39,7 @@ private:
     std::string goldName;
 
     unsigned int playerSpeed;
+    double timeForPlayerRecovery;
 
 public:
     Configuration(Configuration const&) = delete;
@@ -109,6 +110,9 @@ public:
 
     /*Retorna la velocidad del player para moverse*/
     unsigned int configPlayerSpeed() const;
+
+    /*Retorna el tiempo (en segundos) para que el player recupere vida/mana*/
+    double configPlayerRecoveryTime() const;
 
 private:
     Configuration();

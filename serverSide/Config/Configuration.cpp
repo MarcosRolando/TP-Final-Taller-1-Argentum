@@ -37,7 +37,8 @@ Configuration::Configuration() {
     newbieLevel = fileReader.loadNewbieLevel();
     maxLevelDif = fileReader.loadmaxLevelDif();
     playerSpeed = fileReader.loadPlayerSpeed();
-    goldName = "Gold"; /*Lo guardamos por el tema de guardar las referencias a los nombres de los items*/
+    timeForPlayerRecovery = fileReader.loadTimeForPlayerRecovery();
+    goldName = "Gold";
 }
 
 const Config::Modifiers& Configuration::configClassModifiers(Class _class) const {
@@ -125,4 +126,8 @@ const std::unordered_map<GameType::Potion, Config::PotionData> &
 
 unsigned int Configuration::configPlayerSpeed() const {
     return playerSpeed;
+}
+
+double Configuration::configPlayerRecoveryTime() const {
+    return timeForPlayerRecovery;
 }

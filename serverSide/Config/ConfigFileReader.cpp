@@ -22,12 +22,11 @@ Config::ConfigFileReader::ConfigFileReader(const std::string& path) :
             {"NoHelmet", NO_HELMET}, {"NoShield", NO_SHIELD}},
     potions {{"HealthPotion", HEALTH_POTION}, {"ManaPotion", MANA_POTION}} {
 
-    file.open(path);
     try {
+        std::ifstream file(path);
         reader.parse(file, obj);
     } catch (...) {
-        file.close();
-        throw TPException("Fallo el parseo del Config!");
+        throw TPException("Fallo el parseo del Config! Asegurese que el archivo de config existe");
     }
 }
 
@@ -186,4 +185,8 @@ unsigned int Config::ConfigFileReader::loadInitialMerchantGold() {
 
 unsigned int Config::ConfigFileReader::loadPlayerSpeed() {
     return obj["PlayerSpeed"].asUInt();
+}
+
+double Config::ConfigFileReader::loadTimeForPlayerRecovery() {
+    return obj["TimeForPlayerRecoveryInSeconds"].asUInt();
 }
