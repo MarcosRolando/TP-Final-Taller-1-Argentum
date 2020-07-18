@@ -5,12 +5,6 @@
 #include "ManaPotion.h"
 #include "../../Entities/Player.h"
 
-using namespace GameType;
-
-ManaPotion::ManaPotion(): Potion(MANA_POTION) {
-
-}
-
 void ManaPotion::restoreStat(Player &player) {
     player.restoreMana(recoveryValue);
 }

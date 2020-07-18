@@ -8,12 +8,14 @@
 
 #include "Potion.h"
 
+/*Esta clase representa la pocion de mana que puede consumir el player*/
+
 class ManaPotion: public Potion {
 private:
     void restoreStat(Player& player) override;
 
 public:
-    ManaPotion();
+    explicit ManaPotion(): Potion(GameType::MANA_POTION) {}
     ~ManaPotion() override;
 };
 
