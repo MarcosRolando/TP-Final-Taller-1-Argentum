@@ -49,14 +49,9 @@ private:
                      bool detectUnreachableTargets) const;
 
 public:
-
-    //Crea un mapa vacio, de 0x0
-    Map() = default;
-
     explicit Map(MapFileReader& mapFile, std::list<Coordinate>& priests);
 
-    //Constructor de prueba
-    void test(Game& game, std::list<std::shared_ptr<Monster>>& monsters);
+    Map() = default; /*Crea mapa de 0x0, lo usamos para las pruebas*/
 
     //Ataca la tile y retorna cuanto danio le hizo al entity guardado y el
     // xp ganado, si no hay un etity devuelve 0 en ambos
@@ -149,6 +144,8 @@ public:
     //Retorna una coordenada aleatoria alrededor de refference que no este ocupada ni
     //pertenezca a una ciudad
     Coordinate getMonsterRandomPosition(Coordinate refference) const;
+
+    virtual ~Map() = default; /*Para que FakeIt lo pueda mockear*/
 };
 
 

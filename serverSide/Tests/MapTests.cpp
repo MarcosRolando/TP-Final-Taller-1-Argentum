@@ -40,6 +40,7 @@ void MapTests::_fillEmptyMap(Map &map, int iSize, int jSize, bool isCity) {
 
 bool MapTests::testAvailableMapHasAvailableTiles() {
     Map map;
+
     int mapXSize = 50;
     int mapYSize = 50;
     _fillEmptyMap(map, mapXSize, mapYSize);
