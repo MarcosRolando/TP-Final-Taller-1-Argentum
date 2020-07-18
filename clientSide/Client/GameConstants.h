@@ -5,13 +5,12 @@
 #ifndef ARGENTUM_GAMECONSTANTS_H
 #define ARGENTUM_GAMECONSTANTS_H
 
-//The dimensions of the tiles
+//Dimension de los tiles
 const int TILE_WIDTH = 128;
 const int TILE_HEIGHT = 128;
 
 const int TOTAL_HORIZONTAL_TILES = 100;
 const int TOTAL_VERTICAL_TILES = 100;
-const int TOTAL_TILES = TOTAL_HORIZONTAL_TILES*TOTAL_VERTICAL_TILES;
 
 const int VISIBLE_HORIZONTAL_TILES = 8;
 const int VISIBLE_VERTICAL_TILES = 5;
@@ -32,23 +31,21 @@ const int DEFAULT_MINICHAT_HEIGHT = 210;
 const int DEFAULT_PLAYER_INFO_WIDTH = DEFAULT_MAP_WIDTH;
 const int DEFAULT_PLAYER_INFO_HEIGHT = 45;
 
-//Screen base constants
+//Dimension de la ventana
 const int DEFAULT_SCREEN_WIDTH = DEFAULT_MAP_WIDTH + DEFAULT_INVENTORY_WIDTH;
-const int DEFAULT_SCREEN_HEIGHT = DEFAULT_MAP_HEIGHT + 296;//=INVENTORY_HEIGHT
+const int DEFAULT_SCREEN_HEIGHT = DEFAULT_INVENTORY_HEIGHT;
 
 //General para todas las barras
 const int BAR_HEIGHT = 30;
 
-//Barras individuales
+//Barras individuales.
 const int HEALTH_BAR_X_OFFSET = 25;
 const int MANA_BAR_X_OFFSET = 385;
 const int XP_BAR_X_OFFSET = 725;
 
-//The dimensions of the level
+//Dimension de lo que se muestra del mapa
 const int LEVEL_WIDTH = TOTAL_HORIZONTAL_TILES * TILE_WIDTH;
 const int LEVEL_HEIGHT = TOTAL_VERTICAL_TILES * TILE_HEIGHT;
 
-//La velocidad de las animaciones
-const int SPEED = 400;
 
 #endif //ARGENTUM_GAMECONSTANTS_H

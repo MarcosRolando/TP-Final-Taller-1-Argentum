@@ -41,15 +41,14 @@ void Selector::_verifyTileSelection(Coordinate playerPos, Coordinate click) {
     if (_isInsideRect(click, DEFAULT_MAP_LEFT, DEFAULT_MAP_RIGHT, DEFAULT_MAP_TOP,
             DEFAULT_MAP_BOTTOM)){
         //Esto es cuando no esta en los extremos
-        int playerXTile = playerPos.j;;
-        int playerYTile = playerPos.i;;
+        int playerXTile = playerPos.j;
+        int playerYTile = playerPos.i;
         int relativeXTile = (click.j - DEFAULT_MAP_LEFT + CAMERA_X_OFFSET) / TILE_WIDTH;
         int relativeYTile = (click.i - DEFAULT_MAP_TOP - CAMERA_Y_OFFSET) / TILE_HEIGHT;
         selectedTile.j = playerXTile + (relativeXTile - 4);
         selectedTile.i = playerYTile + (relativeYTile - 2);
 
         //Me fijo los extremos
-        //Izquierda
         if (playerXTile < 4){
             selectedTile.j = (click.j - DEFAULT_MAP_LEFT) / TILE_WIDTH;
         } else if (playerXTile > 95){
@@ -68,8 +67,8 @@ void Selector::_verifyInventorySlotSelection(Coordinate click) {
     //Veo si clickeo adentro del inventario
     if (_isInsideRect(click, DEFAULT_INVENTORY_LEFT, DEFAULT_INVENTORY_RIGHT,
             DEFAULT_INVENTORY_TOP, DEFAULT_INVENTORY_BOTTOM)){
-        inventorySlot.j = (click.j - DEFAULT_INVENTORY_LEFT)/INVENTORY_SLOT_WIDTH;
-        inventorySlot.i = (click.i - DEFAULT_INVENTORY_TOP)/INVENTORY_SLOT_HEIGHT;
+        inventorySlot.j = (click.j - DEFAULT_INVENTORY_LEFT) / INVENTORY_SLOT_WIDTH;
+        inventorySlot.i = (click.i - DEFAULT_INVENTORY_TOP) / INVENTORY_SLOT_HEIGHT;
     }
 }
 
@@ -97,9 +96,9 @@ bool Selector::hasSelectedSlot(Coordinate click) {
 }
 
 bool Selector::hasSelectedEquipment(Coordinate click) {
+    //Aca me fijo si esta entre los 4 cuadrados de equipamiento
     return _isInsideRect(click, 1320, 1469,
-                         660, 835);//Estoy viendo si esta entre los 4 cuadrados de
-                                                //equipamiento
+                         660, 835);
 }
 
 int Selector::getInventorySlot() {
@@ -120,30 +119,6 @@ GameType::EquipmentPlace Selector::getSelectedEquipment() {
 void Selector::resetTileSelection() {
     std::lock_guard<std::mutex> l(m);
     selectedTile = {0, 0};
-}
-
-Coordinate Selector::getSelectedTileToRender(Coordinate playerPos) const {
-    int playerYTile = playerPos.i;;
-    int playerXTile = playerPos.j;
-    int cameraYOffset = 0, tileYOffset = 0;
-    int cameraXOffset = 0,tileXOffset = 0;
-    if (playerYTile > 2 && playerYTile < 98){
-        cameraYOffset = CAMERA_Y_OFFSET;
-        tileYOffset = -playerYTile + 2;
-    }
-    if (playerYTile >= 98){
-        tileYOffset = -95;
-    }
-    if (playerXTile > 3 && playerXTile < 96){
-        cameraXOffset = CAMERA_X_OFFSET;
-        tileXOffset = -playerXTile + 4;
-    }
-    if (playerXTile > 95){
-        tileXOffset = -92;
-    }
-    //Ver bien el orden, capaz me maree con el ij/xy
-    return {(selectedTile.i + tileYOffset) * 128 + cameraYOffset,
-            (selectedTile.j + tileXOffset) * 128 - cameraXOffset};
 }
 
 bool Selector::_isInsideRect(Coordinate click, int left, int right, int top, int bottom) {

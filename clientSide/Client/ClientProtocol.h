@@ -5,7 +5,7 @@
 #ifndef ARGENTUM_CLIENTPROTOCOL_H
 #define ARGENTUM_CLIENTPROTOCOL_H
 
-#include "../Graphics/GUI/PlayerInventoryGUI.h"//para el equippeditems enum
+#include "../Graphics/GUI/PlayerInventoryGUI.h"
 #include "../../libs/GameEnums.h"
 #include <vector>
 #include <msgpack.hpp>

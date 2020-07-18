@@ -79,9 +79,8 @@ void ClientEventHandler::_handleMouseButtonDown(SDL_Event& e){
 
     game.getMinichat().handleMouseButtonDown({clickY, clickX}, game.getWindow());
 
-    game.getSelector().handleEvent({clickY, clickX},
-            {game.getPlayerInfo().getYPos(),game.getPlayerInfo().getXPos()},
-            game.getWindow());
+    game.getSelector().handleEvent({clickY, clickX},{game.getPlayerInfo().getYPos(),
+                         game.getPlayerInfo().getXPos()},game.getWindow());
 
     if (e.button.button == SDL_BUTTON_RIGHT) {
         if (Selector::hasSelectedTile({clickY, clickX})) {
@@ -146,7 +145,7 @@ void ClientEventHandler::_handleKeyDown(SDL_Event& e) {
 /* Procesa el evento cuando apreto enter para ejecutar un comando del minichat */
 void ClientEventHandler::_processCommandInput() {
     std::string cmd = game.getMinichat().handleReturnKey();
-    if (cmd != " "){ //Si apreto enter y no hay texto handleReturnKey me devuelve esto
+    if (cmd != ""){ //Si apreto enter y no hay texto handleReturnKey me devuelve esto
         if (cmd == "/clear") {
             game.getMinichat().clearMinichat();
         } else {

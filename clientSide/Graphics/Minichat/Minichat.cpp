@@ -8,7 +8,7 @@
 #define MINICHAT_Y_OFFSET 15
 
 #define MAX_TEXT_LEN 85
-#define MAX_MSGS 24 //El maximo de mensajes qu ese van a ver al scrollear
+#define MAX_MSGS 24 //El maximo de mensajes que se van a ver al scrollear
 #define MAX_MSGS_TO_RENDER 8
 
 #define MINICHAT_FONT_PATH "../../clientSide/Assets/Fonts/Raleway-Medium.ttf"
@@ -113,7 +113,7 @@ void Minichat::render() {
     std::lock_guard<std::mutex> lg(generalMutex);
     std::lock_guard<std::mutex> li(inputMutex);
     input.render(0,178, SDL_Color{0xFF,0xFF,0xFF,0xFF});
-    //renderizo mensajes encolados. Prob haya una mejor forma de iterar esto
+    //renderizo mensajes encolados.
     int textNum = 0;
     for (auto & text : texts) {
         if (textNum >= firstToRender) {

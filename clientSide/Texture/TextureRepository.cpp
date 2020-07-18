@@ -90,7 +90,7 @@
 #define SIMPLE_ARROW_PATH "../../clientSide/Assets/Images/Miscellaneous/SimpleArrow.png"
 #define COMPOSITE_ARROW_PATH "../../clientSide/Assets/Images/Miscellaneous/CompositeArrow.png"
 #define BACKGROUND_PATH "../../clientSide/Assets/Images/UI/Background.png"
-#define MAIN_MENU_PATH "../../clientSide/Assets/Images/UI/MainMenuTest.png"
+#define MAIN_MENU_PATH "../../clientSide/Assets/Images/UI/MainMenuBackground.png"
 
 TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer) {
     _loadClothing();

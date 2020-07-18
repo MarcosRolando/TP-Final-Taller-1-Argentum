@@ -10,7 +10,6 @@
 
 class ItemDrop {
 private:
-    //The attributes of the tile
     SDL_Rect box{};
     Texture* sTexture;
 

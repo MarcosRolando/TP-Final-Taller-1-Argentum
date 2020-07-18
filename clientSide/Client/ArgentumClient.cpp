@@ -9,11 +9,11 @@
 #include "UpdateReceiver.h"
 #include "GameInitializer.h"
 #include "../Screen/MainMenu.h"
-#include "../../libs/Timer.h"
 #include "UpdateManager.h"
 
 #define FREQUENCY 44100
 #define CHUNKSIZE 2048
+#define CURSOR_PATH "../../clientSide/Assets/Images/UI/Cursor.bmp"
 
 
 void Client::_gameLoop() {
@@ -26,25 +26,31 @@ void Client::_gameLoop() {
     ClientProtocol protocol(socket);
     GameInitializer initializer(game, socket, protocol);
 
+    /* Loop del menu principal */
     mainMenu.menuScreen(quit, initializer, socket);
 
-    if (quit) return;
+    if (quit) return;//Si elegi salir del juego en el menu no tengo que hacer nada mas
 
     initializer.initializeGame();
+
     BlockingQueue<std::unique_ptr<SDL_Event>> sdlEvents;
     UpdateManager updateManager;
     ClientEventHandler eventHandler(socket, quit, game, sdlEvents);
     UpdateReceiver updater(protocol, updateManager, socket, quit);
     std::unique_ptr<SDL_Event> event(new SDL_Event());
 
+    /* Se lanzan los dos threads que van a manejar los eventos de input de usuario
+     * y los recibidos por el server respectivamente */
     eventHandler();
     updater();
+
     timer.start();
     game.getSoundPlayer().playMusic();
     double timeStep;
 
     try {
         while (!quit) {
+            //Eventos de input del usuario
             while(SDL_PollEvent(event.get()) != 0) {
                 if (!window.handleEvent(*event)) {
                     sdlEvents.push(std::move(event));
@@ -52,6 +58,7 @@ void Client::_gameLoop() {
                 }
             }
 
+            //Eventos recibidos por el servidor
             int updatesAvailable = updateManager.updatesAvailable();
             if (updatesAvailable > 0 && updatesAvailable < 5) {
                 updatesAvailable = 1;
@@ -94,9 +101,9 @@ Client::Client(){
 
 //Setea un cursor custom
 void Client::_setCursor() {
-    SDL_Surface *surface = nullptr;
-    SDL_Cursor *cursor = nullptr;
-    surface = SDL_LoadBMP("../../clientSide/Assets/Images/UI/Cursor.bmp");
+    SDL_Surface *surface;
+    SDL_Cursor *cursor;
+    surface = SDL_LoadBMP(CURSOR_PATH);
     if (!surface) {
         throw TPException("Could not create cursor");
     }

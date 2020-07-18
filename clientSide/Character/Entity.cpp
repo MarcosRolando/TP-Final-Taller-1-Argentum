@@ -4,7 +4,6 @@
 
 #include "Entity.h"
 #include "../Client/GameConstants.h"
-#include <algorithm>
 #include "../../libs/SharedConstants.h"
 
 Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
@@ -38,24 +37,21 @@ void Entity::_updateFrame(bool reachedDestination) {
 }
 
 bool Entity::_checkCollision(SDL_Rect a, SDL_Rect b) {
-    //Los lados de los rect
     int leftA, leftB;
     int rightA, rightB;
     int topA, topB;
     int bottomA, bottomB;
-    //Calculo los lados del rect A
+
     leftA = a.x;
     rightA = a.x + a.w;
     topA = a.y;
     bottomA = a.y + a.h;
 
-    //Calculo los lados del rect B
     leftB = b.x;
     rightB = b.x + b.w;
     topB = b.y;
     bottomB = b.y + b.h;
 
-    //Si cualquiera de los lados de A estan fuera de B no hay colision
     if(bottomA <= topB) return false;
     if(topA >= bottomB) return false;
     if(rightA <= leftB) return false;

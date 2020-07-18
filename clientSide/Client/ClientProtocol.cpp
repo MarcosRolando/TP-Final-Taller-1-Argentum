@@ -30,10 +30,12 @@ ItemData ClientProtocol::processAddItem(std::vector<char>* _buffer, std::size_t&
     buffer = _buffer;
     TextureID itemTexture = Nothing;
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
+    //Tupla itemData: ItemType, Item, positionI, positionJ
     msgpack::type::tuple<GameType::ItemType, int32_t, int32_t , int32_t> itemData;
     handler->convert(itemData);
-    GameType::ItemType itemType = std::get<0>(itemData);
+    GameType::ItemType itemType = std::get<0>(itemData);//Veo que tipo de item es
 
+    //Asigno la textura al item
     if (itemType == GameType::ITEM_TYPE_WEAPON) {
         itemTexture = translator.getWeaponDropTexture(
                 static_cast<GameType::Weapon>(std::get<1>(itemData)));
@@ -57,6 +59,7 @@ EntityData ClientProtocol::processAddNPC(std::vector<char>* _buffer, msgpack::ty
     EntityData npcData;
     npcData.texture = translator.getEntityTexture(std::get<0>(entityData));
     npcData.nickname = std::get<1>(entityData);
+    //Tupla position: positionI, positionJ, direccion, distancia movida
     msgpack::type::tuple<int32_t, int32_t, GameType::Direction, int32_t> position;
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     handler->convert(position);
@@ -73,6 +76,7 @@ MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer, msgpa
     PlayerEquipment equipment{};
     pData.entityData.texture = Nothing;
     pData.entityData.nickname = std::get<1>(entityData);
+    //Tupla position: positionI, positionJ, direccion, distancia movida
     msgpack::type::tuple<int32_t, int32_t, GameType::Direction, int32_t> position;
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     handler->convert(position);
@@ -114,6 +118,7 @@ MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer, msgpa
 /* Agrega la informacion correspondiente al inventario a PlayerData*/
 void ClientProtocol::_addInventoryItems(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
+    //Tupla gold: cantidad de oro, cantidad de oro seguro
     msgpack::type::tuple<int32_t, int32_t> gold;
     handler->convert(gold);
     data.generalInfo.gold = std::get<0>(gold);
@@ -146,16 +151,13 @@ void ClientProtocol::_addItem(PlayerData& info, GameType::ItemType type, int32_t
     TextureID texture;
     switch (type) {
         case GameType::ITEM_TYPE_WEAPON:
-            texture = translator.getWeaponDropTexture(static_cast<GameType::Weapon>
-                                                      (id));
+            texture = translator.getWeaponDropTexture(static_cast<GameType::Weapon>(id));
             break;
         case GameType::ITEM_TYPE_CLOTHING:
-            texture = translator.getClothingDropTexture(static_cast<GameType::Clothing>
-                                                        (id));
+            texture = translator.getClothingDropTexture(static_cast<GameType::Clothing>(id));
             break;
         case GameType::ITEM_TYPE_POTION:
-            texture = translator.getPotionTexture(static_cast<GameType::Potion>
-                                                  (id));
+            texture = translator.getPotionTexture(static_cast<GameType::Potion>(id));
             break;
         case GameType::ITEM_TYPE_NONE:
             texture = Nothing;
@@ -205,6 +207,7 @@ void ClientProtocol::_addWeapon(PlayerData& info, size_t& offset){
 
 void ClientProtocol::_addXPData(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
+    //Tupla xpData: xp actual, xp para siguiente nivel, nivel actual
     msgpack::type::tuple<int32_t, int32_t, int32_t> xpData;
     handler->convert(xpData);
     data.generalInfo.xp = std::get<0>(xpData);
@@ -214,6 +217,7 @@ void ClientProtocol::_addXPData(PlayerData& data, size_t& offset) {
 
 void ClientProtocol::_addHealthData(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
+    //Tupla healthData: vida actual, vida total
     msgpack::type::tuple<int32_t, int32_t> healthData;
     handler->convert(healthData);
     data.generalInfo.health = std::get<0>(healthData);
@@ -222,6 +226,7 @@ void ClientProtocol::_addHealthData(PlayerData& data, size_t& offset) {
 
 void ClientProtocol::_addManaData(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
+    //Tupla manaData: mana actual, mana total
     msgpack::type::tuple<int32_t, int32_t> manaData;
     handler->convert(manaData);
     data.generalInfo.mana = std::get<0>(manaData);
@@ -230,6 +235,7 @@ void ClientProtocol::_addManaData(PlayerData& data, size_t& offset) {
 
 void ClientProtocol::_addSkills(PlayerData& data, size_t& offset){
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
+    //Tupla skills: strength, cosntitution, intelligence, agility
     msgpack::type::tuple<int32_t, int32_t, int32_t, int32_t> skills;
     handler->convert(skills);
     data.generalInfo.strength = std::get<0>(skills);
@@ -240,6 +246,7 @@ void ClientProtocol::_addSkills(PlayerData& data, size_t& offset){
 
 void ClientProtocol::_addPosition(PlayerData& data, size_t& offset) {
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
+    //Tupla pos: i, j
     msgpack::type::tuple<int32_t, int32_t> pos;
     handler->convert(pos);
     data.generalInfo.position = {std::get<0>(pos), std::get<1>(pos)};
