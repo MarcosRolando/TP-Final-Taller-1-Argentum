@@ -17,6 +17,5 @@ add_executable(argentumClient clientMain.cpp)
 
 target_link_libraries(argentumClient ${Boost_LIBRARIES})
 
-target_link_libraries(argentumClient ${SDL2_LIBRARIES} SDL2_image SDL2_ttf SDL2_mixer
-                        texture clientMap character sound graphics client screen updateEvents
-                        inputCommands libs clientMiscellaneous)
+target_link_libraries(argentumClient texture clientMap character sound graphics
+            client screen updateEvents inputCommands libs clientMiscellaneous)
