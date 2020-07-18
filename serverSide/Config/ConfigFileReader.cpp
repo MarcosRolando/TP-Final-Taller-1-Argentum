@@ -25,14 +25,14 @@ Config::ConfigFileReader::ConfigFileReader(const std::string& path) :
 
     std::ifstream file(path);
     if (!file.is_open()) {
-        throw TPException("No se pudo abrir el arcvio de Config,"
-                          " asegurese de que el archivo existe!");
+        throw TPException("Could not open Config File, check whether"
+                          " it exists or not");
     }
 
     try {
         file >> obj;
     } catch (...) {
-        throw TPException("Fallo el parseo del Config de Json!");
+        throw TPException("Json Config File parsing failed!");
     }
 }
 

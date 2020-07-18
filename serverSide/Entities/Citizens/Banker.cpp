@@ -41,7 +41,8 @@ void Banker::withdraw(Player &player, const std::string &itemName) {
             _storeAvailableRoomMessage(player, aux.first);
         }
     } catch (...) {
-        throw TPException("Intentaron withdrawear un item de un player que no existia!");
+        throw TPException("Tried to withdraw an item from a player that"
+                          "didnt exist!");
     }
 }
 
@@ -61,7 +62,7 @@ void Banker::deposit(Player &player, const std::string& itemName) {
             player.addMessage(NO_ROOM_AVAILABLE_MESSAGE + std::to_string(MAX_NUMBER_OF_ITEMS_PER_PLAYER) + "\n");
         }
     } catch(...) {
-        throw TPException("Intentaron depositar un item de un player que no existia!");
+        throw TPException("Tried to deposit an item of an inexistent player!");
     }
 }
 
@@ -160,7 +161,7 @@ std::string Banker::_translateItemTypeToName(std::tuple<GameType::ItemType, int3
                     static_cast<GameType::Potion>(std::get<1>(item))).name;
         default:
             //do nothing
-            throw TPException("El jugador guardaba items de banker invalidos!");
+            throw TPException("Player was storing invalid banker items!");
     }
 }
 

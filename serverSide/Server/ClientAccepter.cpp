@@ -78,7 +78,7 @@ PlayerData ClientAccepter::_receivePlayerInfo(Socket& clientSocket) {
     } else if (std::get<0>(creationID) == GameType::LOAD_PLAYER) {
         return _loadPlayer(buffer, offset);
     } else {
-        throw TPException("No me llego ni mensaje de creacion ni de carga de player!");
+        throw TPException("Invalidad load/create client messages!");
     }
 }
 

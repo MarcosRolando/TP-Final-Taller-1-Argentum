@@ -25,7 +25,7 @@ UpdateCreateItem::UpdateCreateItem(GameType::ItemType _type, int32_t _item,
                 item = translator.getPotionTexture(static_cast<GameType::Potion>(_item));
                 break;
             case GameType::ITEM_TYPE_NONE:
-                throw TPException("Intentaron crear un item que no existia");
+                throw TPException("Tried to create a null item");
         }
     } catch (std::exception& e) {
         std::cerr << e.what() << " prob intentaro crear un item que yo no tenia traducido" << std::endl;

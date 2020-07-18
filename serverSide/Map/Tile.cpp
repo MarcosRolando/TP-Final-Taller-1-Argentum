@@ -42,7 +42,7 @@ void Tile::addEntity(std::shared_ptr<Entity>&& received_entity) {
         entity = std::move(received_entity);
         isOccupable = false;
     } else {
-        throw TPException("Intentaron agregar un entity a un tile no ocupable!");
+        throw TPException("Tried to add an entity to a non occupable tile!");
     }
 }
 

@@ -11,13 +11,13 @@ MapFileReader::MapFileReader(const std::string& path) {
     mapDimensions.height = 0;
     std::ifstream file(path);
     if (!file.is_open()) {
-        throw TPException("No se pudo abrir el arcvio del Mapa,"
-                          " asegurese de que el archivo existe!");
+        throw TPException("Could not open Map File, check whether"
+                          " it exists or not!");
     }
     try {
         file >> obj;
     } catch (...) {
-        throw TPException("Fallo el parseo del Mapa!");
+        throw TPException("Map file parsing failed!");
     }
     _readMapSize();
     _readIDs();

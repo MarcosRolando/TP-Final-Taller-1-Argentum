@@ -48,7 +48,7 @@ void PlayerIndexFile::storeOldPlayer(const std::string& playerNickname, PlayerFi
         indexFile.write(reinterpret_cast<char*>(&filePosition.length), sizeof(filePosition.length));
         indexFile.sync();
     } else {
-        throw TPException("Intentaron guardar un player viejo que no existia!");
+        throw TPException("Tried to store a logged in player that didnt exist!");
     }
 }
 

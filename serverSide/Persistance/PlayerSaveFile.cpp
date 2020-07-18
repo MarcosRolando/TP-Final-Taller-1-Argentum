@@ -32,8 +32,7 @@ PlayerData PlayerSaveFile::getPlayerData(const std::string& playerNickname,
     PlayerData playerData;
     _loadPlayerType(playerData, playerDataBuffer);
     if (playerData.nickname != playerNickname) {
-        throw TPException("El nombre del jugador almacenado no coincide con "
-                          "el esperado!");
+        throw TPException("Stored player's nickname doesnt match the one provided!");
     }
     _loadPlayerGeneralStats(playerData, playerDataBuffer);
     _loadPlayerInventory(playerData, playerDataBuffer);

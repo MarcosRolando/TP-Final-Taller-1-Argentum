@@ -17,7 +17,7 @@ PlayerData PlayerManager::getSavedPlayerData(const std::string &nickname) {
     if (!game.playerExists(nickname)) {
         return saveManager.getPlayerData(nickname);
     }
-    throw TPException("Intentaron cargar un player que ya esta loggeado!");
+    throw TPException("Tried to log in an already logged in player!");
 }
 
 void PlayerManager::storeNewPlayer(const PlayerData& playerData) {
