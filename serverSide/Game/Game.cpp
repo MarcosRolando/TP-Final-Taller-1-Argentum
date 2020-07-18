@@ -51,6 +51,8 @@ void Game::_repopulateMap(ServerProtocol& protocol) {
     }
 }
 
+//Vacia la cola de operaciones a realizar, ejecutando cada operacion que es
+//desencolada
 void Game::_executeQueueOperations(ServerProtocol& protocol) {
     while (!eventQueue.empty()) {
         (*eventQueue.front())(protocol);
@@ -62,19 +64,24 @@ void Game::moveEntity(Coordinate initialPosition, Coordinate finalPosition) {
     map.moveEntity(initialPosition, finalPosition);
 }
 
+//Llama a update de todos los monstruos que se encuentran en el mapa, haciendo
+//que tomen una decision
 void Game::_updateMonsters(double timeStep) {
     for (const auto & monster: monsters) {
         monster->update(timeStep);
     }
 }
 
+//Hace un update de los players conectados, actualizando su vida, mana y distancia
+//recorrida
 void Game::_updatePlayers(double timeStep) {
     for (const auto & player: players) {
         player.second->update(timeStep);
     }
 }
 
-//Elimina de las listas almacenadas y del mapa los players y monsters que deban ser eliminados
+//Elimina de las listas almacenadas y del mapa los monsters que deban ser eliminados
+//y guarda en el protocolo el mensaje de que estos deben desaparecer para mandar al cliente
 void Game::_removeMonsters(ServerProtocol& protocol) {
     std::stringstream data;
     std::list<std::pair<Coordinate, const std::string*>> monstersToRemove;
@@ -91,7 +98,8 @@ void Game::_removeMonsters(ServerProtocol& protocol) {
     }
 }
 
-
+//Itera la lista de players muertos que estan esperando resucitar, aplicando la funcion
+//shouldBeRevived y eliminando asi los players que son revividos
 void Game::_updateDeadPlayersTimer(ServerProtocol& protocol, double timestep) {
     std::stringstream data;
     ShouldPlayerBeRevived shouldBeRevived(map, data, timestep);

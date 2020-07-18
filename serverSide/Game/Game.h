@@ -32,6 +32,8 @@ struct MoveCommand {
     bool isTeleporting;
 };
 
+//Esta clase se encarga de manejar en forma general las acciones que quiere realizar
+//cada identidad
 class Game {
 private:
     std::list<Coordinate> priests;
@@ -73,6 +75,8 @@ public:
     //Destructor virtual para poder hacer un stub con fakeit
     virtual ~Game() = default;
 
+    //Delega a map el ataque a la coordenada recibida, retorna una instancia de AttackResult junto
+    //con un bool que esta en true si se realizo un ataque, sino retorna false
     std::pair<AttackResult, bool> attackPosition(int damage, unsigned int level, bool isAPlayer,
                             Coordinate coordinate);
 
@@ -87,6 +91,8 @@ public:
     //Retorna una referencia constante del mapa, util para los monstruos
     const Map& getMap() const;
 
+    //Ejecuta un update del juego, realiza todas las acciones que debe realizar el juego
+    //en este tick
     void update(double timeStep, ServerProtocol& protocol);
 
     //Delega el comportamiento a la entity que guarda, si es que guarda una
@@ -105,15 +111,24 @@ public:
     //Delega el comportamiento a la entity que guarda, si es que guarda una
     void sell(Player& player, const std::string& itemName, Coordinate coordinate);
 
+    //Delega a map el movimiento de la entidad que se encuentra en initialPosition
+    //y debe terminar en finalPosition
     void moveEntity(Coordinate initialPosition, Coordinate finalPosition);
 
+    //Game se apropia del puntero al evento, agregandolo a la cola de enentos que
+    //despues sera vaciada para ejecutar las acciones del update
     void pushEvent(std::unique_ptr<Event>&& event);
 
-    /*Crea el player en base al nickname, raza y clase que recibe*/
+    //Crea el player en base al nickname, raza y clase que recibe
     Player& createPlayer(PlayerData& playerData, ServerProtocol& protocol);
 
+    //Carga en el protocolo el estado actual del juego para mandar a un jugador
+    //que se conecta y poder mandarle luego solo los cambios en cada update
     const std::vector<char>& getCurrentState(ServerProtocol& protocol);
 
+    //Elimina al jugador del juego, eliminandolo de todos los lugares en los que
+    //esta guardado, guarda en el protocolo el mensaje que comunica al resto de los
+    //clientes que desaparecio un jugador
     void removePlayer(Player* player, ServerProtocol& protocol);
 
     //Intenta guardar el item en el inventario del player, retorna el puntero al
@@ -122,8 +137,9 @@ public:
     const Item* storeItemFromTileInPlayer(Player& player);
 
     //Resusita el player instantaneamente si la coordenada que selecciono contiene un priest, sino
-    //guarda su informacion para resucitarlo cuando la cantidad de tiempo necesaria
-    //Si lo resucita retorna true, sino retorna false
+    //guarda su informacion en la lista de players a resucitar para resucitarlo cuando pase la cantidad
+    //de tiempo necesaria
+    //Si lo resucita instantaneamente retorna true, sino retorna false
     bool requestResurrect(Player& player, Coordinate selectedPosition);
 
     //Envia un mensaje a otro jugador
@@ -133,10 +149,12 @@ public:
     //Retorna true si el player se encuentra en el game, false en caso contrario
     bool playerExists(const std::string& nickname) const;
 
-
+    //Delega a map el pedido del player al entity de la coordenada target para
+    //que se restore su mana y vida
     void requestRestore(Player& player, Coordinate target);
 
-    //Guarda en playerData los items que tiene guardados en el banker
+    //Guarda en playerData los items que tiene guardados en el banker el player
+    //que tiene el nickname guardado en playerData
     static void getPlayerBank(PlayerData& playerData) ;
 };
 
