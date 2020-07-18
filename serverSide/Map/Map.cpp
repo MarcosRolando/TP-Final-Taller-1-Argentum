@@ -360,7 +360,7 @@ std::shared_ptr<Item> Map::getItemFromTile(Coordinate coordinate) {
     return tiles[coordinate.iPosition][coordinate.jPosition].removeItem();
 }
 
-Item* Map::peekShowedItemData(Coordinate coordinate) {
+const Item* Map::peekShowedItemData(Coordinate coordinate) {
     if (!_isCoordinateValid(coordinate)) {
         throw std::invalid_argument("Invalid coordinate in peekShoedItemData");
     }

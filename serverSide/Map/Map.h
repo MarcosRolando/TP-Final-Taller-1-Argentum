@@ -133,7 +133,7 @@ public:
     //Retorna un pair que almacena el tipo del item y su id, si la coordenada es inexistente
     //guarda -2 en el id (second), si el tile no tiene items guarda -1, sino guarda el it del item
     //std::pair<GameType::ItemType, int32_t> peekShowedItemData(Coordinate coordinate);
-    Item* peekShowedItemData(Coordinate coordinate);
+    const Item* peekShowedItemData(Coordinate coordinate);
 
 
     //Retorna una posicion disponible alrededor de la posicion recibida
