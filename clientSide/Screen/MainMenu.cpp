@@ -36,7 +36,7 @@
 
 
 MainMenu::MainMenu(Texture& texture, Window& window) : window(window),
-mainMenuFont(FONT_PATH, 25),
+mainMenuFont(MAIN_MENU_FONT_PATH, 25),
 text(mainMenuFont, window.getRenderer()),
 hostInputText(mainMenuFont, window.getRenderer()),
 portInputText(mainMenuFont, window.getRenderer()) ,
