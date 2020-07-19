@@ -81,7 +81,6 @@ void Texture::addSprite(int x, int y, int width, int height) {
     gSpriteClips.push_back({x, y, width, height});
 }
 
-
 Texture::Texture(Texture&& other) noexcept : renderer(other.renderer){
     mWidth = other.mWidth;
     mHeight = other.mHeight;
@@ -99,7 +98,7 @@ Texture::Texture(Texture&& other) noexcept : renderer(other.renderer){
 }
 
 SpriteDimensions_t Texture::getSpriteDimensions(int spritePosition) {
-    SDL_Rect& spriteDimensions = gSpriteClips[spritePosition];
+    SDL_Rect& spriteDimensions = gSpriteClips.at(spritePosition);
     SpriteDimensions_t dimensions = {spriteDimensions.w, spriteDimensions.h};
     return dimensions;
 }
@@ -126,16 +125,12 @@ void Texture::loadFromRenderedText(const std::string& text, SDL_Color
         } else {
             mWidth = textSurface->w;
             mHeight = textSurface->h;
+            gSpriteClips.assign(1, {0, 0, mWidth, mHeight});
         }
 
         //Libero al superficie
         SDL_FreeSurface(textSurface);
     }
-}
-
-void Texture::renderText(int x, int y) {
-    SDL_Rect renderQuad = { x, y, mWidth, mHeight };
-    SDL_RenderCopy(&renderer, mTexture, nullptr, &renderQuad);
 }
 
 void Texture::render(int x, int y, int spritePosition, double angle) {
