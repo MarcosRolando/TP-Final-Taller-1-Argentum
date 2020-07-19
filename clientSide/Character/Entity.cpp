@@ -20,7 +20,6 @@ void Entity::_updateFrame(bool reachedDestination) {
     if (reachedDestination) {
         if (totalDistanceMoved < static_cast<float>(TILE_WIDTH)) {
             _modifyPosition(moveDirection, static_cast<float>(TILE_WIDTH) - totalDistanceMoved);
-            totalDistanceMoved = static_cast<float>(TILE_WIDTH);
         }
         currentFrame = 0;
         lastDirection = moveDirection;
@@ -135,7 +134,7 @@ void Entity::updateCamera() {
 }
 
 GameType::Direction Entity::move(GameType::Direction direction, unsigned int distanceTravelled,
-                  bool reachedDestination) {
+                                    bool reachedDestination) {
     float distanceInPixels = static_cast<float>(TILE_WIDTH) *
                            static_cast<float>(distanceTravelled) / static_cast<float>(TILE_DISTANCE_IN_METERS);
     GameType::Direction previousDirection = moveDirection;

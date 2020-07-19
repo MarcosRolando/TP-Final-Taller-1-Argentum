@@ -18,6 +18,6 @@ bool Update::empty() {
     return events.empty();
 }
 
-Update::Update(Update&& other)  noexcept {
+Update::Update(Update&& other) noexcept {
     events = std::move(other.events);
 }
