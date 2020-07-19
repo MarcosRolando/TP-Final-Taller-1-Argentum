@@ -32,6 +32,9 @@ void Tile::createItem(Texture& _itemTexture) {
 }
 
 void Tile::addEntity(std::shared_ptr<Entity>& _entity) {
+    if (!entity.expired()) {
+        std::cerr << "pisaste un entity capo" << std::endl; //todo volar este mensaje
+    }
     entity = _entity;
 }
 
