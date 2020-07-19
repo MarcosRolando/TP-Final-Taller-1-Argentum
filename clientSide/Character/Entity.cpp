@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "../Client/GameConstants.h"
 #include "../../libs/SharedConstants.h"
+#include "../Miscellaneous/CameraCollisionVerifier.h"
 
 Entity::Entity(SDL_Rect &camera, float x, float y) : camera(camera) {
     currentFrame = 0;
@@ -35,32 +36,9 @@ void Entity::_updateFrame(bool reachedDestination) {
     }
 }
 
-bool Entity::_checkCollision(SDL_Rect a, SDL_Rect b) {
-    int leftA, leftB;
-    int rightA, rightB;
-    int topA, topB;
-    int bottomA, bottomB; //todo ver de hacer una sola funcion
-
-    leftA = a.x;
-    rightA = a.x + a.w;
-    topA = a.y;
-    bottomA = a.y + a.h;
-
-    leftB = b.x;
-    rightB = b.x + b.w;
-    topB = b.y;
-    bottomB = b.y + b.h;
-
-    if(bottomA <= topB) return false;
-    if(topA >= bottomB) return false;
-    if(rightA <= leftB) return false;
-    if(leftA >= rightB) return false;
-
-    return true;
-}
-
 void Entity::render(EntityTexture& eTexture) {
-    if (_checkCollision(camera, {(int)xPosition, (int)yPosition, (int)width, (int)height})) {
+    if (CameraCollisionVerifier::isInsideCamera(camera, {(int)xPosition,
+                                                         (int)yPosition, (int)width, (int)height})) {
         switch (moveDirection) {
             case GameType::DIRECTION_UP:
                 eTexture.renderBack((int)(xPosition) - camera.x,

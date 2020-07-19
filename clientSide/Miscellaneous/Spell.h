@@ -31,9 +31,6 @@ public:
 
     /*Cambia la posicion, lo utilizo para que vaya siguiendo al entity*/
     void setPosition(float x, float y);
-
-private:
-    static bool _checkCollision(SDL_Rect a, SDL_Rect b);
 };
 
 

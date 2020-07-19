@@ -4,6 +4,7 @@
 
 #include "Arrow.h"
 #include "../Client/GameConstants.h"
+#include "../Miscellaneous/CameraCollisionVerifier.h"
 
 const int ARROW_SPEED = 2;
 
@@ -18,31 +19,6 @@ Arrow::Arrow(Texture& texture, SDL_Rect &camera, float xPos, float yPos,
     height = (float)TILE_HEIGHT/2 + 15;
 }
 
-bool Arrow::_checkCollision(SDL_Rect a, SDL_Rect b) {
-    int leftA, leftB;
-    int rightA, rightB;
-    int topA, topB;
-    int bottomA, bottomB;
-    //Calculo los lados de A
-    leftA = a.x;
-    rightA = a.x + a.w;
-    topA = a.y;
-    bottomA = a.y + a.h;
-
-    //Calculo los lados de A
-    leftB = b.x;
-    rightB = b.x + b.w;
-    topB = b.y;
-    bottomB = b.y + b.h;
-
-    if(bottomA <= topB) return false;
-    if(topA >= bottomB) return false;
-    if(rightA <= leftB) return false;
-    if(leftA >= rightB) return false;
-
-    return true;
-}
-
 void Arrow::_calculateTrajectory(float xTarget, float yTarget) {
     float relativeXTarget = xTarget - xPosition; /*Lo llevo relativo al origen que es la posicion de mi flecha*/
     float relativeYTarget = yPosition - yTarget;
@@ -51,7 +27,7 @@ void Arrow::_calculateTrajectory(float xTarget, float yTarget) {
 }
 
 void Arrow::render() {
-    if (_checkCollision(camera, {(int)xPosition, (int)yPosition,
+    if (CameraCollisionVerifier::isInsideCamera(camera, {(int)xPosition, (int)yPosition,
                                  (int)width, (int)height})) {
         sTexture.render((int)(xPosition) - camera.x,
                         (int)(yPosition) - camera.y, 0, 40 - angle);

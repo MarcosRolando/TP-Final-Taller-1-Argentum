@@ -33,7 +33,6 @@ public:
     bool reachedTarget() const;
 
 private:
-    static bool _checkCollision(SDL_Rect a, SDL_Rect b);
     void _calculateTrajectory(float xTarget, float yTarget);
 };
 

@@ -24,9 +24,6 @@ public:
 
     /*Renderiza la estructura si es visible en la camara del player*/
     void render(SDL_Rect& camera);
-
-private:
-    static bool _checkCollision(SDL_Rect a, SDL_Rect b);
 };
 
 
