@@ -7,7 +7,7 @@
 
 #include "Texture.h"
 
-/*Clase Abstracta*/
+/*Clase Abstracta, los hijos deben implementar la renderizacion*/
 
 class EntityTexture {
 public:

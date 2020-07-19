@@ -17,13 +17,14 @@ private:
     std::unordered_map<SoundID, Sound> sounds;
     Mix_Music* music{};
 public:
-    /* Constructor */
     SoundRepository();
+
     /* Me devuelve la musica */
     Mix_Music* getMusic();
+
     /*Me devuelve el sonido */
     Mix_Chunk* getSound(SoundID id);
-    /* Destructor */
+
     ~SoundRepository();
 
 private:

@@ -12,6 +12,8 @@
 #include "PlayerEquipment.h"
 #include "../../libs/GameEnums.h"
 
+/*Representa la textura de un player*/
+
 class PlayerTexture : public EntityTexture {
 private:
     TextureRepository& textureRepo;
@@ -29,6 +31,7 @@ public:
     void renderRight(int x, int y, int frame) override;
     void renderLeft(int x, int y, int frame) override;
 
+    /*Cambia una textura del player*/
     void equip(GameType::EquipmentPlace place, TextureID equipment);
 };
 

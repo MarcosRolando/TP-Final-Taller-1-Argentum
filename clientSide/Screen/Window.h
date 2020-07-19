@@ -16,6 +16,10 @@ enum Viewports {
     PlayerInfoViewport
 };
 
+/*Esta clase maneja la instancia de la ventana del juego, tiene el ownership
+ * del renderizador y se encarga de mostrar los cambios renderizados y
+ * setear los viewports*/
+
 class Window {
 private:
     SDL_Window* mWindow;

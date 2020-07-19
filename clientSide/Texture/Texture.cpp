@@ -73,13 +73,13 @@ void Texture::render(int x, int y, int spritePosition, double angle, int scale) 
     renderQuad.h = clip.h*scale;
 
     //Renderiza
-    SDL_RenderCopyEx(&renderer, mTexture, &clip, &renderQuad, angle, nullptr, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(&renderer, mTexture, &clip, &renderQuad, angle,
+            nullptr, SDL_FLIP_NONE);
 }
 
 void Texture::addSprite(int x, int y, int width, int height) {
     gSpriteClips.push_back({x, y, width, height});
 }
-
 
 Texture::Texture(Texture&& other) noexcept : renderer(other.renderer){
     mWidth = other.mWidth;
@@ -98,12 +98,11 @@ Texture::Texture(Texture&& other) noexcept : renderer(other.renderer){
 }
 
 SpriteDimensions_t Texture::getSpriteDimensions(int spritePosition) {
-    SDL_Rect& spriteDimensions = gSpriteClips[spritePosition];
+    SDL_Rect& spriteDimensions = gSpriteClips.at(spritePosition);
     SpriteDimensions_t dimensions = {spriteDimensions.w, spriteDimensions.h};
     return dimensions;
 }
 
-/* Crea una textura con texto */
 void Texture::loadFromRenderedText(const std::string& text, SDL_Color
                                                 textColor, TTF_Font* font ) {
     //Libero la textura anterior
@@ -121,20 +120,17 @@ void Texture::loadFromRenderedText(const std::string& text, SDL_Color
         if( mTexture == nullptr ) {
             //Si falla libera la superficie
             SDL_FreeSurface(textSurface);
-            throw TPException("Unable to create texture from rendered text! Graphics Error: %s\n", SDL_GetError());
+            throw TPException("Unable to create texture from rendered text! "
+                              "Graphics Error: %s\n", SDL_GetError());
         } else {
             mWidth = textSurface->w;
             mHeight = textSurface->h;
+            gSpriteClips.assign(1, {0, 0, mWidth, mHeight});
         }
 
         //Libero al superficie
         SDL_FreeSurface(textSurface);
     }
-}
-
-void Texture::renderText(int x, int y) {
-    SDL_Rect renderQuad = { x, y, mWidth, mHeight };
-    SDL_RenderCopy(&renderer, mTexture, nullptr, &renderQuad);
 }
 
 void Texture::render(int x, int y, int spritePosition, double angle) {

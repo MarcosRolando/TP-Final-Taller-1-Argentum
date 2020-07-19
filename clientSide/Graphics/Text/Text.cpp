@@ -18,15 +18,16 @@ void Text::appendText(std::string&& newText) {
 }
 
 void Text::render(int x, int y, SDL_Color color) {
-    if (!text.empty()){
+    if (!text.empty()) {
         textTexture.loadFromRenderedText(text, color, font.getFont());
-        textTexture.renderText(x, y);
+        textTexture.render(x, y);
     }
 }
 
 void Text::eraseText() {
-    if (!text.empty())
+    if (!text.empty()) {
         text.pop_back();
+    }
 }
 
 int Text::getTextLength() {
