@@ -40,6 +40,8 @@ Configuration::Configuration() {
     timeForPlayerRecovery = fileReader.loadTimeForPlayerRecovery();
     port = fileReader.loadPort();
     mapPath = fileReader.loadMapPath();
+    savePath = fileReader.loadSavePath();
+    indexPath = fileReader.loadIndexPath();
     goldName = "Gold";
 }
 
@@ -140,4 +142,12 @@ const std::string &Configuration::configPort() const {
 
 const std::string &Configuration::configMapPath() const {
     return mapPath;
+}
+
+const std::string &Configuration::configSavePath() const {
+    return savePath;
+}
+
+const std::string &Configuration::configIndexPath() const {
+    return indexPath;
 }

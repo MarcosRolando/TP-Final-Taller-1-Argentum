@@ -204,3 +204,11 @@ std::string Config::ConfigFileReader::loadPort() {
 std::string Config::ConfigFileReader::loadMapPath() {
     return obj["MapPath"].get<std::string>();
 }
+
+std::string Config::ConfigFileReader::loadSavePath() {
+    return obj["SavePath"].get<std::string>();
+}
+
+std::string Config::ConfigFileReader::loadIndexPath() {
+    return obj["IndexPath"].get<std::string>();
+}
