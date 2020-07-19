@@ -334,7 +334,7 @@
 
   "MonsterSpawnData" : {
     "MaxAmount" : 300,
-    "TimeBetweenSpawns" : 100,
+    "TimeBetweenSpawns" : 10000,
     "SpawnAmount" : 20
   },
 
