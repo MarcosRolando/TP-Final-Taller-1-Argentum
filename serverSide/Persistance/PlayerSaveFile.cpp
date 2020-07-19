@@ -109,7 +109,6 @@ void PlayerSaveFile::_loadPlayerType(PlayerData& playerData,
 PlayerFilePosition PlayerSaveFile::storePlayerData(const PlayerData& playerData,
                                             int32_t fileOffset) {
     saveFile.clear();
-    saveFile.seekp(fileOffset, std::ios_base::beg);
     PlayerFilePosition playerPosition{};
     playerPosition.offset = fileOffset;
     std::stringstream dataToStore;
@@ -118,7 +117,7 @@ PlayerFilePosition PlayerSaveFile::storePlayerData(const PlayerData& playerData,
     _packPlayerInventory(dataToStore, playerData);
     _packBankItems(dataToStore, playerData);
     std::string strDataToStore = dataToStore.str();
-    playerPosition.length = strDataToStore.length();
+    playerPosition.length = strDataToStore.size();
     saveFile.seekp(fileOffset, std::ios_base::beg);
     saveFile.write(strDataToStore.data(), playerPosition.length);
     int32_t paddingSize = (playerData.size() - playerPosition.length);

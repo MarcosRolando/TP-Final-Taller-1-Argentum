@@ -42,8 +42,9 @@ void PlayerIndexFile::_loadFileData() {
 
 void PlayerIndexFile::storeOldPlayer(const std::string& playerNickname, PlayerFilePosition filePosition) {
     indexFile.clear();
-    filePosition = {htonl(filePosition.offset), htonl(filePosition.length)};
     if (players.count(playerNickname) == 1) {
+        players.at(playerNickname) = filePosition;
+        filePosition = {htonl(filePosition.offset), htonl(filePosition.length)};
         indexFile.seekp(indexPlayersPosition.at(playerNickname), std::ios_base::beg);
         indexFile.write(reinterpret_cast<char*>(&filePosition.length), sizeof(filePosition.length));
         indexFile.sync();

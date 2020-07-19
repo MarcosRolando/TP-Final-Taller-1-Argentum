@@ -4,10 +4,11 @@
 
 #include "SaveFileManager.h"
 #include "../Exceptions/UnavailablePlayerException.h"
-
+#include <iostream>
 PlayerData SaveFileManager::getPlayerData(const std::string &playerNickname) {
     std::lock_guard<std::mutex> l(m);
     PlayerFilePosition filePosition = indexFile.getPlayerPosition(playerNickname);
+    std::cout << filePosition.offset << " " << filePosition.length << std::endl;
     return saveFile.getPlayerData(playerNickname, filePosition);
 }
 
