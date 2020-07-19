@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.10.2)
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
@@ -17,5 +17,7 @@ add_executable(argentumClient clientMain.cpp)
 
 target_link_libraries(argentumClient ${Boost_LIBRARIES})
 
-target_link_libraries(argentumClient texture clientMap character sound graphics
-            client screen updateEvents inputCommands libs clientMiscellaneous)
+target_link_libraries(argentumClient texture clientMap character sound graphics client screen updateEvents inputCommands libs clientMiscellaneous)
+
+INSTALL(TARGETS argentumClient DESTINATION /usr/bin)
+INSTALL(TARGETS argentumClient DESTINATION /bin)

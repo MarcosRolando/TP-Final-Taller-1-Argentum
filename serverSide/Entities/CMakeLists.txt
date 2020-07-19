@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.10.2)
 
 add_library(entities Entity.cpp Minichat.cpp Monster.cpp MonsterStats.cpp
         Player.cpp PlayerProxy.cpp PlayerStats.cpp MovementBackup.h)
