@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.10.2)
 
+OPTION(ENABLE_TESTS "Compile the tests" OFF)
+
+add_definitions(-DENABLE_TESTS)
+
 add_subdirectory(Config)
 add_subdirectory(Entities)
 add_subdirectory(Game)
@@ -7,7 +11,9 @@ add_subdirectory(Items)
 add_subdirectory(Map)
 add_subdirectory(Persistance)
 add_subdirectory(Server)
-add_subdirectory(Tests)
+if (ENABLE_TESTS)
+    add_subdirectory(Tests)
+endif ()
 add_executable(argentumServer serverMain.cpp)
 
 target_compile_options(argentumServer PRIVATE)
