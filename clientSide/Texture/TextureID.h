@@ -6,7 +6,7 @@
 #define ARGENTUM_TEXTUREID_H
 
 enum TextureID {
-    Nothing, /*Lo uso para el equipo del Player*/
+    Nothing, /*Auxiliar, lo uso para el equipo del Player*/
     PlayerGhost,
     BlueTunic,
     BlueTunicDrop,

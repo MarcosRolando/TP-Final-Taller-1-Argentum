@@ -14,6 +14,9 @@
 
 class Socket;
 
+/*Esta clase procesa los eventos del player y los envia al server acorde
+ * al protocolo correspondiente*/
+
 class ClientEventHandler : public Thread {
 private:
     Socket& socket;
@@ -24,10 +27,10 @@ private:
     std::stringstream msgBuffer;
 
 public:
-    /* Constructor */
     ClientEventHandler(Socket& _socket, bool& quit, GameGUI& game,
                             BlockingQueue<std::unique_ptr<SDL_Event>>& _events)
                         : socket(_socket), quit(quit), game(game), events(_events) {};
+
     void run() override;
 
 private:

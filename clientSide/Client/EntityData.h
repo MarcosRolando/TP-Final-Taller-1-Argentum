@@ -12,6 +12,9 @@
 #include "../Graphics/GUI/GUIPlayerInfo.h"
 #include "../Texture/PlayerEquipment.h"
 
+/*La info de un player para cargar en el mapa, esto me llega cuando se
+ * crea un nuevo player*/
+
 struct EntityData {
     TextureID texture;
     std::string nickname;

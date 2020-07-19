@@ -5,12 +5,12 @@
 #include "UpdateManager.h"
 #include "../../libs/TPException.h"
 
-void UpdateManager::push(UpdateQueue<std::unique_ptr<UpdateEvent>>& update) {
+void UpdateManager::push(Update& update) {
     std::lock_guard<std::mutex> l(m);
     updates.emplace(std::move(update));
 }
 
-UpdateQueue<std::unique_ptr<UpdateEvent>> UpdateManager::pop() {
+Update UpdateManager::pop() {
     std::lock_guard<std::mutex> l(m);
     if (!updates.empty()) {
         auto update = std::move(updates.front());

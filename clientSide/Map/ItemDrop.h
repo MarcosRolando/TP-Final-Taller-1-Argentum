@@ -17,7 +17,7 @@ private:
     Texture* sTexture;
 
 public:
-    ItemDrop(Coordinate position);
+    explicit ItemDrop(Coordinate position);
 
     /*Renderiza el item*/
     void render(SDL_Rect& camera);
