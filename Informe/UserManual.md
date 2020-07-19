@@ -119,7 +119,7 @@ Si logramos conectarnos empieza el juego en si.
 
 ##### Minichat
 
-![minichat](/home/ivan/Documents/UBA/Taller/Argentum/UserManual/img/minichat.png)
+![minichat](Informe/img/minichat.png)
 
 En el minichat se podrán leer los mensajes relevantes recibidos por el server (daño causado o recibido, ataques esquivados o críticos y mensajes de otros jugadores). Ademas, al hacer click en el minichat podrán ingresar los siguientes comandos:
 
@@ -183,19 +183,19 @@ En el minichat se podrán leer los mensajes relevantes recibidos por el server (
 
 ##### Información del jugador
 
-![playerInfo](/home/ivan/Documents/UBA/Taller/Argentum/UserManual/img/playerInfo.png)
+![playerInfo](Informe/img/playerInfo.png)
 
 Aquí se muestran las estadísticas de vida, mana y experiencia del jugador
 
 ##### Inventario
 
-![inventory2](/home/ivan/Documents/UBA/Taller/Argentum/UserManual/img/inventory2.png)
+![inventory2](Informe/img/inventory2.png)
 
 Arriba se pueden ver el  nivel y el nickname del usuario. Abajo se encuentra el inventario con los items que posee el jugador. El cuadrado que tiene un borde blanco es el que esta seleccionado. Por ultimo se ve la cantidad de oro del jugador y entre paréntesis el oro seguro.
 
 ##### Stats
 
-![skills](/home/ivan/Documents/UBA/Taller/Argentum/UserManual/img/skills.png)
+![skills](Informe/img/skills.png)
 
 A la izquierda se ven las habilidades del jugador. A la derecha están los items equipados y debajo se ve la posición actual.
 
