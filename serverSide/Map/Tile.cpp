@@ -7,14 +7,17 @@
 #include "../Entities/AttackResult.h"
 #include "../../libs/TPException.h"
 #include "../Items/Item.h"
+#include "../Entities/Player.h"
 #include <msgpack.hpp>
 
 MSGPACK_ADD_ENUM(GameType::FloorType)
 MSGPACK_ADD_ENUM(GameType::Entity)
 MSGPACK_ADD_ENUM(GameType::Structure)
+
+#define NO_ITEMS_MESSAGE "There are no entities or items on this tille\n"
+#define ITEMS_MESSAGE "The stored items are:\n"
+
 ////////////////////////////////////////PUBLIC////////////////////////////////////////
-
-
 
 Tile::Tile(bool _isOccupable, bool _isFromCity, GameType::FloorType _floor, GameType::Structure _structure,
            std::shared_ptr<Entity>&& initialEntity): entity(nullptr) {
@@ -92,6 +95,8 @@ bool Tile::isAvailable() const {
 void Tile::list(Player &player) {
     if (entity) {
         entity->list(player);
+    } else {
+        _storeItemsNames(player);
     }
 }
 
@@ -155,6 +160,19 @@ const Item* Tile::peekShowedItemData() {
 void Tile::requestRestore(Player& player) {
     if (entity) {
         entity->requestHeal(player);
+    }
+}
+
+//////////////////////////PRIVATE///////////////////////////////////
+
+void Tile::_storeItemsNames(Player& player) {
+    if (items.empty()) {
+        player.addMessage(NO_ITEMS_MESSAGE);
+    } else {
+        player.addMessage(ITEMS_MESSAGE);
+        for (const auto & item: items) {
+            player.addMessage(item->getName() + "\n");
+        }
     }
 }
 

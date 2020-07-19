@@ -68,7 +68,6 @@ public:
     virtual ~Entity() = default;
 
 private:
-    static bool _checkCollision(SDL_Rect a, SDL_Rect b);
     void _renderLastDirection(EntityTexture& eTexture);
     void _modifyPosition(GameType::Direction direction, float distance);
     void _updateFrame(bool reachedDestination);

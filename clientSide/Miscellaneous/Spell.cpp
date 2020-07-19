@@ -4,6 +4,7 @@
 
 #include "Spell.h"
 #include "../Client/GameConstants.h"
+#include "../Miscellaneous/CameraCollisionVerifier.h"
 
 const float ANIMATION_TIME = 20000.f;
 const int SPELL_SPEED = 30;
@@ -40,32 +41,9 @@ void Spell::updateFrame(double timeStep) {
     }
 }
 
-bool Spell::_checkCollision(SDL_Rect a, SDL_Rect b) {
-    int leftA, leftB;
-    int rightA, rightB;
-    int topA, topB;
-    int bottomA, bottomB;
-
-    leftA = a.x;
-    rightA = a.x + a.w;
-    topA = a.y;
-    bottomA = a.y + a.h;
-
-    leftB = b.x;
-    rightB = b.x + b.w;
-    topB = b.y;
-    bottomB = b.y + b.h;
-
-    if(bottomA <= topB) return false;
-    if(topA >= bottomB) return false;
-    if(rightA <= leftB) return false;
-    if(leftA >= rightB) return false;
-
-    return true;
-}
-
 void Spell::render() {
-    if (_checkCollision(camera, {(int)xPosition, (int)yPosition, (int)width, (int)height})) {
+    if (CameraCollisionVerifier::isInsideCamera(camera, {(int)xPosition,
+                                                         (int)yPosition, (int)width, (int)height})) {
         sTexture.render((int)(xPosition) - camera.x,
                                 (int)(yPosition) - camera.y, currentFrame);
     };

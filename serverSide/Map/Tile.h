@@ -28,6 +28,9 @@ private:
 
     friend MapTests;
 
+private:
+    void _storeItemsNames(Player& player);
+
 public:
     explicit Tile(bool isOccupable, bool isFromCity, GameType::FloorType floor,
                   GameType::Structure structure, std::shared_ptr<Entity>&& initialEntity);

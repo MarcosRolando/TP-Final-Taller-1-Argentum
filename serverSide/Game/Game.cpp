@@ -20,7 +20,9 @@ MSGPACK_ADD_ENUM(GameType::EventID)
 
 #define WAITING_TIME_MESSAGE "The estimated waiting time to resurrect is "
 #define NO_PLAYER_MESSAGE "That player does not exist or is not connected\n"
+#define WELCOME_MESSAGE "Welcome to Argentum traveller!\nWe hope you enjoy our work\nSincerely, AIM Team\n"
 const Coordinate defaultSpawnPoint = {88,83};
+
 
 /////////////////////////////////PRIVATE//////////////////////////
 
@@ -183,11 +185,12 @@ Player& Game::createPlayer(PlayerData& playerData, ServerProtocol& protocol) {
         spawnPosition = map.getSpawnCoordinateArroundPosition(priests.front());
     } else {
         spawnPosition = map.getSpawnCoordinateArroundPosition(defaultSpawnPoint);
-    };
+    }
     Banker::addPlayerItems(playerData);
     auto player = std::make_shared<Player>(*this, spawnPosition, playerData);
     Player* playerAux = player.get();
     players.emplace(playerAux->getNickname(), playerAux);
+    player->addMessage(WELCOME_MESSAGE);
     map.addEntity(spawnPosition, std::move(player));
     std::stringstream data;
     (*playerAux) >> data;

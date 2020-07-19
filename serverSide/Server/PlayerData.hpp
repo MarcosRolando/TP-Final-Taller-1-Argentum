@@ -14,6 +14,7 @@
 const int INVENTORY_SIZE = 16;
 const int BANK_SIZE = 20;
 const int MAX_NICKNAME_SIZE = 15;
+const unsigned int INITIAL_PLAYER_GOLD = 150;
 
 //Struct que se encarga de almacenar toda la informacion relevante de un player,
 //tanto para cuando se conecta y se deben guardar los datos leidos del archivo como
@@ -104,6 +105,7 @@ struct PlayerData {
         pRace = _pRace;
         pClass = _pClass;
         isNewPlayer = true;
+        gold = INITIAL_PLAYER_GOLD;
     }
 
     //Retorna el tamaño que ocupan todos los datos en bytes
