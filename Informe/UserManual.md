@@ -88,19 +88,19 @@ En el archivo podemos editar las estadísticas de razas, clases, monstruos e ite
 
    El juego comienza con el menú principal. Primero debemos elegir si queremos crear o cargar un jugador:
 
-   ![SelectScreen](/home/ivan/Documents/UBA/Taller/Argentum/UserManual/img/SelectScreen.png)
+   ![SelectScreen](/img/SelectScreen.png)
 
    ##### Crear jugador
 
    Al crear un jugador debemos elegir su nickname (no puede contener espacios), su clase y su raza. 
 
-   ![CreatePlayer](/home/ivan/Documents/UBA/Taller/Argentum/UserManual/img/CreatePlayer.png)
+   ![CreatePlayer](/img/CreatePlayer.png)
 
    ##### Cargar jugador
 
    Para cargar un jugador solo tenemos que ingresar su nickname.
 
-   ![LoadPlayer](/home/ivan/Documents/UBA/Taller/Argentum/UserManual/img/LoadPlayer.png)
+   ![LoadPlayer](/img/LoadPlayer.png)
 
    
 
@@ -110,13 +110,13 @@ En el archivo podemos editar las estadísticas de razas, clases, monstruos e ite
 
    Luego de cargar/crear un jugador se muestra la pantalla de conexión donde debemos elegir el host y port al que nos queremos conectar.
 
-![Connection](/home/ivan/Documents/UBA/Taller/Argentum/UserManual/img/Connection.png)
+![Connection](/img/Connection.png)
 
 ##### 	
 
 Si logramos conectarnos empieza el juego en si. 
 
-![Game](/home/ivan/Documents/UBA/Taller/Argentum/UserManual/img/Game.png)
+![Game](/img/Game.png)
 
 ##### Minichat
 
