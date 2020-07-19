@@ -5,6 +5,7 @@
 #include "../Config/MapFileReader.h"
 #include "PlayerManager.h"
 #include "../../libs/Timer.h"
+#include "../Config/Configuration.h"
 #include <unistd.h>
 
 const double  FRAME_TIME = 1/60.f; /*ms que tarda en actualizarse el juego*/
@@ -30,7 +31,8 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     Timer timeBetweenUpdates, timeBetweenBackups;
     Game game((MapFileReader(mapFilePath)));
     ServerProtocol protocol(game);
-    PlayerManager manager(game, protocol, "/etc/Argentum/indexFile", "/etc/Argentum/saveFile");
+    Configuration& config = Configuration::getInstance();
+    PlayerManager manager(game, protocol, config.configIndexPath(), config.configSavePath());
     ClientsMonitor clients(manager);
     ServerMonitor monitor(*this);
     monitor(); /*Espera la q para cerrar el server*/

@@ -347,5 +347,7 @@
   "MaxLevelDif" : 10,
 
   "Port": "8081",
-  "MapPath": "/etc/Argentum/map.json"
+  "MapPath": "/etc/Argentum/map.json",
+  "IndexPath": "/etc/Argentum/indexFile",
+  "SavePath": "/etc/Argentum/saveFile"
 }

@@ -43,6 +43,8 @@ private:
 
     std::string port;
     std::string mapPath;
+    std::string savePath;
+    std::string indexPath;
 
 public:
     Configuration(Configuration const&) = delete;
@@ -120,6 +122,10 @@ public:
     const std::string& configPort() const;
 
     const std::string& configMapPath() const;
+
+    const std::string& configSavePath() const;
+
+    const std::string& configIndexPath() const;
 
 private:
     Configuration();

@@ -141,8 +141,9 @@ namespace Config {
         double loadTimeForPlayerRecovery();
 
         std::string loadPort();
-
         std::string loadMapPath();
+        std::string loadSavePath();
+        std::string loadIndexPath();
 
     private:
         static void
