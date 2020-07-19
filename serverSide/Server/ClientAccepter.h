@@ -28,6 +28,7 @@ private:
     PlayerManager& manager;
     msgpack::object_handle handler;
 
+//Clase que se encarga de aceptar los nuevos clientes que intentan conectarse
 public:
     ClientAccepter(ClientsMonitor& _clients, ServerProtocol& _protocol,
                    Socket& _serverSocket, std::atomic<bool>& _keepRunning,
@@ -36,6 +37,7 @@ public:
                     serverSocket(_serverSocket), keepRunning(_keepRunning),
                     manager(_manager) {}
 
+    //Comienza a ejecutar el thread aceptador
     void run() override;
 
 private:

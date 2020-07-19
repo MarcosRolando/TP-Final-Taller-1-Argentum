@@ -3,7 +3,7 @@
 
 /*Esta es la clase principal del lado del ArgentumServer. Se encarga de validar los
  * datos de ejecucion del ArgentumServer y, en caso de ser validos, instanciar al
- * ArgentumServer. Al cerrar el ArgentumServer imprime los resultados de las partidas*/
+ * ArgentumServer. Debe utilizarse esta clase para ejecutar el server */
 
 class ArgentumServerSide {
 public:
