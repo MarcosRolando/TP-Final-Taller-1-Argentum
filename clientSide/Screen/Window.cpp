@@ -39,7 +39,6 @@ void Window::_createViewports(){
 }
 
 void Window::_createWindow() {
-    //Crea la ventana
     mWindow = SDL_CreateWindow( "Argentum Online", SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT,
             SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
@@ -84,8 +83,13 @@ bool Window::handleEvent(SDL_Event& e) {
         }
         handled = true;
     }
+    _handleResizeEvent(e, handled);
+    return handled;
+}
 
+void Window::_handleResizeEvent(SDL_Event& e, bool& handled) {
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_F1) {
+        handled = true;
         mWidth = DEFAULT_SCREEN_WIDTH;
         mHeight = DEFAULT_SCREEN_HEIGHT;
         if (mFullScreen) {
@@ -101,6 +105,7 @@ bool Window::handleEvent(SDL_Event& e) {
             mMinimized = false;
         }
     } else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_F2) {
+        handled = true;
         SDL_SetWindowFullscreen(mWindow, SDL_FALSE);
         mFullScreen = false;
         mWidth = DEFAULT_SCREEN_WIDTH;
@@ -108,8 +113,6 @@ bool Window::handleEvent(SDL_Event& e) {
         SDL_RestoreWindow(mWindow);
         SDL_SetWindowSize(mWindow, mWidth, mHeight);
     }
-
-    return handled;
 }
 
 SDL_Renderer& Window::getRenderer() {

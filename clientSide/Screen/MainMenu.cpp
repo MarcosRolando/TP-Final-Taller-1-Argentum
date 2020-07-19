@@ -65,6 +65,7 @@ void MainMenu::menuScreen(bool& quit, GameInitializer& initializer, Socket& sock
     while (!success && !quit) {
         _playerSelectionScreen(quit, createPlayer, loadPlayer);//Veo si quiere hacer load o create
         if (createPlayer) {
+
             do {
                 goBack = false;
                 _playerCreationScreen(quit, goBack);
@@ -73,7 +74,9 @@ void MainMenu::menuScreen(bool& quit, GameInitializer& initializer, Socket& sock
                 if (!quit && !goBack)
                     _connectCreatedPlayer(initializer, socket, success);
             } while (goBack);
+
         } else if (loadPlayer) {
+
             do {
                 goBack = false;
                 _playerLoadScreen(quit, goBack);
@@ -82,7 +85,9 @@ void MainMenu::menuScreen(bool& quit, GameInitializer& initializer, Socket& sock
                 if (!quit && !goBack)//xq puedo hacer quit en el run
                     _connectLoadedPlayer(initializer, socket, success);
             } while (goBack);
+
         }
+
         //Chequeo goBack porque si no me trate de conectar no tengo que cerrar el socket
         if (!success && !goBack) {
             socket.close();
@@ -94,12 +99,14 @@ void MainMenu::menuScreen(bool& quit, GameInitializer& initializer, Socket& sock
 void MainMenu::_connectScreen(bool& quit, bool& goBack, Socket& socket) {
     bool finished = quit;
     SDL_Event e;
-    while (!finished){
+    while (!finished) {
         while (SDL_PollEvent(&e) != 0){
+
             if (e.type == SDL_QUIT){
                 quit = true;
                 finished = true;
             }
+
             window.handleEvent(e);
             if (e.type == SDL_MOUSEBUTTONDOWN){
                 int x = 0, y = 0;
@@ -126,6 +133,7 @@ void MainMenu::_connectScreen(bool& quit, bool& goBack, Socket& socket) {
                 }
             }
         }
+
         _renderConnectScreen();
     }
     hostInput = false;
@@ -137,8 +145,9 @@ void MainMenu::_connectScreen(bool& quit, bool& goBack, Socket& socket) {
 void MainMenu::_playerSelectionScreen(bool& quit, bool& createPlayer, bool& loadPlayer) {
     bool finished = quit;
     SDL_Event e;
-    while (!finished){
-        while (SDL_PollEvent(&e) != 0){
+    while (!finished) {
+        while (SDL_PollEvent(&e) != 0) {
+
             if (e.type == SDL_QUIT){
                 quit = true;
                 finished = true;
@@ -163,6 +172,7 @@ void MainMenu::_playerSelectionScreen(bool& quit, bool& createPlayer, bool& load
                 }
             }
         }
+
         _renderPlayerSelectionScreen();
     }
 }

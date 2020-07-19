@@ -51,7 +51,8 @@ void Arrow::_calculateTrajectory(float xTarget, float yTarget) {
 }
 
 void Arrow::render() {
-    if (_checkCollision(camera, {(int)xPosition, (int)yPosition, (int)width, (int)height})) {
+    if (_checkCollision(camera, {(int)xPosition, (int)yPosition,
+                                 (int)width, (int)height})) {
         sTexture.render((int)(xPosition) - camera.x,
                         (int)(yPosition) - camera.y, 0, 40 - angle);
     };

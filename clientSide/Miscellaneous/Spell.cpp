@@ -75,7 +75,7 @@ bool Spell::finishedAnimation() const {
     return finished;
 }
 
-void Spell::updatePosition(float x, float y) {
+void Spell::setPosition(float x, float y) {
     xPosition = x;
     yPosition = y;
 }

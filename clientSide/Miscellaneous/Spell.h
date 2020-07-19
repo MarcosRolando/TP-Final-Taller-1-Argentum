@@ -19,10 +19,18 @@ private:
 
 public:
     Spell(Texture& texture, SDL_Rect& camera, float x, float y);
+
+    /*Renderiza el hechizo (si fuera visible)*/
     void render();
+
+    /*Actualiza el frame de la animacion del hechizo*/
     void updateFrame(double timeStep);
+
+    /*Retorna true si el hechizo completo su animacion asi lo borro*/
     bool finishedAnimation() const;
-    void updatePosition(float x, float y);
+
+    /*Cambia la posicion, lo utilizo para que vaya siguiendo al entity*/
+    void setPosition(float x, float y);
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);

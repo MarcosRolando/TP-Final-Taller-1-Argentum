@@ -33,12 +33,14 @@ private:
     Texture& mainMenuBackground;
     GameStartInfo info;
     bool hostInput, portInput, nicknameInput;
+
 public:
-    /* Constructor */
     MainMenu(Texture& texture, Window& window);
+
     /* Menu Principal antes de iniciar el juego */
     void menuScreen(bool& quit, GameInitializer& initializer, Socket& socket);
-    /* Destructor */
+
+
     ~MainMenu();
 
 private:

@@ -85,7 +85,7 @@ void Entity::render(EntityTexture& eTexture) {
     }
     auto _spell = spell.lock();
     if (_spell) {
-        _spell->updatePosition(xPosition, yPosition);
+        _spell->setPosition(xPosition, yPosition);
         _spell->render();
     }
 }
@@ -174,7 +174,7 @@ void Entity::activateCamera() {
 
 void Entity::addSpell(std::shared_ptr<Spell>& _spell) {
     spell = _spell;
-    _spell->updatePosition(xPosition, yPosition);
+    _spell->setPosition(xPosition, yPosition);
 }
 
 std::weak_ptr<Spell> &Entity::getSpell() {

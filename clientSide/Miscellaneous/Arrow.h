@@ -7,6 +7,8 @@
 
 #include "../Texture/Texture.h"
 
+/*Esta clase encapsula el comportamiento de una flecha*/
+
 class Arrow {
 private:
     Texture& sTexture;
@@ -20,8 +22,14 @@ private:
 public:
     Arrow(Texture& texture, SDL_Rect& camera, float x, float y,
                                              float xTarget, float yTarget);
+
+    /*Renderiza la flecha (si fuera visible)*/
     void render();
+
+    /*Actualiza la posicion de la flecha*/
     void updatePosition(double timeStep);
+
+    /*Devuelve true si la flecha alcanzo su objetivo, asi puedo borrarla*/
     bool reachedTarget() const;
 
 private:

@@ -53,6 +53,7 @@ private:
     void _createViewports();
     void _createWindow();
     void _createRenderer();
+    void _handleResizeEvent(SDL_Event& e, bool& handled);
 };
 
 #endif //ARGENTUM_WINDOW_H
