@@ -16,7 +16,6 @@ MSGPACK_ADD_ENUM(GameType::EventID)
 MSGPACK_ADD_ENUM(GameType::ItemType)
 
 
-
 ///////////////////////////////PUBLIC/////////////////////////////
 
 ServerProtocol::ServerProtocol(const Game& _game): game(_game) {

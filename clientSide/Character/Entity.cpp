@@ -83,8 +83,8 @@ void Entity::render(EntityTexture& eTexture) {
                 _renderLastDirection(eTexture);
         }
     }
-    if (!spell.expired()) {
-        std::shared_ptr<Spell> _spell(spell);
+    auto _spell = spell.lock();
+    if (_spell) {
         _spell->updatePosition(xPosition, yPosition);
         _spell->render();
     }
