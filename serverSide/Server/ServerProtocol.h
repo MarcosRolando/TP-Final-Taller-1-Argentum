@@ -15,6 +15,8 @@ class PlayerProxy;
 class Game;
 class Item;
 
+//Esta clase se encarga de almacenar de la forma apropiada la informacion a mandar a los
+//clientes
 class ServerProtocol {
 private:
     std::vector<char> mapBuffer;
@@ -30,11 +32,14 @@ private:
 
 public:
     explicit ServerProtocol(const Game& game);
+
+    //Retorna el buffer que contiene la informacion del mapa que no cambia
     const std::vector<char>& getMapInfo() const;
 
+    //Arma el buffer que almacena todos los datos necesarios para que se conecte un
+    //player con la informacion inicial apropiada y retorna una referencia a el
     const std::vector<char>& buildCurrentState(
                                 const std::unordered_map<std::string, Player*>& players,
-                                //const std::list<Player*>& players,
                                 const std::list<Monster*>& monsters,
                                 const std::unordered_map<Coordinate, const Item*>& mapItems);
 
@@ -46,8 +51,12 @@ public:
     //que guarda la informacion general
     void buildGeneralDataBuffer();
 
+    //Retorna una referencia al buffer que contiene toda la informacion de lo pasado
+    //en el ultimo update de game
     const std::vector<char>& getGeneralData();
 
+    //Retorna un buffer que contiene la informacion del player que almacena el
+    //PlayerProxy
     static std::vector<char> getPlayerData(PlayerProxy& player);
 };
 
