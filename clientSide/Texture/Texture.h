@@ -29,30 +29,24 @@ struct SpriteDimensions_t {
 
 class Texture {
 private:
-    SDL_Renderer& renderer; /*El renderer es uno solo asociado a la ventana (que tambien es una sola)*/
-    //The actual hardware texture
+    SDL_Renderer& renderer;
     SDL_Texture* mTexture;
-    //Image dimensions
     int mWidth;
     int mHeight;
     int xOffset;
     int yOffset;
     int defaultScale;
-    //Scene sprites
-    std::vector<SDL_Rect> gSpriteClips;
+    std::vector<SDL_Rect> gSpriteClips; /*Sprites de la textura*/
 
 public:
-    //Initializes variables
     Texture(SDL_Renderer& renderer);
-
-    //Deallocates memory
     ~Texture();
-
     Texture(const Texture&) = delete;
-
     Texture(Texture&& other) noexcept;
 
-    //Loads image at specified path
+    /*Carga la imagen de path, ignorando el color recibido en key. Opcionalmente
+     * se le puede setear un offset de renderizacion y una escala distinta a la
+     * imagen*/
     void loadFromFile(const std::string& path, ColorKey_t key = {-1, -1, -1},
                                     int xOff = 0, int yOff = 0, int scale = 1);
 
@@ -63,14 +57,16 @@ public:
      * cuando la cree*/
     void render(int x, int y, int spritePosition = 0, double angle = 0);
 
-    //Renders texture at given point
+    /*Renderiza el sprite de la textura en la posicion, angulo y escala indicados*/
     void render(int x, int y, int spritePosition, double angle, int scale);
 
+    /*Retorna las dimensiones del sprite de la textura*/
     SpriteDimensions_t getSpriteDimensions(int spritePosition = 0);
 
-    void loadFromRenderedText(const std::string& text, SDL_Color
-    textColor, TTF_Font* font );
+    /*Crea una textura en base al texto recibido*/
+    void loadFromRenderedText(const std::string& text, SDL_Color textColor, TTF_Font* font);
 
+    /*Renderiza el texto en la posicion indicada*/
     void renderText(int x, int y);
 
 private:

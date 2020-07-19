@@ -14,11 +14,12 @@ class Sound {
 private:
     Mix_Chunk* sound;
 public:
-    /* Constructor */
     explicit Sound(std::string path);
+
     /* Devuelve el sonido */
     Mix_Chunk* getSound();
-    /* Destructor */
+
+
     ~Sound();
 };
 

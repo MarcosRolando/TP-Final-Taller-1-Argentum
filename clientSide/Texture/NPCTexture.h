@@ -9,6 +9,8 @@
 #include "../../libs/TPException.h"
 #include "TextureRepository.h"
 
+/*Representa la textura de un npc*/
+
 class NPCTexture : public EntityTexture {
 private:
     TextureRepository& textureRepo;
@@ -16,7 +18,6 @@ private:
 
 public:
     explicit NPCTexture(TextureRepository& repo, TextureID texture);
-
     void renderFront(int x, int y, int frame) override;
     void renderBack(int x, int y, int frame) override;
     void renderRight(int x, int y, int frame) override;

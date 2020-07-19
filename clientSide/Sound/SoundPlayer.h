@@ -19,16 +19,22 @@ private:
 
 public:
     SoundPlayer();
+
     /* Encola un sonido */
     void queueSound(SoundID id);
+
     /* Reproduce los sonidos que estan encolados */
     void playSounds();
+
     /* Reproduce la musica */
     void playMusic();
+
     /* Pausa la musica */
     void pauseMusic();
+
     /* Devuelve true si la musica se esta reproduciendo */
     static bool isMusicPlaying();
+
 private:
     static SoundID _getRandomDeathSound();
 };

@@ -7,6 +7,8 @@
 
 #include "TextureID.h"
 
+/*Encapsula lo equipado de un player*/
+
 struct PlayerEquipment {
     TextureID helmet;
     TextureID head;
