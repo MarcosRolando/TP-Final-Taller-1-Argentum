@@ -8,7 +8,7 @@
 
 #define ATTACK_HEARING_DISTANCE 6
 
-const float MONSTER_SOUND_PROBABILITY = 0.33;
+const float MONSTER_SOUND_PROBABILITY = 0.15;
 
 void UpdateAttack::operator()(GameGUI &game) {
     switch (weapon) {
