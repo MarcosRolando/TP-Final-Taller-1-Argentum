@@ -62,7 +62,9 @@ void Client::_gameLoop() {
             int updatesAvailable = updateManager.updatesAvailable();
             if (updatesAvailable > 0 && updatesAvailable < 5) {
                 updatesAvailable = 1;
-            }
+            } /*No updateo todas si hay menos de 5 ya que pierde fluidez la camara (poca, pero notable)
+              * y considero que dado que nuestros updates son cada 16 ms unos 80 ms de atraso para este tipo de juego es imperceptible.
+              * Sin embargo, si el cliente se atrasa 5 o mas updates se las aplico todas para que esto no sea un problema*/
             for (int i = 0; i < updatesAvailable; ++i) {
                 auto update = updateManager.pop();
                 while (!update.empty()) {
@@ -75,7 +77,7 @@ void Client::_gameLoop() {
             }
 
             game.getSoundPlayer().playSounds();
-            game.render();
+            game.render(); /*No hace falta dormir al cpu ya que el juego utiliza VSYNC, por lo que el frame rate ya se cappea*/
         }
     } catch (std::exception& e) {
         std::cerr << e.what() << " in Main Game Loop" << std::endl;

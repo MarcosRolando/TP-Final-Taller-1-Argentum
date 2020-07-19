@@ -69,7 +69,6 @@ bool MapTests::testCityMapHasCityTiles() {
     return true;
 }
 
-//todo arreglar la prueba
 bool MapTests::testMixedCityAndUnavailableTiles() {
     Map map;
     int mapXSize = 50;
