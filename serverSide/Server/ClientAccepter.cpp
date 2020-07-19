@@ -31,6 +31,10 @@ void ClientAccepter::_acceptClients() {
         } catch (UnavailablePlayerException& e) {
             status = GameType::UNAVAILABLE_PLAYER;
             _sendResponseToClient(clientSocket, status);
+        } catch(std::exception& e) {
+            std::cerr << e.what() << " in accepter" << std::endl;
+            status = GameType::UNKOWN_SERVER_ERROR;
+            _sendResponseToClient(clientSocket, status);
         } catch(...) {
             std::cerr << "Uknown error while reading a client player information in accepter!" << std::endl;
             status = GameType::UNKOWN_SERVER_ERROR;
