@@ -85,7 +85,7 @@ MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer, msgpa
     pData.entityData.distanceMoved = std::get<3>(position);
     msgpack::type::tuple<GameType::Race> playerRace;
     msgpack::type::tuple<int32_t> item;
-    handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
+    handler = msgpack::unpack(buffer->data(), buffer->size(), offset); //todo arreglar este sida
     handler->convert(playerRace);
     msgpack::type::tuple<bool> isAlive;
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);

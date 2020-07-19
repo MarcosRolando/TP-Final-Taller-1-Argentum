@@ -6,7 +6,7 @@
 #define ARGENTUM_UPDATERECEIVER_H
 
 #include "../../libs/Thread.h"
-#include "UpdateQueue.hpp"
+#include "Update.h"
 #include "ClientProtocol.h"
 #include <msgpack.hpp>
 
@@ -18,7 +18,7 @@ class UpdateReceiver : public Thread {
 private:
     ClientProtocol& protocol;
     UpdateManager& updateManager;
-    UpdateQueue<std::unique_ptr<UpdateEvent>> currentUpdate;
+    Update currentUpdate;
     msgpack::object_handle handler;
     std::size_t offset{0};
     Socket& socket;

@@ -17,7 +17,7 @@ private:
     Texture* sTexture;
 
 public:
-    Structure(Coordinate position, Texture* sTexture = nullptr);
+    explicit Structure(Coordinate position, Texture* sTexture = nullptr);
 
     /*Setea la textura a renderizar de la estructura*/
     void setTexture(Texture& texture);

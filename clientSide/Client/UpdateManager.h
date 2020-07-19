@@ -5,19 +5,23 @@
 #ifndef ARGENTUM_UPDATEMANAGER_H
 #define ARGENTUM_UPDATEMANAGER_H
 
-#include "UpdateQueue.hpp"
+#include "Update.h"
 #include "../UpdateEvents/UpdateEvent.h"
 #include <mutex>
 #include <memory>
 
+/*Almacena los udpates que recibe del server, los cuales serian consumidos
+ * por el thread principal en el main game loop*/
+
 class UpdateManager {
 private:
     std::mutex m;
-    std::queue<UpdateQueue<std::unique_ptr<UpdateEvent>>> updates;
+    std::queue<Update> updates;
 
 public:
-    void push(UpdateQueue<std::unique_ptr<UpdateEvent>>& update);
-    UpdateQueue<std::unique_ptr<UpdateEvent>> pop();
+    /*Agrega un update*/
+    void push(Update& update);
+    Update pop();
     int updatesAvailable();
 };
 

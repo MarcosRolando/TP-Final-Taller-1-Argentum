@@ -66,8 +66,6 @@ public:
     /*Crea una textura en base al texto recibido*/
     void loadFromRenderedText(const std::string& text, SDL_Color textColor, TTF_Font* font);
 
-    /*Renderiza el texto en la posicion indicada*/
-    void renderText(int x, int y);
 
 private:
     //Deallocates texture

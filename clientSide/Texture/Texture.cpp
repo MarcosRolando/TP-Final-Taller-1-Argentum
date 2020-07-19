@@ -104,20 +104,20 @@ SpriteDimensions_t Texture::getSpriteDimensions(int spritePosition) {
 }
 
 void Texture::loadFromRenderedText(const std::string& text, SDL_Color
-                                                textColor, TTF_Font* font ) {
+                                                textColor, TTF_Font* font) {
     //Libero la textura anterior
     _free();
 
     //Creo una superficie con el texto
     SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
-    if( textSurface == nullptr ) {
+    if(textSurface == nullptr) {
         throw TPException("Unable to _render text surface! SDL_ttf Error:"
                            " %s\n", TTF_GetError());
     } else {
         //Crea la textura
-        mTexture = SDL_CreateTextureFromSurface( &renderer, textSurface );
+        mTexture = SDL_CreateTextureFromSurface(&renderer, textSurface);
 
-        if( mTexture == nullptr ) {
+        if(mTexture == nullptr) {
             //Si falla libera la superficie
             SDL_FreeSurface(textSurface);
             throw TPException("Unable to create texture from rendered text! "

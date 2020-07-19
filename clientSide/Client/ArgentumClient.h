@@ -16,14 +16,12 @@ private:
     Socket socket;
 
 public:
-    /* Constructor */
     Client();
     Client(const Client&) = delete; /*Borro los constructores por copia*/
     Client operator=(const Client&) = delete;
 
     /* Comienza la ejecucion del cliente */
     void run();
-    /* Destructor */
     ~Client();
 
 private:

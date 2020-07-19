@@ -32,23 +32,30 @@ private:
     Texture& background;//Esto capaz es mejor ponerlo en window u otra clase
 
 public:
-    /* Constructor */
     GameGUI();
+
     /* Setea el tamaño del mapa */
     void setMapSize(int rows, int columns);
+
     /* Carga la informacion del tile en "position" */
     void loadTileData(Coordinate position, FloorTypeTexture floor, TextureID structure,
                       CitizenData& citizen);
+
     /* Ubica un item en el tile en "position" */
     void createItem(Coordinate position, TextureID itemTexture);
+
     /* Agrega un NPC al mapa*/
     void addNPC(EntityData& entityData);
+
     /* Agrega un NPC al mapa*/
     void addPlayer(MapPlayerData& playerData);
+
     /* Setea la camara en el jugador controlado por el usuario */
     void setCameraOn(std::string& playerNickname);
+
     /* Renderiza toda la interfaz grafica */
     void render();
+
     /* Actualiza el estado del mapa */
     void update(double timeStep);
 

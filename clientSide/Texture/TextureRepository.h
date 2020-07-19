@@ -9,7 +9,6 @@
 #include "Texture.h"
 #include "TextureID.h"
 
-
 class TextureRepository {
 private:
     std::unordered_map<TextureID, Texture> textures;
