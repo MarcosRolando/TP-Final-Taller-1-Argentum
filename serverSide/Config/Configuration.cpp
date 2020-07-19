@@ -38,6 +38,7 @@ Configuration::Configuration() {
     maxLevelDif = fileReader.loadmaxLevelDif();
     playerSpeed = fileReader.loadPlayerSpeed();
     timeForPlayerRecovery = fileReader.loadTimeForPlayerRecovery();
+    port = fileReader.loadPort();
     goldName = "Gold";
 }
 
@@ -130,4 +131,8 @@ unsigned int Configuration::configPlayerSpeed() const {
 
 double Configuration::configPlayerRecoveryTime() const {
     return timeForPlayerRecovery;
+}
+
+const std::string &Configuration::configPort() const {
+    return port;
 }
