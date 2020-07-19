@@ -39,17 +39,23 @@ public:
     ClientHandler(const ClientHandler&) = delete;
     ClientHandler operator=(const ClientHandler&) = delete;
 
-    /*Retorna si el ha terminado de comunicarse con su cliente*/
+    //Retorna true si el socket ha terminado de comunicarse con su cliente
     bool hasFinished() const;
 
+    //Le delega a PlayerProxy el otorgamiento de los eventos encolados a Game
     void update();
 
+    //Envia toda la informacion del ultimo update del juego
     void sendGameUpdate();
 
+    //Envia el estado inicial del juego
     void sendCurrentGameState(const std::vector<char>& gameState);
 
+    //Cierra el socket y fuerza a que termine de ejecutarse el thread
+    //que recibe los comandos del cliente
     void forceFinish();
 
+    //Se apropia del PlayerProxy recibido
     void setPlayerProxy(PlayerProxy&& _player);
 
     //Retorna los datos actuales del jugador del cliente
