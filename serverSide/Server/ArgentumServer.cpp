@@ -30,7 +30,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
     Timer timeBetweenUpdates, timeBetweenBackups;
     Game game((MapFileReader(mapFilePath)));
     ServerProtocol protocol(game);
-    PlayerManager manager(game, protocol, "indexFile", "saveFile");
+    PlayerManager manager(game, protocol, "/etc/Argentum/indexFile", "/etc/Argentum/saveFile");
     ClientsMonitor clients(manager);
     ServerMonitor monitor(*this);
     monitor(); /*Espera la q para cerrar el server*/
