@@ -44,8 +44,6 @@ private:
 
     void _move();
 
-    GameType::Direction _getMoveDirection(Coordinate destination);
-
 public:
     Monster(Game& _game, Coordinate initialPositionunsigned,
             GameType::Entity _type, GameType::Weapon _weapon);

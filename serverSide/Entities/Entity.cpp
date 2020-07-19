@@ -71,8 +71,8 @@ void Entity::requestHeal(Player &player) {
     //DO NOTHING
 }
 
-
 void Entity::move(Coordinate newPosition) {
+    movement.direction = _getMoveDirection(newPosition);
     currentPosition = newPosition;
     movement.isMoving = true;
 }
@@ -96,7 +96,7 @@ int32_t Entity::attack(Coordinate target) {
 GameType::Entity Entity::getType() const {
     return type;
 }
-
+#include <iostream>
 void Entity::operator>>(std::stringstream& buffer) const {
     msgpack::type::tuple<GameType::EventID> idType(GameType::EventID::CREATE_ENTITY);
     msgpack::pack(buffer, idType);
@@ -105,6 +105,12 @@ void Entity::operator>>(std::stringstream& buffer) const {
     msgpack::pack(buffer, idData);
 
     Coordinate previousPosition = _calculatePreviousPosition();
+    if (movement.direction != GameType::DIRECTION_STILL) {
+        if (!movement.isMoving) {
+            std::cerr << "LA RE CAGASTE BRO" << std::endl;
+            std::cerr << nickname << std::endl;
+        }
+    }
     msgpack::type::tuple<int32_t, int32_t, GameType::Direction, int32_t> currentMovementData(previousPosition.iPosition,
             previousPosition.jPosition, movement.direction, movement.movedDistance);
 
@@ -173,4 +179,19 @@ Coordinate Entity::_calculatePreviousPosition() const {
             break;
     }
     return previous;
+}
+
+///////////////////////////////////PROTECTED///////////////////////////////////
+GameType::Direction Entity::_getMoveDirection(Coordinate destination) {
+    Coordinate difference = {destination.iPosition - currentPosition.iPosition,
+                             destination.jPosition - currentPosition.jPosition};
+    if (difference.iPosition  == 1) {
+        return GameType::DIRECTION_DOWN;
+    } else if (difference.iPosition == -1) {
+        return GameType::DIRECTION_UP;
+    } else if (difference.jPosition == -1) {
+        return GameType::DIRECTION_LEFT;
+    } else {
+        return GameType::DIRECTION_RIGHT;
+    }
 }

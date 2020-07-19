@@ -65,20 +65,6 @@ bool Monster::_tryToAttack() {
     return false;
 }
 
-GameType::Direction Monster::_getMoveDirection(Coordinate destination) {
-    Coordinate difference = {destination.iPosition - currentPosition.iPosition,
-                             destination.jPosition - currentPosition.jPosition};
-    if (difference.iPosition  == 1) {
-        return GameType::DIRECTION_DOWN;
-    } else if (difference.iPosition == -1) {
-        return GameType::DIRECTION_UP;
-    } else if (difference.jPosition == -1) {
-        return GameType::DIRECTION_LEFT;
-    } else {
-        return GameType::DIRECTION_RIGHT;
-    }
-}
-
 /*Pide al game que lo mueva a la siguiente posicion en pathCache, si pathCache
 esta vacio entonces busca el jugador mas cercano en su rango de vision y le
 pide al mapa un camino a este
@@ -93,16 +79,16 @@ void Monster::_move() {
         _storeNearestPlayerPathCache();
     }
     if (!pathCache.empty()) {
-        movement.direction = _getMoveDirection(pathCache.front());
-        game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
+        game.pushEvent(std::unique_ptr<Move>(new Move(game, *this,
+                _getMoveDirection(pathCache.front()))));
         pathCache.pop_front();
         inactiveCycles = 0;
     } else if (inactiveCycles >= 10) {
         Coordinate newPosition = map.getMonsterRandomPosition(currentPosition);
         Coordinate noPositions = {-1, -1};
         if (newPosition != noPositions) {
-            movement.direction = _getMoveDirection(newPosition);
-            game.pushEvent(std::unique_ptr<Move>(new Move(game, *this, movement.direction)));
+            game.pushEvent(std::unique_ptr<Move>(new Move(game, *this,
+                    _getMoveDirection(newPosition))));
         }
         inactiveCycles = 0;
     }

@@ -159,7 +159,6 @@ void Player::update(double timeStep) {
     if (!movement.isMoving && movementBackup.isFollowingRoad) {
         game.pushEvent(std::unique_ptr<Event>(new Move(game, *this,
                         movementBackup.direction)));
-        movement.direction = movementBackup.direction;
     }
     stats.update(timeStep); /*actualiza la vida y manda en base al tiempo/meditacion*/
 }

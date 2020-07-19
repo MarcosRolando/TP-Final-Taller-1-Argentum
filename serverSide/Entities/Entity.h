@@ -16,11 +16,11 @@ struct AttackResult;
 class Game;
 
 struct Movement {
-    bool isMoving{};
-    unsigned int movedDistance{};
+    bool isMoving{false};
+    unsigned int movedDistance{0};
 
     /*Esta direccion solo tiene sentido si se setea que se esta moviendo el entity*/
-    GameType::Direction direction{};
+    GameType::Direction direction{GameType::DIRECTION_STILL};
 };
 
 class Player;
@@ -39,7 +39,10 @@ protected:
 private:
     Coordinate _calculatePreviousPosition() const;
 
- public:
+protected:
+    GameType::Direction _getMoveDirection(Coordinate destination);
+
+public:
     Entity(GameType::Entity _type, Coordinate initialPosition, const std::string& _nicknamePrefix,
            bool isPrefixUnique = false);
 

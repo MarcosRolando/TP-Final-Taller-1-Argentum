@@ -333,9 +333,9 @@
   },
 
   "MonsterSpawnData" : {
-    "MaxAmount" : 300,
+    "MaxAmount" : 2000,
     "TimeBetweenSpawns" : 100,
-    "SpawnAmount" : 20
+    "SpawnAmount" : 200
   },
 
   "InitialMerchantGold": 1000,

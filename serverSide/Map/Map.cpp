@@ -59,7 +59,6 @@ Coordinate Map::_getValidCoordinate(Coordinate coordinate) const {
 }
 
 
-
 //Guarda en nodes y parentsAndChilds los nodos correspondientes, revisando los
 //nodos que se encuentren adyacentes a referencia, tambien actualiza las distancias
 //de los nodos de ser necesario
@@ -315,8 +314,6 @@ void Map::list(Player &player, Coordinate coordinate) {
         tiles[coordinate.iPosition][coordinate.jPosition].list(player);
     }
 }
-
-
 
 void Map::withdraw(Player &player, const std::string &itemName, Coordinate coordinate) {
     if (_isCoordinateValid(coordinate)) {
