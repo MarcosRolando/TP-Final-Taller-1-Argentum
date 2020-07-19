@@ -319,6 +319,10 @@ void MainMenu::_connectLoadedPlayer(GameInitializer& initializer, Socket& socket
                 errorText.updateText("Player \"" + nicknameInputText.getText()
                                                                 + "\" does not exist");
                 break;
+            case GameType::UNAVAILABLE_PLAYER:
+                errorText.updateText("Player \"" + nicknameInputText.getText() +
+                                     "\" is already logged in");
+                break;
             case GameType::UNKOWN_SERVER_ERROR:
                 errorText.updateText("Unknown Server Error");
                 break;

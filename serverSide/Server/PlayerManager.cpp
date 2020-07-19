@@ -6,7 +6,7 @@
 #include "../Game/Game.h"
 #include "PlayerData.hpp"
 #include "../Entities/PlayerProxy.h"
-#include "../../libs/TPException.h"
+#include "../Exceptions/UnavailablePlayerException.h"
 
 PlayerProxy PlayerManager::addPlayer(PlayerData& playerData) {
     PlayerProxy player(&game, &game.createPlayer(playerData, protocol));
@@ -17,7 +17,7 @@ PlayerData PlayerManager::getSavedPlayerData(const std::string &nickname) {
     if (!game.playerExists(nickname)) {
         return saveManager.getPlayerData(nickname);
     }
-    throw TPException("Tried to log in an already logged in player!");
+    throw UnavailablePlayerException();
 }
 
 void PlayerManager::storeNewPlayer(const PlayerData& playerData) {
