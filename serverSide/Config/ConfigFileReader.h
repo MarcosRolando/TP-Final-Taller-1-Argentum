@@ -140,6 +140,8 @@ namespace Config {
         /*Carga el tiempo (en segundos) que debe pasar para que el player recupere vida/mana*/
         double loadTimeForPlayerRecovery();
 
+        std::string loadPort();
+
     private:
         static void
         _getModifiers(Modifiers &modifier, nlohmann::json &currModifier);

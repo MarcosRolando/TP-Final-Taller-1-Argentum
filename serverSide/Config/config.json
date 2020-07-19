@@ -344,5 +344,7 @@
   "CritAttackProb" : 0.05,
   "DodgeCoeff" : 0.0001,
   "NewbieLevel" : 5,
-  "MaxLevelDif" : 10
+  "MaxLevelDif" : 10,
+
+  "Port": "8081"
 }
