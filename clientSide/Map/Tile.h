@@ -17,39 +17,43 @@
 
 class Tile {
 private:
-    //The attributes of the tile
     SDL_Rect box{};
     Texture* tileTexture{nullptr};
     ItemDrop item;
     Structure structure;
     std::weak_ptr<Entity> entity;
     std::weak_ptr<Spell> spell;
-    //The tile type
-    int type;
+    int type; //La mayoria de las texturas de los tiles son varias en una
+              //con esto puedo especificar cual quiero en particular
 
 public:
-    //Initializes position and type
     explicit Tile(Coordinate position);
 
+    /*Carga la data inicial del tile, esto es, el tipo de piso y si guarda una estructura*/
     void loadData(Texture& _tileTexture, Texture* sTexture = nullptr, int tileType = 0);
 
+    /*Crea un item en el tile*/
     void createItem(Texture& _itemTexture);
 
-    void setStructure(Texture& sTexture);
-
-    //Shows the tile
+    /*Renderiza el piso del tile*/
     void renderGround(SDL_Rect& camera);
 
+    /*Renderiza la estructura (si tuviera)*/
     void renderStructure(SDL_Rect& camera);
 
+    /*Renderiza la entity (si tuviera)*/
     void renderEntity();
 
+    /*Agrega un entity al tile*/
     void addEntity(std::shared_ptr<Entity>& _entity);
 
+    /*Elimina el entity del tile*/
     void removeEntity();
 
+    /*Agrega un spell al tile*/
     void addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera);
 
+    /*Elimina el spell del tile*/
     void destroyItem();
 };
 

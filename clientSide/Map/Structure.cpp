@@ -48,10 +48,6 @@ void Structure::render(SDL_Rect& camera) {
     }
 }
 
-SDL_Rect Structure::getBox() const {
-    return box;
-}
-
 void Structure::setTexture(Texture& texture) {
     sTexture = &texture;
     SpriteDimensions_t dimensions = sTexture->getSpriteDimensions();

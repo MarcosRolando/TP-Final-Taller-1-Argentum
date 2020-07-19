@@ -4,7 +4,6 @@
 
 #include "Tile.h"
 #include "../Client/GameConstants.h"
-#include "../Character/Player.h"
 
 Tile::Tile(Coordinate position) : item(position), structure(position) {
     box = {position.j*TILE_WIDTH, position.i*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT};
@@ -12,7 +11,6 @@ Tile::Tile(Coordinate position) : item(position), structure(position) {
 }
 
 void Tile::renderGround(SDL_Rect& camera) {
-    //Si se ve el tile en la pantalla
     tileTexture->render(box.x - camera.x, box.y - camera.y, type);
     item.render(camera);
 }

@@ -8,21 +8,22 @@
 #include "../Texture/Texture.h"
 #include "Coordinate.h"
 
+/*Esta clase representa una estructura en el juego, esto puede variar
+ * desde casas hasta arboles/arbustos o cadaveres*/
+
 class Structure {
 private:
-    //The attributes of the tile
     SDL_Rect box{};
     Texture* sTexture;
 
 public:
     Structure(Coordinate position, Texture* sTexture = nullptr);
 
+    /*Setea la textura a renderizar de la estructura*/
     void setTexture(Texture& texture);
 
+    /*Renderiza la estructura si es visible en la camara del player*/
     void render(SDL_Rect& camera);
-
-    //Get the collision box
-    SDL_Rect getBox() const;
 
 private:
     static bool _checkCollision(SDL_Rect a, SDL_Rect b);
