@@ -196,3 +196,7 @@ unsigned int Config::ConfigFileReader::loadPlayerSpeed() {
 double Config::ConfigFileReader::loadTimeForPlayerRecovery() {
     return obj["TimeForPlayerRecoveryInSeconds"].get<unsigned int>();
 }
+
+std::string Config::ConfigFileReader::loadPort() {
+    return obj["Port"].get<std::string>();
+}

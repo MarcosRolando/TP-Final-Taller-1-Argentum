@@ -41,6 +41,8 @@ private:
     unsigned int playerSpeed;
     double timeForPlayerRecovery;
 
+    std::string port;
+
 public:
     Configuration(Configuration const&) = delete;
     void operator=(Configuration const&) = delete;
@@ -113,6 +115,8 @@ public:
 
     /*Retorna el tiempo (en segundos) para que el player recupere vida/mana*/
     double configPlayerRecoveryTime() const;
+
+    const std::string& configPort() const;
 
 private:
     Configuration();
