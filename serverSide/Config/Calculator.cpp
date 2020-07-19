@@ -107,7 +107,7 @@ int Calculator::getRandomInt(int minRange, int maxRange) {
 }
 
 int Calculator::lifeRecovered(unsigned int recoveryRate, double timeElpased) {
-    return static_cast<int>(static_cast<double>(recoveryRate) * timeElpased);
+    return static_cast<int>(static_cast<double>(recoveryRate) * timeElpased) * 10;
 }
 
 unsigned int Calculator::manaRecoveredNoMeditation(unsigned int recoveryRate, double timeElpased) {
