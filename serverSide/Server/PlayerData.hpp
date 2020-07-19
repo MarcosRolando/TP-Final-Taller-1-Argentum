@@ -15,6 +15,11 @@ const int INVENTORY_SIZE = 16;
 const int BANK_SIZE = 20;
 const int MAX_NICKNAME_SIZE = 15;
 
+//Struct que se encarga de almacenar toda la informacion relevante de un player,
+//tanto para cuando se conecta y se deben guardar los datos leidos del archivo como
+//para cuando se guarda su informacion nuevamente en el archivo. Se usa entonces para
+//guardar los datos cuando aparece un nuevo player y para leer los datos a guardar en el
+//archivo cuando este se va o se hace un backup
 struct PlayerData {
     bool isNewPlayer{false};
     std::string nickname;
@@ -30,6 +35,7 @@ struct PlayerData {
     int32_t bankerGold{0};
 
     int32_t mySize{};
+
 
     PlayerData() {
         for (int i = 0; i < INVENTORY_SIZE; ++i) {
@@ -100,6 +106,7 @@ struct PlayerData {
         isNewPlayer = true;
     }
 
+    //Retorna el tamaño que ocupan todos los datos en bytes
     int32_t size() const {
         return mySize;
     }
