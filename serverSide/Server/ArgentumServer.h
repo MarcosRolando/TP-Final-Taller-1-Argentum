@@ -22,7 +22,7 @@ private:
     Socket socket;
 
 public:
-    explicit ArgentumServer(/*std::string&& _port, const std::string& mapFilePath*/);
+    explicit ArgentumServer();
     ArgentumServer(const ArgentumServer&) = delete; /*Borro los constructores por copia*/
     ArgentumServer operator=(const ArgentumServer&) = delete;
 
