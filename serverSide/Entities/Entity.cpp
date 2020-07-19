@@ -96,7 +96,7 @@ int32_t Entity::attack(Coordinate target) {
 GameType::Entity Entity::getType() const {
     return type;
 }
-#include <iostream>
+
 void Entity::operator>>(std::stringstream& buffer) const {
     msgpack::type::tuple<GameType::EventID> idType(GameType::EventID::CREATE_ENTITY);
     msgpack::pack(buffer, idType);
@@ -105,12 +105,6 @@ void Entity::operator>>(std::stringstream& buffer) const {
     msgpack::pack(buffer, idData);
 
     Coordinate previousPosition = _calculatePreviousPosition();
-    if (movement.direction != GameType::DIRECTION_STILL) {
-        if (!movement.isMoving) {
-            std::cerr << "LA RE CAGASTE BRO" << std::endl;
-            std::cerr << nickname << std::endl;
-        }
-    }
     msgpack::type::tuple<int32_t, int32_t, GameType::Direction, int32_t> currentMovementData(previousPosition.iPosition,
             previousPosition.jPosition, movement.direction, movement.movedDistance);
 
@@ -137,7 +131,6 @@ int32_t Entity::executeDisplacement(int32_t displacement, bool& hasFinished) {
 
 Coordinate Entity::getFinalCoordinate(GameType::Direction moveDirection) {
     if (!isMoving()) {
-        movement.direction = moveDirection;
         switch (moveDirection) {
             case GameType::DIRECTION_UP:
                 return {currentPosition.iPosition - 1, currentPosition.jPosition};
