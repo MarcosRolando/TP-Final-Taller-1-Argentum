@@ -7,7 +7,7 @@
 
 int ArgentumClientSide::run(int argc) {
     if (argc != ARGUMENT_AMOUNT) {
-        std::cout << INVALID_ARGUMENTS_MESSAGE << std::endl;
+        std::cerr << INVALID_ARGUMENTS_MESSAGE << std::endl;
         return EXIT_FAILURE;
     }
     try {
