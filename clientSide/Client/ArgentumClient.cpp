@@ -13,7 +13,7 @@
 
 #define FREQUENCY 44100
 #define CHUNKSIZE 2048
-#define CURSOR_PATH "../../clientSide/Assets/Images/UI/Cursor.bmp"
+#define CURSOR_PATH "/var/Argentum/Assets/Images/UI/Cursor.bmp"
 
 
 void Client::_gameLoop() {

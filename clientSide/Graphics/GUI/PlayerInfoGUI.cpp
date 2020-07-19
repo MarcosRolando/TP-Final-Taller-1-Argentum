@@ -7,7 +7,7 @@
 #include <utility>
 #include "../../Client/GameConstants.h"
 
-#define PLAYER_INFO_FONT_PATH "../../clientSide/Assets/Fonts/medieval.ttf"
+#define PLAYER_INFO_FONT_PATH "/var/Argentum/Assets/Fonts/medieval.ttf"
 
 PlayerInfoGUI::PlayerInfoGUI(SDL_Renderer &renderer, SoundPlayer& soundPlayer) :
 infoFont(PLAYER_INFO_FONT_PATH, 25), info(infoFont, renderer), renderer(renderer),

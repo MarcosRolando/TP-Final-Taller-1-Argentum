@@ -2,25 +2,25 @@
 
 #define QUEUE_SIZE 3
 
-#define SWORD_ATTACK_PATH "../../clientSide/Assets/Sounds/swordAttack.wav"
-#define HEAVY_ATTACK_PATH "../../clientSide/Assets/Sounds/HeavyAttack.wav"
-#define ATTACK_1_PATH "../../clientSide/Assets/Sounds/genericAttack1.wav"
-#define ATTACK_2_PATH "../../clientSide/Assets/Sounds/genericAttack2.wav"
-#define ARROW_PATH "../../clientSide/Assets/Sounds/arrow.wav"
-#define DEATH_1_PATH "../../clientSide/Assets/Sounds/Death.wav"
-#define DEATH_2_PATH "../../clientSide/Assets/Sounds/YodaDeath.wav"
-#define STEP_PATH "../../clientSide/Assets/Sounds/Step.wav"
-#define EXPLOTION_1_PATH "../../clientSide/Assets/Sounds/Explotion1.wav"
-#define EXPLOTION_2_PATH "../../clientSide/Assets/Sounds/Explotion2.wav"
-#define EXPLOTION_3_PATH "../../clientSide/Assets/Sounds/Explotion3.wav"
-#define HEALING_PATH "../../clientSide/Assets/Sounds/heal.wav"
-#define ZOMBIE_PATH "../../clientSide/Assets/Sounds/Zombie.mp3"
-#define SPIDER_PATH "../../clientSide/Assets/Sounds/Spider.mp3"
-#define SKELETON_PATH "../../clientSide/Assets/Sounds/Skeleton.mp3"
-#define GOBLIN_PATH "../../clientSide/Assets/Sounds/Goblin.wav"
-#define LEVEL_UP_SOUND "../../clientSide/Assets/Sounds/LevelUp.wav"
+#define SWORD_ATTACK_PATH "/var/Argentum/Assets/Sounds/swordAttack.wav"
+#define HEAVY_ATTACK_PATH "/var/Argentum/Assets/Sounds/HeavyAttack.wav"
+#define ATTACK_1_PATH "/var/Argentum/Assets/Sounds/genericAttack1.wav"
+#define ATTACK_2_PATH "/var/Argentum/Assets/Sounds/genericAttack2.wav"
+#define ARROW_PATH "/var/Argentum/Assets/Sounds/arrow.wav"
+#define DEATH_1_PATH "/var/Argentum/Assets/Sounds/Death.wav"
+#define DEATH_2_PATH "/var/Argentum/Assets/Sounds/YodaDeath.wav"
+#define STEP_PATH "/var/Argentum/Assets/Sounds/Step.wav"
+#define EXPLOTION_1_PATH "/var/Argentum/Assets/Sounds/Explotion1.wav"
+#define EXPLOTION_2_PATH "/var/Argentum/Assets/Sounds/Explotion2.wav"
+#define EXPLOTION_3_PATH "/var/Argentum/Assets/Sounds/Explotion3.wav"
+#define HEALING_PATH "/var/Argentum/Assets/Sounds/heal.wav"
+#define ZOMBIE_PATH "/var/Argentum/Assets/Sounds/Zombie.mp3"
+#define SPIDER_PATH "/var/Argentum/Assets/Sounds/Spider.mp3"
+#define SKELETON_PATH "/var/Argentum/Assets/Sounds/Skeleton.mp3"
+#define GOBLIN_PATH "/var/Argentum/Assets/Sounds/Goblin.wav"
+#define LEVEL_UP_SOUND "/var/Argentum/Assets/Sounds/LevelUp.wav"
 
-#define MUSIC_PATH "../../clientSide/Assets/Sounds/argentumOnlineOST.mp3"
+#define MUSIC_PATH "/var/Argentum/Assets/Sounds/argentumOnlineOST.mp3"
 
 SoundRepository::SoundRepository() {
     _loadSounds();
