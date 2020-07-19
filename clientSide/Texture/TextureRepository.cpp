@@ -107,7 +107,7 @@ TextureRepository::TextureRepository(SDL_Renderer& renderer) : renderer(renderer
 void TextureRepository::_loadUI() {
     _setImage(Background, BACKGROUND_PATH, 1495, 937, 0
             , 0, 1, {-1, -1, -1});
-    _setImage(MainMenu, MAIN_MENU_PATH, 1494, 934, 0,
+    _setImage(MainMenu, MAIN_MENU_PATH, 1499, 937, 0,
             0, 1, {-1, -1, -1});
 }
 
