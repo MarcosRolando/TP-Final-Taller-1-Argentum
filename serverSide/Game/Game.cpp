@@ -199,17 +199,18 @@ const std::vector<char>& Game::getCurrentState(ServerProtocol& protocol) {
     return protocol.buildCurrentState(players, monsters,  mapItems);
 }
 
-void Game::removePlayer(Player *player, ServerProtocol& protocol) {
+void Game::removePlayer(const std::string& playerNickname, ServerProtocol& protocol) {
     std::stringstream data;
     msgpack::type::tuple<GameType::EventID> eventIdData(GameType::EventID::REMOVE_ENTITY);
     msgpack::pack(data, eventIdData);
     msgpack::type::tuple<std::string>
-            removedPlayerNickname(player->getNickname());
+            removedPlayerNickname(playerNickname);
     msgpack::pack(data, removedPlayerNickname);
     protocol.addToGeneralData(data);
-    players.erase(player->getNickname());
-    Banker::erasePlayerItems(player->getNickname());
-    map.removeEntity(player->getPosition());
+    Coordinate playerPosition = players.at(playerNickname)->getPosition();
+    players.erase(playerNickname);
+    Banker::erasePlayerItems(playerNickname);
+    map.removeEntity(playerPosition);
 }
 
 const Item* Game::storeItemFromTileInPlayer(Player& player) {

@@ -27,22 +27,31 @@ public:
     explicit Minichat(SDL_Renderer& renderer);
     //Encola newText para imprimirlo en el minichat
     void queueText(std::string &newText);
+
     //Recibe texto y si es necesario lo separa en varias lineas del minichat
     void receiveText(const std::string &text);
+
     //Renderiza todos los mensajes del minichat + lo que escribio el usuario
     void render();
+
     //Borra la ultima letra del input
     void handleBackspace();
+
     //Asigna el texto del evento de input al texto de input del usuario
     void handleTextInput(SDL_Event &e);
+
     //Se fija si el click fue dentro del minichat. Si es asi habilita el input de texto
     void handleMouseButtonDown(Coordinate click, Window &window);
+
     //Scrollea por los mensajes del minichat
     void handleMouseWheel(SDL_Event &e);
+
     //Borra los mensajes del minichat
     void clearMinichat();
+
     /* Devuelve el input del usuario en el minichat para que sea parseado como comando */
     std::string handleReturnKey();
+
     /* Destructor */
     ~Minichat();
 

@@ -30,6 +30,7 @@ public:
     PlayerData getSavedPlayerData(const std::string& nickname);
     void storeNewPlayer(const PlayerData& playerData);
     void storeOldPlayer(const PlayerData& playerData);
+    void removePlayer(const std::string& nickname);
 };
 
 

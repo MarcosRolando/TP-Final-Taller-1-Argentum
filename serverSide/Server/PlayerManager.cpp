@@ -28,3 +28,7 @@ void PlayerManager::storeOldPlayer(const PlayerData& playerData) {
     saveManager.storeOldPlayer(playerData);
 }
 
+void PlayerManager::removePlayer(const std::string &nickname) {
+    game.removePlayer(nickname, protocol);
+}
+

@@ -71,7 +71,7 @@ bool ClientShouldBeRemoved::operator()(std::unique_ptr<ClientHandler> &client) {
     if (client->hasFinished()) {
         PlayerData dataToStore = client->getPlayerData();
         manager.storeOldPlayer(dataToStore);
-        client->removePlayer();
+        manager.removePlayer(dataToStore.nickname);
         client->join();
         return true;
     } else {

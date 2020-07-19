@@ -88,11 +88,6 @@ void ClientHandler::sendCurrentGameState(const std::vector<char>& gameState) {
     }
 }
 
-
-void ClientHandler::removePlayer() {
-    player.remove(protocol);
-}
-
 void ClientHandler::forceFinish() {
     socket.close();
     finished = true;
@@ -102,6 +97,9 @@ void ClientHandler::setPlayerProxy(PlayerProxy&& _player) {
     player = std::move(_player);
 }
 
+PlayerData ClientHandler::getPlayerData() const {
+    return player.getData();
+}
 
 ///////////////////////////////PRIVATE///////////////////////////////
 
@@ -118,15 +116,6 @@ void ClientHandler::_processClientAction(std::vector<char>& data) {
         std::cerr << "Received an unknown command from the client" << std::endl;
     }
 }
-
-/*
-void ClientHandler::_processMove(std::vector<char> &data) {
-    msgpack::type::tuple<GameType::Direction> moveInfo;
-    handler = msgpack::unpack(data.data(), data.size(), offset);
-    handler->convert(moveInfo);
-    player.move(std::get<0>(moveInfo));
-}
-*/
 
 void ClientHandler::_processAttack(std::vector<char> &data) {
     msgpack::type::tuple<int32_t, int32_t> attackInfo;
@@ -243,9 +232,3 @@ void ClientHandler::_processStartMoving(std::vector<char> &data) {
 void ClientHandler::_processStopMoving(std::vector<char> &data) {
     player.stopMoving();
 }
-
-PlayerData ClientHandler::getPlayerData() const {
-    return player.getData();
-}
-
-

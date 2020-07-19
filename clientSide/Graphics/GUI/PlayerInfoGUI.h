@@ -33,6 +33,7 @@ public:
 
     /* Actualiza todas las stats del jugador */
     void update(GUIPlayerInfo& generalInfo);
+
     /* Renderiza las barras de vida, xp y mana */
     void render();
 

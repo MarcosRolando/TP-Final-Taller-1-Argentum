@@ -91,9 +91,6 @@ public:
 
     /*Retorna los datos actuales del player*/
     PlayerData getData() const;
-
-    /*Borra al player manejado por este PlayerProxy del game*/
-    void remove(ServerProtocol& protocol);
 };
 
 

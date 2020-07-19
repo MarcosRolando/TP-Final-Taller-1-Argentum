@@ -48,8 +48,6 @@ public:
 
     void sendCurrentGameState(const std::vector<char>& gameState);
 
-    void removePlayer();
-
     void forceFinish();
 
     void setPlayerProxy(PlayerProxy&& _player);

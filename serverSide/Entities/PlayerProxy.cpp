@@ -165,10 +165,6 @@ void PlayerProxy::storeAllRelevantData(std::stringstream& data) const {
     player->storeAllRelevantData(data);
 }
 
-void PlayerProxy::remove(ServerProtocol& protocol) {
-    game->removePlayer(player, protocol);
-}
-
 PlayerData PlayerProxy::getData() const {
     PlayerData data = player->getData();
     game->getPlayerBank(data);

@@ -129,7 +129,7 @@ public:
     //Elimina al jugador del juego, eliminandolo de todos los lugares en los que
     //esta guardado, guarda en el protocolo el mensaje que comunica al resto de los
     //clientes que desaparecio un jugador
-    void removePlayer(Player* player, ServerProtocol& protocol);
+    void removePlayer(const std::string& playerNickname, ServerProtocol& protocol);
 
     //Intenta guardar el item en el inventario del player, retorna el puntero al
     //item que se encuentra al final de la lista de items guardada en el tile del cual
