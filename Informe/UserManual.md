@@ -88,19 +88,19 @@ En el archivo podemos editar las estadísticas de razas, clases, monstruos e ite
 
    El juego comienza con el menú principal. Primero debemos elegir si queremos crear o cargar un jugador:
 
-   ![SelectScreen](/img/SelectScreen.png)
+   ![SelectScreen](/Informe/img/SelectScreen.png)
 
    ##### Crear jugador
 
    Al crear un jugador debemos elegir su nickname (no puede contener espacios), su clase y su raza. 
 
-   ![CreatePlayer](/img/CreatePlayer.png)
+   ![CreatePlayer](/Informe/img/CreatePlayer.png)
 
    ##### Cargar jugador
 
    Para cargar un jugador solo tenemos que ingresar su nickname.
 
-   ![LoadPlayer](/img/LoadPlayer.png)
+   ![LoadPlayer](/Informe/img/LoadPlayer.png)
 
    
 
@@ -110,13 +110,13 @@ En el archivo podemos editar las estadísticas de razas, clases, monstruos e ite
 
    Luego de cargar/crear un jugador se muestra la pantalla de conexión donde debemos elegir el host y port al que nos queremos conectar.
 
-![Connection](/img/Connection.png)
+![Connection](/Informe/img/Connection.png)
 
 ##### 	
 
 Si logramos conectarnos empieza el juego en si. 
 
-![Game](/img/Game.png)
+![Game](/Informe/img/Game.png)
 
 ##### Minichat
 
