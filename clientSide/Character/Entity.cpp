@@ -40,7 +40,7 @@ bool Entity::_checkCollision(SDL_Rect a, SDL_Rect b) {
     int leftA, leftB;
     int rightA, rightB;
     int topA, topB;
-    int bottomA, bottomB;
+    int bottomA, bottomB; //todo ver de hacer una sola funcion
 
     leftA = a.x;
     rightA = a.x + a.w;

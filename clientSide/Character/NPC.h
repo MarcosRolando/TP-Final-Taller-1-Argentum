@@ -8,6 +8,8 @@
 #include "../Texture/NPCTexture.h"
 #include "Entity.h"
 
+/*Esta clase representa tanto a los monstruos como a los citizen (priest, banker, etc)*/
+
 class NPC : public Entity {
 private:
     NPCTexture npcTexture;
@@ -15,6 +17,8 @@ private:
 public:
     NPC(TextureRepository& repo, SDL_Rect& camera, float x, float y,
                                                         TextureID texture);
+
+    /*Renderiza en el mapa al NPC*/
     void render() override;
 };
 
