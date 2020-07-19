@@ -19,7 +19,6 @@ private:
     SoundPlayer& soundPlayer;
 
 public:
-    /* Constructor */
     PlayerInfoGUI(SDL_Renderer& renderer, SoundPlayer& soundPlayer);
 
     int32_t getLevel() const;

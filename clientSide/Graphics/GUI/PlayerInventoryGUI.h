@@ -23,7 +23,6 @@ private:
     int32_t gold, safeGold;
 
 public:
-    /* Constructor */
     PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer, PlayerInfoGUI& playerInfo);
 
     /* Agrega la textura del item al slot correspondiente */

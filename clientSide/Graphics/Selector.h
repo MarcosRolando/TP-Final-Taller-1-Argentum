@@ -22,23 +22,32 @@ private:
 
 public:
     Selector();
+
     //Se fija si el click fue en el mapa o en el inventario. Dependiendo el caso
     //Guarda el tile/inventorySlot/equipable que se haya seleccionado.
     void handleEvent(Coordinate click, Coordinate playerPos, Window& window);
+
     //Devuelve el inventorySlot actualmente seleccionado
     int getInventorySlot();
+
     //Devuelve la coordenada del tile actualmente seleccionado
     Coordinate getSelectedTile();
+
     //Me devuelve el item equipado que seleccione
     GameType::EquipmentPlace getSelectedEquipment();
+
     //Devuelve true si seleccione un tile
-    static bool hasSelectedTile(Coordinate click) ;
+    static bool hasSelectedTile(Coordinate click);
+
     //Devuelve true si seleccione un slot del inventario
-    static bool hasSelectedSlot(Coordinate click) ;
+    static bool hasSelectedSlot(Coordinate click);
+
     //Devuelve true si seleccione un item equipado
-    static bool hasSelectedEquipment(Coordinate click) ;
+    static bool hasSelectedEquipment(Coordinate click);
+
     //Setea el tile seleccionado a (0,0)
     void resetTileSelection();
+
     ~Selector();
 
 private:

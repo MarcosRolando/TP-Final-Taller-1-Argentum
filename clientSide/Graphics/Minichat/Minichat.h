@@ -25,6 +25,7 @@ private:
 
 public:
     explicit Minichat(SDL_Renderer& renderer);
+
     //Encola newText para imprimirlo en el minichat
     void queueText(std::string &newText);
 
@@ -52,7 +53,6 @@ public:
     /* Devuelve el input del usuario en el minichat para que sea parseado como comando */
     std::string handleReturnKey();
 
-    /* Destructor */
     ~Minichat();
 
 private:

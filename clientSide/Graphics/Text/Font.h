@@ -13,12 +13,11 @@ class Font {
 private:
     TTF_Font *font;
 public:
-    /* Constructor */
     Font(const std::string& path, int fontSize);
-    TTF_Font* getFont();
-    /* Destructor */
-    ~Font();
 
+    TTF_Font* getFont();
+
+    ~Font();
 };
 
 

@@ -174,8 +174,8 @@ Coordinate Map::_calculateNewTile(Coordinate position, GameType::Direction direc
 void Map::_moveEntitiesToNewTile() {
     if (!entitiesToUpdateTilePosition.empty()) {
         for (auto && entity : entitiesToUpdateTilePosition) {
-            //esto es para el caso donde lo mueven al nuevo tile y matan en el mismo update
-            if (entities.count(std::get<2>(entity)) == 1) {
+            if (entities.count(std::get<2>(entity)) == 1) { //este chequeo es para el posible caso donde lo mueven al
+                                                                    // nuevo tile y matan en el mismo update
                 int tile = std::get<1>(entity).i * TOTAL_HORIZONTAL_TILES + std::get<1>(entity).j;
                 entities.at(std::get<2>(entity)).second = std::get<1>(entity);
                 tiles.at(tile).addEntity(*std::get<0>(entity));

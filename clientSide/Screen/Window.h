@@ -16,7 +16,6 @@ enum Viewports {
     PlayerInfoViewport
 };
 
-
 class Window {
 private:
     SDL_Window* mWindow;
@@ -30,15 +29,17 @@ private:
     bool mMinimized;
 
 public:
-    /* Constructor */
     Window();
+
     /* Maneja los eventos de la ventana. Por ejemplo resize o minimizar */
     bool handleEvent(SDL_Event& e);
-    //bool isMinimized() const;
+
     /* Limpia la ventana para poder renderizar */
     void clear();
+
     /* Muestra lo que haya renderizado */
     void show();
+
     /* Setea un viewport */
     void setViewport(Viewports viewport);
 
@@ -46,7 +47,6 @@ public:
     int getWidth() const;
     int getHeight() const;
 
-    /* Destructor */
     ~Window();
 
 private:

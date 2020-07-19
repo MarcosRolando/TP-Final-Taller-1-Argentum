@@ -41,18 +41,22 @@ void Window::_createViewports(){
 void Window::_createWindow() {
     //Crea la ventana
     mWindow = SDL_CreateWindow( "Argentum Online", SDL_WINDOWPOS_UNDEFINED,
-            SDL_WINDOWPOS_UNDEFINED, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+            SDL_WINDOWPOS_UNDEFINED, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT,
+            SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (mWindow != nullptr) {
         mWidth = DEFAULT_SCREEN_WIDTH;
         mHeight = DEFAULT_SCREEN_HEIGHT;
     } else {
-        throw TPException("Window could not be created! Graphics Error: %s\n", SDL_GetError());
+        throw TPException("Window could not be created! Graphics Error: %s\n",
+                            SDL_GetError());
     }
 }
 
 void Window::_createRenderer() {
-    renderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == nullptr) throw TPException("Renderer could not be created! Graphics Error: %s\n", SDL_GetError());
+    renderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED
+                                    | SDL_RENDERER_PRESENTVSYNC);
+    if (renderer == nullptr) throw TPException("Renderer could not be created! "
+                                               "Graphics Error: %s\n", SDL_GetError());
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 }
 
@@ -68,8 +72,8 @@ bool Window::handleEvent(SDL_Event& e) {
             case SDL_WINDOWEVENT_EXPOSED:
                 SDL_RenderPresent(renderer);
                 break;
-            case SDL_WINDOWEVENT_MINIMIZED:
-                mMinimized = true;
+            case SDL_WINDOWEVENT_FOCUS_GAINED:
+                mMinimized = false;
                 break;
             case SDL_WINDOWEVENT_MAXIMIZED:
                 mMinimized = false;
@@ -123,10 +127,12 @@ void Window::clear() {
 }
 
 void Window::show() {
-    float x_scale = (float)mWidth/(float)DEFAULT_SCREEN_WIDTH;
-    float y_scale = (float)mHeight/(float)DEFAULT_SCREEN_HEIGHT;
-    SDL_RenderSetScale(renderer, x_scale, y_scale);
-    SDL_RenderPresent(renderer);
+    if (!mMinimized) {
+        float x_scale = (float)mWidth/(float)DEFAULT_SCREEN_WIDTH;
+        float y_scale = (float)mHeight/(float)DEFAULT_SCREEN_HEIGHT;
+        SDL_RenderSetScale(renderer, x_scale, y_scale);
+        SDL_RenderPresent(renderer);
+    }
 }
 
 void Window::setViewport(Viewports viewport){
