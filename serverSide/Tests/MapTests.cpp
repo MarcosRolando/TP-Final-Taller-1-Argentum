@@ -101,11 +101,11 @@ bool MapTests::testMixedCityAndUnavailableTiles() {
                 }
             }
             if (j % 3 == 0) {
-                if (isAvailable) {
+                if (!isAvailable) {
                     return false;
                 }
             } else {
-                if (!isAvailable) {
+                if (isAvailable) {
                     return false;
                 }
             }
