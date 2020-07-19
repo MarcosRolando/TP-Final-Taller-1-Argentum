@@ -12,7 +12,7 @@ Configuration& Configuration::getInstance() {
 }
 
 Configuration::Configuration() {
-    Config::ConfigFileReader fileReader("/var/Argentum/config.json");
+    Config::ConfigFileReader fileReader("/etc/Argentum/config.json");
 
     fileReader.loadClassModifiers(classModifiers);
     fileReader.loadRaceModifiers(raceModifiers);
