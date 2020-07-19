@@ -64,6 +64,9 @@ void PlayerInventoryGUI::render(int32_t selectedSlotX) {
 }
 
 void PlayerInventoryGUI::_renderText() {
+    text.updateText("Argentum");
+    text.render(215, 25, SDL_Color{0xFF,0xFF,0xFF});
+
     text.updateText("INVENTORY");
     text.render(160, 225, SDL_Color{0xFF,0xFF,0xFF});
 

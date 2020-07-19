@@ -455,10 +455,10 @@ void MainMenu::_renderCreatePlayerScreen() {
     agility.updateText("Agility");
     _renderClass();
     _renderRace();
-    strength.render(50, 400, {0x00,0x00,0x00});
-    constitution.render(50, 500, {0x00,0x00,0x00});
-    intelligence.render(50, 600, {0x00,0x00,0x00});
-    agility.render(50, 700, {0x00,0x00,0x00});
+    strength.render(125, 400, {0x00,0x00,0x00});
+    constitution.render(125, 500, {0x00,0x00,0x00});
+    intelligence.render(375, 400, {0x00,0x00,0x00});
+    agility.render(375, 500, {0x00,0x00,0x00});
     nicknameInputText.render(165, 100,{0x00,0x00,0x00});
     errorText.render(650, 875, {0xff,0xff,0xff});
     text.updateText("Start");
