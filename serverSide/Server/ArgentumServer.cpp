@@ -7,6 +7,7 @@
 #include "../../libs/Timer.h"
 #include "../Config/Configuration.h"
 #include <unistd.h>
+#include <iostream>
 
 const double  FRAME_TIME = 1/60.f; /*ms que tarda en actualizarse el juego*/
 const double TIME_FOR_CLIENTS_INITIALIZATION = 3; //ms dejados para mandarle la data inicial a los clientes
@@ -26,7 +27,7 @@ void ArgentumServer::connect(const std::string& _port, const std::string& mapFil
     socket.maxListen(MAX_LISTENERS);
     _execute(mapFilePath);
 }
-#include <iostream>
+
 void ArgentumServer::_execute(const std::string& mapFilePath) {
     Timer timeBetweenUpdates, timeBetweenBackups;
     Game game((MapFileReader(mapFilePath)));
@@ -43,7 +44,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
 
     try {
         double lastFrameTime = 0;
-        double lastBackupTime = 0;
+        double lastBackupTime;
         while (keepRunning) {
             timeBetweenUpdates.start();
             clients.removeDisconnectedClients(protocol);

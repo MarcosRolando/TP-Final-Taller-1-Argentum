@@ -167,7 +167,7 @@ void PlayerProxy::storeAllRelevantData(std::stringstream& data) const {
 
 PlayerData PlayerProxy::getData() const {
     PlayerData data = player->getData();
-    game->getPlayerBank(data);
+    Game::getPlayerBank(data);
     return data;
 }
 
