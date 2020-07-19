@@ -42,6 +42,7 @@ private:
     double timeForPlayerRecovery;
 
     std::string port;
+    std::string mapPath;
 
 public:
     Configuration(Configuration const&) = delete;
@@ -117,6 +118,8 @@ public:
     double configPlayerRecoveryTime() const;
 
     const std::string& configPort() const;
+
+    const std::string& configMapPath() const;
 
 private:
     Configuration();

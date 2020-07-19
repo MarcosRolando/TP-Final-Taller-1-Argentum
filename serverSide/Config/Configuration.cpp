@@ -39,6 +39,7 @@ Configuration::Configuration() {
     playerSpeed = fileReader.loadPlayerSpeed();
     timeForPlayerRecovery = fileReader.loadTimeForPlayerRecovery();
     port = fileReader.loadPort();
+    mapPath = fileReader.loadMapPath();
     goldName = "Gold";
 }
 
@@ -135,4 +136,8 @@ double Configuration::configPlayerRecoveryTime() const {
 
 const std::string &Configuration::configPort() const {
     return port;
+}
+
+const std::string &Configuration::configMapPath() const {
+    return mapPath;
 }

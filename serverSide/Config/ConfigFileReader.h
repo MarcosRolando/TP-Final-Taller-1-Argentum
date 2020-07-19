@@ -142,6 +142,8 @@ namespace Config {
 
         std::string loadPort();
 
+        std::string loadMapPath();
+
     private:
         static void
         _getModifiers(Modifiers &modifier, nlohmann::json &currModifier);

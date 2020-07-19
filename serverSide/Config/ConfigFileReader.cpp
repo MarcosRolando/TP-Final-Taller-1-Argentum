@@ -200,3 +200,7 @@ double Config::ConfigFileReader::loadTimeForPlayerRecovery() {
 std::string Config::ConfigFileReader::loadPort() {
     return obj["Port"].get<std::string>();
 }
+
+std::string Config::ConfigFileReader::loadMapPath() {
+    return obj["MapPath"].get<std::string>();
+}

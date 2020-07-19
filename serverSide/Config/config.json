@@ -346,5 +346,6 @@
   "NewbieLevel" : 5,
   "MaxLevelDif" : 10,
 
-  "Port": "8081"
+  "Port": "8081",
+  "MapPath": "/etc/Argentum/map.json"
 }
