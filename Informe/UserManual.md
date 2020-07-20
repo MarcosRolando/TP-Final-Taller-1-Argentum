@@ -52,19 +52,28 @@ Una vez instalado todo podemos pasar a la instalación del juego. En la carpeta 
 
 ​	`$ sudo make install`
 
-Una vez instalado el juego podemos correr el servidor y cliente con los comandos *argentumServer* y *argentumClient* respectivamente.
+Una vez instalado el juego podemos correr el servidor y cliente con los comandos 
+*argentumServer* y *argentumClient* respectivamente.
 
 
 
 ### <u>Configuración:</u>
 
-El proyecto dispone de un archivo de configuración de formato JSON ubicado  en */etc/Argentum/config.json* . Como el archivo se encuentra en /etc/ una vez instalado se necesitan permisos de root para poder editarlo, sin embargo si se utiliza el instalador nuevamente se sobreescribira el archivo con el del repositorio, por lo que se recomienda editarlo dentro de este y luego reinstalar. Para modificar el archivo en etc esto podemos usar el comando:
+El proyecto dispone de un archivo de configuración de formato JSON ubicado  en 
+*/etc/Argentum/config.json* . Como el archivo se encuentra en /etc/ una vez instalado 
+se necesitan permisos de root para poder editarlo, sin embargo si se utiliza el 
+instalador nuevamente se sobreescribira el archivo con el del repositorio, por lo 
+que se recomienda editarlo dentro de este y luego reinstalar. Para modificar el 
+archivo en etc esto podemos usar el comando:
 
 `$ sudo -i vim /etc/Argentum/config.json`
 
 Se puede utilizar otro editor de texto en lugar de vim.
 
-En el archivo podemos editar las estadísticas de razas, clases, monstruos e items. Ademas se pueden editar parámetros mas relacionados con la jugabilidad como la experiencia obtenida, la cantidad de monstruos en el mapa, el nivel de newbie entre otros. Por ultimo, se puede editar el puerto donde escuchara el servidor.
+En el archivo podemos editar las estadísticas de razas, clases, monstruos e items. 
+Ademas se pueden editar parámetros mas relacionados con la jugabilidad como la 
+experiencia obtenida, la cantidad de monstruos en el mapa, el nivel de newbie 
+entre otros. Por ultimo, se puede editar el puerto donde escuchara el servidor.
 
 
 
@@ -76,9 +85,11 @@ El servidor se ejecuta con el comando
 
 `$ sudo argentumServer`
 
-Durante su ejecución el servidor escuchara conexiones en el puerto especificado en el archivo de configuración. 
+Durante su ejecución el servidor escuchara conexiones en el puerto especificado 
+en el archivo de configuración. 
 
-Para terminar la ejecución del servidor se deberá presionar la tecla 'q' en la consola donde se haya ejecutado el comando.
+Para terminar la ejecución del servidor se deberá presionar la tecla 'q' en 
+la consola donde se haya ejecutado el comando.
 
 1. #### Cliente 
 
@@ -86,27 +97,32 @@ El cliente se ejecuta con el comando
 
 `$ argentumClient`
 
-El juego comienza con el menú principal. Primero debemos elegir si queremos crear o cargar un jugador:
+El juego comienza con el menú principal. Primero debemos elegir si queremos crear 
+o cargar un jugador:
 
 
 ![SelectScreen](/Informe/img/SelectScreen.png)
 
 #### Crear jugador
 
-Al crear un jugador debemos elegir su nickname (no puede contener espacios), su clase y su raza. El nickname debe ser nuevo.
+Al crear un jugador debemos elegir su nickname (no puede contener espacios), su 
+clase y su raza. El nickname debe ser nuevo.
 
 ![CreatePlayer](/Informe/img/CreatePlayer.png)
 
 #### Cargar jugador
 
-Para cargar un jugador solo tenemos que ingresar su nickname, que debe pertenecer a un jugador existente.
+Para cargar un jugador solo tenemos que ingresar su nickname, que debe pertenecer 
+a un jugador existente.
 
 ![LoadPlayer](/Informe/img/LoadPlayer.png)
 
 
 #### Conexión
 
-Luego de cargar/crear un jugador se muestra la pantalla de conexión donde debemos elegir el host y port al que nos queremos conectar. Si se quiere conectar en la misma pc que ejecuta el servidor entonces se debe escribir "localhost" en el lugar de host.
+Luego de cargar/crear un jugador se muestra la pantalla de conexión donde debemos 
+elegir el host y port al que nos queremos conectar. Si se quiere conectar en la misma 
+pc que ejecuta el servidor entonces se debe escribir "localhost" en el lugar de host.
 
 ![Connection](/Informe/img/Connection.png)
 
@@ -121,7 +137,9 @@ Si logramos conectarnos empieza el juego en si.
 
 ![minichat](/Informe/img/minichat.png)
 
-En el minichat se podrán leer los mensajes relevantes recibidos por el server (daño causado o recibido, ataques esquivados o críticos y mensajes de otros jugadores). Ademas, al hacer click en el minichat podrán ingresar los siguientes comandos:
+En el minichat se podrán leer los mensajes relevantes recibidos por el server 
+(daño causado o recibido, ataques esquivados o críticos y mensajes de otros jugadores). 
+Ademas, al hacer click en el minichat podrán ingresar los siguientes comandos:
 
 - ###### /meditate: 
 
@@ -129,7 +147,9 @@ En el minichat se podrán leer los mensajes relevantes recibidos por el server (
 
 - ###### /revive
 
-  Si el jugador esta muerto, revivirá al lado del cura mas cercano luego de unos segundos (la duracion depende de la distancia a dicho cura). Si se ingresa el comando habiendo seleccionado a un cura el jugador revivirá inmediatamente.
+  Si el jugador esta muerto, revivirá al lado del cura mas cercano luego de unos
+   segundos (la duracion depende de la distancia a dicho cura). Si se ingresa el 
+   comando habiendo seleccionado a un cura el jugador revivirá inmediatamente.
 
 - ###### /heal
 
@@ -137,31 +157,41 @@ En el minichat se podrán leer los mensajes relevantes recibidos por el server (
 
 - ###### /deposit \<item>
 
-  Se debe tener seleccionado a un banquero. En tal caso se deposita el item (si es que se encuentra en el inventario y no está equipado) en el banco para poder retirarlo en otro momento.
+  Se debe tener seleccionado a un banquero. En tal caso se deposita el item 
+  (si es que se encuentra en el inventario y no está equipado) en el banco para 
+  poder retirarlo en otro momento.
 
 - ###### /deposit \<Gold> \<cantidad>
 
-  Se debe tener seleccionado a un banquero. En tal caso se depositara la cantidad de oro especificada (si se una cantidad mayor o igual de oro).
+  Se debe tener seleccionado a un banquero. En tal caso se depositara la cantidad 
+  de oro especificada (si se una cantidad mayor o igual de oro).
 
 - ###### /withdraw \<item>
 
-  Se debe tener seleccionado a un banquero. En tal caso se retira del banco el item especificado (si es que estaba guardado previamente).
+  Se debe tener seleccionado a un banquero. En tal caso se retira del banco el 
+  item especificado (si es que estaba guardado previamente).
 
 - ###### /withdraw \<Gold> \<cantidad>
 
-  Se debe tener seleccionado a un banquero. En tal caso se retira la cantidad de oro especificada (si es que el banco tiene una cantidad mayor o igual a la pedida).
+  Se debe tener seleccionado a un banquero. En tal caso se retira la cantidad 
+  de oro especificada (si es que el banco tiene una cantidad mayor o igual a la pedida).
 
 - ###### /list
 
-  Si tengo seleccionado a un cura o comerciante me mostrara los items que tiene en su inventario junto con su precio. Si tengo seleccionado a un banquero me mostrara los items que tengo depositados en el banco. Si tengo seleccionado un tile sin un personaje mostrara los items en ese tile.
+  Si tengo seleccionado a un cura o comerciante me mostrara los items que tiene 
+  en su inventario junto con su precio. Si tengo seleccionado a un banquero me 
+  mostrara los items que tengo depositados en el banco. Si tengo seleccionado un 
+  tile sin un personaje mostrara los items en ese tile.
 
 - ###### /buy \<item>
 
-  Debo tener seleccionado a un cura o comerciante. En tal caso se intenta comprar el item especificado.
+  Debo tener seleccionado a un cura o comerciante. En tal caso se intenta comprar 
+  el item especificado.
 
 - ###### /sell \<item>
 
-  Debo tener seleccionado a un cura o comerciante. En tal caso intenta vender el item especificado.
+  Debo tener seleccionado a un cura o comerciante. En tal caso intenta vender 
+  el item especificado.
 
 - ###### /take
 
@@ -173,7 +203,9 @@ En el minichat se podrán leer los mensajes relevantes recibidos por el server (
 
 - ###### /inventory
 
-  Lista las cosas que tengo en el inventario, indicando la posicion del item (la posicion de arriba a la izquierda es el 0, y va creciendo hacia la derecha y hacia abajo) junto con su nombre.
+  Lista las cosas que tengo en el inventario, indicando la posicion del item 
+  (la posicion de arriba a la izquierda es el 0, y va creciendo hacia la derecha 
+  y hacia abajo) junto con su nombre.
 
 - ###### /clear
 
@@ -191,13 +223,17 @@ Aquí se muestran las estadísticas de vida, mana y experiencia del jugador
 
 ![inventory2](/Informe/img/inventory2.png)
 
-Arriba se pueden ver el  nivel y el nickname del usuario. Abajo se encuentra el inventario con los items que posee el jugador. El cuadrado que tiene un borde blanco es el que esta seleccionado. Por ultimo se ve la cantidad de oro del jugador y entre paréntesis el oro seguro.
+Arriba se pueden ver el  nivel y el nickname del usuario. Abajo se encuentra 
+el inventario con los items que posee el jugador. El cuadrado que tiene un 
+borde blanco es el que esta seleccionado. Por ultimo se ve la cantidad de oro 
+del jugador y entre paréntesis el oro seguro.
 
 #### Stats
 
 ![skills](/Informe/img/skills.png)
 
-A la izquierda se ven las habilidades del jugador. A la derecha están los items equipados y debajo se ve la posición actual.
+A la izquierda se ven las habilidades del jugador. A la derecha están los items 
+equipados y debajo se ve la posición actual.
 
 
 
@@ -212,5 +248,10 @@ A la izquierda se ven las habilidades del jugador. A la derecha están los items
 
 ##### Mouse
 
-- **Click izquierdo:** Selecciona un tile o una posición del inventario. También habilita el minichat para escribir comandos.
-- **Click derecho:** Al hacer click derecho en el mapa, el personaje intentara atacar la posición donde se hizo click. Si se hace click en el inventario, el personaje hará uso del item que se encuentre en la posición donde se hizo click. Si el item es un arma o una armadura sera equipado. Inversamente, si hago click sobre un item equipado, el personaje se desequipara dicho item.
+- **Click izquierdo:** Selecciona un tile o una posición del inventario. También 
+habilita el minichat para escribir comandos.
+- **Click derecho:** Al hacer click derecho en el mapa, el personaje intentara 
+atacar la posición donde se hizo click. Si se hace click en el inventario, el 
+personaje hará uso del item que se encuentre en la posición donde se hizo click. 
+Si el item es un arma o una armadura sera equipado. Inversamente, si hago click 
+sobre un item equipado, el personaje se desequipara dicho item.
