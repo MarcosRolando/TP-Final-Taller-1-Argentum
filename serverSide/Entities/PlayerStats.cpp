@@ -103,7 +103,7 @@ bool PlayerStats::increaseExperience(unsigned int _experience) {
 std::pair<int, bool> PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defense,
                             bool isAPlayer, std::string& attackedMessage) {
     if (damage < 0) {
-        currentLife += damage;
+        currentLife += -damage;
         if (currentLife > maxLife) currentLife = maxLife;
         currentMana = 0;
         return {damage, false};
