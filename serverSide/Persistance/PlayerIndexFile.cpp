@@ -13,7 +13,7 @@ PlayerIndexFile::PlayerIndexFile(const std::string& filePath) {
     indexFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary);
     if (!indexFile.is_open()) {
         std::cout << "Could not find an Index File with the provided name."
-                     "Creating one now" << std::endl;
+                     " Creating one now." << std::endl;
         std::ofstream newIndexFile(filePath);
         newIndexFile.close();
         indexFile.open(filePath, std::ios::in | std::ios::out | std::ios::binary);
