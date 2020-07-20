@@ -4,11 +4,15 @@
 
 ### Integrantes y división de tareas
 
-##### Agustín Cambiano:
+##### Agustín Cambiano (centrado en el servidor):
 
-- Todo el server xq es alto crack
+- Clases relacionadas al mapa (Map, Tile, etc.)
+- Spawn y deciciones de movimiento y ataque de monstruos
+- Código relacionadas a los items (Inventory, Item, drops, etc.)
+- Código relacionado al funcionamiento de los comandos realizados por
+los jugadores (drop, buy, sell)
 
-##### Ivan Soriano:
+##### Ivan Soriano (centrado en el cliente):
 
 - Reproducción de sonidos y musica
 - Texto
@@ -21,13 +25,16 @@
 - Clase de lectura de Json y clase que almacena esos valores leidos
 - Comandos ingresados por el usuario
 
-##### Marcos Rolando:
+##### Marcos Rolando (aportando en ambos lados):
 
-- Todo el cliente xq es alto crack
 - Persistencia del servidor
-- La mayor parte del manejo de conexiones de los clientes
+- La mayor parte del manejo de conexiones de los clientes en el servidor
 - Desplazamiento gradual de las entidades en el mapa
 - Minichat del servidor
+- Mapa utilizado, armado con Tiled
+- Interacción entre el cliente y el player (PlayerProxy)
+- Manejo de vida, mana y niveles de los jugadores y monstruos (MonsterStats 
+y PlayerStats)
 
 ### Evolución del proyecto
 
