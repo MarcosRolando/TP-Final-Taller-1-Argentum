@@ -7,7 +7,7 @@
 ##### Agustín Cambiano (centrado en el servidor):
 
 - Clases relacionadas al mapa (Map, Tile, etc.)
-- Spawn y deciciones de movimiento y ataque de monstruos
+- Spawn y desiciones de movimiento y ataque de monstruos
 - Código relacionadas a los items (Inventory, Item, drops, etc.)
 - Código relacionado al funcionamiento de los comandos realizados por
 los jugadores (drop, buy, sell, deposit, withdraw, etc.)
