@@ -14,7 +14,7 @@ A continuación se lista el software requerido para poder utilizar el programa:
 - SDL2 TTF (cliente)
 - msgpack (cliente y servidor)
 
-#### Requerimientos de Hardware
+
 
 #### Proceso de Instalación
 
@@ -22,7 +22,6 @@ Antes de poder instalar el juego se deben instalar las librerías de SDL2 y msgp
 
 Para instalar lo necesario de SDL2 se deben ejecutar los siguientes comandos por consola:
 
-- `$ sudo apt-get install libsdl2-dev`
 - `$ sudo apt-get install libsdl2-dev`
 - `$ sudo apt-get install libsdl2-image-dev`
 - `$ sudo apt-get install libsdl2-mixer-dev`
@@ -53,7 +52,7 @@ Una vez instalado todo podemos pasar a la instalación del juego. En la carpeta 
 ​	`$ sudo make install`
 
 Una vez instalado el juego podemos correr el servidor y cliente con los comandos 
-*argentumServer* y *argentumClient* respectivamente.
+*sudo argentumServer* y *argentumClient* respectivamente.
 
 
 
@@ -63,8 +62,8 @@ El proyecto dispone de un archivo de configuración de formato JSON ubicado  en
 */etc/Argentum/config.json* . Como el archivo se encuentra en /etc/ una vez instalado 
 se necesitan permisos de root para poder editarlo, sin embargo si se utiliza el 
 instalador nuevamente se sobreescribira el archivo con el del repositorio, por lo 
-que se recomienda editarlo dentro de este y luego reinstalar. Para modificar el 
-archivo en etc esto podemos usar el comando:
+que se recomienda editarlo dentro de este y luego reinstalar. Si se quiere modificar el 
+archivo en directamente en etc para no reinstalar podemos usar el comando:
 
 `$ sudo -i vim /etc/Argentum/config.json`
 
