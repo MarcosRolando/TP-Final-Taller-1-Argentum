@@ -10,19 +10,24 @@
 
 ##### Ivan Soriano:
 
-- Reproduccion de sonidos y musica
-- Texto(igual hice todo mal y lo arreglo marcos)
+- Reproducción de sonidos y musica
+- Texto
 - Interfaz Grafica
-- Minichat(tambien estaba todo mal y lo arreglo marcos)
-- Interaccion por parte del usuario(altas race conditions meti)
-- Menu Principal(re rancio)
-- Configuracion
+- Minichat
+- Interacción por parte del usuario
+- Menu Principal
+- Configuración
 - Clase de ecuaciones del juego
+- Clase de lectura de Json y clase que almacena esos valores leidos
 - Comandos ingresados por el usuario
 
 ##### Marcos Rolando:
 
 - Todo el cliente xq es alto crack
+- Persistencia del servidor
+- La mayor parte del manejo de conexiones de los clientes
+- Desplazamiento gradual de las entidades en el mapa
+- Minichat del servidor
 
 ### Evolución del proyecto
 
