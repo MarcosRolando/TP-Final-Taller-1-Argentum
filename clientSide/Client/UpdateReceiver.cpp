@@ -16,6 +16,7 @@
 #include "../UpdateEvents/UpdateDestroyItem.h"
 #include "../UpdateEvents/UpdateTeleportEntity.h"
 #include "../UpdateEvents/UpdatePlayerResurrect.h"
+#include "../UpdateEvents/UpdateLevelUp.h"
 #include "UpdateManager.h"
 
 MSGPACK_ADD_ENUM(GameType::EventID)
@@ -99,11 +100,12 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
 }
 
 void UpdateReceiver::_processPlayerLevelUp() {
-    msgpack::type::tuple<std::string> player;
+    msgpack::type::tuple<std::string, int32_t> playerData;
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    handler->convert(player);
+    handler->convert(playerData);
     currentUpdate.push(std::unique_ptr<UpdateEvent>(new UpdateLevelUp(
-                                            std::move(std::get<0>(teleportData)))));
+                                            std::move(std::get<0>(playerData),
+                                                    std::get<1>(playerData)))));
 }
 
 void UpdateReceiver::_processTeleportEntity() {

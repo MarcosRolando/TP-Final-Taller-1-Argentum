@@ -35,7 +35,7 @@ void NPCTexture::renderLeft(int x, int y, int frame) {
     level.render(x + TILE_WIDTH/2 - 10, y + TILE_HEIGHT - 20);
 }
 
-void NPCTexture::setLevel(std::string &_level) {
+void NPCTexture::setLevel(const std::string &_level) {
     *(level.updateText(_level));
 }
 

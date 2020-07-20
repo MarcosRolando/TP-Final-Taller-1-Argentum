@@ -18,7 +18,6 @@ private:
     bool isAlive{true};
 
 public:
-    /* Constructor */
     Player(TextureRepository& repo, SDL_Rect& camera, float x, float y,
                                                     PlayerEquipment& images,
                                                     bool _isAlive = true);
