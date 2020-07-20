@@ -102,7 +102,7 @@ AGREGAR COSAS DE SERVER MONITOR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 #### ServerProtocol
-&nbsp;&nbsp;&nbsp;&nbsp;Se encarga de almacenar la información del mapa y los mensajes a
+Se encarga de almacenar la información del mapa y los mensajes a
 comunicar en cada update, guardándolos en un vector de chars para mandar por el socket.
 
 ### <u>Persistance</u>
