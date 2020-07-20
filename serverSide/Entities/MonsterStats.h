@@ -42,7 +42,7 @@ public:
      * un pair con el danio neto recibido y un bool en true en caso de que haya
      * logrado esquivar el ataque (esto es asi ya que queda extendible por si el
      * monstruo pudiera tener defensa y el danio fuera 0 sin haber esquivado)*/
-    std::pair<int, bool> modifyLife(int _damage);
+    std::pair<int, bool> modifyLife(int _damage, bool isCritical);
 
     /*Retorna la vida actual del monstruo*/
     int getCurrentLife() const;

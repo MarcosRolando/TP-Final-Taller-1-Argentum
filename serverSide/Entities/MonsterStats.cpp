@@ -33,8 +33,8 @@ unsigned int MonsterStats::getLevel() const {
     return level;
 }
 
-std::pair<int, bool> MonsterStats::modifyLife(int _damage) {
-    if (Calculator::canDodge(getAgility())) {
+std::pair<int, bool> MonsterStats::modifyLife(int _damage, bool isCritical) {
+    if (!isCritical && Calculator::canDodge(getAgility())) {
         return {0, true};
     }
     currentLife -= _damage;
