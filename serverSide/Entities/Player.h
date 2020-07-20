@@ -151,6 +151,8 @@ public:
 
     int32_t getLevel() const override;
 
+    bool hasFullInventory() const;
+
     /*Retorna su data actual (las cosas guardadas, stats, etc)*/
     PlayerData getData() const;
 
