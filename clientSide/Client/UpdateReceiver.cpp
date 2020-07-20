@@ -104,8 +104,8 @@ void UpdateReceiver::_processPlayerLevelUp() {
     handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
     handler->convert(playerData);
     currentUpdate.push(std::unique_ptr<UpdateEvent>(new UpdateLevelUp(
-                                            std::move(std::get<0>(playerData),
-                                                    std::get<1>(playerData)))));
+                                            std::move(std::get<0>(playerData)),
+                                                    std::get<1>(playerData))));
 }
 
 void UpdateReceiver::_processTeleportEntity() {
