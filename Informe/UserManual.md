@@ -9,9 +9,9 @@
 A continuación se lista el software requerido para poder utilizar tanto el servidor como cliente:
 
 - SDL2 
-- SDL2
-- SDL2 
-- SDL2 ttf 
+- SDL2 Image
+- SDL2 Mixer
+- SDL2 TTF
 - msgpack
 
 #### Requerimientos de Hardware
