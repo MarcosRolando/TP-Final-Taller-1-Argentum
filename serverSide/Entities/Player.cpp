@@ -51,7 +51,7 @@ int32_t Player::attack(Coordinate target) {
             std::pair<AttackResult, bool> result = game.attackPosition(totalDamage, stats.getLevel(),
                                                       true, target);
             if (stats.increaseExperience(result.first.experience)) {
-                game.pushEvent(std::unique_ptr<Event>(new PlayerLeveledUp(getNickname())));
+                game.pushEvent(std::unique_ptr<Event>(new PlayerLeveledUp(getNickname(), stats.getLevel())));
             }
             chat.addMessage(std::move(result.first.resultMessage));
             if (result.second) {
