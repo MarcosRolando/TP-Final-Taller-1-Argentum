@@ -277,7 +277,7 @@ void MainMenu::_verifyRaceSelection(int x, int y) {
 /* Intenta conectarse al servidor con el player que se quiere crear */
 void MainMenu::_connectCreatedPlayer(GameInitializer& initializer, Socket& socket, bool& success) {
     if (nicknameInputText.getText().find(' ') != std::string::npos) {
-        errorText.updateText("Nickname can not contain spaces");
+        errorText.updateText("Nickname cannot contain spaces");
         return;
     }
     if (!nicknameInputText.getText().empty()) {
@@ -414,7 +414,7 @@ void MainMenu::_renderPlayerSelectionScreen() {
     text.render(50, 200);
     *(text.updateText("Exit"));
     text.render(50, 875);
-    errorText.render(650, 875);
+    (*errorText).render(650, 875);
     window.show();
 }
 
@@ -434,7 +434,7 @@ void MainMenu::_renderLoadPlayerScreen() {
     *(text.updateText("Back"));
     text.render(50, 875);
     nicknameInputText.operator*({0, 0, 0}).render(165, 100);
-    errorText.render(650, 875);
+    (*errorText).render(650, 875);
     window.show();
 }
 
@@ -460,7 +460,7 @@ void MainMenu::_renderCreatePlayerScreen() {
     intelligence.render(375, 400);
     agility.render(375, 500);
     nicknameInputText.operator*({0, 0, 0}).render(165, 100);
-    errorText.render(650, 875);
+    (*errorText).render(650, 875);
     *(text.updateText("Start"));
     text.render(1375, 875);
     *(text.updateText("Back"));
