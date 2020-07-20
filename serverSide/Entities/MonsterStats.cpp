@@ -14,9 +14,9 @@ MonsterStats::MonsterStats(GameType::Entity type) {
     constitution = stats.constitution + level;
     strength = stats.strength + level;
     agility = stats.agility + level;
-    damage = static_cast<int>(stats.damage);
+    damage = static_cast<int>(stats.damage) + 10 * strength;
     rangeOfVision = stats.rangeOfVision;
-    maxLife = stats.life;
+    maxLife = stats.life + constitution * 10;
     currentLife = maxLife;
     speed = stats.speed;
 }
