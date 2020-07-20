@@ -36,7 +36,7 @@ void GameGUI::render() {
     screen.setViewport(InventoryViewport);
     inventoryGUI.render(selector.getInventorySlot());
 
-    //PlayerInfo
+    //PlayerStats
     screen.setViewport(PlayerInfoViewport);
     infoGUI.render();
 

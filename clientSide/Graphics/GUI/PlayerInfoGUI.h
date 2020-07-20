@@ -6,45 +6,65 @@
 #define ARGENTUM_PLAYERINFOGUI_H
 
 #include "../Text/Text.h"
-#include "GUIPlayerInfo.h"
+#include "PlayerStats.h"
 #include "../../Map/Coordinate.h"
 #include "../../Sound/SoundPlayer.h"
+
+struct GUIInfoText {
+    Text nickname;
+    Text health;
+    Text mana;
+    Text xp;
+    Text level;
+    Text constitution, strength, agility, intelligence;
+    Text gold;
+    Text position;
+
+    GUIInfoText(SDL_Renderer& renderer, Font& font) : nickname(font, renderer),
+    health(font, renderer), mana(font, renderer),
+    xp(font, renderer),level(font, renderer),
+    constitution(font, renderer),
+    strength(font, renderer), agility(font, renderer),
+    intelligence(font, renderer), gold(font, renderer),
+    position(font, renderer) {}
+};
 
 class PlayerInfoGUI {
 private:
     Font infoFont;
     Text info;
     SDL_Renderer& renderer;
-    GUIPlayerInfo pInfo{};
+    PlayerStats pInfo{};
     SoundPlayer& soundPlayer;
+    GUIInfoText infoText;
 
 public:
     PlayerInfoGUI(SDL_Renderer& renderer, SoundPlayer& soundPlayer);
 
-    int32_t getLevel() const;
+    Text& getLevelText();
     int32_t getXPos() const;
     int32_t getYPos() const;
-    int32_t getStrength() const;
-    int32_t getConstitution() const;
-    int32_t getAgility() const;
-    int32_t getIntelligence() const;
-    std::string getNickname() const;
+    std::string& getNickname();
+    Text& getStrengthText();
+    Text& getConstitutionText();
+    Text& getAgilityText();
+    Text& getIntelligenceText();
+    Text& getPositionText();
+    Text& getNicknameText();
+    Text& getGoldText();
 
     /* Actualiza todas las stats del jugador */
-    void update(GUIPlayerInfo& generalInfo);
+    void update(PlayerStats& generalInfo);
 
     /* Renderiza las barras de vida, xp y mana */
     void render();
 
 private:
-    void _renderInfoBar(int32_t infoCurr, int32_t infoTotal, int32_t xOffset,
+    void _renderInfoBar(Text& textToRender, int32_t infoCurr, int32_t infoTotal, int32_t xOffset,
                         int32_t barLen, SDL_Color color);
-    void _updateHealth(int32_t currHealth);
-    void _updateTotalHealth(int32_t _totalHealth);
-    void _updateMana(int32_t currMana);
-    void _updateTotalMana(int32_t _totalMana);
-    void _updateXP(int32_t currXP);
-    void _updateNextLevelXP(int32_t _nextLevelXP);
+    void _updateHealth(int32_t currHealth, int32_t totalHealth);
+    void _updateMana(int32_t currMana, int32_t totalMana);
+    void _updateXP(int32_t currXP,int32_t nextLevelXP);
     void _updateLevel(int32_t newLevel);
     void _updatePosition(Coordinate position);
     void _updateStrength(int32_t strength);
@@ -52,6 +72,7 @@ private:
     void _updateAgility(int32_t agility);
     void _updateIntelligence(int32_t intelligence);
     void _updateNickname(std::string&& name);
+    void _updateGold(int32_t gold, int32_t safeGold);
 };
 
 

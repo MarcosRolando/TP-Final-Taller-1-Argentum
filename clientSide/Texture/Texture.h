@@ -42,6 +42,7 @@ public:
     Texture(SDL_Renderer& renderer);
     ~Texture();
     Texture(const Texture&) = delete;
+    Texture& operator=(const Texture&) = delete;
     Texture(Texture&& other) noexcept;
 
     /*Carga la imagen de path, ignorando el color recibido en key. Opcionalmente

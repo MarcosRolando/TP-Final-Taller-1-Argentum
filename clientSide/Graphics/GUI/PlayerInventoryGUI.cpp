@@ -3,7 +3,6 @@
 //
 
 #include "PlayerInventoryGUI.h"
-#include "../../Client/GameConstants.h"
 
 #define INVENTORY_SIZE 16
 
@@ -66,37 +65,19 @@ void PlayerInventoryGUI::render(int32_t selectedSlotX) {
 
 void PlayerInventoryGUI::_renderText() {
     fixedText.title.render(215, 25);
-
     fixedText.inventory.render(160, 225);
-
-    text.updateText("GOLD: " + std::to_string(gold) + "(" + std::to_string(safeGold) + ")");
-    text.operator*(SDL_Color{0xFF,0xFF,0x00}).render(140, 565);
-
-    *(text.updateText(std::to_string(pInfo.getLevel())));
-    text.render(70, 50);
-
+    pInfo.getGoldText().render(140, 565);
+    pInfo.getLevelText().render(70, 50);
     _renderSkills();
-
-    *(text.updateText("X: " + std::to_string(pInfo.getXPos()) + "   " + "Y: " +
-                    std::to_string(pInfo.getYPos())));
-    text.render(200, 880);
-
-    *(text.updateText(pInfo.getNickname())); //todo crear la textura una sola vez
-    text.render(210,95);
+    pInfo.getPositionText().render(200, 880);
+    pInfo.getNicknameText().render(210,95);
 }
 
-void PlayerInventoryGUI::_renderSkills(){
-    *(text.updateText("STRENGTH : " + std::to_string(pInfo.getStrength())));
-    text.render(40, 660);
-
-    *(text.updateText("CONSTITUTION : " + std::to_string(pInfo.getConstitution())));
-    text.render(40, 700);
-
-    *(text.updateText("INTELLIGENCE : " + std::to_string(pInfo.getIntelligence())));
-    text.render(40, 740);
-
-    *(text.updateText("AGILITY : " + std::to_string(pInfo.getAgility())));
-    text.render(40, 780);
+void PlayerInventoryGUI::_renderSkills() {
+    pInfo.getStrengthText().render(40, 660);
+    pInfo.getConstitutionText().render(40, 700);
+    pInfo.getIntelligenceText().render(40, 740);
+    pInfo.getAgilityText().render(40, 780);
 }
 
 void PlayerInventoryGUI::_renderInventoryItems() {

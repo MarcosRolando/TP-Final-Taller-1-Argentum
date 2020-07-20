@@ -12,7 +12,7 @@
 #include "ProtocolEnumTranslator.h"
 #include "../Texture/PlayerEquipment.h"
 #include "../Map/Coordinate.h"
-#include "../Graphics/GUI/GUIPlayerInfo.h"
+#include "../Graphics/GUI/PlayerStats.h"
 #include "EntityData.h"
 
 class Socket;
