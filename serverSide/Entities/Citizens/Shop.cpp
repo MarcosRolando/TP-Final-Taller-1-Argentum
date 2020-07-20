@@ -11,6 +11,7 @@
 #define NOT_ACCEPTED_PRODUCT_MESSAGE "I don't buy "
 #define NOT_ENOUGH_GOLD_STORED_MESSAGE "I don't have enough gold\n"
 #define PLAYER_CANT_AFFORD_MESSAGE "You don't have enough gold\n"
+#define PLAYER_DOES_NOT_HAVE_SPACE_MESSAGE "You don't have enough space for that item\n"
 
 Shop::Shop() {
     sellingMultiplier = 1;
@@ -65,11 +66,15 @@ void Shop::buy(Player &player, const std::string &itemName) {
     if (storage.isItemAvailable(itemName)) {
         price = static_cast<unsigned int>(static_cast<float>(prices[itemName])
                                                             * buyingMultiplier);
-        if (player.spendGold(static_cast<int>(price))) {
-            storage.increaseGoldReserves(static_cast<int>(price));
-            storage.retreiveItem(itemName, player);
+        if (!player.hasFullInventory()) {
+            if (player.spendGold(static_cast<int>(price))) {
+                storage.increaseGoldReserves(static_cast<int>(price));
+                storage.retreiveItem(itemName, player);
+            } else {
+                player.addMessage(PLAYER_CANT_AFFORD_MESSAGE);
+            }
         } else {
-            player.addMessage(PLAYER_CANT_AFFORD_MESSAGE);
+            player.addMessage(PLAYER_DOES_NOT_HAVE_SPACE_MESSAGE);
         }
     } else {
         player.addMessage(PRODUCT_NOT_IN_STORAGE_MESSAGE + itemName + "\n");

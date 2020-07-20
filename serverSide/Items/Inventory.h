@@ -101,6 +101,8 @@ public:
      * false en caso contrario*/
     bool hasItem(const std::string& itemName);
 
+    bool isFull() const;
+
     /*Almacena en el minichat los nombres de los items que se encuentran en el
      * inventario*/
     void getInventoryNames(Minichat& chat);

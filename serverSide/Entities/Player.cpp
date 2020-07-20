@@ -356,3 +356,7 @@ AttackResult Player::_receiveDamage(int damage, unsigned int attackerLevel, bool
 int32_t Player::getLevel() const {
     return stats.getLevel();
 }
+
+bool Player::hasFullInventory() const {
+    return inventory.isFull();
+}
