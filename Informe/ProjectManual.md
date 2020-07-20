@@ -20,7 +20,7 @@
 - Configuración
 - Protocolo del lado del cliente
 - Clase de ecuaciones del juego
-- Clase de lectura de Json y clase que almacena esos valores leidos
+- Clase de lectura del archivo JSON de configuracion
 - Comandos ingresados por el usuario
 
 ##### Marcos Rolando:
