@@ -14,7 +14,7 @@ puede utilizarse GDB.
 ### <u>Descripción general</u>
 El proyecto se divide en cliente y servidor:
 
-#### Servidor
+#### Servidor General
 &nbsp;&nbsp;&nbsp;&nbsp;Se encuentra subdividido en la parte del servidor 
 en sí (conexiones, etc), el mapa, los items, el manejo general del estado 
 del juego, la persistencia  y las entidades, además de la parte de 
@@ -50,3 +50,49 @@ de los monstruos, los ciudadanos (curas, comerciantes y banqueros) y los jugador
 &nbsp;&nbsp;&nbsp;&nbsp;Configuración: Se encarga de trabajar con los archivos de 
 configuración del juego, aquellos usados para cambiar los distintos valores del juego sin
 necesidad de recompilarlo. Trabaja con los archivos config.json y map.json.
+
+#### Cliente General
+
+
+### <u>Servidor</u>
+
+#### ArgentumServer
+&nbsp;&nbsp;&nbsp;&nbsp;Esta clase se encarga de inicializar los objetos necesarios para 
+que pueda funcionar Game correctamente, además de contener el gameloop. Se encarga tambien
+de delegar el a ClientsMonitor el proceso de enviado de la información del último update
+a los clientes activos y pide que se agreguen a la lista de clientes activos aquellos que
+estén en espera si es que hay tiempo suficiente para hacerlo.
+
+#### ArgentumServerSide
+&nbsp;&nbsp;&nbsp;&nbsp;Esta es la clase principal del servidor, es aquella que se utiliza
+cuando se quiere empezar a ejecutarlo.
+
+#### ClientAccepter
+&nbsp;&nbsp;&nbsp;&nbsp;Clase que se encarga de aceptar a los clientes que intenten 
+conectarse, diciéndole a ClientsMonitor que los agregue a su lista de espera.
+
+#### ClientHandler
+&nbsp;&nbsp;&nbsp;&nbsp;Clase que se encarga de interactuar con un cliente conectado al 
+servidor. Se utiliza para mandarle la información actual del juego cuando este se conecta
+y para mandarle la información cada update.
+
+#### ClientsMonitor
+&nbsp;&nbsp;&nbsp;&nbsp;Clase que engloba la lista de clientes conectados y clientes en 
+espera. Se utiliza para pedirle a cada cliente que realice alguna acción específica, protege
+también la lista de espera de race conditions al juntarla con la lista de clientes activos. 
+AGREGAR COSAS DE PLAYER MANAGER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+#### PlayerManager
+&nbsp;&nbsp;&nbsp;&nbsp;AGREGAR COSAS DE PLAYER MANAGER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+#### ServerMonitor
+&nbsp;&nbsp;&nbsp;&nbsp;AGREGAR COSAS DE SERVER MONITOR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+#### ServerProtocol
+&nbsp;&nbsp;&nbsp;&nbsp;Se encarga de almacenar la información

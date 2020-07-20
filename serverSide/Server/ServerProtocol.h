@@ -22,8 +22,6 @@ private:
     std::vector<char> mapBuffer;
     std::stringstream generalData;
     std::vector<char> generalDataBuffer;
-    std::stringstream currentStateData;//Guarda el estado actual del juego para que despues los
-                                       //clientes puedan ser actualizados solo recibiendo los cambios realidados
     std::vector<char> currentStateBuffer;
     const Game& game;
 
