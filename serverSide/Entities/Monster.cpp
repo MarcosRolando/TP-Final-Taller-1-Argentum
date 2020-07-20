@@ -159,3 +159,7 @@ int32_t Monster::attack(Coordinate attackedPosition) {
     return monsterWeapon;
 }
 
+int32_t Monster::getLevel() const {
+    return stats.getLevel();
+}
+

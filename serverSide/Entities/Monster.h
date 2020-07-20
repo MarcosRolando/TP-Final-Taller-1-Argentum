@@ -66,6 +66,8 @@ public:
 
     /*Ataca una posicion (lo hace cuando tiene un player a la vista*/
     int32_t attack(Coordinate attackedPosition) override;
+
+    int32_t getLevel() const override;
 };
 
 

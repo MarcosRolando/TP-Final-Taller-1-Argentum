@@ -122,6 +122,8 @@ public:
 
     /*Retorna la coordenada del tile al que se esta desplazando la entity*/
     virtual Coordinate getFinalCoordinate(GameType::Direction direction);
+
+    virtual int32_t getLevel() const;
 };
 
 

@@ -88,14 +88,16 @@ unsigned int PlayerStats::getLevel() const {
     return level;
 }
 
-void PlayerStats::increaseExperience(unsigned int _experience) {
+bool PlayerStats::increaseExperience(unsigned int _experience) {
     experience += _experience;
     if (experience >= nextLevelExperience) {
         ++level;
         _increaseStats();
         experience = 0;
         nextLevelExperience = Calculator::calculateNextLevelXP(level);
+        return true;
     }
+    return false;
 }
 
 std::pair<int, bool> PlayerStats::modifyLife(int damage, unsigned int attackerLevel, unsigned int defense,

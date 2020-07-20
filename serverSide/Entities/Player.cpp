@@ -49,7 +49,9 @@ int32_t Player::attack(Coordinate target) {
         if (totalDamage != 0) {
             std::pair<AttackResult, bool> result = game.attackPosition(totalDamage, stats.getLevel(),
                                                       true, target);
-            stats.increaseExperience(result.first.experience);
+            if (stats.increaseExperience(result.first.experience)) {
+
+            }
             chat.addMessage(std::move(result.first.resultMessage));
             if (result.second) {
                 returnValue = inventory.getWeaponId();
@@ -343,4 +345,8 @@ AttackResult Player::_receiveDamage(int damage, unsigned int attackerLevel, bool
     }
     _storeAttackedResultMessage(attackedMessage, result, experience);
     return {result.first, experience, std::move(attackedMessage)};
+}
+
+int32_t Player::getLevel() const {
+    return stats.getLevel();
 }

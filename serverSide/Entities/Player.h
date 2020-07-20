@@ -149,6 +149,8 @@ public:
     /*Deja de mover al player*/
     void stopMovement();
 
+    int32_t getLevel() const override;
+
     /*Retorna su data actual (las cosas guardadas, stats, etc)*/
     PlayerData getData() const;
 

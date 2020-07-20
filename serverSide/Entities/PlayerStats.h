@@ -58,8 +58,10 @@ public:
     //Retorna el level actual del player
     unsigned int getLevel() const;
 
-    //Aumenta la xp del player
-    void increaseExperience(unsigned int _experience);
+    //Aumenta la xp del player, retorna true si subio de nivel, false en otro caso
+    //Un player nunca puede subir de a mas de un nivel ya que la experiencia de
+    //sobra es descartada
+    bool increaseExperience(unsigned int _experience);
 
     //Modifica la vida del player acorde al danio/curacion ocasionados
     //Retorna el pair(danio total recibido, pudo esquivar)
