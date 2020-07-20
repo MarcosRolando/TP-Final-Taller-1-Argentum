@@ -74,7 +74,7 @@ En el archivo podemos editar las estadísticas de razas, clases, monstruos e ite
 
 El servidor se ejecuta con el comando
 
-`$ argentumServer`
+`$ sudo argentumServer`
 
 Durante su ejecución el servidor escuchara conexiones en el puerto especificado en el archivo de configuración. 
 
@@ -93,13 +93,13 @@ El juego comienza con el menú principal. Primero debemos elegir si queremos cre
 
 #### Crear jugador
 
-Al crear un jugador debemos elegir su nickname (no puede contener espacios), su clase y su raza. 
+Al crear un jugador debemos elegir su nickname (no puede contener espacios), su clase y su raza. El nickname debe ser nuevo.
 
 ![CreatePlayer](/Informe/img/CreatePlayer.png)
 
 #### Cargar jugador
 
-Para cargar un jugador solo tenemos que ingresar su nickname.
+Para cargar un jugador solo tenemos que ingresar su nickname, que debe pertenecer a un jugador existente.
 
 ![LoadPlayer](/Informe/img/LoadPlayer.png)
 
@@ -129,7 +129,7 @@ En el minichat se podrán leer los mensajes relevantes recibidos por el server (
 
 - ###### /revive
 
-  Si el jugador esta muerto, revivirá al lado del cura mas cercano luego de unos segundos. Si se ingresa el comando habiendo seleccionado a un cura el jugador revivirá inmediatamente.
+  Si el jugador esta muerto, revivirá al lado del cura mas cercano luego de unos segundos (la duracion depende de la distancia a dicho cura). Si se ingresa el comando habiendo seleccionado a un cura el jugador revivirá inmediatamente.
 
 - ###### /heal
 
@@ -153,7 +153,7 @@ En el minichat se podrán leer los mensajes relevantes recibidos por el server (
 
 - ###### /list
 
-  Si tengo seleccionado a un cura o comerciante me mostrara los items que tiene en su inventario junto con su precio. Si tengo seleccionado a un banquero me mostrara los items que tengo depositados en el banco. Si tengo seleccionado un tile mostrara los items en ese tile.
+  Si tengo seleccionado a un cura o comerciante me mostrara los items que tiene en su inventario junto con su precio. Si tengo seleccionado a un banquero me mostrara los items que tengo depositados en el banco. Si tengo seleccionado un tile sin un personaje mostrara los items en ese tile.
 
 - ###### /buy \<item>
 
@@ -165,19 +165,19 @@ En el minichat se podrán leer los mensajes relevantes recibidos por el server (
 
 - ###### /take
 
-  Toma el item sobre el que esta parado el jugador
+  Toma el item sobre el que esta parado el jugador.
 
 - ###### /drop
 
-  Tira el item que se encuentra en la posición seleccionada del inventario
+  Tira el item que se encuentra en la posición seleccionada del inventario al suelo.
 
 - ###### /inventory
 
-  Lista las cosas que tengo en el inventario
+  Lista las cosas que tengo en el inventario, indicando la posicion del item (la posicion de arriba a la izquierda es el 0, y va creciendo hacia la derecha y hacia abajo) junto con su nombre.
 
 - ###### /clear
 
-  Limpia el minichat
+  Limpia el minichat.
 
 
 
