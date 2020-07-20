@@ -13,12 +13,12 @@
 #include "ItemsFactory.h"
 #include "../Entities/PlayerStats.h"
 #include "../Entities/Minichat.h"
+#include "../NonModifiableConstants.h"
 
 #define EMPTY_INVENTORY_MESSAGE "Your inventory is empty\n"
 
 MSGPACK_ADD_ENUM(GameType::ItemType)
 
-#define INVENTORY_SIZE 16
 
 //////////////////////////////PRIVATE/////////////////////////////
 /*Mueve el item al lugar de equipamiendo indicado si es que tiene uno*/
