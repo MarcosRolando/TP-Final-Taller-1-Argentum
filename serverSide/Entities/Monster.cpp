@@ -118,7 +118,7 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
             _damage *= 2;
             result.resultMessage += "Critical attack. ";
         }
-        std::pair<int, bool> realAttackResult = stats.modifyLife(_damage);
+        std::pair<int, bool> realAttackResult = stats.modifyLife(_damage, isCritical);
         if (realAttackResult.second) {
             result.resultMessage += "The monster dodged your attack\n";
         } else {
