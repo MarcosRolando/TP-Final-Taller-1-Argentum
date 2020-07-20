@@ -281,3 +281,7 @@ void Inventory::getInventoryNames(Minichat& chat) {
     }
 }
 
+bool Inventory::isFull() const {
+    return storedItemsAmount == INVENTORY_SIZE;
+}
+
