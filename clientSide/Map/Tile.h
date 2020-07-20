@@ -55,6 +55,10 @@ public:
 
     /*Elimina el spell del tile*/
     void destroyItem();
+
+    /*Pasa el spell de entity (si tuviera) al tile. Esto es por si el entity
+     * muere, para no perder la animacion*/
+    void retrieveEntitySpell();
 };
 
 

@@ -47,10 +47,6 @@ void Tile::renderEntity() {
 }
 
 void Tile::removeEntity() {
-    auto _entity = entity.lock();
-    if (_entity) {
-        spell = _entity->getSpell();
-    }
     entity.reset();
 }
 
@@ -65,4 +61,11 @@ void Tile::addSpell(std::shared_ptr<Spell>& newSpell, SDL_Rect& camera) {
 
 void Tile::destroyItem() {
     item.setItem(nullptr);
+}
+
+void Tile::retrieveEntitySpell() {
+    auto _entity = entity.lock();
+    if (_entity) {
+        spell = _entity->getSpell();
+    }
 }

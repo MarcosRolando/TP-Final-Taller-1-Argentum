@@ -41,7 +41,7 @@ void Minichat::handleBackspace() {
     std::lock_guard<std::mutex> l(inputMutex);
     if (focusOnMinichat) {
         if (input.getTextLength() > 1) {
-            *(--input);
+            --input;
         }
     }
 }

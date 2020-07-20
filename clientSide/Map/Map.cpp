@@ -198,6 +198,7 @@ void Map::setCameraOn(std::string& nickname) {
 void Map::removeEntity(std::string &nickname) {
     Coordinate position = entities.at(nickname).second;
     int tile = position.i * TOTAL_HORIZONTAL_TILES + position.j;
+    tiles.at(tile).retrieveEntitySpell();
     tiles.at(tile).removeEntity();
     entities.erase(nickname);
 }
