@@ -91,20 +91,20 @@ El juego comienza con el menú principal. Primero debemos elegir si queremos cre
 
 ![SelectScreen](/Informe/img/SelectScreen.png)
 
-##### Crear jugador
+#### Crear jugador
 
 Al crear un jugador debemos elegir su nickname (no puede contener espacios), su clase y su raza. 
 
 ![CreatePlayer](/Informe/img/CreatePlayer.png)
 
-##### Cargar jugador
+#### Cargar jugador
 
 Para cargar un jugador solo tenemos que ingresar su nickname.
 
 ![LoadPlayer](/Informe/img/LoadPlayer.png)
 
 
-##### Conexión
+#### Conexión
 
 Luego de cargar/crear un jugador se muestra la pantalla de conexión donde debemos elegir el host y port al que nos queremos conectar.
 
@@ -117,7 +117,7 @@ Si logramos conectarnos empieza el juego en si.
 
 ![Game](/Informe/img/game.png)
 
-##### Minichat
+#### Minichat
 
 ![minichat](/Informe/img/minichat.png)
 
@@ -181,19 +181,19 @@ En el minichat se podrán leer los mensajes relevantes recibidos por el server (
 
 
 
-##### Información del jugador
+#### Información del jugador
 
 ![playerInfo](/Informe/img/playerInfo.png)
 
 Aquí se muestran las estadísticas de vida, mana y experiencia del jugador
 
-##### Inventario
+#### Inventario
 
 ![inventory2](/Informe/img/inventory2.png)
 
 Arriba se pueden ver el  nivel y el nickname del usuario. Abajo se encuentra el inventario con los items que posee el jugador. El cuadrado que tiene un borde blanco es el que esta seleccionado. Por ultimo se ve la cantidad de oro del jugador y entre paréntesis el oro seguro.
 
-##### Stats
+#### Stats
 
 ![skills](/Informe/img/skills.png)
 
