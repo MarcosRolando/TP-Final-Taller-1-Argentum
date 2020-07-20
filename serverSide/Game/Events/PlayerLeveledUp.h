@@ -13,8 +13,10 @@
 class PlayerLeveledUp: public Event {
 private:
     const std::string& playerNickname;
+    int32_t level;
+
 public:
-    explicit PlayerLeveledUp(const std::string& playerNickname);
+    explicit PlayerLeveledUp(const std::string& playerNickname, int32_t level);
 
     void operator()(ServerProtocol& protocol) override;
 };
