@@ -16,17 +16,7 @@
 
 using namespace GameType;
 
-PlayerStats::PlayerStats(const PlayerData& data) {
-    Configuration& config = Configuration::getInstance();
-    Config::Modifiers classModifier = config.configClassModifiers(data.pClass);
-    Config::Modifiers raceModifier = config.configRaceModifiers(data.pRace);
-    classLifeMultiplier = classModifier.lifeMultiplier;
-    classManaMultiplier = classModifier.manaMultiplier;
-    raceLifeMultiplier = raceModifier.lifeMultiplier;
-    raceManaMultiplier = raceModifier.manaMultiplier;
-    _loadInitialStats(classModifier, raceModifier, data);
-    _loadGenericStats(classModifier, raceModifier, data);
-}
+///////////////////////////////////PUBLIC///////////////////////////////////
 
 //Funcion auxiliar para inicializar el resto de los atributos de la clase
 void PlayerStats::_loadGenericStats(Config::Modifiers& classM, Config::Modifiers& raceM,
@@ -61,14 +51,6 @@ void PlayerStats::_loadInitialStats(Config::Modifiers& classM, Config::Modifiers
     }
 }
 
-int PlayerStats::getTotalDamage(int weaponDamage) const {
-    return Calculator::calculateDamage(strength, weaponDamage);
-}
-
-unsigned int PlayerStats::getLevel() const {
-    return level;
-}
-
 //Aumenta en 1 el nivel de los atributos guardados y recalcula los nuevos valores
 //maximos de mana y vida, asignandole tambien estos a los valores actuales
 void PlayerStats::_increaseStats() {
@@ -82,6 +64,28 @@ void PlayerStats::_increaseStats() {
                                             level);
     currentLife = maxLife;
     currentMana = maxMana;
+}
+
+///////////////////////////////////PUBLIC///////////////////////////////////
+
+PlayerStats::PlayerStats(const PlayerData& data) {
+    Configuration& config = Configuration::getInstance();
+    Config::Modifiers classModifier = config.configClassModifiers(data.pClass);
+    Config::Modifiers raceModifier = config.configRaceModifiers(data.pRace);
+    classLifeMultiplier = classModifier.lifeMultiplier;
+    classManaMultiplier = classModifier.manaMultiplier;
+    raceLifeMultiplier = raceModifier.lifeMultiplier;
+    raceManaMultiplier = raceModifier.manaMultiplier;
+    _loadInitialStats(classModifier, raceModifier, data);
+    _loadGenericStats(classModifier, raceModifier, data);
+}
+
+int PlayerStats::getTotalDamage(int weaponDamage) const {
+    return Calculator::calculateDamage(strength, weaponDamage);
+}
+
+unsigned int PlayerStats::getLevel() const {
+    return level;
 }
 
 void PlayerStats::increaseExperience(unsigned int _experience) {
