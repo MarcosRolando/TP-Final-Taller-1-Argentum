@@ -91,6 +91,7 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
                 break;
             case GameType::PLAYER_LEVEL_UP:
                 _processPlayerLevelUp();
+                break;
             default:
                 std::cerr << std::get<0>(id) << " is an unknown command" << std::endl;
                 break;

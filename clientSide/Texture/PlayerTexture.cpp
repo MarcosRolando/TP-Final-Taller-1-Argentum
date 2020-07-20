@@ -67,7 +67,7 @@ void PlayerTexture::renderLeft(int x, int y, int frame) {
 }
 
 void PlayerTexture::setLevel(const std::string &_level) {
-    *(level.updateText(_level));
+    *(level.updateText( " (" + _level + ")"));
 }
 
 void PlayerTexture::equip(GameType::EquipmentPlace place, TextureID equipment) {

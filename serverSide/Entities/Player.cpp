@@ -67,7 +67,7 @@ AttackResult Player::attacked(int damage, unsigned int attackerLevel, bool isAPl
     stats.stopMeditating(chat);
     unsigned int newbieLevel = Configuration::getInstance().configNewbieLevel();
     if (!stats.isDead()) {
-        if (isAPlayer) {
+        if (isAPlayer && damage > 0) {
             if (stats.getLevel() <= newbieLevel) {
                 return {0, 0, PLAYER_IS_A_NEWBIE_MESSAGE};
             } else if (attackerLevel <= newbieLevel) {
