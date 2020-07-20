@@ -8,6 +8,10 @@
 struct Coordinate {
     int i;
     int j;
+
+    bool operator!=(Coordinate& other) {
+        return (i != other.i || j != other.j);
+    }
 };
 
 #endif //ARGENTUM_COORDINATE_H

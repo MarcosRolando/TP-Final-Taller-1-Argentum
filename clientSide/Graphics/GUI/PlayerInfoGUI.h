@@ -17,7 +17,7 @@ struct GUIInfoText {
     Text xp;
     Text level;
     Text constitution, strength, agility, intelligence;
-    Text gold, safeGold;
+    Text gold;
     Text position;
 
     GUIInfoText(SDL_Renderer& renderer, Font& font) : nickname(font, renderer),
@@ -26,7 +26,7 @@ struct GUIInfoText {
     constitution(font, renderer),
     strength(font, renderer), agility(font, renderer),
     intelligence(font, renderer), gold(font, renderer),
-    safeGold(font, renderer), position(font, renderer) {}
+    position(font, renderer) {}
 };
 
 class PlayerInfoGUI {
@@ -41,14 +41,17 @@ private:
 public:
     PlayerInfoGUI(SDL_Renderer& renderer, SoundPlayer& soundPlayer);
 
-    int32_t getLevel() const;
+    Text& getLevelText();
     int32_t getXPos() const;
     int32_t getYPos() const;
-    int32_t getStrength() const;
-    int32_t getConstitution() const;
-    int32_t getAgility() const;
-    int32_t getIntelligence() const;
-    std::string getNickname() const;
+    std::string& getNickname();
+    Text& getStrengthText();
+    Text& getConstitutionText();
+    Text& getAgilityText();
+    Text& getIntelligenceText();
+    Text& getPositionText();
+    Text& getNicknameText();
+    Text& getGoldText();
 
     /* Actualiza todas las stats del jugador */
     void update(PlayerStats& generalInfo);
@@ -69,6 +72,7 @@ private:
     void _updateAgility(int32_t agility);
     void _updateIntelligence(int32_t intelligence);
     void _updateNickname(std::string&& name);
+    void _updateGold(int32_t gold, int32_t safeGold);
 };
 
 
