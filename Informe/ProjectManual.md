@@ -17,7 +17,7 @@ los jugadores (drop, buy, sell, deposit, withdraw, etc.)
 - Reproducción de sonidos y música
 - Texto
 - Interfaz Gráfica
-- Minichat
+- Minichat del cliente
 - Interacción por parte del usuario
 - Eventos del cliente
 - Menú Principal
