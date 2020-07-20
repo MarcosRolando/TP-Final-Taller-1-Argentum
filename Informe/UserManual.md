@@ -164,7 +164,7 @@ Ademas, al hacer click en el minichat podrán ingresar los siguientes comandos:
 - ###### /deposit \<Gold> \<cantidad>
 
   Se debe tener seleccionado a un banquero. En tal caso se depositara la cantidad 
-  de oro especificada (si se una cantidad mayor o igual de oro).
+  de oro especificada (si se tiene una cantidad mayor o igual de oro).
 
 - ###### /withdraw \<item>
 
