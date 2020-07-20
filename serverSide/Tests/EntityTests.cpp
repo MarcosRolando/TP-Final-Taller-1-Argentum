@@ -154,10 +154,12 @@ bool EntityTests::testPlayerAttacksMonster() {
 
 bool EntityTests::testPlayerAttacksMonsterAndConsumesMana() {
     Mock<Game> game;
+    Fake(Method(game, pushEvent));
     PlayerData data;
     data.isNewPlayer = true;
     _fillEmptyMap(game.get().map, 10, 10, false);
     Player player(game.get(), {0,0}, data);
+    player.stats.level = 50; /*Para que no suba de nivel y se le restore el mana*/
     std::shared_ptr<Monster> monster(new Monster(game.get(), {0, 1},
                                      GameType::SKELETON, GameType::SKELETON_ATTACK));
     monster->stats.agility = 0; /*Para que no esquive el ataque*/
@@ -248,6 +250,7 @@ bool EntityTests::testPlayersAttackEachOther() {
 
 bool EntityTests::testMonsterAttacksPlayer() {
     Mock<Game> game;
+    Fake(Method(game, pushEvent));
     _fillEmptyMap(game.get().map, 10, 10, false);
     PlayerData data;
     data.isNewPlayer = true;

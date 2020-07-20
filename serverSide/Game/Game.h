@@ -72,9 +72,6 @@ public:
 
     explicit Game(MapFileReader&& mapFile);
 
-    //Destructor virtual para poder hacer un stub con fakeit
-    virtual ~Game() = default;
-
     //Delega a map el ataque a la coordenada recibida, retorna una instancia de AttackResult junto
     //con un bool que esta en true si se realizo un ataque, sino retorna false
     std::pair<AttackResult, bool> attackPosition(int damage, unsigned int level, bool isAPlayer,
@@ -116,8 +113,10 @@ public:
     void moveEntity(Coordinate initialPosition, Coordinate finalPosition);
 
     //Game se apropia del puntero al evento, agregandolo a la cola de enentos que
-    //despues sera vaciada para ejecutar las acciones del update
-    void pushEvent(std::unique_ptr<Event>&& event);
+    //despues sera vaciada para ejecutar las acciones del update. Este metodo es
+    //virtual para que Fakeit pueda redefinirlo a que no haga nada porque sino la
+    //prueba segmentea (el stub no reserva memoria para la cola de eventos creemos)
+    virtual void pushEvent(std::unique_ptr<Event>&& event);
 
     //Crea el player en base al nickname, raza y clase que recibe
     Player& createPlayer(PlayerData& playerData, ServerProtocol& protocol);

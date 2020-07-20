@@ -166,9 +166,7 @@ void Tile::requestRestore(Player& player) {
 //////////////////////////PRIVATE///////////////////////////////////
 
 void Tile::_storeItemsNames(Player& player) {
-    if (items.empty()) {
-        player.addMessage(NO_ITEMS_MESSAGE);
-    } else {
+    if (!items.empty()) {
         player.addMessage(ITEMS_MESSAGE);
         for (const auto & item: items) {
             player.addMessage(item->getName() + "\n");
