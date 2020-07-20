@@ -23,6 +23,9 @@ public:
     /* Setea el texto a "newText" */
     Text& updateText(std::string&& newText);
 
+    /* Setea el texto a "newText" */
+    Text& updateText(const std::string& newText);
+
     /* Agrega "newText" al final del texto */
     Text& operator+=(std::string&& newText);
 

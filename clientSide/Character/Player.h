@@ -34,6 +34,9 @@ public:
 
     /* Setea isAlive en true asi luego lo renderizo normalmente */
     void revive();
+
+    /*Aumenta el nivel que se muestra del player*/
+    void updateLevel(int level);
 };
 
 

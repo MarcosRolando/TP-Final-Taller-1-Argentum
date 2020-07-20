@@ -33,3 +33,8 @@ void Player::revive() {
     isAlive = true;
 }
 
+void Player::updateLevel(int level) {
+    pTexture.setLevel(level);
+    ghostTexture.setLevel(level);
+}
+

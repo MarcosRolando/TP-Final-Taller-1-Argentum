@@ -52,4 +52,9 @@ Text& Text::operator*() {
     return operator*({0xFF, 0xFF, 0xFF});
 }
 
+Text &Text::updateText(const std::string &newText) {
+    text = newText;
+    return *this;
+}
+
 Text::~Text() = default;

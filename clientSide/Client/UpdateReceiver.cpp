@@ -88,12 +88,22 @@ void UpdateReceiver::_processUpdate(uint32_t msgLength) {
             case GameType::RESURRECTED:
                 _processPlayerResurrect();
                 break;
+            case GameType::PLAYER_LEVEL_UP:
+                _processPlayerLevelUp();
             default:
                 std::cerr << std::get<0>(id) << " is an unknown command" << std::endl;
                 break;
         }
     }
     _receivePlayerData();
+}
+
+void UpdateReceiver::_processPlayerLevelUp() {
+    msgpack::type::tuple<std::string> player;
+    handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
+    handler->convert(player);
+    currentUpdate.push(std::unique_ptr<UpdateEvent>(new UpdateLevelUp(
+                                            std::move(std::get<0>(teleportData)))));
 }
 
 void UpdateReceiver::_processTeleportEntity() {

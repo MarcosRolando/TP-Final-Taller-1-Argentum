@@ -46,6 +46,7 @@ private:
     void _processDestroyItem();
     void _processTeleportEntity();
     void _processPlayerResurrect();
+    void _processPlayerLevelUp()
 };
 
 

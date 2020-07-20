@@ -325,3 +325,8 @@ void Map::_renderArrows() {
         arrow->render();
     }
 }
+
+void Map::updatePlayerLevel(const std::string& _playerNickname, int level) {
+    Entity* player = entities.at(_playerNickname).first.get();
+    player->updateLevel(level);
+}

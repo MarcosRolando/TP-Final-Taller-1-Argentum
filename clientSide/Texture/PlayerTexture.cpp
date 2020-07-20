@@ -4,8 +4,11 @@
 
 #include "PlayerTexture.h"
 
-PlayerTexture::PlayerTexture(TextureRepository& repo, PlayerEquipment equipment)
-                                : textureRepo(repo) {
+PlayerTexture::PlayerTexture(TextureRepository& repo, PlayerEquipment equipment,
+                            std::string&& _level) :textureRepo(repo),
+                            textFont("/var/Argentum/Assets/Fonts/Raleway-Medium.ttf", 20),
+                            level(textFont, repo.getRenderer(), std::move(_level)) {
+
     if (equipment.helmet != Nothing) helmet = &textureRepo.getTexture(equipment.helmet);
     else helmet = nullptr;
     head = &textureRepo.getTexture(equipment.head);
@@ -50,6 +53,10 @@ void PlayerTexture::renderLeft(int x, int y, int frame) {
     EntityTexture::render(body, x + 37, y + 30, frame + 12);
     EntityTexture::render(helmet, x + 43, y + 11, 2);
     EntityTexture::render(shield, x + 47, y + 30, frame + 12);
+}
+
+void PlayerTexture::setLevel(std::string &_level) {
+    *(level.updateText(_level));
 }
 
 void PlayerTexture::equip(GameType::EquipmentPlace place, TextureID equipment) {

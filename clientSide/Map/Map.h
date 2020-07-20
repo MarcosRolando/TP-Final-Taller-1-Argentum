@@ -115,6 +115,9 @@ public:
      * para que mire a su target*/
     void changeEntityLookDirection(std::string& nickname, GameType::Direction direction);
 
+    /*Actualiza el nivel que se muestra del player*/
+    void updatePlayerLevel(const std::string& _playerNickname, int level);
+
     /*Renderiza el mapa, esto incluye entities, estructuras, spells, etc*/
     void render();
 

@@ -22,14 +22,18 @@ private:
     Texture* body;
     Texture* shield;
     Texture* weapon;
+    Font textFont;
+    Text level;
 
 public:
-    PlayerTexture(TextureRepository& repo, PlayerEquipment equipment);
+    PlayerTexture(TextureRepository& repo, PlayerEquipment equipment, std::string&& _level);
 
     void renderFront(int x, int y, int frame) override;
     void renderBack(int x, int y, int frame) override;
     void renderRight(int x, int y, int frame) override;
     void renderLeft(int x, int y, int frame) override;
+
+    void setLevel(std::string &_level);
 
     /*Cambia una textura del player*/
     void equip(GameType::EquipmentPlace place, TextureID equipment);
