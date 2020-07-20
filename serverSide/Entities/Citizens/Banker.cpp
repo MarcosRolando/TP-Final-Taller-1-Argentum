@@ -8,8 +8,8 @@
 #include "Storage.h"
 #include "../../../libs/TPException.h"
 #include "../../Config/Configuration.h"
+#include "../../NonModifiableConstants.h"
 
-#define MAX_NUMBER_OF_ITEMS_PER_PLAYER 20
 #define NO_ROOM_AVAILABLE_MESSAGE "You don't have more storage room, the limit is "
 #define ROOM_AVAILABLE_MESSAGE "Items stored: "
 #define NO_ITEM_MESSAGE "You don't have that item in you inventory\n"
