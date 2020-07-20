@@ -55,7 +55,7 @@ void PlayerTexture::renderLeft(int x, int y, int frame) {
     EntityTexture::render(shield, x + 47, y + 30, frame + 12);
 }
 
-void PlayerTexture::setLevel(std::string &_level) {
+void PlayerTexture::setLevel(const std::string &_level) {
     *(level.updateText(_level));
 }
 

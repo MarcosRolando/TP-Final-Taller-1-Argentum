@@ -33,7 +33,7 @@ public:
     void renderRight(int x, int y, int frame) override;
     void renderLeft(int x, int y, int frame) override;
 
-    void setLevel(std::string &_level);
+    void setLevel(const std::string &_level);
 
     /*Cambia una textura del player*/
     void equip(GameType::EquipmentPlace place, TextureID equipment);

@@ -25,7 +25,7 @@ public:
     void renderBack(int x, int y, int frame) override;
     void renderRight(int x, int y, int frame) override;
     void renderLeft(int x, int y, int frame) override;
-    void setLevel(std::string& _level);
+    void setLevel(const std::string& _level);
 };
 
 

@@ -34,7 +34,8 @@ void Player::revive() {
 }
 
 void Player::updateLevel(int level) {
-    pTexture.setLevel(level);
-    ghostTexture.setLevel(level);
+    std::string strLevel = std::to_string(level);
+    pTexture.setLevel(strLevel);
+    ghostTexture.setLevel(strLevel);
 }
 
