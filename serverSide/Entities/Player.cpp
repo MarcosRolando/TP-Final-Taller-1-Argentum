@@ -10,6 +10,7 @@
 #include "../Game/Events/Drop.h"
 #include "../Game/Events/NotifyDeath.h"
 #include "../Game/Events/Move.h"
+#include "../Game/Events/PlayerLeveledUp.h"
 #include <msgpack.hpp>
 
 #define ATTACKER_IS_NEWBIE_MESSAGE "I won't lose my time on a low level newbie like you!\n"
@@ -50,7 +51,7 @@ int32_t Player::attack(Coordinate target) {
             std::pair<AttackResult, bool> result = game.attackPosition(totalDamage, stats.getLevel(),
                                                       true, target);
             if (stats.increaseExperience(result.first.experience)) {
-
+                game.pushEvent(std::unique_ptr<Event>(new PlayerLeveledUp(getNickname())));
             }
             chat.addMessage(std::move(result.first.resultMessage));
             if (result.second) {
