@@ -99,7 +99,7 @@ void PlayerInfoGUI::_renderInfoBar(int32_t infoCurr, int32_t infoTotal,
     SDL_SetRenderDrawColor( &renderer, 0x00,0x00,0x00, 0xFF );
     SDL_RenderDrawRect( &renderer, &outlineRect );
     //Texto de la barra
-    info.render(xOffset, 10, SDL_Color{0xFF,0xFF,0xFF});
+    (*info).render(xOffset, 10);
 }
 
 int32_t PlayerInfoGUI::getLevel() const {

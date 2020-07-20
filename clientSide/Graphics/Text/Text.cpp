@@ -4,30 +4,40 @@
 
 #include "Text.h"
 
-Text::Text(Font& font, SDL_Renderer& renderer) : font(font),
+Text::Text(Font& font, SDL_Renderer& renderer, std::string&& _text) : font(font),
                                     textTexture(renderer) {
-    text = "";
+    text = std::move(_text);
+    operator*();
 }
 
-void Text::updateText(std::string&& newText) {
+Text& Text::updateText(std::string&& newText) {
     text = std::move(newText);
+    return *this;
 }
 
-void Text::appendText(std::string&& newText) {
+Text& Text::operator+=(std::string&& newText) {
     text += newText;
+    return *this;
 }
 
-void Text::render(int x, int y, SDL_Color color) {
+Text& Text::operator*(SDL_Color color) {
     if (!text.empty()) {
         textTexture.loadFromRenderedText(text, color, font.getFont());
+    }
+    return *this;
+}
+
+void Text::render(int x, int y) {
+    if (!text.empty()) {
         textTexture.render(x, y);
     }
 }
 
-void Text::eraseText() {
+Text& Text::operator--() {
     if (!text.empty()) {
         text.pop_back();
     }
+    return *this;
 }
 
 int Text::getTextLength() {
@@ -36,6 +46,10 @@ int Text::getTextLength() {
 
 std::string &Text::getText() {
     return text;
+}
+
+Text& Text::operator*() {
+    return operator*({0xFF, 0xFF, 0xFF});
 }
 
 Text::~Text() = default;

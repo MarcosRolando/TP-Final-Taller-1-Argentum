@@ -426,3 +426,7 @@ void TextureRepository::_addSpellSprites(Texture& texture, int y, int width, int
 Texture& TextureRepository::getTexture(TextureID texture) {
     return textures.at(texture);
 }
+
+SDL_Renderer &TextureRepository::getRenderer() const {
+    return renderer;
+}

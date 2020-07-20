@@ -18,6 +18,12 @@ public:
     explicit TextureRepository(SDL_Renderer& renderer);
     Texture& getTexture(TextureID texture);
 
+    /*Devuelve el mismo renderer que la window. No es ideal pero fue la mejor solucion
+     * para poder crear el texto del nivel/nombre de las entidades ya que necesitamos
+     * el renderer para text y sino tendriamos que pedirlo de screen, estando este
+     * mucho mas arriba en jerarquia y no es posible sin cambiar todo el modelo*/
+    SDL_Renderer& getRenderer() const;
+
 private:
     void _loadClothing();
     void _loadHeads();

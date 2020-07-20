@@ -6,6 +6,7 @@
 #define ARGENTUM_ENTITYTEXTURE_H
 
 #include "Texture.h"
+#include "../Graphics/Text/Text.h"
 
 /*Clase Abstracta, los hijos deben implementar la renderizacion*/
 

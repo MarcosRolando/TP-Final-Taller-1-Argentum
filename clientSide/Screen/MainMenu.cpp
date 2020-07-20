@@ -348,24 +348,24 @@ void MainMenu::_handleTextInput(SDL_Event& e) {
     std::string newInput = e.text.text;
     if (hostInput) {
         if (hostInputText.getTextLength() < MAX_TEXT_LEN)
-            hostInputText.appendText(std::move(newInput));
+            hostInputText += std::move(newInput);
     } else if (portInput) {
         if (portInputText.getTextLength() < MAX_TEXT_LEN)
-            portInputText.appendText(std::move(newInput));
+            portInputText += std::move(newInput);
     } else if (nicknameInput) {
         if (nicknameInputText.getTextLength() < MAX_NICKNAME_LEN)
-            nicknameInputText.appendText(std::move(newInput));
+            nicknameInputText += std::move(newInput);
     }
 }
 
 /* Borra una letra del texto donde se hizo click */
 void MainMenu::_handleBackspace() {
     if (hostInput) {
-        hostInputText.eraseText();
+        --hostInputText;
     } else if (portInput) {
-        portInputText.eraseText();
+        --portInputText;
     } else if (nicknameInput) {
-        nicknameInputText.eraseText();
+        --nicknameInputText;
     }
 }
 
@@ -390,17 +390,17 @@ void MainMenu::_renderConnectScreen(){
     SDL_SetRenderDrawColor(&window.getRenderer(),  0x00, 0x00,
                            0x00, 0xFF);
     SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
-    text.updateText("Host: ");
+    text.updateText("Host: ").operator*({0, 0, 0});
     text.render(50, 100);
-    text.updateText("Port: ");
+    text.updateText("Port: ").operator*({0, 0, 0});
     text.render(50, 200);
-    text.updateText("Connect");
-    text.render(1375, 875, {0xff,0xff,0xff});
-    text.updateText("Back");
-    text.render(50, 875, {0xff,0xff,0xff});
-    hostInputText.render(115, 100);
-    portInputText.render(115, 200);
-    errorText.render(650, 875, {0xff,0xff,0xff});
+    *(text.updateText("Connect"));
+    text.render(1375, 875);
+    *(text.updateText("Back"));
+    text.render(50, 875);
+    hostInputText.operator*({0, 0, 0}).render(115, 100);
+    portInputText.operator*({0, 0, 0}).render(115, 200);
+    (*errorText).render(650, 875);
     window.show();
 }
 
@@ -408,13 +408,13 @@ void MainMenu::_renderPlayerSelectionScreen() {
     window.clear();
     window.setViewport(ScreenViewport);
     mainMenuBackground.render(0,0);
-    text.updateText("Create Player");
+    text.updateText("Create Player").operator*({0, 0, 0});
     text.render(50, 100);
-    text.updateText("Load Player");
+    text.updateText("Load Player").operator*({0, 0, 0});;
     text.render(50, 200);
-    text.updateText("Exit");
-    text.render(50, 875, {0xff,0xff,0xff});
-    errorText.render(650, 875, {0xff,0xff,0xff});
+    *(text.updateText("Exit"));
+    text.render(50, 875);
+    errorText.render(650, 875);
     window.show();
 }
 
@@ -427,14 +427,14 @@ void MainMenu::_renderLoadPlayerScreen() {
     SDL_SetRenderDrawColor(&window.getRenderer(), 0x00, 0x00,
                            0x00, 0xFF);
     SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
-    text.updateText("Nickname: ");
+    text.updateText("Nickname: ").operator*({0, 0, 0});
     text.render(50, 100);
-    text.updateText("Start");
-    text.render(1375, 875, {0xff,0xff,0xff});
-    text.updateText("Back");
-    text.render(50, 875, {0xff,0xff,0xff});
-    nicknameInputText.render(165, 100);
-    errorText.render(650, 875, {0xff,0xff,0xff});
+    *(text.updateText("Start"));
+    text.render(1375, 875);
+    *(text.updateText("Back"));
+    text.render(50, 875);
+    nicknameInputText.operator*({0, 0, 0}).render(165, 100);
+    errorText.render(650, 875);
     window.show();
 }
 
@@ -447,38 +447,38 @@ void MainMenu::_renderCreatePlayerScreen() {
     SDL_SetRenderDrawColor(&window.getRenderer(),  0x00, 0x00,
                            0x00, 0xFF);
     SDL_RenderDrawRect( &window.getRenderer(), &outlineRect );
-    text.updateText("Nickname: ");
+    text.updateText("Nickname: ").operator*({0, 0, 0});
     text.render(50, 100);
-    strength.updateText("Strength");
-    constitution.updateText("Constitution");
-    intelligence.updateText("Intelligence");
-    agility.updateText("Agility");
+    (strength.updateText("Strength")).operator*({0x00,0x00,0x00});
+    (constitution.updateText("Constitution")).operator*({0x00,0x00,0x00});
+    (intelligence.updateText("Intelligence")).operator*({0x00,0x00,0x00});
+    (agility.updateText("Agility")).operator*({0x00,0x00,0x00});
     _renderClass();
     _renderRace();
-    strength.render(125, 400, {0x00,0x00,0x00});
-    constitution.render(125, 500, {0x00,0x00,0x00});
-    intelligence.render(375, 400, {0x00,0x00,0x00});
-    agility.render(375, 500, {0x00,0x00,0x00});
-    nicknameInputText.render(165, 100,{0x00,0x00,0x00});
-    errorText.render(650, 875, {0xff,0xff,0xff});
-    text.updateText("Start");
-    text.render(1375, 875, {0xff,0xff,0xff});
-    text.updateText("Back");
-    text.render(50, 875, {0xff,0xff,0xff});
+    strength.render(125, 400);
+    constitution.render(125, 500);
+    intelligence.render(375, 400);
+    agility.render(375, 500);
+    nicknameInputText.operator*({0, 0, 0}).render(165, 100);
+    errorText.render(650, 875);
+    *(text.updateText("Start"));
+    text.render(1375, 875);
+    *(text.updateText("Back"));
+    text.render(50, 875);
     window.show();
 }
 
 void MainMenu::_renderClass() {
-    text.updateText("Class: ");
-    text.render(50, 200, {0x00,0x00,0x00});
-    text.updateText("Warrior");
-    text.render(150, 200, {0x00,0x00,0x00});
-    text.updateText("Wizard");
-    text.render(300, 200, {0x00,0x00,0x00});
-    text.updateText("Cleric");
-    text.render(450, 200, {0x00,0x00,0x00});
-    text.updateText("Paladin");
-    text.render(600, 200, {0x00,0x00,0x00});
+    text.updateText("Class: ").operator*({0x00,0x00,0x00});
+    text.render(50, 200);
+    text.updateText("Warrior").operator*({0x00,0x00,0x00});
+    text.render(150, 200);
+    text.updateText("Wizard").operator*({0x00,0x00,0x00});
+    text.render(300, 200);
+    text.updateText("Cleric").operator*({0x00,0x00,0x00});
+    text.render(450, 200);
+    text.updateText("Paladin").operator*({0x00,0x00,0x00});
+    text.render(600, 200);
     /* Outline de la clase que tengo seleccionada */
     SDL_Rect outlineRect;
     switch (info.myClass) {
@@ -505,16 +505,16 @@ void MainMenu::_renderClass() {
 }
 
 void MainMenu::_renderRace() {
-    text.updateText("Race: ");
-    text.render(50, 300, {0x00,0x00,0x00});
-    text.updateText("Human");
-    text.render(150, 300, {0x00,0x00,0x00});
-    text.updateText("Elf");
-    text.render(300, 300, {0x00,0x00,0x00});
-    text.updateText("Dwarf");
-    text.render(450, 300, {0x00,0x00,0x00});
-    text.updateText("Gnome");
-    text.render(600, 300, {0x00,0x00,0x00});
+    text.updateText("Race: ").operator*({0x00,0x00,0x00});
+    text.render(50, 300);
+    text.updateText("Human").operator*({0x00,0x00,0x00});
+    text.render(150, 300);
+    text.updateText("Elf").operator*({0x00,0x00,0x00});
+    text.render(300, 300);
+    text.updateText("Dwarf").operator*({0x00,0x00,0x00});
+    text.render(450, 300);
+    text.updateText("Gnome").operator*({0x00,0x00,0x00});
+    text.render(600, 300);
     /* Outline de la raza que tengo seleccionada */
     SDL_Rect outlineRect;
     switch (info.myRace) {
@@ -541,59 +541,47 @@ void MainMenu::_renderRace() {
 }
 
 void MainMenu::_updateWarriorSkills() {
-    strength.appendText("++++");
-    constitution.appendText("+++");
-    intelligence.appendText("");
-    agility.appendText("");
+    (strength += "++++").operator*({0, 0, 0});
+    (constitution += "+++").operator*({0, 0, 0});
 }
 
 void MainMenu::_updateWizardSkills() {
-    strength.appendText("");
-    constitution.appendText("");
-    intelligence.appendText("+++++");
-    agility.appendText("");
+    (intelligence += "+++++").operator*({0, 0, 0});
 }
 
 void MainMenu::_updateClericSkills() {
-    strength.appendText("++");
-    constitution.appendText("++");
-    intelligence.appendText("+++");
-    agility.appendText("");
+    (strength += "++").operator*({0, 0, 0});
+    (constitution += "++").operator*({0, 0, 0});
+    (intelligence += "+++").operator*({0, 0, 0});
 }
 
 void MainMenu::_updatePaladinSkills() {
-    strength.appendText("+++");
-    constitution.appendText("+++");
-    intelligence.appendText("+");
-    agility.appendText("");
+    (strength += "+++").operator*({0, 0, 0});
+    (constitution += "+++").operator*({0, 0, 0});
+    (intelligence += "+").operator*({0, 0, 0});
 }
 
 void MainMenu::_updateHumanSkills() {
-    strength.appendText("++");
-    constitution.appendText("++");
-    intelligence.appendText("++");
-    agility.appendText("++");
+    (strength += "++").operator*({0, 0, 0});
+    (constitution += "++").operator*({0, 0, 0});
+    (intelligence += "++").operator*({0, 0, 0});
+    (agility += "++").operator*({0, 0, 0});
 }
 
 void MainMenu::_updateElfSkills() {
-    strength.appendText("");
-    constitution.appendText("");
-    intelligence.appendText("++++");
-    agility.appendText("+++");
+    (intelligence += "++++").operator*({0, 0, 0});
+    (agility += "+++").operator*({0, 0, 0});
 }
 
 void MainMenu::_updateDwarfSkills() {
-    strength.appendText("++++");
-    constitution.appendText("+++");
-    intelligence.appendText("");
-    agility.appendText("");
+    (strength += "++++").operator*({0, 0, 0});
+    (constitution += "+++").operator*({0, 0, 0});
 }
 
 void MainMenu::_updateGnomeSkills() {
-    strength.appendText("++");
-    constitution.appendText("+++");
-    intelligence.appendText("++");
-    agility.appendText("");
+    (strength += "++").operator*({0, 0, 0});
+    (constitution += "+++").operator*({0, 0, 0});
+    (intelligence += "++").operator*({0, 0, 0});
 }
 
 MainMenu::~MainMenu(){

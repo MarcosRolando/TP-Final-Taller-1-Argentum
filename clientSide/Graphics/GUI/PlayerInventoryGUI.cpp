@@ -22,7 +22,8 @@ PlayerInventoryGUI::PlayerInventoryGUI(TextureRepository &repo,SDL_Renderer &ren
                                        PlayerInfoGUI& playerInfo) :
                                        textFont(INVENTORY_FONT_PATH, 25),
                                             text(textFont,renderer), repo(repo),
-                                            renderer(renderer), pInfo(playerInfo) {
+                                            renderer(renderer), pInfo(playerInfo),
+                                            fixedText(renderer, textFont) {
     gold = 0;
     for (int i = 0; i < INVENTORY_SIZE; ++i) {//Inicializo el vector con nullptr
         inventoryTextures.push_back(nullptr);
@@ -64,40 +65,38 @@ void PlayerInventoryGUI::render(int32_t selectedSlotX) {
 }
 
 void PlayerInventoryGUI::_renderText() {
-    text.updateText("Argentum");
-    text.render(215, 25, SDL_Color{0xFF,0xFF,0xFF});
+    fixedText.title.render(215, 25);
 
-    text.updateText("INVENTORY");
-    text.render(160, 225, SDL_Color{0xFF,0xFF,0xFF});
+    fixedText.inventory.render(160, 225);
 
     text.updateText("GOLD: " + std::to_string(gold) + "(" + std::to_string(safeGold) + ")");
-    text.render(140, 565, SDL_Color{0xFF,0xFF,0x00});
+    text.operator*(SDL_Color{0xFF,0xFF,0x00}).render(140, 565);
 
-    text.updateText(std::to_string(pInfo.getLevel()));
-    text.render(70, 50, SDL_Color{0xFF,0xFF,0xFF});
+    *(text.updateText(std::to_string(pInfo.getLevel())));
+    text.render(70, 50);
 
     _renderSkills();
 
-    text.updateText("X: " + std::to_string(pInfo.getXPos()) + "   " + "Y: " +
-                    std::to_string(pInfo.getYPos()));
-    text.render(200, 880, {0xFF, 0xFF, 0xFF});
+    *(text.updateText("X: " + std::to_string(pInfo.getXPos()) + "   " + "Y: " +
+                    std::to_string(pInfo.getYPos())));
+    text.render(200, 880);
 
-    text.updateText(pInfo.getNickname());
-    text.render(210,95, {0xFF,0xFF,0xFF});
+    *(text.updateText(pInfo.getNickname())); //todo crear la textura una sola vez
+    text.render(210,95);
 }
 
 void PlayerInventoryGUI::_renderSkills(){
-    text.updateText("STRENGTH : " + std::to_string(pInfo.getStrength()));
-    text.render(40, 660, SDL_Color{0xFF,0xFF,0xFF});
+    *(text.updateText("STRENGTH : " + std::to_string(pInfo.getStrength())));
+    text.render(40, 660);
 
-    text.updateText("CONSTITUTION : " + std::to_string(pInfo.getConstitution()));
-    text.render(40, 700, SDL_Color{0xFF,0xFF,0xFF});
+    *(text.updateText("CONSTITUTION : " + std::to_string(pInfo.getConstitution())));
+    text.render(40, 700);
 
-    text.updateText("INTELLIGENCE : " + std::to_string(pInfo.getIntelligence()));
-    text.render(40, 740, SDL_Color{0xFF,0xFF,0xFF});
+    *(text.updateText("INTELLIGENCE : " + std::to_string(pInfo.getIntelligence())));
+    text.render(40, 740);
 
-    text.updateText("AGILITY : " + std::to_string(pInfo.getAgility()));
-    text.render(40, 780, SDL_Color{0xFF,0xFF,0xFF});
+    *(text.updateText("AGILITY : " + std::to_string(pInfo.getAgility())));
+    text.render(40, 780);
 }
 
 void PlayerInventoryGUI::_renderInventoryItems() {

@@ -11,6 +11,14 @@
 #include <list>
 #include <unordered_map>
 
+struct FixedText {
+    Text inventory;
+    Text title;
+
+    FixedText(SDL_Renderer& renderer, Font& font) : inventory(font, renderer, "INVENTORY"),
+                                                title(font, renderer, "ARGENTUM") {}
+};
+
 class PlayerInventoryGUI {
 private:
     Font textFont;
@@ -20,6 +28,7 @@ private:
     std::vector<Texture*> inventoryTextures;
     std::unordered_map<EquippedItems, Texture*> equippedTextures;
     PlayerInfoGUI& pInfo;
+    FixedText fixedText;
     int32_t gold, safeGold;
 
 public:

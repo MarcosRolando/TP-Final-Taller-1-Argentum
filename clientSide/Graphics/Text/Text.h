@@ -18,16 +18,16 @@ private:
     Texture textTexture;
 
 public:
-    Text(Font& font, SDL_Renderer& renderer);
+    Text(Font& font, SDL_Renderer& renderer, std::string&& _text = "");
 
     /* Setea el texto a "newText" */
-    void updateText(std::string&& newText);
+    Text& updateText(std::string&& newText);
 
     /* Agrega "newText" al final del texto */
-    void appendText(std::string&& newText);
+    Text& operator+=(std::string&& newText);
 
     /* Borra la ultima letra del texto */
-    void eraseText();
+    Text& operator--();
 
     /* Me devuelve el tamaño del texto */
     int getTextLength();
@@ -36,7 +36,13 @@ public:
     std::string& getText();
 
     /* Renderiza el texto en la posicion (x,y) con el color "color" */
-    void render(int x, int y, SDL_Color color = {0, 0, 0});
+    void render(int x, int y);
+
+    /* Genera la textura en base al texto almacendo */
+    Text& operator*(SDL_Color color);
+
+    /* Es para mandarle un color default al otro, C++ no me deja ponerle default sino*/
+    Text& operator*();
 
     ~Text();
 };

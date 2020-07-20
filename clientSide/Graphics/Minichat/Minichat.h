@@ -11,11 +11,13 @@
 #include <list>
 #include "../../Map/Coordinate.h"
 #include <mutex>
+#include <atomic>
 
 class Minichat {
 private:
     Font minichatFont;
     Text input;
+    std::atomic<bool> processedInput{false};
     std::list<Text> texts;
     SDL_Renderer& renderer;
     bool focusOnMinichat;
@@ -57,7 +59,7 @@ public:
 
 private:
     static bool _isInsideMinichat(int xClick, int yClick);
-
+    void _queueInputIfProcessed();
 };
 
 #endif //ARGENTUM_MINICHAT_H

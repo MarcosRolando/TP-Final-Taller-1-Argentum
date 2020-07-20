@@ -153,8 +153,6 @@ void ClientEventHandler::_processCommandInput() {
             inputCmd = cmdVerifier.verifyCommand(game, std::move(cmd));
             if (inputCmd) {
                 (*inputCmd)(msgBuffer);//Arma el mensaje y lo packea en msgBuffer
-            } else {
-                game.getMinichat().receiveText("Invalid command");
             }
         }
     }

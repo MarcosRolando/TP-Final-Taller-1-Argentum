@@ -30,8 +30,8 @@ std::string Minichat::handleReturnKey() {
     std::string cmd = input.getText();
     if (cmd.size() > 1) {
         cmd.erase(0, 1);//Le saco ":"
-        receiveText(cmd);//Imprimo el comando en el minichat
-        input.updateText(":");
+        input.getText().erase(0, 1);
+        processedInput = true;
         return cmd;
     }
     return "";
@@ -41,7 +41,7 @@ void Minichat::handleBackspace() {
     std::lock_guard<std::mutex> l(inputMutex);
     if (focusOnMinichat) {
         if (input.getTextLength() > 1) {
-            input.eraseText();
+            *(--input);
         }
     }
 }
@@ -49,7 +49,9 @@ void Minichat::handleBackspace() {
 void Minichat::handleTextInput(SDL_Event &e) {
     std::lock_guard<std::mutex> l(inputMutex);
     std::string newInput = e.text.text;
-    if (input.getTextLength() < MAX_TEXT_LEN) input.appendText(std::move(newInput));
+    if (input.getTextLength() < MAX_TEXT_LEN) {
+        input += std::move(newInput);
+    }
 }
 
 void Minichat::handleMouseButtonDown(Coordinate click, Window& window) {
@@ -98,7 +100,7 @@ void Minichat::queueText(std::string& newText) {
     if (!newText.empty()) {
         texts.pop_back();
         texts.emplace_front(minichatFont, renderer);
-        texts.front().updateText(std::move(newText));
+        *(texts.front().updateText(std::move(newText)));
     }
 }
 
@@ -109,17 +111,25 @@ void Minichat::clearMinichat() {
     }
 }
 
+void Minichat::_queueInputIfProcessed() {
+    if (processedInput) { /*No lo encola el thread de input porque SDL no puede actualizar texturas desde otro thread*/
+        queueText(input.getText());
+        input.updateText(":");
+        processedInput = false;
+    }
+}
+
 void Minichat::render() {
-    std::lock_guard<std::mutex> lg(generalMutex);
     std::lock_guard<std::mutex> li(inputMutex);
-    input.render(0,178, SDL_Color{0xFF,0xFF,0xFF,0xFF});
+    _queueInputIfProcessed();
+    std::lock_guard<std::mutex> lg(generalMutex);
+    (*input).render(0,178);
     //renderizo mensajes encolados.
     int textNum = 0;
     for (auto & text : texts) {
         if (textNum >= firstToRender) {
             if (!text.getText().empty()) {
-                text.render(0,140 - 20*(textNum - firstToRender),
-                            SDL_Color{0xFF,0xFF,0xFF,0xFF});
+                text.render(0,140 - 20*(textNum - firstToRender));
             }
         }
         ++textNum;
