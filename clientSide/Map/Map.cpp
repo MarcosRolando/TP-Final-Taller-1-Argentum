@@ -104,7 +104,8 @@ void Map::_addEntity(EntityData& data, std::shared_ptr<Entity>& entity) {
 void Map::addNPC(EntityData& data) {
     if (entities.count(data.nickname) == 0) {
         std::shared_ptr<Entity> npc = std::make_shared<NPC>(textureRepo,
-                camera, data.pos.j*TILE_WIDTH,data.pos.i*TILE_HEIGHT, data.texture);
+                camera, data.pos.j*TILE_WIDTH,data.pos.i*TILE_HEIGHT, data.texture,
+                std::to_string(data.level));
         _addEntity(data, npc);
     }
 }
@@ -113,7 +114,7 @@ void Map::addPlayer(MapPlayerData& playerData) {
     if (entities.count(playerData.entityData.nickname) == 0) {
         std::shared_ptr<Entity> player = std::make_shared<Player>(textureRepo,camera,
                 playerData.entityData.pos.j*TILE_WIDTH,playerData.entityData.pos.i*TILE_HEIGHT,
-                playerData.equipment, playerData.isAlive);
+                playerData.equipment, playerData.isAlive, std::to_string(playerData.entityData.level));
         _addEntity(playerData.entityData, player);
     }
 }

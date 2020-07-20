@@ -64,6 +64,7 @@ public:
      * un entity ataca, para que mire a la direccion en la que ataco*/
     void setLookDirection(GameType::Direction direction);
 
+    virtual void updateLevel(int level) = 0;
 
     virtual ~Entity() = default;
 

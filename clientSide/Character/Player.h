@@ -20,7 +20,8 @@ private:
 public:
     Player(TextureRepository& repo, SDL_Rect& camera, float x, float y,
                                                     PlayerEquipment& images,
-                                                    bool _isAlive = true);
+                                                    bool _isAlive = true,
+                                                    std::string&& level = "");
 
     /* Renderiza al jugador con su equipamiento (o como fantasma si esta muerto) */
     void render() override;
@@ -35,7 +36,7 @@ public:
     void revive();
 
     /*Aumenta el nivel que se muestra del player*/
-    void updateLevel(int level);
+    void updateLevel(int level) override;
 };
 
 

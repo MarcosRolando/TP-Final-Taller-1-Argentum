@@ -5,8 +5,13 @@
 #include "NPC.h"
 
 NPC::NPC(TextureRepository& repo, SDL_Rect &camera, float x, float y,
-         TextureID texture) : Entity(camera, x, y), npcTexture(repo, texture, std::to_string(10)) {}
+         TextureID texture, std::string&& level) : Entity(camera, x, y),
+         npcTexture(repo, texture, std::move(level)) {}
 
 void NPC::render() {
     Entity::render(npcTexture);
+}
+
+void NPC::updateLevel(int level) {
+    npcTexture.setLevel(std::to_string(level));
 }

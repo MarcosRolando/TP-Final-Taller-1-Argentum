@@ -16,7 +16,10 @@ private:
 
 public:
     NPC(TextureRepository& repo, SDL_Rect& camera, float x, float y,
-                                                        TextureID texture);
+            TextureID texture, std::string&& level = "");
+
+    /*Aumenta el nivel que se muestra del player*/
+    void updateLevel(int level) override;
 
     /*Renderiza en el mapa al NPC*/
     void render() override;
