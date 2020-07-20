@@ -7,7 +7,7 @@
 
 #include <string>
 #include "../../libs/GameEnums.h"
-#include "../Persistance/SaveFileManager.h"
+#include "../Persistence/SaveFileManager.h"
 
 class Game;
 class PlayerProxy;

@@ -1,7 +1,5 @@
 # Documentación técnica
 
-### <u>Requerimientos de Hardware</u>
-
 ### <u>Requerimientos de Software</u>
 Este trabajo fue probado en computadoras con Ubuntu 18.04.4 y 20.04.
 
@@ -77,12 +75,12 @@ servidor. Se utiliza para mandarle la información actual del juego cuando este 
 y para mandarle la información cada update.
 
 #### ClientsMonitor
-&nbsp;&nbsp;&nbsp;&nbsp;Clase que engloba la lista de clientes conectados y clientes en 
-espera. Se utiliza para pedirle a cada cliente que realice alguna acción específica, protege
-también la lista de espera de race conditions al juntarla con la lista de clientes activos. 
-AGREGAR COSAS DE PLAYER MANAGER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Clase que engloba la lista de clientes conectados y clientes en 
+espera. Todos los clientes que sean aceptados por el ClientAccepter serán 
+agregagos a una lista de espera de ClientsMonitor hasta que el Game los
+acepte y proceda a mergear dicha lista con la lista de clientes activos.
+Si algún cliente se desconecta entonces se le desconectará debidamente
+cuando se verifique el estado de los clientes.
 
 #### PlayerManager
 &nbsp;&nbsp;&nbsp;&nbsp;AGREGAR COSAS DE PLAYER MANAGER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
