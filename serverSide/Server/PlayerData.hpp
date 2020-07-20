@@ -13,7 +13,7 @@
 
 const int INVENTORY_SIZE = 16;
 const int BANK_SIZE = 20;
-const int MAX_NICKNAME_SIZE = 15;
+const int MAX_NICKNAME_SIZE = 13;
 const unsigned int INITIAL_PLAYER_GOLD = 150;
 
 //Struct que se encarga de almacenar toda la informacion relevante de un player,
@@ -51,7 +51,7 @@ struct PlayerData {
         equipment.emplace(GameType::EQUIPMENT_PLACE_CHEST, GameType::COMMON_CLOTHING);
         equipment.emplace(GameType::EQUIPMENT_PLACE_SHIELD, GameType::NO_SHIELD);
         equipment.emplace(GameType::EQUIPMENT_PLACE_WEAPON, GameType::FIST);
-        mySize = MAX_NICKNAME_SIZE*sizeof(char) + sizeof(pRace) + sizeof(pClass) +
+        mySize = sizeof(isNewPlayer) + MAX_NICKNAME_SIZE*sizeof(char) + sizeof(pRace) + sizeof(pClass) +
                          sizeof(level) + sizeof(experience) + sizeof(gold) +
                          sizeof(constitution) + sizeof(strength) + sizeof(agility) +
                          sizeof(intelligence) + sizeof(std::tuple<GameType::ItemType, int32_t>)*INVENTORY_SIZE +

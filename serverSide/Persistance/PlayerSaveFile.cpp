@@ -98,6 +98,10 @@ void PlayerSaveFile::_loadPlayerGeneralStats(PlayerData& playerData,
 
 void PlayerSaveFile::_loadPlayerType(PlayerData& playerData,
                                         std::vector<char>& playerDataBuffer) {
+    msgpack::type::tuple<bool> isNewPlayer;
+    handler = msgpack::unpack(playerDataBuffer.data(), playerData.size(), readData);
+    handler->convert(isNewPlayer);
+    playerData.isNewPlayer = std::get<0>(isNewPlayer);
     msgpack::type::tuple<std::string, GameType::Race, GameType::Class> playerType;
     handler = msgpack::unpack(playerDataBuffer.data(), playerData.size(), readData);
     handler->convert(playerType);
@@ -139,6 +143,8 @@ void PlayerSaveFile::_packBankItems(std::stringstream& dataToStore,
 
 void PlayerSaveFile::_packPlayerType(std::stringstream& dataToStore,
                                             const PlayerData& playerData) {
+    msgpack::type::tuple<bool> isNewPlayer(playerData.isNewPlayer);
+    msgpack::pack(dataToStore, isNewPlayer);
     msgpack::type::tuple<std::string, GameType::Race, GameType::Class> playerType(
                         playerData.nickname, playerData.pRace, playerData.pClass);
     msgpack::pack(dataToStore, playerType);

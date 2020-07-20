@@ -20,7 +20,7 @@ PlayerData PlayerManager::getSavedPlayerData(const std::string &nickname) {
     throw UnavailablePlayerException();
 }
 
-void PlayerManager::storeNewPlayer(const PlayerData& playerData) {
+void PlayerManager::storeNewPlayer(PlayerData& playerData) {
     saveManager.storeNewPlayer(playerData);
 }
 

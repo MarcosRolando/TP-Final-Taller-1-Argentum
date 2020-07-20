@@ -69,11 +69,8 @@ EntityData ClientProtocol::processAddNPC(std::vector<char>* _buffer, msgpack::ty
     return npcData;
 }
 
-MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer, msgpack::type::tuple<GameType::Entity,
-        std::string>& entityData, std::size_t& offset) {
-    buffer = _buffer;
-    MapPlayerData pData;
-    PlayerEquipment equipment{};
+void ClientProtocol::_loadAddPlayerGeneralInfo(msgpack::type::tuple<GameType::Entity,
+                            std::string>& entityData, MapPlayerData& pData, std::size_t& offset) {
     pData.entityData.texture = Nothing;
     pData.entityData.nickname = std::get<1>(entityData);
     //Tupla position: positionI, positionJ, direccion, distancia movida
@@ -84,14 +81,21 @@ MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer, msgpa
     pData.entityData.currentDir = std::get<2>(position);
     pData.entityData.distanceMoved = std::get<3>(position);
     msgpack::type::tuple<GameType::Race> playerRace;
-    msgpack::type::tuple<int32_t> item;
-    handler = msgpack::unpack(buffer->data(), buffer->size(), offset); //todo arreglar este sida
+    handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     handler->convert(playerRace);
+    pData.race = std::get<0>(playerRace);
     msgpack::type::tuple<bool> isAlive;
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     handler->convert(isAlive);
+    pData.isAlive = std::get<0>(isAlive);
+}
+
+void ClientProtocol::_loadAddPlayerEquipmentInfo(MapPlayerData& pData,
+                                                        std::size_t& offset) {
+    msgpack::type::tuple<int32_t> item;
+    PlayerEquipment equipment{};
     equipment.head = translator.getRaceTexture(
-            static_cast<GameType::Race>(std::get<0>(playerRace)));
+            static_cast<GameType::Race>(pData.race));
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
     handler->convert(item); /*Recibo en orden el helmet, armor, shield y weapon*/
     equipment.helmet = translator.getClothingTexture(
@@ -108,10 +112,17 @@ MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer, msgpa
     handler->convert(item);
     equipment.weapon = translator.getWeaponTexture(
             static_cast<GameType::Weapon>(std::get<0>(item)));
-
     pData.equipment = equipment;
-    pData.isAlive = std::get<0>(isAlive);
-    pData.race = std::get<0>(playerRace);
+}
+
+
+MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer,
+                                                msgpack::type::tuple<GameType::Entity,
+                                                std::string>& entityData, std::size_t& offset) {
+    buffer = _buffer;
+    MapPlayerData pData;
+    _loadAddPlayerGeneralInfo(entityData, pData, offset);
+    _loadAddPlayerEquipmentInfo(pData, offset);
     return pData;
 }
 
