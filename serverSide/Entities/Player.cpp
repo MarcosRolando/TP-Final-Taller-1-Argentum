@@ -315,14 +315,19 @@ void Player::_dropItems() {
 
 void Player::_storeAttackedResultMessage(std::string& resultMessage, std::pair<int, bool> attackResult,
                                   unsigned int experience) {
-    std::string damageString = std::to_string(attackResult.first);
+    std::string damageString = std::to_string(std::abs(attackResult.first));
     if (attackResult.second) {
         resultMessage += getNickname() + " dodged your attack\n";
-    } else {
+    } else if (attackResult.first >= 0) {
         resultMessage += "You damaged " + getNickname() + " by " + damageString;
         resultMessage += " (Remaining Life: " + std::to_string(stats.getCurrentLife()) +
                            " , XP Gained: " + std::to_string(experience) + ")\n";
+    } else {
+        resultMessage += "You healed " + getNickname() + " by " + damageString;
+        resultMessage += " (Remaining Life: " + std::to_string(stats.getCurrentLife()) + ")\n";
     }
+
+    //Se agrega el mensaje del ataque al minichat del atacado
     if (attackResult.second) {
         chat.addMessage(DODGED_ATTACK_MESSAGE);
     } else if (attackResult.first >= 0) {
