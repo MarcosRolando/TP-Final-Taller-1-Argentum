@@ -21,7 +21,8 @@ public:
     Player(TextureRepository& repo, SDL_Rect& camera, float x, float y,
                                                     PlayerEquipment& images,
                                                     bool _isAlive = true,
-                                                    std::string&& level = "");
+                                                    std::string&& level = "",
+                                                    const std::string& nickname = "");
 
     /* Renderiza al jugador con su equipamiento (o como fantasma si esta muerto) */
     void render() override;

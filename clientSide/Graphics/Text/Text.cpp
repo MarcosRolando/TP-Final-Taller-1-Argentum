@@ -57,4 +57,18 @@ Text &Text::updateText(const std::string &newText) {
     return *this;
 }
 
+Text::Text(Font& font, SDL_Renderer& renderer, const std::string& _text) : font(font),
+                                                                      textTexture(renderer) {
+    text = _text;
+    operator*();
+}
+
+int Text::getTextTextureWidth() {
+    if (!text.empty()) {
+        return textTexture.getSpriteDimensions().width;
+    } else {
+        return 0;
+    }
+}
+
 Text::~Text() = default;

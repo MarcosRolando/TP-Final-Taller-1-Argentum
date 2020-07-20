@@ -20,6 +20,8 @@ private:
 public:
     Text(Font& font, SDL_Renderer& renderer, std::string&& _text = "");
 
+    Text(Font& font, SDL_Renderer& renderer, const std::string& _text);
+
     /* Setea el texto a "newText" */
     Text& updateText(std::string&& newText);
 
@@ -46,6 +48,9 @@ public:
 
     /* Es para mandarle un color default al otro, C++ no me deja ponerle default sino*/
     Text& operator*();
+
+    /*Retorna el ancho en pixeles del texto, se usa para dejar lindo el nombre con el nivel*/
+    int getTextTextureWidth();
 
     ~Text();
 };

@@ -5,9 +5,9 @@
 #include "Player.h"
 
 Player::Player(TextureRepository& repo, SDL_Rect& camera, float x, float y,
-        PlayerEquipment& images, bool _isAlive, std::string&& level) :
-        Entity(camera, x, y), pTexture(repo, images, std::move(level)),
-        ghostTexture(repo, PlayerGhost) {
+        PlayerEquipment& images, bool _isAlive, std::string&& level, const std::string& nickname) :
+        Entity(camera, x, y), pTexture(repo, images, std::move(level), nickname),
+        ghostTexture(repo, PlayerGhost, std::move(level), nickname) {
     isAlive = _isAlive;
 }
 

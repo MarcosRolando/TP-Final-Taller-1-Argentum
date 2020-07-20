@@ -17,10 +17,12 @@ private:
     TextureRepository& textureRepo;
     Font textFont;
     Texture* body;
-    Text level;
+    Text nickname, level;
+    int levelOffset{0};
 
 public:
-    explicit NPCTexture(TextureRepository& repo, TextureID texture, std::string&& _level = "");
+    explicit NPCTexture(TextureRepository& repo, TextureID texture, std::string&& _level = "",
+                        const std::string& _nickname = "");
     void renderFront(int x, int y, int frame) override;
     void renderBack(int x, int y, int frame) override;
     void renderRight(int x, int y, int frame) override;

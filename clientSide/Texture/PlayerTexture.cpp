@@ -6,10 +6,12 @@
 #include "../Client/GameConstants.h"
 
 PlayerTexture::PlayerTexture(TextureRepository& repo, PlayerEquipment equipment,
-                            std::string&& _level) :textureRepo(repo),
+                            std::string&& _level, const std::string& _nickname) :textureRepo(repo),
                             textFont("/var/Argentum/Assets/Fonts/Raleway-Medium.ttf", 20),
-                            level(textFont, repo.getRenderer(), std::move(_level)) {
+                            nickname(textFont, repo.getRenderer(), _nickname),
+                            level(textFont, repo.getRenderer(), " (" + std::move(_level) + ")") {
 
+    levelOffset = nickname.getTextTextureWidth();
     if (equipment.helmet != Nothing) helmet = &textureRepo.getTexture(equipment.helmet);
     else helmet = nullptr;
     head = &textureRepo.getTexture(equipment.head);
@@ -27,7 +29,8 @@ void PlayerTexture::renderFront(int x, int y, int frame) {
     EntityTexture::render(helmet, x + 45, y + 15, 0);
     EntityTexture::render(shield, x + 52, y + 30, frame);
     EntityTexture::render(weapon, x + 37, y + 15, frame);
-    level.render(x + TILE_WIDTH/2 - 10, y + TILE_HEIGHT - 20);
+    nickname.render(x + 20, y + TILE_HEIGHT - 15);
+    level.render(x + 20 + levelOffset, y + TILE_HEIGHT - 15);
 }
 
 void PlayerTexture::renderBack(int x, int y, int frame) {
@@ -37,7 +40,8 @@ void PlayerTexture::renderBack(int x, int y, int frame) {
     EntityTexture::render(shield, x + 37, y + 15, frame + 6);
     EntityTexture::render(body, x + 37, y + 30, frame + 6);
     EntityTexture::render(helmet, x + 45, y + 11, 3);
-    level.render(x + TILE_WIDTH/2 - 10, y + TILE_HEIGHT - 20);
+    nickname.render(x + 20, y + TILE_HEIGHT - 15);
+    level.render(x + 20 + levelOffset, y + TILE_HEIGHT - 15);
 }
 
 void PlayerTexture::renderRight(int x, int y, int frame) {
@@ -47,7 +51,8 @@ void PlayerTexture::renderRight(int x, int y, int frame) {
     EntityTexture::render(body, x + 37, y + 30, frame + 18);
     EntityTexture::render(helmet, x + 45, y + 11, 1);
     EntityTexture::render(weapon, x + 37, y + 20, frame + 18);
-    level.render(x + TILE_WIDTH/2 - 10, y + TILE_HEIGHT - 20);
+    nickname.render(x + 20, y + TILE_HEIGHT - 15);
+    level.render(x + 20 + levelOffset, y + TILE_HEIGHT - 15);
 }
 
 void PlayerTexture::renderLeft(int x, int y, int frame) {
@@ -57,7 +62,8 @@ void PlayerTexture::renderLeft(int x, int y, int frame) {
     EntityTexture::render(body, x + 37, y + 30, frame + 12);
     EntityTexture::render(helmet, x + 43, y + 11, 2);
     EntityTexture::render(shield, x + 47, y + 30, frame + 12);
-    level.render(x + TILE_WIDTH/2 - 10, y + TILE_HEIGHT - 20);
+    nickname.render(x + 20, y + TILE_HEIGHT - 15);
+    level.render(x + 20 + levelOffset, y + TILE_HEIGHT - 15);
 }
 
 void PlayerTexture::setLevel(const std::string &_level) {
