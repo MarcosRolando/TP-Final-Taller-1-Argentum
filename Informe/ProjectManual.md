@@ -53,7 +53,7 @@ los jugadores (drop, buy, sell, deposit, withdraw, etc.)
   total comunicación entre los integrantes del grupo.
 
 ### Inconvenientes
-- Inicialmente se manejaba el movimiento en base a un unico mensaje del cliente pero el cliente podia mantenerla tecla
+- Inicialmente se manejaba el movimiento en base a un unico mensaje del cliente pero el cliente podia mantener la tecla
   y enviar continuamente mensajes al servidor, esto perjudicaba el performance del cliente y sobrecargaba innecesariamente
   al Servidor. Se revisó esto con el corrector y se solucionó de forma sencilla gracias a 
   al modelo de Eventos (para las acciones de los clientes) con el que se desarrolló el Servidor.

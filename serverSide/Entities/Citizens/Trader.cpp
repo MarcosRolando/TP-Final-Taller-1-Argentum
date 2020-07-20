@@ -24,6 +24,7 @@ Trader::Trader(Coordinate initialPosition) : Entity(GameType::TRADER, initialPos
 
     initialItemsAmounts[config.configClothingData(LEATHER_ARMOR).name] = INITIAL_ITEMS_AMOUNT;
     initialItemsAmounts[config.configClothingData(PLATE_ARMOR).name] = INITIAL_ITEMS_AMOUNT;
+    initialItemsAmounts[config.configClothingData(KING_ARMOR).name] = INITIAL_ITEMS_AMOUNT;
     initialItemsAmounts[config.configClothingData(BLUE_TUNIC).name] = INITIAL_ITEMS_AMOUNT;
     initialItemsAmounts[config.configClothingData(HOOD).name] = INITIAL_ITEMS_AMOUNT;
     initialItemsAmounts[config.configClothingData(IRON_HELMET).name] = INITIAL_ITEMS_AMOUNT;

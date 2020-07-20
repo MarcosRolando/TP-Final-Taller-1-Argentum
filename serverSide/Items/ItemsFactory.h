@@ -31,6 +31,7 @@ private:
     static void _storeBlueTunic(std::shared_ptr<Item>& item);
     static void _storeLeatherArmor(std::shared_ptr<Item>& item);
     static void _storePlateArmor(std::shared_ptr<Item>& item);
+    static void _storeKingArmor(std::shared_ptr<Item> &item);
 
     static void _storeHood(std::shared_ptr<Item>& item);
     static void _storeIronHelmet(std::shared_ptr<Item>& item);

@@ -22,6 +22,7 @@ ItemsFactory::ItemsFactory() {
     itemsCreators[config.configClothingData(GameType::BLUE_TUNIC).name] = _storeBlueTunic;
     itemsCreators[config.configClothingData(GameType::LEATHER_ARMOR).name] = _storeLeatherArmor;
     itemsCreators[config.configClothingData(GameType::PLATE_ARMOR).name] = _storePlateArmor;
+    itemsCreators[config.configClothingData(GameType::KING_ARMOR).name] = _storeKingArmor;
 
     itemsCreators[config.configClothingData(GameType::HOOD).name] = _storeHood;
     itemsCreators[config.configClothingData(GameType::IRON_HELMET).name] = _storeIronHelmet;
@@ -59,6 +60,10 @@ void ItemsFactory::_storeLeatherArmor(std::shared_ptr<Item> &item) {
 
 void ItemsFactory::_storePlateArmor(std::shared_ptr<Item> &item) {
     item = std::make_shared<Chest>(GameType::PLATE_ARMOR);
+}
+
+void ItemsFactory::_storeKingArmor(std::shared_ptr<Item> &item) {
+    item = std::make_shared<Chest>(GameType::KING_ARMOR);
 }
 
 void ItemsFactory::_storeHood(std::shared_ptr<Item> &item) {

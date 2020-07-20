@@ -116,6 +116,7 @@ void ProtocolEnumTranslator::_translateClothing() {
     clothingMap.emplace(GameType::Clothing::COMMON_CLOTHING, CommonClothing);
     clothingMap.emplace(GameType::Clothing::LEATHER_ARMOR, LeatherArmor);
     clothingMap.emplace(GameType::Clothing::PLATE_ARMOR, PlateArmor);
+    clothingMap.emplace(GameType::Clothing::KING_ARMOR, KingArmor);
     clothingMap.emplace(GameType::Clothing::BLUE_TUNIC, BlueTunic);
     clothingMap.emplace(GameType::Clothing::HOOD, Hood);
     clothingMap.emplace(GameType::Clothing::IRON_HELMET, IronHelmet);
@@ -130,6 +131,7 @@ void ProtocolEnumTranslator::_translateClothingDrops() {
     clothingDropsMap.emplace(GameType::Clothing::COMMON_CLOTHING,CommonClothingDrop);
     clothingDropsMap.emplace(GameType::Clothing::LEATHER_ARMOR, LeatherArmorDrop);
     clothingDropsMap.emplace(GameType::Clothing::PLATE_ARMOR, PlateArmorDrop);
+    clothingDropsMap.emplace(GameType::Clothing::KING_ARMOR, KingArmorDrop);
     clothingDropsMap.emplace(GameType::Clothing::BLUE_TUNIC, BlueTunicDrop);
     clothingDropsMap.emplace(GameType::Clothing::HOOD, HoodDrop);
     clothingDropsMap.emplace(GameType::Clothing::IRON_HELMET, IronHelmetDrop);

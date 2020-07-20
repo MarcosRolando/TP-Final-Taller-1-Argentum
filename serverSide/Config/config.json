@@ -254,6 +254,12 @@
       "Price" : 300
     },
     {
+      "Name": "KingArmor",
+      "MinDefense": 40,
+      "MaxDefense": 60,
+      "Price" : 500
+    },
+    {
       "Name": "BlueTunic",
       "MinDefense": 6,
       "MaxDefense": 10,
