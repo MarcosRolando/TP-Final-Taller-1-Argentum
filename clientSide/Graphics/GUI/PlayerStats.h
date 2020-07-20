@@ -2,12 +2,12 @@
 // Created by marcos on 7/2/20.
 //
 
-#ifndef ARGENTUM_GUIPLAYERINFO_H
-#define ARGENTUM_GUIPLAYERINFO_H
+#ifndef ARGENTUM_PLAYERSTATS_H
+#define ARGENTUM_PLAYERSTATS_H
 
 #include "../../Map/Coordinate.h"
 
-struct GUIPlayerInfo {
+struct PlayerStats {
     std::string nickname;
     int32_t totalHealth, totalMana, nextLevelXP;
     int32_t health, mana, xp;
@@ -23,4 +23,4 @@ enum EquippedItems {
     Shield,
 };
 
-#endif //ARGENTUM_GUIPLAYERINFO_H
+#endif //ARGENTUM_PLAYERSTATS_H

@@ -8,35 +8,42 @@
 #include "../../Client/GameConstants.h"
 
 #define PLAYER_INFO_FONT_PATH "/var/Argentum/Assets/Fonts/medieval.ttf"
+#define HEALTH_TEXT "HEALTH: " + std::to_string(pInfo.health) + "/" + std::to_string(pInfo.totalHealth)
+#define MANA_TEXT "MANA: " + std::to_string(pInfo.mana) + "/" + std::to_string(pInfo.totalMana)
+#define XP_TEXT "XP: " + std::to_string(pInfo.xp) + "/" + std::to_string(pInfo.nextLevelXP)
 
 PlayerInfoGUI::PlayerInfoGUI(SDL_Renderer &renderer, SoundPlayer& soundPlayer) :
 infoFont(PLAYER_INFO_FONT_PATH, 25), info(infoFont, renderer), renderer(renderer),
-soundPlayer(soundPlayer) {
+soundPlayer(soundPlayer), infoText(renderer, infoFont) {
+
     pInfo = {};
+    *(infoText.health.updateText(HEALTH_TEXT));
+    *(infoText.mana.updateText(MANA_TEXT));
+    *(infoText.xp.updateText(XP_TEXT));
 }
 
-void PlayerInfoGUI::_updateHealth(int32_t currHealth){
-    pInfo.health = currHealth;
+void PlayerInfoGUI::_updateHealth(int32_t currHealth, int32_t totalHealth) {
+    if (pInfo.health != currHealth || pInfo.totalHealth != totalHealth) {
+        pInfo.health = currHealth;
+        pInfo.totalHealth = totalHealth;
+        *(infoText.health.updateText(HEALTH_TEXT));
+    }
 }
 
-void PlayerInfoGUI::_updateTotalHealth(int32_t _totalHealth){
-    pInfo.totalHealth = _totalHealth;
+void PlayerInfoGUI::_updateMana(int32_t currMana, int32_t totalMana) {
+    if (pInfo.mana != currMana || pInfo.totalMana != totalMana) {
+        pInfo.mana = currMana;
+        pInfo.totalMana = totalMana;
+        *(infoText.mana.updateText(MANA_TEXT));
+    }
 }
 
-void PlayerInfoGUI::_updateMana(int32_t currMana){
-    pInfo.mana = currMana;
-}
-
-void PlayerInfoGUI::_updateTotalMana(int32_t _totalMana){
-    pInfo.totalMana = _totalMana;
-}
-
-void PlayerInfoGUI::_updateXP(int32_t currXP){
-    pInfo.xp = currXP;
-}
-
-void PlayerInfoGUI::_updateNextLevelXP(int32_t _nextLevelXP){
-    pInfo.nextLevelXP = _nextLevelXP;
+void PlayerInfoGUI::_updateXP(int32_t currXP, int32_t nextLevelXP) {
+    if (pInfo.xp != currXP || pInfo.nextLevelXP != nextLevelXP) {
+        pInfo.xp = currXP;
+        pInfo.nextLevelXP = nextLevelXP;
+        *(infoText.xp.updateText(XP_TEXT));
+    }
 }
 
 void PlayerInfoGUI::_updateLevel(int32_t newLevel) {
@@ -72,17 +79,17 @@ void PlayerInfoGUI::_updateNickname(std::string&& name){
 }
 
 void PlayerInfoGUI::render() {
-    info.updateText("HEALTH: " + std::to_string(pInfo.health) + "/" + std::to_string(pInfo.totalHealth));
-    _renderInfoBar(pInfo.health, pInfo.totalHealth, HEALTH_BAR_X_OFFSET, 265,{0x99, 0x00,0x00});
+    _renderInfoBar(infoText.health, pInfo.health, pInfo.totalHealth,
+            HEALTH_BAR_X_OFFSET, 265,{0x99, 0x00,0x00});
 
-    info.updateText("MANA: " + std::to_string(pInfo.mana) + "/" + std::to_string(pInfo.totalMana));
-    _renderInfoBar(pInfo.mana, pInfo.totalMana, MANA_BAR_X_OFFSET, 265,{0x00, 0x33, 0x66});
+    _renderInfoBar(infoText.mana,
+            pInfo.mana, pInfo.totalMana, MANA_BAR_X_OFFSET, 265,{0x00, 0x33, 0x66});
 
-    info.updateText("XP: " + std::to_string(pInfo.xp) + "/" + std::to_string(pInfo.nextLevelXP));
-    _renderInfoBar(pInfo.xp, pInfo.nextLevelXP, XP_BAR_X_OFFSET, 265,{0x00, 0x66, 0x00});
+    _renderInfoBar(infoText.xp,
+            pInfo.xp, pInfo.nextLevelXP, XP_BAR_X_OFFSET, 265,{0x00, 0x66, 0x00});
 }
 
-void PlayerInfoGUI::_renderInfoBar(int32_t infoCurr, int32_t infoTotal,
+void PlayerInfoGUI::_renderInfoBar(Text& textToRender, int32_t infoCurr, int32_t infoTotal,
                                    int32_t xOffset, int32_t barLen, SDL_Color color) {
     float bar = 0;
     if (infoTotal != 0){
@@ -99,7 +106,7 @@ void PlayerInfoGUI::_renderInfoBar(int32_t infoCurr, int32_t infoTotal,
     SDL_SetRenderDrawColor( &renderer, 0x00,0x00,0x00, 0xFF );
     SDL_RenderDrawRect( &renderer, &outlineRect );
     //Texto de la barra
-    (*info).render(xOffset, 10);
+    textToRender.render(xOffset, 10);
 }
 
 int32_t PlayerInfoGUI::getLevel() const {
@@ -134,13 +141,10 @@ std::string PlayerInfoGUI::getNickname() const {
     return pInfo.nickname;
 }
 
-void PlayerInfoGUI::update(GUIPlayerInfo &generalInfo) {
-    _updateHealth(generalInfo.health);
-    _updateTotalHealth(generalInfo.totalHealth);
-    _updateMana(generalInfo.mana);
-    _updateTotalMana(generalInfo.totalMana);
-    _updateXP(generalInfo.xp);
-    _updateNextLevelXP(generalInfo.nextLevelXP);
+void PlayerInfoGUI::update(PlayerStats &generalInfo) {
+    _updateHealth(generalInfo.health, generalInfo.totalHealth);
+    _updateMana(generalInfo.mana, generalInfo.totalMana);
+    _updateXP(generalInfo.xp, generalInfo.nextLevelXP);
     _updateLevel(generalInfo.level);
     _updatePosition(generalInfo.position);
     _updateStrength(generalInfo.strength);

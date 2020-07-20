@@ -3,7 +3,6 @@
 //
 
 #include "PlayerInventoryGUI.h"
-#include "../../Client/GameConstants.h"
 
 #define INVENTORY_SIZE 16
 
@@ -85,7 +84,7 @@ void PlayerInventoryGUI::_renderText() {
     text.render(210,95);
 }
 
-void PlayerInventoryGUI::_renderSkills(){
+void PlayerInventoryGUI::_renderSkills() {
     *(text.updateText("STRENGTH : " + std::to_string(pInfo.getStrength())));
     text.render(40, 660);
 

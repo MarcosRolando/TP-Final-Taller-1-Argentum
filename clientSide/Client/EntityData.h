@@ -9,7 +9,7 @@
 #include "../Texture/TextureRepository.h"
 #include "../Map/Coordinate.h"
 #include "../../libs/GameEnums.h"
-#include "../Graphics/GUI/GUIPlayerInfo.h"
+#include "../Graphics/GUI/PlayerStats.h"
 #include "../Texture/PlayerEquipment.h"
 
 /*La info de un player para cargar en el mapa, esto me llega cuando se
@@ -25,7 +25,7 @@ struct EntityData {
 };
 
 struct PlayerData {
-    GUIPlayerInfo generalInfo;
+    PlayerStats generalInfo;
     std::vector<std::tuple<TextureID, EquippedItems>> equippedItems;
     std::vector<std::tuple<TextureID, int>> inventoryItems;
     std::string minichatText;

@@ -29,7 +29,7 @@ private:
     std::unordered_map<EquippedItems, Texture*> equippedTextures;
     PlayerInfoGUI& pInfo;
     FixedText fixedText;
-    int32_t gold, safeGold;
+    int32_t gold, safeGold{};
 
 public:
     PlayerInventoryGUI(TextureRepository& repo, SDL_Renderer& renderer, PlayerInfoGUI& playerInfo);

@@ -81,7 +81,7 @@ void Texture::addSprite(int x, int y, int width, int height) {
     gSpriteClips.push_back({x, y, width, height});
 }
 
-Texture::Texture(Texture&& other) noexcept : renderer(other.renderer){
+Texture::Texture(Texture&& other) noexcept : renderer(other.renderer) {
     mWidth = other.mWidth;
     mHeight = other.mHeight;
     other.mWidth = 0;

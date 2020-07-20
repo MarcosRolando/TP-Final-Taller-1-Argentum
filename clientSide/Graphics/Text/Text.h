@@ -22,6 +22,8 @@ public:
 
     Text(Font& font, SDL_Renderer& renderer, const std::string& _text);
 
+    Text(Text&& other) noexcept;
+
     /* Setea el texto a "newText" */
     Text& updateText(std::string&& newText);
 

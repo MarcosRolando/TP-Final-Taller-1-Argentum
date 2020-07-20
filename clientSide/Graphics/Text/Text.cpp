@@ -71,4 +71,7 @@ int Text::getTextTextureWidth() {
     }
 }
 
+Text::Text(Text &&other) noexcept : font(other.font), text(std::move(other.text)),
+                                    textTexture(std::move(other.textTexture)) {}
+
 Text::~Text() = default;
