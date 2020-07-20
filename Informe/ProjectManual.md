@@ -10,13 +10,15 @@
 
 ##### Ivan Soriano:
 
-- Reproducción de sonidos y musica
+- Reproducción de sonidos y música
 - Texto
-- Interfaz Grafica
+- Interfaz Gráfica
 - Minichat
 - Interacción por parte del usuario
-- Menu Principal
+- Eventos del cliente
+- Menú Principal
 - Configuración
+- Protocolo del lado del cliente
 - Clase de ecuaciones del juego
 - Clase de lectura de Json y clase que almacena esos valores leidos
 - Comandos ingresados por el usuario
@@ -24,6 +26,7 @@
 ##### Marcos Rolando:
 
 - Todo el cliente xq es alto crack
+- Protocolo del lado del cliente
 - Persistencia del servidor
 - La mayor parte del manejo de conexiones de los clientes
 - Desplazamiento gradual de las entidades en el mapa
@@ -33,8 +36,14 @@
 
 ### Inconvenientes
 
+- Habia un boludito en el grupo
+
 ### Puntos pendientes
+
+- Rajar a ivan del grupo
 
 ### Herramientas
 
 ### Conclusiones
+
+- Ivan es un pelotudo
