@@ -21,6 +21,7 @@ struct EntityData {
     Coordinate pos;
     GameType::Direction currentDir;
     int32_t distanceMoved;
+    int32_t level;
 };
 
 struct PlayerData {

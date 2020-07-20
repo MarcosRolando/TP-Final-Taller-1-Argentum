@@ -54,11 +54,12 @@ ItemData ClientProtocol::processAddItem(std::vector<char>* _buffer, std::size_t&
 }
 
 EntityData ClientProtocol::processAddNPC(std::vector<char>* _buffer, msgpack::type::tuple<GameType::Entity,
-        std::string>& entityData, std::size_t& offset) {
+        std::string, int32_t>& entityData, std::size_t& offset) {
     buffer = _buffer;
     EntityData npcData;
     npcData.texture = translator.getEntityTexture(std::get<0>(entityData));
     npcData.nickname = std::get<1>(entityData);
+    npcData.level = std::get<2>(entityData);
     //Tupla position: positionI, positionJ, direccion, distancia movida
     msgpack::type::tuple<int32_t, int32_t, GameType::Direction, int32_t> position;
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
@@ -70,9 +71,10 @@ EntityData ClientProtocol::processAddNPC(std::vector<char>* _buffer, msgpack::ty
 }
 
 void ClientProtocol::_loadAddPlayerGeneralInfo(msgpack::type::tuple<GameType::Entity,
-                            std::string>& entityData, MapPlayerData& pData, std::size_t& offset) {
+                            std::string, int32_t>& entityData, MapPlayerData& pData, std::size_t& offset) {
     pData.entityData.texture = Nothing;
     pData.entityData.nickname = std::get<1>(entityData);
+    pData.entityData.level = std::get<2>(entityData);
     //Tupla position: positionI, positionJ, direccion, distancia movida
     msgpack::type::tuple<int32_t, int32_t, GameType::Direction, int32_t> position;
     handler = msgpack::unpack(buffer->data(), buffer->size(), offset);
@@ -118,7 +120,7 @@ void ClientProtocol::_loadAddPlayerEquipmentInfo(MapPlayerData& pData,
 
 MapPlayerData ClientProtocol::processAddPlayer(std::vector<char>* _buffer,
                                                 msgpack::type::tuple<GameType::Entity,
-                                                std::string>& entityData, std::size_t& offset) {
+                                                std::string, int32_t>& entityData, std::size_t& offset) {
     buffer = _buffer;
     MapPlayerData pData;
     _loadAddPlayerGeneralInfo(entityData, pData, offset);

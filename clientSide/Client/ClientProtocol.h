@@ -29,11 +29,11 @@ public:
     explicit ClientProtocol(Socket& _socket) : socket(_socket) {}
     /* Procesa la informacion del jugador recibida por el server y la asigna a un MapPlayerData */
     MapPlayerData processAddPlayer(std::vector<char>* _buffer,
-            msgpack::type::tuple<GameType::Entity, std::string>& entityData,
+            msgpack::type::tuple<GameType::Entity, std::string, int32_t>& entityData,
             std::size_t& offset);
     /* Procesa la informacion de un entity recibida por el server y la asigna a un EntityData */
     EntityData processAddNPC(std::vector<char>* _buffer, msgpack::type::tuple<GameType::Entity,
-            std::string> &entityData, size_t &offset);
+            std::string, int32_t> &entityData, size_t &offset);
     /* Procesa la informacion de un Item recibida por el server y la asigna a un ItemData*/
     ItemData processAddItem(std::vector<char>* _buffer, std::size_t& offset);
     /* Procesa la informacion del inventario y las stats del jugador recibida por
@@ -59,7 +59,7 @@ private:
     void _addMinichatText(PlayerData &data, size_t &offset);
     void _addNickname(PlayerData &data, size_t &offset);
     void _loadAddPlayerGeneralInfo(msgpack::type::tuple<GameType::Entity,
-            std::string>& entityData, MapPlayerData& pData, std::size_t& offset);
+            std::string, int32_t>& entityData, MapPlayerData& pData, std::size_t& offset);
     void _loadAddPlayerEquipmentInfo(MapPlayerData& pData,
                                                         std::size_t& offset);
 };

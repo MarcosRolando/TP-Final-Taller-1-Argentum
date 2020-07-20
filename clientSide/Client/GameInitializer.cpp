@@ -62,7 +62,7 @@ void GameInitializer::_receiveCurrentGameState() {
 /* Procesa la entidad que recibe del server y la agrega al juego */
 void GameInitializer::_processAddEntity(std::vector<char>& buffer, std::size_t& offset) {
     msgpack::object_handle handler = msgpack::unpack(buffer.data(), buffer.size(), offset);
-    msgpack::type::tuple<GameType::Entity, std::string> entityData;
+    msgpack::type::tuple<GameType::Entity, std::string, int32_t> entityData;
     handler->convert(entityData);
     if (std::get<0>(entityData) != GameType::PLAYER) {
         EntityData data = protocol.processAddNPC(&buffer, entityData, offset);
