@@ -61,7 +61,7 @@ Una vez instalado el juego podemos correr el servidor y cliente con los comandos
 El proyecto dispone de un archivo de configuración de formato JSON ubicado  en 
 */etc/Argentum/config.json* . Como el archivo se encuentra en /etc/ una vez instalado 
 se necesitan permisos de root para poder editarlo, sin embargo si se utiliza el 
-instalador nuevamente se sobreescribira el archivo con el del repositorio, por lo 
+instalador nuevamente se sobrescribirá el archivo con el del repositorio, por lo 
 que se recomienda editarlo dentro de este y luego reinstalar. Si se quiere modificar el 
 archivo en directamente en etc para no reinstalar podemos usar el comando:
 
@@ -72,7 +72,7 @@ Se puede utilizar otro editor de texto en lugar de vim.
 En el archivo podemos editar las estadísticas de razas, clases, monstruos e items. 
 Ademas se pueden editar parámetros mas relacionados con la jugabilidad como la 
 experiencia obtenida, la cantidad de monstruos en el mapa, el nivel de newbie 
-entre otros. Por ultimo, se puede editar el puerto donde escuchara el servidor.
+entre otros. Por ultimo, se puede editar el puerto donde escuchara el servidor que es 8081 por defecto.
 
 
 
@@ -121,7 +121,7 @@ a un jugador existente.
 
 Luego de cargar/crear un jugador se muestra la pantalla de conexión donde debemos 
 elegir el host y port al que nos queremos conectar. Si se quiere conectar en la misma 
-pc que ejecuta el servidor entonces se debe escribir "localhost" en el lugar de host.
+pc que ejecuta el servidor entonces se debe escribir "localhost" en el lugar de host. 
 
 ![Connection](/Informe/img/Connection.png)
 
@@ -147,7 +147,7 @@ Ademas, al hacer click en el minichat podrán ingresar los siguientes comandos:
 - ###### /revive
 
   Si el jugador esta muerto, revivirá al lado del cura mas cercano luego de unos
-   segundos (la duracion depende de la distancia a dicho cura). Si se ingresa el 
+   segundos (la duración depende de la distancia a dicho cura). Si se ingresa el 
    comando habiendo seleccionado a un cura el jugador revivirá inmediatamente.
 
 - ###### /heal
@@ -203,7 +203,7 @@ Ademas, al hacer click en el minichat podrán ingresar los siguientes comandos:
 - ###### /inventory
 
   Lista las cosas que tengo en el inventario, indicando la posicion del item 
-  (la posicion de arriba a la izquierda es el 0, y va creciendo hacia la derecha 
+  (la posición de arriba a la izquierda es el 0, y va creciendo hacia la derecha 
   y hacia abajo) junto con su nombre.
 
 - ###### /clear
