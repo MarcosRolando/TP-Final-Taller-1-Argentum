@@ -88,6 +88,7 @@ void Shop::sell(Player &player, const std::string& itemName) {
         if (storage.decreaseGoldReserves(static_cast<int>(price))) {
             player.receiveGold(price);
             storage.storeItem(player.removeItem(itemName));
+            player.addMessage("You got " + std::to_string(price) + " gold coins\n");
         } else {
             player.addMessage(NOT_ENOUGH_GOLD_STORED_MESSAGE);
         }
