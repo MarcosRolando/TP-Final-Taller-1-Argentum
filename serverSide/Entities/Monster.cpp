@@ -119,7 +119,8 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
         } else {
             unsigned int experience = Calculator::calculateKillXP(attackerLevel,
                         stats.getLevel(), stats.getMaxLife());
-            result = {realAttackResult.first, experience, ""};
+            result.damage = realAttackResult.first;
+            result.experience = experience;
             result.resultMessage += "You damaged the Monster by " +
                                     std::to_string(result.damage) + " (Remaining Life: " +
                                     std::to_string(stats.getCurrentLife()) +
