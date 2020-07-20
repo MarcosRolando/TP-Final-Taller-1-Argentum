@@ -113,18 +113,14 @@ AttackResult Monster::attacked(int _damage, unsigned int attackerLevel, bool isA
     AttackResult result{0, 0, ""};
     if (_damage <= 0) return result;
     if (!isDead()) {
-        bool isCritical = Calculator::isCritical();
-        if (isCritical) {
-            _damage *= 2;
-            result.resultMessage += "Critical attack. ";
-        }
-        std::pair<int, bool> realAttackResult = stats.modifyLife(_damage);
+        std::pair<int, bool> realAttackResult = stats.modifyLife(_damage, result.resultMessage);
         if (realAttackResult.second) {
             result.resultMessage += "The monster dodged your attack\n";
         } else {
             unsigned int experience = Calculator::calculateKillXP(attackerLevel,
                         stats.getLevel(), stats.getMaxLife());
-            result = {realAttackResult.first, experience, ""};
+            result.damage = realAttackResult.first;
+            result.experience = experience;
             result.resultMessage += "You damaged the Monster by " +
                                     std::to_string(result.damage) + " (Remaining Life: " +
                                     std::to_string(stats.getCurrentLife()) +

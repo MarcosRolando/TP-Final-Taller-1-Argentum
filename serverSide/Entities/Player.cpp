@@ -293,6 +293,7 @@ PlayerData Player::getData() const {
     return pData;
 }
 
+/////////////////////////////////////PRIVATE////////////////////////////////
 
 void Player::_dropItems() {
     std::list<std::shared_ptr<Item>> items = inventory.dropAllItems();

@@ -9,7 +9,6 @@ struct AttackResult {
     int damage;
     unsigned int experience;
     std::string resultMessage;
-    bool wasAttackExecuted;
 };
 
 #endif //ARGENTUM_ATTACKRESULT_H

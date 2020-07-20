@@ -63,6 +63,8 @@ public:
 
     //Modifica la vida del player acorde al danio/curacion ocasionados
     //Retorna el pair(danio total recibido, pudo esquivar)
+    //Concatena en attackedMessage prefijos para el mensaje de ataque segun el
+    //resultado
     std::pair<int, bool> modifyLife(int damage, unsigned int attackerLevel, unsigned int defense,
                    bool isAPlayer, std::string& attackedMessage);
 

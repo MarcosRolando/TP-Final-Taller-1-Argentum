@@ -6,6 +6,9 @@
 #include "../Config/Configuration.h"
 #include "../Config/Calculator.h"
 
+#define CRITICAL_ATTACK_MESSAGE "Critical attack. "
+#define DODGED_ATTACK_MESSAGE "Fear runs through your spine. "
+
 MonsterStats::MonsterStats(GameType::Entity type) {
     Configuration& config = Configuration::getInstance();
     Config::MonsterStats stats = config.configMonsterStats(type);
@@ -33,8 +36,12 @@ unsigned int MonsterStats::getLevel() const {
     return level;
 }
 
-std::pair<int, bool> MonsterStats::modifyLife(int _damage) {
-    if (Calculator::canDodge(getAgility())) {
+std::pair<int, bool> MonsterStats::modifyLife(int _damage, std::string& attackedMessage) {
+    if (Calculator::isCritical()) {
+        _damage *= 2;
+        attackedMessage += CRITICAL_ATTACK_MESSAGE;
+    } else if (Calculator::canDodge(getAgility())) {
+        attackedMessage += DODGED_ATTACK_MESSAGE;
         return {0, true};
     }
     currentLife -= _damage;
