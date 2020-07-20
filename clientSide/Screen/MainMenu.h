@@ -31,7 +31,7 @@ private:
     Text intelligence;
     Text agility;
     Texture& mainMenuBackground;
-    GameStartInfo info;
+    GameStartInfo info{};
     bool hostInput, portInput, nicknameInput;
 
 public:

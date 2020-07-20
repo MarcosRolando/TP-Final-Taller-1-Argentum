@@ -97,6 +97,7 @@ void MainMenu::menuScreen(bool& quit, GameInitializer& initializer, Socket& sock
 
 /* Intenta conectarse al host/port que ingresa el usuario */
 void MainMenu::_connectScreen(bool& quit, bool& goBack, Socket& socket) {
+    errorText.updateText("");
     bool finished = quit;
     SDL_Event e;
     while (!finished) {
@@ -201,7 +202,11 @@ void MainMenu::_playerLoadScreen(bool &quit, bool& goBack) {
                     goBack = true;
                     finished = true;
                 } else if (_isInsideRect(x,y,START_BUTTON)) {
-                    finished = true;
+                    if (!nicknameInputText.getText().empty()) {
+                        finished = true;
+                    } else {
+                        errorText.updateText("Nickname is empty");
+                    }
                 }
             } else if (e.type == SDL_TEXTINPUT){
                 _handleTextInput(e);
@@ -240,7 +245,11 @@ void MainMenu::_playerCreationScreen(bool &quit, bool &goBack) {
                     goBack = true;
                     finished = true;
                 } else if (_isInsideRect(x,y,START_BUTTON)) {
-                   finished = true;
+                    if (!nicknameInputText.getText().empty()) {
+                        finished = true;
+                    } else {
+                        errorText.updateText("Nickname is empty");
+                    }
                 } else {
                     _verifyClassSelection(x, y);
                     _verifyRaceSelection(x, y);

@@ -58,7 +58,7 @@ Una vez instalado el juego podemos correr el servidor y cliente con los comandos
 
 ### <u>Configuración:</u>
 
-El proyecto dispone de un archivo de configuración de formato JSON ubicado  en */etc/Argentum/config.json* . Como el archivo se encuentra en /etc/ se necesitan permisos de root para poder editarlo. Para esto podemos usar el comando:
+El proyecto dispone de un archivo de configuración de formato JSON ubicado  en */etc/Argentum/config.json* . Como el archivo se encuentra en /etc/ una vez instalado se necesitan permisos de root para poder editarlo, sin embargo si se utiliza el instalador nuevamente se sobreescribira el archivo con el del repositorio, por lo que se recomienda editarlo dentro de este y luego reinstalar. Para modificar el archivo en etc esto podemos usar el comando:
 
 `$ sudo -i vim /etc/Argentum/config.json`
 
@@ -106,7 +106,7 @@ Para cargar un jugador solo tenemos que ingresar su nickname, que debe pertenece
 
 #### Conexión
 
-Luego de cargar/crear un jugador se muestra la pantalla de conexión donde debemos elegir el host y port al que nos queremos conectar.
+Luego de cargar/crear un jugador se muestra la pantalla de conexión donde debemos elegir el host y port al que nos queremos conectar. Si se quiere conectar en la misma pc que ejecuta el servidor entonces se debe escribir "localhost" en el lugar de host.
 
 ![Connection](/Informe/img/Connection.png)
 
@@ -137,19 +137,19 @@ En el minichat se podrán leer los mensajes relevantes recibidos por el server (
 
 - ###### /deposit \<item>
 
-  Se debe tener seleccionado a un banquero. En tal caso se deposita el item en el banco para poder retirarlo en otro momento.
+  Se debe tener seleccionado a un banquero. En tal caso se deposita el item (si es que se encuentra en el inventario y no está equipado) en el banco para poder retirarlo en otro momento.
 
 - ###### /deposit \<Gold> \<cantidad>
 
-  Se debe tener seleccionado a un banquero. En tal caso se depositara la cantidad de oro especificada.
+  Se debe tener seleccionado a un banquero. En tal caso se depositara la cantidad de oro especificada (si se una cantidad mayor o igual de oro).
 
 - ###### /withdraw \<item>
 
-  Se debe tener seleccionado a un banquero. En tal caso se retira del banco el item especificado.
+  Se debe tener seleccionado a un banquero. En tal caso se retira del banco el item especificado (si es que estaba guardado previamente).
 
 - ###### /withdraw \<Gold> \<cantidad>
 
-  Se debe tener seleccionado a un banquero. En tal caso se retira la cantidad de oro especificada.
+  Se debe tener seleccionado a un banquero. En tal caso se retira la cantidad de oro especificada (si es que el banco tiene una cantidad mayor o igual a la pedida).
 
 - ###### /list
 
