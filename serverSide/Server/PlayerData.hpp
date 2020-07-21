@@ -10,11 +10,7 @@
 #include <vector>
 #include <unordered_map>
 #include <msgpack.hpp>
-
-const int INVENTORY_SIZE = 16;
-const int BANK_SIZE = 20;
-const int MAX_NICKNAME_SIZE = 13;
-const unsigned int INITIAL_PLAYER_GOLD = 150;
+#include "NonModifiableConstants.h"
 
 //Struct que se encarga de almacenar toda la informacion relevante de un player,
 //tanto para cuando se conecta y se deben guardar los datos leidos del archivo como

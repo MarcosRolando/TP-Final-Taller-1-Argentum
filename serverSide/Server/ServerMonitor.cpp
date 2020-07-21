@@ -23,3 +23,7 @@ void ServerMonitor::join() {
         Thread::join();
     }
 }
+
+bool ServerMonitor::closeRequest() {
+    return !reading;
+}

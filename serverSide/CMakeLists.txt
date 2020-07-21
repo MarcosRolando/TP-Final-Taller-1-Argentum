@@ -14,7 +14,7 @@ add_subdirectory(Server)
 if (ENABLE_TESTS)
     add_subdirectory(Tests)
 endif ()
-add_executable(argentumServer serverMain.cpp NonModifiableConstants.h)
+add_executable(argentumServer serverMain.cpp Server/NonModifiableConstants.h)
 
 target_compile_options(argentumServer PRIVATE)
 

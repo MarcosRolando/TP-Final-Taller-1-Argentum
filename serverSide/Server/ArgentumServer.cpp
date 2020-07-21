@@ -4,7 +4,6 @@
 #include "ClientAccepter.h"
 #include "../Config/MapFileReader.h"
 #include "PlayerManager.h"
-#include "../../libs/Timer.h"
 #include "../Config/Configuration.h"
 #include <unistd.h>
 #include <iostream>
@@ -74,6 +73,16 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
         std::cerr << e.what() << std::endl;
     } catch (...) {
         std::cerr << "Uknown error in Main Game Loop!" << std::endl;
+    }
+
+    try {
+        if (monitor.closeRequest()) {
+            clients.backup();
+        }
+    } catch (std::exception& e) {
+        std::cerr << e.what()  << "while backing up players!" << std::endl;
+    } catch (...) {
+        std::cerr << "Uknown error while backing up players!" << std::endl;
     }
 
     finish();

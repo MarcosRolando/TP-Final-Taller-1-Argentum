@@ -15,6 +15,10 @@ public:
     explicit ServerMonitor(ArgentumServer& server) : server(server) {}
     void join() override;
 
+    /*Retorna true si se cerro el servidor a pedido del usuario,
+     * false en caso contrario*/
+    bool closeRequest();
+
 private:
     /*Implementa la funcion run heredada de Thread, la cual para esta clase
     * correra el metodo stopOnCommand*/
