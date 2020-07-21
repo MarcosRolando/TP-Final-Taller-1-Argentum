@@ -263,6 +263,8 @@ correspondiente recibida por useItem. Permite también desequipar items, guardá
 inventario. Otro uso que se le da es guardar y sacar items, utilizado para almacenar items
 tomados del piso y para dejarlos en este.
 
+![DiagramaDeClaseMapCliente](/Informe/img/DiagramaDeClaseInventory.png)
+
 ##### Weapon
 Clase que hereda de item, se utiliza para atacar un jugador o monstruo. Contiene un ataque
 mínimo y máximo y un valor de maná que consumirá al ser utilizado para atacar. El valor de
