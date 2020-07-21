@@ -66,6 +66,38 @@ necesidad de recompilarlo. Trabaja con los archivos config.json y map.json.
 
 #### Cliente General
 
+Se divide en las entidades del juego (players y npcs, tanto monstruos como
+citizens), las clases gráficas, el mapa, la ventana/pantalla, los sonidos,
+texturas, eventos de update y otras clases generales englobadas por el submódulo
+Cliente.
+
+Character: Se encarga de administrar a los personajes del mundo de Argentum,
+estos son los monstruos, citizens (banker, priest, trader) y los jugadores.
+
+Graphics: Se encarga de administrar la UI con los datos particulares del cliente
+(salvo el mapa gráfico, eso se delega en el módulo Map) como las stats, la vida, el
+maná, el inventario, etc.
+
+Map: Se encarga de administrar la UI del mapa del cliente, actualizando a los elementos
+que lo comoponen (como los tiles o las entidades).
+
+Miscellaneous: Se encarga de manejar los hechizos, las flechas y el chequeo de
+qué elementos son renderizables (visibles en la cámara).
+
+Screen: Se encarga de manejar la ventana donde se renderiza el juego y el Menú
+Principal (este submódulo debería estar en Graphics pero por motivos de tiempo
+no se llegó a cambiar de lugar).
+
+Sound: Se encarga de administrar los sonidos del juego, filtrando sonidos 
+en base a la cantidad/tiempo que pasó entre cada sonido para no sobrecargar al
+cliente de información.
+
+Texture: Se encarga de administrar las texturas del juego, desde las texturas de los
+personajes hasta las de los items. 
+
+UpdateEvents: Contiene todos los posibles eventos que el cliente puede recibir
+del servidor y debe aplicar a su representación del juego para poder transmitir
+esa información claramente al jugador.
 
 #### libs
 
@@ -778,7 +810,6 @@ Borra a una entidad. Esto sirve tanto para cuando mueren los monstruos o cuando 
 ##### UpdateTeleportEntity
 
 Teletransporta a una entidad. Sirve para cuando el jugador ingresa el comando resurrect sin haber clickeado a un cura, ya que entonces debe ser transportado, despues de un tiempo, al cura mas cercano.
-
 
 
 ### InputCommands
