@@ -14,7 +14,6 @@
 //Maneja las cosas que selecciona el usuario
 class Selector {
 private:
-    //Coordinate clickX;
     Coordinate inventorySlot;
     Coordinate selectedTile;
     GameType::EquipmentPlace selectedEquipment;
