@@ -90,21 +90,42 @@ Si algún cliente se desconecta entonces se le desconectará debidamente
 cuando se verifique el estado de los clientes.
 
 #### PlayerManager
-AGREGAR COSAS DE PLAYER MANAGER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Administra el guardado y carga de los jugadores, es el nexo entre el juego y
+las clases de persistencia. Cada vez que un jugador se desconecta se encarga
+de removerlo del juego y almacenar sus datos actualizados en la correspondiente
+entrada del archivo. Si un jugador se conecta busca sus datos en el archivo 
+y se los pasa al Game para agregarlo al juego.
 
 #### ServerMonitor
-AGREGAR COSAS DE SERVER MONITOR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Esta clase tiene una única y simple responsabilidad: monitorear el ingreso
+del caracter terminador ('q') para forzar el cierre del servidor. Cerrar el servidor
+almacenará el estado actual de todos sus clientes conectados (este backup no se realiza
+si el Servidor se cierra inesperadamente por algún error ya que no se podría garantizar
+que la información correcta y/o no este corrupta).
 
 #### ServerProtocol
-Se encarga de almacenar la información del mapa y los mensajes a
+Se encarga de almacenar la información del mapa base (al ser fijo y de gran tamaño
+el mapa no sería lógico rearmar este buffer por cada cliente que se conecte) y los mensajes a
 comunicar en cada update, guardándolos en un vector de chars para mandar por el socket.
 
 ### <u>Persistance</u>
 
+#### PlayerIndexFile
+
+Maneja el archivo de índice de los jugadores registrados. Dado que este archivo es
+pequeño y para disminuir los accesos a memoria que implica leer/escribir de archivo
+esta clase carga a memoria los datos del archivo.
+
+#### PlayerSaveFile
+
+Maneja el archivo de salvado de los jugadores. Este archivo contiene todos los datos
+relevantes del jugador que son necesarios para poder cargarlo al juego cuando
+se conecte, manteniendo su player intacto desde su última conexión.
+
+
+Maneja el archivo de índice de los jugadores registrados. Dado que este archivo es
+pequeño y para disminuir los accesos a memoria que implica leer/escribir de archivo
+esta clase carga a memoria los datos del archivo.
 
 ### <u>Map</u>
 

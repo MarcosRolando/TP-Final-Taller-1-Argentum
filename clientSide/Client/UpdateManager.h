@@ -21,7 +21,11 @@ private:
 public:
     /*Agrega un update*/
     void push(Update& update);
+
+    /*Retorna el siguiente update, eliminandolo de la cola de updates*/
     Update pop();
+
+    /*Retorna la cantidad de updates disponibles (cantidad en la cola)*/
     int updatesAvailable();
 };
 
