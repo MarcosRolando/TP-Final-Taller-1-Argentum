@@ -856,6 +856,8 @@ Teletransporta a una entidad. Sirve para cuando el jugador ingresa el comando re
 
 ![DiagramaClasesInputCommand](/Informe/img/DiagramaClasesInputCommand.png)
 
+En el diagrama se muestran algunos comandos ya que si se incluyeran todos quedaría muy cargado
+
 ##### InputCommand
 
 Es una interfaz para los comandos ingresados por el usuario en el minichat. Estos eventos siguen el *Product Pattern*desarrollado para ese TP. Cada comando recibe en su constructor la información necesaria para luego poder mandarle el mensaje al servidor.
