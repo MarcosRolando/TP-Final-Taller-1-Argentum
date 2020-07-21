@@ -261,40 +261,41 @@ que el jugador revivió y fue teletransportado.
 
 ### Modulo Principal:
 
-#### ArgentumClientSide
+##### ArgentumClientSide
 
 Primero verifica que los argumentos con los que se ejecuta el cliente son correctos. Si es asi instancia al cliente e inicia su ejecución.
 
-#### ArgentumClient
+##### ArgentumClient
 
 Cuando se llama a su constructor inicializa SDL y crea un nuevo cursor. Luego ejecuta el gameLoop. El gameLoop comienza con el menú principal que se detalla mas adelante. Cuando el usuario logra conectarse, se lanzan dos hilos: Uno se encarga de procesar los eventos SDL que corresponden al input del usuario y el otro recibe actualizaciones del servidor. En cada loop del juego se ejecutan las actualizaciones recibidas y finalmente se reproducen los sonidos correspondientes y se renderiza. Cuando se termina el juego se cierra el socket del cliente y se hace join de los hilos.
 
-#### BlockingQueue
+##### BlockingQueue
 
-#### ClientEventHandler
+##### ClientEventHandler
 
-Argentum crea la cola Bloqueante sdlEvents a la que pushea los eventos que recibe. ClientEventHandler va desencolando sdlEvents y por cada evento arma un mensaje con toda la información necesaria y se lo envía al servidor.
+ArgentumClient crea la cola Bloqueante sdlEvents a la que pushea los eventos que recibe. Luego lanza el hilo que comienza la ejecución de la clase. ClientEventHandler va desencolando sdlEvents y por cada evento arma un mensaje con toda la información necesaria y se lo envía al servidor.
 
-#### ClientProtocol
-
+##### ClientProtocol
 
 #### GameGUI
 
 Delega a la clase Map la actualización de lo que paso en el mapa(cuando se mueve una entidad o se lanza un hechizo). También se encarga de llamar a los métodos de renderizado de cada clase de la interfaz gráfica.
 
-#### GameInitializer
+##### GameInitializer
 
 Inicializa el juego con la información que recibe del servidor. Primero recibe el mapa. Itera por cada tile cargando el tipo de piso y un ciudadano o estructura si es que hay. Luego carga todos los monstruos, items o jugadores que haya en el mapa en el instante que el usuario se conecto.
 
-#### ProtocolEnumTranslator
+##### ProtocolEnumTranslator
 
-Cuando recibo del servidor un update que tiene informacion como un item o un tipo de suelo esto se recibe en forma de un enum que comparten tanto el servidor como el cliente. Del lado del cliente necesitamos traducir el enum recibido a un id de una textura para poder renderizar. De eso se ocupa esta clase
+Cuando recibo del servidor un update que tiene información como un item o un tipo de suelo esto se recibe en forma de un enum que comparten tanto el servidor como el cliente. Del lado del cliente necesitamos traducir el enum recibido a un id de una textura para poder renderizar. De eso se ocupa esta clase
 
-#### Update
+##### Update
 
+Es una cola que contiene los eventos de actualización.
 
-#### UpdateManager
+##### UpdateManager
 
+##### UpdateReceiver
 
-#### UpdateReceiver
->>>>>>> fe4c2bae100274f5319ea2dd1df607aa184a88e6
+Recibe un evento del servidor, lo procesa y arma un evento que luego es pushado a la cola de eventos para ser ejecutada en el thread principal.
+
