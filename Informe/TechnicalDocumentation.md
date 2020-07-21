@@ -99,6 +99,11 @@ UpdateEvents: Contiene todos los posibles eventos que el cliente puede recibir
 del servidor y debe aplicar a su representación del juego para poder transmitir
 esa información claramente al jugador.
 
+El siguiente diagrama da un pantallazo general de las clases del Cliente, sus
+jerarquías y organización:
+
+![LoadPlayer](/Informe/img/ClientGeneralClassDiagram.png)
+
 #### libs
 
 Contiene las clases comúnes entre el cliente y el servidor.
@@ -667,6 +672,8 @@ Me permite mostrar texto con una font y tamaño especificos. Despues de crear un
 Crea una font a partir de un archivo .ttf
 
 ### Map
+
+![DiagramaDeClaseMapCliente](/Informe/img/DiagramaDeClaseMapCliente.png)
 
 #### ItemDrop
 
