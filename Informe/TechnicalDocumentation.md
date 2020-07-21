@@ -12,12 +12,14 @@ puede utilizarse GDB.
 ### <u>Descripción general</u>
 El proyecto se divide en cliente y servidor. Para el desarrollo del mismo
 se diseño un patrón (no logramos encontrar si ya existía así que lo tomamos como propio)
-al que llamamos *Product Pattern*. El nombre viene de la idea de que generemos un
+al que llamamos *Product Pattern*, es un patrón orientado a Eventos.
+ El nombre viene de la idea de que generemos un
 *functor* que ya esta preparado para ejecutar el evento correspondiente, permitiendo
 que el que consuma dicho evento ya tenga todo ensamblado y no se complique 
 innecesariamente. Este patrón resultó clave en el diseño del TP y se lo utilizó
 para los updates que recbie el cliente del servidor, para los comandos que ingresa el
-cliente por minichat y para los eventos que procesa el juego del servidor.  
+cliente por minichat y para los eventos que procesa el juego del servidor. 
+
 
 
 #### Servidor General
@@ -55,7 +57,8 @@ que deberán ser realizadas en un update del juego.
 
 Persistencia: Se encarga de mantener la información
 entre conexiones de los distintos jugadores con cuenta, guardándolos en un 
-archivo. Realiza guardado de datos periódicamente y cuando los jugadores se desconectan.  
+archivo. Realiza guardado de datos periódicamente, cuando los jugadores se desconectan
+y cuando se pide cerrar el servidor.  
 
 Entidades:  Se encarga de "darle vida" al juego. Este módulo
 maneja los jugadores y npcs con los que interactuará el usuario. Maneja el comportamiento
@@ -67,6 +70,38 @@ necesidad de recompilarlo. Trabaja con los archivos config.json y map.json.
 
 #### Cliente General
 
+Se divide en las entidades del juego (players y npcs, tanto monstruos como
+citizens), las clases gráficas, el mapa, la ventana/pantalla, los sonidos,
+texturas, eventos de update y otras clases generales englobadas por el submódulo
+Cliente.
+
+Character: Se encarga de administrar a los personajes del mundo de Argentum,
+estos son los monstruos, citizens (banker, priest, trader) y los jugadores.
+
+Graphis: Se encarga de administrar la UI con los datos particulares del cliente
+(salvo el mapa gráfico, eso se delega en el módulo Map) como las stats, la vida, el
+maná, el inventario, etc.
+
+Map: Se encarga de administrar la UI del mapa del cliente, actualizando a los elementos
+que lo comoponen (como los tiles o las entidades).
+
+Miscellaneous: Se encarga de manejar los hechizos, las flechas y el chequeo de
+qué elementos son renderizables (visibles en la cámara).
+
+Screen: Se encarga de manejar la ventana donde se renderiza el juego y el Menú
+Principal (este submódulo debería estar en Graphics pero por motivos de tiempo
+no se llegó a cambiar de lugar).
+
+Sound: Se encarga de administrar los sonidos del juego, filtrando sonidos 
+en base a la cantidad/tiempo que pasó entre cada sonido para no sobrecargar al
+cliente de información.
+
+Texture: Se encarga de administrar las texturas del juego, desde las texturas de los
+personajes hasta las de los items. 
+
+UpdateEvents: Contiene todos los posibles eventos que el cliente puede recibir
+del servidor y debe aplicar a su representación del juego para poder transmitir
+esa información claramente al jugador.
 
 ## <u>Servidor</u>
 
