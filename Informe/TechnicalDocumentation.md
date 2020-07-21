@@ -459,9 +459,45 @@ Hay ciertos comandos que requieren tener seleccionado a un personaje del mapa o 
 
 ##### Text
 
-Me permite mostrar texto con una font y tamaño especificos. Despues de crear un Text puedo modificar el texto que se imprimira de varias maneras. Para cambiar totalmente el texto esta updateText, para agregar esta el operador +=, para quitar una letra esta el operador --. El operador * crea la textura con el texto actual. Esto sirve porque hay veces que quiero renderizar siempre lo mismo, y crear siempre la textura no es muy eficiente.
+Me permite mostrar texto con una font y tamaño especificos. Despues de crear un Text puedo modificar el texto que se imprimirá de varias maneras. Para cambiar totalmente el texto esta updateText, para agregar esta el operador +=, para quitar una letra esta el operador --. El operador * crea la textura con el texto actual. Esto sirve porque hay veces que quiero renderizar siempre lo mismo, y crear siempre la textura no es muy eficiente.
 
 ##### Font
 
 Crea una font a partir de un archivo .ttf
+
+### Map
+
+### Miscellanous
+
+### Screen
+
+##### MainMenu
+
+Se encarga de mostrar las pantallas de inicio donde se elige si cargar o crear un jugador, los datos de dicho jugador y el puerto e ip a donde nos queremos conectar. Cada pantalla consiste de un loop que maneja los inputs del usuario (clicks o texto) y renderiza los botones y cajas de texto correspondiente. 
+
+Luego de elegir una ip y un puerto y hacer click en "Connect" el cliente intentara conectarse al servidor. Si la conexión es exitosa, se le envían los datos del jugador(nickname y también raza + clase si se esta creando) al servidor que me responderá si me pude conectar exitosamente, o si hubo algún error.
+
+##### Window
+
+Primero crea la ventana y el renderer. Luego se encarga de manejar todos los eventos de sdl asociados a la ventana (cambiar el tamaño, pantalla completa). Finalmente se encarga de mostrar todo lo que haya sido renderizado.
+
+### Sound
+
+##### Sound
+
+Crea un sonido a partir de un archivo .wav .
+
+##### SoundRepository
+
+Cuando es instanciado al principio del programa carga todos los sonidos en un unordered_map y la música. 
+
+##### SoundPlayer
+
+Tiene una cola de sonidos que son ejecutados al final de cada gameLoop. Tambien reproduce la musica y permite pausarla.
+
+### Texture
+
+### UpdateEvents
+
+
 
