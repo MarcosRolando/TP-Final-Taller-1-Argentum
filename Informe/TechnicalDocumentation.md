@@ -479,7 +479,8 @@ Es una clase abstracta, es la clase base para todas las entidades. Implementa po
 todas las funciones de interacción con otra entity como vacía ya que no todas las entidades
 pueden realizar todas esas interacciones con los players. Cada clase que herede de esta
 deberá implementar la interacción que le corresponda. Guarda su coordenada, tipo de entidad
-y valores importantes para el movimiento.
+y valores importantes para el movimiento. Un diagrama de clases general de Entity y las clases
+que heredan de esta es:
 
 ![DiagramaDeClaseMapCliente](/Informe/img/DiagramaDeClaseServerEntity.png)
 
