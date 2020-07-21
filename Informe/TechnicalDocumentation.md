@@ -306,7 +306,7 @@ es posible entonces comienza el desplazamiento gradual.
 Clase que hereda de Event, ejecuta el desplazamiento gradual de la entidad y le comunica
 este cambio a los clientes agregándolo al protocolo.
 
-##### NotifyDead
+##### NotifyDeath
 Clase que hereda de Event, notifica a los clientes de la muerte de un player, agregándolo
 al protocolo.
 
@@ -314,6 +314,36 @@ al protocolo.
 Clase que hereda de Event, le pide a Game que tome el item de arriba de todo en un tile,
 comunica a los clientes que se debe poner otro item en ese tile o que ya no hay más items,
 dependiendo del resultado de la operación.
+
+##### PlayerLeveledUp
+Clase que hereda de Event, notifica a los clientes que un player subió de nivel, agregandolo
+al protocolo.
+
+##### RequestResurrect
+Clase que hereda de Event, le pide a Game que reviva al player, si la posición seleccionada
+pertenece a un sacerdote entonces resucita instantáneamente, sino el jugador entra en la 
+lista de espera para la resurrección. En el caso de que reviva inmediatamente agrega el 
+mensaje de resurrección al protocolo para que sea enviado a los clientes.
+
+##### RestoreStats
+Clase que hereda de Event, es utilizada por un Player para pedirle a Game que llame a 
+heal para un tile específico.
+
+##### Sell
+Clase que hereda de Event, es utilizada por un Player para pedirle a Game que llame a 
+sell para un tile específico.
+
+##### Unequip
+Clase que hereda de Event, es utilizada por un Player para decirle a su inventario que 
+se quiere desequipar un item.
+
+##### UseItem
+Clase que hereda de Event, es utilizada por un Player para decirle a su inventario que 
+quiere usar un item en cierta posicion.
+
+##### Withdraw
+Clase que hereda de Event, es utilizada por un Player para pedirle a Game que llame a 
+withdraw para un tile específico.
 
 ## <u>Cliente</u>
 
