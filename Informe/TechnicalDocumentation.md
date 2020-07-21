@@ -73,6 +73,9 @@ Cliente.
 
 Character: Se encarga de administrar a los personajes del mundo de Argentum,
 estos son los monstruos, citizens (banker, priest, trader) y los jugadores.
+El siguiente diagrama da una idea de la lógica de los personajes:
+
+![Characters](/Informe/img/ClientEntityClassDiagram.png)
 
 Graphics: Se encarga de administrar la UI con los datos particulares del cliente
 (salvo el mapa gráfico, eso se delega en el módulo Map) como las stats, la vida, el
@@ -102,7 +105,7 @@ esa información claramente al jugador.
 El siguiente diagrama da un pantallazo general de las clases del Cliente, sus
 jerarquías y organización:
 
-![LoadPlayer](/Informe/img/ClientGeneralClassDiagram.png)
+![Client](/Informe/img/ClientGeneralClassDiagram.png)
 
 #### libs
 
