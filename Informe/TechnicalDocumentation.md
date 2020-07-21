@@ -478,6 +478,8 @@ pueden realizar todas esas interacciones con los players. Cada clase que herede 
 deberá implementar la interacción que le corresponda. Guarda su coordenada, tipo de entidad
 y valores importantes para el movimiento.
 
+![DiagramaDeClaseMapCliente](/Informe/img/DiagramaDeClaseServerEntity.png)
+
 ##### Minichat
 Es una clase sencilla, basicamente es un wrapper de un string que permite agregar
 texto a dicho string o borrrarlo (para no repetir envío de mensajes en cada update
