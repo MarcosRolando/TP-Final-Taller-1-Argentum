@@ -327,7 +327,10 @@ del mismo módulo es:
 ##### MonstersFactory
 Clase que se encarga de la creación de monstruos. Se utiliza para crear monstruos aleatorios
 al repopular el mapa. Al igual que ItemsFactory, guarda un unordered_map de punteros a 
-función.
+función. Un diagrama de clase que muestra operaciones de monster y su interacción con su
+MonsterStats es:
+
+![LoadPlayer](/Informe/img/DiagramaDeClaseMonster.png)
 
 ##### ShouldMonsterBeRemoved
 Functor utilizado para mandar una instancia al remove_if del erase realizado sobre la lista de
