@@ -202,7 +202,10 @@ espera. Todos los clientes que sean aceptados por el ClientAccepter serán
 agregagos a una lista de espera de ClientsMonitor hasta que el Game los
 acepte y proceda a mergear dicha lista con la lista de clientes activos.
 Si algún cliente se desconecta entonces se le desconectará debidamente
-cuando se verifique el estado de los clientes.
+cuando se verifique el estado de los clientes. Un diagrama de clases que
+muestra información sobre esta y las clases con las que interactura es:
+
+![Client](/Informe/img/ClientGeneralClassClientsMonitor.png)
 
 #### PlayerManager
 Administra el guardado y carga de los jugadores, es el nexo entre el juego y
