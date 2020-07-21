@@ -29,14 +29,14 @@ Selector::Selector() {
     selectedTile = {0, 0};
 }
 
-void Selector::handleEvent(Coordinate click, Coordinate playerPos, Window& window){
+void Selector::handleEvent(Coordinate click, Coordinate playerPos, Window& window) {
+    std::lock_guard<std::mutex> l(m);
     _verifyTileSelection(playerPos, click);
     _verifyInventorySlotSelection(click);
     _verifySelectedEquipment(click);
 }
 
 void Selector::_verifyTileSelection(Coordinate playerPos, Coordinate click) {
-    std::lock_guard<std::mutex> l(m);
     //Veo si clickeo adentro del mapa
     if (_isInsideRect(click, DEFAULT_MAP_LEFT, DEFAULT_MAP_RIGHT, DEFAULT_MAP_TOP,
             DEFAULT_MAP_BOTTOM)){
@@ -63,7 +63,6 @@ void Selector::_verifyTileSelection(Coordinate playerPos, Coordinate click) {
 }
 
 void Selector::_verifyInventorySlotSelection(Coordinate click) {
-    std::lock_guard<std::mutex> l(m);
     //Veo si clickeo adentro del inventario
     if (_isInsideRect(click, DEFAULT_INVENTORY_LEFT, DEFAULT_INVENTORY_RIGHT,
             DEFAULT_INVENTORY_TOP, DEFAULT_INVENTORY_BOTTOM)){
@@ -73,7 +72,6 @@ void Selector::_verifyInventorySlotSelection(Coordinate click) {
 }
 
 void Selector::_verifySelectedEquipment(Coordinate click) {
-    std::lock_guard<std::mutex> l(m);
     if (_isInsideRect(click, 1320, 1392, 660, 735)){//Casco
         selectedEquipment = GameType::EQUIPMENT_PLACE_HEAD;
     } else if (_isInsideRect(click, 1397, 1469, 660, 735)){//Chest
