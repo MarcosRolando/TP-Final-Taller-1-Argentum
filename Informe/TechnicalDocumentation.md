@@ -253,7 +253,10 @@ de ser utilizado, este puede llegar a ser nulo y, por lo tanto, el item deberá 
 del inventario, en adición a esto, useItem hará cualquier acción que deba hacer sobre el
 jugador que la invoca antes de retornar su lugar de equipamiento. Implementa también el 
 método virtual isGold(), que fue agregado para evitar el uso de double dispatch al tomar
-un item del piso.
+un item del piso. Un diagrama que muestra la clase abstracta y su relacion con los distintos
+tipos de items es:
+
+![DiagramaDeClaseMapCliente](/Informe/img/DiagramaDeClaseServerItem.png)
 
 ##### Inventory
 Clase que se encarga de manejar los items que almacena el jugador, almacena tanto los items
@@ -262,6 +265,8 @@ pero no usa). Permite el uso de items guardados, y los equipa (o elimina) en la 
 correspondiente recibida por useItem. Permite también desequipar items, guardándolos en el
 inventario. Otro uso que se le da es guardar y sacar items, utilizado para almacenar items
 tomados del piso y para dejarlos en este.
+
+![DiagramaDeClaseMapCliente](/Informe/img/DiagramaDeClaseInventory.png)
 
 ##### Weapon
 Clase que hereda de item, se utiliza para atacar un jugador o monstruo. Contiene un ataque
@@ -653,6 +658,8 @@ Recibe un evento del servidor, lo procesa y arma un UpdateEvent (functor) que lu
 
 ### Graphics:
 
+![DiagramaDeClaseGraphics](/Informe/img/DiagramaDeClaseGraphics.png)
+
 ##### PlayerInfoGUI
 
 Contiene toda la información del jugador que debe ser mostrada por pantalla: nickname, vida, mana, experiencia, nivel, habilidades, oro y posición.. Sin embargo, solo renderiza las barras de vida, mana y experiencia en la parte inferior de la ventana
@@ -843,8 +850,9 @@ Borra a una entidad. Esto sirve tanto para cuando mueren los monstruos o cuando 
 
 Teletransporta a una entidad. Sirve para cuando el jugador ingresa el comando resurrect sin haber clickeado a un cura, ya que entonces debe ser transportado, despues de un tiempo, al cura mas cercano.
 
-
 ### InputCommands
+
+![DiagramaClasesInputCommand](/Informe/img/DiagramaClasesInputCommand.png)
 
 ##### InputCommand
 
