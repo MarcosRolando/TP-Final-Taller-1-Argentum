@@ -416,7 +416,17 @@ que luego es vaciada por Game para ver qué acciones realizará Player.
 
 ##### Storage
 Clase que contiene items y oro. Guarda un unordered map que contiene como key el nombre del
-item y como valor una lista de instancias de items.
+item y como valor una lista de instancias de items. Al inicializarse recibe un unordered_map
+con el nombre del item y la cantidad de ese item que tendrá que almacenar.
+
+##### Shop
+Clase que engloba Storage y le otorga comportamiento de comercio, permitiendo comprar y 
+vender items. Almacena también un unordered_set, que permite ver si el item que se está
+intentando vender al shop es aceptado por este.
+
+##### Banker
+Clase que almacena items que le otorga un Player. Permite a este almacenar y retirar items
+y oro, tiene un límite de cantidad de items a guardar.
 
 ## <u>Cliente</u>
 
