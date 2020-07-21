@@ -16,7 +16,7 @@ struct FixedText {
     Text title;
 
     FixedText(SDL_Renderer& renderer, Font& font) : inventory(font, renderer, "INVENTORY"),
-                                                title(font, renderer, "ARGENTUM") {}
+                                                title(font, renderer, "Argentum") {}
 };
 
 class PlayerInventoryGUI {

@@ -186,8 +186,8 @@
     },
     {
       "Name" : "ElvenFlute",
-      "MinDmg" : -500,
-      "MaxDmg" : -200,
+      "MinDmg" : -100,
+      "MaxDmg" : -50,
       "Range" : 5,
       "ManaConsumption" : 100,
       "Price" : 200
@@ -334,7 +334,7 @@
     "NextLevelModifier" : 1.8,
     "MinKillXPModifier" : 0,
     "MaxKillXPModifier" : 0.1,
-    "AttackXPModifier" : 10,
+    "AttackXPModifier" : 30,
     "KillXPModifier" : 10
   },
 
