@@ -11,7 +11,7 @@ puede utilizarse GDB.
 
 ### <u>Descripción general</u>
 El proyecto se divide en cliente y servidor. Para el desarrollo del mismo
-se diseño un patrón (no logramos encontrar si ya existía así que lo tomamos como propio)
+se diseñó un patrón (no logramos encontrar si ya existía así que lo tomamos como propio)
 al que llamamos *Product Pattern*. El nombre viene de la idea de que generemos un
 *functor* que ya esta preparado para ejecutar el evento correspondiente, permitiendo
 que el que consuma dicho evento ya tenga todo ensamblado y no se complique 
