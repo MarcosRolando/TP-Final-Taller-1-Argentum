@@ -214,7 +214,10 @@ cambiar de lugar las entidades cuando se mueven y de delegarle al tile acciones 
 apliquen en esta, como atacarla, pedirle un list, pedirle un buy, etc. Se encarga 
 también de obtener caminos entre dos coordenadas y de conseguir los jugadores a 
 atacar dentro de cierto rango alrededor de una coordenada. Otorga también 
-posiciones de spawn para monstruos y para jugadores.
+posiciones de spawn para monstruos y para jugadores. Un diagrama que muestra los métodos
+mas importantes y su interacción con Tile es:
+
+![DiagramaDeClaseMapCliente](/Informe/img/DiagramaDeClaseMap.png)
 
 ##### Coordinate
 Struct utilizado para simplificar el pasaje de coordenadas a funciones, se utiliza también
