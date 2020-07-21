@@ -3,7 +3,7 @@
 ### <u>Requerimientos de Software</u>
 Este trabajo fue probado en computadoras con Ubuntu 18.04.4 y 20.04.
 
-Para compilar se utilizo g++ 9.3.0, se necesita cmake de version al menos 3.10.2.
+Para compilar se utilizo g++ 9.3.0, se necesita CMake de versión al menos 3.10.2.
 
 El depuramiento fue realizado con el depurador de Clion, sin embargo, 
 puede utilizarse GDB.
@@ -99,6 +99,31 @@ personajes hasta las de los items.
 UpdateEvents: Contiene todos los posibles eventos que el cliente puede recibir
 del servidor y debe aplicar a su representación del juego para poder transmitir
 esa información claramente al jugador.
+
+#### libs
+
+Contiene las clases comúnes entre el cliente y el servidor.
+
+Scoket: Maneja la conexión y el envío de información entre el cliente y el servidor.
+Permite levantar un servidor en un puerto específico o conectar un cliente a un
+servidor.
+
+Thread: Clase abstracta, los que heredan de ella pueden ejecutar un thread de POSIX
+para que corra un método específico. 
+
+Timer: Es un cronómetro, permite obtener el tiempo transcurrido en milisegundos
+desde que se llama a su método startTime.
+
+TPException: Exception general, permite recibir cualquier texto para poder mostrar
+un mensaje claro de error. 
+
+GameEnums: enums generales como tipo de arma, ropa, eventos del cliente, eventos
+del servidor, entre otros. Estos se comparten entre el cliente y el servidor
+para poder entenderse el uno con el otro.
+
+SharedConstants: constantes compartidas entre el cliente y el servidor, para este
+TP tan solo se comparte la distancia de un tile al otro para poder traducir dicha
+distancia a pixeles en el cliente.
 
 ## <u>Servidor</u>
 
