@@ -339,7 +339,7 @@ que permite ver cómo está organizada la interacción entre esta clase y las qu
 (mostrando únicamente algunas de las clases hijas como ejemplo, ya que sino el diagrama 
 sería ilegible) es:
 
-                        ![LoadPlayer](/Informe/img/DiagramaDeClaseEvent.png)
+![LoadPlayer](/Informe/img/DiagramaDeClaseEvent.png)
 
 ##### Attack
 Clase que hereda de Event, es utilizada por una entidad para comunicarle a Game que se 
