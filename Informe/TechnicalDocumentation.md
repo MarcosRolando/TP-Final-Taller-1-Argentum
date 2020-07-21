@@ -399,7 +399,8 @@ raza y clase. Permite conectar los pedidos de los clientes con el juego en sí.
 Es la clase que comecta el ClientHandler con Player. Almacena los eventos en una cola interna,
 que luego es vaciada por Game para ver qué acciones realizará Player.
 
-##### PlayerProxy
+##### Storage
+Clase que contiene items y oro.
 
 ## <u>Cliente</u>
 
