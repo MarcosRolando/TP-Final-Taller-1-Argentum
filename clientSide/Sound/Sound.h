@@ -14,7 +14,9 @@ class Sound {
 private:
     Mix_Chunk* sound;
 public:
-    explicit Sound(std::string path);
+    explicit Sound(const std::string& path);
+    Sound(const Sound&) = delete;
+    Sound& operator=(const Sound&) = delete;
 
     /* Devuelve el sonido */
     Mix_Chunk* getSound();

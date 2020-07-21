@@ -117,10 +117,93 @@ atacar dentro de cierto rango alrededor de una coordenada. Otorga también
 posiciones de spawn para monstruos y para jugadores.
 
 #### Tile
-Contiene una lista con los items que se encuentran en su posición.
-Delega acciones como list, attack, buy, etc al entity que almacena (si es que almacena uno)
 
+Contiene una lista con los items que se encuentran en su posición. Permite agregar y sacar
+items. 
+Delega acciones como list, attack, buy, etc al entity que almacena (si es que almacena uno).
 
+### <u>Items</u>
+
+#### ItemsFactory
+Se encarga de crear items, tanto particulares como aleatorios. Se utiliza la creación 
+particular para inicializar correctamente los inventarios de los jugadores y los Storage.
+La creación aleatoria se utiliza para generar un drop de un item al morir un monstruo.
+Contiene un unordered_map de punteros a las funciones que generan los distintos items, y
+un vector de nombres que permite obtener un item aleatorio para generar.
+
+#### Item
+Clase base de la que heredan todos los items, guarda su nombre, qué tipo de item es 
+y su id dentro de ese tipo de items (se repite entre distintos tipos). Tiene el método
+abstracto use(), que retorna la posición en la que debería ser equipado ese item luego
+de ser utilizado, este puede llegar a ser nulo y, por lo tanto, el item deberá ser eliminado
+del inventario, en adición a esto, useItem hará cualquier acción que deba hacer sobre el
+jugador que la invoca antes de retornar su lugar de equipamiento. Implementa también el 
+método virtual isGold(), que fue agregado para evitar el uso de double dispatch al tomar
+un item del piso.
+
+#### Inventory
+Clase que se encarga de manejar los items que almacena el jugador, almacena tanto los items
+que tiene equipado el jugador como los que tiene en su "mochila" (es decir, los que guarda
+pero no usa). Permite el uso de items guardados, y los equipa (o elimina) en la posición 
+correspondiente recibida por useItem. Permite también desequipar items, guardándolos en el
+inventario. Otro uso que se le da es guardar y sacar items, utilizado para almacenar items
+tomados del piso y para dejarlos en este.
+
+#### Weapon
+Clase que hereda de item, se utiliza para atacar un jugador o monstruo. Contiene un ataque
+mínimo y máximo y un valor de maná que consumirá al ser utilizado para atacar. El valor de
+ataque que retorna estará entre esos valores máximo y mínimo si es que se tiene la cantidad
+de mana necesaria, sino no podrá realizarse el ataque. Al crearse recibe un enum que indica
+qué tipo de weapon es, es decir, qué arma es específicamente, para que pueda pedirle a 
+config los datos apropiados para inicializar el objeto correctamente.
+
+#### Clothing
+Clase que hereda de item, también es abstracta, es la clase base para todos los tipos de
+vestimenta. Tiene como atributos la defensa mínima y máxima, que funcionan de la misma forma
+que con el arma, al pedir el valor de esta, retorna un valor que se encuentra entre la defensa
+mínima y la máxima. Tiene un método abstracto que indica si es un tipo de clothing default,
+para evitar el uso de double dispatch cuando se quiere equipar o desequipar un item en el
+inventario.
+
+#### Head
+Clase que hereda de clothing, es utilizada para distinguir a los items que deben ser equipados
+en la cabeza, esto lo hace retornando ese lugar de equipamiento al llamar al método use(). 
+También recibe el indicador de qué tipo de Head se quiere crear, no se debe mandar el enum
+de un item que no sea un Head.
+
+#### Shield
+Clase que hereda de clothing, es utilizada para distinguir a los items que deben ser equipados
+como escudo, esto lo hace retornando ese lugar de equipamiento al llamar al método use().
+También recibe el indicador de qué tipo de Shield se quiere crear, no se debe mandar el enum
+de un item que no sea un Shield.
+
+#### Chest
+Clase que hereda de clothing, es utilizada para distinguir a los items que deben ser equipados
+en el pecho, esto lo hace retornando ese lugar de equipamiento al llamar al método use().
+También recibe el indicador de qué tipo de Chest se quiere crear, no se debe mandar el enum
+de un item que no sea un Chest.
+
+#### Gold
+Clase que hereda de item, se utiliza para representar un conjunto de oro, se utiliza 
+para depositarlo en el piso como un  drop de un monstruo. No es equipado en ningún 
+lugar, por lo que usarlo lo eliminaría del  inventario, sin embargo, al tomarlo del 
+piso se suma directamente al oro almacenado por el player, por lo que nunca se llamará 
+a su función use.
+
+#### Potion
+Clase que hereda de item, se utiliza como base para las pociones, es una clase abstracta.
+Su use retorna que no va equipado en ningún lado, por lo que las pociones son consumidas al
+ser utilizadas, no son equipables. Tiene un método abstracto llamado restoreStat() que debe 
+ser implementado por las clases que heredan de ella para que restauren el stat apropiado 
+para el player. Este método es llamado por use.
+
+#### HealthPotion
+Clase que hereda de Potion, implementa restoreStat(), haciendo que llame al método de Player
+que restaura su vida en cierta cantidad recibida.
+
+#### ManaPotion
+Clase que hereda de Potion, implementa restoreStat(), haciendo que llame al método de Player
+que restaura su mana en cierta cantidad recibida.
 
 ## <u>Cliente</u>
 
@@ -159,24 +242,7 @@ Cuando recibo del servidor un update que tiene informacion como un item o un tip
 #### Update
 
 
-
 #### UpdateManager
 
 
-
 #### UpdateReceiver
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
