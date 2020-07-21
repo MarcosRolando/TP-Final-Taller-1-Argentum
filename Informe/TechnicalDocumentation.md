@@ -496,6 +496,10 @@ ArgentumClient crea la cola Bloqueante sdlEvents a la que pushea los eventos que
 
 ##### ClientProtocol
 
+Contiene funciones generales que utilizan tanto el GameInitializer como el 
+UpdateReceiver (como por ejemplo la creación de un player) evitando repetir
+innecesariamente código en ambos módulos.
+
 ##### GameGUI
 
 Delega a la clase Map la actualización de lo que paso en el mapa(cuando se mueve una entidad o se lanza un hechizo). También se encarga de llamar a los métodos de renderizado de cada clase de la interfaz gráfica.
