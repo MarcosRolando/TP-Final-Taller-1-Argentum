@@ -87,10 +87,6 @@ Persistencia: Se encarga de mantener la información
 entre conexiones de los distintos jugadores con cuenta, guardándolos en un 
 archivo. Realiza guardado de datos periódicamente y cuando los jugadores se desconectan.  
 
-A continuación se presenta un diagrama de clases para mostrar la lógica de la persistencia:
-
-![Persistence](/Informe/img/PersistenceClassDiagram.png)
-
 Entidades:  Se encarga de "darle vida" al juego. Este módulo
 maneja los jugadores y npcs con los que interactuará el usuario. Maneja el comportamiento
 de los monstruos, los ciudadanos (curas, comerciantes y banqueros) y los jugadores.  
@@ -227,6 +223,12 @@ el mapa no sería lógico rearmar este buffer por cada cliente que se conecte).
 Genera los mensajes de update para los clientes conectados.
 
 ### Persistence
+
+
+A continuación se presenta un diagrama de clases para mostrar la lógica de la persistencia:
+
+![Persistence](/Informe/img/PersistenceClassDiagram.png)
+
 
 #### PlayerIndexFile
 
