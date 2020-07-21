@@ -437,7 +437,7 @@ Es una cola que contiene los eventos de actualización.
 
 Recibe un evento del servidor, lo procesa y arma un UpdateEvent(functor) que luego es pushado a la cola de eventos para ser ejecutada en el thread principal.
 
-### Modulo Graphics:
+### Graphics:
 
 ##### PlayerInfoGUI
 
@@ -493,11 +493,127 @@ Cuando es instanciado al principio del programa carga todos los sonidos en un un
 
 ##### SoundPlayer
 
-Tiene una cola de sonidos que son ejecutados al final de cada gameLoop. Tambien reproduce la musica y permite pausarla.
+Tiene una cola de sonidos que son ejecutados al final de cada gameLoop. Tambien reproduce la música y permite pausarla.
 
 ### Texture
 
 ### UpdateEvents
+
+##### UpdateEvent
+
+Es una interfaz para los eventos recibidos por el servidor que se deben ejecutar en el thread principal. Cada evento es un functor **EXPLICAR Q ES UN FUNCTOR**
+
+##### UpdateAttack
+
+Se fija con que arma se realizó el ataque y verifica la posición del ataque para decidir si se debe encolar un sonido porque esta cerca del jugador. Si el ataque es un hechizo también añade la animación a esa posición del mapa.
+
+##### UpdateCreateItem
+
+En el constructor recibe la posicion donde se creara el item y un enum con el tipo de item con el que consigue el id de la textura del ProtocolEnumTranslator. Cuando se ejecuta delega al mapa la creacion de ese item en la posicion correspondiente.
+
+##### UpdateCreateNPC
+
+Delega al mapa la creacion de un NPC con la data que recibe en su constructor
+
+##### UpdateCreatePlayer
+
+Delega al mapa la creacion de un NPC con la data que recibe en su constructor
+
+##### UpdateDestroyItem
+
+Delega al mapa la destruccion del item en la posicion recibida
+
+##### UpdateEquip
+
+Mediante el ProtocolEnumTranslator consigue la textura del item recibido y se lo equipa al jugador en la posicion especificada. Tambien puede recibir un enum que desequipa el item en la posicion especificada.
+
+##### UpdateGUI
+
+Recibe toda la informacion del jugador y la actualiza. Desde los items equipados y del inventario hasta la vida, mana, experiencia, nivel etc
+
+##### UpdateLevelUp
+
+Le sube el nivel al jugador. Esto permite que se imprima el nivel debajo de cada jugador.
+
+##### UpdateMove
+
+Mueve a una entidad en la direccion especificada. Tambien recibe la distancia que se movio (en metros) que luego se interpola a pixeles para que las animaciones se vean mas fluidas
+
+##### UpdatePlayerDeath
+
+Delega al mapa el matar a un jugador. El objetivo final es setear la variable isAlive del jugador en false para que al ser renderizado se use la textura del fantasma.
+
+##### UpdatePlayerResurrect
+
+Delega al mapa el revivir a un jugador. El objetivo final es setear la variable isAlive del jugador en true para que al ser renderizado se use muestre el equipamiento normalmente
+
+##### UpdateRemoveEntity
+
+Borra a una entidad. Esto sirve tanto para cuando mueren los monstruos o cuando se desconecta un jugador.
+
+##### UpdateTeleportEntity
+
+Teletransporta a una entidad. Sirve para cuando el jugador ingresa el comando resurrect sin haber clickeado a un cura, ya que entonces debe ser transportado, despues de un tiempo, al cura mas cercano.
+
+
+
+### InputCommands
+
+##### InputCommand
+
+**Explicar que cada comando arma el mensaje con el tipo de evento y la info q necesite el server para ejecutar ese comando**
+
+##### CommandVerifier
+
+En su constructor llena un unordered_map con comandos para poder verificarlos mas facilmente y no llenar todo de if else statements. Luego tiene el metodo verifyCommand que recibe un string y lo procesa para ver si es un comando valido. Si no lo es devuelve nullptr, pero si el comando es valido devuelve un unique_ptr de InputCommand para que lo ejecute el thread principal.
+
+##### BuyCommand
+
+Arma un mensaje con el tile que tengo seleccionado (para ver si seleccione a un cura o comerciante) y el item que quiero comprar.
+
+##### DepositCommand
+
+Arma un mensaje con el tile que tengo seleccionado (para ver si seleccione a un banquero) y el item que quiero depositar.
+
+##### DropCommand
+
+Arma un mensaje con el lugar del inventario que tengo seleccionado para poder tirar ese item.
+
+##### HealCommand
+
+Arma un mensaje con la posicion que tengo seleccionada para ver si seleccione a un cura.
+
+##### ListCommand
+
+Arma un mensaje con la posicion que tengo seleccionada. Si es un cura, comerciante me muestra lo que puedo comprar. Si es un banquero me muestra los items que tengo depositados. Si es un tile donde hay items me lista los items que estan en ese tile.
+
+##### MeditateCommand
+
+Arma un mensaje solamente con el evento de meditar ya que no necesita de mas informacion.
+
+##### MessageToPlayerCommand
+
+Arma un mensaje con el nickname del jugador al que le quiero mandar el mensaje junto con el mensaje que quiero mandar.
+
+##### PickUpCommand
+
+Arma un mensaje solamente con el evento de tomar un item ya que no necesita mas informacion porque agarra el primer item del tile en el que estoy parado.
+
+##### RequestInventoryNamesCommand
+
+Arma un mensaje con el evento. Me muestra en el minichat que item tengo en cada posicion del minichat.
+
+##### ResurrectCommand
+
+Arma un mensaje con la posicion que tengo seleccionada para ver si seleccione a un cura.
+
+##### SellCommand
+
+Arma un mensaje con el tile que tengo seleccionado (para ver si seleccione a un cura o comerciante) y el item que quiero comprar.
+
+##### WithdrawCommand
+
+Arma un mensaje con el tile que tengo seleccionado (para ver si seleccione a un banquero) y el item que quiero depositar.
 
 
 
