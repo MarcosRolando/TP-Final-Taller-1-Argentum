@@ -274,7 +274,10 @@ que el jugador revivió y fue teletransportado.
 Interfaz usada como base para todos los eventos guardados en la cola de Game. Se 
 utiliza para que todos estos tengan el mismo formato y, por lo tanto, puedan ser ejecutados
 de la misma forma, reciben el protocolo al ser ejecutados para que puedan adjuntar a los
-mensajes generales la información necesaria.
+mensajes generales la información necesaria. Al adjuntar esta información introducen primero
+una tupla con un id de evento, que permite distinguir qué tipo de información se está 
+proporcionando al cliente, esto le permite a este saber qué datos tendrá que recibir para
+poder interpretar la información recibida de la forma correcta.
 
 ##### Attack
 Clase que hereda de Event, es utilizada por una entidad para comunicarle a Game que se 
@@ -473,6 +476,16 @@ valoes.
 Clase que se encarga de leer y almacenar los datos del json que contiene la información del 
 mapa. Se utiliza para la inicialización de los datos del mapa cuando este es creado.
 
+##### map.json
+AGREGAR DESCRIPCION DE COMO ESTA ORGANIZADO EL ARCHIVO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+##### config.json
+AGREGAR DESCRIPCION DE COMO ESTA ORGANIZADO EL ARCHIVO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
 ## <u>Cliente</u>
 
 ### Modulo Principal:
@@ -495,7 +508,10 @@ ArgentumClient crea la cola Bloqueante sdlEvents a la que pushea los eventos que
 
 ##### ClientProtocol
 
-Se encarga de procesar y guardar la información recibida por el servidor para su posterior uso.
+Contiene funciones generales que utilizan tanto el GameInitializer como el 
+UpdateReceiver (como por ejemplo la creación de un player) evitando repetir
+innecesariamente código en ambos módulos.
+
 
 ##### GameGUI
 
