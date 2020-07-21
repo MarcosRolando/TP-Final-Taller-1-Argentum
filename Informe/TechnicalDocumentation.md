@@ -482,9 +482,21 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 ##### config.json
-AGREGAR DESCRIPCION DE COMO ESTA ORGANIZADO EL ARCHIVO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+El archivo se separa en distintas secciones:
+
+- **Race**: contiene a cada raza con los valores de vida, mana, meditationRate, RecoveryRate y cada habilidad
+- **Class**: identica a "Race" pero contiene a las clases
+- **Monster**: contiene a los monstruos, con sus valores de vida, daño, rango de vision, rango de niveles, velocidad y habilidades
+- **Weapon**: Contiene cada arma con su daño minimo y maximo, su rango, su consumo de mana y su precio
+- **Clothing**: Contiene cada item de vestimenta con su defensa minimo y maximo y su precio
+- **Potion**: Contiene las pociones con su precio y la cantidad de mana o vida que recuperan
+- **GoldModifiers**: Contiene los valores que se usan en las ecuaciones respectivas al oro
+- **XPModifiers**: Contiene los valores que se usan en las ecuaciones respectivas a la experiencia
+- **MonsterSpawnData**: Valores que modifican el spawn de los monstruos como la cantidad total o el tiempo entre spawns.
+- **General**: Valores mas generales que no pertenecian a ninguna categoria de las anteriores y no ameritaban una categoria nueva.
+- **Files**: Aquí se encuentra el puerto donde escuchara el servidor y las rutas de los archivos de persistencia.
+
+
 
 ## <u>Cliente</u>
 
@@ -736,11 +748,11 @@ Teletransporta a una entidad. Sirve para cuando el jugador ingresa el comando re
 
 ##### InputCommand
 
-Es una interfaz para los comandos ingresados por el usuario en el minichat. Cada comando recibe en su constructor la información necesaria para luego poder mandarle el mensaje al servidor.
+Es una interfaz para los comandos ingresados por el usuario en el minichat. Utilizamos el *ProductPattern* Cada comando recibe en su constructor la información necesaria para luego poder mandarle el mensaje al servidor.
 
 ##### CommandVerifier
 
-En su constructor llena un unordered_map con comandos para poder verificarlos mas facilmente y no llenar todo de if else statements. Luego tiene el metodo verifyCommand que recibe un string y lo procesa para ver si es un comando valido. Si no lo es devuelve nullptr, pero si el comando es valido devuelve un unique_ptr de InputCommand para que lo ejecute el thread principal.
+En su constructor llena un unordered_map con comandos para poder verificarlos mas facilmente y no llenar todo de if else statements. Luego tiene el método verifyCommand que recibe un string y lo procesa para ver si es un comando valido. Si no lo es devuelve nullptr, pero si el comando es valido devuelve un unique_ptr de InputCommand para que lo ejecute el thread principal.
 
 ##### BuyCommand
 
