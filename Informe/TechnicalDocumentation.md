@@ -42,7 +42,8 @@ Estado del juego: Se encarga de realizar todos los
 cambios que le pidan los distintos componentes del juego, delega los pedidos
 a las clases correspondientes cuando deba hacerlo. Se encarga tamién de 
 algunas reglas particulares del juego como los spawns de monstruos y 
-resurrección de jugadores.  
+resurrección de jugadores. Hace uso de functors para encolar todas las acciones
+que deberán ser realizadas en un update del juego.  
 
 Persistencia: Se encarga de mantener la información
 entre conexiones de los distintos jugadores con cuenta, guardándolos en un 
@@ -203,3 +204,31 @@ que restaura su vida en cierta cantidad recibida.
 #### ManaPotion
 Clase que hereda de Potion, implementa restoreStat(), haciendo que llame al método de Player
 que restaura su mana en cierta cantidad recibida.
+
+### <u>Game</u>
+
+#### Game
+Clase que maneja el comienzo de la ejecución de casi todas las acciones del juego. Tiene el 
+método update, que realiza todas las acciones de un tic del juego. Es la clase que utilizan las
+entidades para interactuar con tiles y otras entidades, para cosas como atacar, moverse, etc.
+Su principal funcionalidad es delegar estos pedidos a las clases que saben cómo reaccionar 
+a ellos. Se encarga también del manejo de la resurrección de los jugadores y de enviar algunos
+mensajes a los clientes, como la creación de nuevos monstruos.
+
+#### MonstersFactory
+Clase que se encarga de la creación de monstruos. Se utiliza para crear monstruos aleatorios
+al repopular el mapa. Al igual que ItemsFactory, guarda un unordered_map de punteros a 
+función.
+
+#### ShouldMonsterBeRemoved
+Functor utilizado para mandar una instancia al remove_if del erase realizado sobre la lista de
+monstruos, retorna true cuando un monstruo esta muerto.
+
+#### ShouldPlayerBeRevived
+Functor utilizado para mandar una instancia al remove_if del erase realizado sobre la lista de
+players a revivir, aumenta la cantidad de tiempo que lleva un jugador esperando ser revivido y, 
+en caso de que este sea suficiente, revive al jugador alrededor del cura más cercano, 
+retorna true cuando un jugador es revivido o está vivo. Cuando un jugador es revivido le pide
+al mapa una coordenada de spawn y lo mueve a esta, agrega también al protocolo el mensaje de 
+que el jugador revivió y fue teletransportado.
+
