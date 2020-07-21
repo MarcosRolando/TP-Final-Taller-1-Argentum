@@ -451,6 +451,21 @@ heal, y en vez de comprar y vender hechizos y pociones compra y vende armas y po
 
 ### Config
 
+##### Calculator
+Clase que contiene todas las ecuaciones utilizadas por la lógica del juego, con algunas funciones
+adicionales utilizadas para la aleatoridad.
+
+##### ConfigFileReader
+Clase que se encarga de leer los datos del archivo de configuración, utiliza json.
+
+##### Configuration
+Clase que almacena todos los datos del archivo de configuración, se utiliza para obtener estos 
+valoes.
+
+##### MapFileReader
+Clase que se encarga de leer y almacenar los datos del json que contiene la información del 
+mapa. Se utiliza para la inicialización de los datos del mapa cuando este es creado.
+
 ## <u>Cliente</u>
 
 ### Modulo Principal:
