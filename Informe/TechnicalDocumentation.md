@@ -73,6 +73,9 @@ Cliente.
 
 Character: Se encarga de administrar a los personajes del mundo de Argentum,
 estos son los monstruos, citizens (banker, priest, trader) y los jugadores.
+El siguiente diagrama da una idea de la lógica de los personajes:
+
+![Characters](/Informe/img/ClientEntityClassDiagram.png)
 
 Graphics: Se encarga de administrar la UI con los datos particulares del cliente
 (salvo el mapa gráfico, eso se delega en el módulo Map) como las stats, la vida, el
@@ -98,6 +101,11 @@ personajes hasta las de los items.
 UpdateEvents: Contiene todos los posibles eventos que el cliente puede recibir
 del servidor y debe aplicar a su representación del juego para poder transmitir
 esa información claramente al jugador.
+
+El siguiente diagrama da un pantallazo general de las clases del Cliente, sus
+jerarquías y organización:
+
+![Client](/Informe/img/ClientGeneralClassDiagram.png)
 
 #### libs
 
@@ -209,7 +217,10 @@ cambiar de lugar las entidades cuando se mueven y de delegarle al tile acciones 
 apliquen en esta, como atacarla, pedirle un list, pedirle un buy, etc. Se encarga 
 también de obtener caminos entre dos coordenadas y de conseguir los jugadores a 
 atacar dentro de cierto rango alrededor de una coordenada. Otorga también 
-posiciones de spawn para monstruos y para jugadores.
+posiciones de spawn para monstruos y para jugadores. Un diagrama que muestra los métodos
+mas importantes y su interacción con Tile es:
+
+![DiagramaDeClaseMapCliente](/Informe/img/DiagramaDeClaseMap.png)
 
 ##### Coordinate
 Struct utilizado para simplificar el pasaje de coordenadas a funciones, se utiliza también
@@ -322,7 +333,10 @@ del mismo módulo es:
 ##### MonstersFactory
 Clase que se encarga de la creación de monstruos. Se utiliza para crear monstruos aleatorios
 al repopular el mapa. Al igual que ItemsFactory, guarda un unordered_map de punteros a 
-función.
+función. Un diagrama de clase que muestra operaciones de monster y su interacción con su
+MonsterStats es:
+
+![LoadPlayer](/Informe/img/DiagramaDeClaseMonster.png)
 
 ##### ShouldMonsterBeRemoved
 Functor utilizado para mandar una instancia al remove_if del erase realizado sobre la lista de
@@ -489,7 +503,11 @@ correspondiente.
 Es una clase que hereda de Entiy, representa un juguador, es decir, un cliente interactuando
 con el servidor. Realiza todas las acciones que puede realizar un jugador. Almacena una 
 instancia de PlayerStats y de Inventory, además del oro y otros datos que identifican su 
-raza y clase. Permite conectar los pedidos de los clientes con el juego en sí.
+raza y clase. Permite conectar los pedidos de los clientes con el juego en sí. Un diagrama
+que muestra las interacciones básicas con el player e información sobre algunas clases que
+contiene es:
+
+![LoadPlayer](/Informe/img/DiagramaDeClasePlayer.png)
 
 ##### PlayerProxy
 Es la clase que comecta el ClientHandler con Player. Almacena los eventos en una cola interna,
