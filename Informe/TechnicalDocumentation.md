@@ -415,7 +415,8 @@ Es la clase que comecta el ClientHandler con Player. Almacena los eventos en una
 que luego es vaciada por Game para ver qué acciones realizará Player.
 
 ##### Storage
-Clase que contiene items y oro.
+Clase que contiene items y oro. Guarda un unordered map que contiene como key el nombre del
+item y como valor una lista de instancias de items.
 
 ## <u>Cliente</u>
 
