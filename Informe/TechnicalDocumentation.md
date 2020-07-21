@@ -525,7 +525,56 @@ Crea una font a partir de un archivo .ttf
 
 ### Map
 
-### Miscellanous
+#### ItemDrop
+
+Representa una imágen individual de un item. Estas se muestran cuando el item
+esta droppeado en un Tile o en el inventario del jugador. Para agregar dinamismo
+los drops de los Tiles están rotados 90 grados.
+
+#### Structure
+
+Representa una estructura, estas pueden ocupar uno o más Tiles visualmente
+pero internamente para la lógia del cliente existen en un único Tile.
+
+#### Tile
+
+Es la unidad mínima del mapa, su principal utilidad es abstraerse de posiciones 
+absoultas de pixeles para los objetos/entidades del mapa y a su vez permitir
+renderizar únicamente lo visible por el jugador sin necesidad de recorrer todos
+los elementos del mapa (personajes, estructuras, hechizos, etc) lo cual pdoría resultar
+inviable dado su magnitud (el mapa desarrollado para el juego es de 100x100 Tiles,
+es decir, 10.000 tiles en total).
+
+#### Map 
+
+Engloba toda la interfaz visual del mapa, actuando como administrador de los
+elementos que contiene ya sean hechizos, flechas, entidades, estructuras, etc.
+Es uno de los módulos principales de la GUI del cliente, junto con PlayerInfoGUI
+y PlayerInventoryGUI.
+
+### Miscellaneous
+
+#### Arrow
+
+Representa la instancia de una flecha. Internamente maneja la lógica de desplazamiento
+(animación) moviendose una cierta distancia cada X tiempo transcurrido que recibe del main 
+game loop. La flecha comienza existiendo en la posición del arquero que la disparó
+y termina de existir cuando alcanza el target (el Tile al que fue disparada).
+Sin embargo la animación es solo una ilusión ya que físicamente la flecha, 
+como todo ataque, ataca instantáneamente (no es posible esquivarla ni frenarla
+cruzandose en su camino).
+
+#### Spell
+
+Representa la instancia de un hechizo. Al igual que la flecha, recibe el tiempo 
+transcurrido desde el último update del cliente y actualiza su animación 
+en base a esto. Sin embargo a diferencia de la flecha el hechizo actualiza su
+frame y no su posición. Si bien en el juego el hechizo se mantiene en la entidad
+a la que fue lanzado esto se debe a que la entidad mantiene una referencia 
+a dicho hechizo y actualiza la posición de este en base a la propia.
+Si la entidad dejase de existir (muere o se desconecta el jugador) el hechizo
+pasará a ser referenciado por el Tile correspondiente a esa entidad, garantizando
+la continuación de la animación.
 
 ### Screen
 
@@ -559,7 +608,9 @@ Tiene una cola de sonidos que son ejecutados al final de cada gameLoop. Tambien 
 
 ##### UpdateEvent
 
-Es una interfaz para los eventos recibidos por el servidor que se deben ejecutar en el thread principal. Cada evento es un functor **EXPLICAR Q ES UN FUNCTOR**
+Es una interfaz para los eventos recibidos por el servidor que se deben 
+ejecutar en el thread principal. Estos eventos siguen el *Product Pattern*
+desarrollado para ese TP.
 
 ##### UpdateAttack
 
