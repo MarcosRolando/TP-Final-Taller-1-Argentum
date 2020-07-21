@@ -133,8 +133,16 @@ void Client::_initializeSDL() {
             throw TPException("SDL_image could not initialize! SDL_mage Error: %s\n", IMG_GetError() );
         }
     }
+    //Inicializa el audio, permite cargar la musica MP3
+    if(Mix_Init(MIX_INIT_MP3) == 0) {
+        IMG_Quit();
+        SDL_Quit();
+        throw TPException("SDL_mixer could not initialize!"
+                          " SDL_mixer Error: %s\n", Mix_GetError());
+    }
     //Inicializa el reproductor de audio
     if(Mix_OpenAudio(FREQUENCY, MIX_DEFAULT_FORMAT, 2, CHUNKSIZE) < 0) {
+        Mix_Quit();
         IMG_Quit();
         SDL_Quit();
         throw TPException("SDL_mixer could not initialize!"
@@ -152,8 +160,10 @@ void Client::_initializeSDL() {
 
 void Client::_closeSDL() {
     TTF_Quit();
+    Mix_CloseAudio();
     Mix_Quit();
     IMG_Quit();
+    SDL_QuitSubSystem(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     SDL_Quit();
 }
 

@@ -4,7 +4,7 @@
 
 #include "Sound.h"
 
-Sound::Sound(std::string path) {
+Sound::Sound(const std::string& path) {
     sound = Mix_LoadWAV(path.c_str());
     if(sound == nullptr) {
         throw TPException("Failed to load sound effect! SDL_mixer "

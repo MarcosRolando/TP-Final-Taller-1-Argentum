@@ -14,9 +14,9 @@
 #define EXPLOTION_2_PATH "/var/Argentum/Assets/Sounds/Explotion2.wav"
 #define EXPLOTION_3_PATH "/var/Argentum/Assets/Sounds/Explotion3.wav"
 #define HEALING_PATH "/var/Argentum/Assets/Sounds/heal.wav"
-#define ZOMBIE_PATH "/var/Argentum/Assets/Sounds/Zombie.mp3"
-#define SPIDER_PATH "/var/Argentum/Assets/Sounds/Spider.mp3"
-#define SKELETON_PATH "/var/Argentum/Assets/Sounds/Skeleton.mp3"
+#define ZOMBIE_PATH "/var/Argentum/Assets/Sounds/Zombie.wav"
+#define SPIDER_PATH "/var/Argentum/Assets/Sounds/Spider.wav"
+#define SKELETON_PATH "/var/Argentum/Assets/Sounds/Skeleton.wav"
 #define GOBLIN_PATH "/var/Argentum/Assets/Sounds/Goblin.wav"
 #define LEVEL_UP_SOUND "/var/Argentum/Assets/Sounds/LevelUp.wav"
 
