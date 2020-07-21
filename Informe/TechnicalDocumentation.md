@@ -62,27 +62,29 @@ necesidad de recompilarlo. Trabaja con los archivos config.json y map.json.
 
 ### <u>Servidor</u>
 
-#### ArgentumServer
+### Server
+
+##### ArgentumServer
 Esta clase se encarga de inicializar los objetos necesarios para 
 que pueda funcionar Game correctamente, además de contener el gameloop. Se encarga tambien
 de delegar el a ClientsMonitor el proceso de enviado de la información del último update
 a los clientes activos y pide que se agreguen a la lista de clientes activos aquellos que
 estén en espera si es que hay tiempo suficiente para hacerlo.
 
-#### ArgentumServerSide
+##### ArgentumServerSide
 Esta es la clase principal del servidor, es aquella que se utiliza
 cuando se quiere empezar a ejecutarlo.
 
-#### ClientAccepter
+##### ClientAccepter
 Clase que se encarga de aceptar a los clientes que intenten 
 conectarse, diciéndole a ClientsMonitor que los agregue a su lista de espera.
 
-#### ClientHandler
+##### ClientHandler
 Clase que se encarga de interactuar con un cliente conectado al 
 servidor. Se utiliza para mandarle la información actual del juego cuando este se conecta
 y para mandarle la información cada update.
 
-#### ClientsMonitor
+##### ClientsMonitor
 Clase que engloba la lista de clientes conectados y clientes en 
 espera. Todos los clientes que sean aceptados por el ClientAccepter serán 
 agregagos a una lista de espera de ClientsMonitor hasta que el Game los
@@ -90,26 +92,26 @@ acepte y proceda a mergear dicha lista con la lista de clientes activos.
 Si algún cliente se desconecta entonces se le desconectará debidamente
 cuando se verifique el estado de los clientes.
 
-#### PlayerManager
+##### PlayerManager
 AGREGAR COSAS DE PLAYER MANAGER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
-#### ServerMonitor
+##### ServerMonitor
 AGREGAR COSAS DE SERVER MONITOR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
-#### ServerProtocol
+##### ServerProtocol
 Se encarga de almacenar la información del mapa y los mensajes a
 comunicar en cada update, guardándolos en un vector de chars para mandar por el socket.
 
-### <u>Persistance</u>
+### Persistance
 
 
-### <u>Map</u>
+### Map
 
-#### Map
+##### Map
 Contiene una matriz de tiles, se encarga de agregar, sacar y 
 cambiar de lugar las entidades cuando se mueven y de delegarle al tile acciones que se 
 apliquen en esta, como atacarla, pedirle un list, pedirle un buy, etc. Se encarga 
@@ -117,22 +119,22 @@ también de obtener caminos entre dos coordenadas y de conseguir los jugadores a
 atacar dentro de cierto rango alrededor de una coordenada. Otorga también 
 posiciones de spawn para monstruos y para jugadores.
 
-#### Tile
+##### Tile
 
 Contiene una lista con los items que se encuentran en su posición. Permite agregar y sacar
 items. 
 Delega acciones como list, attack, buy, etc al entity que almacena (si es que almacena uno).
 
-### <u>Items</u>
+### Items
 
-#### ItemsFactory
+##### ItemsFactory
 Se encarga de crear items, tanto particulares como aleatorios. Se utiliza la creación 
 particular para inicializar correctamente los inventarios de los jugadores y los Storage.
 La creación aleatoria se utiliza para generar un drop de un item al morir un monstruo.
 Contiene un unordered_map de punteros a las funciones que generan los distintos items, y
 un vector de nombres que permite obtener un item aleatorio para generar.
 
-#### Item
+##### Item
 Clase base de la que heredan todos los items, guarda su nombre, qué tipo de item es 
 y su id dentro de ese tipo de items (se repite entre distintos tipos). Tiene el método
 abstracto use(), que retorna la posición en la que debería ser equipado ese item luego
@@ -142,7 +144,7 @@ jugador que la invoca antes de retornar su lugar de equipamiento. Implementa tam
 método virtual isGold(), que fue agregado para evitar el uso de double dispatch al tomar
 un item del piso.
 
-#### Inventory
+##### Inventory
 Clase que se encarga de manejar los items que almacena el jugador, almacena tanto los items
 que tiene equipado el jugador como los que tiene en su "mochila" (es decir, los que guarda
 pero no usa). Permite el uso de items guardados, y los equipa (o elimina) en la posición 
@@ -150,7 +152,7 @@ correspondiente recibida por useItem. Permite también desequipar items, guardá
 inventario. Otro uso que se le da es guardar y sacar items, utilizado para almacenar items
 tomados del piso y para dejarlos en este.
 
-#### Weapon
+##### Weapon
 Clase que hereda de item, se utiliza para atacar un jugador o monstruo. Contiene un ataque
 mínimo y máximo y un valor de maná que consumirá al ser utilizado para atacar. El valor de
 ataque que retorna estará entre esos valores máximo y mínimo si es que se tiene la cantidad
@@ -158,7 +160,7 @@ de mana necesaria, sino no podrá realizarse el ataque. Al crearse recibe un enu
 qué tipo de weapon es, es decir, qué arma es específicamente, para que pueda pedirle a 
 config los datos apropiados para inicializar el objeto correctamente.
 
-#### Clothing
+##### Clothing
 Clase que hereda de item, también es abstracta, es la clase base para todos los tipos de
 vestimenta. Tiene como atributos la defensa mínima y máxima, que funcionan de la misma forma
 que con el arma, al pedir el valor de esta, retorna un valor que se encuentra entre la defensa
@@ -166,49 +168,49 @@ mínima y la máxima. Tiene un método abstracto que indica si es un tipo de clo
 para evitar el uso de double dispatch cuando se quiere equipar o desequipar un item en el
 inventario.
 
-#### Head
+##### Head
 Clase que hereda de clothing, es utilizada para distinguir a los items que deben ser equipados
 en la cabeza, esto lo hace retornando ese lugar de equipamiento al llamar al método use(). 
 También recibe el indicador de qué tipo de Head se quiere crear, no se debe mandar el enum
 de un item que no sea un Head.
 
-#### Shield
+##### Shield
 Clase que hereda de clothing, es utilizada para distinguir a los items que deben ser equipados
 como escudo, esto lo hace retornando ese lugar de equipamiento al llamar al método use().
 También recibe el indicador de qué tipo de Shield se quiere crear, no se debe mandar el enum
 de un item que no sea un Shield.
 
-#### Chest
+##### Chest
 Clase que hereda de clothing, es utilizada para distinguir a los items que deben ser equipados
 en el pecho, esto lo hace retornando ese lugar de equipamiento al llamar al método use().
 También recibe el indicador de qué tipo de Chest se quiere crear, no se debe mandar el enum
 de un item que no sea un Chest.
 
-#### Gold
+##### Gold
 Clase que hereda de item, se utiliza para representar un conjunto de oro, se utiliza 
 para depositarlo en el piso como un  drop de un monstruo. No es equipado en ningún 
 lugar, por lo que usarlo lo eliminaría del  inventario, sin embargo, al tomarlo del 
 piso se suma directamente al oro almacenado por el player, por lo que nunca se llamará 
 a su función use.
 
-#### Potion
+##### Potion
 Clase que hereda de item, se utiliza como base para las pociones, es una clase abstracta.
 Su use retorna que no va equipado en ningún lado, por lo que las pociones son consumidas al
 ser utilizadas, no son equipables. Tiene un método abstracto llamado restoreStat() que debe 
 ser implementado por las clases que heredan de ella para que restauren el stat apropiado 
 para el player. Este método es llamado por use.
 
-#### HealthPotion
+##### HealthPotion
 Clase que hereda de Potion, implementa restoreStat(), haciendo que llame al método de Player
 que restaura su vida en cierta cantidad recibida.
 
-#### ManaPotion
+##### ManaPotion
 Clase que hereda de Potion, implementa restoreStat(), haciendo que llame al método de Player
 que restaura su mana en cierta cantidad recibida.
 
-### <u>Game</u>
+### Game
 
-#### Game
+##### Game
 Clase que maneja el comienzo de la ejecución de casi todas las acciones del juego. Tiene el 
 método update, que realiza todas las acciones de un tic del juego. Es la clase que utilizan las
 entidades para interactuar con tiles y otras entidades, para cosas como atacar, moverse, etc.
@@ -216,16 +218,16 @@ Su principal funcionalidad es delegar estos pedidos a las clases que saben cómo
 a ellos. Se encarga también del manejo de la resurrección de los jugadores y de enviar algunos
 mensajes a los clientes, como la creación de nuevos monstruos.
 
-#### MonstersFactory
+##### MonstersFactory
 Clase que se encarga de la creación de monstruos. Se utiliza para crear monstruos aleatorios
 al repopular el mapa. Al igual que ItemsFactory, guarda un unordered_map de punteros a 
 función.
 
-#### ShouldMonsterBeRemoved
+##### ShouldMonsterBeRemoved
 Functor utilizado para mandar una instancia al remove_if del erase realizado sobre la lista de
 monstruos, retorna true cuando un monstruo esta muerto.
 
-#### ShouldPlayerBeRevived
+##### ShouldPlayerBeRevived
 Functor utilizado para mandar una instancia al remove_if del erase realizado sobre la lista de
 players a revivir, aumenta la cantidad de tiempo que lleva un jugador esperando ser revivido y, 
 en caso de que este sea suficiente, revive al jugador alrededor del cura más cercano, 
@@ -253,7 +255,6 @@ Cuando se llama a su constructor inicializa SDL y crea un nuevo cursor. Luego ej
 Argentum crea la cola Bloqueante sdlEvents a la que pushea los eventos que recibe. ClientEventHandler va desencolando sdlEvents y por cada evento arma un mensaje con toda la información necesaria y se lo envía al servidor.
 
 #### ClientProtocol
-
 
 
 #### GameGUI
