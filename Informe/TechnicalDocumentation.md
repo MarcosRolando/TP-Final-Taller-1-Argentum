@@ -3,8 +3,7 @@
 ### <u>Requerimientos de Software</u>
 Este trabajo fue probado en computadoras con Ubuntu 18.04.4 y 20.04.
 
-Para compilar se utilizo g++ (Ubuntu 9.3.0-10ubuntu2) 9.3.0, se necesita 
-cmake de version al menos 3.10.2.
+Para compilar se utilizo g++ 9.3.0, se necesita cmake de version al menos 3.10.2.
 
 El depuramiento fue realizado con el depurador de Clion, sin embargo, 
 puede utilizarse GDB.
@@ -493,15 +492,15 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 ##### ArgentumClientSide
 
-Primero verifica que los argumentos con los que se ejecuta el cliente son correctos. Si es asi instancia al cliente e inicia su ejecución.
+Primero verifica que los argumentos con los que se ejecuta el cliente son correctos. Si es así instancia al cliente e inicia su ejecución.
 
 ##### ArgentumClient
 
-Cuando se llama a su constructor inicializa SDL y crea un nuevo cursor. Luego ejecuta el gameLoop. El gameLoop comienza con el menú principal que se detalla mas adelante. Cuando el usuario logra conectarse, se lanzan dos hilos: Uno se encarga de procesar los eventos SDL que corresponden al input del usuario y el otro recibe actualizaciones del servidor. En cada loop del juego se ejecutan las actualizaciones recibidas y finalmente se reproducen los sonidos correspondientes y se renderiza. Cuando se termina el juego se cierra el socket del cliente y se hace join de los hilos.
+Cuando se llama a su constructor inicializa SDL y crea un nuevo cursor. Luego ejecuta el gameLoop. El gameLoop comienza con el menú principal que se detalla mas adelante. Cuando el usuario logra conectarse, se lanzan dos hilos: Uno se encarga de procesar los eventos SDL que corresponden al input del usuario y el otro recibe actualizaciones del servidor. En cada loop del juego se procesa el input del usuario y se envia el mensaje correspondiente al servidor; se ejecutan las actualizaciones recibidas; se reproducen los sonidos correspondientes y finalmente se renderiza todo y se muestra por pantalla. Al finalizar el juego se cierra el socket del cliente y se hace join de los hilos.
 
 ##### BlockingQueue
 
-Es una cola bloqueante que no permite desencolar eventos hasta que se hayan dejado de añadir.
+Es una cola bloqueante que no permite desencolar eventos hasta que se hayan dejado de añadir. Se usa para encolar eventos de sdl a una cola que comparten ArgentumClient y ClientEventHandler
 
 ##### ClientEventHandler
 
@@ -513,23 +512,26 @@ Contiene funciones generales que utilizan tanto el GameInitializer como el
 UpdateReceiver (como por ejemplo la creación de un player) evitando repetir
 innecesariamente código en ambos módulos.
 
+
 ##### GameGUI
 
-Delega a la clase Map la actualización de lo que paso en el mapa(cuando se mueve una entidad o se lanza un hechizo). También se encarga de llamar a los métodos de renderizado de cada clase de la interfaz gráfica.
+Delega a la clase Map la actualización de las animaciones(hechizos o movimiento de entidades). También se encarga de llamar a los métodos de renderización de cada clase de la interfaz gráfica.
 
 ##### GameInitializer
 
-Inicializa el juego con la información que recibe del servidor. Primero recibe el mapa. Itera por cada tile cargando el tipo de piso y un ciudadano o estructura si es que hay. Luego carga todos los monstruos, items o jugadores que haya en el mapa en el instante que el usuario se conecto.
+Inicializa el juego con la información que recibe del servidor. Primero recibe el mapa. Itera por cada tile cargando el tipo de piso y un ciudadano o estructura si es que hay. Luego carga todos los monstruos, items o jugadores que haya en el mapa en el instante que el usuario se conectó.
 
 ##### ProtocolEnumTranslator
 
-Cuando recibo del servidor un update que tiene información como un item o un tipo de suelo esto se recibe en forma de un enum que comparten tanto el servidor como el cliente. Del lado del cliente necesitamos traducir el enum recibido a un id de una textura para poder renderizar. De eso se ocupa esta clase
+Cuando recibo del servidor un update que tiene información como un item o un tipo de suelo, un tipo de estructura o un npc, esto se recibe en forma de un enum que comparten tanto el servidor como el cliente. Del lado del cliente necesitamos traducir el enum recibido a un id de una textura para poder renderizar. De eso se ocupa esta clase.
 
 ##### Update
+
 
 Es una cola que contiene los eventos de actualización. Cada update se compone
 de eventos que sucedieron en el juego, piense en esos eventos como pequeños 
 bloques de información que representan un único cambio en el juego.
+
 
 ##### UpdateManager
 
@@ -540,31 +542,35 @@ del cliente y el thread que recibe constantemente los updates del servidor.
 
 ##### UpdateReceiver
 
-Recibe un evento del servidor, lo procesa y arma un UpdateEvent(functor) que luego es pushado a la cola de eventos para ser ejecutada en el thread principal.
+Recibe un evento del servidor, lo procesa y arma un UpdateEvent (functor) que luego es pusheado a la cola de eventos para ser ejecutado en el hilo principal.
 
 ### Graphics:
 
 ##### PlayerInfoGUI
 
-Contiene toda la informacion del jugador que debe ser mostrada por pantalla: nickname, vida, mana, experiencia, nivel, habilidades, oro y posicion. Sin embargo, solo renderiza las barras de vida, mana y experiencia en la parte inferior de la ventana
+Contiene toda la información del jugador que debe ser mostrada por pantalla: nickname, vida, mana, experiencia, nivel, habilidades, oro y posición.. Sin embargo, solo renderiza las barras de vida, mana y experiencia en la parte inferior de la ventana
 
 ##### PlayerInventoryGUI
 
-Tiene el inventario del jugador, junto con los items equipados. Se encarga de mostrar los items por pantalla, ademas de la informacion del jugador que le pide a PlayerInfoGUI.
+Tiene el inventario del jugador, junto con los items equipados. Se encarga de mostrar los items por pantalla, ademas de la información del jugador que le pide a PlayerInfoGUI.
 
 ##### Minichat
 
-Una de sus funciones es mostrar los mensajes relevantes recibidos por el servidor. Para esto tiene una lista de Text que en el constructor se llena con mensajes vacios. Cada vez que el servidor me manda un mensaje se desencola el mensaje mas viejo y se encola el nuevo. Cuando se renderiza el minichat se itera por esa lista imprimiendo solo algunos mensajes, ya que la cantidad total de mensajes es muy grande y no entra en el rectangulo del minichat. Se permite scrollear por el minichat para poder ver mensajes mas viejos.
+Una de sus funciones es mostrar los mensajes relevantes recibidos por el servidor. Para esto tiene una lista de Text que en el constructor se llena con mensajes vacíos. Cada vez que el servidor me manda un mensaje se desencola el mas viejo y se encola el recibido. Cuando se renderiza el minichat se itera por esa lista imprimiendo solo algunos mensajes, ya que la cantidad total de mensajes es mas grande que los que se pueden mostrar en el minichat. Para poder mostrar mas mensajes de los que se entran normalmente se implementó una función para poder scrollear y ver mas mensajes.
 
-Su otra funcion es tomar el input del usuario para que este pueda ingresar los comandos.
+La otra función es tomar el input del usuario para que este pueda ingresar los comandos.
+
+El minichat se desarrollo en las primeras semanas del trabajo, cuando solo había un hilo para el cliente. Luego, cuando se empezó a implementar la comunicación entre cliente y servidor se paso a usar tres hilos para el cliente. Esto causo muchas race conditions, especialmente en el minichat. Para arreglarlas se tuvieron que usar dos mutex, ya que al utilizar uno solo había situaciones en las que podía ocurrir un dead lock. Obviamente esta no es la solución ideal, pero se priorizaron otras áreas del proyecto que requerían mas atención.
 
 ##### Selector
 
-Hay ciertos comandos que requieren tener seleccionado a un personaje del mapa o a un lugar del inventario. Esta clase se encarga de verificar que se selecciono y guardarlo para poder usarlo para armar los mensajes que se enviaran al servidor.
+Hay ciertos comandos que requieren tener seleccionado a un personaje del mapa o a un lugar del inventario. Esta clase se encarga de verificar que se selecciono y guardarlo para poder usarlo para armar los mensajes que se enviarán al servidor. 
+
+Los datos que guarda esta clase son modificados en el hilo de ClientEventHandler, pero se utilizan luego en el hilo principal. Por esto la clase esta protegida por un mutex
 
 ##### Text
 
-Me permite mostrar texto con una font y tamaño especificos. Despues de crear un Text puedo modificar el texto que se imprimirá de varias maneras. Para cambiar totalmente el texto esta updateText, para agregar esta el operador +=, para quitar una letra esta el operador --. El operador * crea la textura con el texto actual. Esto sirve porque hay veces que quiero renderizar siempre lo mismo, y crear siempre la textura no es muy eficiente.
+Me permite mostrar texto con una font y tamaño especificos. Despues de crear un Text puedo modificar el texto que se imprimirá de varias maneras. Para cambiar totalmente el texto esta updateText, para agregar esta el operador +=, para quitar una letra esta el operador --. El operador * crea la textura con el texto actual. Esto sirve porque hay veces que se quiere renderizar siempre lo mismo, y crear siempre la textura no es muy eficiente.
 
 ##### Font
 
@@ -637,7 +643,12 @@ de mayor complejidad no se llegó a modificar esto.
 
 Se encarga de mostrar las pantallas de inicio donde se elige si cargar o crear un jugador, los datos de dicho jugador y el puerto e ip a donde nos queremos conectar. Cada pantalla consiste de un loop que maneja los inputs del usuario (clicks o texto) y renderiza los botones y cajas de texto correspondiente. 
 
-Luego de elegir una ip y un puerto y hacer click en "Connect" el cliente intentara conectarse al servidor. Si la conexión es exitosa, se le envían los datos del jugador(nickname y también raza + clase si se esta creando) al servidor que me responderá si me pude conectar exitosamente, o si hubo algún error.
+Luego de elegir una ip y un puerto y hacer click en "Connect" el cliente intentara conectarse al servidor. Si la conexión es exitosa, se le envían los datos del jugador(nickname y también raza + clase si se esta creando) al servidor que me responderá si me pude conectar exitosamente, o si hubo algún error. Los posibles errores son: 
+
+- INEXISTENT_PLAYER: Cuando se trata de cargar un jugador que no existe.
+- UNAVAILABLE_PLAYER: Puede ocurrir de dos formas. Si se trata de cargar un personaje que alguien ya esta usando o si trato de crear un personaje con un nickname que ya esta en uso.
+
+En retrospectiva, hubiese sido mejor crear distintas clases para cada pantalla, principalmente para evitar la repetición de codigo, pero tambien para que sea mas claro.
 
 ##### Window
 
@@ -647,7 +658,7 @@ Primero crea la ventana y el renderer. Luego se encarga de manejar todos los eve
 
 ##### Sound
 
-Crea un sonido a partir de un archivo .wav .
+Crea un sonido a partir de un archivo .wav 
 
 ##### SoundRepository
 
@@ -655,7 +666,7 @@ Cuando es instanciado al principio del programa carga todos los sonidos en un un
 
 ##### SoundPlayer
 
-Tiene una cola de sonidos que son ejecutados al final de cada gameLoop. Tambien reproduce la música y permite pausarla.
+Tiene una cola de sonidos que son ejecutados al final de cada gameLoop. También reproduce la música y permite pausarla. Como los sonidos se reproducen en el hilo principal pero se encolan en el hilo de UpdateReceiver esta clase esta protegida por un mutex.
 
 ### Texture
 
@@ -725,7 +736,7 @@ Teletransporta a una entidad. Sirve para cuando el jugador ingresa el comando re
 
 ##### InputCommand
 
-**Explicar que cada comando arma el mensaje con el tipo de evento y la info q necesite el server para ejecutar ese comando**
+Es una interfaz para los comandos ingresados por el usuario en el minichat. Cada comando recibe en su constructor la información necesaria para luego poder mandarle el mensaje al servidor.
 
 ##### CommandVerifier
 
