@@ -212,6 +212,11 @@ también de obtener caminos entre dos coordenadas y de conseguir los jugadores a
 atacar dentro de cierto rango alrededor de una coordenada. Otorga también 
 posiciones de spawn para monstruos y para jugadores.
 
+##### Coordinate
+Struct utilizado para simplificar el pasaje de coordenadas a funciones, se utiliza también
+para el algoritmos de caminos mínimos, se implementó su función de hashing y equal para poder
+utilizarlo como key.
+
 ##### Tile
 
 Contiene una lista con los items que se encuentran en su posición. Permite agregar y sacar
