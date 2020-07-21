@@ -185,7 +185,7 @@ estén en espera si es que hay tiempo suficiente para hacerlo.
 Esta es la clase principal del servidor, es aquella que se utiliza
 cuando se quiere empezar a ejecutarlo. Un diagrama general de las clases asociadas a esta es:
 
-![Client](/Informe/img/ClientGeneralClassServerGeneral.png)
+![Client](/Informe/img/ServerGeneral.png)
 
 ##### ClientAccepter
 Clase que se encarga de aceptar a los clientes que intenten 
