@@ -49,7 +49,7 @@ Persistencia: Se encarga de mantener la información
 entre conexiones de los distintos jugadores con cuenta, guardándolos en un 
 archivo. Realiza guardado de datos periódicamente y cuando los jugadores se desconectan.  
 
-Entidades:  Se encarga re "darle vida" al juego. Este módulo
+Entidades:  Se encarga de "darle vida" al juego. Este módulo
 maneja los jugadores y npcs con los que interactuará el usuario. Maneja el comportamiento
 de los monstruos, los ciudadanos (curas, comerciantes y banqueros) y los jugadores.  
 
@@ -129,6 +129,13 @@ se conecte, manteniendo su player intacto desde su última conexión.
 Maneja el archivo de índice de los jugadores registrados. Dado que este archivo es
 pequeño y para disminuir los accesos a memoria que implica leer/escribir de archivo
 esta clase carga a memoria los datos del archivo.
+
+#### SaveFileManager
+
+Relaciona las dos clases anteriores, asegurandose de mantenerlas sincronizadas y
+de usar los datos del índice para acceder al archivo de guardado de los datos de 
+los jugadores. Esta clase es almacenada por PlayerManager, quien la utiliza para
+poder guardar/cargar los datos de los jugadores.
 
 ### Map
 
@@ -344,6 +351,47 @@ quiere usar un item en cierta posicion.
 ##### Withdraw
 Clase que hereda de Event, es utilizada por un Player para pedirle a Game que llame a 
 withdraw para un tile específico.
+
+### Exceptions
+AGREGAR COSAS AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+### Entities
+
+##### Entity
+Es una clase abstracta, es la clase base para todas las entidades. Implementa por default
+todas las funciones de interacción con otra entity como vacía ya que no todas las entidades
+pueden realizar todas esas interacciones con los players. Cada clase que herede de esta
+deberá implementar la interacción que le corresponda. Guarda su coordenada, tipo de entidad
+y valores importantes para el movimiento.
+
+##### Minichat
+AAAAAAAAAAAAAAAAAA ESCRIBIR COSAS DEL MINICHAT
+
+##### Monster
+Es una clase que representa a un monstruo genérico, hereda de entity, no implementa ninguno
+de los métdodos de interacción no violentos entre un player y un npc. Recibe en el 
+constructor el tipo de monstruo que se quiere crear, y con esto se le pide a config los 
+datos con los que debe ser inicializado. En cada update busca jugadores cercanos a los que
+acercarse para atacar, si pasan cierta cantidad de tiempo sin desplazarse entonces realizan
+un desplazamiento en una dirección aleatoria. Cuando muere tiene cierta probabilidad de
+dejar un drop en el tile en el que murió.
+
+##### MonsterStats
+Es una clase almacenada por Monster, se encarga de manejar la vida de este. Agrega alguna
+información adicional al mensaje de ataque cuando es necesario y modifica la vida que tiene
+el monstruo cuando este es atacado, fijándose si el ataque fue crítico, fue esquivado, o fue
+un ataque normal.
+
+##### PlayerStats
+Es una clase almacenada por Player, se encarga de manejar la vida, mana y experiencia de 
+este. Realiza las mismas operaciones que MonsterStats al ser atacado. Cuando un player 
+intenta atacar a alguien, el arma debe pedirle a esta clase que baje la cantidad de mana
+correspondiente
+
+##### Player
+Es una clase que hereda de Entiy, representa un juguador, es decir, un cliente interactuando
+con el servidor. 
 
 ## <u>Cliente</u>
 
