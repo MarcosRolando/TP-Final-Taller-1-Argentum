@@ -100,7 +100,10 @@ personajes hasta las de los items.
 
 UpdateEvents: Contiene todos los posibles eventos que el cliente puede recibir
 del servidor y debe aplicar a su representación del juego para poder transmitir
-esa información claramente al jugador.
+esa información claramente al jugador. A continuación se muestra un diagrama
+que representa algunos de los eventos particulares de update:
+
+![UpdateEvent](/Informe/img/UpdateEventClassDiagram.png)
 
 El siguiente diagrama da un pantallazo general de las clases del Cliente, sus
 jerarquías y organización:
