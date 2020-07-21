@@ -277,7 +277,12 @@ de la misma forma, reciben el protocolo al ser ejecutados para que puedan adjunt
 mensajes generales la información necesaria. Al adjuntar esta información introducen primero
 una tupla con un id de evento, que permite distinguir qué tipo de información se está 
 proporcionando al cliente, esto le permite a este saber qué datos tendrá que recibir para
-poder interpretar la información recibida de la forma correcta.
+poder interpretar la información recibida de la forma correcta. Un diagrama de clases general
+que permite ver cómo está organizada la interacción entre esta clase y las que heredan de ella
+(mostrando únicamente algunas de las clases hijas como ejemplo, ya que sino el diagrama 
+sería ilegible) es:
+
+![LoadPlayer](/Informe/img/DiagramaDeClaseEvent.png)
 
 ##### Attack
 Clase que hereda de Event, es utilizada por una entidad para comunicarle a Game que se 
