@@ -353,7 +353,20 @@ Clase que hereda de Event, es utilizada por un Player para pedirle a Game que ll
 withdraw para un tile específico.
 
 ### Exceptions
-AGREGAR COSAS AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Para este trabajo se utilizaron tres custom exceptions:  
+
+TPException: Exception principal, es la utilizada en casi la totalidad del código.    
+Permite ingresar cualquier mensaje de texto para hacer claro el error.
+
+Las siguientes dos exceptions se lanzan en las clases de persistencia para poder
+mandar un mensaje custom al cliente dependiendo el error ocasionado.
+
+UnavailablePlayerException: esta exception se lanza cuando el cliente quiere 
+crear un cliente ya existe o si el cliente quiere cargar un player y dicho player
+ya esta loggeado en la partida.
+
+InexistentPlayerException: esta exception se lanza cuando un cliente quiere loggearse
+con un player que no existe.
 
 
 ### Entities
@@ -366,7 +379,9 @@ deberá implementar la interacción que le corresponda. Guarda su coordenada, ti
 y valores importantes para el movimiento.
 
 ##### Minichat
-AAAAAAAAAAAAAAAAAA ESCRIBIR COSAS DEL MINICHAT
+Es una clase sencilla, basicamente es un wrapper de un string que permite agregar
+texto a dicho string o borrrarlo (para no repetir envío de mensajes en cada update
+al cliente).
 
 ##### Monster
 Es una clase que representa a un monstruo genérico, hereda de entity, no implementa ninguno
@@ -387,11 +402,21 @@ un ataque normal.
 Es una clase almacenada por Player, se encarga de manejar la vida, mana y experiencia de 
 este. Realiza las mismas operaciones que MonsterStats al ser atacado. Cuando un player 
 intenta atacar a alguien, el arma debe pedirle a esta clase que baje la cantidad de mana
-correspondiente
+correspondiente.
 
 ##### Player
 Es una clase que hereda de Entiy, representa un juguador, es decir, un cliente interactuando
-con el servidor. 
+con el servidor. Realiza todas las acciones que puede realizar un jugador. Almacena una 
+instancia de PlayerStats y de Inventory, además del oro y otros datos que identifican su 
+raza y clase. Permite conectar los pedidos de los clientes con el juego en sí.
+
+##### PlayerProxy
+Es la clase que comecta el ClientHandler con Player. Almacena los eventos en una cola interna,
+que luego es vaciada por Game para ver qué acciones realizará Player.
+
+##### Storage
+Clase que contiene items y oro. Guarda un unordered map que contiene como key el nombre del
+item y como valor una lista de instancias de items.
 
 ## <u>Cliente</u>
 

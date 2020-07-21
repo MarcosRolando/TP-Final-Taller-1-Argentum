@@ -15,6 +15,7 @@
 #define NO_ITEM_MESSAGE "You don't have that item in you inventory\n"
 #define INVALID_GOLD_PARAMETERS "Invalid parameters for gold deposit/withdrawal\n"
 #define INSUFFICIENT_GOLD_MESSAGE "Insufficient gold\n"
+#define NEGATIVE_GOLD_MESSAGE "Negative gold does not exist\n"
 #define GOLD_AMOUNT_SEPARATOR ' '
 
 std::unordered_map<std::string, std::pair<unsigned int, Storage>> Banker::playersStorages;
@@ -132,18 +133,26 @@ void Banker::_modifyGoldReserves(Storage& playerStorage, Player &player,
 }
 
 void Banker::_depositGold(Storage &playerStorage, Player &player, int goldAmount) {
-    if (player.spendGold(goldAmount)) {
-        playerStorage.increaseGoldReserves(goldAmount);
+    if (goldAmount >= 0) {
+        if (player.spendGold(goldAmount)) {
+            playerStorage.increaseGoldReserves(goldAmount);
+        } else {
+            player.addMessage(INSUFFICIENT_GOLD_MESSAGE);
+        }
     } else {
-        player.addMessage(INSUFFICIENT_GOLD_MESSAGE);
+        player.addMessage(NEGATIVE_GOLD_MESSAGE);
     }
 }
 
 void Banker::_withdrawGold(Storage &playerStorage, Player &player, int goldAmount) {
-    if (playerStorage.decreaseGoldReserves(goldAmount)) {
-        player.receiveGold(goldAmount);
+    if (goldAmount >= 0) {
+        if (playerStorage.decreaseGoldReserves(goldAmount)) {
+            player.receiveGold(goldAmount);
+        } else {
+            player.addMessage(INSUFFICIENT_GOLD_MESSAGE);
+        }
     } else {
-        player.addMessage(INSUFFICIENT_GOLD_MESSAGE);
+        player.addMessage(NEGATIVE_GOLD_MESSAGE);
     }
 }
 
