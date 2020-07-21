@@ -27,7 +27,7 @@ private:
     int textNicknameOffset{0}, textLevelOffset{0};
 
 public:
-    PlayerTexture(TextureRepository& repo, PlayerEquipment equipment, std::string&& _level,
+    PlayerTexture(TextureRepository& repo, PlayerEquipment equipment, const std::string& _level,
                     const std::string& _nickname = "");
 
     void renderFront(int x, int y, int frame) override;

@@ -6,8 +6,8 @@
 
 Player::Player(TextureRepository& repo, SDL_Rect& camera, float x, float y,
         PlayerEquipment& images, bool _isAlive, std::string&& level, const std::string& nickname) :
-        Entity(camera, x, y), pTexture(repo, images, std::move(level), nickname),
-        ghostTexture(repo, PlayerGhost, std::move(level), nickname) {
+        Entity(camera, x, y), pTexture(repo, images, level, nickname),
+        ghostTexture(repo, PlayerGhost, " (" + level + ")", nickname) {
     isAlive = _isAlive;
 }
 
@@ -37,6 +37,6 @@ void Player::revive() {
 void Player::updateLevel(int level) {
     std::string strLevel = std::to_string(level);
     pTexture.setLevel(strLevel);
-    ghostTexture.setLevel(strLevel);
+    ghostTexture.setLevel(" (" + strLevel + ")");
 }
 
