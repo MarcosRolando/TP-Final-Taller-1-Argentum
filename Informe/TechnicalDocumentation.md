@@ -216,6 +216,11 @@ también de obtener caminos entre dos coordenadas y de conseguir los jugadores a
 atacar dentro de cierto rango alrededor de una coordenada. Otorga también 
 posiciones de spawn para monstruos y para jugadores.
 
+##### Coordinate
+Struct utilizado para simplificar el pasaje de coordenadas a funciones, se utiliza también
+para el algoritmos de caminos mínimos, se implementó su función de hashing y equal para poder
+utilizarlo como key.
+
 ##### Tile
 
 Contiene una lista con los items que se encuentran en su posición. Permite agregar y sacar
@@ -313,7 +318,11 @@ método update, que realiza todas las acciones de un tic del juego. Es la clase 
 entidades para interactuar con tiles y otras entidades, para cosas como atacar, moverse, etc.
 Su principal funcionalidad es delegar estos pedidos a las clases que saben cómo reaccionar 
 a ellos. Se encarga también del manejo de la resurrección de los jugadores y de enviar algunos
-mensajes a los clientes, como la creación de nuevos monstruos.
+mensajes a los clientes, como la creación de nuevos monstruos. Un diagrama de clase que muestra
+los atributos y métodos de Game en forma general, además de sus interacciones con algunas clases
+del mismo módulo es:
+
+![LoadPlayer](/Informe/img/DiagramaDeClaseGame.png)
 
 ##### MonstersFactory
 Clase que se encarga de la creación de monstruos. Se utiliza para crear monstruos aleatorios
@@ -659,6 +668,8 @@ Me permite mostrar texto con una font y tamaño especificos. Despues de crear un
 Crea una font a partir de un archivo .ttf
 
 ### Map
+
+![DiagramaDeClaseMapCliente](/Informe/img/DiagramaDeClaseMapCliente.png)
 
 #### ItemDrop
 
