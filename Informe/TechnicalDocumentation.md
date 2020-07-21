@@ -847,8 +847,9 @@ Borra a una entidad. Esto sirve tanto para cuando mueren los monstruos o cuando 
 
 Teletransporta a una entidad. Sirve para cuando el jugador ingresa el comando resurrect sin haber clickeado a un cura, ya que entonces debe ser transportado, despues de un tiempo, al cura mas cercano.
 
-
 ### InputCommands
+
+![DiagramaClasesInputCommand](/Informe/img/DiagramaClasesInputCommand.png)
 
 ##### InputCommand
 
