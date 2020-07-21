@@ -13,6 +13,7 @@
 class UpdateCreatePlayer : public UpdateEvent{
 private:
     MapPlayerData data;
+
 public:
     explicit UpdateCreatePlayer(MapPlayerData& _data) : data(_data) {}
     void operator()(GameGUI& game) override;
