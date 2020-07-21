@@ -10,7 +10,15 @@ El depuramiento fue realizado con el depurador de Clion, sin embargo,
 puede utilizarse GDB.
 
 ### <u>Descripción general</u>
-El proyecto se divide en cliente y servidor:
+El proyecto se divide en cliente y servidor. Para el desarrollo del mismo
+se diseño un patrón (no logramos encontrar si ya existía así que lo tomamos como propio)
+al que llamamos *Product Pattern*. El nombre viene de la idea de que generemos un
+*functor* que ya esta preparado para ejecutar el evento correspondiente, permitiendo
+que el que consuma dicho evento ya tenga todo ensamblado y no se complique 
+innecesariamente. Este patrón resultó clave en el diseño del TP y se lo utilizó
+para los updates que recbie el cliente del servidor, para los comandos que ingresa el
+cliente por minichat y para los eventos que procesa el juego del servidor.  
+
 
 #### Servidor General
 Se encuentra subdividido en la parte del servidor 
@@ -487,9 +495,16 @@ Cuando recibo del servidor un update que tiene información como un item o un ti
 
 ##### Update
 
-Es una cola que contiene los eventos de actualización.
+Es una cola que contiene los eventos de actualización. Cada update se compone
+de eventos que sucedieron en el juego, piense en esos eventos como pequeños 
+bloques de información que representan un único cambio en el juego.
 
 ##### UpdateManager
+
+Maneja una cola de Updates (clase previamente descripta). Permite almacenar múltiples
+Updates de forma tal que se evite el bottleneck donde no se pueden recibir un Update hasta que no se
+termine de procesar otro. Actúa como mediador entre el thread que ejecutra el loop
+del cliente y el thread que recibe constantemente los updates del servidor.
 
 ##### UpdateReceiver
 
