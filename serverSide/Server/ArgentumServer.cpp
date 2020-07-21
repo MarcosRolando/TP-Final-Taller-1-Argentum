@@ -57,6 +57,7 @@ void ArgentumServer::_execute(const std::string& mapFilePath) {
             if (lastBackupTime / 1000 >= BACKUP_TIME) {
                 clients.backup();
                 timeBetweenBackups.start();
+                std::cout << "Backuped players. Next backup in 5 minutes" << std::endl;
             }
             if (clients.hasWaitingClients() &&
                 (FRAME_TIME*1000 - lastFrameTime) > TIME_FOR_CLIENTS_INITIALIZATION) {
