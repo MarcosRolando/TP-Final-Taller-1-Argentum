@@ -111,7 +111,7 @@ Se encarga de almacenar la información del mapa base (al ser fijo y de gran tam
 el mapa no sería lógico rearmar este buffer por cada cliente que se conecte).
 Genera los mensajes de update para los clientes conectados.
 
-### Persistance
+### Persistence
 
 #### PlayerIndexFile
 
@@ -417,16 +417,39 @@ que luego es vaciada por Game para ver qué acciones realizará Player.
 ##### Storage
 Clase que contiene items y oro. Guarda un unordered map que contiene como key el nombre del
 item y como valor una lista de instancias de items. Al inicializarse recibe un unordered_map
-con el nombre del item y la cantidad de ese item que tendrá que almacenar.
+con el nombre del item y la cantidad de ese item que tendrá que almacenar. Permite agregar
+al minichat de un player mensajes que indican el oro y los items almacenados, junto con su 
+cantidad, ademas de guardar y sacar items y oro.
 
 ##### Shop
 Clase que engloba Storage y le otorga comportamiento de comercio, permitiendo comprar y 
 vender items. Almacena también un unordered_set, que permite ver si el item que se está
-intentando vender al shop es aceptado por este.
+intentando vender al shop es aceptado por este. Almacena un unordered_map con los precios de
+los items con los que opera, lo cual le permite manejar la compra y venta de estos, e indicar
+los items presentes y su precio al hacerle un list.
 
 ##### Banker
 Clase que almacena items que le otorga un Player. Permite a este almacenar y retirar items
-y oro, tiene un límite de cantidad de items a guardar.
+y oro, tiene un límite de cantidad de items a guardar para un player específico. Guarda
+un unordered_map de Storage estático en el que guarda los Storage de todos los jugadores
+conectados, es estático para que sea una variable de clase y lo compartan todos los bankers,
+ya que los jugadores deben poder acceder a sus elementos desde cualquier banker. Pedirle que
+haga un list guardará en el minichat del player que lo haya hecho los items y oro que este
+tiene almacenado en su banco. Los players tienen un límite de cantidad de items a guardar
+para mantener la restricción de tener un struct de tamaño fijo para guardar en el archivo de
+persistencia. Implementa las funciones que reaccionan a list, withdraw y deposit de player.
+
+##### Priest
+Clase que representa un cura o sacerdote. Implementa las funciones que reaccionan a list, heal, 
+buy y sell de player. Cura y "resucita" (esto es manejado por Game, como fue dicho previamente)
+jugadores. También guarda un Shop, que utiliza para comprar y vender pociones y hechizos.
+
+##### Trader
+Clase que representa comerciante. Implementa las funciones que reaccionan a list, buy y sell de 
+player. Tiene un comportamiento similar a Priest, con la diferencia de que no reacciona al comando
+heal, y en vez de comprar y vender hechizos y pociones compra y vende armas y pociones.
+
+### Config
 
 ## <u>Cliente</u>
 
