@@ -591,6 +591,14 @@ Si la entidad dejase de existir (muere o se desconecta el jugador) el hechizo
 pasará a ser referenciado por el Tile correspondiente a esa entidad, garantizando
 la continuación de la animación.
 
+#### CameraCollisionVerifier
+
+Verifica si un objeto es visible en la pantalla para ser
+entonces poder renderizado. En retrospectiva lo mejor sería
+una clase Camera que contenga a los métodos de esta clase para que quede 
+más compacto, pero dado que se le prestó más atención a otros módulos
+de mayor complejidad no se llegó a modificar esto.
+
 ### Screen
 
 ##### MainMenu
