@@ -459,7 +459,9 @@ Hay ciertos comandos que requieren tener seleccionado a un personaje del mapa o 
 
 ##### Text
 
-C
+Me permite mostrar texto con una font y tamaño especificos. Despues de crear un Text puedo modificar el texto que se imprimira de varias maneras. Para cambiar totalmente el texto esta updateText, para agregar esta el operador +=, para quitar una letra esta el operador --. El operador * crea la textura con el texto actual. Esto sirve porque hay veces que quiero renderizar siempre lo mismo, y crear siempre la textura no es muy eficiente.
 
 ##### Font
+
+Crea una font a partir de un archivo .ttf
 
