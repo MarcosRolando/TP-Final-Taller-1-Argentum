@@ -401,9 +401,17 @@ Tiene el inventario del jugador, junto con los items equipados. Se encarga de mo
 
 ##### Minichat
 
+Una de sus funciones es mostrar los mensajes relevantes recibidos por el servidor. Para esto tiene una lista de Text que en el constructor se llena con mensajes vacios. Cada vez que el servidor me manda un mensaje se desencola el mensaje mas viejo y se encola el nuevo. Cuando se renderiza el minichat se itera por esa lista imprimiendo solo algunos mensajes, ya que la cantidad total de mensajes es muy grande y no entra en el rectangulo del minichat. Se permite scrollear por el minichat para poder ver mensajes mas viejos.
+
+Su otra funcion es tomar el input del usuario para que este pueda ingresar los comandos.
+
 ##### Selector
 
+Hay ciertos comandos que requieren tener seleccionado a un personaje del mapa o a un lugar del inventario. Esta clase se encarga de verificar que se selecciono y guardarlo para poder usarlo para armar los mensajes que se enviaran al servidor.
+
 ##### Text
+
+C
 
 ##### Font
 
