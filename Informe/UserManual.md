@@ -115,6 +115,9 @@ El cliente se ejecuta con el comando
 
 `$ argentumClient`
 
+Al iniciar se abre una ventana a la cual se le puede cambiar el tamaño durante la ejecucion, ya sea habilitando la pantalla completa
+con f1 o arrastrando las esquinas de la ventana.
+
 El juego comienza con el menú principal. Primero debemos elegir si queremos crear 
 o cargar un jugador:
 
@@ -266,11 +269,13 @@ de nivel.
 - **Enter**: Ejecuta el comando ingresado en el minichat
 - **Retroceso**: Borra la ultima letra del comando ingresado en el minichat
 - **Tabulación**: Pausa o reproduce la música de fondo
+- **F1**: Pantalla completa.
+- **F2**: Vuelve al tamaño de ventana default.
 
 ##### Mouse
 
 - **Click izquierdo:** Selecciona un tile o una posición del inventario. También 
-habilita el minichat para escribir comandos.
+habilita el minichat para escribir comandos. 
 - **Click derecho:** Al hacer click derecho en el mapa, el personaje intentara 
 atacar la posición donde se hizo click. Si se hace click en el inventario, el 
 personaje hará uso del item que se encuentre en la posición donde se hizo click. 
