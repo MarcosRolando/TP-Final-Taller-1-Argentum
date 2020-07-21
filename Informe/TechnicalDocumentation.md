@@ -772,6 +772,8 @@ Primero crea la ventana y el renderer. Luego se encarga de manejar todos los eve
 
 ### Sound
 
+![DiagramaDeClaseSound](/Informe/img/DiagramaDeClaseSound.png)
+
 ##### Sound
 
 Crea un sonido a partir de un archivo .wav 
