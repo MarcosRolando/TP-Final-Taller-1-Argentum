@@ -13,7 +13,7 @@
 #include "ItemsFactory.h"
 #include "../Entities/PlayerStats.h"
 #include "../Entities/Minichat.h"
-#include "../NonModifiableConstants.h"
+#include "../Server/NonModifiableConstants.h"
 
 #define EMPTY_INVENTORY_MESSAGE "Your inventory is empty\n"
 

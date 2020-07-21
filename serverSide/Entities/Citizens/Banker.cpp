@@ -8,7 +8,7 @@
 #include "Storage.h"
 #include "../../../libs/TPException.h"
 #include "../../Config/Configuration.h"
-#include "../../NonModifiableConstants.h"
+#include "../../Server/NonModifiableConstants.h"
 
 #define NO_ROOM_AVAILABLE_MESSAGE "You don't have more storage room, the limit is "
 #define ROOM_AVAILABLE_MESSAGE "Items stored: "
@@ -51,7 +51,7 @@ void Banker::deposit(Player &player, const std::string& itemName) {
         std::pair<unsigned int, Storage>& aux = playersStorages.at(player.getNickname());
         if (itemName.find(Configuration::getInstance().configGetGoldName()) != std::string::npos) {
             _modifyGoldReserves(aux.second, player, itemName, _depositGold);
-        } else if (aux.first < MAX_NUMBER_OF_ITEMS_PER_PLAYER) {
+        } else if (aux.first < BANK_SIZE) {
             if (playersStorages.at(player.getNickname()).second.storeItem(player.removeItem(itemName))) {
                 aux.first++;
                 _storeAvailableRoomMessage(player, aux.first);
@@ -59,7 +59,7 @@ void Banker::deposit(Player &player, const std::string& itemName) {
                 player.addMessage(NO_ITEM_MESSAGE);
             }
         } else {
-            player.addMessage(NO_ROOM_AVAILABLE_MESSAGE + std::to_string(MAX_NUMBER_OF_ITEMS_PER_PLAYER) + "\n");
+            player.addMessage(NO_ROOM_AVAILABLE_MESSAGE + std::to_string(BANK_SIZE) + "\n");
         }
     } catch(...) {
         throw TPException("Tried to deposit an item of an inexistent player!");
@@ -109,7 +109,7 @@ int32_t Banker::_getNumberOfItemsStored(const std::unordered_map<std::string, un
 
 void Banker::_storeAvailableRoomMessage(Player &player, unsigned int storedItemsAmount) {
     player.addMessage(ROOM_AVAILABLE_MESSAGE + std::to_string(storedItemsAmount) + "/"
-                      + std::to_string(MAX_NUMBER_OF_ITEMS_PER_PLAYER) + "\n");
+                      + std::to_string(BANK_SIZE) + "\n");
 }
 
 void Banker::_modifyGoldReserves(Storage& playerStorage, Player &player,

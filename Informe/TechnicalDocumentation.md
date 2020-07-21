@@ -92,22 +92,43 @@ acepte y proceda a mergear dicha lista con la lista de clientes activos.
 Si algún cliente se desconecta entonces se le desconectará debidamente
 cuando se verifique el estado de los clientes.
 
-##### PlayerManager
-AGREGAR COSAS DE PLAYER MANAGER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+#### PlayerManager
+Administra el guardado y carga de los jugadores, es el nexo entre el juego y
+las clases de persistencia. Cada vez que un jugador se desconecta se encarga
+de removerlo del juego y almacenar sus datos actualizados en la correspondiente
+entrada del archivo. Si un jugador se conecta busca sus datos en el archivo 
+y se los pasa al Game para agregarlo al juego.
 
-##### ServerMonitor
-AGREGAR COSAS DE SERVER MONITOR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+#### ServerMonitor
+Esta clase tiene una única y simple responsabilidad: monitorear el ingreso
+del caracter terminador ('q') para forzar el cierre del servidor. Cerrar el servidor
+almacenará el estado actual de todos sus clientes conectados (este backup no se realiza
+si el Servidor se cierra inesperadamente por algún error ya que no se podría garantizar
+que la información correcta y/o no este corrupta).
 
-##### ServerProtocol
-Se encarga de almacenar la información del mapa y los mensajes a
-comunicar en cada update, guardándolos en un vector de chars para mandar por el socket.
+#### ServerProtocol
+Se encarga de almacenar la información del mapa base (al ser fijo y de gran tamaño
+el mapa no sería lógico rearmar este buffer por cada cliente que se conecte).
+Genera los mensajes de update para los clientes conectados.
 
 ### Persistance
 
+#### PlayerIndexFile
+
+Maneja el archivo de índice de los jugadores registrados. Dado que este archivo es
+pequeño y para disminuir los accesos a memoria que implica leer/escribir de archivo
+esta clase carga a memoria los datos del archivo.
+
+#### PlayerSaveFile
+
+Maneja el archivo de salvado de los jugadores. Este archivo contiene todos los datos
+relevantes del jugador que son necesarios para poder cargarlo al juego cuando
+se conecte, manteniendo su player intacto desde su última conexión.
+
+
+Maneja el archivo de índice de los jugadores registrados. Dado que este archivo es
+pequeño y para disminuir los accesos a memoria que implica leer/escribir de archivo
+esta clase carga a memoria los datos del archivo.
 
 ### Map
 
@@ -298,40 +319,41 @@ dependiendo del resultado de la operación.
 
 ### Modulo Principal:
 
-#### ArgentumClientSide
+##### ArgentumClientSide
 
 Primero verifica que los argumentos con los que se ejecuta el cliente son correctos. Si es asi instancia al cliente e inicia su ejecución.
 
-#### ArgentumClient
+##### ArgentumClient
 
 Cuando se llama a su constructor inicializa SDL y crea un nuevo cursor. Luego ejecuta el gameLoop. El gameLoop comienza con el menú principal que se detalla mas adelante. Cuando el usuario logra conectarse, se lanzan dos hilos: Uno se encarga de procesar los eventos SDL que corresponden al input del usuario y el otro recibe actualizaciones del servidor. En cada loop del juego se ejecutan las actualizaciones recibidas y finalmente se reproducen los sonidos correspondientes y se renderiza. Cuando se termina el juego se cierra el socket del cliente y se hace join de los hilos.
 
-#### BlockingQueue
+##### BlockingQueue
 
-#### ClientEventHandler
+##### ClientEventHandler
 
-Argentum crea la cola Bloqueante sdlEvents a la que pushea los eventos que recibe. ClientEventHandler va desencolando sdlEvents y por cada evento arma un mensaje con toda la información necesaria y se lo envía al servidor.
+ArgentumClient crea la cola Bloqueante sdlEvents a la que pushea los eventos que recibe. Luego lanza el hilo que comienza la ejecución de la clase. ClientEventHandler va desencolando sdlEvents y por cada evento arma un mensaje con toda la información necesaria y se lo envía al servidor.
 
-#### ClientProtocol
-
+##### ClientProtocol
 
 #### GameGUI
 
 Delega a la clase Map la actualización de lo que paso en el mapa(cuando se mueve una entidad o se lanza un hechizo). También se encarga de llamar a los métodos de renderizado de cada clase de la interfaz gráfica.
 
-#### GameInitializer
+##### GameInitializer
 
 Inicializa el juego con la información que recibe del servidor. Primero recibe el mapa. Itera por cada tile cargando el tipo de piso y un ciudadano o estructura si es que hay. Luego carga todos los monstruos, items o jugadores que haya en el mapa en el instante que el usuario se conecto.
 
-#### ProtocolEnumTranslator
+##### ProtocolEnumTranslator
 
-Cuando recibo del servidor un update que tiene informacion como un item o un tipo de suelo esto se recibe en forma de un enum que comparten tanto el servidor como el cliente. Del lado del cliente necesitamos traducir el enum recibido a un id de una textura para poder renderizar. De eso se ocupa esta clase
+Cuando recibo del servidor un update que tiene información como un item o un tipo de suelo esto se recibe en forma de un enum que comparten tanto el servidor como el cliente. Del lado del cliente necesitamos traducir el enum recibido a un id de una textura para poder renderizar. De eso se ocupa esta clase
 
-#### Update
+##### Update
 
+Es una cola que contiene los eventos de actualización.
 
-#### UpdateManager
+##### UpdateManager
 
+##### UpdateReceiver
 
-#### UpdateReceiver
->>>>>>> fe4c2bae100274f5319ea2dd1df607aa184a88e6
+Recibe un evento del servidor, lo procesa y arma un evento que luego es pushado a la cola de eventos para ser ejecutada en el thread principal.
+
