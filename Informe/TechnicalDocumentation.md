@@ -185,7 +185,7 @@ estén en espera si es que hay tiempo suficiente para hacerlo.
 Esta es la clase principal del servidor, es aquella que se utiliza
 cuando se quiere empezar a ejecutarlo. Un diagrama general de las clases asociadas a esta es:
 
-![Client](/Informe/img/ServerGeneral.png)
+![Client](/Informe/img/DiagramaDeClaseServerGeneral.png)
 
 ##### ClientAccepter
 Clase que se encarga de aceptar a los clientes que intenten 
@@ -205,7 +205,7 @@ Si algún cliente se desconecta entonces se le desconectará debidamente
 cuando se verifique el estado de los clientes. Un diagrama de clases que
 muestra información sobre esta y las clases con las que interactura es:
 
-![Client](/Informe/img/ClientGeneralClassClientsMonitor.png)
+![Client](/Informe/img/DiagramaDeClaseClientsMonitor.png)
 
 #### PlayerManager
 Administra el guardado y carga de los jugadores, es el nexo entre el juego y
