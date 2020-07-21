@@ -49,7 +49,7 @@ Persistencia: Se encarga de mantener la información
 entre conexiones de los distintos jugadores con cuenta, guardándolos en un 
 archivo. Realiza guardado de datos periódicamente y cuando los jugadores se desconectan.  
 
-Entidades:  Se encarga re "darle vida" al juego. Este módulo
+Entidades:  Se encarga de "darle vida" al juego. Este módulo
 maneja los jugadores y npcs con los que interactuará el usuario. Maneja el comportamiento
 de los monstruos, los ciudadanos (curas, comerciantes y banqueros) y los jugadores.  
 
@@ -129,6 +129,13 @@ se conecte, manteniendo su player intacto desde su última conexión.
 Maneja el archivo de índice de los jugadores registrados. Dado que este archivo es
 pequeño y para disminuir los accesos a memoria que implica leer/escribir de archivo
 esta clase carga a memoria los datos del archivo.
+
+#### SaveFileManager
+
+Relaciona las dos clases anteriores, asegurandose de mantenerlas sincronizadas y
+de usar los datos del índice para acceder al archivo de guardado de los datos de 
+los jugadores. Esta clase es almacenada por PlayerManager, quien la utiliza para
+poder guardar/cargar los datos de los jugadores.
 
 ### Map
 
