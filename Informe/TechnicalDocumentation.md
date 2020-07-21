@@ -650,6 +650,8 @@ Recibe un evento del servidor, lo procesa y arma un UpdateEvent (functor) que lu
 
 ### Graphics:
 
+![DiagramaDeClaseGraphics](/home/ivan/CLionProjects/Argentum/Informe/img/DiagramaDeClaseGraphics.png)
+
 ##### PlayerInfoGUI
 
 Contiene toda la información del jugador que debe ser mostrada por pantalla: nickname, vida, mana, experiencia, nivel, habilidades, oro y posición.. Sin embargo, solo renderiza las barras de vida, mana y experiencia en la parte inferior de la ventana
