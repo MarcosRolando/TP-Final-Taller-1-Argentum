@@ -24,7 +24,7 @@ private:
     Texture* weapon;
     Font textFont;
     Text nickname, level;
-    int levelOffset{0};
+    int textNicknameOffset{0}, textLevelOffset{0};
 
 public:
     PlayerTexture(TextureRepository& repo, PlayerEquipment equipment, std::string&& _level,

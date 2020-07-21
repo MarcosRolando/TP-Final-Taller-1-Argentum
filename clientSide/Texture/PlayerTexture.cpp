@@ -11,7 +11,8 @@ PlayerTexture::PlayerTexture(TextureRepository& repo, PlayerEquipment equipment,
                             nickname(textFont, repo.getRenderer(), _nickname),
                             level(textFont, repo.getRenderer(), " (" + std::move(_level) + ")") {
 
-    levelOffset = nickname.getTextTextureWidth();
+    textLevelOffset = level.getTextTextureWidth();
+    textNicknameOffset = (nickname.getTextTextureWidth() + textLevelOffset)/2;
     if (equipment.helmet != Nothing) helmet = &textureRepo.getTexture(equipment.helmet);
     else helmet = nullptr;
     head = &textureRepo.getTexture(equipment.head);
@@ -29,8 +30,8 @@ void PlayerTexture::renderFront(int x, int y, int frame) {
     EntityTexture::render(helmet, x + 45, y + 15, 0);
     EntityTexture::render(shield, x + 52, y + 30, frame);
     EntityTexture::render(weapon, x + 37, y + 15, frame);
-    nickname.render(x + 20, y + TILE_HEIGHT - 15);
-    level.render(x + 20 + levelOffset, y + TILE_HEIGHT - 15);
+    nickname.render(x + TILE_WIDTH/2 - textNicknameOffset, y + TILE_HEIGHT - 15);
+    level.render(x + TILE_WIDTH/2 + textNicknameOffset - textLevelOffset, y + TILE_HEIGHT - 15);
 }
 
 void PlayerTexture::renderBack(int x, int y, int frame) {
@@ -40,8 +41,8 @@ void PlayerTexture::renderBack(int x, int y, int frame) {
     EntityTexture::render(shield, x + 37, y + 15, frame + 6);
     EntityTexture::render(body, x + 37, y + 30, frame + 6);
     EntityTexture::render(helmet, x + 45, y + 11, 3);
-    nickname.render(x + 20, y + TILE_HEIGHT - 15);
-    level.render(x + 20 + levelOffset, y + TILE_HEIGHT - 15);
+    nickname.render(x + TILE_WIDTH/2 - textNicknameOffset, y + TILE_HEIGHT - 15);
+    level.render(x + TILE_WIDTH/2 + textNicknameOffset - textLevelOffset, y + TILE_HEIGHT - 15);
 }
 
 void PlayerTexture::renderRight(int x, int y, int frame) {
@@ -51,8 +52,8 @@ void PlayerTexture::renderRight(int x, int y, int frame) {
     EntityTexture::render(body, x + 37, y + 30, frame + 18);
     EntityTexture::render(helmet, x + 45, y + 11, 1);
     EntityTexture::render(weapon, x + 37, y + 20, frame + 18);
-    nickname.render(x + 20, y + TILE_HEIGHT - 15);
-    level.render(x + 20 + levelOffset, y + TILE_HEIGHT - 15);
+    nickname.render(x + TILE_WIDTH/2 - textNicknameOffset, y + TILE_HEIGHT - 15);
+    level.render(x + TILE_WIDTH/2 + textNicknameOffset - textLevelOffset, y + TILE_HEIGHT - 15);
 }
 
 void PlayerTexture::renderLeft(int x, int y, int frame) {
@@ -62,12 +63,14 @@ void PlayerTexture::renderLeft(int x, int y, int frame) {
     EntityTexture::render(body, x + 37, y + 30, frame + 12);
     EntityTexture::render(helmet, x + 43, y + 11, 2);
     EntityTexture::render(shield, x + 47, y + 30, frame + 12);
-    nickname.render(x + 20, y + TILE_HEIGHT - 15);
-    level.render(x + 20 + levelOffset, y + TILE_HEIGHT - 15);
+    nickname.render(x + TILE_WIDTH/2 - textNicknameOffset, y + TILE_HEIGHT - 15);
+    level.render(x + TILE_WIDTH/2 + textNicknameOffset - textLevelOffset, y + TILE_HEIGHT - 15);
 }
 
 void PlayerTexture::setLevel(const std::string &_level) {
     *(level.updateText( " (" + _level + ")"));
+    textLevelOffset = level.getTextTextureWidth();
+    textNicknameOffset = (nickname.getTextTextureWidth() + textLevelOffset)/2;
 }
 
 void PlayerTexture::equip(GameType::EquipmentPlace place, TextureID equipment) {
