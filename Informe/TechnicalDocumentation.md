@@ -650,7 +650,7 @@ Recibe un evento del servidor, lo procesa y arma un UpdateEvent (functor) que lu
 
 ### Graphics:
 
-![DiagramaDeClaseGraphics](/home/ivan/CLionProjects/Argentum/Informe/img/DiagramaDeClaseGraphics.png)
+![DiagramaDeClaseGraphics](/Informe/img/DiagramaDeClaseGraphics.png)
 
 ##### PlayerInfoGUI
 
