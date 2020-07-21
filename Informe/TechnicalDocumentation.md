@@ -9,7 +9,15 @@ El depuramiento fue realizado con el depurador de Clion, sin embargo,
 puede utilizarse GDB.
 
 ### <u>Descripción general</u>
-El proyecto se divide en cliente y servidor:
+El proyecto se divide en cliente y servidor. Para el desarrollo del mismo
+se diseño un patrón (no logramos encontrar si ya existía así que lo tomamos como propio)
+al que llamamos *Product Pattern*. El nombre viene de la idea de que generemos un
+*functor* que ya esta preparado para ejecutar el evento correspondiente, permitiendo
+que el que consuma dicho evento ya tenga todo ensamblado y no se complique 
+innecesariamente. Este patrón resultó clave en el diseño del TP y se lo utilizó
+para los updates que recbie el cliente del servidor, para los comandos que ingresa el
+cliente por minichat y para los eventos que procesa el juego del servidor.  
+
 
 #### Servidor General
 Se encuentra subdividido en la parte del servidor 
@@ -110,7 +118,7 @@ Se encarga de almacenar la información del mapa base (al ser fijo y de gran tam
 el mapa no sería lógico rearmar este buffer por cada cliente que se conecte).
 Genera los mensajes de update para los clientes conectados.
 
-### Persistance
+### Persistence
 
 #### PlayerIndexFile
 
@@ -416,16 +424,54 @@ que luego es vaciada por Game para ver qué acciones realizará Player.
 ##### Storage
 Clase que contiene items y oro. Guarda un unordered map que contiene como key el nombre del
 item y como valor una lista de instancias de items. Al inicializarse recibe un unordered_map
-con el nombre del item y la cantidad de ese item que tendrá que almacenar.
+con el nombre del item y la cantidad de ese item que tendrá que almacenar. Permite agregar
+al minichat de un player mensajes que indican el oro y los items almacenados, junto con su 
+cantidad, ademas de guardar y sacar items y oro.
 
 ##### Shop
 Clase que engloba Storage y le otorga comportamiento de comercio, permitiendo comprar y 
 vender items. Almacena también un unordered_set, que permite ver si el item que se está
-intentando vender al shop es aceptado por este.
+intentando vender al shop es aceptado por este. Almacena un unordered_map con los precios de
+los items con los que opera, lo cual le permite manejar la compra y venta de estos, e indicar
+los items presentes y su precio al hacerle un list.
 
 ##### Banker
 Clase que almacena items que le otorga un Player. Permite a este almacenar y retirar items
-y oro, tiene un límite de cantidad de items a guardar.
+y oro, tiene un límite de cantidad de items a guardar para un player específico. Guarda
+un unordered_map de Storage estático en el que guarda los Storage de todos los jugadores
+conectados, es estático para que sea una variable de clase y lo compartan todos los bankers,
+ya que los jugadores deben poder acceder a sus elementos desde cualquier banker. Pedirle que
+haga un list guardará en el minichat del player que lo haya hecho los items y oro que este
+tiene almacenado en su banco. Los players tienen un límite de cantidad de items a guardar
+para mantener la restricción de tener un struct de tamaño fijo para guardar en el archivo de
+persistencia. Implementa las funciones que reaccionan a list, withdraw y deposit de player.
+
+##### Priest
+Clase que representa un cura o sacerdote. Implementa las funciones que reaccionan a list, heal, 
+buy y sell de player. Cura y "resucita" (esto es manejado por Game, como fue dicho previamente)
+jugadores. También guarda un Shop, que utiliza para comprar y vender pociones y hechizos.
+
+##### Trader
+Clase que representa comerciante. Implementa las funciones que reaccionan a list, buy y sell de 
+player. Tiene un comportamiento similar a Priest, con la diferencia de que no reacciona al comando
+heal, y en vez de comprar y vender hechizos y pociones compra y vende armas y pociones.
+
+### Config
+
+##### Calculator
+Clase que contiene todas las ecuaciones utilizadas por la lógica del juego, con algunas funciones
+adicionales utilizadas para la aleatoridad.
+
+##### ConfigFileReader
+Clase que se encarga de leer los datos del archivo de configuración, utiliza json.
+
+##### Configuration
+Clase que almacena todos los datos del archivo de configuración, se utiliza para obtener estos 
+valoes.
+
+##### MapFileReader
+Clase que se encarga de leer y almacenar los datos del json que contiene la información del 
+mapa. Se utiliza para la inicialización de los datos del mapa cuando este es creado.
 
 ## <u>Cliente</u>
 
@@ -465,9 +511,18 @@ Cuando recibo del servidor un update que tiene información como un item o un ti
 
 ##### Update
 
-Es una cola que contiene los eventos de actualización. Es utilizada para que el hilo que recibe y procesa las actualizaciones del servidor pueda encolar functors que luego son desencolados y ejecutados en el thread principal, evitando así race conditions.
+
+Es una cola que contiene los eventos de actualización. Cada update se compone
+de eventos que sucedieron en el juego, piense en esos eventos como pequeños 
+bloques de información que representan un único cambio en el juego.
+
 
 ##### UpdateManager
+
+Maneja una cola de Updates (clase previamente descripta). Permite almacenar múltiples
+Updates de forma tal que se evite el bottleneck donde no se pueden recibir un Update hasta que no se
+termine de procesar otro. Actúa como mediador entre el thread que ejecutra el loop
+del cliente y el thread que recibe constantemente los updates del servidor.
 
 ##### UpdateReceiver
 
@@ -507,7 +562,64 @@ Crea una font a partir de un archivo .ttf
 
 ### Map
 
-### Miscellanous
+#### ItemDrop
+
+Representa una imágen individual de un item. Estas se muestran cuando el item
+esta droppeado en un Tile o en el inventario del jugador. Para agregar dinamismo
+los drops de los Tiles están rotados 90 grados.
+
+#### Structure
+
+Representa una estructura, estas pueden ocupar uno o más Tiles visualmente
+pero internamente para la lógia del cliente existen en un único Tile.
+
+#### Tile
+
+Es la unidad mínima del mapa, su principal utilidad es abstraerse de posiciones 
+absoultas de pixeles para los objetos/entidades del mapa y a su vez permitir
+renderizar únicamente lo visible por el jugador sin necesidad de recorrer todos
+los elementos del mapa (personajes, estructuras, hechizos, etc) lo cual pdoría resultar
+inviable dado su magnitud (el mapa desarrollado para el juego es de 100x100 Tiles,
+es decir, 10.000 tiles en total).
+
+#### Map 
+
+Engloba toda la interfaz visual del mapa, actuando como administrador de los
+elementos que contiene ya sean hechizos, flechas, entidades, estructuras, etc.
+Es uno de los módulos principales de la GUI del cliente, junto con PlayerInfoGUI
+y PlayerInventoryGUI.
+
+### Miscellaneous
+
+#### Arrow
+
+Representa la instancia de una flecha. Internamente maneja la lógica de desplazamiento
+(animación) moviendose una cierta distancia cada X tiempo transcurrido que recibe del main 
+game loop. La flecha comienza existiendo en la posición del arquero que la disparó
+y termina de existir cuando alcanza el target (el Tile al que fue disparada).
+Sin embargo la animación es solo una ilusión ya que físicamente la flecha, 
+como todo ataque, ataca instantáneamente (no es posible esquivarla ni frenarla
+cruzandose en su camino).
+
+#### Spell
+
+Representa la instancia de un hechizo. Al igual que la flecha, recibe el tiempo 
+transcurrido desde el último update del cliente y actualiza su animación 
+en base a esto. Sin embargo a diferencia de la flecha el hechizo actualiza su
+frame y no su posición. Si bien en el juego el hechizo se mantiene en la entidad
+a la que fue lanzado esto se debe a que la entidad mantiene una referencia 
+a dicho hechizo y actualiza la posición de este en base a la propia.
+Si la entidad dejase de existir (muere o se desconecta el jugador) el hechizo
+pasará a ser referenciado por el Tile correspondiente a esa entidad, garantizando
+la continuación de la animación.
+
+#### CameraCollisionVerifier
+
+Verifica si un objeto es visible en la pantalla para ser
+entonces poder renderizado. En retrospectiva lo mejor sería
+una clase Camera que contenga a los métodos de esta clase para que quede 
+más compacto, pero dado que se le prestó más atención a otros módulos
+de mayor complejidad no se llegó a modificar esto.
 
 ### Screen
 
@@ -546,7 +658,9 @@ Tiene una cola de sonidos que son ejecutados al final de cada gameLoop. También
 
 ##### UpdateEvent
 
-Es una interfaz para los eventos recibidos por el servidor que se deben ejecutar en el thread principal. Cada evento es un functor **EXPLICAR Q ES UN FUNCTOR**
+Es una interfaz para los eventos recibidos por el servidor que se deben 
+ejecutar en el thread principal. Estos eventos siguen el *Product Pattern*
+desarrollado para ese TP.
 
 ##### UpdateAttack
 
