@@ -489,7 +489,11 @@ correspondiente.
 Es una clase que hereda de Entiy, representa un juguador, es decir, un cliente interactuando
 con el servidor. Realiza todas las acciones que puede realizar un jugador. Almacena una 
 instancia de PlayerStats y de Inventory, además del oro y otros datos que identifican su 
-raza y clase. Permite conectar los pedidos de los clientes con el juego en sí.
+raza y clase. Permite conectar los pedidos de los clientes con el juego en sí. Un diagrama
+que muestra las interacciones básicas con el player e información sobre algunas clases que
+contiene es:
+
+![LoadPlayer](/Informe/img/DiagramaDeClasePlayer.png)
 
 ##### PlayerProxy
 Es la clase que comecta el ClientHandler con Player. Almacena los eventos en una cola interna,
