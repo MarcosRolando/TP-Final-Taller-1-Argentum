@@ -74,6 +74,22 @@ Ademas se pueden editar parámetros mas relacionados con la jugabilidad como la
 experiencia obtenida, la cantidad de monstruos en el mapa, el nivel de newbie 
 entre otros. Por ultimo, se puede editar el puerto donde escuchara el servidor que es 8081 por defecto.
 
+A continuación se explican en que afectan algunos valores del archivo cuya función puede no estar tan clara:
+
+- **Price:** Cada item tiene un precio base, pero los npcs pueden venderlos a un precio mayor.
+- **GoldModifiers:**
+  - MinRange y MaxRange: Definen un rango del cual se toma un numero random que actúa como factor en la ecuación que calcula el oro que dropea un npc al morir.
+  - MaxSafeGoldFactor y MaxGoldLevelModifier: Valores que se utilizan en la ecuación para calcular el oro seguro de un jugador. Vale aclarar que MaxGoldLevelModifier estará en el exponente así que tendrá mas peso en la ecuación.
+- **XPModifiers:**
+  - NextLevelFactor y NextLevelModifier: Valores que se utilizan en la ecuación para calcular la cantidad de experiencia necesaria para subir de nivel. Vale aclarar que NextLevelModifier estará en el exponente así que tendrá mas peso en la ecuación.
+  - MinKillXPModifier y MaxKillXPModifier: Definen un rango del cual se toma un numero random que actúa como factor en la ecuación que calcula la experiencia que gano al matar a otro npc o jugador.
+  - AttackXPModifier y KillXPModifier: Modifican un factor de la ecuación que calcula cuanta experiencia gano al atacar o matar a un npc o jugador.
+- **MonsterSpawnData:**
+  - MaxAmount: Máxima cantidad de monstruos en el mapa.
+  - TimeBetweenSpawns: Tiempo entre repoblación del mapa (en milisegundos).
+  - SpawnAmount: Máxima cantidad de monstruos que spawnean en cada repoblación.
+- **TimeForPlayerRecoveryInSeconds:** Tiempo que tarda el jugador en recuperar una cierta cantidad de vida o mana.
+
 
 
 ### <u>Forma de Uso:</u>	
@@ -129,8 +145,9 @@ pc que ejecuta el servidor entonces se debe escribir "localhost" en el lugar de 
 
 Si logramos conectarnos empieza el juego en si. 
 
-
 ![Game](/Informe/img/game.png)
+
+*Aclaracion: En la primera posicion del inventario se ve una ElvenFlute. Lamentablemente si uno se equipara dicho item no lo vería equipado en el jugador ya que no encontramos la imagen correspondiente.
 
 #### Minichat
 
