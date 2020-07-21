@@ -250,7 +250,10 @@ de ser utilizado, este puede llegar a ser nulo y, por lo tanto, el item deberá 
 del inventario, en adición a esto, useItem hará cualquier acción que deba hacer sobre el
 jugador que la invoca antes de retornar su lugar de equipamiento. Implementa también el 
 método virtual isGold(), que fue agregado para evitar el uso de double dispatch al tomar
-un item del piso.
+un item del piso. Un diagrama que muestra la clase abstracta y su relacion con los distintos
+tipos de items es:
+
+![DiagramaDeClaseMapCliente](/Informe/img/DiagramaDeClaseServerItem.png)
 
 ##### Inventory
 Clase que se encarga de manejar los items que almacena el jugador, almacena tanto los items
