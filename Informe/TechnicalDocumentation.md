@@ -60,7 +60,7 @@ necesidad de recompilarlo. Trabaja con los archivos config.json y map.json.
 #### Cliente General
 
 
-### <u>Servidor</u>
+## <u>Servidor</u>
 
 ### Server
 
@@ -256,6 +256,64 @@ retorna true cuando un jugador es revivido o está vivo. Cuando un jugador es re
 al mapa una coordenada de spawn y lo mueve a esta, agrega también al protocolo el mensaje de 
 que el jugador revivió y fue teletransportado.
 
+##### Event
+Interfaz usada como base para todos los eventos guardados en la cola de Game. Se 
+utiliza para que todos estos tengan el mismo formato y, por lo tanto, puedan ser ejecutados
+de la misma forma, reciben el protocolo al ser ejecutados para que puedan adjuntar a los
+mensajes generales la información necesaria.
+
+##### Attack
+Clase que hereda de Event, es utilizada por una entidad para comunicarle a Game que se 
+quiere atacar un tile. Si se realiza un ataque comunica a los clientes con qué arma 
+fue realizado.
+
+##### Buy
+Clase que hereda de Event, es utilizada por un Player para pedirle a Game que llame a buy
+para un tile específico.
+
+##### Deposit
+Clase que hereda de Event, es utilizada por un Player para pedirle a Game que llame a 
+deposit para un tile específico.
+
+##### Drop
+Clase que hereda de Event, es utilizada por un Player para decirle a game que deje uno
+de los items del player en la posicion en la que este se encuentra. Si se deja un item
+en un tile le comunica a los clientes cuál item es y dónde se encuentra.
+
+##### GetInventoryNames
+Clase que hereda de Event, almacena en el minichat del player que invocó el comando los
+nombres de los items que tiene guardados en el inventario.
+
+##### List
+Clase que hereda de Event, es utilizada por un Player para pedirle a Game que llame a 
+deposit para un tile específico. Si este tiene un entidad entonces llama a su list, 
+sino agrega en el minichat los items que se encuentran en el tile seleccionado.
+
+##### Message
+Clase que hereda de Event, le pide a Game que le comunique un mensaje a un Player con un 
+nombre específico.
+
+##### ModifyPlayerMovement
+Clase que hereda de Event, cambia el proximo estado de movimiento del Player, puede setearlo
+como que se moverá en otra dirección o como que dejará de moverse, en ambos casos cuando 
+termine el movimiento gradual que esté siendo ejecutado.
+
+##### Move
+Clase que hereda de Event, le pide a game que mueva la entidad en cierta dirección, si esto
+es posible entonces comienza el desplazamiento gradual.
+
+##### Moved
+Clase que hereda de Event, ejecuta el desplazamiento gradual de la entidad y le comunica
+este cambio a los clientes agregándolo al protocolo.
+
+##### NotifyDead
+Clase que hereda de Event, notifica a los clientes de la muerte de un player, agregándolo
+al protocolo.
+
+##### PickUpItem
+Clase que hereda de Event, le pide a Game que tome el item de arriba de todo en un tile,
+comunica a los clientes que se debe poner otro item en ese tile o que ya no hay más items,
+dependiendo del resultado de la operación.
 
 ## <u>Cliente</u>
 
