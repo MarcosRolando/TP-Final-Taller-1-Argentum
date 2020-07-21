@@ -728,6 +728,10 @@ Tiene una cola de sonidos que son ejecutados al final de cada gameLoop. También
 
 ### Texture
 
+Maneja las texturas generadas por SDL y su renderización, otorgando una API más
+amigable al resto de las clases. Una textura puede tener varios sprites, permitiendo
+renderizar cada uno fácilmente y evitando generar más de una textura por sprite.
+
 ### UpdateEvents
 
 ##### UpdateEvent
