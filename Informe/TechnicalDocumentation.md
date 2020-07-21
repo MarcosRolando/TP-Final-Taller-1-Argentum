@@ -11,13 +11,13 @@ puede utilizarse GDB.
 ### <u>Descripción general</u>
 El proyecto se divide en cliente y servidor. Para el desarrollo del mismo
 se diseño un patrón (no logramos encontrar si ya existía así que lo tomamos como propio)
-al que llamamos *Product Pattern*, es un patrón orientado a Eventos.
- El nombre viene de la idea de que generemos un
-*functor* que ya está preparado para ejecutar el evento correspondiente, permitiendo
+al que llamamos *Product Pattern*. El nombre viene de la idea de que generemos un
+*functor* que ya esta preparado para ejecutar el evento correspondiente, permitiendo
 que el que consuma dicho evento ya tenga todo ensamblado y no se complique 
 innecesariamente. Este patrón resultó clave en el diseño del TP y se lo utilizó
-para los updates que recibe el cliente del servidor, para los comandos que ingresa el
-cliente por minichat y para los eventos que procesa el juego del servidor. 
+para los updates que recbie el cliente del servidor, para los comandos que ingresa el
+cliente por minichat y para los eventos que procesa el juego del servidor.  
+
 
 #### Servidor General
 Se encuentra subdividido en la parte del servidor 
@@ -54,8 +54,7 @@ que deberán ser realizadas en un update del juego.
 
 Persistencia: Se encarga de mantener la información
 entre conexiones de los distintos jugadores con cuenta, guardándolos en un 
-archivo. Realiza guardado de datos periódicamente, cuando los jugadores se desconectan
-y cuando se pide cerrar el servidor.  
+archivo. Realiza guardado de datos periódicamente y cuando los jugadores se desconectan.  
 
 Entidades:  Se encarga de "darle vida" al juego. Este módulo
 maneja los jugadores y npcs con los que interactuará el usuario. Maneja el comportamiento
@@ -67,38 +66,6 @@ necesidad de recompilarlo. Trabaja con los archivos config.json y map.json.
 
 #### Cliente General
 
-Se divide en las entidades del juego (players y npcs, tanto monstruos como
-citizens), las clases gráficas, el mapa, la ventana/pantalla, los sonidos,
-texturas, eventos de update y otras clases generales englobadas por el submódulo
-Cliente.
-
-Character: Se encarga de administrar a los personajes del mundo de Argentum,
-estos son los monstruos, citizens (banker, priest, trader) y los jugadores.
-
-Graphis: Se encarga de administrar la UI con los datos particulares del cliente
-(salvo el mapa gráfico, eso se delega en el módulo Map) como las stats, la vida, el
-maná, el inventario, etc.
-
-Map: Se encarga de administrar la UI del mapa del cliente, actualizando a los elementos
-que lo comoponen (como los tiles o las entidades).
-
-Miscellaneous: Se encarga de manejar los hechizos, las flechas y el chequeo de
-qué elementos son renderizables (visibles en la cámara).
-
-Screen: Se encarga de manejar la ventana donde se renderiza el juego y el Menú
-Principal (este submódulo debería estar en Graphics pero por motivos de tiempo
-no se llegó a cambiar de lugar).
-
-Sound: Se encarga de administrar los sonidos del juego, filtrando sonidos 
-en base a la cantidad/tiempo que pasó entre cada sonido para no sobrecargar al
-cliente de información.
-
-Texture: Se encarga de administrar las texturas del juego, desde las texturas de los
-personajes hasta las de los items. 
-
-UpdateEvents: Contiene todos los posibles eventos que el cliente puede recibir
-del servidor y debe aplicar a su representación del juego para poder transmitir
-esa información claramente al jugador.
 
 #### libs
 
@@ -335,7 +302,12 @@ de la misma forma, reciben el protocolo al ser ejecutados para que puedan adjunt
 mensajes generales la información necesaria. Al adjuntar esta información introducen primero
 una tupla con un id de evento, que permite distinguir qué tipo de información se está 
 proporcionando al cliente, esto le permite a este saber qué datos tendrá que recibir para
-poder interpretar la información recibida de la forma correcta.
+poder interpretar la información recibida de la forma correcta. Un diagrama de clases general
+que permite ver cómo está organizada la interacción entre esta clase y las que heredan de ella
+(mostrando únicamente algunas de las clases hijas como ejemplo, ya que sino el diagrama 
+sería ilegible) es:
+
+![LoadPlayer](/Informe/img/DiagramaDeClaseEvent.png)
 
 ##### Attack
 Clase que hereda de Event, es utilizada por una entidad para comunicarle a Game que se 
@@ -535,14 +507,29 @@ Clase que se encarga de leer y almacenar los datos del json que contiene la info
 mapa. Se utiliza para la inicialización de los datos del mapa cuando este es creado.
 
 ##### map.json
-AGREGAR DESCRIPCION DE COMO ESTA ORGANIZADO EL ARCHIVO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Este archivo es generado automáticamente por el programa Tiled con toda la información del mapa creado con el programa. Como es generado por una aplicación externa tiene muchos datos que no nos sirven. Lo que si utilizamos son los campos "layers" y "tilesets". 
+
+- **Layers**: Hay 5 layers: El primero tiene el tipo de suelo (pasto, agua, desierto etc), el segundo tiene las estructuras (arboles, arbustos, casas etc). El tercero tiene a los NPC que están fijos en el mapa (comerciantes, curas y banqueros). Los últimos dos layers son "mascaras lógicas". El primero me dice si el tile puede ser ocupado por una entidad y el segundo me dice si el tile pertenece a una ciudad.
+- **Tilesets**: Cada tileset tiene un id general llamado "firstgid", el archivo donde esta la imagen del tileset y el tilecount. Si el tilecount es 1 quiere decir que la imagen es todo el tile. Si es mayor a 1, quiere decir que en la imagen tengo mas de un tile.
+
+
 
 ##### config.json
-AGREGAR DESCRIPCION DE COMO ESTA ORGANIZADO EL ARCHIVO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+El archivo se separa en distintas secciones:
+
+- **Race**: contiene a cada raza con los valores de vida, mana, meditationRate, RecoveryRate y cada habilidad
+- **Class**: idéntica a "Race" pero contiene a las clases
+- **Monster**: contiene a los monstruos, con sus valores de vida, daño, rango de visión, rango de niveles, velocidad y habilidades
+- **Weapon**: Contiene cada arma con su daño mínimo y máximo, su rango, su consumo de mana y su precio
+- **Clothing**: Contiene cada item de vestimenta con su defensa mínimo y máximo y su precio
+- **Potion**: Contiene las pociones con su precio y la cantidad de mana o vida que recuperan
+- **GoldModifiers**: Contiene los valores que se usan en las ecuaciones respectivas al oro
+- **XPModifiers**: Contiene los valores que se usan en las ecuaciones respectivas a la experiencia
+- **MonsterSpawnData**: Valores que modifican el spawn de los monstruos como la cantidad total o el tiempo entre spawns.
+- **General**: Valores mas generales que no pertenecían a ninguna categoría de las anteriores y no ameritaban una categoría nueva.
+- **Files**: Aquí se encuentra el puerto donde escuchara el servidor y las rutas de los archivos de persistencia.
+
+
 
 ## <u>Cliente</u>
 
@@ -562,7 +549,7 @@ Es una cola bloqueante que no permite desencolar eventos hasta que se hayan deja
 
 ##### ClientEventHandler
 
-ArgentumClient crea la cola Bloqueante sdlEvents a la que pushea los eventos que recibe. Luego lanza el hilo que comienza la ejecución de la clase ClientEventHandler. Durante su ejecucion, esta clase va desencolando sdlEvents y por cada evento arma un mensaje con toda la información necesaria y se lo envía al servidor.
+ArgentumClient crea la cola Bloqueante sdlEvents a la que pushea los eventos que recibe. Luego lanza el hilo que comienza la ejecución de la clase ClientEventHandler. Durante su ejecución, esta clase va desencolando sdlEvents y por cada evento arma un mensaje con toda la información necesaria y se lo envía al servidor.
 
 ##### ClientProtocol
 
@@ -798,11 +785,11 @@ Teletransporta a una entidad. Sirve para cuando el jugador ingresa el comando re
 
 ##### InputCommand
 
-Es una interfaz para los comandos ingresados por el usuario en el minichat. Cada comando recibe en su constructor la información necesaria para luego poder mandarle el mensaje al servidor.
+Es una interfaz para los comandos ingresados por el usuario en el minichat. Estos eventos siguen el *Product Pattern*desarrollado para ese TP. Cada comando recibe en su constructor la información necesaria para luego poder mandarle el mensaje al servidor.
 
 ##### CommandVerifier
 
-En su constructor llena un unordered_map con comandos para poder verificarlos mas facilmente y no llenar todo de if else statements. Luego tiene el metodo verifyCommand que recibe un string y lo procesa para ver si es un comando valido. Si no lo es devuelve nullptr, pero si el comando es valido devuelve un unique_ptr de InputCommand para que lo ejecute el thread principal.
+En su constructor llena un unordered_map con comandos para poder verificarlos mas facilmente y no llenar todo de if else statements. Luego tiene el método verifyCommand que recibe un string y lo procesa para ver si es un comando valido. Si no lo es devuelve nullptr, pero si el comando es valido devuelve un unique_ptr de InputCommand para que lo ejecute el thread principal.
 
 ##### BuyCommand
 
@@ -818,15 +805,15 @@ Arma un mensaje con el lugar del inventario que tengo seleccionado para poder ti
 
 ##### HealCommand
 
-Arma un mensaje con la posicion que tengo seleccionada para ver si seleccione a un cura.
+Arma un mensaje con la posición que tengo seleccionada para ver si seleccione a un cura.
 
 ##### ListCommand
 
-Arma un mensaje con la posicion que tengo seleccionada. Si es un cura, comerciante me muestra lo que puedo comprar. Si es un banquero me muestra los items que tengo depositados. Si es un tile donde hay items me lista los items que estan en ese tile.
+Arma un mensaje con la posición que tengo seleccionada. Si es un cura, comerciante me muestra lo que puedo comprar. Si es un banquero me muestra los items que tengo depositados. Si es un tile donde hay items me lista los items que están en ese tile.
 
 ##### MeditateCommand
 
-Arma un mensaje solamente con el evento de meditar ya que no necesita de mas informacion.
+Arma un mensaje solamente con el evento de meditar ya que no necesita de mas información.
 
 ##### MessageToPlayerCommand
 
@@ -834,15 +821,15 @@ Arma un mensaje con el nickname del jugador al que le quiero mandar el mensaje j
 
 ##### PickUpCommand
 
-Arma un mensaje solamente con el evento de tomar un item ya que no necesita mas informacion porque agarra el primer item del tile en el que estoy parado.
+Arma un mensaje solamente con el evento de tomar un item ya que no necesita mas información porque agarra el primer item del tile en el que estoy parado.
 
 ##### RequestInventoryNamesCommand
 
-Arma un mensaje con el evento. Me muestra en el minichat que item tengo en cada posicion del minichat.
+Arma un mensaje con el evento. Me muestra en el minichat que item tengo en cada posición del minichat.
 
 ##### ResurrectCommand
 
-Arma un mensaje con la posicion que tengo seleccionada para ver si seleccione a un cura.
+Arma un mensaje con la posición que tengo seleccionada para ver si seleccione a un cura.
 
 ##### SellCommand
 
