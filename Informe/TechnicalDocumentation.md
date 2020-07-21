@@ -352,6 +352,47 @@ quiere usar un item en cierta posicion.
 Clase que hereda de Event, es utilizada por un Player para pedirle a Game que llame a 
 withdraw para un tile específico.
 
+### Exceptions
+AGREGAR COSAS AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+### Entities
+
+##### Entity
+Es una clase abstracta, es la clase base para todas las entidades. Implementa por default
+todas las funciones de interacción con otra entity como vacía ya que no todas las entidades
+pueden realizar todas esas interacciones con los players. Cada clase que herede de esta
+deberá implementar la interacción que le corresponda. Guarda su coordenada, tipo de entidad
+y valores importantes para el movimiento.
+
+##### Minichat
+AAAAAAAAAAAAAAAAAA ESCRIBIR COSAS DEL MINICHAT
+
+##### Monster
+Es una clase que representa a un monstruo genérico, hereda de entity, no implementa ninguno
+de los métdodos de interacción no violentos entre un player y un npc. Recibe en el 
+constructor el tipo de monstruo que se quiere crear, y con esto se le pide a config los 
+datos con los que debe ser inicializado. En cada update busca jugadores cercanos a los que
+acercarse para atacar, si pasan cierta cantidad de tiempo sin desplazarse entonces realizan
+un desplazamiento en una dirección aleatoria. Cuando muere tiene cierta probabilidad de
+dejar un drop en el tile en el que murió.
+
+##### MonsterStats
+Es una clase almacenada por Monster, se encarga de manejar la vida de este. Agrega alguna
+información adicional al mensaje de ataque cuando es necesario y modifica la vida que tiene
+el monstruo cuando este es atacado, fijándose si el ataque fue crítico, fue esquivado, o fue
+un ataque normal.
+
+##### PlayerStats
+Es una clase almacenada por Player, se encarga de manejar la vida, mana y experiencia de 
+este. Realiza las mismas operaciones que MonsterStats al ser atacado. Cuando un player 
+intenta atacar a alguien, el arma debe pedirle a esta clase que baje la cantidad de mana
+correspondiente
+
+##### Player
+Es una clase que hereda de Entiy, representa un juguador, es decir, un cliente interactuando
+con el servidor. 
+
 ## <u>Cliente</u>
 
 ### Modulo Principal:
@@ -408,9 +449,55 @@ Tiene el inventario del jugador, junto con los items equipados. Se encarga de mo
 
 ##### Minichat
 
+Una de sus funciones es mostrar los mensajes relevantes recibidos por el servidor. Para esto tiene una lista de Text que en el constructor se llena con mensajes vacios. Cada vez que el servidor me manda un mensaje se desencola el mensaje mas viejo y se encola el nuevo. Cuando se renderiza el minichat se itera por esa lista imprimiendo solo algunos mensajes, ya que la cantidad total de mensajes es muy grande y no entra en el rectangulo del minichat. Se permite scrollear por el minichat para poder ver mensajes mas viejos.
+
+Su otra funcion es tomar el input del usuario para que este pueda ingresar los comandos.
+
 ##### Selector
+
+Hay ciertos comandos que requieren tener seleccionado a un personaje del mapa o a un lugar del inventario. Esta clase se encarga de verificar que se selecciono y guardarlo para poder usarlo para armar los mensajes que se enviaran al servidor.
 
 ##### Text
 
+Me permite mostrar texto con una font y tamaño especificos. Despues de crear un Text puedo modificar el texto que se imprimirá de varias maneras. Para cambiar totalmente el texto esta updateText, para agregar esta el operador +=, para quitar una letra esta el operador --. El operador * crea la textura con el texto actual. Esto sirve porque hay veces que quiero renderizar siempre lo mismo, y crear siempre la textura no es muy eficiente.
+
 ##### Font
+
+Crea una font a partir de un archivo .ttf
+
+### Map
+
+### Miscellanous
+
+### Screen
+
+##### MainMenu
+
+Se encarga de mostrar las pantallas de inicio donde se elige si cargar o crear un jugador, los datos de dicho jugador y el puerto e ip a donde nos queremos conectar. Cada pantalla consiste de un loop que maneja los inputs del usuario (clicks o texto) y renderiza los botones y cajas de texto correspondiente. 
+
+Luego de elegir una ip y un puerto y hacer click en "Connect" el cliente intentara conectarse al servidor. Si la conexión es exitosa, se le envían los datos del jugador(nickname y también raza + clase si se esta creando) al servidor que me responderá si me pude conectar exitosamente, o si hubo algún error.
+
+##### Window
+
+Primero crea la ventana y el renderer. Luego se encarga de manejar todos los eventos de sdl asociados a la ventana (cambiar el tamaño, pantalla completa). Finalmente se encarga de mostrar todo lo que haya sido renderizado.
+
+### Sound
+
+##### Sound
+
+Crea un sonido a partir de un archivo .wav .
+
+##### SoundRepository
+
+Cuando es instanciado al principio del programa carga todos los sonidos en un unordered_map y la música. 
+
+##### SoundPlayer
+
+Tiene una cola de sonidos que son ejecutados al final de cada gameLoop. Tambien reproduce la musica y permite pausarla.
+
+### Texture
+
+### UpdateEvents
+
+
 
