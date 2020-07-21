@@ -1,5 +1,36 @@
 # Documentación técnica
 
+### <u>Aclaraciones Generales</u>
+
+Es de importancia recalcar tres cosas antes de proceder a explicar la estructura
+del programa.  
+
+La primera es que, si se corren las pruebas provistas con Valgrind, se podrá 
+observar leaks en el vector de tiles que almacena el Map. Esto se debe al framework
+utilizado para los stubs llamado FakeIt. Si bien este framework es muy útil y
+nos simplificó el desarrollo de las pruebas tampoco pudimos experimentar lo suficiente
+con él. Aparentemente FakeIt no estaría llamando al destructor real de la clase Game
+(la cual stubeamos en algunas pruebas) lo que causaría que no destruya correctamente
+el Map que contiene Game, leakeando los tiles del mismo. Fuera de esto, las pruebas
+funcionan correctamente, y si se corre el servidor con Valgrind no deberían observarse
+leaks. 
+
+La segunda es que los backups de los jugadores del server se realizan periódicamente
+cada 5 minutos, ya que nos pareció el tiempo indicado. Una vez realizado el backup
+se notificará por consola con el siguiente mensaje:
+
+            Backuped players. Next backup in 5 minutes
+
+Vale aclarar que cuando se desconecta un player se le realiza un backup individual,
+y que si se cierra el server con 'q' se realizará también un backup de todos los
+jugadores que se encontraban conectados.
+
+Por último hay que aclarar que, por motivos de escrituras al stderror para poder
+identificar cualquier posible error, las desconexiones de clientes en el server o 
+en el cliente en sí imprimirán supuestos mensajes de error en send y recv aunque no son
+realmente tales. Lamentamos si esto puede resultar un inconveniente, pero preferimos
+dejarlos en el caso en que sí pudiera suceder algún error real. 
+
 ### <u>Requerimientos de Software</u>
 Este trabajo fue probado en computadoras con Ubuntu 18.04.4 y 20.04.
 
@@ -55,6 +86,10 @@ que deberán ser realizadas en un update del juego.
 Persistencia: Se encarga de mantener la información
 entre conexiones de los distintos jugadores con cuenta, guardándolos en un 
 archivo. Realiza guardado de datos periódicamente y cuando los jugadores se desconectan.  
+
+A continuación se presenta un diagrama de clases para mostrar la lógica de la persistencia:
+
+![Persistence](/Informe/img/PersistenceClassDiagram.png)
 
 Entidades:  Se encarga de "darle vida" al juego. Este módulo
 maneja los jugadores y npcs con los que interactuará el usuario. Maneja el comportamiento

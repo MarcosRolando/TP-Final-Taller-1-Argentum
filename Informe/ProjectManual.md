@@ -69,6 +69,9 @@ los jugadores (drop, buy, sell, deposit, withdraw, etc.)
   Esto se solucionó haciendo que al momento de conectarnos ya le enviásemos toda la información requerida por el Servidor para entonces no
   bloquear a otros jugadores que quisieran conectarse. Si bien idealmente el puerto/ip es lo primero que se elegiría es por este motivo que
   se selecciona al final: la idea era cambiarlo pero no nos dio el tiempo y no lo consideramos algo que arruine la experiencia del usuario.
+  
+ - Durante la mayor parte del desarrollo del trabajo la clase Text creaba las texturas cada vez que renderizaba, aún si el texto no había cambiado. Esto
+   creaba una carga innecesaria en el cliente ya que se estaban creando muchas texturas que podían evitarse. Por esto se decidió hacer unas modificaciones en la      clase Text que permitian crear la textura en momentos específicos y no cada vez que se renederizaba. Esto mejoró considerablemente la performance, ya que el      cliente pasó de un consumo promedio de CPU de 30% a 10%.
 
 ### Herramientas
 
@@ -83,4 +86,4 @@ los jugadores (drop, buy, sell, deposit, withdraw, etc.)
 ### Conclusiones
 
 - Aprendimos a trabajar en grupo y distribuir las tareas eficientemente.
-- Aprendimos a utilizar librerías externas y leer su documentación (Catch, Fakeit, Msgpack, nholmannJson).
+- Aprendimos a utilizar librerías externas y leer su documentación (Catch, Fakeit, Msgpack, nholmannJson, SDL).

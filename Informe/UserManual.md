@@ -100,6 +100,9 @@ El servidor se ejecuta con el comando
 
 `$ sudo argentumServer`
 
+Se debe correr con sudo ya que el servidor necesita editar los archivos de persistencia a medida que pasa el tiempo y se conectan nuevos jugadores y como
+dichos archivos estan en /etc/ se necesitan permisos de root.
+
 Durante su ejecución el servidor escuchara conexiones en el puerto especificado 
 en el archivo de configuración. 
 
@@ -143,7 +146,7 @@ pc que ejecuta el servidor entonces se debe escribir "localhost" en el lugar de 
 
 ##### 	
 
-Si logramos conectarnos empieza el juego en si. 
+Si logramos conectarnos empieza el juego en si. Habrá un pequeño mensaje de bienvenida acompañado de un sonido.
 
 ![Game](/Informe/img/game.png)
 
@@ -249,7 +252,9 @@ del jugador y entre paréntesis el oro seguro.
 ![skills](/Informe/img/skills.png)
 
 A la izquierda se ven las habilidades del jugador. A la derecha están los items 
-equipados y debajo se ve la posición actual.
+equipados y debajo se ve la posición actual. Cada vez que se sube de nivel todas
+las habilidades aumentan en 1. Ademas hay un sonido para notificar que se subio 
+de nivel.
 
 
 
