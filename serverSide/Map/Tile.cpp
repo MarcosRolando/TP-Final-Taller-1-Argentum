@@ -66,7 +66,7 @@ std::shared_ptr<Item> Tile::removeItem() {
     if (items.empty()) {
         return nullptr;
     }
-    std::shared_ptr<Item> return_item = items.back();
+    std::shared_ptr<Item> return_item = std::move(items.back());
     items.pop_back();
     return return_item;
 }

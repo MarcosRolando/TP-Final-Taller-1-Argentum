@@ -28,7 +28,7 @@
       "Mana" : 2,
       "Constitution" : 8,
       "Strength" : 9,
-      "Intelligence" : 5,
+      "Intelligence" : 4,
       "Agility" : 3,
       "MeditationRate": 2,
       "RecoveryRate" : 7
@@ -52,7 +52,7 @@
       "Mana" : 10,
       "Constitution" : 3,
       "Strength" : 2,
-      "Intelligence" : 9,
+      "Intelligence" : 10,
       "Agility" : 3,
       "MeditationRate": 8,
       "RecoveryRate" : 5
@@ -61,18 +61,18 @@
       "Name" : "Cleric",
       "Life": 7,
       "Mana" : 7,
-      "Constitution" : 6,
-      "Strength" : 6,
+      "Constitution" : 4,
+      "Strength" : 4,
       "Intelligence" : 8,
-      "Agility" : 5,
+      "Agility" : 4,
       "MeditationRate": 5,
       "RecoveryRate" : 3
     },
     {
       "Name" : "Paladin",
-      "Life": 8,
+      "Life": 7,
       "Mana" : 6,
-      "Constitution" : 8,
+      "Constitution" : 7,
       "Strength" : 7,
       "Intelligence" : 5,
       "Agility" : 7,
@@ -85,8 +85,8 @@
       "Mana" : 0,
       "Constitution" : 8,
       "Strength" : 8,
-      "Intelligence" : 3,
-      "Agility" : 7,
+      "Intelligence" : 2,
+      "Agility" : 2,
       "MeditationRate": 5,
       "RecoveryRate" : 8
     }
@@ -95,7 +95,7 @@
   "Monster" : [
     {
       "Name" : "Skeleton",
-      "Life" : 1000,
+      "Life" : 500,
       "Damage" : 250,
       "VisionRange" : 4,
       "LevelMin" : 1,
@@ -109,7 +109,7 @@
     },
     {
       "Name" : "Zombie",
-      "Life" : 800,
+      "Life" : 400,
       "Damage" : 350,
       "VisionRange" : 3,
       "LevelMin" : 1,
@@ -124,22 +124,22 @@
     {
       "Name" : "Spider",
       "Life" : 200,
-      "Damage" : 80,
-      "VisionRange" : 8,
+      "Damage" : 100,
+      "VisionRange" : 5,
       "LevelMin" : 1,
       "LevelMax" : 20,
-      "Constitution" : 8,
-      "Strength" : 8,
+      "Constitution" : 3,
+      "Strength" : 3,
       "Intelligence" : 3,
-      "Agility" : 7,
+      "Agility" : 8,
       "ReactionSpeed": 2,
       "Speed" : 5
     },
     {
       "Name" : "Goblin",
       "Life" : 350,
-      "Damage" : 100,
-      "VisionRange" : 5,
+      "Damage" : 200,
+      "VisionRange" : 4,
       "LevelMin" : 1,
       "LevelMax" : 20,
       "Constitution" : 8,
@@ -221,8 +221,8 @@
       "MinDmg": 4,
       "MaxDmg": 16,
       "Range": 10,
-      "ManaConsumption": 0,
-      "Price": 100
+      "ManaConsumption": 25,
+      "Price": 200
     },
     {
       "Name": "Fist",
