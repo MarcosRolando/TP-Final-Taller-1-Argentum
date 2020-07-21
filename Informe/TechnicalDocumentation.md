@@ -366,13 +366,15 @@ Cuando se llama a su constructor inicializa SDL y crea un nuevo cursor. Luego ej
 
 ##### BlockingQueue
 
+Es una cola bloqueante que no permite desencolar eventos hasta que se hayan dejado de añadir.
+
 ##### ClientEventHandler
 
-ArgentumClient crea la cola Bloqueante sdlEvents a la que pushea los eventos que recibe. Luego lanza el hilo que comienza la ejecución de la clase. ClientEventHandler va desencolando sdlEvents y por cada evento arma un mensaje con toda la información necesaria y se lo envía al servidor.
+ArgentumClient crea la cola Bloqueante sdlEvents a la que pushea los eventos que recibe. Luego lanza el hilo que comienza la ejecución de la clase ClientEventHandler. Durante su ejecucion, esta clase va desencolando sdlEvents y por cada evento arma un mensaje con toda la información necesaria y se lo envía al servidor.
 
 ##### ClientProtocol
 
-#### GameGUI
+##### GameGUI
 
 Delega a la clase Map la actualización de lo que paso en el mapa(cuando se mueve una entidad o se lanza un hechizo). También se encarga de llamar a los métodos de renderizado de cada clase de la interfaz gráfica.
 
@@ -392,5 +394,23 @@ Es una cola que contiene los eventos de actualización.
 
 ##### UpdateReceiver
 
-Recibe un evento del servidor, lo procesa y arma un evento que luego es pushado a la cola de eventos para ser ejecutada en el thread principal.
+Recibe un evento del servidor, lo procesa y arma un UpdateEvent(functor) que luego es pushado a la cola de eventos para ser ejecutada en el thread principal.
+
+### Modulo Graphics:
+
+##### PlayerInfoGUI
+
+Contiene toda la informacion del jugador que debe ser mostrada por pantalla: nickname, vida, mana, experiencia, nivel, habilidades, oro y posicion. Sin embargo, solo renderiza las barras de vida, mana y experiencia en la parte inferior de la ventana
+
+##### PlayerInventoryGUI
+
+Tiene el inventario del jugador, junto con los items equipados. Se encarga de mostrar los items por pantalla, ademas de la informacion del jugador que le pide a PlayerInfoGUI.
+
+##### Minichat
+
+##### Selector
+
+##### Text
+
+##### Font
 
