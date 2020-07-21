@@ -664,6 +664,8 @@ Crea una font a partir de un archivo .ttf
 
 ### Map
 
+![DiagramaDeClaseMapCliente](/Informe/img/DiagramaDeClaseMapCliente.png)
+
 #### ItemDrop
 
 Representa una imágen individual de un item. Estas se muestran cuando el item
