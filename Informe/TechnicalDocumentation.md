@@ -49,7 +49,7 @@ Persistencia: Se encarga de mantener la información
 entre conexiones de los distintos jugadores con cuenta, guardándolos en un 
 archivo. Realiza guardado de datos periódicamente y cuando los jugadores se desconectan.  
 
-Entidades:  Se encarga re "darle vida" al juego. Este módulo
+Entidades:  Se encarga de "darle vida" al juego. Este módulo
 maneja los jugadores y npcs con los que interactuará el usuario. Maneja el comportamiento
 de los monstruos, los ciudadanos (curas, comerciantes y banqueros) y los jugadores.  
 
@@ -129,6 +129,13 @@ se conecte, manteniendo su player intacto desde su última conexión.
 Maneja el archivo de índice de los jugadores registrados. Dado que este archivo es
 pequeño y para disminuir los accesos a memoria que implica leer/escribir de archivo
 esta clase carga a memoria los datos del archivo.
+
+#### SaveFileManager
+
+Relaciona las dos clases anteriores, asegurandose de mantenerlas sincronizadas y
+de usar los datos del índice para acceder al archivo de guardado de los datos de 
+los jugadores. Esta clase es almacenada por PlayerManager, quien la utiliza para
+poder guardar/cargar los datos de los jugadores.
 
 ### Map
 
@@ -400,13 +407,15 @@ Cuando se llama a su constructor inicializa SDL y crea un nuevo cursor. Luego ej
 
 ##### BlockingQueue
 
+Es una cola bloqueante que no permite desencolar eventos hasta que se hayan dejado de añadir.
+
 ##### ClientEventHandler
 
-ArgentumClient crea la cola Bloqueante sdlEvents a la que pushea los eventos que recibe. Luego lanza el hilo que comienza la ejecución de la clase. ClientEventHandler va desencolando sdlEvents y por cada evento arma un mensaje con toda la información necesaria y se lo envía al servidor.
+ArgentumClient crea la cola Bloqueante sdlEvents a la que pushea los eventos que recibe. Luego lanza el hilo que comienza la ejecución de la clase ClientEventHandler. Durante su ejecucion, esta clase va desencolando sdlEvents y por cada evento arma un mensaje con toda la información necesaria y se lo envía al servidor.
 
 ##### ClientProtocol
 
-#### GameGUI
+##### GameGUI
 
 Delega a la clase Map la actualización de lo que paso en el mapa(cuando se mueve una entidad o se lanza un hechizo). También se encarga de llamar a los métodos de renderizado de cada clase de la interfaz gráfica.
 
@@ -426,5 +435,23 @@ Es una cola que contiene los eventos de actualización.
 
 ##### UpdateReceiver
 
-Recibe un evento del servidor, lo procesa y arma un evento que luego es pushado a la cola de eventos para ser ejecutada en el thread principal.
+Recibe un evento del servidor, lo procesa y arma un UpdateEvent(functor) que luego es pushado a la cola de eventos para ser ejecutada en el thread principal.
+
+### Modulo Graphics:
+
+##### PlayerInfoGUI
+
+Contiene toda la informacion del jugador que debe ser mostrada por pantalla: nickname, vida, mana, experiencia, nivel, habilidades, oro y posicion. Sin embargo, solo renderiza las barras de vida, mana y experiencia en la parte inferior de la ventana
+
+##### PlayerInventoryGUI
+
+Tiene el inventario del jugador, junto con los items equipados. Se encarga de mostrar los items por pantalla, ademas de la informacion del jugador que le pide a PlayerInfoGUI.
+
+##### Minichat
+
+##### Selector
+
+##### Text
+
+##### Font
 

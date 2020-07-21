@@ -6,10 +6,10 @@
 #include "../Client/GameConstants.h"
 
 PlayerTexture::PlayerTexture(TextureRepository& repo, PlayerEquipment equipment,
-                            std::string&& _level, const std::string& _nickname) :textureRepo(repo),
+                            const std::string& _level, const std::string& _nickname) :textureRepo(repo),
                             textFont("/var/Argentum/Assets/Fonts/Raleway-Medium.ttf", 20),
                             nickname(textFont, repo.getRenderer(), _nickname),
-                            level(textFont, repo.getRenderer(), " (" + std::move(_level) + ")") {
+                            level(textFont, repo.getRenderer(), " (" + _level + ")") {
 
     textLevelOffset = level.getTextTextureWidth();
     textNicknameOffset = (nickname.getTextTextureWidth() + textLevelOffset)/2;
