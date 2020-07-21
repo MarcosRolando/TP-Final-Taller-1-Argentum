@@ -313,7 +313,11 @@ método update, que realiza todas las acciones de un tic del juego. Es la clase 
 entidades para interactuar con tiles y otras entidades, para cosas como atacar, moverse, etc.
 Su principal funcionalidad es delegar estos pedidos a las clases que saben cómo reaccionar 
 a ellos. Se encarga también del manejo de la resurrección de los jugadores y de enviar algunos
-mensajes a los clientes, como la creación de nuevos monstruos.
+mensajes a los clientes, como la creación de nuevos monstruos. Un diagrama de clase que muestra
+los atributos y métodos de Game en forma general, además de sus interacciones con algunas clases
+del mismo módulo es:
+
+![LoadPlayer](/Informe/img/DiagramaDeClaseGame.png)
 
 ##### MonstersFactory
 Clase que se encarga de la creación de monstruos. Se utiliza para crear monstruos aleatorios
