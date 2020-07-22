@@ -281,3 +281,29 @@ atacar la posición donde se hizo click. Si se hace click en el inventario, el
 personaje hará uso del item que se encuentre en la posición donde se hizo click. 
 Si el item es un arma o una armadura sera equipado. Inversamente, si hago click 
 sobre un item equipado, el personaje se desequipara dicho item.
+
+### <u>Items</u>:
+La traducción de los items al español es:
+Espada -> Longsword
+Martillo -> Warhammer
+Hacha -> Axe
+Vara de fresno -> AshRod
+Flauta élfica -> ElvenFlute
+Báculo nudoso -> GnarledStaff
+Báculo engarzado -> LinkedStaff
+Arco simple -> SimpleBow
+Arco compuesto -> CompositeBow
+Armadura de cuero -> LeatherArmor
+Armadura de placas -> PlateArmor
+Túnica azul -> BlueTunic
+Capucha -> Hood
+Casco de hierro -> IronHelmet
+Escudo de tortuga -> TurtleShield
+Escudo de hierro -> IronShield
+Sombrero mágico -> MagicHat
+
+### <u>Aclaraciones</u>:
+Se dejó en el repositorio archivos de persistencia utilizados por los alumnos para
+que ayuden en la corrección. En estos se encuentra el usuario Drasungor, que tiene
+una gran cantidad de items y oro, para utilizar esta cuenta se debe copiar indexFile
+y saveFile en /etc/Argentum
