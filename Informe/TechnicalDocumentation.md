@@ -13,7 +13,12 @@ con él. Aparentemente FakeIt no estaría llamando al destructor real de la clas
 (la cual stubeamos en algunas pruebas) lo que causaría que no destruya correctamente
 el Map que contiene Game, leakeando los tiles del mismo. Fuera de esto, las pruebas
 funcionan correctamente, y si se corre el servidor con Valgrind no deberían observarse
-leaks. 
+leaks. Para generar el ejecutable de las pruebas en la carpeta Tests, se deberán usar
+los makefiles generados por el remplazo del comando cmake .. mostrado en el ReadMe por
+el comando
+
+            cmake -DENABLE_TESTS=YES ..
+
 
 La segunda es que los backups de los jugadores del server se realizan periódicamente
 cada 5 minutos, ya que nos pareció el tiempo indicado. Una vez realizado el backup
