@@ -217,7 +217,8 @@ Ademas, al hacer click en el minichat podrán ingresar los siguientes comandos:
 
 - ###### /take
 
-  Toma el item sobre el que esta parado el jugador.
+  Toma el item sobre el que esta parado el jugador. Si el jugador esta parado sobre
+  un tile que tiene multiples items va agarrando de a uno.
 
 - ###### /drop
 
@@ -232,6 +233,11 @@ Ademas, al hacer click en el minichat podrán ingresar los siguientes comandos:
 - ###### /clear
 
   Limpia el minichat.
+  
+- ###### @\<nickname> \<mensaje>
+  Le envia \<mensaje> al jugador con el nombre \<nickname>. Ejemplo:  
+  @Drasungor Hola  
+  Le envía el mensaje "Hola" al usuario Drasungor.
 
 
 
@@ -275,12 +281,14 @@ de nivel.
 ##### Mouse
 
 - **Click izquierdo:** Selecciona un tile o una posición del inventario. También 
-habilita el minichat para escribir comandos. 
+, si se hace click en el minichat, lo habilita escribir comandos. 
 - **Click derecho:** Al hacer click derecho en el mapa, el personaje intentara 
 atacar la posición donde se hizo click. Si se hace click en el inventario, el 
 personaje hará uso del item que se encuentre en la posición donde se hizo click. 
 Si el item es un arma o una armadura sera equipado. Inversamente, si hago click 
 sobre un item equipado, el personaje se desequipara dicho item.
+- **Rueda:** Se usa para scrollear por los mensajes del minichat. Solo funciona si se 
+hizo click dentro del minichat.
 
 ### <u>Items</u>:
 - La traducción de los items al español es:
