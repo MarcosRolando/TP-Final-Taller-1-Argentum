@@ -39,6 +39,10 @@ Luego, para instalar msgpack en sí:
 
 ​	`$ sudo make install`
 
+Instalamos CMake:
+
+​	`$ sudo apt install cmake`
+
 Una vez instalado todo podemos pasar a la instalación del juego. En la carpeta del proyecto, creamos una nueva carpeta "build" y dentro de dicha carpeta abrimos la consola y ejecutamos:
 
 ​	`$ cmake ..`
